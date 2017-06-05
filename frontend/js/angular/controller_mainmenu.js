@@ -15,9 +15,10 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
         $scope.bHome = true;
     }
 
-    $scope.changeview = function(page)
+    $scope.changeview = function(page, index)
     {
         $window.location.href = baseUrl + page;
+        $scope.indexPage = index;
     };
 
 
@@ -90,5 +91,11 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
         }
 
     };
+
+    // ************************************** //
+    // ********** HELP & FEEDBACK *********** //
+    // ************************************** //
+
+    $scope.indexPage = 0; // page 0 -> index
 
 } ]);
