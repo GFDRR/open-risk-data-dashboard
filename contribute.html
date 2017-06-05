@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+
+    <base href="{{$locationProvider.$get}}" />
+
+    <title>RODI - Risk Open Data Index</title>
+
+    <!-- jQuery library -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+
+    <!-- Angular components -->
+    <script src="bower_components/angular/angular.min.js"></script>
+
+    <!-- bootstrap Framework -->
+    <!-- Bootstrap -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- font awesome-->
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link href="bower_components/animate.css/animate.min.css" rel="stylesheet">
+
+    <!-- RODI APP -->
+    <script src="js/angular/app.js"></script>
+    <script src="js/angular/service.js" type="text/javascript"></script>
+    <script src="js/angular/controller.js" type="text/javascript"></script>
+    <script src="js/angular/controller_mainmenu.js" type="text/javascript"></script>
+    <script src="js/angular/directive.js" type="text/javascript"></script>
+    <!-- RODI APP -->
+
+    <!--ADOBE typekit-->
+    <script src="https://use.typekit.net/yxp8fxq.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+
+    <!-- RODI css -->
+    <link href="css/rodi_css.css" rel="stylesheet">
+    <link href="css/style_map.css" rel="stylesheet">
+
+    <!-- Guida: https://medium.com/@tweededbadger/tutorial-dynamic-data-driven-svg-map-with-angularjs-b112fdec421d -->
+    <!--<script src="js/change_svg.js"></script>-->
+</head>
+<body ng-app="RodiApp" ng-controller="RodiCtrl">
+
+<div class="container-fluid">
+
+    <!-- Section HEADER - INIZIO -->
+    <section id="rodi_header">
+        <div class="row">
+            <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                <img src="img/template/rodi_logo.png" alt="Risk OpenData Index" class="img-responsive" />
+            </div>
+        </div>
+    </section>
+    <!-- Section HEADER - FINE -->
+
+    <!-- Section MENU - INIZIO -->
+    <section id="top-menu">
+        <div class="row">
+            <div class="col-xs-6 col-sm-4 col-md-4 col-lg-4">
+
+            </div>
+            <div class="col-xs-6 col-sm-8 col-md-8 col-lg-8">
+                <mainmenu></mainmenu>
+            </div>
+
+        </div>
+    </section>
+    <!-- Section MENU - FINE -->
+
+    <!-- Section MAP - INIZIO -->
+    <section id="maincontent">
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                <h2>Contribute R.O.D.I.</h2>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <!-- Nav tabs -->
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" class="active"><a href="#dataset" aria-controls="dataset" role="tab" data-toggle="tab">New Dataset</a></li>
+                    <li role="presentation"><a href="#mydataset" aria-controls="mydataset" role="tab" data-toggle="tab">My dataset</a></li>
+                    <li role="presentation"><a href="#datasetreview" aria-controls="datasetreview" role="tab" data-toggle="tab">Dataset review</a></li>
+                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">My Profile</a></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content rodi_tabpanels">
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
+                            <input type="button" class="btn btn-success" value="Save dataset" ng-click="saveDataser()">
+                        </div>
+                    </div>
+
+                    <!-- Insert new dataset pane - START -->
+                    <div role="tabpanel" class="tab-pane fade in active" id="dataset">
+                        <strong>Category</strong>
+                        <br /><br />
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="contribute_field_box">
+                                    <label>1) Country</label>
+                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.country != '--'"></i>
+                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.country == '--'"></i>
+                                    <select class="form-control" ng-model="objDataset.country">
+                                        <option value="--" selected>-- Select --</option>
+                                        <option value="IT">Italy</option>
+                                        <option value="IT">Italy</option>
+                                        <option value="IT">Italy</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="contribute_field_box">
+                                    <label>2) Hazard category</label>
+                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.hazard_category != '--'"></i>
+                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.hazard_category == '--'"></i>
+                                    <select class="form-control" ng-model="objDataset.hazard_category">
+                                        <option value="--" selected>-- Select --</option>
+                                        <option value="h01">Hazard Info</option>
+                                        <option value="h02">Exposure</option>
+                                        <option value="h03">Hazard Vulnerability</option>
+                                        <option value="h04">Base Data</option>
+                                        <option value="h05">Risk Info</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <strong>Questions section</strong>
+                        <br /><br />
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="contribute_field_box">
+                                    <label>1) Question number one?</label><br/>
+                                    <input type="radio" value="Yes" name="questioncode" ng-model="questioncode"> Yes
+                                    &nbsp;&nbsp;
+                                    <input type="radio" value="No" name="questioncode" ng-model="questioncode"> No
+                                    &nbsp;&nbsp;
+                                    <input type="radio" value="na" name="questioncode" ng-model="questioncode"> Not available
+                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="questioncode"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="contribute_field_box">
+                                    <label>2) Question number two?</label><br/>
+                                    <input type="radio" value="Yes" name="questioncode2" ng-model="questioncode2"> Yes
+                                    &nbsp;&nbsp;
+                                    <input type="radio" value="No" name="questioncode2" ng-model="questioncode2"> No
+                                    &nbsp;&nbsp;
+                                    <input type="radio" value="na" name="questioncode2" ng-model="questioncode2"> Not available
+                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="questioncode2"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="contribute_field_box">
+                                    ... other questions (dynimic)
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="contribute_field_box">
+                                    <label>Link dataset details</label><br/>
+                                    <input type="text" ng-model="objDataset.link_dataset" class="form-control">
+                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.link_dataset"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="contribute_field_box">
+                                    <label>Link metadata download</label><br/>
+                                    <input type="text" ng-model="objDataset.link_metadata" class="form-control">
+                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.link_metadata"></i>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
+                                <input type="button" class="btn btn-success" value="Save dataset" ng-click="saveDataser()">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Insert new dataset pane- END -->
+
+                    <div role="tabpanel" class="tab-pane fade" id="mydataset">.2..</div>
+                    <div role="tabpanel" class="tab-pane fade" id="datasetreview">..3.</div>
+                    <div role="tabpanel" class="tab-pane fade" id="profile">.4..</div>
+                </div>
+            </div>
+
+
+        </div>
+
+    </section>
+    <!-- Section MAP - FINE -->
+
+    <!-- Section FOOTER - INIZIO -->
+    <section id="rodi_footer">
+        <br /><br /><br />
+    </section>
+    <!-- Section FOOTER - FINE -->
+
+
+
+</div>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+</body>
+</html>

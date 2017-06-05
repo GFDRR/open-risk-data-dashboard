@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+
+    <base href="{{$LocationProvider.$get}}" />
+
+    <title>R.O.D.I. - Country Details</title>
+
+    <!-- jQuery library -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+
+    <!-- Angular components -->
+    <script src="bower_components/angular/angular.min.js"></script>
+
+    <!-- bootstrap Framework -->
+    <!-- Bootstrap -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- font awesome-->
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link href="bower_components/animate.css/animate.min.css" rel="stylesheet">
+
+    <!-- RODI APP -->
+    <script src="js/angular/app.js"></script>
+    <script src="js/angular/service.js" type="text/javascript"></script>
+    <script src="js/angular/controller_country.js" type="text/javascript"></script>
+    <script src="js/angular/controller_mainmenu.js" type="text/javascript"></script>
+    <script src="js/angular/directive.js" type="text/javascript"></script>
+    <!-- RODI APP -->
+
+    <!--ADOBE typekit-->
+    <script src="https://use.typekit.net/yxp8fxq.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+
+    <!-- RODI css -->
+    <link href="css/rodi_css.css" rel="stylesheet">
+
+</head>
+<body ng-app="RodiApp" ng-controller="RodiCtrlCountry">
+
+
+    <div class="container-fluid">
+
+
+        <div class="row">
+            <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                <section id="header">
+                    <!-- Left Banner / logo -->
+                    <img src="img/template/rodi_logo.png" alt="Risk OpenData Index" class="img-responsive" />
+                    <div class="head_sep blu vert"></div>
+                </section>
+            </div>
+
+
+            <!-- Content of page -->
+            <div class="col-xs-12 col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2">
+                <div class="row ">
+                    <!--<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+                        <img ng-src="{{countryData[0].img}}" alt="Coutry Image" class="img-responsive " >
+                    </div>
+                    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 ">
+                                <span class="page_title text-right">{{countryData[0].desc}}</span>
+                            </div>
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 ">
+                                <mainmenu></mainmenu>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                {{countryData[0].text}}
+                            </div>
+                        </div>
+                    </div>-->
+
+                    <div class="media">
+                        <div class="media-left media-middle">
+                            <img ng-src="{{countryData[0].img}}" alt="Coutry Image" class="media-object" >
+                        </div>
+                        <div class="media-body">
+                            <!--<div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">-->
+                               <!---->
+                            <!--</div>-->
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="flex-container pull-right">
+                                    <h1 class="page_title ">{{countryData[0].desc}}</h1>
+                                    <mainmenu></mainmenu>
+                                </div>
+
+                            </div>
+
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                {{countryData[0].text}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <hr>
+
+        <!-- Country Matrix -->
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2">
+
+                <!-- row questions | column data type | click only on label data type: details datasets-->
+
+                <table class="table table-condensed table-responsive">
+                    <thead>
+                        <th>&nbsp;</th> <!-- cella vuota -->
+                        <th class="text-center row_icon" ng-repeat="dt in matrixDataTypeList.dataType_index">
+                            <a href=""><i class="{{dt[1]}}"></i><br /><span>{{dt[0]}}</span></a> <!-- il click porta alla pagina elenco dataset (filters: country category) -->
+                        </th>
+                    </thead>
+
+                    <tbody>
+                        <tr>
+                            <th>&nbsp;</th> <!-- Indice generale -->
+                            <th class="text-center" ng-repeat="valHazard in hazardIndex"><span ng-class="{'matrix_green_value': valHazard[1] > 50, 'matrix_red_value': valHazard[1] <= 50}">{{valHazard[1]}}</span></th>
+                        </tr>
+                        <tr ng-repeat="matrixRow in countryMatrix">
+                            <td class="text-center"><strong>{{matrixRow[0]}}</strong></td>
+                            <td class="text-center"><div class="matrix_cell" style="{{colorCell(matrixRow[1])}}"></div></td>
+                            <td class="text-center"><div class="matrix_cell" style="{{colorCell(matrixRow[2])}}"></div></td>
+                            <td class="text-center"><div class="matrix_cell" style="{{colorCell(matrixRow[3])}}"></div></td>
+                            <td class="text-center"><div class="matrix_cell" style="{{colorCell(matrixRow[4])}}"></div></td>
+                            <td class="text-center"><div class="matrix_cell" style="{{colorCell(matrixRow[5])}}"></div></td>
+                            <td class="text-center"><div class="matrix_cell" style="{{colorCell(matrixRow[6])}}"></div></td>
+                            <td class="text-center"><div class="matrix_cell" style="{{colorCell(matrixRow[7])}}"></div></td>
+                            <td class="text-center"><div class="matrix_cell" style="{{colorCell(matrixRow[8])}}"></div></td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+
+    </div>
+    <!--END Container fluid-->
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
+</body>
+</html>
