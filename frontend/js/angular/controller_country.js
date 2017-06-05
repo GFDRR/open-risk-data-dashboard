@@ -16,8 +16,19 @@ RodiApp.controller('RodiCtrlCountry', function ($scope, RodiSrv, $location, $fil
     $scope.matrixDataTypeList = RodiSrv.getHazardCategory();
 
     $scope.colorCell = function(value){
-        //Check if the value is Yes, No or na
+        //Check if the value is yes, no or na
         //Yes -> green | No -> Red | na -> yellow
+
+        if (value == 'yes')
+        {
+            return "background-color:green";
+        } else if(value == 'no')
+            {
+                return "background-color:red";
+            } else
+                {
+                    return "background-color:yellow";
+                }
 
         // return RodiSrv.matrixColorCell(value);
     }

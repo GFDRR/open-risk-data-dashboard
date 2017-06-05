@@ -135,14 +135,12 @@
                         </tr>
                         <tr ng-repeat="matrixRow in countryMatrix">
                             <td class="text-center"><strong>{{matrixRow[0]}}</strong></td>
-                            <td class="text-center"><div class="matrix_cell" style="{{colorCell(matrixRow[1])}}"></div></td>
-                            <td class="text-center"><div class="matrix_cell" style="{{colorCell(matrixRow[2])}}"></div></td>
-                            <td class="text-center"><div class="matrix_cell" style="{{colorCell(matrixRow[3])}}"></div></td>
-                            <td class="text-center"><div class="matrix_cell" style="{{colorCell(matrixRow[4])}}"></div></td>
-                            <td class="text-center"><div class="matrix_cell" style="{{colorCell(matrixRow[5])}}"></div></td>
-                            <td class="text-center"><div class="matrix_cell" style="{{colorCell(matrixRow[6])}}"></div></td>
-                            <td class="text-center"><div class="matrix_cell" style="{{colorCell(matrixRow[7])}}"></div></td>
-                            <td class="text-center"><div class="matrix_cell" style="{{colorCell(matrixRow[8])}}"></div></td>
+                            <td class="text-center"><div class="matrix_cell_round" style="{{colorCell(matrixRow[1])}}"></div></td>
+                            <td class="text-center"><div class="matrix_cell_round" style="{{colorCell(matrixRow[2])}}"></div></td>
+                            <td class="text-center"><div class="matrix_cell_round" style="{{colorCell(matrixRow[3])}}"></div></td>
+                            <td class="text-center"><div class="matrix_cell_round" style="{{colorCell(matrixRow[4])}}"></div></td>
+                            <td class="text-center"><div class="matrix_cell_round" style="{{colorCell(matrixRow[5])}}"></div></td>
+                            <!-- Queste cinque righe occorre gestirle con un ng-repeat per la dinamicità dei valori -->
                         </tr>
                     </tbody>
 
