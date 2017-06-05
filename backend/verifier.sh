@@ -41,7 +41,7 @@ fi
 set -e
 
 GEM_GIT_REPO="git@github.com:GFDRR"
-GEM_GIT_PACKAGE="open-risk-data-dashboard.git"
+GEM_GIT_PACKAGE="open-risk-data-dashboard"
 
 if [ "$GEM_EPHEM_CMD" = "" ]; then
     GEM_EPHEM_CMD="lxc-copy"
