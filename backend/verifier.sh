@@ -235,7 +235,7 @@ if [ \$GEM_SET_DEBUG ]; then
 fi
 echo \$PWD
 pwd
-ls 
+ls open-risk-data-dashboard/backend
 
 ./$GEM_GIT_PACKAGE/backend/verifier-guest.sh $branch_id
 "
