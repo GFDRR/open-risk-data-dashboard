@@ -233,6 +233,9 @@ set -e
 if [ \$GEM_SET_DEBUG ]; then
     set -x
 fi
+echo \$PWD
+pwd
+ls 
 
 ./$GEM_GIT_PACKAGE/backend/verifier-guest.sh $branch_id
 "
