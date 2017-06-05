@@ -1,0 +1,59 @@
+<!-- Main menu -->
+
+<!-- Import VEX DIALOGS -->
+<!-- VEX DIALOG - POPUP INIZIO -->
+<script src="js/vendor/vex-dialogs/vex.min.js"></script>
+<script src="js/vendor/vex-dialogs/vex.dialog.min.js"></script>
+<link href="js/vendor/vex-dialogs/vex.css" rel="stylesheet" />
+<link href="js/vendor/vex-dialogs/vex-theme-default.css" rel="stylesheet" />
+<link href="js/vendor/vex-dialogs/vex-theme-plain.css" rel="stylesheet" />
+<script>vex.defaultOptions.className = 'vex-theme-default';</script>
+<!-- VEX DIALOG - POPUP FINE -->
+
+
+<nav class="navbar">
+    <div class="container-fluid">
+        <div class="row">
+            <!-- mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle navbar-toggle-right-black collapsed" data-toggle="collapse" data-target="#menu-website" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar icon-bar-white"></span>
+                    <span class="icon-bar icon-bar-white"></span>
+                    <span class="icon-bar icon-bar-white"></span>
+                </button>
+                <!--<a class="navbar-brand" href="#">Brand</a>-->
+            </div>
+
+            <!-- Website menu -->
+            <div class="collapse navbar-collapse" id="menu-website">
+                <ul class="nav navbar-nav">
+                    <li ng-if="bHome"><a href="" ng-click="changeview('index.html')"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                    <li ng-if="!bLogin"><a href="" ng-click="loginform()">Contribute</a></li>
+                    <li ng-if="bLogin"><a href="" ng-click="changeview('contribute.html')">Contribute</a></li>
+                    <li><a href="" ng-click="changeview('methodology.html')">Methodolody</a></li>
+                    <li><a href="" ng-click="changeview('browse-data.html')">Countries</a></li>
+                    <li ng-if="!bLogin"><a href="" ng-click="loginform()">Login</a></li>
+                    <li ng-if="bLogin"><small>Welcome {{username}} <a href="" ng-click="logout()">Logout</a></small></li>
+                    <li ng-if="!bLogin"><a href="" >Register</a></li>
+                </ul>
+            </div><!-- /.navbar-collapse -->
+        </div>
+        <div class="row">
+
+            <form class="navbar-form navbar-left">
+                <div class="form-group">
+                    <input list="countryList" ng-model="searchValue" type="text" class="form-control" placeholder="Search">
+                    <datalist id="countryList">
+                        <option ng-repeat="item in countrySuggestion" value="{{ item.desc }}">{{ item.code }}</option>
+                    </datalist>
+                </div>
+                <a type="submit" class="" ng-click="searchSubmit()"><i class="fa fa-search fa-2x"></i></a>
+            </form>
+
+        </div>
+
+    </div><!-- /.container-fluid -->
+</nav>
+
+<loginform></loginform>

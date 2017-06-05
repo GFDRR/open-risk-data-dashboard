@@ -1,0 +1,108 @@
+@font-face {
+  font-family: 'hazard';
+  src:  url('fonts/hazard.eot?cepy70');
+  src:  url('fonts/hazard.eot?cepy70#iefix') format('embedded-opentype'),
+    url('fonts/hazard.woff2?cepy70') format('woff2'),
+    url('fonts/hazard.ttf?cepy70') format('truetype'),
+    url('fonts/hazard.woff?cepy70') format('woff'),
+    url('fonts/hazard.svg?cepy70#hazard') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'hazard' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-register:before {
+  content: "\e906";
+}
+.icon-login:before {
+  content: "\e907";
+}
+.icon-contribute:before {
+  content: "\e908";
+}
+.icon-news:before {
+  content: "\e909";
+}
+.icon-cyclone:before {
+  content: "\e64a";
+}
+.icon-earthquake:before {
+  content: "\e64b";
+}
+.icon-water_scarcity:before {
+  content: "\e650";
+}
+.icon-tsunami:before {
+  content: "\e655";
+}
+.icon-landslide:before {
+  content: "\e656";
+}
+.icon-volcano:before {
+  content: "\e65d";
+}
+.icon-methodology:before {
+  content: "\e90a";
+}
+.icon-info:before {
+  content: "\e903";
+}
+.icon-information:before {
+  content: "\e903";
+}
+.icon-office:before {
+  content: "\e904";
+}
+.icon-buildings:before {
+  content: "\e904";
+}
+.icon-work:before {
+  content: "\e904";
+}
+.icon-exposure:before {
+  content: "\e904";
+}
+.icon-warning:before {
+  content: "\e905";
+}
+.icon-alert:before {
+  content: "\e905";
+}
+.icon-hazard_info:before {
+  content: "\e905";
+}
+.icon-coastal_flood:before {
+  content: "\e901";
+}
+.icon-world:before {
+  content: "\e900";
+}
+.icon-globe:before {
+  content: "\e900";
+}
+.icon-internet:before {
+  content: "\e900";
+}
+.icon-network:before {
+  content: "\e900";
+}
+.icon-base_data:before {
+  content: "\e900";
+}
+.icon-vulnerability:before {
+  content: "\e902";
+}

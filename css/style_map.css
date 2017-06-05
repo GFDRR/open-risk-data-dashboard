@@ -1,0 +1,52 @@
+svg
+{
+    float: left;
+}
+
+svg path {
+    stroke-width: 2;
+    stroke: #c0c0c0;
+
+    -webkit-transition: stroke 0.5s, stroke-width 0.8s;
+    -o-transition: stroke 0.5s, stroke-width 0.8s;
+    transition: stroke 0.5s, stroke-width 0.8s;
+}
+
+svg path:hover , path.active {
+    cursor: pointer;
+    stroke-width: 2;
+    stroke: yellow;
+}
+
+.regionlist {
+    -webkit-column-count: 5; /* Chrome, Safari, Opera */
+    -moz-column-count: 5; /* Firefox */
+    column-count: 5;
+}
+.regionlist > div {
+    display: inline-block;
+    width: 100%;
+    border-bottom: 1px solid grey;
+}
+.regionlist > div > div {
+    display: inline-block;
+    width: 48%;
+}
+
+.regionlist > div.active {
+    font-weight: bold;
+    background-color: lightblue;
+}
+
+
+.popup_country_data
+{
+    position:absolute;
+    right:10px;
+    top:80px;
+    background-color: red;
+    color:#ffffff;
+    padding:20px;
+    opacity:1;
+    transition: all 0.6s;
+}
