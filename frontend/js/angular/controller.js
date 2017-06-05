@@ -76,7 +76,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', function ($scope
     // ************************************** //
 
     $scope.objDataset = RodiSrv.getDatasetEmptyStructure();
-    console.log($scope.objDataset);
 
     $scope.saveDataser = function()
     {

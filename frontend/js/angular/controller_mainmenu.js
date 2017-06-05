@@ -8,11 +8,16 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
     // ********* MAIN MENU CLICK ************ //
     // ************************************** //
 
+    $scope.indexPage = "0"; // page 0 -> index (utilizzato per i contenuti contestuali)
+    $scope.showHelpIndex = "";
+
     if ($location.path().indexOf('index.html') !== -1){
         $scope.bHome = false;
+        $scope.indexPage = "0";
     } else
     {
         $scope.bHome = true;
+        $scope.indexPage = RodiSrv.setPageIndex($location.path());
     }
 
     $scope.changeview = function(page, index)
@@ -96,6 +101,16 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
     // ********** HELP & FEEDBACK *********** //
     // ************************************** //
 
-    $scope.indexPage = 0; // page 0 -> index
+    $scope.showHelp = function ()
+    {
+        $scope.showHelpIndex = $scope.indexPage;
+    }
+
+    $scope.hideHelp = function ()
+    {
+        $scope.showHelpIndex = "";
+    }
+
+
 
 } ]);

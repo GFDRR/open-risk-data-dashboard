@@ -28,14 +28,14 @@
             <!-- Website menu -->
             <div class="collapse navbar-collapse" id="menu-website">
                 <ul class="nav navbar-nav">
-                    <li ng-if="bHome"><a href="" ng-click="changeview('index.html', 0)"><i class="fa fa-home" aria-hidden="true"></i></a></li>
+                    <li ng-if="bHome"><a href="" ng-click="changeview('index.html', '0')"><i class="fa fa-home" aria-hidden="true"></i></a></li>
                     <li ng-if="!bLogin"><a href="" ng-click="loginform()">Contribute</a></li>
-                    <li ng-if="bLogin"><a href="" ng-click="changeview('contribute.html', 1)">Contribute</a></li>
-                    <li><a href="" ng-click="changeview('methodology.html', 2)">Methodolody</a></li>
-                    <li><a href="" ng-click="changeview('browse-data.html', 3)">Countries</a></li>
+                    <li ng-if="bLogin"><a href="" ng-click="changeview('contribute.html', '1')">Contribute</a></li>
+                    <li><a href="" ng-click="changeview('methodology.html', '2')">Methodolody</a></li>
+                    <li><a href="" ng-click="changeview('browse-data.html', '3')">Countries</a></li>
                     <li ng-if="!bLogin"><a href="" ng-click="loginform()">Login</a></li>
                     <li ng-if="bLogin"><small>Welcome {{username}} <a href="" ng-click="logout()">Logout</a></small></li>
-                    <li ng-if="!bLogin"><a href="" >Register</a></li>
+                    <li ng-if="!bLogin" ng-click="changeview('register.html', '4')"><a href="" >Register</a></li>
                 </ul>
             </div><!-- /.navbar-collapse -->
         </div>

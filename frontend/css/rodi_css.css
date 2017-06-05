@@ -120,6 +120,24 @@ section
     color:#EE3036;
 }
 
+.contextual_content
+{
+    position:absolute;
+    /*width:80%;*/
+    left:10%;
+    right:10%;
+    top:10%;
+    padding:30px;
+    background-color: #f0f0f0;
+    z-index: 1000;
+    border:solid 1px #c0c0c0;
+    -webkit-box-shadow: 7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+    -moz-box-shadow:    7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+    box-shadow:         7px 7px 5px 0px rgba(50, 50, 50, 0.75);
+    max-height: 80vh;
+    overflow: auto;
+}
+
 /*
 ==============================================================================
 

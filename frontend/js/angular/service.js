@@ -414,4 +414,20 @@ RodiApp.service("RodiSrv", ['$http', function($http, $rootScope, $scope)
 
     }
 
+    this.setPageIndex = function(strpath)
+    {
+        if(strpath.indexOf('index.html') != -1){return "0"};
+        if(strpath.indexOf('contribute.html') != -1){return "1"};
+        if(strpath.indexOf('methodology.html') != -1){return "2"};
+        if(strpath.indexOf('browse-data.html') != -1){return "3"};
+        if(strpath.indexOf('register.html') != -1){return "4"};
+        if(strpath.indexOf('country-details.html') != -1){return "5"};
+        if(strpath.indexOf('dataset_details.html') != -1){return "6"};
+        if(strpath.indexOf('news-details.html') != -1){return "7"};
+
+        return "0";
+
+
+    }
+
 }]);

@@ -4,7 +4,7 @@
 
 var RodiApp = angular.module('RodiApp', []);
 
-var baseUrl = 'http://localhost:63342/RODI/';
+var baseUrl = 'http://localhost:63342/RODIGitHub/frontend/';
 // Da modificare quando è online
 
 // var baseUrl = 'http://www.riskopendata.org/';
