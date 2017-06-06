@@ -1,11 +1,11 @@
 @font-face {
   font-family: 'hazard';
-  src:  url('fonts/hazard.eot?cepy70');
-  src:  url('fonts/hazard.eot?cepy70#iefix') format('embedded-opentype'),
-    url('fonts/hazard.woff2?cepy70') format('woff2'),
-    url('fonts/hazard.ttf?cepy70') format('truetype'),
-    url('fonts/hazard.woff?cepy70') format('woff'),
-    url('fonts/hazard.svg?cepy70#hazard') format('svg');
+  src:  url('fonts/hazard.eot?l4lpjz');
+  src:  url('fonts/hazard.eot?l4lpjz#iefix') format('embedded-opentype'),
+    url('fonts/hazard.woff2?l4lpjz') format('woff2'),
+    url('fonts/hazard.ttf?l4lpjz') format('truetype'),
+    url('fonts/hazard.woff?l4lpjz') format('woff'),
+    url('fonts/hazard.svg?l4lpjz#hazard') format('svg');
   font-weight: normal;
   font-style: normal;
 }
@@ -37,8 +37,26 @@
 .icon-news:before {
   content: "\e909";
 }
+.icon-world2:before {
+  content: "\e902";
+}
+.icon-globe2:before {
+  content: "\e902";
+}
+.icon-internet2:before {
+  content: "\e902";
+}
+.icon-network2:before {
+  content: "\e902";
+}
+.icon-base_data2:before {
+  content: "\e902";
+}
 .icon-cyclone:before {
   content: "\e64a";
+}
+.icon-river_flood:before {
+  content: "\e652";
 }
 .icon-earthquake:before {
   content: "\e64b";
@@ -55,35 +73,8 @@
 .icon-volcano:before {
   content: "\e65d";
 }
-.icon-methodology:before {
-  content: "\e90a";
-}
-.icon-info:before {
-  content: "\e903";
-}
-.icon-information:before {
-  content: "\e903";
-}
-.icon-office:before {
-  content: "\e904";
-}
-.icon-buildings:before {
-  content: "\e904";
-}
-.icon-work:before {
-  content: "\e904";
-}
-.icon-exposure:before {
-  content: "\e904";
-}
-.icon-warning:before {
-  content: "\e905";
-}
-.icon-alert:before {
-  content: "\e905";
-}
-.icon-hazard_info:before {
-  content: "\e905";
+.icon-logout:before {
+  content: "\e90c";
 }
 .icon-coastal_flood:before {
   content: "\e901";
@@ -104,5 +95,35 @@
   content: "\e900";
 }
 .icon-vulnerability:before {
-  content: "\e902";
+  content: "\e903";
+}
+.icon-methodology:before {
+  content: "\e90a";
+}
+.icon-info:before {
+  content: "\e904";
+}
+.icon-information:before {
+  content: "\e904";
+}
+.icon-office:before {
+  content: "\e905";
+}
+.icon-buildings:before {
+  content: "\e905";
+}
+.icon-work:before {
+  content: "\e905";
+}
+.icon-exposure:before {
+  content: "\e905";
+}
+.icon-warning:before {
+  content: "\e90b";
+}
+.icon-alert:before {
+  content: "\e90b";
+}
+.icon-hazard_info:before {
+  content: "\e90b";
 }
