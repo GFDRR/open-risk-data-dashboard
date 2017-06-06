@@ -290,7 +290,7 @@ copy_common () {
 
 copy_dev () {
     :
-    # scp "${lxc_ip}:/var/log/apache2/access.log" "out/prod_apache2_access.log" || true
+    scp "${lxc_ip}:dev_xunit.xml" "out/dev_xunit.xml" || true
     # scp "${lxc_ip}:/var/log/apache2/error.log" "out/prod_apache2_error.log" || true
     # scp "${lxc_ip}:prod_*.png" "out/" || true
     # scp "${lxc_ip}:xunit-platform-prod.xml" "out/" || true

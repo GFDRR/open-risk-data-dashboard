@@ -62,4 +62,4 @@ python3 manage.py migrate
 python3 manage.py jenkins
 cd -
 
-cp "$BASE_DIR/reports/junit.xml" ./xunit-dev.xml
+cp "$BASE_DIR/reports/junit.xml" ./dev_xunit.xml
