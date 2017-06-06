@@ -267,7 +267,7 @@ devtest_run () {
     _devtest_innervm_run "$branch_id" "$lxc_ip"
     inner_ret=$?
 
-    copy_common prod
+    copy_common dev
     copy_dev
 
     if [ $inner_ret != 0 ]; then
