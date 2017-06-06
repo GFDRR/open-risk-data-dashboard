@@ -112,12 +112,25 @@
                                 <input type="button" class="btn btn-success" value="Save dataset" ng-click="saveDataser()">
                             </div>
                         </div>
-                        <strong>Category</strong>
-                        <br /><br />
                         <div class="row">
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                 <div class="contribute_field_box">
-                                    <label>1) Country</label>
+                                    <label>1) Name</label>
+                                    <input type="text" ng-model="objDataset.name" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="contribute_field_box">
+                                    <label>2) Abstract</label>
+                                    <input type="text" ng-model="objDataset.abstract" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                        <br /> <br />
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                <div class="contribute_field_box">
+                                    <label>3) Country</label>
                                     <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.country != '--'"></i>
                                     <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.country == '--'"></i>
                                     <select class="form-control" ng-model="objDataset.country">
@@ -128,25 +141,53 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                                 <div class="contribute_field_box">
-                                    <label>2) Hazard category</label>
+                                    <label>4) Hazard category</label>
                                     <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.hazard_category != '--'"></i>
                                     <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.hazard_category == '--'"></i>
-                                    <select class="form-control" ng-model="objDataset.hazard_category">
+                                    <select class="form-control" ng-model="objDataset.hazard_category" ng-change="filterDatasetCategory(objDataset.hazard_category)">
                                         <option value="--" selected>-- Select --</option>
-                                        <option value="h01">Hazard Info</option>
-                                        <option value="h02">Exposure</option>
-                                        <option value="h03">Hazard Vulnerability</option>
-                                        <option value="h04">Base Data</option>
-                                        <option value="h05">Risk Info</option>
+                                        <option ng-repeat="dt in matrixDataTypeList.dataType_index" value="{{dt[0]}}">{{dt[0]}} - {{dt[1]}}</option>
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                <div class="contribute_field_box">
+                                    <label>5) Hazard</label>
+                                    <select class="form-control" ng-model="objDataset.hazard">
+                                        <option value="--" selected>-- Select --</option>
+                                        <option>River Flood</option>
+                                        <option>Earthquake</option>
+                                        <option>Volcano</option>
+                                        <option>...</option>
                                     </select>
 
                                 </div>
                             </div>
                         </div>
-                        <br />
-                        <strong>Questions section</strong>
+                        <br /><br />
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="contribute_field_box">
+                                    <label>6) Dataset category</label>
+                                    <select class="form-control" ng-model="objDataset.dataset_type">
+                                        <option value="--" selected>-- Select --</option>
+                                        <option ng-repeat="datasetclass in objDatasetClass" value="{{datasetclass.code}}">{{datasetclass.desc}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="contribute_field_box">
+                                    <label>7) Dataset resolution</label>
+                                    <select class="form-control" ng-model="objDataset.resolution">
+                                        <option value="--" selected>-- Select --</option>
+                                        <option value="1">1Km</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                         <br /><br />
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">

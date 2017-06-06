@@ -2,7 +2,7 @@
  * Created by Manuel on 15/05/2017.
  */
 
-RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', function ($scope, RodiSrv, $window) {
+RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', function ($scope, RodiSrv, $window, $filter) {
 
     // ************************************** //
     // *************** INIT ***************** //
@@ -76,6 +76,13 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', function ($scope
     // ************************************** //
 
     $scope.objDataset = RodiSrv.getDatasetEmptyStructure();
+    $scope.objDatasetClass = RodiSrv.getDatasetClassification();
+
+    $scope.filterDatasetCategory = function(obj)
+    {
+        console.log("DS Category");
+        console.log(obj);
+    }
 
     $scope.saveDataser = function()
     {

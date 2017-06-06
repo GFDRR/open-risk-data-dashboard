@@ -163,7 +163,11 @@ section
     overflow: auto;
 }
 
-
+.contry_details_description
+{
+    position: absolute;
+    margin-top: 25%;
+}
 
 /*
 ==============================================================================
