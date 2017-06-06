@@ -1,8 +1,17 @@
 
 
 <div class="help_feedback_box">
-    <a href="" ng-click="showHelp()"><i class="fa fa-question-circle" aria-hidden="true"></i></a>
+    <a ng-if="bHome" href="" ng-click="changeview('index.html', '0')"><i class="fa fa-home" aria-hidden="true"></i></a>
+    <a ng-if="!bLogin" href="" ng-click="loginform()">
+        <i class="fa icon-login"></i>
+    </a>
+    <a ng-if="bLogin" href="" ng-click="logout()"><small>Welcome {{username}} - </small> Logout</a>
+    <a ng-if="!bLogin" ng-click="changeview('register.html', '4')" href="" ><i class="fa icon-register"></i></a>
+
+    <a href=""></a>
+    <a href="" ng-click="showHelp()"><i class="fa fa-question-circle-o" aria-hidden="true"></i></a>
     <a href="" alt="Feedback"><i class="fa fa-commenting-o" aria-hidden="true"></i></a>
+
 </div>
 
 

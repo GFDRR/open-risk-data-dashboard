@@ -1,5 +1,20 @@
 /*font icon*/
 @import url('style.css');
+/*font set google*/
+@import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Roboto+Condensed:300,400,700');
+
+body, html, input, p {
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, a, span {
+    font-family: 'Open Sans Condensed', sans-serif;
+    /*font-family: 'Roboto Condensed', sans-serif;*/
+}
+
+
+
+
 
 
 /* ************************************ */
@@ -111,13 +126,18 @@ section
     right:20px;
     padding:20px;
     font-size:25px;
-    color:#EE3036;
     cursor: pointer;
+
+    display:flex;
+    align-items: center;
+    justify-content: flex-end;
 }
 
+.help_feedback_box,
 .help_feedback_box a
 {
     color:#EE3036;
+    padding:0 5px;
 }
 
 .contextual_content
@@ -279,8 +299,7 @@ section
 }
 
 [class^="icon-"], [class*=" icon-"],
-.nav>li>a,
-.navbar-form>a{
+.nav>li>a {
     color: #ee3036;
 }
 
@@ -310,6 +329,14 @@ section
     background:none;
     cursor: pointer;
 }
+
+
+
+.login_form_box .form>i {
+    color: white;
+}
+
+
 
 .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th
 {
