@@ -438,10 +438,11 @@ RodiApp.service("RodiSrv", ['$http', function($http, $rootScope, $scope)
         {
             userid: "user name",
             page: "ex: index.html",
-            text: "message of feedback"
+            text: "message of feedback",
+            data: "01/06/2017"
         }
          */
-
+        console.log(obj);
         return true;
     }
 

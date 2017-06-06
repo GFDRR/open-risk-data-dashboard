@@ -105,6 +105,11 @@ section
     margin-top: -12px;
 }
 
+.contribute_feedbak_box
+{
+    padding:15px;
+}
+
 .help_feedback_box
 {
     position:absolute;
@@ -137,6 +142,8 @@ section
     max-height: 80vh;
     overflow: auto;
 }
+
+
 
 /*
 ==============================================================================

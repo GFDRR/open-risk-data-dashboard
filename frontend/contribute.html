@@ -99,18 +99,19 @@
                     <li role="presentation"><a href="#mydataset" aria-controls="mydataset" role="tab" data-toggle="tab">My dataset</a></li>
                     <li role="presentation"><a href="#datasetreview" aria-controls="datasetreview" role="tab" data-toggle="tab">Dataset review</a></li>
                     <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">My Profile</a></li>
+                    <li role="presentation"><a href="#feedback" aria-controls="profile" role="tab" data-toggle="tab">Feedback</a></li>
                 </ul>
 
                 <!-- Tab panes -->
                 <div class="tab-content rodi_tabpanels">
-                    <div class="row">
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
-                            <input type="button" class="btn btn-success" value="Save dataset" ng-click="saveDataser()">
-                        </div>
-                    </div>
 
                     <!-- Insert new dataset pane - START -->
                     <div role="tabpanel" class="tab-pane fade in active" id="dataset">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
+                                <input type="button" class="btn btn-success" value="Save dataset" ng-click="saveDataser()">
+                            </div>
+                        </div>
                         <strong>Category</strong>
                         <br /><br />
                         <div class="row">
@@ -177,16 +178,16 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <div class="contribute_field_box">
+                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.link_dataset"></i>
                                     <label>Link dataset details</label><br/>
                                     <input type="text" ng-model="objDataset.link_dataset" class="form-control">
-                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.link_dataset"></i>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <div class="contribute_field_box">
+                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.link_metadata"></i>
                                     <label>Link metadata download</label><br/>
                                     <input type="text" ng-model="objDataset.link_metadata" class="form-control">
-                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.link_metadata"></i>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
@@ -199,6 +200,50 @@
                     <div role="tabpanel" class="tab-pane fade" id="mydataset">.2..</div>
                     <div role="tabpanel" class="tab-pane fade" id="datasetreview">..3.</div>
                     <div role="tabpanel" class="tab-pane fade" id="profile">.4..</div>
+                    <div role="tabpanel" class="tab-pane fade" id="feedback">
+                        <strong>User feedback</strong>
+                        <br /><br />
+                        <div class="contribute_feedbak_box">
+                            <strong><i class="fa fa-user" aria-hidden="true"></i> <a href="">cima</a></strong><br />
+                            <span class="text-muted">Tue Jun 06 2017 11:11:32</span><br />
+                            <span class="text-justify">
+                                <strong>Page: https://www.riskopendata.org/index.html</strong><br />
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+                                dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </span>
+                        </div>
+                        <div class="contribute_feedbak_box">
+                            <strong><i class="fa fa-user-o" aria-hidden="true"></i> <a href="">cima</a></strong><br />
+                            <span class="text-muted">Tue Jun 06 2017 11:11:32</span><br />
+                            <span class="text-justify">
+                                <strong>Page: https://www.riskopendata.org/index.html</strong><br />
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+                                dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </span>
+                        </div>
+                        <div class="contribute_feedbak_box">
+                            <strong><i class="fa fa-user-o" aria-hidden="true"></i> <a href="">cima</a></strong><br />
+                            <span class="text-muted">Tue Jun 06 2017 11:11:32</span><br />
+                            <span class="text-justify">
+                                <strong>Page: https://www.riskopendata.org/index.html</strong><br />
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+                                dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </span>
+                        </div>
+                        <div class="contribute_feedbak_box">
+                            <strong><i class="fa fa-user-o" aria-hidden="true"></i> <a href="">cima</a></strong><br />
+                            <span class="text-muted">Tue Jun 06 2017 11:11:32</span><br />
+                            <span class="text-justify">
+                                <strong>Page: https://www.riskopendata.org/index.html</strong><br />
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum
+                                dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                            </span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
