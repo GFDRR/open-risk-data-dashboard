@@ -10,6 +10,8 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
 
     $scope.indexPage = "0"; // page 0 -> index (utilizzato per i contenuti contestuali)
     $scope.showHelpIndex = "";
+    $scope.bShowFeedback = false;
+    $scope.feedbackMessage = {userid:"", page:"", text:""};
 
     if ($location.path().indexOf('index.html') !== -1){
         $scope.bHome = false;
@@ -106,11 +108,34 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
         $scope.showHelpIndex = $scope.indexPage;
     }
 
+    $scope.showFeed = function ()
+    {
+        $scope.bShowFeedback = true;
+    }
+
     $scope.hideHelp = function ()
     {
         $scope.showHelpIndex = "";
     }
 
+    $scope.hideFeed = function ()
+    {
+        $scope.bShowFeedback = false;
+    }
 
+    $scope.sendFeed = function ()
+    {
+
+        $scope.feedbackMessage.userid = "cima";
+        $scope.feedbackMessage.page = $location.path();
+
+        var bSave = RodiSrv.sendFeedback($scope.feedbackMessage);
+
+        if (bSave)
+        {
+            vex.dialog.alert('Feedback sent correctly!');
+            $scope.bShowFeedback = false;
+        }
+    }
 
 } ]);
