@@ -430,4 +430,19 @@ RodiApp.service("RodiSrv", ['$http', function($http, $rootScope, $scope)
 
     }
 
+    this.sendFeedback = function(obj)
+    {
+        /*
+        send user feedback (only registred user)
+        obj =
+        {
+            userid: "user name",
+            page: "ex: index.html",
+            text: "message of feedback"
+        }
+         */
+
+        return true;
+    }
+
 }]);
