@@ -2,8 +2,10 @@
  * Created by Manuel on 15/05/2017.
  */
 
-RodiApp.service("RodiSrv", ['$http', function($http, $rootScope, $scope)
+RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 {
+
+    var baseAPIurl = "test";
 
     this.getMapScores = function(filters)
     {
@@ -296,6 +298,21 @@ RodiApp.service("RodiSrv", ['$http', function($http, $rootScope, $scope)
         return obj;
     }
 
+    this.getDatasetClassificationResolution = function(classificationCode)
+    {
+        // Return the level structure of classificationCode object
+        var obj =
+            {
+                code:"AI",
+                level:{
+                    // liv1: {desc:"Imagery as base layer", scale:"1-100m", value:"2"},
+                    // liv2: {desc:"Imagery as base layer", scale:"0.1-1m", value:"3"}
+                }
+            }
+
+            return obj;
+    }
+
     this.matrixColorCell = function(value){
 
         var numberFloat = parseFloat(value);
@@ -402,12 +419,19 @@ RodiApp.service("RodiSrv", ['$http', function($http, $rootScope, $scope)
             status: "0",
             data_validate: "",
             questions:
-            {
-                "code01": "",
-                "code02": "",
-                "code03": "",
-                "code04": ""
-            },
+            [
+                {code: "q01", value: ""},
+                {code: "q02", value: ""},
+                {code: "q03", value: ""},
+                {code: "q04", value: ""},
+                {code: "q05", value: ""},
+                {code: "q06", value: ""},
+                {code: "q07", value: ""},
+                {code: "q08", value: ""},
+                {code: "q09", value: ""},
+                {code: "q10", value: ""}
+                // Prendiamo le domande di tipo Yes No
+            ],
             link_dataset: "",
             link_metadata: ""
             }
@@ -423,8 +447,13 @@ RodiApp.service("RodiSrv", ['$http', function($http, $rootScope, $scope)
             obj = [
             {
                 "code": "datasetcode",
+                 name: "",
+                 abstract: "",
+                 dataset_type: "--",
+                 resolution: "--",
                 "country": "country code",
                 "hazard_category": "hazard category code",
+                 hazard: "--",
                 "usr_ins": "user name insert",
                 "data_ins": "datatime insert",
                 "status": "0 or 1", -> 0: not validate | 1: validate
@@ -462,6 +491,41 @@ RodiApp.service("RodiSrv", ['$http', function($http, $rootScope, $scope)
 
         */
 
+    }
+
+    this.validateDataset = function(obj)
+    {
+        var aErrors = [];
+        var objResolutions = {};
+
+        if(obj.name == ''){aErrors.push('Name')};
+        if(obj.abstract == ''){aErrors.push('Abstract')};
+        if(obj.dataset_type == '--'){aErrors.push('Dataset category')};
+
+        // If level of Dataset is not Empty: check the field
+        objResolutions = this.getDatasetClassificationResolution(obj.dataset_type);
+        if(!angular.equals({}, objResolutions.level)){
+            if(obj.resolution == '--'){aErrors.push('Dataset resolution')};
+        }
+
+        if(obj.country == '--'){aErrors.push('Country')};
+        if(obj.hazard_category == '--'){aErrors.push('Hazard category')};
+        if(obj.hazard_category == 'h03' && obj.hazard == '--'){aErrors.push('Hazard')};
+        if(obj.link_dataset == ''){aErrors.push('Link dataset')};
+        if(obj.link_metadata == ''){aErrors.push('Link metadata')};
+
+        /* Check the questions */
+        var aQuestions = [];
+
+        $filter('filter')(obj.questions, function(e){
+            if(e.value == '') { aQuestions.push(e.code); };
+        })
+
+        if (aQuestions.length > 0){
+            aErrors.push('Answer all questions (Yes, No or Not available)')
+        }
+
+        return aErrors;
     }
 
     this.saveDataset = function(obj)

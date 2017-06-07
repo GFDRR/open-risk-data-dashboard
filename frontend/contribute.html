@@ -117,7 +117,7 @@
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                 <div class="contribute_field_box">
                                     <label>1) Name (*)</label>
-                                    <input type="text" ng-model="objDataset.name" class="form-control">
+                                    <input type="text" ng-model="objDataset.name" name="objDataset.name" class="form-control">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
@@ -193,36 +193,22 @@
                         </div>
                         <br /><br />
                         <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" ng-repeat="quest in questions | filter: {type: 'yn'}">
                                 <div class="contribute_field_box">
-                                    <label>1) Question number one?</label><br/>
-                                    <input type="radio" value="yes" name="questioncode" ng-model="questioncode"> Yes
+                                    <label>{{$index + 8}}) {{quest.desc}}</label><br/>
+                                    <input type="radio" value="yes" name="questioncode{{quest.code}}" ng-model="questioncode" ng-click="saveSelection(quest.code, 'yes')"> Yes
                                     &nbsp;&nbsp;
-                                    <input type="radio" value="no" name="questioncode" ng-model="questioncode"> No
+                                    <input type="radio" value="no" name="questioncode{{quest.code}}" ng-model="questioncode" ng-click="saveSelection(quest.code, 'no')"> No
                                     &nbsp;&nbsp;
-                                    <input type="radio" value="na" name="questioncode" ng-model="questioncode"> Not available
+                                    <input type="radio" value="na" name="questioncode{{quest.code}}" ng-model="questioncode" ng-click="saveSelection(quest.code, 'na')"> Not available
                                     <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="questioncode"></i>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <div class="contribute_field_box">
-                                    <label>2) Question number two?</label><br/>
-                                    <input type="radio" value="yes" name="questioncode2" ng-model="questioncode2"> Yes
-                                    &nbsp;&nbsp;
-                                    <input type="radio" value="no" name="questioncode2" ng-model="questioncode2"> No
-                                    &nbsp;&nbsp;
-                                    <input type="radio" value="na" name="questioncode2" ng-model="questioncode2"> Not available
-                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="questioncode2"></i>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <div class="contribute_field_box">
-                                    ... other questions (dynimic)
+                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="!questioncode"></i>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <div class="contribute_field_box">
                                     <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.link_dataset"></i>
+                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="!objDataset.link_dataset"></i>
                                     <label>Link dataset details</label><br/>
                                     <input type="text" ng-model="objDataset.link_dataset" class="form-control">
                                 </div>
@@ -230,6 +216,7 @@
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <div class="contribute_field_box">
                                     <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.link_metadata"></i>
+                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="!objDataset.link_metadata"></i>
                                     <label>Link metadata download</label><br/>
                                     <input type="text" ng-model="objDataset.link_metadata" class="form-control">
                                 </div>
@@ -245,7 +232,7 @@
                     <div role="tabpanel" class="tab-pane fade" id="datasetreview">..3.</div>
                     <div role="tabpanel" class="tab-pane fade" id="profile">.4..</div>
                     <div role="tabpanel" class="tab-pane fade" id="feedback">
-                        <strong>User feedback</strong>
+                        <strong>Users feedback</strong>
                         <br /><br />
                         <div class="contribute_feedbak_box">
                             <strong><i class="fa fa-user" aria-hidden="true"></i> <a href="">cima</a></strong><br />

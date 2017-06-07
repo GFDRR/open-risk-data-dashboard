@@ -117,14 +117,14 @@ section
 
 .contribute_field_validator
 {
-    font-size:28px;
+    font-size:20px;
     color:green;
-    margin-top: -16px;
+    margin-top: -10px;
 }
 
 .contribute_field_validator_wait
 {
-    font-size:28px;
+    font-size:20px;
     color:#ffd700;
     margin-top: -12px;
 }
