@@ -102,7 +102,7 @@ RodiApp.service("RodiSrv", ['$http', function($http, $rootScope, $scope)
 
         // Return country list
 
-        var objCountry = [{"code":"IT", "desc":"Italy"}, {"code":"AR", "desc":"Argentina"}, {"code":"AU", "desc":"Australia"}];
+        var objCountry = [{code:"IT", desc:"Italy"}, {code:"AR", desc:"Argentina"}, {code:"AU", desc:"Australia"}];
         return objCountry;
     };
 
@@ -259,8 +259,8 @@ RodiApp.service("RodiSrv", ['$http', function($http, $rootScope, $scope)
                 {
                     code:"DEM",
                     desc: "Digital Elevation Model",
-                    hazard_code: "dt01",
-                    livel:{
+                    hazard_category: "h01",
+                    level:{
                         liv1: {desc:"SRTM Digital Elevation Model (DEM)", scale:"90m", value:"1"},
                         liv2: {desc:"LiDAR Digital Elevation Model (DEM)", scale:"1-10m", value:"2"},
                         liv3: {desc:"LiDAR Digital Elevation Model (DEM)", scale:"0.1-1m", value:"3"},
@@ -269,17 +269,23 @@ RodiApp.service("RodiSrv", ['$http', function($http, $rootScope, $scope)
                 {
                     code:"AI",
                     desc: "Aerial Imagery",
-                    hazard_code: "dt01",
-                    livel:{
+                    hazard_category: "h01",
+                    level:{
                         liv1: {desc:"Imagery as base layer", scale:"1-100m", value:"2"},
                         liv2: {desc:"Imagery as base layer", scale:"0.1-1m", value:"3"}
                     }
                 },
                 {
+                    code:"TT",
+                    desc: "Test category no scale definition",
+                    hazard_category: "h01",
+                    level: {}
+                },
+                {
                     code:"FLO",
                     desc: "Flooding",
-                    hazard_code: "dt03",
-                    livel:{
+                    hazard_category: "h03",
+                    level:{
                         liv1: {desc:"water depth for return periods 2, 5, 10, 20, 50, 100, 200, 500, 1000 yrs", scale:"1Km", value:"1"},
                         liv2: {desc:"water depth, duration for return periods 2, 5, 10, 20, 50, 100, 200, 500, 1000 yrs", scale:"100m", value:"2"},
                         liv3: {desc:"water depth, duration and flow velocity for return periods 2, 5, 10, 20, 50, 100, 200, 500, 1000 yrs", scale:"10m", value:"3"},
@@ -294,6 +300,25 @@ RodiApp.service("RodiSrv", ['$http', function($http, $rootScope, $scope)
 
         var numberFloat = parseFloat(value);
         return "background-color: rgb(255," + parseInt((1 - numberFloat) * 255) + "," + parseInt((1 - numberFloat) * 255) + ");"
+    };
+
+    this.getHazardList = function()
+        // Return the list of country Available
+    {
+
+        // Return country list
+
+        var objHazard = [
+            {code:"RF", desc:"River Flood"},
+            {code:"EQ", desc:"Earthquake"},
+            {code:"VO", desc:"Volcano"},
+            {code:"CY", desc:"Cyclone"},
+            {code:"CF", desc:"Coastal Flood"},
+            {code:"WS", desc:"Water Scarsity"},
+            {code:"LS", desc:"Landslide"},
+            {code:"TS", desc:"Tsunami"}
+            ];
+        return objHazard;
     };
 
     this.getHazardCategory = function()
@@ -367,11 +392,11 @@ RodiApp.service("RodiSrv", ['$http', function($http, $rootScope, $scope)
             code: "",
             name: "",
             abstract: "",
-            dataset_type: "",
-            resolution: "",
+            dataset_type: "--",
+            resolution: "--",
             country: "--",
             hazard_category: "--",
-            hazard: "",
+            hazard: "--",
             usr_ins: "",
             data_ins: "",
             status: "0",
