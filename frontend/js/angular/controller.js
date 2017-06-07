@@ -2,7 +2,7 @@
  * Created by Manuel on 15/05/2017.
  */
 
-RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', function ($scope, RodiSrv, $window) {
+RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', function ($scope, RodiSrv, $window, $filter) {
 
     // ************************************** //
     // *************** INIT ***************** //
@@ -76,6 +76,30 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', function ($scope
     // ************************************** //
 
     $scope.objDataset = RodiSrv.getDatasetEmptyStructure();
+    $scope.objDatasetClass = RodiSrv.getDatasetClassification();
+    $scope.countryList = RodiSrv.getCountryList();
+    $scope.hazardList = RodiSrv.getHazardList();
+    $scope.objResolutionList = [];
+    $scope.bResolutionDisable = true;
+
+    $scope.filterDatasetResolution = function()
+    {
+        var aFilter = [];
+        if($scope.objDataset.dataset_type != '--')
+        {
+            // hazard category selected
+            aFilter = $filter('filter')($scope.objDatasetClass, {code: $scope.objDataset.dataset_type});
+
+            if (!angular.equals({}, aFilter[0].level))
+            {
+                // Resolution found
+                $scope.objResolutionList = aFilter[0].level;
+                $scope.bResolutionDisable = false;
+            } else {
+                $scope.bResolutionDisable = true;
+            }
+        }
+    }
 
     $scope.saveDataser = function()
     {
