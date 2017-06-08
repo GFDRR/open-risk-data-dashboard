@@ -86,6 +86,15 @@ fi
 
 # manage migrations
 cd "$BASE_DIR"
+cp ordd/settings.py.tmpl ordd/settings.py
+IFS='
+'
+for rep in $(env | grep '^ORDD_CONF__' | sed 's/=.*//g'); do
+    rep_name="$(echo "$rep" | sed 's/^ORDD_CONF__//g')"
+    rep_value="${!rep}"
+    sed -i "s|^$rep_name[ =].*|$rep_value|g" ordd/settings.py
+done
+
 python3 manage.py makemigrations api_exp01
 python3 manage.py makemigrations ordd_api
 python3 manage.py migrate
