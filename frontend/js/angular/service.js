@@ -594,4 +594,13 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         return true;
     }
 
+    this.sendRegisterRequest = function(usr)
+    {
+        // API: send obj usr = {name: "", surname="", email=""}
+        // registrazione, invio mail di conferma all'utente, invio mail con nome utente e password per accesso
+
+        console.log(usr);
+        return true;
+    }
+
 }]);

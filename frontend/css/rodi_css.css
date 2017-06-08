@@ -178,6 +178,17 @@ section
     margin-top: 25%;
 }
 
+.register_txt_box
+{
+    width:100%;
+    padding-right: 20px;
+}
+
+.register_error
+{
+    color:red;
+}
+
 /*
 ==============================================================================
 

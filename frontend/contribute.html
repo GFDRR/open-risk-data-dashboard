@@ -109,7 +109,8 @@
                     <div role="tabpanel" class="tab-pane fade in active" id="dataset">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
-                                <input type="button" class="btn btn-success" value="Save dataset" ng-click="saveDataser()">
+                                <input type="button" class="btn btn-success" value="Save dataset" ng-click="saveDataser()"><br />
+                                <span class="small text-muted">(*) Required</span>
                             </div>
                         </div>
                         <br />
@@ -199,7 +200,7 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" ng-repeat="quest in questions | filter: {type: 'yn'}">
                                 <div class="contribute_field_box">
-                                    <label>{{$index + 8}}) {{quest.desc}}</label><br/>
+                                    <label>{{$index + 8}}) {{quest.desc}} (*)</label><br/>
                                     <input type="radio" value="yes" name="questioncode{{quest.code}}" ng-model="questioncode" ng-click="saveSelection(quest.code, 'yes')"> Yes
                                     &nbsp;&nbsp;
                                     <input type="radio" value="no" name="questioncode{{quest.code}}" ng-model="questioncode" ng-click="saveSelection(quest.code, 'no')"> No
@@ -226,7 +227,8 @@
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
-                                <input type="button" class="btn btn-success" value="Save dataset" ng-click="saveDataser()">
+                                <input type="button" class="btn btn-success" value="Save dataset" ng-click="saveDataser()"><br />
+                                <span class="small text-muted">(*) Required</span>
                             </div>
                         </div>
                     </div>

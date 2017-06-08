@@ -139,4 +139,41 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
         }
     }
 
+    // ************************************** //
+    // ******* REGISTER & FORGOT PSW ******** //
+    // ************************************** //
+
+    $scope.usr = {
+        name: "",
+        surname: "",
+        email: ""
+    };
+    $scope.checkMail = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
+
+    $scope.sendRequestRegister = function()
+    {
+        if($scope.usr.name != '' && $scope.usr.surname != '' && $scope.usr.email != '')
+        {
+            // send request via API
+            var bRegister = RodiSrv.sendRegisterRequest($scope.usr);
+
+            if(bRegister)
+            {
+                vex.dialog.alert('Successfully sent request');
+                $scope.usr = {
+                    name: "",
+                    surname: "",
+                    email: ""
+                };
+            } else
+                {
+                    vex.dialog.alert('Error: request not sent!');
+                }
+
+        } else
+            {
+                // Error message
+                vex.dialog.alert('All fields are required!');
+            }
+    }
 } ]);
