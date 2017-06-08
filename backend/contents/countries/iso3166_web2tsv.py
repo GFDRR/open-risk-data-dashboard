@@ -1,7 +1,8 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
+import codecs
 
-with open('iso3166.web', 'rb') as txtfile:
-    with open('iso3166.tsv', 'wb') as csvfile:
+with codecs.open('iso3166_web.txt', 'rb', encoding='utf-8') as txtfile:
+    with codecs.open('iso3166.tsv', 'wb', encoding='utf-8') as csvfile:
         for i, row in enumerate(txtfile):            
             csvfile.write(row.rstrip('\n'))
             if (i % 5) == 4:
