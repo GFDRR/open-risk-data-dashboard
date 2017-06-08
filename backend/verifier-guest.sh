@@ -80,7 +80,9 @@ python3 manage.py makemigrations api_exp01
 python3 manage.py makemigrations ordd_api
 python3 manage.py migrate
 
-echo "from django.contrib.auth.models import User ; User.objects.create_superuser(username='admin', password='adminadmin', email='admin@openquake.org')" | python3 manage.py shell
+ORDD_ADMIN_PASSWORD="${ORDD_ADMIN_PASSWORD:-adminadmin}"
+
+echo "from django.contrib.auth.models import User ; User.objects.create_superuser(username='admin', password='$ORDD_ADMIN_PASSWORD', email='admin@openquake.org')" | python3 manage.py shell
 
 python3 manage.py load_countries --filein contents/countries/ordd_countries_list_iso3166.csv
 python3 manage.py jenkins
