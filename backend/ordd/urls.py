@@ -16,8 +16,10 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from .settings import API_EXP01_BASEPATH
+from .settings import ORDD_API_BASEPATH
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^' + API_EXP01_BASEPATH, include('api_exp01.urls'))
+    url(r'^' + API_EXP01_BASEPATH, include('api_exp01.urls')),
+    url(r'^' + ORDD_API_BASEPATH, include('ordd_api.urls')),
 ]
