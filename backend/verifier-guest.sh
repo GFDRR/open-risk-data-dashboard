@@ -1,12 +1,20 @@
 #!/bin/bash
+
+# OVERRIDABLE VARIABLES
+
+# admin password
+ORDD_ADMIN_PASSWORD="${ORDD_ADMIN_PASSWORD:-adminadmin}"
+# listen port
+ORDD_SERVER_PORT="${ORDD_SERVER_PORT:-8000}"
+
 if [ $_ != $0 ]; then
     BASE_DIR="$(dirname $BASH_SOURCE)"
     if [ -z "$VIRTUAL_ENV" ]; then
         source $HOME/venv/bin/activate
     fi
     cd "$BASE_DIR"
-    python3 ./manage.py runserver 0.0.0.0:8000 &
-    echo "ssh -L 127.0.1.1:8000:127.0.1.1:8000 <your-django-machine>"
+    python3 ./manage.py runserver 0.0.0.0:${ORDD_SERVER_PORT} &
+    echo "ssh -L 127.0.1.1:8000:127.0.1.1:${ORDD_SERVER_PORT} <your-django-machine>"
     echo "and then connect your browser to localhost.localdomain:8000"
     cd -
     return 0
@@ -79,8 +87,6 @@ cd "$BASE_DIR"
 python3 manage.py makemigrations api_exp01
 python3 manage.py makemigrations ordd_api
 python3 manage.py migrate
-
-ORDD_ADMIN_PASSWORD="${ORDD_ADMIN_PASSWORD:-adminadmin}"
 
 echo "from django.contrib.auth.models import User ; User.objects.create_superuser(username='admin', password='$ORDD_ADMIN_PASSWORD', email='admin@openquake.org')" | python3 manage.py shell
 
