@@ -1,5 +1,7 @@
 #!/bin/bash
 
+underscore="$_"
+
 # OVERRIDABLE VARIABLES
 
 # admin password
@@ -9,7 +11,7 @@ ORDD_SERVER_PORT="${ORDD_SERVER_PORT:-8000}"
 # skip ubuntu updates
 ORDD_SKIP_APT_UPDATE="${ORDD_SKIP_APT_UPDATE:-}"
 
-if [ "$_" != "$0" ]; then
+if [ "$underscore" != "$0" ]; then
     BASE_DIR="$(dirname $BASH_SOURCE)"
     if [ -z "$VIRTUAL_ENV" ]; then
         source $HOME/venv/bin/activate
