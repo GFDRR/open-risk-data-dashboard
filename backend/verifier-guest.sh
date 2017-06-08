@@ -1,4 +1,15 @@
 #!/bin/bash
+if [ $_ != $0 ]; then
+    BASE_DIR="$(dirname $BASH_SOURCE)"
+    source $HOME/venv/bin/activate
+    cd "$BASE_DIR"
+    python3 ./manage.py runserver 0.0.0.0:8000 &
+    echo "ssh -L 127.0.1.1:8000:127.0.1.1:8000 <your-django-machine>"
+    echo "and then connect your browser to localhost.localdomain:8000"
+    cd -
+    return 0
+fi
+
 set -e
 #display each command before executing it
 set -x
@@ -62,8 +73,12 @@ popd
 # manage migrations
 cd "$BASE_DIR"
 python3 manage.py makemigrations api_exp01
+python3 manage.py makemigrations ordd_api
 python3 manage.py migrate
 
+echo "from django.contrib.auth.models import User ; User.objects.create_superuser(username='admin', password='adminadmin', email='admin@openquake.org')" | python3 manage.py shell
+
+python3 manage.py load_countries --reload --filein contents/countries/ordd_countries_list_iso3166.csv
 python3 manage.py jenkins
 cd -
 

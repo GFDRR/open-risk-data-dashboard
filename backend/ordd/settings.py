@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'django_jenkins',
     'api_exp01',
+    'ordd_api',
 ]
 
 MIDDLEWARE = [
