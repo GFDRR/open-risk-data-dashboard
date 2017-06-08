@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 import sys
 import csv
-from pprint import pprint
 import codecs
 
 iso_countries = []
@@ -10,11 +9,7 @@ with codecs.open('iso3166.csv', 'rb', encoding='utf-8') as csvfile:
     for country in countries:
         iso_countries.append(country)
 
-# pprint(iso_countries)
-# sys.exit(123)
 iso_diff = iso_countries[:]
-# pprint(iso_diff)
-# sys.exit(123)
 
 with codecs.open('ordd_countries_list.csv', 'rb', encoding='utf-8') as csvfile:
     with codecs.open('ordd_countries_list_iso3166.csv', 'wb', encoding='utf-8') as csv_out:

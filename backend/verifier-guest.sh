@@ -54,6 +54,11 @@ virtualenv -p /usr/bin/python3 venv
 . venv/bin/activate
 pip install -r $BASE_DIR/requirements.txt
 
+# generate content
+pushd "${BASE_DIR}/contents/countries"
+./process.sh
+popd
+
 # manage migrations
 cd "$BASE_DIR"
 python3 manage.py makemigrations api_exp01
