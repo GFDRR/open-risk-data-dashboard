@@ -1,7 +1,9 @@
 #!/bin/bash
 if [ $_ != $0 ]; then
     BASE_DIR="$(dirname $BASH_SOURCE)"
-    source $HOME/venv/bin/activate
+    if [ -z "$VIRTUAL_ENV" ]; then
+        source $HOME/venv/bin/activate
+    fi
     cd "$BASE_DIR"
     python3 ./manage.py runserver 0.0.0.0:8000 &
     echo "ssh -L 127.0.1.1:8000:127.0.1.1:8000 <your-django-machine>"
