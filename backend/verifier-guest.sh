@@ -80,7 +80,7 @@ python3 manage.py migrate
 
 echo "from django.contrib.auth.models import User ; User.objects.create_superuser(username='admin', password='adminadmin', email='admin@openquake.org')" | python3 manage.py shell
 
-python3 manage.py load_countries --reload --filein contents/countries/ordd_countries_list_iso3166.csv
+python3 manage.py load_countries --filein contents/countries/ordd_countries_list_iso3166.csv
 python3 manage.py jenkins
 cd -
 
