@@ -6,6 +6,8 @@
 ORDD_ADMIN_PASSWORD="${ORDD_ADMIN_PASSWORD:-adminadmin}"
 # listen port
 ORDD_SERVER_PORT="${ORDD_SERVER_PORT:-8000}"
+# skip ubuntu updates
+ORDD_SKIP_APT_UPDATE="${ORDD_SKIP_APT_UPDATE:-}"
 
 if [ $_ != $0 ]; then
     BASE_DIR="$(dirname $BASH_SOURCE)"
@@ -65,11 +67,11 @@ if [ -f .gem_init.sh ]; then
     . .gem_init.sh
 fi
 
-sudo apt-get -y --force-yes update
-sudo apt-get -y --force-yes upgrade
-
+if [ -z "$ORDD_SKIP_APT_UPDATE" ]; then
+    sudo apt-get -y --force-yes update
+    sudo apt-get -y --force-yes upgrade
+fi
 sudo apt-get -y --force-yes install python-virtualenv python3-virtualenv python-pip
-
 
 virtualenv -p /usr/bin/python3 venv
 . venv/bin/activate
