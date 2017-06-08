@@ -66,9 +66,11 @@ virtualenv -p /usr/bin/python3 venv
 pip install -r $BASE_DIR/requirements.txt
 
 # generate content
-pushd "${BASE_DIR}/contents/countries"
-./process.sh
-popd
+if [ -n "$GENERATE_FROM_SOURCES" ]; then
+    pushd "${BASE_DIR}/contents/countries"
+    ./process.sh
+    popd
+fi
 
 # manage migrations
 cd "$BASE_DIR"
