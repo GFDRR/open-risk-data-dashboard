@@ -4,7 +4,7 @@ underscore="$_"
 
 # OVERRIDABLE VARIABLES
 
-ORDD_VENV="${ORD_VENV:-venv}"
+ORDD_VENV="${ORDD_VENV:-venv}"
 # admin password
 ORDD_ADMIN_PASSWORD="${ORDD_ADMIN_PASSWORD:-adminadmin}"
 # listen port
