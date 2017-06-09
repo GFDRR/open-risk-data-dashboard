@@ -18,7 +18,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
             "valueData": "",
             "countryID": "",
             "countryDesc": "",
-            "bPopupCountry": true,
+            "bPopupCountry": false,
             "popupClass": "",
             "popupX": "",
             "popupY": "",
