@@ -16,9 +16,6 @@ RodiApp.directive('svgMap', ['$compile', function ($compile) {
                 regionElement.attr("region", "");
                 regionElement.attr("array-data", "arrayData");
                 regionElement.attr("obj-rodi-variable", "objRodiVariable");
-                // regionElement.attr("b-popup-country", "bPopupCountry");
-                // regionElement.attr("value-data", "valueData");
-                // regionElement.attr("popup-class", "popupClass");
                 $compile(regionElement)(scope);
             })
 
@@ -44,16 +41,15 @@ RodiApp.directive('region', ['$compile', '$window', function ($compile, $window)
 
             scope.showPopup = function ($event) {
 
-                console.log("X ->",$event.originalEvent.pageX,"Y ->",$event.originalEvent.pageY);
-
-                scope.popupX = $event.originalEvent.pageX;
-                scope.popupY = $event.originalEvent.pageY;
+                scope.objRodiVariable.popupX = $event.originalEvent.pageX;
+                scope.objRodiVariable.popupY = $event.originalEvent.pageY;
 
                 scope.objRodiVariable.bPopupCountry = true;
                 scope.objRodiVariable.countryID = scope.elementId;
                 scope.objRodiVariable.countryDesc = scope.elementDesc;
                 scope.objRodiVariable.valueData = scope.arrayData[scope.elementId].value;
                 scope.objRodiVariable.popupClass = "animated fadeIn";
+
             };
 
             scope.hidePopup = function () {

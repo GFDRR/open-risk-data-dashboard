@@ -123,12 +123,11 @@
 
                 <div class="map_place">
                     <div svg-map></div>
-                    <!--<div class="popup_country_data {{popupClass}}" ng-if="objRodiVariable.bPopupCountry">-->
-                    <div class="popup_country_data {{popupClass}}" ng-style="{'top':objRodiVariable.popupY}" ng-if="objRodiVariable.bPopupCountry">
+
+                    <div class="popup_country_data {{popupClass}}" ng-style="{'top':objRodiVariable.popupY, 'left': objRodiVariable.popupX}" ng-if="objRodiVariable.bPopupCountry">
                         <strong>Country code:</strong> {{objRodiVariable.countryID}}<br />
                         <strong>Country description:</strong> {{objRodiVariable.countryDesc}}<br />
                         <strong>Country index: {{objRodiVariable.valueData}}</strong>
-
                     </div>
                 </div>
 
