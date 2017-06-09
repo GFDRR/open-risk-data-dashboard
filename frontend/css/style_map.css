@@ -42,8 +42,8 @@ svg path:hover , path.active {
 .popup_country_data
 {
     position:absolute;
-    right:10px;
-    top:80px;
+    /*right:10px;*/
+    /*top:80px;*/
     background-color: red;
     color:#ffffff;
     padding:20px;

@@ -5,8 +5,6 @@
 RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 {
 
-    var baseAPIurl = "test";
-
     this.getMapScores = function(filters)
     {
 
@@ -98,14 +96,24 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         return objNews;
     };
 
-    this.getCountryList = function()
+    this.getCountryList = function(onSuccess, onError)
     // Return the list of country Available
     {
 
         // Return country list
+        $http({
+            method: 'GET',
+            url: baseAPIurl + 'country/'
+        }).then(function (data) {
+            if(onSuccess) onSuccess(data.data)
+        },function(data){
+            if(onError)onError(data)
+        });
 
-        var objCountry = [{code:"IT", desc:"Italy"}, {code:"AR", desc:"Argentina"}, {code:"AU", desc:"Australia"}];
-        return objCountry;
+
+
+        // var objCountry = [{code:"IT", desc:"Italy"}, {code:"AR", desc:"Argentina"}, {code:"AU", desc:"Australia"}];
+        // return objCountry;
     };
 
     this.getMatrixData = function(filters)
@@ -535,7 +543,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 
     /* LOGIN services */
 
-    this.checkLogin = function(usr, psw)
+    this.checkLogin = function(usr, psw, onSuccess, onError)
     {
     /*    Check if login is correct, if so set the local cookies
         Return KO if login is incorrect or User Datails
@@ -550,16 +558,53 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
          }
     */
 
-    if(usr == 'cima')
-    {
-        return {status: "OK", usr_name:"cima", name: "NameTest", surname: "surnameTest", email:"manuel.cavallaro@cimafoundation.org", level: 0}
+        var sData = $.param({
+            username: usr,
+            password: psw
+        });
 
-    }
-    else
-        {
-            return {status: "KO", usr_name:"", name: "", surname: "", email:"", level: 3}
+        var config = {
+            headers : {
+                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;',
+                'Authorization' :"Token:"
+            }
         }
 
+        $http.post(baseAPIurl + 'get-token/', sData, config
+        ).then (function(data){
+            // Success call
+            if(onSuccess) onSuccess(data);
+        }, function(data){
+            // Error call
+            if(onError)onError(data)
+        });
+
+
+
+        // $http({
+        //     method: 'POST',
+        //     url: baseAPIurl + 'get-token/',
+        //     headers: {
+        //         'Authorization' :"Token:",
+        //         'username': usr,
+        //         'password': psw
+        //     },
+        // }).then(function (data) {
+        //     if(onSuccess) onSuccess(data)
+        // },function(data){
+        //     if(onError)onError(data)
+        // });
+
+    // if(usr == 'cima')
+    // {
+    //     return {status: "OK", usr_name:"cima", name: "NameTest", surname: "surnameTest", email:"manuel.cavallaro@cimafoundation.org", level: 0}
+    //
+    // }
+    // else
+    //     {
+    //         return {status: "KO", usr_name:"", name: "", surname: "", email:"", level: 3}
+    //     }
+    //
     }
 
     this.setPageIndex = function(strpath)

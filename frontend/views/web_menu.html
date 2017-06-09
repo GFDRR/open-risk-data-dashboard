@@ -32,8 +32,7 @@
                 <div class="collapse navbar-collapse" id="menu-website">
                     <ul class="nav navbar-nav">
                         <!--<li ng-if="bHome"><a href="" ng-click="changeview('index.html', '0')"><i class="fa fa-home" aria-hidden="true"></i></a></li>-->
-                        <li ng-if="!bLogin"><a href="" ng-click="loginform()">Contribute</a></li>
-                        <li ng-if="bLogin"><a href="" ng-click="changeview('contribute.html', '1')">Contribute</a></li>
+                        <li><a href="" ng-click="changeview('contribute.html', '1')">Contribute</a></li>
                         <li><a href="" ng-click="changeview('methodology.html', '2')">Methodolody</a></li>
                         <li><a href="" ng-click="changeview('browse-data.html', '3')">Countries</a></li>
                         <!--
@@ -56,8 +55,8 @@
     <form class="navbar-form navbar-left pull-right">
         <div class="form-group">
             <input list="countryList" ng-model="searchValue" type="text" class="form-control" placeholder="Search">
-            <datalist id="countryList">
-                <option ng-repeat="item in countrySuggestion" value="{{ item.desc }}">{{ item.code }}</option>
+            <datalist id="countryList" style="overflow:auto;">
+                <option ng-repeat="item in countrySuggestion | orderBy: 'name' " value="{{ item.name }}">{{ item.iso2 }}</option>
             </datalist>
         </div>
         <a type="submit" class="" ng-click="searchSubmit()"><i class="fa fa-search fa-2x"></i></a>

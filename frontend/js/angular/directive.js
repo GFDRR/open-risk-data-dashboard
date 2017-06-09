@@ -42,7 +42,13 @@ RodiApp.directive('region', ['$compile', '$window', function ($compile, $window)
                 $window.location.href = scope.objRodiVariable.location + 'country-details.html?idcountry='+ scope.elementId;
             };
 
-            scope.showPopup = function () {
+            scope.showPopup = function ($event) {
+
+                console.log("X ->",$event.originalEvent.pageX,"Y ->",$event.originalEvent.pageY);
+
+                scope.popupX = $event.originalEvent.pageX;
+                scope.popupY = $event.originalEvent.pageY;
+
                 scope.objRodiVariable.bPopupCountry = true;
                 scope.objRodiVariable.countryID = scope.elementId;
                 scope.objRodiVariable.countryDesc = scope.elementDesc;
@@ -51,6 +57,7 @@ RodiApp.directive('region', ['$compile', '$window', function ($compile, $window)
             };
 
             scope.hidePopup = function () {
+
                 scope.objRodiVariable.bPopupCountry = false;
                 // scope.bPopupCountry = false;
                 scope.objRodiVariable.valueData = "";
@@ -65,7 +72,7 @@ RodiApp.directive('region', ['$compile', '$window', function ($compile, $window)
                 element.attr("ng-click", "regionClick()");
 
                 // Mouse over-leave
-                element.attr("ng-mouseover", "showPopup()");
+                element.attr("ng-mouseover", "showPopup($event)");
                 element.attr("ng-mouseleave", "hidePopup()");
 
                 // Remove style elements from svg

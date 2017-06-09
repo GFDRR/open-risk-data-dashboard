@@ -2,19 +2,26 @@
  * Created by Manuel on 15/05/2017.
  */
 
-RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', function ($scope, RodiSrv, $window, $filter) {
+RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$cookieStore', function ($scope, RodiSrv, $window, $filter, $cookieStore) {
 
     // ************************************** //
     // *************** INIT ***************** //
     // ************************************** //
+
+    $scope.bLogin = false;
+    $scope.tokenid = $cookieStore.get('rodi_token');
+
+    if($scope.tokenid) {$scope.bLogin = true; } else {$scope.bLogin = false;}
 
     $scope.objRodiVariable =
         {
             "valueData": "",
             "countryID": "",
             "countryDesc": "",
-            "bPopupCountry": false,
+            "bPopupCountry": true,
             "popupClass": "",
+            "popupX": "",
+            "popupY": "",
             "location": baseUrl
         };
 
@@ -77,7 +84,17 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', funct
 
     $scope.objDataset = RodiSrv.getDatasetEmptyStructure();
     $scope.objDatasetClass = RodiSrv.getDatasetClassification();
-    $scope.countryList = RodiSrv.getCountryList();
+
+    RodiSrv.getCountryList(
+        function(data){
+            // Success
+            $scope.countryList = data;
+        }, function(data){
+            // Error
+            //TODO: error message
+    });
+
+
     $scope.hazardList = RodiSrv.getHazardList();
     $scope.questions = RodiSrv.getQuestions();
     $scope.objResolutionList = [];

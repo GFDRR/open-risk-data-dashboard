@@ -33,6 +33,7 @@
     <link href="bower_components/animate.css/animate.min.css" rel="stylesheet">
 
     <!-- RODI APP -->
+    <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
     <script src="js/angular/app.js"></script>
     <script src="js/angular/service.js" type="text/javascript"></script>
     <script src="js/angular/controller.js" type="text/javascript"></script>
@@ -119,18 +120,16 @@
             </div>
             <div class="row" style="">
                 <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">-->
-                <div class="popup_country_data {{popupClass}}" ng-if="objRodiVariable.bPopupCountry">
+
+                <div class="map_place">
+                    <div svg-map></div>
+                    <!--<div class="popup_country_data {{popupClass}}" ng-if="objRodiVariable.bPopupCountry">-->
+                    <div class="popup_country_data {{popupClass}}" ng-style="{'top':objRodiVariable.popupY}" ng-if="objRodiVariable.bPopupCountry">
                         <strong>Country code:</strong> {{objRodiVariable.countryID}}<br />
                         <strong>Country description:</strong> {{objRodiVariable.countryDesc}}<br />
                         <strong>Country index: {{objRodiVariable.valueData}}</strong>
 
-                </div>
-
-                <div class="map_place">
-                    <div svg-map></div>
-
-
-
+                    </div>
                 </div>
 
                 <!--</div>-->
