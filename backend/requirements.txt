@@ -2,3 +2,4 @@ Django==1.11.1
 djangorestframework==3.6.3
 pkg-resources==0.0.0
 django-jenkins==0.110.0
+django-cors-headers==2.1.0
