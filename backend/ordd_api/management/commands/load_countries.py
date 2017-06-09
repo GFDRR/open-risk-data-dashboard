@@ -24,7 +24,7 @@ class Command(BaseCommand):
                     if country_in[1]:
                         region_cur = Region(name=country_in[1])
                         region_cur.save()
-                    country = Country(iso3=country_in[0], name=country_in[2], region=region_cur)
+                    country = Country(iso2=country_in[0], name=country_in[2], region=region_cur)
                     country.save()
 
                 self.stdout.write(self.style.SUCCESS('Successfully imported Regions and Countries"'))

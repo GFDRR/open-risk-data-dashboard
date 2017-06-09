@@ -24,13 +24,13 @@ with codecs.open('ordd_countries_list.csv', 'rb', encoding='utf-8') as csvfile:
             for i, v in enumerate(iso_countries):
                 if v[0] == country[1]:
                     iso_diff.remove(v)
-                    country.insert(0, v[3])
+                    country.insert(0, v[2])
                     print("FOUND country: [%s]" % country[1])
                     break
                 elif v[0].startswith(country[1] + ','):
                     print("FOUND2 country: [%s] ISO: [%s]" % (country[1], v[0]))
                     iso_diff.remove(v)
-                    country.insert(0, v[3])
+                    country.insert(0, v[2])
                     break
                 else:
                     if '(' in v[0]:
@@ -40,7 +40,7 @@ with codecs.open('ordd_countries_list.csv', 'rb', encoding='utf-8') as csvfile:
                         if country[1] == v_sub:
                             print("FOUND4 country: [%s] ISO: [%s]" % (country[1], v[0]))
                             iso_diff.remove(v)
-                            country.insert(0, v[3])
+                            country.insert(0, v[2])
                             break
 
                         # print "XXX [%s]" % (v_in + ' ' + v_sub)
@@ -48,7 +48,7 @@ with codecs.open('ordd_countries_list.csv', 'rb', encoding='utf-8') as csvfile:
                         if country[1] == (v_in + ' ' + v_sub):
                             print("FOUND5 country: [%s] ISO: [%s]" % (country[1], v[0]))
                             iso_diff.remove(v)
-                            country.insert(0, v[3])
+                            country.insert(0, v[2])
                             break
 
                     v_parts = v[0].split(',')
@@ -57,7 +57,7 @@ with codecs.open('ordd_countries_list.csv', 'rb', encoding='utf-8') as csvfile:
                         if (v_parts[1][1:] + ' ' + v_parts[0]) == country[1]:
                             print("FOUND3 country: [%s] ISO: [%s]" % (country[1], v[0]))
                             iso_diff.remove(v)
-                            country.insert(0, v[3])
+                            country.insert(0, v[2])
                             break
             else:
                 print("NOT FOUND country: [%s]" % country[1])
