@@ -4,6 +4,7 @@ underscore="$_"
 
 # OVERRIDABLE VARIABLES
 
+ORDD_VENV="${ORD_VENV:-venv}"
 # admin password
 ORDD_ADMIN_PASSWORD="${ORDD_ADMIN_PASSWORD:-adminadmin}"
 # listen port
@@ -14,7 +15,7 @@ ORDD_SKIP_APT_UPDATE="${ORDD_SKIP_APT_UPDATE:-}"
 if [ "$underscore" != "$0" ]; then
     BASE_DIR="$(dirname $BASH_SOURCE)"
     if [ -z "$VIRTUAL_ENV" ]; then
-        source $HOME/venv/bin/activate
+        source $HOME/$ORDD_VENV/bin/activate
     fi
     cd "$BASE_DIR"
     python3 ./manage.py runserver 0.0.0.0:${ORDD_SERVER_PORT} &
@@ -49,8 +50,8 @@ fi
     
 #
 # cleanups
-if [ -d venv ]; then
-    rm -rf venv
+if [ -d $ORDD_VENV ]; then
+    rm -rf $ORDD_VENV
 fi
 
 if [ -f "$BASE_DIR/db.sqlite3" ]; then
@@ -75,8 +76,8 @@ if [ -z "$ORDD_SKIP_APT_UPDATE" ]; then
 fi
 sudo apt-get -y --force-yes install python-virtualenv python3-virtualenv python-pip
 
-virtualenv -p /usr/bin/python3 venv
-. venv/bin/activate
+virtualenv -p /usr/bin/python3 $ORDD_VENV
+. $ORDD_VENV/bin/activate
 pip install -r $BASE_DIR/requirements.txt
 
 # generate content
