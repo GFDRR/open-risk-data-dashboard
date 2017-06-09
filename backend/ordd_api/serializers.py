@@ -14,5 +14,5 @@ class CountrySerializer(serializers.ModelSerializer):
     """Serializer of country"""
     class Meta:
         model = Country
-        fields = ('iso3', 'name', 'region')
+        fields = ('iso2', 'name', 'region')
         # read_only_fields = ('date_created', 'date_modified')
