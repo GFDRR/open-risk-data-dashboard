@@ -1,14 +1,30 @@
 # api_exp01/views.py
 
 from rest_framework import generics, permissions
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+
+from django.contrib.auth import get_user
+from django.contrib.auth.models import User
 # from .permissions import IsOwner
-from .serializers import RegionSerializer, CountrySerializer
+from .serializers import RegionSerializer, CountrySerializer, UserSerializer
 from .models import Region, Country
 
 #
 #  NOTE:
 #    permission_classes = (
 #        permissions.IsAuthenticated, IsOwner)
+
+
+# class UserGetView(generics.RetrieveAPIView):
+#     serializer_class = serializers.PostSerializer
+@api_view(['GET'])
+def UserRetrieveView(request):
+    """This view return base user fields, included groups"""
+    instance = get_user(request)
+    print(instance.id)
+    serializer = UserSerializer(instance)
+    return Response(serializer.data)
 
 
 class RegionCreateView(generics.ListCreateAPIView):

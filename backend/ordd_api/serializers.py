@@ -16,3 +16,16 @@ class CountrySerializer(serializers.ModelSerializer):
         model = Country
         fields = ('iso2', 'name', 'region')
         # read_only_fields = ('date_created', 'date_modified')
+
+
+class UserSerializer(serializers.BaseSerializer):
+    def to_representation(self, obj):
+        print("groups");
+        print(obj.groups.all());
+        # , 'groups': obj.groups.values_list('name', flat=True)
+        return {
+            'username': obj.username,
+            'first_name': obj.first_name,
+            'last_name': obj.last_name,
+            'groups': obj.groups.values_list('name', flat=True)
+        }
