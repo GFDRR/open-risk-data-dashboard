@@ -19,15 +19,17 @@ class RegionCreateView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         """Save the post data when creating a new bucketlist."""
-        serializer.save(owner=self.request.user)
+        # owner=self.request.user
+        serializer.save()
 
 
 class CountryCreateView(generics.ListCreateAPIView):
     """This class handles the GET and POSt requests of our rest api."""
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
     def perform_create(self, serializer):
         """Save the post data when creating a new bucketlist."""
-        serializer.save(owner=self.request.user)
+        # owner=self.request.user
+        serializer.save()
