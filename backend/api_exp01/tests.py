@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 
 from django.test import TestCase
 from .models import Bucketlist
-from ordd.settings import API_EXP01_BASEPATH
+from ordd.settings import ORDD_API_BASEPATH, API_EXP01_BASEPATH
 
 class ModelTestCase(TestCase):
     """This class defines the test suite for the bucketlist model."""
@@ -54,14 +54,14 @@ class ViewTestCase(TestCase):
     def test_authorization_is_enforced(self):
         """Test that the api has user authorization."""
         new_client = APIClient()
-        res = new_client.get('/' + API_EXP01_BASEPATH + 'bucketlists/', kwargs={'pk': 3}, format="json")
-        self.assertEqual(res.status_code, status.HTTP_401_UNAUTHORIZED)
+        res = new_client.get('/' + ORDD_API_BASEPATH + API_EXP01_BASEPATH + 'bucketlists/', kwargs={'pk': 3}, format="json")
+        self.assertEqual(res.status_code, status.HTTP_403_FORBIDDEN)
 
     def test_api_can_get_a_bucketlist(self):
         """Test the api can get a given bucketlist."""
         bucketlist = Bucketlist.objects.get(id=1)
         response = self.client.get(
-            '/' + API_EXP01_BASEPATH + 'bucketlists/',
+            '/' + ORDD_API_BASEPATH + API_EXP01_BASEPATH + 'bucketlists/',
             kwargs={'pk': bucketlist.id}, format="json")
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
