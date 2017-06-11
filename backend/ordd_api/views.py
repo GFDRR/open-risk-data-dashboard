@@ -5,7 +5,6 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 
 from django.contrib.auth import get_user
-from django.contrib.auth.models import User
 # from .permissions import IsOwner
 from .serializers import RegionSerializer, CountrySerializer, UserSerializer
 from .models import Region, Country
@@ -22,7 +21,6 @@ from .models import Region, Country
 def UserRetrieveView(request):
     """This view return base user fields, included groups"""
     instance = get_user(request)
-    print(instance.id)
     serializer = UserSerializer(instance)
     return Response(serializer.data)
 

@@ -27,5 +27,7 @@ class UserSerializer(serializers.BaseSerializer):
             'username': obj.username,
             'first_name': obj.first_name,
             'last_name': obj.last_name,
-            'groups': obj.groups.values_list('name', flat=True)
+            'groups': obj.groups.values_list('name', flat=True),
+            'title': obj.profile.title,
+            'institution': obj.profile.institution
         }
