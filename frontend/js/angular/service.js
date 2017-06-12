@@ -545,66 +545,43 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 
     this.checkLogin = function(usr, psw, onSuccess, onError)
     {
-    /*    Check if login is correct, if so set the local cookies
-        Return KO if login is incorrect or User Datails
-        Object
-         {
-            status: "OK",
-            usr_name: "user name - login"
-            name: "name",
-            surname: "surname",
-            email: "mail@domain.dom",
-            level: "0" -> 0: admin | 1: Reviewer | 2: Registered user | 3: guest user (not registered)
-         }
-    */
+    /*    Check if login is correct, if so set the local cookies    */
 
-        var sData = $.param({
-            username: usr,
-            password: psw
-        });
-
-        var config = {
-            headers : {
-                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;',
-                'Authorization' :"Token:"
-            }
+        var req = {
+            method: 'POST',
+            url: baseAPIurl + 'get-token/',
+            headers: {},
+            data: { 'username': usr,  'password': psw}
         }
 
-        $http.post(baseAPIurl + 'get-token/', sData, config
-        ).then (function(data){
-            // Success call
+        $http(req).then(function(data){
             if(onSuccess) onSuccess(data);
         }, function(data){
-            // Error call
-            if(onError)onError(data)
+            if(onError)onError(data);
         });
 
+    }
 
+    this.getUserInfo = function(token, onSuccess, onError)
+    {
+    //    Return user info
 
-        // $http({
-        //     method: 'POST',
-        //     url: baseAPIurl + 'get-token/',
-        //     headers: {
-        //         'Authorization' :"Token:",
-        //         'username': usr,
-        //         'password': psw
-        //     },
-        // }).then(function (data) {
-        //     if(onSuccess) onSuccess(data)
-        // },function(data){
-        //     if(onError)onError(data)
-        // });
+        console.log(token);
 
-    // if(usr == 'cima')
-    // {
-    //     return {status: "OK", usr_name:"cima", name: "NameTest", surname: "surnameTest", email:"manuel.cavallaro@cimafoundation.org", level: 0}
-    //
-    // }
-    // else
-    //     {
-    //         return {status: "KO", usr_name:"", name: "", surname: "", email:"", level: 3}
-    //     }
-    //
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'profile',
+            headers: {
+                'Authorization': 'Token ' + token
+            },
+            data: { }
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data);
+        }, function(data){
+            if(onError)onError(data);
+        });
     }
 
     this.setPageIndex = function(strpath)

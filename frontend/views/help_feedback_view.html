@@ -3,7 +3,7 @@
 <div class="help_feedback_box">
     <a ng-if="bHome" href="" ng-click="changeview('index.html', '0')"><i class="fa fa-home" aria-hidden="true"></i></a>
     <a ng-if="!bLogin" href="" ng-click="loginform()"><i class="fa icon-login"></i></a>
-    <a ng-if="bLogin" href="" ng-click="logout()"><small>Welcome {{userinfo.id}} - </small> Logout</a>
+    <a ng-if="bLogin" href="" ng-click="logout()"><small>Welcome {{userinfo.username}} - </small> Logout</a>
     <a ng-if="!bLogin" ng-click="changeview('register.html', '4')" href="" ><i class="fa icon-register"></i></a>
 
     <a href="" ng-click="showHelp()"><i class="fa fa-question-circle-o" aria-hidden="true"></i></a>

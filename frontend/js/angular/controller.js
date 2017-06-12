@@ -10,6 +10,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
     $scope.bLogin = false;
     $scope.tokenid = $cookieStore.get('rodi_token');
+    $scope.userinfo = $cookieStore.get('rodi_user');
 
     if($scope.tokenid) {$scope.bLogin = true; } else {$scope.bLogin = false;}
 
@@ -174,5 +175,11 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
             // vex.dialog.alert('Error: dataser not insert!');
         // }
     }
+
+    // ************************************** //
+    // ****** USER PROFILE & DATA *********** //
+    // ************************************** //
+
+
 
 } ]);

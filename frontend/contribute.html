@@ -93,15 +93,16 @@
         </div>
 
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-if="bLogin">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-if="!bLogin">
                 <hr />
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" class="active"><a href="#dataset" aria-controls="dataset" role="tab" data-toggle="tab">New Dataset</a></li>
                     <li role="presentation"><a href="#mydataset" aria-controls="mydataset" role="tab" data-toggle="tab">My dataset</a></li>
-                    <li role="presentation"><a href="#datasetreview" aria-controls="datasetreview" role="tab" data-toggle="tab">Dataset review</a></li>
+                    <li role="presentation"><a href="#datasetreview" aria-controls="datasetreview" role="tab" data-toggle="tab" ng-if="userinfo.groups[0] == 'reviewer' || userinfo.groups[0] == 'admin'">Dataset review</a></li>
                     <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">My Profile</a></li>
-                    <li role="presentation"><a href="#feedback" aria-controls="profile" role="tab" data-toggle="tab">Feedback</a></li>
+                    <li role="presentation"><a href="#feedback" aria-controls="profile" role="tab" data-toggle="tab" ng-if="userinfo.groups[0] == 'admin'">Feedback</a></li>
+                    <li role="presentation"><a href="#users" aria-controls="profile" role="tab" data-toggle="tab" ng-if="userinfo.groups[0] == 'admin'">Registered users</a></li>
                 </ul>
 
                 <!-- Tab panes -->
@@ -238,7 +239,45 @@
 
                     <div role="tabpanel" class="tab-pane fade" id="mydataset">.2..</div>
                     <div role="tabpanel" class="tab-pane fade" id="datasetreview">..3.</div>
-                    <div role="tabpanel" class="tab-pane fade" id="profile">.4..</div>
+                    <div role="tabpanel" class="tab-pane fade" id="profile">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="alert alert-info">User name: {{userinfo.username}}- access level: Administrator</div>
+                                <form name="registrationForm">
+                                    <label>Name (*)</label>
+                                    <input type="text" name="usrname" placeholder="Name" class="form-control" ng-model="userinfo.name">
+                                    <br />
+                                    <label>Surname  (*)</label>
+                                    <input type="text" name="usrsurname" placeholder="Surname" class="form-control" ng-model="userinfo.surname">
+                                    <br />
+                                    <label>E-mail  (*)</label>
+                                    <span class="register_error" ng-show="registrationForm.usremail.$error.pattern">invalid email!</span>
+                                    <input type="email" name="usremail" placeholder="E-mail address" class="form-control" ng-model="userinfo.email" ng-pattern="checkMail">
+                                    <br />
+                                    <div class="text-right">
+                                        <a href="" class="btn btn-success">Save data</a><br />
+                                        <span class="small text-muted">(*) Required</span>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="alert alert-info">Change password</div>
+                                <label>Old password  (*)</label>
+                                <input type="text" name="usroldpsw" placeholder="Old password" class="form-control">
+                                <br />
+                                <label>New password  (*)</label>
+                                <input type="text" name="usrnewpsw" placeholder="New password" class="form-control">
+                                <br />
+                                <label>Confirm new password  (*)</label>
+                                <input type="text" name="usrnewbispsw" placeholder="Confirm new password" class="form-control">
+                                <br />
+                                <div class="text-right">
+                                    <a href="" class="btn btn-success">Change password</a><br />
+                                    <span class="small text-muted">(*) Required</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div role="tabpanel" class="tab-pane fade" id="feedback">
                         <strong>Users feedback</strong>
                         <br /><br />
@@ -283,6 +322,7 @@
                             </span>
                         </div>
                     </div>
+                    <div role="tabpanel" class="tab-pane fade" id="users">.4..</div>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" ng-if="!bLogin">
@@ -302,8 +342,6 @@
         <br /><br /><br />
     </section>
     <!-- Section FOOTER - FINE -->
-
-
 
 </div>
 
