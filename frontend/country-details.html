@@ -34,6 +34,7 @@
     <link href="bower_components/animate.css/animate.min.css" rel="stylesheet">
 
     <!-- RODI APP -->
+    <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
     <script src="js/angular/app.js"></script>
     <script src="js/angular/service.js" type="text/javascript"></script>
     <script src="js/angular/controller_country.js" type="text/javascript"></script>
@@ -42,8 +43,8 @@
     <!-- RODI APP -->
 
     <!--ADOBE typekit-->
-    <script src="https://use.typekit.net/yxp8fxq.js"></script>
-    <script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <!--<script src="https://use.typekit.net/yxp8fxq.js"></script>-->
+    <!--<script>try{Typekit.load({ async: true });}catch(e){}</script>-->
 
     <!-- RODI css -->
     <link href="css/rodi_css.css" rel="stylesheet">
@@ -65,52 +66,63 @@
                 </section>
             </div>
 
-
             <!-- Content of page -->
             <div class="col-xs-12 col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2">
-                <div class="row ">
-                    <!--<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
-                        <img ng-src="{{countryData[0].img}}" alt="Coutry Image" class="img-responsive " >
-                    </div>
-                    <div class="col-xs-12 col-sm-9 col-md-9 col-lg-9">
 
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 ">
-                                <span class="page_title text-right">{{countryData[0].desc}}</span>
+                <div class="row ">
+                    <!-- Menu versione mobile -->
+                    <div class="col-xs-12 visible-xs">
+                        <div class="flex-container pull-right">
+                            <h1 class="page_title ">{{countryData[0].desc}}</h1>
+                            <mainmenu></mainmenu>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                        <img ng-src="{{countryData[0].img}}" alt="Coutry Image" class="media-object" >
+                    </div>
+                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
+                        <div class="hidden-xs contry_details_description">{{countryData[0].text}}</div>
+                        <span class="visible-xs">{{countryData[0].text}}</span>
+                    </div>
+                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 hidden-xs">
+
+                        <div class="flex-container pull-right">
+                            <h1 class="page_title ">{{countryData[0].desc}}</h1>
+                            <mainmenu></mainmenu>
+                        </div>
+                    </div>
+
+                    <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                        <div class="flex-container pull-right">
+                            <h1 class="page_title ">{{countryData[0].desc}}</h1>
+                            <mainmenu></mainmenu>
+                        </div>
+
+                        <div class="media">
+                            <div class="media-left media-middle">
+                                <img ng-src="{{countryData[0].img}}" alt="Coutry Image" class="media-object" >
                             </div>
-                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 ">
-                                <mainmenu></mainmenu>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                {{countryData[0].text}}
+                            <div class="media-body">
+
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <div style="position: absolute; margin-top:25%;">
+                                        {{countryData[0].text}}
+                                    </div>
+
+                                </div>
                             </div>
                         </div>
+
                     </div>-->
 
-                    <div class="media">
-                        <div class="media-left media-middle">
-                            <img ng-src="{{countryData[0].img}}" alt="Coutry Image" class="media-object" >
-                        </div>
-                        <div class="media-body">
-                            <!--<div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">-->
-                               <!---->
-                            <!--</div>-->
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <div class="flex-container pull-right">
-                                    <h1 class="page_title ">{{countryData[0].desc}}</h1>
-                                    <mainmenu></mainmenu>
-                                </div>
-
-                            </div>
-
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                {{countryData[0].text}}
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
+
         </div>
+
+
 
         <hr>
 
@@ -124,7 +136,7 @@
                     <thead>
                         <th>&nbsp;</th> <!-- cella vuota -->
                         <th class="text-center row_icon" ng-repeat="dt in matrixDataTypeList.dataType_index">
-                            <a href=""><i class="{{dt[1]}}"></i><br /><span>{{dt[0]}}</span></a> <!-- il click porta alla pagina elenco dataset (filters: country category) -->
+                            <a href=""><i class="{{dt[2]}}"></i><br /><span>{{dt[1]}}</span></a> <!-- il click porta alla pagina elenco dataset (filters: country category) -->
                         </th>
                     </thead>
 
@@ -134,12 +146,12 @@
                             <th class="text-center" ng-repeat="valHazard in hazardIndex"><span ng-class="{'matrix_green_value': valHazard[1] > 50, 'matrix_red_value': valHazard[1] <= 50}">{{valHazard[1]}}</span></th>
                         </tr>
                         <tr ng-repeat="matrixRow in countryMatrix">
-                            <td class="text-center"><strong>{{matrixRow[0]}}</strong></td>
-                            <td class="text-center"><div class="matrix_cell_round" style="{{colorCell(matrixRow[1])}}"></div></td>
-                            <td class="text-center"><div class="matrix_cell_round" style="{{colorCell(matrixRow[2])}}"></div></td>
-                            <td class="text-center"><div class="matrix_cell_round" style="{{colorCell(matrixRow[3])}}"></div></td>
-                            <td class="text-center"><div class="matrix_cell_round" style="{{colorCell(matrixRow[4])}}"></div></td>
-                            <td class="text-center"><div class="matrix_cell_round" style="{{colorCell(matrixRow[5])}}"></div></td>
+                            <td><strong>{{questionDesc(matrixRow[0])}}</strong></td>
+                            <td class="text-center"><div class="matrix_cell" style="{{colorCell(matrixRow[1])}}"></div></td>
+                            <td class="text-center"><div class="matrix_cell" style="{{colorCell(matrixRow[2])}}"></div></td>
+                            <td class="text-center"><div class="matrix_cell" style="{{colorCell(matrixRow[3])}}"></div></td>
+                            <td class="text-center"><div class="matrix_cell" style="{{colorCell(matrixRow[4])}}"></div></td>
+                            <td class="text-center"><div class="matrix_cell" style="{{colorCell(matrixRow[5])}}"></div></td>
                             <!-- Queste cinque righe occorre gestirle con un ng-repeat per la dinamicità dei valori -->
                         </tr>
                     </tbody>

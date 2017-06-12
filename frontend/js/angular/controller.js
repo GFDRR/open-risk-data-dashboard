@@ -2,11 +2,16 @@
  * Created by Manuel on 15/05/2017.
  */
 
-RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', function ($scope, RodiSrv, $window) {
+RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$cookieStore', function ($scope, RodiSrv, $window, $filter, $cookieStore) {
 
     // ************************************** //
     // *************** INIT ***************** //
     // ************************************** //
+
+    $scope.bLogin = false;
+    $scope.tokenid = $cookieStore.get('rodi_token');
+
+    if($scope.tokenid) {$scope.bLogin = true; } else {$scope.bLogin = false;}
 
     $scope.objRodiVariable =
         {
@@ -15,6 +20,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', function ($scope
             "countryDesc": "",
             "bPopupCountry": false,
             "popupClass": "",
+            "popupX": "",
+            "popupY": "",
             "location": baseUrl
         };
 
@@ -76,22 +83,96 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', function ($scope
     // ************************************** //
 
     $scope.objDataset = RodiSrv.getDatasetEmptyStructure();
+    $scope.objDatasetClass = RodiSrv.getDatasetClassification();
+
+    RodiSrv.getCountryList(
+        function(data){
+            // Success
+            $scope.countryList = data;
+        }, function(data){
+            // Error
+            //TODO: error message
+    });
+
+
+    $scope.hazardList = RodiSrv.getHazardList();
+    $scope.questions = RodiSrv.getQuestions();
+    $scope.objResolutionList = [];
+    $scope.bResolutionDisable = true;
+
+    $scope.filterDatasetResolution = function()
+    {
+        var aFilter = [];
+        if($scope.objDataset.dataset_type != '--')
+        {
+            // hazard category selected
+            aFilter = $filter('filter')($scope.objDatasetClass, {code: $scope.objDataset.dataset_type});
+
+            if (!angular.equals({}, aFilter[0].level))
+            {
+                // Resolution found
+                $scope.objResolutionList = aFilter[0].level;
+                $scope.bResolutionDisable = false;
+            } else {
+                $scope.bResolutionDisable = true;
+            }
+        }
+    }
+
+    $scope.saveSelection = function(qcode, value)
+    {
+        var iIndex = 0;
+        var foundItem = $filter('filter')($scope.objDataset.questions, {code: qcode});
+
+        iIndex = $scope.objDataset.questions.indexOf(foundItem[0]);
+        $scope.objDataset.questions[iIndex].value = value;
+
+    }
 
     $scope.saveDataser = function()
     {
 
-        var bMsh = RodiSrv.saveDataset($scope.objDataset);
+        var objQuestLost = [];
+        var aErrorsValidation = [];
 
-        if (bMsh)
-        {
-        //    Save success message
-            vex.dialog.alert('Dataset Inserted correctly');
-            $scope.objDataset = RodiSrv.getDatasetEmptyStructure();
-        } else
-        {
-            //    Save error message
-            vex.dialog.alert('Error: dataser not insert!');
+        // Validate Dataset structure
+        aErrorsValidation = RodiSrv.validateDataset($scope.objDataset);
+
+        if(aErrorsValidation.length > 0) {
+            // Errors
+            var strMsg = "Required fields: <ul>";
+            for(var i=0; i< aErrorsValidation.length; i++)
+            {
+                strMsg += '<li>' + aErrorsValidation[i] + '</li> ';
+            }
+
+            strMsg += "</ul>";
+            vex.dialog.alert(strMsg);
+
+        } else {
+            // Save the dataser
+            vex.dialog.alert('Under construction');
         }
+
+
+        /*
+            Save ***TODO***
+            usr_ins
+            data_ins
+         */
+
+        // var bMsh = RodiSrv.saveDataset($scope.objDataset);
+        //
+        // if (bMsh)
+        // {
+        //    Save success message
+        //     vex.dialog.alert('Dataset Inserted correctly');
+        //     $scope.objDataset = RodiSrv.getDatasetEmptyStructure();
+        // } else
+        // {
+            //    Save error message
+            // vex.dialog.alert('Error: dataser not insert!');
+        // }
     }
 
 } ]);

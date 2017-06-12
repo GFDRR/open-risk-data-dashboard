@@ -1,40 +1,59 @@
 
 
 <div class="help_feedback_box">
-    <a href="" ng-click="showHelp()"><i class="fa fa-question-circle" aria-hidden="true"></i></a>
-    <a href="" alt="Feedback"><i class="fa fa-commenting-o" aria-hidden="true"></i></a>
+    <a ng-if="bHome" href="" ng-click="changeview('index.html', '0')"><i class="fa fa-home" aria-hidden="true"></i></a>
+    <a ng-if="!bLogin" href="" ng-click="loginform()"><i class="fa icon-login"></i></a>
+    <a ng-if="bLogin" href="" ng-click="logout()"><small>Welcome {{userinfo.id}} - </small> Logout</a>
+    <a ng-if="!bLogin" ng-click="changeview('register.html', '4')" href="" ><i class="fa icon-register"></i></a>
+
+    <a href="" ng-click="showHelp()"><i class="fa fa-question-circle-o" aria-hidden="true"></i></a>
+    <a href="" ng-if="bLogin" ng-click="showFeed()" alt="Feedback"><i class="fa fa-commenting-o" aria-hidden="true"></i></a>
 </div>
 
 
+<!-- ***** HELP SESISONE ***** -->
 <div class="contextual_content animated fadeIn" ng-if="showHelpIndex == '0'">
     <div class="text-right"><a href="" ng-click="hideHelp()">CLOSE</a></div>
-    help contestuale index
+    <h3>Contextual Help home page</h3>
 </div>
 
 <div class="contextual_content  animated fadeIn" ng-if="showHelpIndex == '1'">
     <div class="text-right"><a href="" ng-click="hideHelp()">CLOSE</a></div>
-    help contestuale contribute.html
+    <h3>Contextual Help Contribute page</h3>
 </div>
 
 <div class="contextual_content  animated fadeIn" ng-if="showHelpIndex == '2'">
     <div class="text-right"><a href="" ng-click="hideHelp()">CLOSE</a></div>
-    help contestuale methodology.html
+    <h3>Contextual Help methodology page</h3>
+</div>
+
+<div class="contextual_content  animated fadeIn" ng-if="showHelpIndex == '3'">
+    <div class="text-right"><a href="" ng-click="hideHelp()">CLOSE</a></div>
+    <h3>Contextual Help Countries page</h3>
+</div>
+
+<div class="contextual_content  animated fadeIn" ng-if="showHelpIndex == '4'">
+    <div class="text-right"><a href="" ng-click="hideHelp()">CLOSE</a></div>
+    <h3>Contextual Help register page</h3>
 </div>
 
 <div class="contextual_content  animated fadeIn" ng-if="showHelpIndex == '5'">
     <div class="text-right"><a href="" ng-click="hideHelp()">CLOSE</a></div>
-    help contestuale country-details.html
-    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-    <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-    test
+    <h3>Contextual Help country details page</h3>
+</div>
+
+<!-- ***** FEEDBACK SESISONE ***** -->
+<div class="contextual_content animated fadeIn" ng-if="bShowFeedback">
+    <div class="text-right"><a href="" ng-click="hideFeed()">CLOSE</a></div>
+    <h3>Send us a feedback</h3>
+    <br />
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <input type="text" name="feedbackmessage" class="form-control" placeholder="Insert yout message here" ng-model="feedbackMessage.text" ng-change="test()">
+            <div class="text-right">
+                <br/>
+                <a href="" ng-click="sendFeed ()" class="btn btn-success">Send feedback</a>
+            </div>
+        </div>
+    </div>
 </div>

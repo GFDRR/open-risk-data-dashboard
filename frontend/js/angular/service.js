@@ -2,7 +2,7 @@
  * Created by Manuel on 15/05/2017.
  */
 
-RodiApp.service("RodiSrv", ['$http', function($http, $rootScope, $scope)
+RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 {
 
     this.getMapScores = function(filters)
@@ -96,14 +96,24 @@ RodiApp.service("RodiSrv", ['$http', function($http, $rootScope, $scope)
         return objNews;
     };
 
-    this.getCountryList = function()
+    this.getCountryList = function(onSuccess, onError)
     // Return the list of country Available
     {
 
         // Return country list
+        $http({
+            method: 'GET',
+            url: baseAPIurl + 'country/'
+        }).then(function (data) {
+            if(onSuccess) onSuccess(data.data)
+        },function(data){
+            if(onError)onError(data)
+        });
 
-        var objCountry = [{"code":"IT", "desc":"Italy"}, {"code":"AR", "desc":"Argentina"}, {"code":"AU", "desc":"Australia"}];
-        return objCountry;
+
+
+        // var objCountry = [{code:"IT", desc:"Italy"}, {code:"AR", desc:"Argentina"}, {code:"AU", desc:"Australia"}];
+        // return objCountry;
     };
 
     this.getMatrixData = function(filters)
@@ -177,17 +187,17 @@ RodiApp.service("RodiSrv", ['$http', function($http, $rootScope, $scope)
                     "h05":["description hazard 05", "10"]
                 },
                 "matrixData": {
-                    // "questionKey": ["description", valueH01, valueH02, valueH03, valueH04, valueH05, valueH06, valueH07, valueH08]
-                    "quest1": ["description question 1", "yes", "no", "yes", "na", "yes"],
-                    "quest2": ["description question 2", "yes", "no", "yes", "na", "yes"],
-                    "quest3": ["description question 3", "yes", "no", "yes", "na", "yes"],
-                    "quest4": ["description question 4", "yes", "no", "yes", "na", "yes"],
-                    "quest5": ["description question 5", "yes", "no", "yes", "na", "yes"],
-                    "quest6": ["description question 6", "yes", "no", "yes", "na", "yes"],
-                    "quest7": ["description question 7", "yes", "no", "yes", "na", "yes"],
-                    "quest8": ["description question 8", "yes", "no", "yes", "na", "yes"],
-                    "quest9": ["description question 9", "yes", "no", "yes", "na", "yes"],
-                    "quest10": ["description question 10", "yes", "no", "yes", "na", "yes"]
+                    // questionKey: ["questionkey", "description", valueH01, valueH02, valueH03, valueH04, valueH05, valueH06, valueH07, valueH08]
+                    q01: ["q01", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q02: ["q02", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q03: ["q03", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q04: ["q04", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q05: ["q05", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q06: ["q06", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q07: ["q07", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q08: ["q08", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q09: ["q09", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q10: ["q10", 0.6, 0.7, 0.8, 0.9, 1.0]
                 }
             },
             {
@@ -204,16 +214,16 @@ RodiApp.service("RodiSrv", ['$http', function($http, $rootScope, $scope)
                 },
                 "matrixData": {
                     // "questionKey": ["description", valueH01, valueH02, valueH03, valueH04, valueH05, valueH06, valueH07, valueH08]
-                    "quest1": ["description question 1", "yes", "no", "yes", "na", "yes"],
-                    "quest2": ["description question 2", "yes", "no", "yes", "na", "yes"],
-                    "quest3": ["description question 3", "yes", "no", "yes", "na", "yes"],
-                    "quest4": ["description question 4", "yes", "no", "yes", "na", "yes"],
-                    "quest5": ["description question 5", "yes", "no", "yes", "na", "yes"],
-                    "quest6": ["description question 6", "yes", "no", "yes", "na", "yes"],
-                    "quest7": ["description question 7", "yes", "no", "yes", "na", "yes"],
-                    "quest8": ["description question 8", "yes", "no", "yes", "na", "yes"],
-                    "quest9": ["description question 9", "yes", "no", "yes", "na", "yes"],
-                    "quest10": ["description question 10", "yes", "no", "yes", "na", "yes"]
+                    q01: ["q01", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q02: ["q02", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q03: ["q03", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q04: ["q04", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q05: ["q05", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q06: ["q06", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q07: ["q07", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q08: ["q08", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q09: ["q09", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q10: ["q10", 0.6, 0.7, 0.8, 0.9, 1.0]
                 }
             },
             {
@@ -230,16 +240,16 @@ RodiApp.service("RodiSrv", ['$http', function($http, $rootScope, $scope)
                 },
                 "matrixData": {
                     // "questionKey": ["description", valueH01, valueH02, valueH03, valueH04, valueH05, valueH06, valueH07, valueH08]
-                    "quest1": ["description question 1", "yes", "no", "yes", "na", "yes"],
-                    "quest2": ["description question 2", "yes", "no", "yes", "na", "yes"],
-                    "quest3": ["description question 3", "yes", "no", "yes", "na", "yes"],
-                    "quest4": ["description question 4", "yes", "no", "yes", "na", "yes"],
-                    "quest5": ["description question 5", "yes", "no", "yes", "na", "yes"],
-                    "quest6": ["description question 6", "yes", "no", "yes", "na", "yes"],
-                    "quest7": ["description question 7", "yes", "no", "yes", "na", "yes"],
-                    "quest8": ["description question 8", "yes", "no", "yes", "na", "yes"],
-                    "quest9": ["description question 9", "yes", "no", "yes", "na", "yes"],
-                    "quest10": ["description question 10", "yes", "no", "yes", "na", "yes"]
+                    q01: ["q01", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q02: ["q02", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q03: ["q03", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q04: ["q04", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q05: ["q05", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q06: ["q06", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q07: ["q07", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q08: ["q08", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q09: ["q09", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q10: ["q10", 0.6, 0.7, 0.8, 0.9, 1.0]
                 }
             }
         ];
@@ -248,21 +258,103 @@ RodiApp.service("RodiSrv", ['$http', function($http, $rootScope, $scope)
 
     };
 
+    this.getDatasetClassification = function()
+    {
+        /*
+         Return the list of Dataset classification
+
+         */
+        var obj =
+            [
+                {
+                    code:"DEM",
+                    desc: "Digital Elevation Model",
+                    hazard_category: "h01",
+                    level:{
+                        liv1: {desc:"SRTM Digital Elevation Model (DEM)", scale:"90m", value:"1"},
+                        liv2: {desc:"LiDAR Digital Elevation Model (DEM)", scale:"1-10m", value:"2"},
+                        liv3: {desc:"LiDAR Digital Elevation Model (DEM)", scale:"0.1-1m", value:"3"},
+                    }
+                },
+                {
+                    code:"AI",
+                    desc: "Aerial Imagery",
+                    hazard_category: "h01",
+                    level:{
+                        liv1: {desc:"Imagery as base layer", scale:"1-100m", value:"2"},
+                        liv2: {desc:"Imagery as base layer", scale:"0.1-1m", value:"3"}
+                    }
+                },
+                {
+                    code:"TT",
+                    desc: "Test category no scale definition",
+                    hazard_category: "h01",
+                    level: {}
+                },
+                {
+                    code:"FLO",
+                    desc: "Flooding",
+                    hazard_category: "h03",
+                    level:{
+                        liv1: {desc:"water depth for return periods 2, 5, 10, 20, 50, 100, 200, 500, 1000 yrs", scale:"1Km", value:"1"},
+                        liv2: {desc:"water depth, duration for return periods 2, 5, 10, 20, 50, 100, 200, 500, 1000 yrs", scale:"100m", value:"2"},
+                        liv3: {desc:"water depth, duration and flow velocity for return periods 2, 5, 10, 20, 50, 100, 200, 500, 1000 yrs", scale:"10m", value:"3"},
+                    }
+                },
+            ];
+
+        return obj;
+    }
+
+    this.getDatasetClassificationResolution = function(classificationCode)
+    {
+        // Return the level structure of classificationCode object
+        var obj =
+            {
+                code:"AI",
+                level:{
+                    // liv1: {desc:"Imagery as base layer", scale:"1-100m", value:"2"},
+                    // liv2: {desc:"Imagery as base layer", scale:"0.1-1m", value:"3"}
+                }
+            }
+
+            return obj;
+    }
+
     this.matrixColorCell = function(value){
 
         var numberFloat = parseFloat(value);
         return "background-color: rgb(255," + parseInt((1 - numberFloat) * 255) + "," + parseInt((1 - numberFloat) * 255) + ");"
     };
 
+    this.getHazardList = function()
+        // Return the list of country Available
+    {
+
+        // Return country list
+
+        var objHazard = [
+            {code:"RF", desc:"River Flood"},
+            {code:"EQ", desc:"Earthquake"},
+            {code:"VO", desc:"Volcano"},
+            {code:"CY", desc:"Cyclone"},
+            {code:"CF", desc:"Coastal Flood"},
+            {code:"WS", desc:"Water Scarsity"},
+            {code:"LS", desc:"Landslide"},
+            {code:"TS", desc:"Tsunami"}
+            ];
+        return objHazard;
+    };
+
     this.getHazardCategory = function()
     {
         return objDataTimeElement = {
             "dataType_index": {
-                "dt01":["Hazard info", "icon-hazard_info"],
-                "dt02":["Exposure", "icon-exposure"],
-                "dt03":["Hazard Vulnerability", "icon-vulnerability"],
-                "dt04":["Base data", "icon-base_data"],
-                "dt05":["Risk info", "icon-info"]
+                dt01:["h01", "Base data", "icon-base_data"],
+                dt02:["h02", "Exposure", "icon-exposure"],
+                dt03:["h03", "Hazard info", "icon-hazard_info"],
+                dt04:["h04", "Vulnerability", "icon-vulnerability"],
+                dt05:["h05", "Risk info", "icon-info"]
             },
         }
     };
@@ -270,17 +362,24 @@ RodiApp.service("RodiSrv", ['$http', function($http, $rootScope, $scope)
     this.getQuestions = function()
     {
         /*
-        Return the list of question for dataset
+            Return the list of questions for dataset (Y/N)
          */
-        return objQuestions = {
-            "questions_index": {
-                "code01": {desc:"Does the data exist?", type:"???"}, // Type: type of the question: Yes or Not, text, etc.. da definire
-                "code02":{desc:"Is data in digital form?", type:"???"},
-                "code03":{desc:"Publicly available?", type:"???"},
-                "code04":{desc:"Is the data available for free?", type:"???"},
-                "code05":{desc:"Is the data available online?", type:"???"}
-            },
-        }
+
+        return objQuestions = [
+                {code: "q01", desc:"Does the data exist?", type: "yn"},
+                {code: "q02", desc:"Is data in digital form?", type: "yn"},
+                {code: "q03", desc:"Is the data available online?", type: "yn"},
+                {code: "q04", desc:"Is the metadata available online?", type: "yn"},
+                {code: "q05", desc:"Available in bulk?", type: "yn"},
+                {code: "q06", desc:"Is the data machine- readable?", type: "yn"},
+                {code: "q07", desc:"Publicly available?", type: "yn"},
+                {code: "q08", desc:"Is the data available for free?", type: "yn"},
+                {code: "q09", desc:"Openly licensed?", type: "yn"},
+                {code: "q10", desc:"Is the data provided on a timely and up to date basis?", type: "yn"},
+                {code: "q11", desc:"Resolution/scale of methodology", type: "ddl_filter"},
+                {code: "q12", desc:"URL Metadata", type: "link"},
+                {code: "q13", desc:"URL Data set", type: "link"}
+        ]
     };
 
     this.getDatasetEmptyStructure = function()
@@ -291,8 +390,13 @@ RodiApp.service("RodiSrv", ['$http', function($http, $rootScope, $scope)
          obj =
          {
          "code": "",
+         "name": "",
+         "abstract": "",
+         "dataset_type": "",
+         "resolution": "",
          "country": "--",
          "hazard_category": "--",
+         hazard: "",
          "usr_ins": "",
          "data_ins": "",
          "status": "0",
@@ -310,22 +414,34 @@ RodiApp.service("RodiSrv", ['$http', function($http, $rootScope, $scope)
          */
 
         return obj = {
-            "code": "",
-            "country": "--",
-            "hazard_category": "--",
-            "usr_ins": "",
-            "data_ins": "",
-            "status": "0",
-            "data_validate": "",
-            "questions":
-            {
-                "code01": "",
-                "code02": "",
-                "code03": "",
-                "code04": ""
-            },
-            "link_dataset": "",
-            "link_metadata": ""
+            code: "",
+            name: "",
+            abstract: "",
+            dataset_type: "--",
+            resolution: "--",
+            country: "--",
+            hazard_category: "--",
+            hazard: "--",
+            usr_ins: "",
+            data_ins: "",
+            status: "0",
+            data_validate: "",
+            questions:
+            [
+                {code: "q01", value: ""},
+                {code: "q02", value: ""},
+                {code: "q03", value: ""},
+                {code: "q04", value: ""},
+                {code: "q05", value: ""},
+                {code: "q06", value: ""},
+                {code: "q07", value: ""},
+                {code: "q08", value: ""},
+                {code: "q09", value: ""},
+                {code: "q10", value: ""}
+                // Prendiamo le domande di tipo Yes No
+            ],
+            link_dataset: "",
+            link_metadata: ""
             }
 
     }
@@ -339,8 +455,13 @@ RodiApp.service("RodiSrv", ['$http', function($http, $rootScope, $scope)
             obj = [
             {
                 "code": "datasetcode",
+                 name: "",
+                 abstract: "",
+                 dataset_type: "--",
+                 resolution: "--",
                 "country": "country code",
                 "hazard_category": "hazard category code",
+                 hazard: "--",
                 "usr_ins": "user name insert",
                 "data_ins": "datatime insert",
                 "status": "0 or 1", -> 0: not validate | 1: validate
@@ -380,6 +501,41 @@ RodiApp.service("RodiSrv", ['$http', function($http, $rootScope, $scope)
 
     }
 
+    this.validateDataset = function(obj)
+    {
+        var aErrors = [];
+        var objResolutions = {};
+
+        if(obj.name == ''){aErrors.push('Name')};
+        if(obj.abstract == ''){aErrors.push('Abstract')};
+        if(obj.dataset_type == '--'){aErrors.push('Dataset category')};
+
+        // If level of Dataset is not Empty: check the field
+        objResolutions = this.getDatasetClassificationResolution(obj.dataset_type);
+        if(!angular.equals({}, objResolutions.level)){
+            if(obj.resolution == '--'){aErrors.push('Dataset resolution')};
+        }
+
+        if(obj.country == '--'){aErrors.push('Country')};
+        if(obj.hazard_category == '--'){aErrors.push('Hazard category')};
+        if(obj.hazard_category == 'h03' && obj.hazard == '--'){aErrors.push('Hazard')};
+        if(obj.link_dataset == ''){aErrors.push('Link dataset')};
+        if(obj.link_metadata == ''){aErrors.push('Link metadata')};
+
+        /* Check the questions */
+        var aQuestions = [];
+
+        $filter('filter')(obj.questions, function(e){
+            if(e.value == '') { aQuestions.push(e.code); };
+        })
+
+        if (aQuestions.length > 0){
+            aErrors.push('Answer all questions (Yes, No or Not available)')
+        }
+
+        return aErrors;
+    }
+
     this.saveDataset = function(obj)
     {
         return true;
@@ -387,7 +543,7 @@ RodiApp.service("RodiSrv", ['$http', function($http, $rootScope, $scope)
 
     /* LOGIN services */
 
-    this.checkLogin = function(usr, psw)
+    this.checkLogin = function(usr, psw, onSuccess, onError)
     {
     /*    Check if login is correct, if so set the local cookies
         Return KO if login is incorrect or User Datails
@@ -402,16 +558,53 @@ RodiApp.service("RodiSrv", ['$http', function($http, $rootScope, $scope)
          }
     */
 
-    if(usr == 'cima')
-    {
-        return {status: "OK", usr_name:"cima", name: "NameTest", surname: "surnameTest", email:"manuel.cavallaro@cimafoundation.org", level: 0}
+        var sData = $.param({
+            username: usr,
+            password: psw
+        });
 
-    }
-    else
-        {
-            return {status: "KO", usr_name:"", name: "", surname: "", email:"", level: 3}
+        var config = {
+            headers : {
+                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;',
+                'Authorization' :"Token:"
+            }
         }
 
+        $http.post(baseAPIurl + 'get-token/', sData, config
+        ).then (function(data){
+            // Success call
+            if(onSuccess) onSuccess(data);
+        }, function(data){
+            // Error call
+            if(onError)onError(data)
+        });
+
+
+
+        // $http({
+        //     method: 'POST',
+        //     url: baseAPIurl + 'get-token/',
+        //     headers: {
+        //         'Authorization' :"Token:",
+        //         'username': usr,
+        //         'password': psw
+        //     },
+        // }).then(function (data) {
+        //     if(onSuccess) onSuccess(data)
+        // },function(data){
+        //     if(onError)onError(data)
+        // });
+
+    // if(usr == 'cima')
+    // {
+    //     return {status: "OK", usr_name:"cima", name: "NameTest", surname: "surnameTest", email:"manuel.cavallaro@cimafoundation.org", level: 0}
+    //
+    // }
+    // else
+    //     {
+    //         return {status: "KO", usr_name:"", name: "", surname: "", email:"", level: 3}
+    //     }
+    //
     }
 
     this.setPageIndex = function(strpath)
@@ -428,6 +621,31 @@ RodiApp.service("RodiSrv", ['$http', function($http, $rootScope, $scope)
         return "0";
 
 
+    }
+
+    this.sendFeedback = function(obj)
+    {
+        /*
+        send user feedback (only registred user)
+        obj =
+        {
+            userid: "user name",
+            page: "ex: index.html",
+            text: "message of feedback",
+            data: "01/06/2017"
+        }
+         */
+        console.log(obj);
+        return true;
+    }
+
+    this.sendRegisterRequest = function(usr)
+    {
+        // API: send obj usr = {name: "", surname="", email=""}
+        // registrazione, invio mail di conferma all'utente, invio mail con nome utente e password per accesso
+
+        console.log(usr);
+        return true;
     }
 
 }]);

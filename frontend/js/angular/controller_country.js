@@ -15,22 +15,29 @@ RodiApp.controller('RodiCtrlCountry', function ($scope, RodiSrv, $location, $fil
 
     $scope.matrixDataTypeList = RodiSrv.getHazardCategory();
 
+    $scope.questions = RodiSrv.getQuestions();
+
     $scope.colorCell = function(value){
-        //Check if the value is yes, no or na
-        //Yes -> green | No -> Red | na -> yellow
+        //Check the value
 
-        if (value == 'yes')
-        {
-            return "background-color:green";
-        } else if(value == 'no')
-            {
-                return "background-color:red";
-            } else
-                {
-                    return "background-color:yellow";
-                }
+        // if (value == 'yes')
+        // {
+        //     return "background-color:green";
+        // } else if(value == 'no')
+        //     {
+        //         return "background-color:red";
+        //     } else
+        //         {
+        //             return "background-color:yellow";
+        //         }
 
-        // return RodiSrv.matrixColorCell(value);
+        return RodiSrv.matrixColorCell(value);
+    }
+
+    $scope.questionDesc = function(value)
+    {
+        var aQuest = $filter('filter')($scope.questions,  {code: value});
+        return aQuest[0].desc;
     }
 
 });

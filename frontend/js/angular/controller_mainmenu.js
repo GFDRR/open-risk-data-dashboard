@@ -2,7 +2,7 @@
  * Created by Manuel on 23/05/2017.
  */
 
-RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window', '$location', function ($scope, RodiSrv, $filter, $window, $location) {
+RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window', '$location', '$cookieStore', function ($scope, RodiSrv, $filter, $window, $location, $cookieStore) {
 
     // ************************************** //
     // ********* MAIN MENU CLICK ************ //
@@ -10,6 +10,11 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
 
     $scope.indexPage = "0"; // page 0 -> index (utilizzato per i contenuti contestuali)
     $scope.showHelpIndex = "";
+    $scope.bShowFeedback = false;
+    $scope.feedbackMessage = {userid:"", page:"", text:"", data:""};
+    $scope.bLogin = false;
+    $scope.tokenid = $cookieStore.get('rodi_token');
+    $scope.userinfo = {name:"", surname:"", id:"", level:""};
 
     if ($location.path().indexOf('index.html') !== -1){
         $scope.bHome = false;
@@ -19,6 +24,8 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
         $scope.bHome = true;
         $scope.indexPage = RodiSrv.setPageIndex($location.path());
     }
+
+    if($scope.tokenid){$scope.bLogin = true;} else {$scope.bLogin = false;}
 
     $scope.changeview = function(page, index)
     {
@@ -32,8 +39,8 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
     // ************************************** //
 
     $scope.formloginCss = "display_none";
-    $scope.bLogin = false;
-    $scope.username = "";
+    $scope.usr_name="";
+    $scope.usr_psw = "";
 
     $scope.loginform = function()
     {
@@ -43,6 +50,7 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
     $scope.logout = function()
     {
         $scope.bLogin = false;
+        $cookieStore.remove('rodi_token');
     }
 
     $scope.closeloginform = function()
@@ -52,20 +60,32 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
 
     $scope.loginUser = function()
     {
-        var obj;
-        obj = RodiSrv.checkLogin($scope.usr_name, $scope.usr_psw);
 
-        if(obj.status == "OK")
+        if($scope.usr_name != '' && $scope.usr_psw != '')
         {
-        //     Login success
-        //    Sets local store cookies
-            $scope.formloginCss = "display_none";
-            $scope.bLogin = true;
-            $scope.username = obj.name;
+            RodiSrv.checkLogin($scope.usr_name, $scope.usr_psw,
+                function(data){
+                    // Success API
 
-        }else {
-        //    Login error
-            vex.dialog.alert('Login error: password or user name not valid');
+                    if (data.statusText == 'OK')
+                    {
+                        var token = data.data.token;
+                        $scope.formloginCss = "display_none";
+                        $scope.bLogin = true;
+                        $scope.userinfo = {name:"", surname:"", id:$scope.usr_name, level:""};
+
+                        $cookieStore.put('rodi_token', token);
+
+                    }
+
+                }, function(data){
+                    // Error API
+                    $scope.userinfo = {name:"", surname:"", id:"", level:""};
+                    vex.dialog.alert('Login error: user name/password is not valid');
+                });
+        } else
+        {
+            vex.dialog.alert('Login error: insert user name and password');
         }
 
     }
@@ -76,26 +96,35 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
     // ************************************** //
 
     $scope.searchValue = "";
-    $scope.countrySuggestion = RodiSrv.getCountryList();
 
-    $scope.searchSubmit = function()
-    {
-        if ($scope.searchValue !== ''){
-            var codeCountry = $filter('filter')($scope.countrySuggestion, {desc: $scope.searchValue});
+    RodiSrv.getCountryList(
+        function(data){
+            // Success
 
-            console.log(codeCountry);
+            $scope.countrySuggestion = data;
 
-            if(codeCountry.length > 0)
+            $scope.searchSubmit = function()
             {
-                $window.location.href = baseUrl + 'country-details.html?idcountry='+ codeCountry[0].code;
-            } else
-                { vex.dialog.alert('Attention: No data details available'); }
-        } else
-        {
-            vex.dialog.alert('Attention: Type a country name');
-        }
+                if ($scope.searchValue !== ''){
+                    var codeCountry = $filter('filter')($scope.countrySuggestion, {name: $scope.searchValue});
 
-    };
+                    if(codeCountry.length > 0)
+                    {
+                        $window.location.href = baseUrl + 'country-details.html?idcountry='+ codeCountry[0].iso2;
+                    } else
+                    { vex.dialog.alert('Attention: No data details available'); }
+                } else
+                {
+                    vex.dialog.alert('Attention: Type a country name');
+                }
+
+            };
+
+        }, function(data){
+            // Error
+            console.log('Error');
+            console.log(data);
+    });
 
     // ************************************** //
     // ********** HELP & FEEDBACK *********** //
@@ -106,11 +135,72 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
         $scope.showHelpIndex = $scope.indexPage;
     }
 
+    $scope.showFeed = function ()
+    {
+        $scope.bShowFeedback = true;
+    }
+
     $scope.hideHelp = function ()
     {
         $scope.showHelpIndex = "";
     }
 
+    $scope.hideFeed = function ()
+    {
+        $scope.bShowFeedback = false;
+    }
 
+    $scope.sendFeed = function ()
+    {
 
+        $scope.feedbackMessage.userid = "cima";
+        $scope.feedbackMessage.page = $location.path();
+        $scope.feedbackMessage.data = new Date();
+
+        var bSave = RodiSrv.sendFeedback($scope.feedbackMessage);
+
+        if (bSave)
+        {
+            vex.dialog.alert('Feedback sent correctly!');
+            $scope.bShowFeedback = false;
+        }
+    }
+
+    // ************************************** //
+    // ******* REGISTER & FORGOT PSW ******** //
+    // ************************************** //
+
+    $scope.usr = {
+        name: "",
+        surname: "",
+        email: ""
+    };
+    $scope.checkMail = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
+
+    $scope.sendRequestRegister = function()
+    {
+        if($scope.usr.name != '' && $scope.usr.surname != '' && $scope.usr.email != '')
+        {
+            // send request via API
+            var bRegister = RodiSrv.sendRegisterRequest($scope.usr);
+
+            if(bRegister)
+            {
+                vex.dialog.alert('Successfully sent request');
+                $scope.usr = {
+                    name: "",
+                    surname: "",
+                    email: ""
+                };
+            } else
+                {
+                    vex.dialog.alert('Error: request not sent!');
+                }
+
+        } else
+            {
+                // Error message
+                vex.dialog.alert('All fields are required!');
+            }
+    }
 } ]);

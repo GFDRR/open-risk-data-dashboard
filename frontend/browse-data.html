@@ -34,6 +34,7 @@
         <link href="bower_components/animate.css/animate.min.css" rel="stylesheet">
 
         <!-- RODI APP -->
+        <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
         <script src="js/angular/app.js"></script>
         <script src="js/angular/service.js" type="text/javascript"></script>
         <script src="js/angular/controller.js" type="text/javascript"></script>
@@ -42,8 +43,8 @@
         <!-- RODI APP -->
 
         <!--ADOBE typekit-->
-        <script src="https://use.typekit.net/yxp8fxq.js"></script>
-        <script>try{Typekit.load({ async: true });}catch(e){}</script>
+        <!--<script src="https://use.typekit.net/yxp8fxq.js"></script>-->
+        <!--<script>try{Typekit.load({ async: true });}catch(e){}</script>-->
 
         <!-- RODI css -->
         <link href="css/rodi_css.css" rel="stylesheet">
@@ -51,37 +52,63 @@
     </head>
     <body ng-app="RodiApp" ng-controller="RodiCtrl">
 
-
+        <helpfeedbackbox></helpfeedbackbox>
         <div class="container-fluid">
 
-            <div class="row">
-                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
-                    <section id="header">
+
+
+            <section id="rodi_header">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
                         <!-- Left Banner / logo -->
                         <a href="index.html"><img src="img/template/rodi_logo.png" alt="Risk OpenData Index" class="img-responsive" /></a>
-                        <div class="head_sep blu vert"></div>
-                    </section>
-                </div>
-
-
-                <!-- Content of page -->
-                <div class="col-xs-12 col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2">
-                    <div class="row ">
-
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                            <hazardmenu></hazardmenu>
-                        </div>
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                            <div class="flex-container pull-right">
-                                <h1 class="page_title ">COUNTRIES</h1>
-                                <mainmenu></mainmenu>
-                            </div>
-                        </div>
 
                     </div>
                 </div>
-            </div>
+            </section>
 
+
+
+            <!-- Content of page -->
+            <!--<div class="col-xs-12 col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2">-->
+            <!--<div class="row ">-->
+
+            <!--<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">-->
+            <!--<hazardmenu></hazardmenu>-->
+            <!--</div>-->
+            <!--<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">-->
+            <!--<div class="flex-container pull-right">-->
+            <!--<h1 class="page_title ">COUNTRIES</h1>-->
+            <!--<mainmenu></mainmenu>-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <!--</div>-->
+            <!--</div>-->
+
+            <!-- Section MENU - INIZIO -->
+            <section id="top-menu">
+                <div class="row">
+
+
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+
+                        <hazardmenu></hazardmenu>
+
+                    </div>
+                    <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3">
+                        <h1 class="page_title pull-right">COUNTRIES</h1>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+
+                        <mainmenu></mainmenu>
+                    </div>
+
+                </div>
+            </section>
+            <!-- Section MENU - FINE -->
+            </section>
+            <div class="head_sep blu vert"></div>
             <hr>
 
             <!-- Country Matrix -->
@@ -92,21 +119,21 @@
 
                     <table class="table table-condensed table-responsive">
                         <thead>
-                            <th>&nbsp;</th> <!-- cella vuota -->
-                            <th class="text-center row_icon" ng-repeat="dt in matrixDataTypeList.dataType_index">
-                                <i class="{{dt[1]}}"></i><br /><span>{{dt[0]}}</span>
-                            </th>
+                        <th>&nbsp;</th> <!-- cella vuota -->
+                        <th class="text-center row_icon" ng-repeat="dt in matrixDataTypeList.dataType_index">
+                            <i class="{{dt[2]}}"></i><br /><span>{{dt[1]}}</span>
+                        </th>
                         </thead>
 
                         <tbody>
 
-                            <tr ng-repeat="matrixRow in matrixData">
-                                <td class="text-center"><strong><a href="" ng-click="changepage('country-details.html?idcountry=' + matrixRow.code)">{{matrixRow.name}}</a></strong></td>
-                                <td class="text-center" ng-repeat="hazardValue in matrixRow.dataValue">
-                                    <!-- click verso dataset list with filters country & category -->
-                                    <a href="" alt="Profile: {{matrixRow.name}}"><div class="matrix_cell" style="{{colorCell(hazardValue)}}"></div></a>
-                                </td>
-                            </tr>
+                        <tr ng-repeat="matrixRow in matrixData">
+                            <td class="text-center"><strong><a href="" ng-click="changepage('country-details.html?idcountry=' + matrixRow.code)">{{matrixRow.name}}</a></strong></td>
+                            <td class="text-center" ng-repeat="hazardValue in matrixRow.dataValue">
+                                <!-- click verso dataset list with filters country & category -->
+                                <a href="" alt="Profile: {{matrixRow.name}}"><div class="matrix_cell" style="{{colorCell(hazardValue)}}"></div></a>
+                            </td>
+                        </tr>
 
                         </tbody>
 

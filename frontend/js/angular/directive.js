@@ -16,9 +16,6 @@ RodiApp.directive('svgMap', ['$compile', function ($compile) {
                 regionElement.attr("region", "");
                 regionElement.attr("array-data", "arrayData");
                 regionElement.attr("obj-rodi-variable", "objRodiVariable");
-                // regionElement.attr("b-popup-country", "bPopupCountry");
-                // regionElement.attr("value-data", "valueData");
-                // regionElement.attr("popup-class", "popupClass");
                 $compile(regionElement)(scope);
             })
 
@@ -42,15 +39,21 @@ RodiApp.directive('region', ['$compile', '$window', function ($compile, $window)
                 $window.location.href = scope.objRodiVariable.location + 'country-details.html?idcountry='+ scope.elementId;
             };
 
-            scope.showPopup = function () {
+            scope.showPopup = function ($event) {
+
+                scope.objRodiVariable.popupX = $event.originalEvent.pageX;
+                scope.objRodiVariable.popupY = $event.originalEvent.pageY;
+
                 scope.objRodiVariable.bPopupCountry = true;
                 scope.objRodiVariable.countryID = scope.elementId;
                 scope.objRodiVariable.countryDesc = scope.elementDesc;
                 scope.objRodiVariable.valueData = scope.arrayData[scope.elementId].value;
                 scope.objRodiVariable.popupClass = "animated fadeIn";
+
             };
 
             scope.hidePopup = function () {
+
                 scope.objRodiVariable.bPopupCountry = false;
                 // scope.bPopupCountry = false;
                 scope.objRodiVariable.valueData = "";
@@ -65,7 +68,7 @@ RodiApp.directive('region', ['$compile', '$window', function ($compile, $window)
                 element.attr("ng-click", "regionClick()");
 
                 // Mouse over-leave
-                element.attr("ng-mouseover", "showPopup()");
+                element.attr("ng-mouseover", "showPopup($event)");
                 element.attr("ng-mouseleave", "hidePopup()");
 
                 // Remove style elements from svg
