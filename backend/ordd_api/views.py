@@ -1,21 +1,77 @@
 # api_exp01/views.py
 
-from rest_framework import generics, permissions, status
+from rest_framework import generics, permissions, mixins
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from rest_framework.exceptions import PermissionDenied
-from django.contrib.auth.decorators import login_required
-
+from rest_framework import status
 from django.contrib.auth import get_user
+from django.contrib.auth.models import User
+
 # from .permissions import IsOwner
-from ordd.settings import ORDD_API_BASEPATH
-from .serializers import RegionSerializer, CountrySerializer, UserSerializer
+from .serializers import RegionSerializer, CountrySerializer, ProfileSerializer, UserSerializer
 from .models import Region, Country
 
-#
-#  NOTE:
-#    permission_classes = (
-#        permissions.IsAuthenticated, IsOwner)
+class IsOwner(permissions.BasePermission):
+    """
+    Custom permission to only allow owners of an object to edit it.
+    """
+    def has_permission(self, request, view):
+        return request.user and request.user.is_authenticated()
+
+    def has_object_permission(self, request, view, obj):
+        return obj.user == request.user
+
+#mixins.RetrieveModelMixin,
+#                    ,
+class ProfileDetail(generics.GenericAPIView):
+    queryset = User.objects.all()
+    serializer_class = ProfileSerializer
+
+    def get(self, request, format=None):
+        if not request.user.is_authenticated:
+            raise PermissionDenied()
+
+        serializer = ProfileSerializer(request.user)
+        return Response(serializer.data)
+
+    def put(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            raise PermissionDenied()
+
+        instance = get_user(request)
+        serializer = ProfileSerializer(instance, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+#    def options(self, request, *args, **kwargs):
+#        data = super(ProfileDetail, self).metadata(request)
+#        return Response({'msg': 'WIP'})
+
+#    def metadata(self, request):
+#        data = super(ProfileDetail, self).metadata(request)
+#        return data
+#    def delete(self, request, *args, **kwargs):
+#        return self.destroy(request, *args, **kwargs)
+
+
+
+
+
+
+
+
+def profile_get_queryset(self):
+    user = self.request.user
+    return user
+
+class ProfileCreateViewEx(generics.RetrieveUpdateAPIView):
+    """This class handles GET, PUT, PATCH and DELETE requests."""
+    queryset = profile_get_queryset
+    serializer_class = ProfileSerializer
+    permission_classes = (IsOwner,)
 
 @api_view(['GET'])
 def ProfileCreateView(request):
@@ -24,19 +80,12 @@ def ProfileCreateView(request):
         raise PermissionDenied()
 
     instance = get_user(request)
-    serializer = UserSerializer(instance)
-    return Response(serializer.data)
+    # request.data.pk == instance.pk
+    return ProfileCreateViewEx()
+#    serializer = UserSerializer(instance)
+#    return Response(serializer.data)
 
-@api_view(['GET', 'POST', 'PUT', 'DELETE'])
-def UserCreateView(request):
-    if not request.user.is_authenticated:
-        raise PermissionDenied()
 
-    user = get_user(request)
-    if not user.groups.filter(name='admin'):
-        raise PermissionDenied()
-
-    return Response({'answer': 'Work In Progress'})
 
 class RegionCreateView(generics.ListCreateAPIView):
     """This class handles the GET and POSt requests of our rest api."""
@@ -60,3 +109,21 @@ class CountryCreateView(generics.ListCreateAPIView):
         """Save the post data when creating a new bucketlist."""
         # owner=self.request.user
         serializer.save()
+
+class UserCreateView(generics.ListCreateAPIView):
+    """This class handles the GET and POSt requests of our rest api."""
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = (permissions.IsAdminUser,)
+
+    def perform_create(self, serializer):
+        """Save the post data when creating a new bucketlist."""
+        # owner=self.request.user
+        serializer.save()
+
+class UserDetailsView(generics.RetrieveUpdateDestroyAPIView):
+    """This class handles GET, PUT, PATCH and DELETE requests."""
+
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+    permission_classes = (permissions.IsAdminUser,)

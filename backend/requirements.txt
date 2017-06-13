@@ -3,3 +3,4 @@ djangorestframework==3.6.3
 pkg-resources==0.0.0
 django-jenkins==0.110.0
 django-cors-headers==2.1.0
+# django-admin-view-permission==0.9
