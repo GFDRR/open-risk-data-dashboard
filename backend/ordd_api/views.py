@@ -1,11 +1,7 @@
 # api_exp01/views.py
 
 from rest_framework import generics, permissions
-from rest_framework.response import Response
-from rest_framework.exceptions import PermissionDenied
-from rest_framework import status
 from django.contrib.auth.models import User
-from rest_framework.views import APIView
 
 # from .permissions import IsOwner
 from .serializers import RegionSerializer, CountrySerializer, ProfileSerializer, UserSerializer
@@ -21,27 +17,13 @@ class IsOwner(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         return obj.user == request.user
 
-class ProfileDetail(APIView):
+class ProfileDetail(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()
     serializer_class = ProfileSerializer
 
-    def get(self, request, format=None):
-        if not request.user.is_authenticated:
-            raise PermissionDenied()
-
-        serializer = ProfileSerializer(request.user)
-        return Response(serializer.data)
-
-    def put(self, request, *args, **kwargs):
-        if not request.user.is_authenticated:
-            raise PermissionDenied()
-
-        serializer = ProfileSerializer(request.user, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
+    def get_object(self, queryset=None):
+        obj = self.request.user
+        return obj
 
 class RegionCreateView(generics.ListCreateAPIView):
     """This class handles the GET and POSt requests of our rest api."""
