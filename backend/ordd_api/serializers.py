@@ -80,7 +80,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('pk', 'username', 'first_name', 'last_name', 'groups', 'is_staff', 'title', 'institution')
+        fields = ('pk', 'username', 'first_name', 'last_name', 'email', 'groups', 'is_staff', 'title', 'institution')
         read_only_fields = ('pk', )
 
     def create(self, validated_data):
