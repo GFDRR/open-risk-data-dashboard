@@ -24,7 +24,7 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
         $scope.indexPage = RodiSrv.setPageIndex($location.path());
     }
 
-    if($scope.tokenid){$scope.bLogin = true; $scope.userinfo = $cookieStore.get('rodi_user');} else {$scope.bLogin = false; $scope.userinfo = {username:"", first_name:"", last_name:"", email:"", groups:[], title:"", institution:""};}
+    if($scope.tokenid){$scope.bLogin = true; $scope.userinfo = $cookieStore.get('rodi_user');} else {$scope.bLogin = false; $scope.userinfo = RodiSrv.getUserStructureEmpty();}
 
     $scope.changeview = function(page, index)
     {
@@ -73,15 +73,12 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
                         RodiSrv.getUserInfo(token,
                             function(data){
                                 //Success
-                                alert('OK');
-                                console.log(data);
 
                                 $cookieStore.put('rodi_token', token);
                                 $scope.formloginCss = "display_none";
                                 $scope.bLogin = true;
 
-                                // TODO: get user info via API for "userinfo" structure from data variable
-                                $scope.userinfo = {username:$scope.usr_name, first_name:"", last_name:"", email:"", groups:[], title:"", institution:""};
+                                $scope.userinfo = {pk:data.pk, username:data.username, first_name:data.first_name, last_name:data.last_name, email:data.email, groups:data.groups, title:data.title, institution:data.institution};
                                 $cookieStore.put('rodi_user', $scope.userinfo);
 
                             }, function(data){
@@ -90,7 +87,7 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
                                 $cookieStore.remove('rodi_user');
 
                                 vex.dialog.alert('Login error: unable to retrieve your information');
-                                $scope.userinfo = {username:"", first_name:"", last_name:"", email:"", groups:[], title:"", institution:""};
+                                $scope.userinfo = RodiSrv.getUserStructureEmpty();
 
                                 $scope.bLogin = false;
                             }
@@ -100,7 +97,7 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
 
                 }, function(data){
                     // Error API
-                    $scope.userinfo = {name:"", surname:"", id:"", level:""};
+                    $scope.userinfo = RodiSrv.getUserStructureEmpty();
                     vex.dialog.alert('Login error: user name/password is not valid');
                     $scope.bLogin = false;
                 });
@@ -212,7 +209,8 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
                 $scope.usr = {
                     name: "",
                     surname: "",
-                    email: ""
+                    email: "",
+                    institution: ""
                 };
             } else
                 {

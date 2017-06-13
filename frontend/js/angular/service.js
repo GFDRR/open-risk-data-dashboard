@@ -541,7 +541,28 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         return true;
     }
 
-    /* LOGIN services */
+    // ************************************** //
+    // **** LOGIN / ADMIN USERS / PROFILE *** //
+    // ************************************** //
+
+    this.getUserStructureEmpty = function()
+    {
+        var obj =
+            {
+                pk:-999,
+                username:"",
+                first_name:"",
+                last_name:"",
+                email:"",
+                groups:[],
+                title:"",
+                institution:"",
+                is_staff: false
+            };
+
+        return obj;
+
+    }
 
     this.checkLogin = function(usr, psw, onSuccess, onError)
     {
@@ -566,8 +587,6 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
     {
     //    Return user info
 
-        console.log(token);
-
         var req = {
             method: 'GET',
             url: baseAPIurl + 'profile',
@@ -578,11 +597,122 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         }
 
         $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+    }
+
+    this.saveProfile = function(token, objUsr, onSuccess, onError)
+    {
+
+        var req = {
+            method: 'PUT',
+            url: baseAPIurl + 'profile',
+            headers: {
+                'Authorization': 'Token ' + token
+            },
+            data: objUsr
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+
+    }
+
+    this.saveUserInfo = function(token, objUsr, onSuccess, onError)
+    {
+
+        var req = {
+            method: 'PUT',
+            url: baseAPIurl + 'user/' + objUsr.pk,
+            headers: {
+                'Authorization': 'Token ' + token
+            },
+            data: objUsr
+        }
+
+        $http(req).then(function(data){
             if(onSuccess) onSuccess(data);
         }, function(data){
             if(onError)onError(data);
         });
+
     }
+
+    this.insertUserInfo = function(token, objUsr, onSuccess, onError)
+    {
+
+        var req = {
+            method: 'POST',
+            url: baseAPIurl + 'user/',
+            headers: {
+                'Authorization': 'Token ' + token
+            },
+            data: objUsr
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data);
+        }, function(data){
+            if(onError)onError(data);
+        });
+
+    }
+
+    this.deleteUserInfo = function(token, pk, onSuccess, onError)
+    {
+
+        var req = {
+            method: 'DELETE',
+            url: baseAPIurl + 'user/' + pk,
+            headers: {
+                'Authorization': 'Token ' + token
+            },
+            data: {}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data);
+        }, function(data){
+            if(onError)onError(data);
+        });
+
+    }
+
+    this.getUsersList = function(token, onSuccess, onError)
+    {
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'user/',
+            headers: {
+                'Authorization': 'Token ' + token
+            },
+            data: { }
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+    }
+
+    this.sendRegisterRequest = function(usr)
+    {
+        // API: send obj usr = {name: "", surname="", email=""}
+        // registrazione, invio mail di conferma all'utente, invio mail con nome utente e password per accesso
+
+        console.log(usr);
+        return true;
+    }
+
+    // ************************************** //
+    // *************** UTILITY ***************** //
+    // ************************************** //
 
     this.setPageIndex = function(strpath)
     {
@@ -616,13 +746,5 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         return true;
     }
 
-    this.sendRegisterRequest = function(usr)
-    {
-        // API: send obj usr = {name: "", surname="", email=""}
-        // registrazione, invio mail di conferma all'utente, invio mail con nome utente e password per accesso
-
-        console.log(usr);
-        return true;
-    }
 
 }]);
