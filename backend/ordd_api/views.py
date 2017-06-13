@@ -39,8 +39,7 @@ class ProfileDetail(generics.GenericAPIView):
         if not request.user.is_authenticated:
             raise PermissionDenied()
 
-        instance = get_user(request)
-        serializer = ProfileSerializer(instance, data=request.data)
+        serializer = ProfileSerializer(request.user, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
