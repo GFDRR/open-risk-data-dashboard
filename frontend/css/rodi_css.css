@@ -456,7 +456,7 @@ fieldset[disabled] .btn-custom.active {
 
 .form-control,
 .form-control:focus {
-    border: none;
+    /*border: none;*/
     box-shadow:none;
     -webkit-box-shadow:none;
     border-radius:0;
@@ -464,7 +464,7 @@ fieldset[disabled] .btn-custom.active {
 
 }
 
-input.form-control {border-bottom:solid 2px #EE3036;}
+/*input.form-control {border-bottom:solid 2px #EE3036;}*/
 
 .form-control:hover { border-color:#007899;}
 .form-control:focus { border-bottom:solid 4px #007899; }
