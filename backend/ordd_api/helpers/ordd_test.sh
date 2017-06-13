@@ -82,7 +82,7 @@ echo
 
 newuser_ist="$(echo "$newuser_ist" | sed 's/rosa@/munde@/g')"
 eecho "PUT NEW USER:        $newuser_ist ... "
-mycurl --header "Authorization: Token $token" -d "$newuser_ist" -X PUT "${baseurl}user/$newuser_pk"
+mycurl -o /dev/null --header "Authorization: Token $token" -d "$newuser_ist" -X PUT "${baseurl}user/$newuser_pk"
 echo
 
 eecho "NEW USER MOD GET ..."

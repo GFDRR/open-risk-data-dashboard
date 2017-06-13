@@ -23,9 +23,10 @@ class IsOwner(permissions.BasePermission):
         return obj.user == request.user
 
 
-class ProfileDetail(generics.RetrieveUpdateAPIView):
+class ProfileDetails(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()
     serializer_class = ProfileSerializer
+    permission_classes = (permissions.IsAuthenticated, )
 
     def get_object(self, queryset=None):
         obj = self.request.user
@@ -59,28 +60,23 @@ class ProfilePasswordUpdate(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class RegionCreateView(generics.ListCreateAPIView):
+class RegionListView(generics.ListAPIView):
     """This class handles the GET and POSt requests of our rest api."""
     queryset = Region.objects.all()
     serializer_class = RegionSerializer
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-
-    def perform_create(self, serializer):
-        """Save the post data when creating a new bucketlist."""
-        # owner=self.request.user
-        serializer.save()
 
 
-class CountryCreateView(generics.ListCreateAPIView):
+class CountryListView(generics.ListAPIView):
     """This class handles the GET and POSt requests of our rest api."""
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
-    # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
 
-    def perform_create(self, serializer):
-        """Save the post data when creating a new bucketlist."""
-        # owner=self.request.user
-        serializer.save()
+
+class CountryDetailsView(generics.RetrieveAPIView):
+    """This class handles the GET and POSt requests of our rest api."""
+    queryset = Country.objects.all()
+    serializer_class = CountrySerializer
+
 
 class UserCreateView(generics.ListCreateAPIView):
     """This class handles the GET and POSt requests of our rest api."""
