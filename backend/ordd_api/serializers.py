@@ -19,28 +19,10 @@ class CountrySerializer(serializers.ModelSerializer):
         # read_only_fields = ('date_created', 'date_modified')
 
 
-# class ProfileSerializer(serializers.BaseSerializer):
-#     def to_representation(self, obj):
-#         print("groups");
-#         print(obj.groups.all());
-#         # , 'groups': obj.groups.values_list('name', flat=True)
-#         return {
-#             'username': obj.username,
-#             'first_name': obj.first_name,
-#             'last_name': obj.last_name,
-#             'email': obj.email,
-#             'groups': obj.groups.values_list('name', flat=True),
-#             'title': obj.profile.title,
-#             'institution': obj.profile.institution
-#         }
-
 class GroupsRelatedField(serializers.StringRelatedField):
     def to_internal_value(self, data):
-        print("ECCOCI")
-        print(data)
         print(Group.objects.filter(name=data)[0].pk)
         return Group.objects.filter(name=data)[0].pk
-
 
 
 class ProfileSerializer(serializers.ModelSerializer):

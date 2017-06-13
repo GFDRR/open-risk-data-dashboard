@@ -1,12 +1,11 @@
 # api_exp01/views.py
 
-from rest_framework import generics, permissions, mixins
+from rest_framework import generics, permissions
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
 from rest_framework.exceptions import PermissionDenied
 from rest_framework import status
-from django.contrib.auth import get_user
 from django.contrib.auth.models import User
+from rest_framework.views import APIView
 
 # from .permissions import IsOwner
 from .serializers import RegionSerializer, CountrySerializer, ProfileSerializer, UserSerializer
@@ -22,9 +21,7 @@ class IsOwner(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
         return obj.user == request.user
 
-#mixins.RetrieveModelMixin,
-#                    ,
-class ProfileDetail(generics.GenericAPIView):
+class ProfileDetail(APIView):
     queryset = User.objects.all()
     serializer_class = ProfileSerializer
 
@@ -44,46 +41,6 @@ class ProfileDetail(generics.GenericAPIView):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-#    def options(self, request, *args, **kwargs):
-#        data = super(ProfileDetail, self).metadata(request)
-#        return Response({'msg': 'WIP'})
-
-#    def metadata(self, request):
-#        data = super(ProfileDetail, self).metadata(request)
-#        return data
-#    def delete(self, request, *args, **kwargs):
-#        return self.destroy(request, *args, **kwargs)
-
-
-
-
-
-
-
-
-def profile_get_queryset(self):
-    user = self.request.user
-    return user
-
-class ProfileCreateViewEx(generics.RetrieveUpdateAPIView):
-    """This class handles GET, PUT, PATCH and DELETE requests."""
-    queryset = profile_get_queryset
-    serializer_class = ProfileSerializer
-    permission_classes = (IsOwner,)
-
-@api_view(['GET'])
-def ProfileCreateView(request):
-    """This view return base user fields, included groups"""
-    if not request.user.is_authenticated:
-        raise PermissionDenied()
-
-    instance = get_user(request)
-    # request.data.pk == instance.pk
-    return ProfileCreateViewEx()
-#    serializer = UserSerializer(instance)
-#    return Response(serializer.data)
-
 
 
 class RegionCreateView(generics.ListCreateAPIView):

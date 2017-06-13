@@ -10,7 +10,7 @@ from .views import (RegionCreateView, CountryCreateView, ProfileDetail,
 urlpatterns = {
     url(r'^profile$', ProfileDetail.as_view(), name="profile_create"),
     url(r'^user/$', UserCreateView.as_view(), name="user_create"),
-    url(r'^user/(?P<pk>[0-9]+)/$',
+    url(r'^user/(?P<pk>[0-9]+)$',
         UserDetailsView.as_view(), name="user_details"),
 
     url(r'^region/$', RegionCreateView.as_view(), name="region_create"),
