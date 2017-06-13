@@ -4,11 +4,14 @@ from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
 
 from rest_framework.authtoken.views import obtain_auth_token
-from .views import (RegionCreateView, CountryCreateView, ProfileDetail,
+from .views import (RegionCreateView, CountryCreateView,
+                    ProfileDetail, ProfilePasswordUpdate,
                     UserCreateView, UserDetailsView)
 
 urlpatterns = {
     url(r'^profile$', ProfileDetail.as_view(), name="profile_create"),
+    url(r'^profile/password$', ProfilePasswordUpdate.as_view(),
+        name="profile_password_update"),
     url(r'^user/$', UserCreateView.as_view(), name="user_create"),
     url(r'^user/(?P<pk>[0-9]+)$',
         UserDetailsView.as_view(), name="user_details"),

@@ -1,7 +1,8 @@
 # ordd_api/serializers.py
 
-from rest_framework import serializers
 from django.contrib.auth.models import User, Group
+from django.contrib.auth.password_validation import validate_password
+from rest_framework import serializers
 from .models import Region, Country, Profile
 
 class RegionSerializer(serializers.ModelSerializer):
@@ -52,6 +53,18 @@ class ProfileSerializer(serializers.ModelSerializer):
         # This always creates a Profile if the User is missing one;
         # change the logic here if that's not right for your app
         Profile.objects.update_or_create(user=user, defaults=profile_data)
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    """
+    Serializer for password change endpoint.
+    """
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
+
+    def validate_new_password(self, value):
+        validate_password(value)
+        return value
 
 
 class UserSerializer(serializers.ModelSerializer):
