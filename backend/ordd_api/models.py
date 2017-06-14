@@ -13,11 +13,6 @@ def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
 
-@receiver(post_save, sender=User)
-def save_user_profile(sender, instance, **kwargs):
-    instance.profile.save()
-
-
 class Region(models.Model):
     """World regions"""
     name = models.CharField(max_length=64, blank=False, primary_key=True)

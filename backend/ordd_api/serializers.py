@@ -37,6 +37,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         read_only_fields = ('pk', 'username', 'groups', 'is_staff')
         extra_kwargs = {'password': {'write_only': True}}
 
+    # maybe the create method will be never called
     def create(self, validated_data):
         profile_data = validated_data.pop('profile', None)
         user = super(ProfileSerializer, self).create(validated_data)

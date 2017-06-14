@@ -30,11 +30,16 @@ profile="$(mycurl --header "Authorization: Token $token" "${baseurl}profile")"
 echo "RETURN:          $profile ."
 echo
 # profile="$(echo "$profile" | sed 's/"email":"admin_user@/"password": "colibri","email":"admin_user_mod@/g')"
-profile="$(echo "$profile" | sed 's/"email":"admin_user@/"email":"admin_user_mod@/g')"
+profile="$(echo "$profile" | sed 's/"email":"admin_user@/"email":"admin_user_mod@/g;s/"title":"Dr"/"title":"Dr BIG"/g')"
 eecho "PUT PROFILE:          $profile ... "
 mycurl -o /dev/null --header "Authorization: Token $token" -d "$profile" -X PUT "${baseurl}profile"
 
-profile="$(echo "$profile" | sed 's/admin_user_mod@/admin_user@/g')"
+eecho "Get modified profile ... "
+profile="$(mycurl --header "Authorization: Token $token" "${baseurl}profile")"
+echo "RETURN:          $profile ."
+echo
+
+profile="$(echo "$profile" | sed 's/admin_user_mod@/admin_user@/g;s/"title":"Dr BIG"/"title":"Dr"/g')"
 eecho "PUT PROFILE (revert): $profile ... "
 mycurl -o /dev/null --header "Authorization: Token $token" -d "$profile" -X PUT "${baseurl}profile"
 
@@ -80,7 +85,7 @@ newuser_ist="$(mycurl --header "Authorization: Token $token" "${baseurl}user/$ne
 echo "RETURN:              $newuser_ist"
 echo
 
-newuser_ist="$(echo "$newuser_ist" | sed 's/rosa@/munde@/g')"
+newuser_ist="$(echo "$newuser_ist" | sed 's/rosa@/munde@/g;s/"title":"Drs"/"title":"Drs BIG"/g')"
 eecho "PUT NEW USER:        $newuser_ist ... "
 mycurl -o /dev/null --header "Authorization: Token $token" -d "$newuser_ist" -X PUT "${baseurl}user/$newuser_pk"
 echo
