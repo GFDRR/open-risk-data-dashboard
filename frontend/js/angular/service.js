@@ -348,15 +348,22 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 
     this.getHazardCategory = function()
     {
-        return objDataTimeElement = {
-            "dataType_index": {
-                dt01:["h01", "Base data", "icon-base_data"],
-                dt02:["h02", "Exposure", "icon-exposure"],
-                dt03:["h03", "Hazard info", "icon-hazard_info"],
-                dt04:["h04", "Vulnerability", "icon-vulnerability"],
-                dt05:["h05", "Risk info", "icon-info"]
-            },
-        }
+        // return objDataTimeElement = {
+        //     "dataType_index": {
+        //         dt01:["h01", "Base data", "icon-base_data"],
+        //         dt02:["h02", "Exposure", "icon-exposure"],
+        //         dt03:["h03", "Hazard info", "icon-hazard_info"],
+        //         dt04:["h04", "Vulnerability", "icon-vulnerability"],
+        //         dt05:["h05", "Risk info", "icon-info"]
+        //     },
+        // }
+        return objHazardCategoryList = [
+            {code:"h01", desc:"Base data", icon:"icon-base_data"},
+            {code:"h02", desc:"Exposure", icon:"icon-exposure"},
+            {code:"h03", desc:"Hazard info", icon:"icon-hazard_info"},
+            {code:"h04", desc:"Vulnerability", icon:"icon-vulnerability"},
+            {code:"h05", desc:"Risk info", icon:"icon-info"}
+        ];
     };
 
     this.getQuestions = function()

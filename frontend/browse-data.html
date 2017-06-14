@@ -101,8 +101,8 @@
                     <table class="table table-condensed table-responsive">
                         <thead>
                         <th>&nbsp;</th> <!-- cella vuota -->
-                        <th class="text-center row_icon" ng-repeat="dt in matrixDataTypeList.dataType_index">
-                            <i class="{{dt[2]}}"></i><br /><span>{{dt[1]}}</span>
+                        <th class="text-center row_icon" ng-repeat="dt in matrixDataTypeList">
+                            <i class="{{dt.icon}}"></i><br /><span>{{dt.desc}}</span>
                         </th>
                         </thead>
 
@@ -110,9 +110,9 @@
 
                         <tr ng-repeat="matrixRow in matrixData">
                             <td class="text-center"><strong><a href="" ng-click="changepage('country-details.html?idcountry=' + matrixRow.code)">{{matrixRow.name}}</a></strong></td>
-                            <td class="text-center" ng-repeat="hazardValue in matrixRow.dataValue">
+                            <td class="text-center" ng-repeat="(key, value) in matrixRow.dataValue">
                                 <!-- click verso dataset list with filters country & category -->
-                                <a href="" alt="Profile: {{matrixRow.name}}"><div class="matrix_cell" style="{{colorCell(hazardValue)}}"></div></a>
+                                <a href="" ng-click="changepage('dataset_list.html?idcountry=' + matrixRow.code + '&idcategory=' + key)" alt="Profile: {{matrixRow.name}}"><div class="matrix_cell" style="{{colorCell(value)}}"></div></a>
                             </td>
                         </tr>
 

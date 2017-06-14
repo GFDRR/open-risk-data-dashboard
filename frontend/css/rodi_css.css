@@ -32,6 +32,12 @@ section
     font-size: 17px;
 }
 
+.rodi_divider
+{
+    height:20px;
+    border-top: solid 1px #c0c0c0;
+}
+
 .display_none
 {
     display: none;
@@ -127,7 +133,7 @@ section
 {
     font-size:20px;
     color:#ffd700;
-    margin-top: -12px;
+    margin-top: -10px;
 }
 
 .contribute_feedbak_box
@@ -200,6 +206,7 @@ section
     -moz-border-radius: 2px;
     border-radius: 2px;
     margin:auto;
+    transition: all 0.6s;
 }
 
 .matrix_cell_round
@@ -211,6 +218,14 @@ section
     -moz-border-radius: 50%;
     border-radius: 50%;
     margin:auto;
+}
+
+.matrix_cell a:hover
+{
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    border:solid 1px #000000;
 }
 
 

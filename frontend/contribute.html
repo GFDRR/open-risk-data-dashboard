@@ -155,7 +155,7 @@
                                     <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.hazard_category == '--'"></i>
                                     <select class="form-control" ng-model="objDataset.hazard_category">
                                         <option value="--" selected>-- Select --</option>
-                                        <option ng-repeat="dt in matrixDataTypeList.dataType_index" value="{{dt[0]}}">{{dt[1]}}</option>
+                                        <option ng-repeat="dt in matrixDataTypeList" value="{{dt.code}}">{{dt.desc}}</option>
                                     </select>
 
                                 </div>

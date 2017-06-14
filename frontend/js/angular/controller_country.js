@@ -2,9 +2,14 @@
  * Created by Manuel on 22/05/2017.
  */
 
-RodiApp.controller('RodiCtrlCountry', function ($scope, RodiSrv, $location, $filter) {
+RodiApp.controller('RodiCtrlCountry', function ($scope, RodiSrv, $location, $filter, $window) {
     // Data details controller
     $scope.idCountry = $location.search().idcountry;
+
+    $scope.changepage = function(page)
+    {
+        $window.location.href = baseUrl + page;
+    }
 
     $scope.countriesData = RodiSrv.getCountryDetails();
     $scope.countryData = $filter('filter')($scope.countriesData, {code: $scope.idCountry}, true);

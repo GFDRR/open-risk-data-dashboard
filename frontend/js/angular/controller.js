@@ -50,7 +50,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
         $window.location.href = baseUrl + page;
     }
 
-
     // ************************************** //
     // ************* FILTERS **************** //
     // ************************************** //
@@ -65,7 +64,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
         }
 
     };
-
 
     // ************************************** //
     // ************* MATRIX ***************** //
@@ -94,9 +92,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 $scope.countryList = data;
             }, function(data){
                 // Error
-                //TODO: error message
+                // TODO: error message
             });
-
 
         $scope.hazardList = RodiSrv.getHazardList();
         $scope.questions = RodiSrv.getQuestions();
@@ -372,5 +369,35 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
             );
         }
     });
+
+
+    // ************************************** //
+    // ****** DATASET LIST & DETAILS ******** //
+    // ************************************** //
+
+    if ($location.path().indexOf('dataset_list.html') !== -1)
+    {
+        // Dataset page
+        $scope.idCountry = $location.search().idcountry;
+        $scope.idHazCat = $location.search().idcategory;
+
+        RodiSrv.getCountryList(
+            function(data){
+                // Success
+                $scope.countryList = data;
+                $scope.objDatasetClass = RodiSrv.getHazardCategory();
+
+                $scope.objCountry = $filter('filter')($scope.countryList, {iso2: $scope.idCountry});
+
+                $scope.objDatasetClass = $filter('filter')($scope.objDatasetClass, {code: $scope.idHazCat});
+
+            }, function(data){
+                // Error
+                // TODO: error message
+        });
+
+
+
+    }
 
 } ]);

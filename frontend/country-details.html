@@ -105,12 +105,16 @@
             <div class="col-xs-12 col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2">
 
                 <!-- row questions | column data type | click only on label data type: details datasets -->
+                <br />
+
+
 
                 <table class="table table-condensed table-responsive">
                     <thead>
                         <th>&nbsp;</th> <!-- cella vuota -->
-                        <th class="text-center row_icon" ng-repeat="dt in matrixDataTypeList.dataType_index">
-                            <a href=""><i class="{{dt[2]}}"></i><br /><span>{{dt[1]}}</span></a> <!-- il click porta alla pagina elenco dataset (filters: country category) -->
+                        <th class="text-center row_icon" ng-repeat="dt in matrixDataTypeList">
+                            <a href="" ng-click="changepage('dataset_list.html?idcountry=' + countryData[0].code + '&idcategory=' + dt.code)"><i class="{{dt.icon}}"></i></a><br /><span>{{dt.desc}}</span>
+                            <!-- il click porta alla pagina elenco dataset (filters: country category) -->
                         </th>
                     </thead>
 
@@ -131,6 +135,8 @@
                     </tbody>
 
                 </table>
+
+
             </div>
         </div>
 
