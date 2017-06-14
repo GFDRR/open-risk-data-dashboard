@@ -623,6 +623,28 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 
     }
 
+    this.resetProfilePsw = function(token, oldpsw, newpsw, onSuccess, onError)
+    {
+        var req = {
+            method: 'PUT',
+            url: baseAPIurl + 'profile/password',
+            headers: {
+                'Authorization': 'Token ' + token
+            },
+            data: {
+                'old_password': oldpsw,
+                'new_password': newpsw
+            }
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+
+    }
+
     this.saveUserInfo = function(token, objUsr, onSuccess, onError)
     {
 

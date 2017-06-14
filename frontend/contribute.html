@@ -271,16 +271,16 @@
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                 <div class="alert alert-info">Change password</div>
                                 <label>Old password  (*)</label>
-                                <input type="text" name="usroldpsw" placeholder="Old password" class="form-control">
+                                <input type="password" placeholder="Old password" class="form-control" ng-model="old_psw">
                                 <br />
                                 <label>New password  (*)</label>
-                                <input type="text" name="usrnewpsw" placeholder="New password" class="form-control">
+                                <input type="password" placeholder="New password" class="form-control" ng-model="new_psw">
                                 <br />
                                 <label>Confirm new password  (*)</label>
-                                <input type="text" name="usrnewbispsw" placeholder="Confirm new password" class="form-control">
+                                <input type="password" placeholder="Confirm new password" class="form-control" ng-model="confirm_psw">
                                 <br />
                                 <div class="text-right">
-                                    <a href="" class="btn btn-success">Change password</a><br />
+                                    <a href="" class="btn btn-success" ng-click="resetProfilePsw(old_psw, new_psw, confirm_psw)">Change password</a><br />
                                     <span class="small text-muted">(*) Required</span>
                                 </div>
                             </div>

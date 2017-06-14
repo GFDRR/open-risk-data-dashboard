@@ -197,8 +197,35 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
             );
         }
 
-    }
+        $scope.resetProfilePsw = function(old_psw, new_psw, confirm_psw)
+        {
+            // Resetto la password per il profilo
 
+            if(old_psw != '' && new_psw != ''){
+                // All fileds are compiled
+                if(confirm_psw == new_psw)
+                {
+                    // New password e confirm password corrisponded
+                    RodiSrv.resetProfilePsw($scope.tokenid, old_psw, new_psw,
+                        function(data){
+                            // Success
+                            console.log(data);
+                            vex.dialog.alert('Password update!');
+                        }, function(data){
+                            // Error
+                            console.log(data);
+                            vex.dialog.alert('Error: ');
+                        })
+
+                } else {
+                    vex.dialog.alert('Error: New password and password confirmation are not the same');
+                }
+            } else {
+                vex.dialog.alert('Error: You must insert old password, new password and confirm the new password');
+            }
+        }
+
+    }
 
 
     // ************************************** //
