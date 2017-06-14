@@ -213,8 +213,12 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                             vex.dialog.alert('Password update!');
                         }, function(data){
                             // Error
-                            console.log(data);
-                            vex.dialog.alert('Error: ');
+                            var sMsg = "";
+                            angular.forEach(data, function(value, key) {
+                                sMsg = key.replace("_"," ") + ': ' + value
+                                vex.dialog.alert(sMsg);
+                            });
+
                         })
 
                 } else {
@@ -227,142 +231,146 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
     }
 
-
     // ************************************** //
     // ********** ADMIN FUNCTIONS *********** //
     // ************************************** //
 
-    if ($scope.bLogin && $scope.userinfo.groups[0] == 'admin')
-    {
+    $scope.$watch('bLogin', function() {
 
-        $scope.usradmininfo = RodiSrv.getUserStructureEmpty();
-        $scope.usrRegList = [];
-        $scope.stypeModal = "";
-        $scope.groupSelect = null;
+        if ($scope.bLogin && $scope.userinfo.groups[0] == 'admin')
+        {
+            $scope.tokenid = $cookieStore.get('rodi_token');
+            $scope.userinfo = $cookieStore.get('rodi_user');
 
-        RodiSrv.getUsersList($scope.tokenid,
-            function(data){
-                //Success
-                $scope.usrRegList = data;
+            $scope.usradmininfo = RodiSrv.getUserStructureEmpty();
+            $scope.usrRegList = [];
+            $scope.stypeModal = "";
+            $scope.groupSelect = null;
 
-                $scope.openPopup = function (pk)
-                {
+            RodiSrv.getUsersList($scope.tokenid,
+                function(data){
+                    //Success
+                    $scope.usrRegList = data;
 
-                    if(pk == -999)
+                    $scope.openPopup = function (pk)
                     {
-                        // New user
-                        $scope.stypeModal = "insert new profile";
-                        $scope.usradmininfo = RodiSrv.getUserStructureEmpty();
 
-                    } else {
-                        // Edit user profile
-                        var aUserProfile = $filter('filter')($scope.usrRegList, {pk: pk});
-                        $scope.usradmininfo = aUserProfile[0];
+                        if(pk == -999)
+                        {
+                            // New user
+                            $scope.stypeModal = "insert new profile";
+                            $scope.usradmininfo = RodiSrv.getUserStructureEmpty();
 
-                        if($scope.usradmininfo.groups.length == 0){
-                            $scope.groupSelect = 'normal';
                         } else {
-                            $scope.groupSelect = $scope.usradmininfo.groups[0];
+                            // Edit user profile
+                            var aUserProfile = $filter('filter')($scope.usrRegList, {pk: pk});
+                            $scope.usradmininfo = aUserProfile[0];
+
+                            if($scope.usradmininfo.groups.length == 0){
+                                $scope.groupSelect = 'normal';
+                            } else {
+                                $scope.groupSelect = $scope.usradmininfo.groups[0];
+                            }
+
+                            $scope.stypeModal = "edit";
                         }
 
-                        $scope.stypeModal = "edit";
+
+                        $('#editUser').modal('show');
                     }
 
-
-                    $('#editUser').modal('show');
-                }
-
-                $scope.saveUsrInfoAdmin = function()
-                {
-
-                    if($scope.groupSelect == 'admin')
+                    $scope.saveUsrInfoAdmin = function()
                     {
-                        $scope.usradmininfo.is_staff = true;
-                    }
-                    else {
-                        $scope.usradmininfo.is_staff = false;
-                    }
 
-                    if($scope.groupSelect == 'normal'){
-                        $scope.usradmininfo.groups = [];
-                    } else {
-                        $scope.usradmininfo.groups[0] = $scope.groupSelect;
-                    }
-
-                    if($scope.usradmininfo.pk == -999)
-                    {
-                        // New user
-
-                        RodiSrv.insertUserInfo($scope.tokenid, $scope.usradmininfo,
-                            function(data){
-                                // Success
-                                vex.dialog.alert('User info saved successfully');
-
-                                $scope.usrRegList.push($scope.usradmininfo);
-
-                                RodiSrv.getUsersList($scope.tokenid,
-                                    function(data){
-                                        // Success
-                                        $scope.usrRegList = data;
-                                    }, function(data){
-                                        // Error
-                                    })
-
-                            }, function(data){
-                                // Error
-                                vex.dialog.alert('Error: unable to save data');
-                            })
-
-                    } else {
-                        // Edit User profile
-
-                        RodiSrv.saveUserInfo($scope.tokenid, $scope.usradmininfo,
-                            function(data){
-                                // Success
-                                vex.dialog.alert('User info saved successfully');
-                            }, function(data){
-                                // Error
-                                vex.dialog.alert('Error: unable to save data');
-                            }
-                        )
-                    }
-                }
-
-                $scope.deleteUsrInfoAdmin = function(pk)
-                {
-                    vex.dialog.confirm({
-                        message: 'Are you absolutely sure you want to delete this user profile?',
-                        callback: function (value) {
-                            if(value)
-                            {
-                                // Delete profile
-                                RodiSrv.deleteUserInfo($scope.tokenid, pk,
-                                    function(data){
-                                        // Success
-
-                                        // Reload data from server
-                                        RodiSrv.getUsersList($scope.tokenid,
-                                            function(data){
-                                                // Success
-                                                $scope.usrRegList = data;
-                                            }, function(data){
-                                                // Error
-                                            })
-
-                                    }, function(data){
-                                        // Error
-                                        vex.dialog.alert('Error: unable to delete data');
-                                    })
-                            }
+                        if($scope.groupSelect == 'admin')
+                        {
+                            $scope.usradmininfo.is_staff = true;
                         }
-                    })
-                }
+                        else {
+                            $scope.usradmininfo.is_staff = false;
+                        }
 
-            }, function(data){
-                // Error
-                // Fai nulla
-            }
-        );
-    }
+                        if($scope.groupSelect == 'normal'){
+                            $scope.usradmininfo.groups = [];
+                        } else {
+                            $scope.usradmininfo.groups[0] = $scope.groupSelect;
+                        }
+
+                        if($scope.usradmininfo.pk == -999)
+                        {
+                            // New user
+
+                            RodiSrv.insertUserInfo($scope.tokenid, $scope.usradmininfo,
+                                function(data){
+                                    // Success
+                                    vex.dialog.alert('User info saved successfully');
+
+                                    $scope.usrRegList.push($scope.usradmininfo);
+
+                                    RodiSrv.getUsersList($scope.tokenid,
+                                        function(data){
+                                            // Success
+                                            $scope.usrRegList = data;
+                                        }, function(data){
+                                            // Error
+                                        })
+
+                                }, function(data){
+                                    // Error
+                                    vex.dialog.alert('Error: unable to save data');
+                                })
+
+                        } else {
+                            // Edit User profile
+
+                            RodiSrv.saveUserInfo($scope.tokenid, $scope.usradmininfo,
+                                function(data){
+                                    // Success
+                                    vex.dialog.alert('User info saved successfully');
+                                }, function(data){
+                                    // Error
+                                    vex.dialog.alert('Error: unable to save data');
+                                }
+                            )
+                        }
+                    }
+
+                    $scope.deleteUsrInfoAdmin = function(pk)
+                    {
+                        vex.dialog.confirm({
+                            message: 'Are you absolutely sure you want to delete this user profile?',
+                            callback: function (value) {
+                                if(value)
+                                {
+                                    // Delete profile
+                                    RodiSrv.deleteUserInfo($scope.tokenid, pk,
+                                        function(data){
+                                            // Success
+
+                                            // Reload data from server
+                                            RodiSrv.getUsersList($scope.tokenid,
+                                                function(data){
+                                                    // Success
+                                                    $scope.usrRegList = data;
+                                                }, function(data){
+                                                    // Error
+                                                })
+
+                                        }, function(data){
+                                            // Error
+                                            vex.dialog.alert('Error: unable to delete data');
+                                        })
+                                }
+                            }
+                        })
+                    }
+
+                }, function(data){
+                    // Error
+                    // Fai nulla
+                }
+            );
+        }
+    });
 
 } ]);
