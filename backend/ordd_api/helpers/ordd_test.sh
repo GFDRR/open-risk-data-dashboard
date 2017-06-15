@@ -1,4 +1,5 @@
 #!/bin/bash
+set -x
 set -e
 
 eecho () {
@@ -16,6 +17,8 @@ mycurl () {
     echo "$ret" | head -n -1
 }
 
+ORDD_ADMIN_PASSWORD=${ORDD_ADMIN_PASSWORD:-the_password}
+
 # listen port
 ORDD_SERVER_PORT="${ORDD_SERVER_PORT:-8000}"
 API_BASEPATH="$(echo $ORDD_CONF__ORDD_API_BASEPATH | sed "s/^[^']*'//g;s/'.*//g")"
@@ -24,7 +27,7 @@ if [ -z "$API_BASEPATH" ]; then
 fi
 
 baseurl="http://localhost.localdomain:${ORDD_SERVER_PORT}/${API_BASEPATH}"
-passwd="canarino"
+passwd="$ORDD_ADMIN_PASSWORD"
 passwd_new="toporagno"
 
 eecho "Try to retrieve token ... "
