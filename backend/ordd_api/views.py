@@ -7,7 +7,8 @@ from django.contrib.auth.models import User
 
 # from .permissions import IsOwner
 from .serializers import (
-    RegionSerializer, CountrySerializer, ProfileSerializer, UserSerializer,
+    RegionSerializer, CountrySerializer,
+    ProfileSerializer, UserSerializer, RegistrationSerializer,
     ChangePasswordSerializer)
 from .models import Region, Country
 
@@ -59,6 +60,20 @@ class ProfilePasswordUpdate(APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class RegistrationView(generics.CreateAPIView, generics.RetrieveAPIView):
+    queryset = User.objects.all()
+    serializer_class = RegistrationSerializer
+
+    def get(self, request, *args, **kwargs):
+        # here all the logic to manage the registration confermation
+        # - check if user exists and is disabled
+        # - check if OptIn record exists
+        # - check key against username is correct
+        # - turn on user
+        # - remove optin row
+        # - return success
+        # in the other cases return a generic error for security reason
+        return Response({"response": "ok"})
 
 class RegionListView(generics.ListAPIView):
     """This class handles the GET and POSt requests of our rest api."""

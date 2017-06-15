@@ -7,7 +7,7 @@ from rest_framework.authtoken.views import obtain_auth_token
 from .views import (RegionListView,
                     CountryListView, CountryDetailsView,
                     ProfileDetails, ProfilePasswordUpdate,
-                    UserCreateView, UserDetailsView)
+                    UserCreateView, UserDetailsView, RegistrationView)
 
 urlpatterns = {
     url(r'^profile$', ProfileDetails.as_view(), name="profile_details"),
@@ -17,6 +17,8 @@ urlpatterns = {
     url(r'^user/$', UserCreateView.as_view(), name="user_create"),
     url(r'^user/(?P<pk>[0-9]+)$',
         UserDetailsView.as_view(), name="user_details"),
+
+    url(r'^registration$', RegistrationView.as_view(), name="registration"),
 
     url(r'^region/$', RegionListView.as_view(), name="region_list"),
 

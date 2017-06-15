@@ -2,9 +2,14 @@
 
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.password_validation import validate_password
+from django.db import transaction
+from django.db import IntegrityError
 from rest_framework import serializers
-from .models import Region, Country, Profile
-
+from rest_framework.serializers import ValidationError
+from rest_framework.reverse import reverse
+from .models import Region, Country, Profile, OptIn
+from .mailer import mailer
+from ordd.settings import ORDD_API_BASEPATH
 class RegionSerializer(serializers.ModelSerializer):
     """Serializer of regions"""
     class Meta:
@@ -93,3 +98,38 @@ class UserSerializer(serializers.ModelSerializer):
         # This always creates a Profile if the User is missing one;
         # change the logic here if that's not right for your app
         Profile.objects.update_or_create(user=user, defaults=profile_data)
+
+class RegistrationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('username', 'password', 'is_active', 'email')
+        extra_kwargs = {'password': {'write_only': True}, 'is_active': {'write_only': True}}
+
+    def create(self, validated_data):
+        try:
+            with transaction.atomic():
+                user = super().create(validated_data)
+                user.set_password(validated_data['password'])
+                user.is_active = False
+                user.save()
+                optin = OptIn(user=user)
+                optin.save()
+                subject = 'Open Risk Data Dashboard: registration for user %s' % user.username
+                reply_url = "%s?key=%s" % (reverse('registration', request=self.context['request']), optin.key)
+                content_txt = '''To complete the registration to Open Risk Data Dashboard site
+open this link in your favorite browser: %s .
+
+If you don't subscribe to this site, please ignore this message.''' % (reply_url, )
+                content_html = '''<div>To complete the registration to Open Risk Data Dashboard site<br>
+click here <a href="%s">%s</a><br>
+or open the link in your favorite browser.<br><br>
+If you don't subscribe to this site, please ignore this message.</div>''' % (reply_url, reply_url)
+                mailer(user.email, subject,
+                       {"title": subject, "content":content_txt}, {"title": subject, "content":content_html})
+        except IntegrityError:
+            raise ValidationError({
+                'ret': 'Some DB error occurred.'
+            })
+
+        return user
+
