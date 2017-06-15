@@ -1,0 +1,6 @@
+18. Quantitative Risk Data
+18.1. Annually Expected Economic Losses
+18.2. Annually Expected Indirect Losses
+19. Risk Indicators
+19.1. Annually number of people affected
+19.2. Annually number of buildings affected
