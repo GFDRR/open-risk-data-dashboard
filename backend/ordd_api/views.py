@@ -3,14 +3,17 @@
 from rest_framework import generics, permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django_filters.rest_framework import DjangoFilterBackend
+import django_filters.rest_framework
 from django.contrib.auth.models import User
 
 # from .permissions import IsOwner
 from .serializers import (
     RegionSerializer, CountrySerializer,
+    CategorySerializer, SubCategorySerializer,
     ProfileSerializer, UserSerializer, RegistrationSerializer,
     ChangePasswordSerializer)
-from .models import Region, Country
+from .models import Region, Country, Category, SubCategory
 
 
 class IsOwner(permissions.BasePermission):
@@ -92,6 +95,19 @@ class CountryDetailsView(generics.RetrieveAPIView):
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
 
+
+class CategoryListView(generics.ListAPIView):
+    """This class handles the GET and POSt requests of our rest api."""
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+
+
+class SubCategoryListView(generics.ListAPIView):
+    """This class handles the GET and POSt requests of our rest api."""
+    queryset = SubCategory.objects.all()
+    serializer_class = SubCategorySerializer
+    filter_backends = (DjangoFilterBackend,)
+    filter_fields = ('category',)
 
 class UserCreateView(generics.ListCreateAPIView):
     """This class handles the GET and POSt requests of our rest api."""

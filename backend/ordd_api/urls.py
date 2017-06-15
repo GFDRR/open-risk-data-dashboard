@@ -6,6 +6,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from rest_framework.authtoken.views import obtain_auth_token
 from .views import (RegionListView,
                     CountryListView, CountryDetailsView,
+                    CategoryListView, SubCategoryListView,
                     ProfileDetails, ProfilePasswordUpdate,
                     UserCreateView, UserDetailsView, RegistrationView)
 
@@ -24,6 +25,10 @@ urlpatterns = {
 
     url(r'^country/$', CountryListView.as_view(), name="country_list"),
     url(r'^country/(?P<pk>[A-Z]+)$', CountryDetailsView.as_view(), name="country_details"),
+
+    url(r'^category/$', CategoryListView.as_view(), name="category_list"),
+
+    url(r'^subcategory/$', SubCategoryListView.as_view(), name="subcategory_list"),
 
     url(r'^get-token/', obtain_auth_token),
 }
