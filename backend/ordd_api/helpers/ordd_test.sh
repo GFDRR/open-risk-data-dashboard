@@ -16,7 +16,10 @@ mycurl () {
     echo "$ret" | head -n -1
 }
 
-baseurl="http://localhost.localdomain:8000/api/"
+# listen port
+ORDD_SERVER_PORT="${ORDD_SERVER_PORT:-8000}"
+
+baseurl="http://localhost.localdomain:${ORDD_SERVER_PORT}/${BASE_DIR}"
 passwd="canarino"
 passwd_new="toporagno"
 

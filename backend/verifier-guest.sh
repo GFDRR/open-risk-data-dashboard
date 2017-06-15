@@ -34,7 +34,7 @@ BRANCH_ID="$1"
 #
 #  code
 #
-BASE_DIR="$(dirname $0)"
+export BASE_DIR="$(dirname $0)"
 
 #
 #  checks
