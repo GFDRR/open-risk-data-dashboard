@@ -74,7 +74,7 @@ if [ -z "$ORDD_SKIP_APT_UPDATE" ]; then
     sudo apt-get -y --force-yes update
     sudo apt-get -y --force-yes upgrade
 fi
-sudo apt-get -y --force-yes install curl python-virtualenv python3-virtualenv python-pip
+sudo apt-get -y --force-yes install curl python-virtualenv python3-virtualenv python-pip procps
 
 virtualenv -p /usr/bin/python3 $ORDD_VENV
 . $ORDD_VENV/bin/activate
@@ -116,8 +116,17 @@ echo "from django.contrib.auth.models import User, Group ; us = User.objects.cre
 python3 manage.py load_countries --filein contents/countries/ordd_countries_list_iso3166.csv
 python3 manage.py load_categories --filein contents/categories/taxonomy-categories.psv contents/categories/taxonomy-subcategories.psv
 
-./ordd_api/helpers/ordd_test.sh
+cd $HOME
 
+. $0
+last_pid="$!"
+
+sleep 5
+$BASE_DIR/ordd_api/helpers/ordd_test.sh
+
+kill $(pgrep -P $last_pid) $last_pid
+
+cd $BASE_DIR
 python3 manage.py jenkins
 cd -
 
