@@ -28,6 +28,9 @@ class Region(models.Model):
     """World regions"""
     name = models.CharField(max_length=64, blank=False)
 
+    def natural_key(self):
+        return self.name
+
 class Country(models.Model):
     """List of world countries with a region reference."""
 
