@@ -140,8 +140,7 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
 
         }, function(data){
             // Error
-            console.log('Error');
-            console.log(data);
+            // TODO: set e message error
     });
 
     // ************************************** //
@@ -189,33 +188,36 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
     // ************************************** //
 
     $scope.usr = {
-        name: "",
-        surname: "",
-        email: "",
-        institution: ""
+        username: "",
+        password: "",
+        email: ""
     };
     $scope.checkMail = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
 
     $scope.sendRequestRegister = function()
     {
-        if($scope.usr.name != '' && $scope.usr.surname != '' && $scope.usr.email != '')
+        if($scope.usr.username != '' && $scope.usr.password != '' && $scope.usr.email != '')
         {
             // send request via API
             var bRegister = RodiSrv.sendRegisterRequest($scope.usr);
 
-            if(bRegister)
-            {
+            RodiSrv.sendRegisterRequest($scope.usr, function (data){
+                // Success
+
+                console.log(data);
+
                 vex.dialog.alert('Successfully sent request');
                 $scope.usr = {
-                    name: "",
-                    surname: "",
-                    email: "",
-                    institution: ""
+                    username: "",
+                    password: "",
+                    email: ""
                 };
-            } else
-                {
-                    vex.dialog.alert('Error: request not sent!');
-                }
+
+            }, function(data){
+                // Error
+                console.log(data);
+                vex.dialog.alert('Error: request not sent!');
+            })
 
         } else
             {

@@ -105,23 +105,17 @@
                 </div>
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                     <form name="registrationForm">
-                        <label>First name (*)</label>
-                        <input type="text" name="usrname" placeholder="First name" class="form-control" ng-model="usr.name">
+                        <label>Username (*)</label>
+                        <input type="text" name="usrname" placeholder="Username" class="form-control" ng-model="usr.username">
                         <br />
-                        <label>Last name  (*)</label>
-                        <input type="text" name="usrsurname" placeholder="Last name" class="form-control" ng-model="usr.surname">
-                        <br />
-                        <label>Institution</label>
-                        <input type="text" name="usrinstitution" placeholder="Institution" class="form-control" ng-model="usr.institution">
+                        <label>Password  (*)</label>
+                        <input type="password" name="usrpsw" placeholder="" class="form-control" ng-model="usr.password">
                         <br />
                         <label>E-mail  (*)</label>
                         <span class="register_error" ng-show="registrationForm.usremail.$error.pattern">
                             invalid email!
                         </span>
                         <input type="email" name="usremail" placeholder="E-mail address" class="form-control" ng-model="usr.email" ng-pattern="checkMail">
-                        <br />
-                        <label>Institution</label>
-                        <input type="text" name="usrinstitution" placeholder="Institution" class="form-control" ng-model="usr.institution">
                         <br />
                         <div class="text-right">
                             <a href="" class="btn btn-success" ng-click="sendRequestRegister()">Send request</a><br />
