@@ -18,8 +18,12 @@ mycurl () {
 
 # listen port
 ORDD_SERVER_PORT="${ORDD_SERVER_PORT:-8000}"
+API_BASEPATH="$(echo $ORDD_CONF__ORDD_API_BASEPATH | sed "s/^[^']*'//g;s/'.*//g")"
+if [ -z "$API_BASEPATH" ]; then
+    API_BASEPATH="api/"
+fi
 
-baseurl="http://localhost.localdomain:${ORDD_SERVER_PORT}/${BASE_DIR}"
+baseurl="http://localhost.localdomain:${ORDD_SERVER_PORT}/${API_BASEPATH}"
 passwd="canarino"
 passwd_new="toporagno"
 
