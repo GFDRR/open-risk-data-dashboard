@@ -26,13 +26,34 @@ def create_user_profile(sender, instance, created, **kwargs):
 
 class Region(models.Model):
     """World regions"""
-    name = models.CharField(max_length=64, blank=False, primary_key=True)
+    name = models.CharField(max_length=64, blank=False)
 
 class Country(models.Model):
     """List of world countries with a region reference."""
 
-    iso2 = models.CharField(max_length=2, blank=False, primary_key=True)
+    iso2 = models.CharField(max_length=2, blank=False, unique=True)
     name = models.CharField(max_length=64, blank=False, unique=True)
     region = models.ForeignKey(Region)
-    
-    
+
+    def natural_key(self):
+        return self.iso2
+
+class Category(models.Model):
+    name = models.CharField(max_length=64, blank=False, unique=True)
+    weight = models.IntegerField(blank=False)
+
+    def natural_key(self):
+        return self.name
+
+
+class SubCategory(models.Model):
+    category = models.ForeignKey(Category)
+    name = models.CharField(max_length=64, blank=False)
+
+    class Meta:
+        unique_together = (('category', 'name'),)
+
+    def natural_key(self):
+        return (self.category, self.name)
+
+

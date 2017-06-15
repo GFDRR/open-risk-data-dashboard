@@ -27,6 +27,6 @@ class Command(BaseCommand):
                     country = Country(iso2=country_in[0], name=country_in[2], region=region_cur)
                     country.save()
 
-                self.stdout.write(self.style.SUCCESS('Successfully imported Regions and Countries"'))
+                self.stdout.write(self.style.SUCCESS('Successfully imported Regions and Countries.'))
         except Exception:
-            raise CommandError('Import Regions and Countries failed')
+            raise CommandError('Import Regions and Countries failed.')

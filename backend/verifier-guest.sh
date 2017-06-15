@@ -114,6 +114,10 @@ echo "from django.contrib.auth.models import User, Group ; us = User.objects.cre
 
 
 python3 manage.py load_countries --filein contents/countries/ordd_countries_list_iso3166.csv
+python3 manage.py load_categories --filein contents/categories/taxonomy-categories.psv contents/categories/taxonomy-subcategories.psv
+
+./ordd_api/helpers/ordd_test.sh
+
 python3 manage.py jenkins
 cd -
 

@@ -25,6 +25,7 @@ token="$(mycurl --data -d "username=admin_user" -d "password=$passwd" -X POST "$
 token="$(echo "$token" | sed 's/^{"token":"//g;s/".*//g')"
 echo "RETURN:               [$token] ."
 echo
+
 eecho "Get profile ... "
 profile="$(mycurl --header "Authorization: Token $token" "${baseurl}profile")"
 echo "RETURN:          $profile ."
@@ -74,6 +75,7 @@ profile4="$(echo "$user_ist" | sed 's/"pk":3,//g;s/"reviewer_user"/"reviewer_use
 eecho "POST PROFILE4:       [$profile4] ... "
 mycurl -o /dev/null --header "Authorization: Token $token" -d "$profile4" -X POST "${baseurl}user/"
 echo
+
 eecho "GET USER LISTS AFTER CREATION ... "
 userlist="$(mycurl --header "Authorization: Token $token" "${baseurl}user/" | sed 's/{/\n{/g')"
 newuser_pk="$(echo "$userlist" | grep '"username":"reviewer_user2"' | sed 's/.*"pk"://g;s/,.*//g')"
@@ -93,6 +95,25 @@ echo
 eecho "NEW USER MOD GET ..."
 newuser_ist="$(mycurl --header "Authorization: Token $token" "${baseurl}user/$newuser_pk")"
 echo "RETURN:               $newuser_ist"
+echo
+
+eecho "DELETE NEW PROFILE ... "
+mycurl --header "Authorization: Token $token" -X DELETE "${baseurl}user/$newuser_pk"
+echo
+
+newuser='{"username":"reginald", "password":"gazzaladra","email":"nastasi@openquake.org"}'
+eecho "CREATE REGISTRATION [$newuser] ... "
+mycurl --header "Authorization: Token $token" -d "$newuser" -X POST "${baseurl}registration"
+
+eecho "GET USER LISTS AFTER CREATION ... "
+userlist="$(mycurl --header "Authorization: Token $token" "${baseurl}user/" | sed 's/{/\n{/g')"
+newuser_pk="$(echo "$userlist" | grep '"username":"reginald"' | sed 's/.*"pk"://g;s/,.*//g')"
+echo "NEW PROFILE PK:      $newuser_pk"
+echo
+
+eecho "NEW USER GET ... "
+newuser_ist="$(mycurl --header "Authorization: Token $token" "${baseurl}user/$newuser_pk")"
+echo "RETURN:              $newuser_ist"
 echo
 
 eecho "DELETE NEW PROFILE ... "
