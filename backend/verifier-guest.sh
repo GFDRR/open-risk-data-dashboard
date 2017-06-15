@@ -74,7 +74,7 @@ if [ -z "$ORDD_SKIP_APT_UPDATE" ]; then
     sudo apt-get -y --force-yes update
     sudo apt-get -y --force-yes upgrade
 fi
-sudo apt-get -y --force-yes install python-virtualenv python3-virtualenv python-pip
+sudo apt-get -y --force-yes install curl python-virtualenv python3-virtualenv python-pip
 
 virtualenv -p /usr/bin/python3 $ORDD_VENV
 . $ORDD_VENV/bin/activate
