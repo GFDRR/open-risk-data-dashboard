@@ -97,19 +97,19 @@
                 <hr />
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#dataset" aria-controls="dataset" role="tab" data-toggle="tab">New Dataset</a></li>
-                    <li role="presentation"><a href="#mydataset" aria-controls="mydataset" role="tab" data-toggle="tab">My dataset</a></li>
-                    <li role="presentation"><a href="#datasetreview" aria-controls="datasetreview" role="tab" data-toggle="tab" ng-if="userinfo.groups[0] == 'reviewer' || userinfo.groups[0] == 'admin'">Dataset review</a></li>
-                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">My Profile</a></li>
-                    <li role="presentation"><a href="#feedback" aria-controls="profile" role="tab" data-toggle="tab" ng-if="userinfo.groups[0] == 'admin'">Feedback</a></li>
-                    <li role="presentation"><a href="#users" aria-controls="profile" role="tab" data-toggle="tab" ng-if="userinfo.groups[0] == 'admin'">Registered users</a></li>
+                    <li role="presentation" ng-class="{active:tab==0}"><a href="#dataset" aria-controls="dataset" role="tab" data-toggle="tab">New Dataset</a></li>
+                    <li role="presentation" ng-class="{active:tab==1}"><a href="#mydataset" aria-controls="mydataset" role="tab" data-toggle="tab">My dataset</a></li>
+                    <li role="presentation" ng-class="{active:tab==2}"><a href="#datasetreview" aria-controls="datasetreview" role="tab" data-toggle="tab" ng-if="userinfo.groups[0] == 'reviewer' || userinfo.groups[0] == 'admin'">Dataset review</a></li>
+                    <li role="presentation" ng-class="{active:tab==3}"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">My Profile</a></li>
+                    <li role="presentation" ng-class="{active:tab==4}"><a href="#feedback" aria-controls="profile" role="tab" data-toggle="tab" ng-if="userinfo.groups[0] == 'admin'">Feedback</a></li>
+                    <li role="presentation" ng-class="{active:tab==5}"><a href="#users" aria-controls="profile" role="tab" data-toggle="tab" ng-if="userinfo.groups[0] == 'admin'">Registered users</a></li>
                 </ul>
 
                 <!-- Tab panes -->
                 <div class="tab-content rodi_tabpanels">
 
                     <!-- Insert new dataset pane - START -->
-                    <div role="tabpanel" class="tab-pane fade in active" id="dataset">
+                    <div role="tabpanel" class="tab-pane fade in" ng-class="{active:tab==0}" id="dataset">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
                                 <input type="button" class="btn btn-success" value="Save dataset" ng-click="saveDataser()"><br />
@@ -237,11 +237,11 @@
                     </div>
                     <!-- Insert new dataset pane- END -->
 
-                    <div role="tabpanel" class="tab-pane fade" id="mydataset">.2..</div>
+                    <div role="tabpanel" class="tab-pane fade" ng-class="{active:tab==1}" id="mydataset">.2..</div>
                     <div role="tabpanel" class="tab-pane fade" id="datasetreview">..3.</div>
 
                     <!-- My Profile -->
-                    <div role="tabpanel" class="tab-pane fade" id="profile">
+                    <div role="tabpanel" class="tab-pane" ng-class="[{'active':tab==3}]" id="profile">
                         <div class="row">
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                 <div class="alert alert-info">User name: {{userinfo.username}}- access level: <span class="text-uppercase">{{userinfo.groups[0]}}</span></div>

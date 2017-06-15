@@ -81,7 +81,10 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
     // ********* CONTRIBUTE PAGE ************ //
     // ************************************** //
 
+
     if ($location.path().indexOf('contribute.html') !== -1){
+
+        $scope.tab = 0;
 
         $scope.objDataset = RodiSrv.getDatasetEmptyStructure();
         $scope.objDatasetClass = RodiSrv.getDatasetClassification();

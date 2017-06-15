@@ -215,8 +215,12 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
 
             }, function(data){
                 // Error
-                console.log(data);
-                vex.dialog.alert('Error: request not sent!');
+                var sMsg = "";
+                angular.forEach(data, function(value, key) {
+                    sMsg += key.replace("_"," ") + ': ' + value + ' ';
+
+                });
+                vex.dialog.alert(sMsg);
             })
 
         } else
