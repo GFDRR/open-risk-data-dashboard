@@ -3,8 +3,10 @@ Basic Data|Administrative - Place names
 Basic Data|Administrative - Capital cities
 Basic Data|Terrain data - Elevation Model
 Basic Data|Terrain data - Surface Model
+Basic Data|Aerial Imagery
 Basic Data|Historical data - Hazard records
 Basic Data|Historical data - Loss records
+Exposure|Land-use
 Exposure|Population - Inhabitants
 Exposure|Population - Age
 Exposure|Population - Gender
@@ -39,6 +41,8 @@ Hazard|Flooding - Flash Flood
 Hazard|Flooding - Pluvial Flood
 Hazard|Wind Hazard - Cyclones
 Hazard|Wind Hazard - Hurricanes
+Hazard|Earthquake
+Hazard|Landslides
 Risk|Quantitative Risk Data - Annually Expected Economic Losses
 Risk|Quantitative Risk Data - Annually Expected Indirect Losses
 Risk|Risk Indicators - Annually number of people affected
