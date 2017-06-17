@@ -130,7 +130,7 @@ class UserDetailsView(generics.RetrieveUpdateDestroyAPIView):
 
 class KeyDatasetListView(generics.ListAPIView):
     """This class handles the GET and POSt requests of our rest api."""
-    queryset = KeyDataset.objects.all()
+    queryset = KeyDataset.objects.all().order_by("category").distinct("category")
     serializer_class = KeyDatasetSerializer
 
 #    filter_backends = (KeyDatasetFilter,)
