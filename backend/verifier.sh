@@ -307,7 +307,7 @@ sig_hand () {
     echo "sig_hand begin $$" >> /tmp/sig_hand.log
     if [ "$lxc_name" != "" ]; then
         copy_common "$ACTION"
-        copy_prod
+        copy_dev
 
         echo "Destroying [$lxc_name] lxc"
         if [ "$LXC_DESTROY" = "true" ]; then
