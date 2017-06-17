@@ -11,6 +11,7 @@ fi
 ORDD_VENV="${ORDD_VENV:-venv}"
 # admin password
 ORDD_ADMIN_PASSWORD="${ORDD_ADMIN_PASSWORD:-adminadmin}"
+export ORDD_ADMIN_PASSWORD
 # listen port
 ORDD_SERVER_PORT="${ORDD_SERVER_PORT:-8000}"
 # skip ubuntu updates
