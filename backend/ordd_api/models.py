@@ -48,15 +48,79 @@ class Category(models.Model):
     def natural_key(self):
         return self.name
 
+    def __str__(self):
+        return self.name
 
-class SubCategory(models.Model):
-    category = models.ForeignKey(Category)
-    name = models.CharField(max_length=64, blank=False)
-
-    class Meta:
-        unique_together = (('category', 'name'),)
+class LevDataset(models.Model):
+    name = models.CharField(max_length=128, blank=False, unique=True)
 
     def natural_key(self):
-        return (self.category, self.name)
+        return self.name
 
+    def __str__(self):
+        return self.name
+
+class LevDescription(models.Model):
+    name = models.CharField(max_length=128, blank=False, unique=True)
+
+    def natural_key(self):
+        return self.name
+
+    def __str__(self):
+        return self.name
+
+class LevResolution(models.Model):
+    name = models.CharField(max_length=128, blank=False, unique=True)
+
+    def natural_key(self):
+        return self.name
+
+    def __str__(self):
+        return self.name
+
+class LevScale(models.Model):
+    name = models.CharField(max_length=32, blank=False, unique=True)
+
+    def natural_key(self):
+        return self.name
+
+    def __str__(self):
+        return self.name
+
+class Peril(models.Model):
+    name = models.CharField(max_length=32, blank=False, unique=True)
+
+    def natural_key(self):
+        return self.name
+
+    def __str__(self):
+        return self.name
+
+class KeyDataset(models.Model):
+    code = models.IntegerField(null=False, blank=False)
+    category = models.ForeignKey(Category)
+    dataset = models.ForeignKey(LevDataset)
+    description = models.ForeignKey(LevDescription)
+    resolution = models.ForeignKey(LevResolution, null=True)
+    scale = models.ForeignKey(LevScale)
+    applicability = models.ManyToManyField(Peril)
+
+    format = models.CharField(max_length=32)
+    comment = models.CharField(max_length=1024)
+    weight = models.IntegerField(blank=False)
+
+    class Meta:
+        unique_together = (
+            ('category', 'code'),
+            ('category', 'dataset', 'description', 'resolution', 'scale')
+        )
+
+    def natural_key(self):
+        return (self.category, self.code)
+
+    def __str__(self):
+        return "%s: %d - %s - %s" % (self.category, self.code, self.dataset, self.description)
+
+# Basic Data - Dataset information,,,,,Applicable for ,,,,,Scale Level Score,,,Comments
+# ID,Dataset,Description,Format,Resolution,Flood,Tsunami,Cyclones,Earthquakes,Vulcano,Global,National,Local,
 

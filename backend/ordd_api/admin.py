@@ -2,7 +2,9 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth.models import User
 
-from .models import Profile, OptIn
+from .models import (Profile, OptIn,
+                     Category, LevDataset, LevDescription, LevResolution, LevScale, Peril, KeyDataset)
+
 
 # Define an inline admin descriptor for Employee model
 # which acts a bit like a singleton
@@ -19,3 +21,11 @@ class UserAdmin(BaseUserAdmin):
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 admin.site.register(OptIn)
+
+admin.site.register(Category)
+admin.site.register(LevDataset)
+admin.site.register(LevDescription)
+admin.site.register(LevResolution)
+admin.site.register(LevScale)
+admin.site.register(Peril)
+admin.site.register(KeyDataset)

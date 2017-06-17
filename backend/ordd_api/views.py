@@ -10,10 +10,10 @@ from django.contrib.auth.models import User
 # from .permissions import IsOwner
 from .serializers import (
     RegionSerializer, CountrySerializer,
-    CategorySerializer, SubCategorySerializer,
+    KeyDatasetSerializer,
     ProfileSerializer, UserSerializer, RegistrationSerializer,
     ChangePasswordSerializer)
-from .models import Region, Country, Category, SubCategory
+from .models import Region, Country, KeyDataset
 
 
 class IsOwner(permissions.BasePermission):
@@ -95,19 +95,12 @@ class CountryDetailsView(generics.RetrieveAPIView):
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
 
-
-class CategoryListView(generics.ListAPIView):
-    """This class handles the GET and POSt requests of our rest api."""
-    queryset = Category.objects.all()
-    serializer_class = CategorySerializer
-
-
-class SubCategoryListView(generics.ListAPIView):
-    """This class handles the GET and POSt requests of our rest api."""
-    queryset = SubCategory.objects.all()
-    serializer_class = SubCategorySerializer
-    filter_backends = (DjangoFilterBackend,)
-    filter_fields = ('category',)
+# class SubCategoryListView(generics.ListAPIView):
+#     """This class handles the GET and POSt requests of our rest api."""
+#     queryset = SubCategory.objects.all()
+#     serializer_class = SubCategorySerializer
+#     filter_backends = (DjangoFilterBackend,)
+#     filter_fields = ('category',)
 
 class UserCreateView(generics.ListCreateAPIView):
     """This class handles the GET and POSt requests of our rest api."""
@@ -126,3 +119,19 @@ class UserDetailsView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (permissions.IsAdminUser,)
+
+# import django_filters
+# class KeyDatasetFilter(django_filters.FilterSet):
+#     category = django_filters.CharFilter(name='category__name', distinct=True)
+
+#     class Meta:
+#         model = KeyDataset
+#         fields = ['category__name']
+
+class KeyDatasetListView(generics.ListAPIView):
+    """This class handles the GET and POSt requests of our rest api."""
+    queryset = KeyDataset.objects.all()
+    serializer_class = KeyDatasetSerializer
+
+#    filter_backends = (KeyDatasetFilter,)
+#    filter_fields = ('category',)

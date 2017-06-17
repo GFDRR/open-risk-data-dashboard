@@ -8,7 +8,9 @@ from rest_framework import serializers
 from rest_framework.serializers import ValidationError
 from rest_framework.reverse import reverse
 from .models import (
-    Region, Country, Category, SubCategory,
+    Region, Country,
+    KeyDataset,
+    # Category, SubCategory,
     Profile, OptIn)
 from .mailer import mailer
 from ordd.settings import ORDD_API_BASEPATH
@@ -26,23 +28,23 @@ class CountrySerializer(serializers.ModelSerializer):
         fields = ('iso2', 'name', 'region')
 
 
-class CategorySerializer(serializers.ModelSerializer):
-    """Serializer of regions"""
+class KeyDatasetSerializer(serializers.ModelSerializer):
+    """Serializer of key datasets"""
+
     class Meta:
-        model = Category
-        fields = ('pk', 'name',)
+        model = KeyDataset
+        fields = ('category',)
 
 
-class SubCategorySerializer(serializers.ModelSerializer):
-    """Serializer of country"""
-    class Meta:
-        model = SubCategory
-        fields = ('category', 'name')
+# class SubCategorySerializer(serializers.ModelSerializer):
+#     """Serializer of country"""
+#     class Meta:
+#         model = SubCategory
+#         fields = ('category', 'name')
 
 
 class GroupsRelatedField(serializers.StringRelatedField):
     def to_internal_value(self, data):
-        print(Group.objects.filter(name=data)[0].pk)
         return Group.objects.filter(name=data)[0].pk
 
 
