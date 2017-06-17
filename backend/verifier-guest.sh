@@ -1,9 +1,13 @@
 #!/bin/bash
-
 underscore="$_"
 
-# OVERRIDABLE VARIABLES
+if [ "$1" = "-p" -o "$1" == "--populate" ]; then
+     cat "$0" | sed -n '/^# Vars section: BEGIN/,/^# Vars section: END/p;/^# Populate DB section: BEGIN/,/^# Populate DB section: END/p' | bash
+    exit 0
+fi
 
+# OVERRIDABLE VARIABLES
+# Vars section: BEGIN
 ORDD_VENV="${ORDD_VENV:-venv}"
 # admin password
 ORDD_ADMIN_PASSWORD="${ORDD_ADMIN_PASSWORD:-adminadmin}"
@@ -11,6 +15,14 @@ ORDD_ADMIN_PASSWORD="${ORDD_ADMIN_PASSWORD:-adminadmin}"
 ORDD_SERVER_PORT="${ORDD_SERVER_PORT:-8000}"
 # skip ubuntu updates
 ORDD_SKIP_APT_UPDATE="${ORDD_SKIP_APT_UPDATE:-}"
+
+# name for database
+ORDD_DB_NAME="${ORDD_DB_NAME:-ordd}"
+# username for database
+ORDD_DB_USER="${ORDD_DB_USER:-ordd}"
+# password for database
+ORDD_DB_PASSWD="${ORDD_DB_PASSWO:-canarino}"
+# Vars section: END
 
 if [ "$underscore" != "$0" ]; then
     BASE_DIR="$(dirname $BASH_SOURCE)"
@@ -25,9 +37,10 @@ if [ "$underscore" != "$0" ]; then
     return 0
 fi
 
+# exit with error at the first command failure
 set -e
-#display each command before executing it
-set -x
+# #display each command before executing it
+# set -x
 
 BRANCH_ID="$1"
 
@@ -48,20 +61,6 @@ if [ -n "$VIRTUAL_ENV" ]; then
     exit 2
 fi
     
-#
-# cleanups
-if [ -d $ORDD_VENV ]; then
-    rm -rf $ORDD_VENV
-fi
-
-if [ -f "$BASE_DIR/db.sqlite3" ]; then
-    rm "$BASE_DIR/db.sqlite3"
-fi
-
-# remove previous tests result file
-if [ -f xunit-dev.xml ]; then
-    rm xunit-dev.xml
-fi
 
 #
 #  MAIN
@@ -74,7 +73,29 @@ if [ -z "$ORDD_SKIP_APT_UPDATE" ]; then
     sudo apt-get -y --force-yes update
     sudo apt-get -y --force-yes upgrade
 fi
-sudo apt-get -y --force-yes install curl python-virtualenv python3-virtualenv python-pip procps
+sudo apt-get -y --force-yes install curl python-virtualenv python3-virtualenv python-pip procps postgresql
+
+#
+#  CLEANUP
+#
+
+# remove previous environment
+if [ -d $ORDD_VENV ]; then
+    rm -rf $ORDD_VENV
+fi
+
+# remove previous tests result file
+if [ -f xunit-dev.xml ]; then
+    rm xunit-dev.xml
+fi
+
+# remove previous database
+cat <<EOF | sudo -i -u postgres psql -e
+DROP DATABASE IF EXISTS $ORDD_DB_NAME;
+DROP USER IF EXISTS $ORDD_DB_NAME;
+EOF
+
+
 
 virtualenv -p /usr/bin/python3 $ORDD_VENV
 . $ORDD_VENV/bin/activate
@@ -87,7 +108,19 @@ if [ -n "$GENERATE_FROM_SOURCES" ]; then
     popd
 fi
 
-# manage migrations
+# create database
+cat <<EOF | sudo -i -u postgres psql -e
+CREATE USER $ORDD_DB_USER WITH PASSWORD '$ORDD_DB_PASSWD';
+-- CREATEDB for user is required to run tests
+ALTER USER  $ORDD_DB_USER CREATEDB;
+CREATE DATABASE $ORDD_DB_NAME;
+ALTER ROLE $ORDD_DB_NAME SET client_encoding TO 'utf8';
+ALTER ROLE $ORDD_DB_NAME SET default_transaction_isolation TO 'read committed';
+ALTER ROLE $ORDD_DB_NAME SET timezone TO 'UTC';
+GRANT ALL PRIVILEGES ON DATABASE $ORDD_DB_NAME TO $ORDD_DB_USER;
+EOF
+
+# configure settings
 cd "$BASE_DIR"
 cp ordd/settings.py.tmpl ordd/settings.py
 IFS='
@@ -97,6 +130,15 @@ for rep in $(env | grep '^ORDD_CONF__' | sed 's/=.*//g'); do
     rep_value="${!rep}"
     sed -i "s|^$rep_name[ =].*|$rep_value|g" ordd/settings.py
 done
+
+# replace db values
+for rep in ORDD_DB_NAME ORDD_DB_USER ORDD_DB_PASSWD; do
+    rep_name="#${rep}#"
+    rep_value="${!rep}"
+    sed -i "s|$rep_name|$rep_value|g" ordd/settings.py
+done
+
+# Populate DB section: BEGIN - use "cat ./verifer_guest.sh | sed -n '/^# Vars section: BEGIN/,/^# Vars section: END/p;/# Populate DB section: BEGIN /,/# Populate DB section: END/p' | bash"
 
 python3 manage.py makemigrations api_exp01
 python3 manage.py makemigrations ordd_api
@@ -112,9 +154,10 @@ echo "from django.contrib.auth.models import User, Group ; us = User.objects.cre
 
 echo "from django.contrib.auth.models import User, Group ; us = User.objects.create_user(username='normal_user', password='$ORDD_ADMIN_PASSWORD', first_name='Giuseppe', last_name='Verdi'); us.save(); us.profile.title = 'Maestro'; us.profile.institution = 'Conservatorio di Busseto'; us.profile.save()" | python3 manage.py shell
 
-
 python3 manage.py load_countries --filein contents/countries/ordd_countries_list_iso3166.csv
-python3 manage.py load_categories --filein contents/categories/taxonomy-categories.psv contents/categories/taxonomy-subcategories.psv
+python3 manage.py load_key_datasets --reload --filein contents/key_datasets/kd-perils.csv contents/key_datasets/kd-categories.csv contents/key_datasets/kd-datasets.csv
+
+# Populate DB section: END
 
 cd $HOME
 
@@ -127,7 +170,7 @@ $BASE_DIR/ordd_api/helpers/ordd_test.sh
 kill $(pgrep -P $last_pid) $last_pid
 
 cd $BASE_DIR
-python3 manage.py jenkins
+python3 manage.py jenkins -v 3
 cd -
 
 cp "$BASE_DIR/reports/junit.xml" ./dev_xunit.xml

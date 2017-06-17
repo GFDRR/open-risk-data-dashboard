@@ -31,16 +31,14 @@ class CountrySerializer(serializers.ModelSerializer):
 class KeyDatasetSerializer(serializers.ModelSerializer):
     """Serializer of key datasets"""
 
+    category = serializers.SlugRelatedField(
+        read_only=True,
+        slug_field='name'
+     )
+
     class Meta:
         model = KeyDataset
         fields = ('category',)
-
-
-# class SubCategorySerializer(serializers.ModelSerializer):
-#     """Serializer of country"""
-#     class Meta:
-#         model = SubCategory
-#         fields = ('category', 'name')
 
 
 class GroupsRelatedField(serializers.StringRelatedField):
