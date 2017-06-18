@@ -11,7 +11,8 @@ from .views import (RegionListView,
                     ProfileDetails, ProfilePasswordUpdate,
                     UserCreateView, UserDetailsView, RegistrationView)
 
-app_name="ordd_api"
+# To add a namespace you need to change reverse calls around the source code.
+# app_name="ordd_api"
 
 urlpatterns = [
     url(r'^profile$', ProfileDetails.as_view(), name="profile_details"),
