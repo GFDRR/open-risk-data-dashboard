@@ -4,12 +4,16 @@ from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
 
 from rest_framework.authtoken.views import obtain_auth_token
-from .views import (RegionListView,
-                    CountryListView, CountryDetailsView,
-                    KeyDataset0on5ListView, KeyDataset1on5ListView, KeyDataset2on5ListView,
-                    KeyDataset3on5ListView, KeyDataset4on5ListView, KeyDataset5on5ListView,
-                    ProfileDetails, ProfilePasswordUpdate,
-                    UserCreateView, UserDetailsView, RegistrationView)
+from .views import (
+    RegionListView, CountryListView, CountryDetailsView,
+    ProfileDetails, ProfilePasswordUpdate,
+    UserCreateView, UserDetailsView,
+    RegistrationView)
+
+from .keydatasets_views import (
+    KeyDataset0on5ListView, KeyDataset1on5ListView, KeyDataset2on5ListView,
+    KeyDataset3on5ListView, KeyDataset4on5ListView, KeyDataset5on5ListView,
+    )
 
 # To add a namespace you need to change reverse calls around the source code.
 # app_name="ordd_api"
