@@ -2,6 +2,7 @@
 from rest_framework import generics, permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.exceptions import NotFound
 # from django_filters.rest_framework import DjangoFilterBackend
 # import django_filters.rest_framework
 from django.contrib.auth.models import User
@@ -11,7 +12,7 @@ from .serializers import (
     RegionSerializer, CountrySerializer,
     ProfileSerializer, UserSerializer, RegistrationSerializer,
     ChangePasswordSerializer)
-from .models import Region, Country
+from .models import Region, Country, OptIn
 
 
 class IsOwner(permissions.BasePermission):
@@ -74,7 +75,32 @@ class RegistrationView(generics.CreateAPIView, generics.RetrieveAPIView):
         # - remove optin row
         # - return success
         # in the other cases return a generic error for security reason
-        return Response({"response": "ok"})
+
+        detail = "user not exists, is already activated or passed key is wrong"
+        print("Request GET: username [%s] key [%s]" % (request.GET['username'], request.GET['key']))
+        user = User.objects.filter(username=request.GET['username'])
+
+        if len(user) != 1:
+            raise NotFound(detail)
+        user = user[0]
+
+        if user.is_active is True:
+            raise NotFound(detail)
+
+        optin = OptIn.objects.filter(user=user)
+        if len(optin) != 1:
+            raise NotFound(detail)
+        optin = optin[0]
+
+        if optin.key != request.GET['key']:
+            raise NotFound(detail)
+
+        user.is_active = True
+        user.save()
+
+        optin.delete()
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 class RegionListView(generics.ListAPIView):
     """This class handles the GET and POSt requests of our rest api."""

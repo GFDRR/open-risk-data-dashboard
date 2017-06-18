@@ -102,10 +102,12 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(required=True)
+
     class Meta:
         model = User
         fields = ('username', 'password', 'is_active', 'email')
-        extra_kwargs = {'password': {'write_only': True}, 'is_active': {'write_only': True}}
+        extra_kwargs = {'password': {'write_only': True}, 'is_active': {'write_only': True}, 'email': {'write_only': True}}
 
     def create(self, validated_data):
         try:
@@ -117,7 +119,8 @@ class RegistrationSerializer(serializers.ModelSerializer):
                 optin = OptIn(user=user)
                 optin.save()
                 subject = 'Open Risk Data Dashboard: registration for user %s' % user.username
-                reply_url = "%s?key=%s" % (reverse('registration', request=self.context['request']), optin.key)
+                reply_url = "%s?username=%s&key=%s" % (reverse('registration', request=self.context['request']),
+                                                       user.username, optin.key)
                 content_txt = '''To complete the registration to Open Risk Data Dashboard site
 open this link in your favorite browser: %s .
 
