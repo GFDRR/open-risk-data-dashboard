@@ -70,7 +70,7 @@ class LevDescription(models.Model):
         return self.name
 
 class LevResolution(models.Model):
-    name = models.CharField(max_length=128, blank=False, unique=True)
+    name = models.CharField(max_length=128, blank=False, null=True, unique=True)
 
     def natural_key(self):
         return self.name

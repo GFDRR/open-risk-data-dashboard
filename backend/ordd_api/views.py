@@ -1,8 +1,9 @@
 # api_exp01/views.py
-
+import urllib
 from rest_framework import generics, permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework.exceptions import NotFound
 from django_filters.rest_framework import DjangoFilterBackend
 import django_filters.rest_framework
 from django.contrib.auth.models import User
@@ -10,7 +11,8 @@ from django.contrib.auth.models import User
 # from .permissions import IsOwner
 from .serializers import (
     RegionSerializer, CountrySerializer,
-    KeyDatasetSerializer,
+    KeyDataset0on5Serializer, KeyDataset1on5Serializer, KeyDataset2on5Serializer,
+    KeyDataset3on5Serializer, KeyDataset4on5Serializer, KeyDataset5on5Serializer,
     ProfileSerializer, UserSerializer, RegistrationSerializer,
     ChangePasswordSerializer)
 from .models import Region, Country, KeyDataset
@@ -95,13 +97,6 @@ class CountryDetailsView(generics.RetrieveAPIView):
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
 
-# class SubCategoryListView(generics.ListAPIView):
-#     """This class handles the GET and POSt requests of our rest api."""
-#     queryset = SubCategory.objects.all()
-#     serializer_class = SubCategorySerializer
-#     filter_backends = (DjangoFilterBackend,)
-#     filter_fields = ('category',)
-
 class UserCreateView(generics.ListCreateAPIView):
     """This class handles the GET and POSt requests of our rest api."""
     queryset = User.objects.all()
@@ -110,7 +105,6 @@ class UserCreateView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         """Save the post data when creating a new bucketlist."""
-        # owner=self.request.user
         serializer.save()
 
 class UserDetailsView(generics.RetrieveUpdateDestroyAPIView):
@@ -128,10 +122,102 @@ class UserDetailsView(generics.RetrieveUpdateDestroyAPIView):
 #         model = KeyDataset
 #         fields = ['category__name']
 
-class KeyDatasetListView(generics.ListAPIView):
+class KeyDataset0on5ListView(generics.ListAPIView):
     """This class handles the GET and POSt requests of our rest api."""
     queryset = KeyDataset.objects.all().order_by("category").distinct("category")
-    serializer_class = KeyDatasetSerializer
+    serializer_class = KeyDataset0on5Serializer
+
+
+class KeyDataset1on5ListView(generics.ListAPIView):
+    """This class handles the GET and POSt requests of our rest api."""
+    serializer_class = KeyDataset1on5Serializer
+
+    def get_queryset(self):
+        category = self.kwargs['category']
+
+        return KeyDataset.objects.filter(
+            category=category).order_by("dataset").distinct("dataset")
+
+
+class KeyDataset2on5ListView(generics.ListAPIView):
+    """This class handles the GET and POSt requests of our rest api."""
+    serializer_class = KeyDataset2on5Serializer
+
+    def get_queryset(self):
+        category = self.kwargs['category']
+        dataset = self.kwargs['dataset']
+
+        return KeyDataset.objects.filter(
+            category=category,
+            dataset=dataset).order_by("description").distinct("description")
+
+
+class KeyDataset3on5ListView(generics.ListAPIView):
+    """This class handles the GET and POSt requests of our rest api."""
+    serializer_class = KeyDataset3on5Serializer
+
+    def get_queryset(self):
+        category = self.kwargs['category']
+        dataset = self.kwargs['dataset']
+        description = self.kwargs['description']
+
+        return KeyDataset.objects.filter(
+            category=category, dataset=dataset,
+            description=description
+            ).order_by("resolution").distinct("resolution")
+
+class KeyDataset4on5ListView(generics.ListAPIView):
+    """This class handles the GET and POSt requests of our rest api."""
+    serializer_class = KeyDataset4on5Serializer
+
+    def get_queryset(self):
+        category = self.kwargs['category']
+        dataset = self.kwargs['dataset']
+        description = self.kwargs['description']
+        resolution = self.kwargs['resolution']
+
+        filters = {'category': category,
+                   'dataset': dataset,
+                   'description': description}
+
+        if self.kwargs['resolution'] == '':
+            filters['resolution__isnull'] = True
+        else:
+            filters['resolution'] = resolution
+
+        qs = KeyDataset.objects.filter(**filters).order_by(
+            "scale").distinct("scale")
+
+        return qs
+
+
+class KeyDataset5on5ListView(generics.ListAPIView):
+    """This class handles the GET and POSt requests of our rest api."""
+    serializer_class = KeyDataset5on5Serializer
+
+    def get_queryset(self):
+        category = self.kwargs['category']
+        dataset = self.kwargs['dataset']
+        description = self.kwargs['description']
+        resolution = self.kwargs['resolution']
+        scale = self.kwargs['scale']
+
+        filters = {'category': category,
+                   'dataset': dataset,
+                   'description': description,
+                   'scale': scale}
+
+        if self.kwargs['resolution'] == '':
+            filters['resolution__isnull'] = True
+        else:
+            filters['resolution'] = resolution
+
+        qs = KeyDataset.objects.filter(**filters)
+
+        if len(qs) != 1:
+            raise NotFound('key not found')
+
+        return qs
 
 #    filter_backends = (KeyDatasetFilter,)
 #    filter_fields = ('category',)

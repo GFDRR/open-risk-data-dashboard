@@ -6,11 +6,14 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from rest_framework.authtoken.views import obtain_auth_token
 from .views import (RegionListView,
                     CountryListView, CountryDetailsView,
-                    KeyDatasetListView, # SubCategoryListView,
+                    KeyDataset0on5ListView, KeyDataset1on5ListView, KeyDataset2on5ListView,
+                    KeyDataset3on5ListView, KeyDataset4on5ListView, KeyDataset5on5ListView,
                     ProfileDetails, ProfilePasswordUpdate,
                     UserCreateView, UserDetailsView, RegistrationView)
 
-urlpatterns = {
+app_name="ordd_api"
+
+urlpatterns = [
     url(r'^profile$', ProfileDetails.as_view(), name="profile_details"),
     url(r'^profile/password$', ProfilePasswordUpdate.as_view(),
         name="profile_password_update"),
@@ -26,9 +29,20 @@ urlpatterns = {
     url(r'^country/$', CountryListView.as_view(), name="country_list"),
     url(r'^country/(?P<pk>[A-Z]+)$', CountryDetailsView.as_view(), name="country_details"),
 
-    url(r'^keydataset/$', KeyDatasetListView.as_view(), name="key_dataset"),
+    url(r'^keydataset/(?P<category>.+)/(?P<dataset>.+)/(?P<description>.+)/(?P<resolution>.*)/(?P<scale>.+)$',
+        KeyDataset5on5ListView.as_view(), name="key_dataset5on5"),
+    url(r'^keydataset/(?P<category>.+)/(?P<dataset>.+)/(?P<description>.+)/(?P<resolution>.*)/$',
+        KeyDataset4on5ListView.as_view(), name="key_dataset4on5"),
+    url(r'^keydataset/(?P<category>.+)/(?P<dataset>.+)/(?P<description>.+)/$',
+        KeyDataset3on5ListView.as_view(), name="key_dataset3on5"),
+    url(r'^keydataset/(?P<category>.+)/(?P<dataset>.+)/$',
+        KeyDataset2on5ListView.as_view(), name="key_dataset2on5"),
+    url(r'^keydataset/(?P<category>.+)/$',
+        KeyDataset1on5ListView.as_view(), name="key_dataset1on5"),
+    url(r'^keydataset/$', KeyDataset0on5ListView.as_view(), name="key_dataset0on5"),
+
 
     url(r'^get-token/', obtain_auth_token),
-}
+]
 
 urlpatterns = format_suffix_patterns(urlpatterns)
