@@ -2,6 +2,7 @@
 
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.password_validation import validate_password
+import django.core.exceptions
 from django.db import transaction
 from django.db import IntegrityError
 from rest_framework import serializers
@@ -114,6 +115,11 @@ class RegistrationSerializer(serializers.ModelSerializer):
         try:
             with transaction.atomic():
                 user = super().create(validated_data)
+                try:
+                    validate_password(validated_data['password'])
+                except django.core.exceptions.ValidationError as exc:
+                    raise ValidationError(exc)
+
                 user.set_password(validated_data['password'])
                 user.is_active = False
                 user.save()
