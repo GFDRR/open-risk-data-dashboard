@@ -7,23 +7,23 @@ from rest_framework.exceptions import NotFound
 # import django_filters.rest_framework
 from django.contrib.auth.models import User
 
-# from .permissions import IsOwner
 from .serializers import (
     RegionSerializer, CountrySerializer,
     ProfileSerializer, UserSerializer, RegistrationSerializer,
-    ChangePasswordSerializer)
-from .models import Region, Country, OptIn
+    ChangePasswordSerializer,
+    ProfileDatasetListSerializer, ProfileDatasetCreateSerializer)
+from .models import Region, Country, OptIn, Dataset
 
 
-class IsOwner(permissions.BasePermission):
-    """
-    Custom permission to only allow owners of an object to edit it.
-    """
-    def has_permission(self, request, view):
-        return request.user and request.user.is_authenticated()
+# class IsOwner(permissions.BasePermission):
+#     """
+#     Custom permission to only allow owners of an object to edit it.
+#     """
+#     def has_permission(self, request, view):
+#         return request.user and request.user.is_authenticated()
 
-    def has_object_permission(self, request, view, obj):
-        return obj.user == request.user
+#     def has_object_permission(self, request, view, obj):
+#         return obj.user == request.user
 
 
 class ProfileDetails(generics.RetrieveUpdateAPIView):
@@ -126,7 +126,6 @@ class UserCreateView(generics.ListCreateAPIView):
     permission_classes = (permissions.IsAdminUser,)
 
     def perform_create(self, serializer):
-        """Save the post data when creating a new bucketlist."""
         serializer.save()
 
 class UserDetailsView(generics.RetrieveUpdateDestroyAPIView):
@@ -135,3 +134,46 @@ class UserDetailsView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (permissions.IsAdminUser,)
+
+class IsOwner(permissions.BasePermission):
+    """
+    Custom permission to only allow owners of an object to edit it.
+    """
+
+    def has_object_permission(self, request, view, obj):
+        # Write permissions are only allowed to the owner of the snippet.
+        return obj.owner == request.user
+
+
+class ProfileDatasetListCreateView(generics.ListCreateAPIView):
+    permission_classes = (IsOwner, )
+
+    def get_serializer_class(self):
+        print(self.request.method)
+        if self.request.method == "GET":
+            return ProfileDatasetListSerializer
+        elif self.request.method == "POST":
+            return ProfileDatasetCreateSerializer
+
+    def get_queryset(self):
+        return Dataset.objects.filter(
+            owner=self.request.user)
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user, changed_by=self.request.user)
+
+class ProfileDatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = ProfileDatasetListSerializer
+    permission_classes = (IsOwner, )
+
+    def get_serializer_class(self):
+        print(self.request.method)
+        if self.request.method == "GET":
+            return ProfileDatasetListSerializer
+        else:
+            return ProfileDatasetCreateSerializer
+
+    def get_queryset(self):
+        return Dataset.objects.filter(
+            owner=self.request.user)
+

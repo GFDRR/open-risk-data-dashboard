@@ -7,8 +7,9 @@ from django.db import IntegrityError
 from rest_framework import serializers
 from rest_framework.serializers import ValidationError
 from rest_framework.reverse import reverse
-from .models import Region, Country, Profile, OptIn
+from .models import Region, Country, Profile, OptIn, Dataset
 
+from .keydatasets_serializers import KeyDataset5on5Serializer
 from .mailer import mailer
 
 
@@ -137,3 +138,23 @@ If you don't subscribe to this site, please ignore this message.</div>''' % (rep
             })
 
         return user
+
+class ProfileDatasetListSerializer(serializers.ModelSerializer):
+    owner = serializers.SlugRelatedField(slug_field='username', queryset=User.objects.all())
+    changed_by = serializers.SlugRelatedField(slug_field='username', queryset=User.objects.all())
+    country = serializers.SlugRelatedField(slug_field='iso2', queryset=Country.objects.all())
+    keydataset = KeyDataset5on5Serializer(read_only=True)
+
+    class Meta:
+        model = Dataset
+        fields = '__all__'
+        read_only_fields = ('owner', 'changed_by', 'create_time', 'modify_time', 'is_reviewed')
+
+class ProfileDatasetCreateSerializer(serializers.ModelSerializer):
+    country = serializers.SlugRelatedField(slug_field='iso2', queryset=Country.objects.all())
+
+    class Meta:
+        model = Dataset
+        fields = '__all__'
+        read_only_fields = ('owner', 'changed_by', 'create_time', 'modify_time', 'is_reviewed')
+

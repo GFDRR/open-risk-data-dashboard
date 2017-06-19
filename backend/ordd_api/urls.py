@@ -8,7 +8,7 @@ from .views import (
     RegionListView, CountryListView, CountryDetailsView,
     ProfileDetails, ProfilePasswordUpdate,
     UserCreateView, UserDetailsView,
-    RegistrationView)
+    RegistrationView, ProfileDatasetListCreateView, ProfileDatasetDetailsView)
 
 from .keydatasets_views import (
     KeyDataset0on5ListView, KeyDataset1on5ListView, KeyDataset2on5ListView,
@@ -22,6 +22,11 @@ urlpatterns = [
     url(r'^profile$', ProfileDetails.as_view(), name="profile_details"),
     url(r'^profile/password$', ProfilePasswordUpdate.as_view(),
         name="profile_password_update"),
+    url(r'^profile/dataset/$', ProfileDatasetListCreateView.as_view(),
+        name="profile_dataset_listcreate"),
+    url(r'^profile/dataset/(?P<pk>[0-9]+)$',
+        ProfileDatasetDetailsView.as_view(), name="profile_dataset_details"),
+
 
     url(r'^user/$', UserCreateView.as_view(), name="user_create"),
     url(r'^user/(?P<pk>[0-9]+)$',
