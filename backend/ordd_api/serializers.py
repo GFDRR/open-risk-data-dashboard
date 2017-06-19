@@ -118,7 +118,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
                 try:
                     validate_password(validated_data['password'])
                 except django.core.exceptions.ValidationError as exc:
-                    raise ValidationError(exc)
+                    raise ValidationError({"detail": exc})
 
                 user.set_password(validated_data['password'])
                 user.is_active = False
