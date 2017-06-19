@@ -112,8 +112,8 @@
                 <table class="table table-condensed table-responsive">
                     <thead>
                         <th>&nbsp;</th> <!-- cella vuota -->
-                        <th class="text-center row_icon" ng-repeat="dt in matrixDataTypeList">
-                            <a href="" ng-click="changepage('dataset_list.html?idcountry=' + countryData[0].code + '&idcategory=' + dt.code)"><i class="{{dt.icon}}"></i></a><br /><span>{{dt.desc}}</span>
+                        <th class="text-center row_icon" ng-repeat="hc in HazardCategory">
+                            <a href="" ng-click="changepage('dataset_list.html?idcountry=' + countryData[0].code + '&idcategory=' + hc.category.id)"><i class="{{getHCIcon(hc.category.id)}}"></i></a><br /><span>{{hc.category.name}}</span>
                             <!-- il click porta alla pagina elenco dataset (filters: country category) -->
                         </th>
                     </thead>

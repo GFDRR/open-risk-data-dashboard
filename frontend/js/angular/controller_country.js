@@ -18,7 +18,22 @@ RodiApp.controller('RodiCtrlCountry', function ($scope, RodiSrv, $location, $fil
 
     $scope.hazardIndex = $scope.countryData[0].haz_index;
 
-    $scope.matrixDataTypeList = RodiSrv.getHazardCategory();
+
+    // Get the Hazard Category
+    $scope.HazardCategory = [];
+    RodiSrv.getHazardCategory($scope.tokenid,
+        function(data){
+            // Success
+            $scope.HazardCategory = data;
+        }, function(data){
+            //Error
+        })
+
+    $scope.getHCIcon = function(index)
+    {
+        return RodiSrv.getHCIcon(index - 1);
+    };
+    // $scope.matrixDataTypeList = RodiSrv.getHazardCategory();
 
     $scope.questions = RodiSrv.getQuestions();
 

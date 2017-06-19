@@ -199,8 +199,6 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
         if($scope.usr.username != '' && $scope.usr.password != '' && $scope.usr.email != '')
         {
             // send request via API
-            var bRegister = RodiSrv.sendRegisterRequest($scope.usr);
-
             RodiSrv.sendRegisterRequest($scope.usr, function (data){
                 // Success
 

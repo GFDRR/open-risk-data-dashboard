@@ -101,8 +101,8 @@
                     <table class="table table-condensed table-responsive">
                         <thead>
                         <th>&nbsp;</th> <!-- cella vuota -->
-                        <th class="text-center row_icon" ng-repeat="dt in matrixDataTypeList">
-                            <i class="{{dt.icon}}"></i><br /><span>{{dt.desc}}</span>
+                        <th class="text-center row_icon" ng-repeat="hc in HazardCategory">
+                            <i class="{{getHCIcon(hc.category.id)}}"></i><br /><span>{{hc.category.name}}</span>
                         </th>
                         </thead>
 

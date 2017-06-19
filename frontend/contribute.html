@@ -150,12 +150,12 @@
                             </div>
                             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                                 <div class="contribute_field_box">
-                                    <label>4) Hazard category  (*)</label>
+                                    <label>4) Data category  (*)</label>
                                     <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.hazard_category != '--'"></i>
                                     <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.hazard_category == '--'"></i>
-                                    <select class="form-control" ng-model="objDataset.hazard_category">
+                                    <select class="form-control" ng-model="objDataset.hazard_category" ng-change="setDatasetName(objDataset.hazard_category)">
                                         <option value="--" selected>-- Select --</option>
-                                        <option ng-repeat="dt in matrixDataTypeList" value="{{dt.code}}">{{dt.desc}}</option>
+                                        <option ng-repeat="hc in HazardCategory" value="{{hc.category.id}}">{{hc.category.name}}</option>
                                     </select>
 
                                 </div>
@@ -163,9 +163,9 @@
                             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 
                                 <div class="contribute_field_box">
-                                    <label>5) Hazard <span ng-if="objDataset.hazard_category != 'h03'">(optional)</span> <span ng-if="objDataset.hazard_category == 'h03'"> (*)</span></label>
-                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.hazard != '--' || objDataset.hazard_category != 'h03'"></i>
-                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.hazard == '--' && objDataset.hazard_category == 'h03'"></i>
+                                    <label>5) Hazard <span ng-if="objDataset.hazard_category != 'h03'">(optional)</span> <span ng-if="objDataset.hazard_category == '3'"> (*)</span></label>
+                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.hazard != '--' || objDataset.hazard_category != '3'"></i>
+                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.hazard == '--' && objDataset.hazard_category == '3'"></i>
                                     <select class="form-control" ng-model="objDataset.hazard">
                                         <option value="--" selected>-- Select --</option>
                                         <option ng-repeat="hazardDet in hazardList" value="{{hazardDet.code}}">{{hazardDet.desc}}</option>
@@ -183,7 +183,7 @@
                                     <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.dataset_type == '--'"></i>
                                     <select class="form-control" ng-model="objDataset.dataset_type" ng-change="filterDatasetResolution()">
                                         <option value="--" selected>-- Select --</option>
-                                        <option ng-repeat="datasetclass in objDatasetClass | filter:{ hazard_category:  objDataset.hazard_category}" value="{{datasetclass.code}}">{{datasetclass.desc}}</option>
+                                        <option ng-repeat="dn in DatasetName" value="{{dn.dataset.id}}">{{dn.dataset.name}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -237,7 +237,15 @@
                     </div>
                     <!-- Insert new dataset pane- END -->
 
-                    <div role="tabpanel" class="tab-pane fade" ng-class="{active:tab==1}" id="mydataset">.2..</div>
+                    <!-- My Dataset -->
+                    <div role="tabpanel" class="tab-pane fade" ng-class="{active:tab==1}" id="mydataset">
+                        <div class="row" ng-if="bDatasetProfile">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">[Dataset list]</div>
+                        </div>
+                        <div class="row" ng-if="!bDatasetProfile">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"><i>No dataset inserted at this time</i></div>
+                        </div>
+                    </div>
                     <div role="tabpanel" class="tab-pane fade" id="datasetreview">..3.</div>
 
                     <!-- My Profile -->

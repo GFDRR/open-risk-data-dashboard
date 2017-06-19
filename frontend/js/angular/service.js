@@ -346,25 +346,100 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         return objHazard;
     };
 
-    this.getHazardCategory = function()
+    // ************************************** //
+    // ************ KEYDATASET LIST ********* //
+    // ************************************** //
+
+    this.getHazardCategory = function(token, onSuccess, onError)
     {
-        // return objDataTimeElement = {
-        //     "dataType_index": {
-        //         dt01:["h01", "Base data", "icon-base_data"],
-        //         dt02:["h02", "Exposure", "icon-exposure"],
-        //         dt03:["h03", "Hazard info", "icon-hazard_info"],
-        //         dt04:["h04", "Vulnerability", "icon-vulnerability"],
-        //         dt05:["h05", "Risk info", "icon-info"]
-        //     },
-        // }
-        return objHazardCategoryList = [
-            {code:"h01", desc:"Base data", icon:"icon-base_data"},
-            {code:"h02", desc:"Exposure", icon:"icon-exposure"},
-            {code:"h03", desc:"Hazard info", icon:"icon-hazard_info"},
-            {code:"h04", desc:"Vulnerability", icon:"icon-vulnerability"},
-            {code:"h05", desc:"Risk info", icon:"icon-info"}
-        ];
+        // Return a list of Hazard Macro Category
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'keydataset/',
+            headers: {
+                // 'Authorization': 'Token ' + token
+            },
+            data: {}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+
+        // return objHazardCategoryList = [
+        //     {code:"h01", desc:"Base data", icon:"icon-base_data"},
+        //     {code:"h02", desc:"Exposure", icon:"icon-exposure"},
+        //     {code:"h03", desc:"Hazard info", icon:"icon-hazard_info"},
+        //     {code:"h04", desc:"Vulnerability", icon:"icon-vulnerability"},
+        //     {code:"h05", desc:"Risk info", icon:"icon-info"}
+        // ];
     };
+
+    this.getHCIcon = function(index)
+    {
+        // Return the icon set for the category
+        var obj = ["icon-base_data", "icon-exposure", "icon-hazard_info", "icon-info", "icon-vulnerability"];
+
+        return obj[index];
+    }
+
+    this.getDatasetName = function(hcId, onSuccess, onError)
+    {
+        // Return a list of dataset name
+
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'keydataset/' + hcId + '/',
+            headers: {
+                // 'Authorization': 'Token ' + token
+            },
+            data: {}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+    }
+
+    this.getDatasetDescription = function(hcId, dsId, onSuccess, onError)
+    {
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'keydataset/' + hcId + '/' + dsId + '/',
+            headers: {
+                // 'Authorization': 'Token ' + token
+            },
+            data: {}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+    }
+
+    this.getDatasetResolution = function(hcId, dsId, dsDescId, onSuccess, onError)
+    {
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'keydataset/' + hcId + '/' + dsId + '/' + dsDescId + '/',
+            headers: {
+                // 'Authorization': 'Token ' + token
+            },
+            data: {}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+    }
 
     this.getQuestions = function()
     {
@@ -394,61 +469,36 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         /*
          return a Dataset list structure empty for new dataset contributor.
 
-         obj =
-         {
-         "code": "",
-         "name": "",
-         "abstract": "",
-         "dataset_type": "",
-         "resolution": "",
-         "country": "--",
-         "hazard_category": "--",
-         hazard: "",
-         "usr_ins": "",
-         "data_ins": "",
-         "status": "0",
-         "data_validate": "",
-         "questions":
-         {
-         "questioncode": "",
-         "questioncode": "",
-         "questioncode": "",
-         ...
-         },
-         "link_dataset": "",
-         "link_metadata": ""
-         }
-         */
+        */
 
         return obj = {
-            code: "",
-            name: "",
-            abstract: "",
-            dataset_type: "--",
-            resolution: "--",
-            country: "--",
-            hazard_category: "--",
-            hazard: "--",
-            usr_ins: "",
-            data_ins: "",
-            status: "0",
-            data_validate: "",
-            questions:
-            [
-                {code: "q01", value: ""},
-                {code: "q02", value: ""},
-                {code: "q03", value: ""},
-                {code: "q04", value: ""},
-                {code: "q05", value: ""},
-                {code: "q06", value: ""},
-                {code: "q07", value: ""},
-                {code: "q08", value: ""},
-                {code: "q09", value: ""},
-                {code: "q10", value: ""}
-                // Prendiamo le domande di tipo Yes No
-            ],
-            link_dataset: "",
-            link_metadata: ""
+            country: "",
+            notes: "",
+            is_digital_form: "", //9
+            is_pub_available: "--", //14
+            is_avail_for_free: "", //15
+            is_machine_read: "", //13
+            is_bulk_avail:"", //12
+            is_open_licence:"", //16
+            is_prov_timely:"", //17
+            data_url: "",
+            metadata_url: "0",
+
+
+            owner:"",
+            is_reviewed: "",
+            review_date: "",
+            create_time: "",
+            modify_time: "",
+            keydataset:{
+                id:999,
+                category: "",
+                dataset:"",
+                description:"",
+                resolution:"",
+                scale:""
+            },
+            changed_by:""
             }
 
     }
@@ -630,6 +680,27 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 
     }
 
+    this.getProfileDataset = function(token, objUsr, onSuccess, onError)
+    {
+        // Return a list of user's datasets
+
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'profile/dataset/',
+            headers: {
+                'Authorization': 'Token ' + token
+            },
+            data: {}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+
+    }
+
     this.resetProfilePsw = function(token, oldpsw, newpsw, onSuccess, onError)
     {
         var req = {
@@ -784,6 +855,11 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         console.log(obj);
         return true;
     }
+
+    // ************************************** //
+    // *************** TEST ***************** //
+    // ************************************** //
+
 
 
 }]);

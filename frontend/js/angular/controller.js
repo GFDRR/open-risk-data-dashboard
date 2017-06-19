@@ -69,12 +69,30 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
     // ************* MATRIX ***************** //
     // ************************************** //
 
-    $scope.matrixData = RodiSrv.getMatrixData($scope.objHazardFilters);
-    $scope.matrixDataTypeList = RodiSrv.getHazardCategory();
+    if ($location.path().indexOf('browse-data.html') !== -1)
+    {
+        // Get the Hazard Category
+        $scope.HazardCategory = [];
+        RodiSrv.getHazardCategory($scope.tokenid,
+            function(data){
+                // Success
+                $scope.HazardCategory = data;
+            }, function(data){
+                //Error
+            });
 
-    $scope.colorCell = function(value){
-        return RodiSrv.matrixColorCell(value);
+        $scope.matrixData = RodiSrv.getMatrixData($scope.objHazardFilters);
+
+        $scope.getHCIcon = function(index)
+        {
+            return RodiSrv.getHCIcon(index - 1);
+        };
+
+        $scope.colorCell = function(value){
+            return RodiSrv.matrixColorCell(value);
+        }
     }
+
 
 
     // ************************************** //
@@ -87,7 +105,56 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
         $scope.tab = 0;
 
         $scope.objDataset = RodiSrv.getDatasetEmptyStructure();
-        $scope.objDatasetClass = RodiSrv.getDatasetClassification();
+        // $scope.objDatasetClass = RodiSrv.getDatasetClassification();
+
+        // Get the Hazard Category
+        $scope.HazardCategory = [];
+        $scope.DatasetName = [];
+        RodiSrv.getHazardCategory($scope.tokenid,
+            function(data){
+                // Success
+                $scope.HazardCategory = data;
+
+            }, function(data){
+                //Error
+                $scope.HazardCategory = ["Error loading Category"];
+        });
+
+        $scope.setDatasetName = function(hcId)
+        {
+            console.log(hcId);
+            RodiSrv.getDatasetName(hcId,
+                function(data){
+                    // Success
+                    $scope.DatasetName = data;
+                    console.log(data);
+
+                    // Description
+                    RodiSrv.getDatasetDescription(hcId, 1,
+                        function(data){
+                            // Success
+                            console.log(data);
+
+                            RodiSrv.getDatasetResolution(hcId, 1,1,
+                                function(data){
+                                    // Success
+                                    console.log(data);
+                                }, function(data){
+                                    // Error
+                                    console.log(data);
+                                })
+
+                        }, function(data){
+                            // Error
+                            console.log(data);
+                        })
+
+
+                }, function(data){
+                    // Error
+                    $scope.DatasetName = ["Error loading Dataset name"];
+                })
+        }
 
         RodiSrv.getCountryList(
             function(data){
@@ -98,7 +165,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 // TODO: error message
             });
 
-        $scope.hazardList = RodiSrv.getHazardList();
+        // $scope.hazardList = RodiSrv.getHazardList();
         $scope.questions = RodiSrv.getQuestions();
         $scope.objResolutionList = [];
         $scope.bResolutionDisable = true;
@@ -182,6 +249,195 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
         // ****** USER PROFILE & DATA *********** //
         // ************************************** //
 
+        $scope.$watch('bLogin', function() {
+
+            if ($scope.bLogin){
+                $scope.tokenid = $cookieStore.get('rodi_token');
+                $scope.userinfo = $cookieStore.get('rodi_user');
+            }
+
+            // ************************************** //
+            // ********** ADMIN FUNCTIONS *********** //
+            // ************************************** //
+
+            if ($scope.bLogin && $scope.userinfo.groups[0] == 'admin')
+            {
+
+                $scope.usradmininfo = RodiSrv.getUserStructureEmpty();
+                $scope.usrRegList = [];
+                $scope.stypeModal = "";
+                $scope.groupSelect = null;
+
+                RodiSrv.getUsersList($scope.tokenid,
+                    function(data){
+                        //Success
+                        $scope.usrRegList = data;
+
+                        $scope.openPopup = function (pk)
+                        {
+
+                            if(pk == -999)
+                            {
+                                // New user
+                                $scope.stypeModal = "insert new profile";
+                                $scope.usradmininfo = RodiSrv.getUserStructureEmpty();
+
+                            } else {
+                                // Edit user profile
+                                var aUserProfile = $filter('filter')($scope.usrRegList, {pk: pk});
+                                $scope.usradmininfo = aUserProfile[0];
+
+                                if($scope.usradmininfo.groups.length == 0){
+                                    $scope.groupSelect = 'normal';
+                                } else {
+                                    $scope.groupSelect = $scope.usradmininfo.groups[0];
+                                }
+
+                                $scope.stypeModal = "edit";
+                            }
+
+
+                            $('#editUser').modal('show');
+                        }
+
+                        $scope.saveUsrInfoAdmin = function()
+                        {
+
+                            if($scope.groupSelect == 'admin')
+                            {
+                                $scope.usradmininfo.is_staff = true;
+                            }
+                            else {
+                                $scope.usradmininfo.is_staff = false;
+                            }
+
+                            if($scope.groupSelect == 'normal'){
+                                $scope.usradmininfo.groups = [];
+                            } else {
+                                $scope.usradmininfo.groups[0] = $scope.groupSelect;
+                            }
+
+                            if($scope.usradmininfo.pk == -999)
+                            {
+                                // New user
+
+                                RodiSrv.insertUserInfo($scope.tokenid, $scope.usradmininfo,
+                                    function(data){
+                                        // Success
+                                        vex.dialog.alert('User info saved successfully');
+
+                                        $scope.usrRegList.push($scope.usradmininfo);
+
+                                        RodiSrv.getUsersList($scope.tokenid,
+                                            function(data){
+                                                // Success
+                                                $scope.usrRegList = data;
+                                            }, function(data){
+                                                // Error
+                                            })
+
+                                    }, function(data){
+                                        // Error
+                                        vex.dialog.alert('Error: unable to save data');
+                                    })
+
+                            } else {
+                                // Edit User profile
+
+                                RodiSrv.saveUserInfo($scope.tokenid, $scope.usradmininfo,
+                                    function(data){
+                                        // Success
+                                        vex.dialog.alert('User info saved successfully');
+                                    }, function(data){
+                                        // Error
+                                        vex.dialog.alert('Error: unable to save data');
+                                    }
+                                )
+                            }
+                        }
+
+                        $scope.deleteUsrInfoAdmin = function(pk)
+                        {
+                            vex.dialog.confirm({
+                                message: 'Are you absolutely sure you want to delete this user profile?',
+                                callback: function (value) {
+                                    if(value)
+                                    {
+                                        // Delete profile
+                                        RodiSrv.deleteUserInfo($scope.tokenid, pk,
+                                            function(data){
+                                                // Success
+
+                                                // Reload data from server
+                                                RodiSrv.getUsersList($scope.tokenid,
+                                                    function(data){
+                                                        // Success
+                                                        $scope.usrRegList = data;
+                                                    }, function(data){
+                                                        // Error
+                                                    })
+
+                                            }, function(data){
+                                                // Error
+                                                vex.dialog.alert('Error: unable to delete data');
+                                            })
+                                    }
+                                }
+                            })
+                        }
+
+                    }, function(data){
+                        // Error
+                        // Fai nulla
+                    }
+                );
+
+                // Profile dataset list
+                $scope.bDatasetProfile = false;
+                RodiSrv.getProfileDataset($scope.tokenid,
+                    function(data){
+                        // Success
+                        if (data.length > 0)
+                        {
+                            $scope.bDatasetProfile = true;
+                        } else {$scope.bDatasetProfile = false;}
+
+                    }, function(data){
+                        // Error
+                        $scope.bDatasetProfile = false;
+                    })
+            }
+
+            // ************************************** //
+            // ********* ALL USER FUNCTIONS ********* //
+            // ************************************** //
+            if ($scope.bLogin)
+            {
+                // Profile dataset list
+                $scope.bDatasetProfile = false;
+                RodiSrv.getProfileDataset($scope.tokenid,
+                    function(data){
+                        // Success
+                        if (data.length > 0)
+                        {
+                            $scope.bDatasetProfile = true;
+                        } else {$scope.bDatasetProfile = false;}
+
+                        console.log(data);
+                    }, function(data){
+                        // Error
+                        $scope.bDatasetProfile = false;
+                    })
+            }
+
+            // ************************************** //
+            // ******* REVIEWER USER FUNCTIONS ****** //
+            // ************************************** //
+            if ($scope.bLogin && $scope.userinfo.groups[0] == 'reviewer'){
+
+            }
+        });
+
         $scope.putProfile = function()
         {
             // Save new profile data
@@ -231,148 +487,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
     }
 
-    // ************************************** //
-    // ********** ADMIN FUNCTIONS *********** //
-    // ************************************** //
-
-    $scope.$watch('bLogin', function() {
-
-        if ($scope.bLogin && $scope.userinfo.groups[0] == 'admin')
-        {
-            $scope.tokenid = $cookieStore.get('rodi_token');
-            $scope.userinfo = $cookieStore.get('rodi_user');
-
-            $scope.usradmininfo = RodiSrv.getUserStructureEmpty();
-            $scope.usrRegList = [];
-            $scope.stypeModal = "";
-            $scope.groupSelect = null;
-
-            RodiSrv.getUsersList($scope.tokenid,
-                function(data){
-                    //Success
-                    $scope.usrRegList = data;
-
-                    $scope.openPopup = function (pk)
-                    {
-
-                        if(pk == -999)
-                        {
-                            // New user
-                            $scope.stypeModal = "insert new profile";
-                            $scope.usradmininfo = RodiSrv.getUserStructureEmpty();
-
-                        } else {
-                            // Edit user profile
-                            var aUserProfile = $filter('filter')($scope.usrRegList, {pk: pk});
-                            $scope.usradmininfo = aUserProfile[0];
-
-                            if($scope.usradmininfo.groups.length == 0){
-                                $scope.groupSelect = 'normal';
-                            } else {
-                                $scope.groupSelect = $scope.usradmininfo.groups[0];
-                            }
-
-                            $scope.stypeModal = "edit";
-                        }
-
-
-                        $('#editUser').modal('show');
-                    }
-
-                    $scope.saveUsrInfoAdmin = function()
-                    {
-
-                        if($scope.groupSelect == 'admin')
-                        {
-                            $scope.usradmininfo.is_staff = true;
-                        }
-                        else {
-                            $scope.usradmininfo.is_staff = false;
-                        }
-
-                        if($scope.groupSelect == 'normal'){
-                            $scope.usradmininfo.groups = [];
-                        } else {
-                            $scope.usradmininfo.groups[0] = $scope.groupSelect;
-                        }
-
-                        if($scope.usradmininfo.pk == -999)
-                        {
-                            // New user
-
-                            RodiSrv.insertUserInfo($scope.tokenid, $scope.usradmininfo,
-                                function(data){
-                                    // Success
-                                    vex.dialog.alert('User info saved successfully');
-
-                                    $scope.usrRegList.push($scope.usradmininfo);
-
-                                    RodiSrv.getUsersList($scope.tokenid,
-                                        function(data){
-                                            // Success
-                                            $scope.usrRegList = data;
-                                        }, function(data){
-                                            // Error
-                                        })
-
-                                }, function(data){
-                                    // Error
-                                    vex.dialog.alert('Error: unable to save data');
-                                })
-
-                        } else {
-                            // Edit User profile
-
-                            RodiSrv.saveUserInfo($scope.tokenid, $scope.usradmininfo,
-                                function(data){
-                                    // Success
-                                    vex.dialog.alert('User info saved successfully');
-                                }, function(data){
-                                    // Error
-                                    vex.dialog.alert('Error: unable to save data');
-                                }
-                            )
-                        }
-                    }
-
-                    $scope.deleteUsrInfoAdmin = function(pk)
-                    {
-                        vex.dialog.confirm({
-                            message: 'Are you absolutely sure you want to delete this user profile?',
-                            callback: function (value) {
-                                if(value)
-                                {
-                                    // Delete profile
-                                    RodiSrv.deleteUserInfo($scope.tokenid, pk,
-                                        function(data){
-                                            // Success
-
-                                            // Reload data from server
-                                            RodiSrv.getUsersList($scope.tokenid,
-                                                function(data){
-                                                    // Success
-                                                    $scope.usrRegList = data;
-                                                }, function(data){
-                                                    // Error
-                                                })
-
-                                        }, function(data){
-                                            // Error
-                                            vex.dialog.alert('Error: unable to delete data');
-                                        })
-                                }
-                            }
-                        })
-                    }
-
-                }, function(data){
-                    // Error
-                    // Fai nulla
-                }
-            );
-        }
-    });
-
 
     // ************************************** //
     // ****** DATASET LIST & DETAILS ******** //
@@ -388,11 +502,25 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
             function(data){
                 // Success
                 $scope.countryList = data;
-                $scope.objDatasetClass = RodiSrv.getHazardCategory();
+
+                $scope.HazardCategory = [];
+                RodiSrv.getHazardCategory($scope.tokenid,
+                    function(data){
+                        // Success
+                        $scope.HazardCategory = data;
+                        console.log($scope.HazardCategory);
+
+                        $scope.HazardCategory = $filter('filter')($scope.HazardCategory, function(e){
+                            return e.category.id == $scope.idHazCat;
+                        });
+                        console.log($scope.HazardCategory);
+
+                    }, function(data){
+                        //Error
+                    });
 
                 $scope.objCountry = $filter('filter')($scope.countryList, {iso2: $scope.idCountry});
 
-                $scope.objDatasetClass = $filter('filter')($scope.objDatasetClass, {code: $scope.idHazCat});
 
             }, function(data){
                 // Error
