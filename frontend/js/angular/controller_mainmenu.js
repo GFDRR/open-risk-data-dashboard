@@ -230,13 +230,4 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
         }
     }
 
-    if ($location.path().indexOf('confirm_registration.html') !== -1)
-    {
-        $scope.usernamepar = $location.search().username;
-        $scope.keypar = $location.search().key;
-        $scope.bRegConfirm = true;
-
-        console.log($scope.usernamepar + ' ' + $scope.keypar);
-    }
-
 } ]);
