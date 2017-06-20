@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+
+    <base href="{{$LocationProvider.$get}}" />
+
+    <title>R.O.D.I. - Methodology</title>
+
+    <!-- jQuery library -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+
+    <!-- Angular components -->
+    <script src="bower_components/angular/angular.min.js"></script>
+
+    <!-- bootstrap Framework -->
+    <!-- Bootstrap -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- font awesome-->
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link href="bower_components/animate.css/animate.min.css" rel="stylesheet">
+
+    <!-- RODI APP -->
+    <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="js/angular/app.js"></script>
+    <script src="js/angular/service.js" type="text/javascript"></script>
+    <script src="js/angular/controller.js" type="text/javascript"></script>
+    <script src="js/angular/controller_confirm_mail.js" type="text/javascript"></script>
+    <script src="js/angular/controller_mainmenu.js" type="text/javascript"></script>
+    <script src="js/angular/directive.js" type="text/javascript"></script>
+    <!-- RODI APP -->
+
+    <!-- RODI css -->
+    <link href="css/rodi_css.css" rel="stylesheet">
+</head>
+    <body ng-app="RodiApp" ng-controller="RodiCtrlConfirmMail">
+
+
+        <div class="container-fluid">
+
+            <helpfeedbackbox></helpfeedbackbox>
+
+            <section id="rodi_header">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                        <!-- Left Banner / logo -->
+                        <a href="index.html"><img src="img/template/rodi_logo.png" alt="Risk OpenData Index" class="img-responsive" /></a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section MENU - INIZIO -->
+            <section id="top-menu">
+                <div class="row">
+
+                    <div class="col-sm-6 col-md-6 col-lg-6 hidden-xs">
+                        <!-- Spazio vuoto -->
+                    </div>
+                    <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3">
+                        <h1 class="page_title pull-right">CONFIRMS YOUR REGISTRATION</h1>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                        <mainmenu></mainmenu>
+                    </div>
+
+                </div>
+            </section>
+            <!-- Section MENU - FINE -->
+            <div class="head_sep blu vert"></div>
+            <hr>ì
+
+            <!-- Country Matrix -->
+            <div class="row">
+                <div class="col-xs-12 col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2">
+                    <br />
+                    <div style="max-width: 80%; margin:auto;">
+                        <div class="alert alert-success text-center" ng-if="bRegConfirm">
+                            <h2>Registration complete correctly!</h2>
+                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                            <br><br>
+                            <a href="" ng-click="changepage('contribute.html?tab=3')" class="btn btn-info">COMPLETE YOUR PROFILE</a>
+                        </div>
+                        <div class="alert alert-danger text-center" ng-if="!bRegConfirm">
+                            <h2>Registration confirm error!</h2>
+                            {{errormsg}}
+                            <br /><br />
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <!--END Container fluid-->
+
+        <!-- Section FOOTER - INIZIO -->
+        <rodifooter></rodifooter>
+        <!-- Section FOOTER - FINE -->
+
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    </body>
+</html>

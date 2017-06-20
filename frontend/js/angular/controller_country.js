@@ -2,9 +2,14 @@
  * Created by Manuel on 22/05/2017.
  */
 
-RodiApp.controller('RodiCtrlCountry', function ($scope, RodiSrv, $location, $filter) {
+RodiApp.controller('RodiCtrlCountry', function ($scope, RodiSrv, $location, $filter, $window) {
     // Data details controller
     $scope.idCountry = $location.search().idcountry;
+
+    $scope.changepage = function(page)
+    {
+        $window.location.href = baseUrl + page;
+    }
 
     $scope.countriesData = RodiSrv.getCountryDetails();
     $scope.countryData = $filter('filter')($scope.countriesData, {code: $scope.idCountry}, true);
@@ -13,7 +18,22 @@ RodiApp.controller('RodiCtrlCountry', function ($scope, RodiSrv, $location, $fil
 
     $scope.hazardIndex = $scope.countryData[0].haz_index;
 
-    $scope.matrixDataTypeList = RodiSrv.getHazardCategory();
+
+    // Get the Hazard Category
+    $scope.HazardCategory = [];
+    RodiSrv.getHazardCategory($scope.tokenid,
+        function(data){
+            // Success
+            $scope.HazardCategory = data;
+        }, function(data){
+            //Error
+        })
+
+    $scope.getHCIcon = function(index)
+    {
+        return RodiSrv.getHCIcon(index - 1);
+    };
+    // $scope.matrixDataTypeList = RodiSrv.getHazardCategory();
 
     $scope.questions = RodiSrv.getQuestions();
 

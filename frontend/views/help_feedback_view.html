@@ -1,17 +1,17 @@
 
 
 <div class="help_feedback_box">
-    <a ng-if="bHome" href="" ng-click="changeview('index.html', '0')"><i class="fa fa-home" aria-hidden="true"></i></a>
-    <a ng-if="!bLogin" href="" ng-click="loginform()"><i class="fa icon-login"></i></a>
-    <a ng-if="bLogin" href="" ng-click="logout()"><small>Welcome {{userinfo.id}} - </small> Logout</a>
-    <a ng-if="!bLogin" ng-click="changeview('register.html', '4')" href="" ><i class="fa icon-register"></i></a>
+    <a ng-if="bHome" href="" ng-click="changeview('index.html', '0')" data-toggle="tooltip" title="Home"><i class="fa fa-home" aria-hidden="true"></i></a>
+    <a ng-if="!bLogin" href="" ng-click="loginform()"><i class="fa icon-login" data-toggle="tooltip" title="Login"></i></a>
+    <a ng-if="bLogin" href="" ng-click="logout()"><small>Welcome {{userinfo.username}} - </small> Logout</a>
+    <a ng-if="!bLogin" ng-click="changeview('register.html', '4')" href="" ><i class="fa icon-register" data-toggle="tooltip" title="Register"></i></a>
 
-    <a href="" ng-click="showHelp()"><i class="fa fa-question-circle-o" aria-hidden="true"></i></a>
-    <a href="" ng-if="bLogin" ng-click="showFeed()" alt="Feedback"><i class="fa fa-commenting-o" aria-hidden="true"></i></a>
+    <a href="" ng-click="showHelp()"><i class="fa fa-question-circle-o" aria-hidden="true" data-toggle="tooltip" title="Contestual help"></i></a>
+    <a href="" ng-if="bLogin" ng-click="showFeed()" alt="Feedback"><i class="fa fa-commenting-o" aria-hidden="true" data-toggle="tooltip" title="Feedback"></i></a>
 </div>
 
 
-<!-- ***** HELP SESISONE ***** -->
+<!-- ***** HELP SECTION ***** -->
 <div class="contextual_content animated fadeIn" ng-if="showHelpIndex == '0'">
     <div class="text-right"><a href="" ng-click="hideHelp()">CLOSE</a></div>
     <h3>Contextual Help home page</h3>
@@ -40,6 +40,21 @@
 <div class="contextual_content  animated fadeIn" ng-if="showHelpIndex == '5'">
     <div class="text-right"><a href="" ng-click="hideHelp()">CLOSE</a></div>
     <h3>Contextual Help country details page</h3>
+</div>
+
+<div class="contextual_content  animated fadeIn" ng-if="showHelpIndex == '6'">
+    <div class="text-right"><a href="" ng-click="hideHelp()">CLOSE</a></div>
+    <h3>Contextual Dataset list page</h3>
+</div>
+
+<div class="contextual_content  animated fadeIn" ng-if="showHelpIndex == '7'">
+    <div class="text-right"><a href="" ng-click="hideHelp()">CLOSE</a></div>
+    <h3>Contextual News details page</h3>
+</div>
+
+<div class="contextual_content  animated fadeIn" ng-if="showHelpIndex == '8'">
+    <div class="text-right"><a href="" ng-click="hideHelp()">CLOSE</a></div>
+    <h3>Contextual confirm registration page</h3>
 </div>
 
 <!-- ***** FEEDBACK SESISONE ***** -->

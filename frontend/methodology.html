@@ -57,43 +57,35 @@
 
     <helpfeedbackbox></helpfeedbackbox>
 
-    <div class="row">
-        <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
-            <section id="header">
+    <section id="rodi_header">
+        <div class="row">
+            <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
                 <!-- Left Banner / logo -->
-                <img src="img/template/rodi_logo.png" alt="Risk OpenData Index" class="img-responsive" />
-                <div class="head_sep blu vert"></div>
-            </section>
-        </div>
+                <a href="index.html"><img src="img/template/rodi_logo.png" alt="Risk OpenData Index" class="img-responsive" /></a>
 
-
-        <!-- Content of page -->
-        <div class="col-xs-12 col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2">
-            <div class="row ">
-                <div class="media">
-                    <div class="media-left media-middle">
-                        <img ng-src="img/template/test_news_image.jpg" alt="" class="media-object" >
-                    </div>
-                    <div class="media-body">
-
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <div class="flex-container pull-right">
-                                <h1 class="page_title ">METHODOLOGY</h1>
-                                <mainmenu></mainmenu>
-                            </div>
-
-                        </div>
-
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <h2>Title of the page</h2>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <hr>
+    <!-- Section MENU - INIZIO -->
+    <section id="top-menu">
+        <div class="row">
+
+            <div class="col-sm-6 col-md-6 col-lg-6 hidden-xs">
+                <!-- Spazio vuoto -->
+            </div>
+            <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3">
+                <h1 class="page_title pull-right">METHODOLOGY</h1>
+            </div>
+            <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                <mainmenu></mainmenu>
+            </div>
+
+        </div>
+    </section>
+    <!-- Section MENU - FINE -->
+    <div class="head_sep blu vert"></div>
+    <hr>ì
 
     <!-- Country Matrix -->
     <div class="row">
@@ -109,6 +101,11 @@
 
 </div>
 <!--END Container fluid-->
+
+<!-- Section FOOTER - INIZIO -->
+<rodifooter></rodifooter>
+<!-- Section FOOTER - FINE -->
+
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

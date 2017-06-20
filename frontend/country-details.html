@@ -79,11 +79,11 @@
                     </div>
 
                     <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
-                        <img ng-src="{{countryData[0].img}}" alt="Coutry Image" class="media-object" >
+                        <img ng-src="{{countryData[0].img}}" alt="Coutry Image" class="img-responsive" >
                     </div>
                     <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
-                        <div class="hidden-xs contry_details_description">{{countryData[0].text}}</div>
-                        <span class="visible-xs">{{countryData[0].text}}</span>
+                        <div class="hidden-xs">{{countryData[0].text}}</div>
+                        <!--<span class="visible-xs">{{countryData[0].text}}</span>-->
                     </div>
                     <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 hidden-xs">
 
@@ -93,50 +93,28 @@
                         </div>
                     </div>
 
-                    <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
-                        <div class="flex-container pull-right">
-                            <h1 class="page_title ">{{countryData[0].desc}}</h1>
-                            <mainmenu></mainmenu>
-                        </div>
-
-                        <div class="media">
-                            <div class="media-left media-middle">
-                                <img ng-src="{{countryData[0].img}}" alt="Coutry Image" class="media-object" >
-                            </div>
-                            <div class="media-body">
-
-                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                    <div style="position: absolute; margin-top:25%;">
-                                        {{countryData[0].text}}
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>-->
-
                 </div>
             </div>
 
         </div>
 
-
-
-        <hr>
+        <hr />
 
         <!-- Country Matrix -->
         <div class="row">
             <div class="col-xs-12 col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2">
 
-                <!-- row questions | column data type | click only on label data type: details datasets-->
+                <!-- row questions | column data type | click only on label data type: details datasets -->
+                <br />
+
+
 
                 <table class="table table-condensed table-responsive">
                     <thead>
                         <th>&nbsp;</th> <!-- cella vuota -->
-                        <th class="text-center row_icon" ng-repeat="dt in matrixDataTypeList.dataType_index">
-                            <a href=""><i class="{{dt[2]}}"></i><br /><span>{{dt[1]}}</span></a> <!-- il click porta alla pagina elenco dataset (filters: country category) -->
+                        <th class="text-center row_icon" ng-repeat="hc in HazardCategory">
+                            <a href="" ng-click="changepage('dataset_list.html?idcountry=' + countryData[0].code + '&idcategory=' + hc.category.id)"><i class="{{getHCIcon(hc.category.id)}}"></i></a><br /><span>{{hc.category.name}}</span>
+                            <!-- il click porta alla pagina elenco dataset (filters: country category) -->
                         </th>
                     </thead>
 
@@ -157,11 +135,18 @@
                     </tbody>
 
                 </table>
+
+
             </div>
         </div>
 
     </div>
     <!--END Container fluid-->
+
+    <!-- Section FOOTER - INIZIO -->
+    <rodifooter></rodifooter>
+    <!-- Section FOOTER - FINE -->
+
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

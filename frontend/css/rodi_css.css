@@ -32,6 +32,12 @@ section
     font-size: 17px;
 }
 
+.rodi_divider
+{
+    height:20px;
+    border-top: solid 1px #c0c0c0;
+}
+
 .display_none
 {
     display: none;
@@ -127,7 +133,7 @@ section
 {
     font-size:20px;
     color:#ffd700;
-    margin-top: -12px;
+    margin-top: -10px;
 }
 
 .contribute_feedbak_box
@@ -173,12 +179,6 @@ section
     overflow: auto;
 }
 
-.contry_details_description
-{
-    position: absolute;
-    margin-top: 25%;
-}
-
 .register_txt_box
 {
     width:100%;
@@ -189,6 +189,38 @@ section
 {
     color:red;
 }
+
+.rodi_footer
+{
+    width:100%;
+    background-color: #122b40;
+    margin-top: 30px;
+    padding-top: 30px;
+    padding-bottom:30px;
+}
+
+.footer_separator
+{
+    width:40%;
+    margin:auto;
+    margin-top:10px;
+    height:15px;
+    border-top:solid 1px #f0f0f0;
+}
+
+.footer_link
+{
+    color:#ffffff;
+    font-size: 18px;
+    margin-right:15px;
+}
+
+.footer_link:hover
+{
+    text-decoration: none;
+    color:red;
+}
+
 
 /*
 ==============================================================================
@@ -206,6 +238,7 @@ section
     -moz-border-radius: 2px;
     border-radius: 2px;
     margin:auto;
+    transition: all 0.6s;
 }
 
 .matrix_cell_round
@@ -217,6 +250,14 @@ section
     -moz-border-radius: 50%;
     border-radius: 50%;
     margin:auto;
+}
+
+.matrix_cell a:hover
+{
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+    border:solid 1px #000000;
 }
 
 
@@ -462,7 +503,7 @@ fieldset[disabled] .btn-custom.active {
 
 .form-control,
 .form-control:focus {
-    border: none;
+    /*border: none;*/
     box-shadow:none;
     -webkit-box-shadow:none;
     border-radius:0;
@@ -470,7 +511,7 @@ fieldset[disabled] .btn-custom.active {
 
 }
 
-input.form-control {border-bottom:solid 2px #EE3036;}
+/*input.form-control {border-bottom:solid 2px #EE3036;}*/
 
 .form-control:hover { border-color:#007899;}
 .form-control:focus { border-bottom:solid 4px #007899; }

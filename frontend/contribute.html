@@ -97,18 +97,19 @@
                 <hr />
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
-                    <li role="presentation" class="active"><a href="#dataset" aria-controls="dataset" role="tab" data-toggle="tab">New Dataset</a></li>
-                    <li role="presentation"><a href="#mydataset" aria-controls="mydataset" role="tab" data-toggle="tab">My dataset</a></li>
-                    <li role="presentation"><a href="#datasetreview" aria-controls="datasetreview" role="tab" data-toggle="tab">Dataset review</a></li>
-                    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">My Profile</a></li>
-                    <li role="presentation"><a href="#feedback" aria-controls="profile" role="tab" data-toggle="tab">Feedback</a></li>
+                    <li role="presentation" ng-class="{active:tab==0}"><a href="#dataset" aria-controls="dataset" role="tab" data-toggle="tab">New Dataset</a></li>
+                    <li role="presentation" ng-class="{active:tab==1}"><a href="#mydataset" aria-controls="mydataset" role="tab" data-toggle="tab">My dataset</a></li>
+                    <li role="presentation" ng-class="{active:tab==2}"><a href="#datasetreview" aria-controls="datasetreview" role="tab" data-toggle="tab" ng-if="userinfo.groups[0] == 'reviewer' || userinfo.groups[0] == 'admin'">Dataset review</a></li>
+                    <li role="presentation" ng-class="{active:tab==3}"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">My Profile</a></li>
+                    <li role="presentation" ng-class="{active:tab==4}"><a href="#feedback" aria-controls="profile" role="tab" data-toggle="tab" ng-if="userinfo.groups[0] == 'admin'">Feedback</a></li>
+                    <li role="presentation" ng-class="{active:tab==5}"><a href="#users" aria-controls="profile" role="tab" data-toggle="tab" ng-if="userinfo.groups[0] == 'admin'">Registered users</a></li>
                 </ul>
 
                 <!-- Tab panes -->
                 <div class="tab-content rodi_tabpanels">
 
                     <!-- Insert new dataset pane - START -->
-                    <div role="tabpanel" class="tab-pane fade in active" id="dataset">
+                    <div role="tabpanel" class="tab-pane fade in" ng-class="{active:tab==0}" id="dataset">
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
                                 <input type="button" class="btn btn-success" value="Save dataset" ng-click="saveDataser()"><br />
@@ -149,12 +150,12 @@
                             </div>
                             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                                 <div class="contribute_field_box">
-                                    <label>4) Hazard category  (*)</label>
+                                    <label>4) Data category  (*)</label>
                                     <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.hazard_category != '--'"></i>
                                     <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.hazard_category == '--'"></i>
-                                    <select class="form-control" ng-model="objDataset.hazard_category">
+                                    <select class="form-control" ng-model="objDataset.hazard_category" ng-change="setDatasetName(objDataset.hazard_category)">
                                         <option value="--" selected>-- Select --</option>
-                                        <option ng-repeat="dt in matrixDataTypeList.dataType_index" value="{{dt[0]}}">{{dt[1]}}</option>
+                                        <option ng-repeat="hc in HazardCategory" value="{{hc.category.id}}">{{hc.category.name}}</option>
                                     </select>
 
                                 </div>
@@ -162,9 +163,9 @@
                             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 
                                 <div class="contribute_field_box">
-                                    <label>5) Hazard <span ng-if="objDataset.hazard_category != 'h03'">(optional)</span> <span ng-if="objDataset.hazard_category == 'h03'"> (*)</span></label>
-                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.hazard != '--' || objDataset.hazard_category != 'h03'"></i>
-                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.hazard == '--' && objDataset.hazard_category == 'h03'"></i>
+                                    <label>5) Hazard <span ng-if="objDataset.hazard_category != 'h03'">(optional)</span> <span ng-if="objDataset.hazard_category == '3'"> (*)</span></label>
+                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.hazard != '--' || objDataset.hazard_category != '3'"></i>
+                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.hazard == '--' && objDataset.hazard_category == '3'"></i>
                                     <select class="form-control" ng-model="objDataset.hazard">
                                         <option value="--" selected>-- Select --</option>
                                         <option ng-repeat="hazardDet in hazardList" value="{{hazardDet.code}}">{{hazardDet.desc}}</option>
@@ -182,7 +183,7 @@
                                     <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.dataset_type == '--'"></i>
                                     <select class="form-control" ng-model="objDataset.dataset_type" ng-change="filterDatasetResolution()">
                                         <option value="--" selected>-- Select --</option>
-                                        <option ng-repeat="datasetclass in objDatasetClass | filter:{ hazard_category:  objDataset.hazard_category}" value="{{datasetclass.code}}">{{datasetclass.desc}}</option>
+                                        <option ng-repeat="dn in DatasetName" value="{{dn.dataset.id}}">{{dn.dataset.name}}</option>
                                     </select>
                                 </div>
                             </div>
@@ -216,7 +217,7 @@
                                 <div class="contribute_field_box">
                                     <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.link_dataset"></i>
                                     <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="!objDataset.link_dataset"></i>
-                                    <label>Link dataset details</label><br/>
+                                    <label>Link dataset details (*)</label><br/>
                                     <input type="text" ng-model="objDataset.link_dataset" class="form-control">
                                 </div>
                             </div>
@@ -224,8 +225,14 @@
                                 <div class="contribute_field_box">
                                     <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.link_metadata"></i>
                                     <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="!objDataset.link_metadata"></i>
-                                    <label>Link metadata download</label><br/>
+                                    <label>Link metadata download (*)</label><br/>
                                     <input type="text" ng-model="objDataset.link_metadata" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="contribute_field_box">
+                                    <label>Notes</label><br/>
+                                    <textarea name="notes" rows="5" class="form-control"></textarea>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
@@ -236,9 +243,67 @@
                     </div>
                     <!-- Insert new dataset pane- END -->
 
-                    <div role="tabpanel" class="tab-pane fade" id="mydataset">.2..</div>
+                    <!-- My Dataset -->
+                    <div role="tabpanel" class="tab-pane fade" ng-class="{active:tab==1}" id="mydataset">
+                        <div class="row" ng-if="bDatasetProfile">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">[Dataset list]</div>
+                        </div>
+                        <div class="row" ng-if="!bDatasetProfile">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <i>No dataset inserted at this time</i>
+                                <br /><br /><br />
+                                <u>Test template</u><br /><br />
+                            </div>
+                        </div>
+                    </div>
                     <div role="tabpanel" class="tab-pane fade" id="datasetreview">..3.</div>
-                    <div role="tabpanel" class="tab-pane fade" id="profile">.4..</div>
+
+                    <!-- My Profile -->
+                    <div role="tabpanel" class="tab-pane" ng-class="[{'active':tab==3}]" id="profile">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="alert alert-info">User name: {{userinfo.username}}- access level: <span class="text-uppercase">{{userinfo.groups[0]}}</span></div>
+                                <form name="registrationForm">
+                                    <label>Title</label>
+                                    <input type="text" name="usrtitle" placeholder="es: Drs" class="form-control" ng-model="userinfo.title">
+                                    <br />
+                                    <label>First name (*)</label>
+                                    <input type="text" name="usrname" placeholder="Name" class="form-control" ng-model="userinfo.first_name">
+                                    <br />
+                                    <label>Last name  (*)</label>
+                                    <input type="text" name="usrsurname" placeholder="Surname" class="form-control" ng-model="userinfo.last_name">
+                                    <br />
+                                    <label>E-mail  (*)</label>
+                                    <span class="register_error" ng-show="registrationForm.usremail.$error.pattern">invalid email!</span>
+                                    <input type="email" name="usremail" placeholder="E-mail address" class="form-control" ng-model="userinfo.email" ng-pattern="checkMail">
+                                    <br />
+                                    <label>Institution</label>
+                                    <input type="text" name="usrinstitution" placeholder="Institution" class="form-control" ng-model="userinfo.institution">
+                                    <br />
+                                    <div class="text-right">
+                                        <a href="" class="btn btn-success" ng-click="putProfile()">Save data</a><br />
+                                        <span class="small text-muted">(*) Required</span>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="alert alert-info">Change password</div>
+                                <label>Old password  (*)</label>
+                                <input type="password" placeholder="Old password" class="form-control" ng-model="old_psw">
+                                <br />
+                                <label>New password (min 8 chr)  (*)</label>
+                                <input type="password" placeholder="New password" class="form-control" ng-model="new_psw">
+                                <br />
+                                <label>Confirm new password (min 8 chr)  (*)</label>
+                                <input type="password" placeholder="Confirm new password" class="form-control" ng-model="confirm_psw">
+                                <br />
+                                <div class="text-right">
+                                    <a href="" class="btn btn-success" ng-click="resetProfilePsw(old_psw, new_psw, confirm_psw)">Change password</a><br />
+                                    <span class="small text-muted">(*) Required</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div role="tabpanel" class="tab-pane fade" id="feedback">
                         <strong>Users feedback</strong>
                         <br /><br />
@@ -283,6 +348,56 @@
                             </span>
                         </div>
                     </div>
+
+                    <!-- Registered user dashboard -->
+                    <div role="tabpanel" class="tab-pane fade" id="users">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+                                <input type="text" placeholder="filter by username, first name, last name, email, group or institution" class="form-control" ng-model="txtFilter">
+                                <br />
+                                <span class="text-muted">Users: {{filteredUser.length}}</span>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 text-right">
+                                <a href="" class="btn btn-success" ng-click="openPopup(-999)">Add user</a>
+                            </div>
+                        </div>
+                        <br /><br />
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <table class="table table-striped table-hover table-condensed">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Username</th>
+                                            <th>User info</th>
+                                            <th class="text-center">Group</th>
+                                            <th>Institution</th>
+                                            <th class="text-center">Edit</th>
+                                            <th class="text-center">Cancel</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="userReg in usrRegList | filter: txtFilter as filteredUser">
+                                            <td>{{userReg.pk}}</td>
+                                            <td>{{userReg.username}}</td>
+                                            <td>
+                                                {{userReg.title}} {{userReg.last_name}} {{userReg.first_name}}<br />
+                                                <span class="text-muted">{{userReg.email}}</span>
+                                            </td>
+                                            <td class="text-center">
+                                                <i class="fa fa-user-secret text-info" aria-hidden="true" ng-if="userReg.groups[0] == 'admin'"></i>
+                                                <i class="fa fa-user-plus text-warning" aria-hidden="true" ng-if="userReg.groups[0] == 'reviewer'"></i>
+                                                <i class="fa fa-user" aria-hidden="true" ng-if="userReg.groups.length == 0"></i>
+                                            </td>
+                                            <td>{{userReg.institution}}</td>
+                                            <td class="text-center"><a href="" class="btn btn-xs btn-success" ng-click="openPopup(userReg.pk)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+                                            <td class="text-center"><a href="" class="btn btn-xs btn-danger" ng-click="deleteUsrInfoAdmin(userReg.pk)"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center" ng-if="!bLogin">
@@ -297,15 +412,60 @@
     </section>
     <!-- Section MAP - FINE -->
 
-    <!-- Section FOOTER - INIZIO -->
-    <section id="rodi_footer">
-        <br /><br /><br />
-    </section>
-    <!-- Section FOOTER - FINE -->
+    <!-- User edit modal -->
+    <div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="editUserLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="editUserLabel">User profile - {{stypeModal}}</h4>
+                </div>
+                <div class="modal-body">
 
+                    <div class="alert alert-info">User name: {{usradmininfo.username}}- access level: <span class="text-uppercase">{{usradmininfo.groups[0]}}</span></div>
+                    <form name="registrationForm">
+                        <label>Username</label>
+                        <input type="text" name="usrid" placeholder="Username" class="form-control" ng-model="usradmininfo.username">
+                        <br />
+                        <label>Title</label>
+                        <input type="text" name="usrtitle" placeholder="es: Drs" class="form-control" ng-model="usradmininfo.title">
+                        <br />
+                        <label>First name (*)</label>
+                        <input type="text" name="usrname" placeholder="Name" class="form-control" ng-model="usradmininfo.first_name">
+                        <br />
+                        <label>Last name  (*)</label>
+                        <input type="text" name="usrsurname" placeholder="Surname" class="form-control" ng-model="usradmininfo.last_name">
+                        <br />
+                        <label>E-mail  (*)</label>
+                        <span class="register_error" ng-show="registrationForm.usremail.$error.pattern">invalid email!</span>
+                        <input type="email" name="usremail" placeholder="E-mail address" class="form-control" ng-model="usradmininfo.email" ng-pattern="checkMail">
+                        <br />
+                        <label>Group</label>
+                        <select ng-model="groupSelect" class="form-control">
+                            <option value="normal">Normal user</option>
+                            <option value="reviewer">Reviwer</option>
+                            <option value="admin">Administrator</option>
+                        </select>
+                        <br />
 
+                        <label>Institution</label>
+                        <input type="text" name="usrinstitution" placeholder="Institution" class="form-control" ng-model="usradmininfo.institution">
+                        <br />
+                    </form>
 
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" ng-click="saveUsrInfoAdmin()">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+
+<!-- Section FOOTER - INIZIO -->
+<rodifooter></rodifooter>
+<!-- Section FOOTER - FINE -->
 
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

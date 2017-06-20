@@ -2,9 +2,408 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+
+    <base href="{{$LocationProvider.$get}}" />
+
+    <title>R.O.D.I. - Dataset List</title>
+
+    <!-- jQuery library -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+
+    <!-- Angular components -->
+    <script src="bower_components/angular/angular.min.js"></script>
+
+    <!-- bootstrap Framework -->
+    <!-- Bootstrap -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- font awesome-->
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link href="bower_components/animate.css/animate.min.css" rel="stylesheet">
+
+    <!-- RODI APP -->
+    <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="js/angular/app.js"></script>
+    <script src="js/angular/service.js" type="text/javascript"></script>
+    <script src="js/angular/controller.js" type="text/javascript"></script>
+    <script src="js/angular/controller_mainmenu.js" type="text/javascript"></script>
+    <script src="js/angular/directive.js" type="text/javascript"></script>
+    <!-- RODI APP -->
+
+    <!-- RODI css -->
+    <link href="css/rodi_css.css" rel="stylesheet">
 </head>
-<body>
+<body ng-app="RodiApp" ng-controller="RodiCtrl">
+
+    <div class="container-fluid">
+
+        <helpfeedbackbox></helpfeedbackbox>
+
+        <section id="rodi_header">
+            <div class="row">
+                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                    <!-- Left Banner / logo -->
+                    <a href="index.html"><img src="img/template/rodi_logo.png" alt="Risk OpenData Index" class="img-responsive" /></a>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Section MENU - INIZIO -->
+        <section id="top-menu">
+            <div class="row">
+
+                <div class="col-sm-6 col-md-6 col-lg-6 hidden-xs">
+                    <!-- Spazio vuoto -->
+                </div>
+                <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3">
+                    <h1 class="page_title pull-right">DATASET LIST</h1>
+                </div>
+                <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
+                    <mainmenu></mainmenu>
+                </div>
+
+            </div>
+        </section>
+        <!-- Section MENU - FINE -->
+        <div class="head_sep blu vert"></div>
+        <hr />
+
+        <!-- Country Matrix -->
+        <div class="row">
+            <div class="col-xs-12 col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2">
+                <br />
+                <h2>{{objCountry[0].name}} - {{HazardCategory[0].category.name}}</h2>
+                <br />
+
+                <table class="table">
+                    <thead>
+                        <th>Dataset</th>
+                        <th>Questions</th>
+                        <th>Year</th>
+                        <th>Score</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><a href="">Dataset one</a></td>
+                            <td><i class="fa fa-etsy" aria-hidden="true"></i></td>
+                            <td>2016</td>
+                            <td><div>score</div></td>
+                        </tr>
+                    </tbody>
+
+                </table>
+
+
+                <div class="contribute_field_box">
+                    <div class="pull-right">
+                        <a href="">Details</a> |
+                        <a href="">Download</a> |
+                        <i class="fa fa-check contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="false"></i>
+                        <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="true"></i>
+                    </div>
+                    <strong>Dataset Name</strong>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        <br /><br />
+                        <strong>Hazard: </strong> Earthquake | <strong>Dataset category: </strong> Aerial Imagery | <strong>Resolution:</strong> 100m
+                        <div class="rodi_divider"></div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                1) Does the data exist? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">Yes</span>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                2) Is data in digital form? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                3) data provided on a timely and up to date basis? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                4) Does the data exist? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">Yes</span>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                5) Is data in digital form? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                6) data provided on a timely and up to date basis? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                7) Does the data exist? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">Yes</span>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                8) Is data in digital form? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                9) data provided on a timely and up to date basis? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                                10) data provided on a timely and up to date basis? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                            </div>
+                        </div>
+                    </p>
+                </div>
+                <div class="contribute_field_box">
+                    <div class="pull-right">
+                        <a href="">Details</a> |
+                        <a href="">Download</a> |
+                        <i class="fa fa-check contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="true"></i>
+                        <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="false"></i>
+                    </div>
+                    <strong>Dataset Name</strong>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        <br /><br />
+                        <strong>Hazard: </strong> Earthquake | <strong>Dataset category: </strong> Aerial Imagery | <strong>Resolution:</strong> 100m
+                    <div class="rodi_divider"></div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            1) Does the data exist? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">Yes</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            2) Is data in digital form? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            3) data provided on a timely and up to date basis? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            4) Does the data exist? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">Yes</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            5) Is data in digital form? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            6) data provided on a timely and up to date basis? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            7) Does the data exist? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">Yes</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            8) Is data in digital form? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            9) data provided on a timely and up to date basis? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            10) data provided on a timely and up to date basis? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                    </div>
+                    </p>
+                </div>
+                <div class="contribute_field_box">
+                    <div class="pull-right">
+                        <a href="">Details</a> |
+                        <a href="">Download</a> |
+                        <i class="fa fa-check contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="true"></i>
+                        <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="false"></i>
+                    </div>
+                    <strong>Dataset Name</strong>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        <br /><br />
+                        <strong>Hazard: </strong> Earthquake | <strong>Dataset category: </strong> Aerial Imagery | <strong>Resolution:</strong> 100m
+                    <div class="rodi_divider"></div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            1) Does the data exist? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">Yes</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            2) Is data in digital form? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            3) data provided on a timely and up to date basis? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            4) Does the data exist? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">Yes</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            5) Is data in digital form? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            6) data provided on a timely and up to date basis? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            7) Does the data exist? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">Yes</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            8) Is data in digital form? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            9) data provided on a timely and up to date basis? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            10) data provided on a timely and up to date basis? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                    </div>
+                    </p>
+                </div>
+                <div class="contribute_field_box">
+                    <div class="pull-right">
+                        <a href="">Details</a> |
+                        <a href="">Download</a> |
+                        <i class="fa fa-check contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="false"></i>
+                        <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="true"></i>
+                    </div>
+                    <strong>Dataset Name</strong>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        <br /><br />
+                        <strong>Hazard: </strong> Earthquake | <strong>Dataset category: </strong> Aerial Imagery | <strong>Resolution:</strong> 100m
+                    <div class="rodi_divider"></div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            1) Does the data exist? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">Yes</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            2) Is data in digital form? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            3) data provided on a timely and up to date basis? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            4) Does the data exist? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">Yes</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            5) Is data in digital form? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            6) data provided on a timely and up to date basis? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            7) Does the data exist? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">Yes</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            8) Is data in digital form? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            9) data provided on a timely and up to date basis? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            10) data provided on a timely and up to date basis? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                    </div>
+                    </p>
+                </div>
+                <div class="contribute_field_box">
+                    <div class="pull-right">
+                        <a href="">Details</a> |
+                        <a href="">Download</a> |
+                        <i class="fa fa-check contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="false"></i>
+                        <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="true"></i>
+                    </div>
+                    <strong>Dataset Name</strong>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        <br /><br />
+                        <strong>Hazard: </strong> Earthquake | <strong>Dataset category: </strong> Aerial Imagery | <strong>Resolution:</strong> 100m
+                    <div class="rodi_divider"></div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            1) Does the data exist? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">Yes</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            2) Is data in digital form? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            3) data provided on a timely and up to date basis? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            4) Does the data exist? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">Yes</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            5) Is data in digital form? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            6) data provided on a timely and up to date basis? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            7) Does the data exist? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">Yes</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            8) Is data in digital form? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            9) data provided on a timely and up to date basis? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            10) data provided on a timely and up to date basis? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                    </div>
+                    </p>
+                </div>
+                <div class="contribute_field_box">
+                    <div class="pull-right">
+                        <a href="">Details</a> |
+                        <a href="">Download</a> |
+                        <i class="fa fa-check contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="true"></i>
+                        <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="false"></i>
+                    </div>
+                    <strong>Dataset Name</strong>
+                    <p>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        <br /><br />
+                        <strong>Hazard: </strong> Earthquake | <strong>Dataset category: </strong> Aerial Imagery | <strong>Resolution:</strong> 100m
+                    <div class="rodi_divider"></div>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            1) Does the data exist? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">Yes</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            2) Is data in digital form? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            3) data provided on a timely and up to date basis? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            4) Does the data exist? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">Yes</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            5) Is data in digital form? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            6) data provided on a timely and up to date basis? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            7) Does the data exist? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">Yes</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            8) Is data in digital form? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            9) data provided on a timely and up to date basis? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            10) data provided on a timely and up to date basis? <span class="matrix_cell_round" style="background-color: rgb(255,229,229);">No</span>
+                        </div>
+                    </div>
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+    <!--END Container fluid-->
+
+    <!-- Section FOOTER - INIZIO -->
+    <rodifooter></rodifooter>
+    <!-- Section FOOTER - FINE -->
+
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 </body>
 </html>

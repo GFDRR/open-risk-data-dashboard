@@ -346,18 +346,100 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         return objHazard;
     };
 
-    this.getHazardCategory = function()
+    // ************************************** //
+    // ************ KEYDATASET LIST ********* //
+    // ************************************** //
+
+    this.getHazardCategory = function(token, onSuccess, onError)
     {
-        return objDataTimeElement = {
-            "dataType_index": {
-                dt01:["h01", "Base data", "icon-base_data"],
-                dt02:["h02", "Exposure", "icon-exposure"],
-                dt03:["h03", "Hazard info", "icon-hazard_info"],
-                dt04:["h04", "Vulnerability", "icon-vulnerability"],
-                dt05:["h05", "Risk info", "icon-info"]
+        // Return a list of Hazard Macro Category
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'keydataset/',
+            headers: {
+                // 'Authorization': 'Token ' + token
             },
+            data: {}
         }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+
+        // return objHazardCategoryList = [
+        //     {code:"h01", desc:"Base data", icon:"icon-base_data"},
+        //     {code:"h02", desc:"Exposure", icon:"icon-exposure"},
+        //     {code:"h03", desc:"Hazard info", icon:"icon-hazard_info"},
+        //     {code:"h04", desc:"Vulnerability", icon:"icon-vulnerability"},
+        //     {code:"h05", desc:"Risk info", icon:"icon-info"}
+        // ];
     };
+
+    this.getHCIcon = function(index)
+    {
+        // Return the icon set for the category
+        var obj = ["icon-base_data", "icon-exposure", "icon-hazard_info", "icon-info", "icon-vulnerability"];
+
+        return obj[index];
+    }
+
+    this.getDatasetName = function(hcId, onSuccess, onError)
+    {
+        // Return a list of dataset name
+
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'keydataset/' + hcId + '/',
+            headers: {
+                // 'Authorization': 'Token ' + token
+            },
+            data: {}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+    }
+
+    this.getDatasetDescription = function(hcId, dsId, onSuccess, onError)
+    {
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'keydataset/' + hcId + '/' + dsId + '/',
+            headers: {
+                // 'Authorization': 'Token ' + token
+            },
+            data: {}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+    }
+
+    this.getDatasetResolution = function(hcId, dsId, dsDescId, onSuccess, onError)
+    {
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'keydataset/' + hcId + '/' + dsId + '/' + dsDescId + '/',
+            headers: {
+                // 'Authorization': 'Token ' + token
+            },
+            data: {}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+    }
 
     this.getQuestions = function()
     {
@@ -387,61 +469,36 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         /*
          return a Dataset list structure empty for new dataset contributor.
 
-         obj =
-         {
-         "code": "",
-         "name": "",
-         "abstract": "",
-         "dataset_type": "",
-         "resolution": "",
-         "country": "--",
-         "hazard_category": "--",
-         hazard: "",
-         "usr_ins": "",
-         "data_ins": "",
-         "status": "0",
-         "data_validate": "",
-         "questions":
-         {
-         "questioncode": "",
-         "questioncode": "",
-         "questioncode": "",
-         ...
-         },
-         "link_dataset": "",
-         "link_metadata": ""
-         }
-         */
+        */
 
         return obj = {
-            code: "",
-            name: "",
-            abstract: "",
-            dataset_type: "--",
-            resolution: "--",
-            country: "--",
-            hazard_category: "--",
-            hazard: "--",
-            usr_ins: "",
-            data_ins: "",
-            status: "0",
-            data_validate: "",
-            questions:
-            [
-                {code: "q01", value: ""},
-                {code: "q02", value: ""},
-                {code: "q03", value: ""},
-                {code: "q04", value: ""},
-                {code: "q05", value: ""},
-                {code: "q06", value: ""},
-                {code: "q07", value: ""},
-                {code: "q08", value: ""},
-                {code: "q09", value: ""},
-                {code: "q10", value: ""}
-                // Prendiamo le domande di tipo Yes No
-            ],
-            link_dataset: "",
-            link_metadata: ""
+            country: "",
+            notes: "",
+            is_digital_form: "", //9
+            is_pub_available: "--", //14
+            is_avail_for_free: "", //15
+            is_machine_read: "", //13
+            is_bulk_avail:"", //12
+            is_open_licence:"", //16
+            is_prov_timely:"", //17
+            data_url: "",
+            metadata_url: "0",
+
+
+            owner:"",
+            is_reviewed: "",
+            review_date: "",
+            create_time: "",
+            modify_time: "",
+            keydataset:{
+                id:999,
+                category: "",
+                dataset:"",
+                description:"",
+                resolution:"",
+                scale:""
+            },
+            changed_by:""
             }
 
     }
@@ -541,71 +598,250 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         return true;
     }
 
-    /* LOGIN services */
+    // ************************************** //
+    // **** LOGIN / ADMIN USERS / PROFILE *** //
+    // ************************************** //
+
+    this.getUserStructureEmpty = function()
+    {
+        var obj =
+            {
+                pk:-999,
+                username:"",
+                first_name:"",
+                last_name:"",
+                email:"",
+                groups:[],
+                title:"",
+                institution:"",
+                is_staff: false
+            };
+
+        return obj;
+
+    }
 
     this.checkLogin = function(usr, psw, onSuccess, onError)
     {
-    /*    Check if login is correct, if so set the local cookies
-        Return KO if login is incorrect or User Datails
-        Object
-         {
-            status: "OK",
-            usr_name: "user name - login"
-            name: "name",
-            surname: "surname",
-            email: "mail@domain.dom",
-            level: "0" -> 0: admin | 1: Reviewer | 2: Registered user | 3: guest user (not registered)
-         }
-    */
+    /*    Check if login is correct, if so set the local cookies    */
 
-        var sData = $.param({
-            username: usr,
-            password: psw
+        var req = {
+            method: 'POST',
+            url: baseAPIurl + 'get-token/',
+            headers: {},
+            data: { 'username': usr,  'password': psw}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data);
+        }, function(data){
+            if(onError)onError(data);
         });
 
-        var config = {
-            headers : {
-                'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8;',
-                'Authorization' :"Token:"
+    }
+
+    this.getUserInfo = function(token, onSuccess, onError)
+    {
+    //    Return user info
+
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'profile',
+            headers: {
+                'Authorization': 'Token ' + token
+            },
+            data: { }
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+    }
+
+    this.saveProfile = function(token, objUsr, onSuccess, onError)
+    {
+
+        var req = {
+            method: 'PUT',
+            url: baseAPIurl + 'profile',
+            headers: {
+                'Authorization': 'Token ' + token
+            },
+            data: objUsr
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+
+    }
+
+    this.getProfileDataset = function(token, objUsr, onSuccess, onError)
+    {
+        // Return a list of user's datasets
+
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'profile/dataset/',
+            headers: {
+                'Authorization': 'Token ' + token
+            },
+            data: {}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+
+    }
+
+    this.resetProfilePsw = function(token, oldpsw, newpsw, onSuccess, onError)
+    {
+        var req = {
+            method: 'PUT',
+            url: baseAPIurl + 'profile/password',
+            headers: {
+                'Authorization': 'Token ' + token
+            },
+            data: {
+                'old_password': oldpsw,
+                'new_password': newpsw
             }
         }
 
-        $http.post(baseAPIurl + 'get-token/', sData, config
-        ).then (function(data){
-            // Success call
-            if(onSuccess) onSuccess(data);
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
         }, function(data){
-            // Error call
-            if(onError)onError(data)
+            if(onError)onError(data.data);
         });
 
-
-
-        // $http({
-        //     method: 'POST',
-        //     url: baseAPIurl + 'get-token/',
-        //     headers: {
-        //         'Authorization' :"Token:",
-        //         'username': usr,
-        //         'password': psw
-        //     },
-        // }).then(function (data) {
-        //     if(onSuccess) onSuccess(data)
-        // },function(data){
-        //     if(onError)onError(data)
-        // });
-
-    // if(usr == 'cima')
-    // {
-    //     return {status: "OK", usr_name:"cima", name: "NameTest", surname: "surnameTest", email:"manuel.cavallaro@cimafoundation.org", level: 0}
-    //
-    // }
-    // else
-    //     {
-    //         return {status: "KO", usr_name:"", name: "", surname: "", email:"", level: 3}
-    //     }
-    //
     }
+
+    this.saveUserInfo = function(token, objUsr, onSuccess, onError)
+    {
+
+        var req = {
+            method: 'PUT',
+            url: baseAPIurl + 'user/' + objUsr.pk,
+            headers: {
+                'Authorization': 'Token ' + token
+            },
+            data: objUsr
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data);
+        }, function(data){
+            if(onError)onError(data);
+        });
+
+    }
+
+    this.insertUserInfo = function(token, objUsr, onSuccess, onError)
+    {
+
+        var req = {
+            method: 'POST',
+            url: baseAPIurl + 'user/',
+            headers: {
+                'Authorization': 'Token ' + token
+            },
+            data: objUsr
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data);
+        }, function(data){
+            if(onError)onError(data);
+        });
+
+    }
+
+    this.deleteUserInfo = function(token, pk, onSuccess, onError)
+    {
+
+        var req = {
+            method: 'DELETE',
+            url: baseAPIurl + 'user/' + pk,
+            headers: {
+                'Authorization': 'Token ' + token
+            },
+            data: {}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data);
+        }, function(data){
+            if(onError)onError(data);
+        });
+
+    }
+
+    this.getUsersList = function(token, onSuccess, onError)
+    {
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'user/',
+            headers: {
+                'Authorization': 'Token ' + token
+            },
+            data: { }
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+    }
+
+    this.sendRegisterRequest = function(objUsr, onSuccess, onError)
+    {
+        // Send a request for visitor registration
+
+        var req = {
+            method: 'POST',
+            url: baseAPIurl + 'registration',
+            headers: {},
+            data: objUsr
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+
+    }
+
+    this.sendConfirmRegistration = function(usr, key, onSuccess, onError)
+    {
+        // Send the confirm to activate the profile
+
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'registration?username=' + usr + '&key=' + key,
+            headers: {},
+            data: {}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+
+    }
+
+    // ************************************** //
+    // *************** UTILITY ***************** //
+    // ************************************** //
 
     this.setPageIndex = function(strpath)
     {
@@ -617,10 +853,9 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         if(strpath.indexOf('country-details.html') != -1){return "5"};
         if(strpath.indexOf('dataset_details.html') != -1){return "6"};
         if(strpath.indexOf('news-details.html') != -1){return "7"};
+        if(strpath.indexOf('confirm_registration.html') != -1){return "8"};
 
         return "0";
-
-
     }
 
     this.sendFeedback = function(obj)
@@ -636,15 +871,6 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         }
          */
         console.log(obj);
-        return true;
-    }
-
-    this.sendRegisterRequest = function(usr)
-    {
-        // API: send obj usr = {name: "", surname="", email=""}
-        // registrazione, invio mail di conferma all'utente, invio mail con nome utente e password per accesso
-
-        console.log(usr);
         return true;
     }
 

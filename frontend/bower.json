@@ -2,6 +2,7 @@
   "name": "rodi",
   "description": "rodi project",
   "license": "MIT",
+  "directory": "",
   "homepage": "",
   "ignore": [
     "**/.*",
@@ -16,7 +17,7 @@
     "font-awesome": "fontawesome#^4.7.0",
     "animate.css": "^3.5.2"
   },
-  "main": "",
+  "main": "frontend/bower_components",
   "keywords": [
     "rodi",
     "opendata"

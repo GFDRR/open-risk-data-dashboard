@@ -67,25 +67,6 @@
                 </div>
             </section>
 
-
-
-            <!-- Content of page -->
-            <!--<div class="col-xs-12 col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2">-->
-            <!--<div class="row ">-->
-
-            <!--<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">-->
-            <!--<hazardmenu></hazardmenu>-->
-            <!--</div>-->
-            <!--<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">-->
-            <!--<div class="flex-container pull-right">-->
-            <!--<h1 class="page_title ">COUNTRIES</h1>-->
-            <!--<mainmenu></mainmenu>-->
-            <!--</div>-->
-            <!--</div>-->
-
-            <!--</div>-->
-            <!--</div>-->
-
             <!-- Section MENU - INIZIO -->
             <section id="top-menu">
                 <div class="row">
@@ -107,7 +88,7 @@
                 </div>
             </section>
             <!-- Section MENU - FINE -->
-            </section>
+
             <div class="head_sep blu vert"></div>
             <hr>
 
@@ -120,8 +101,8 @@
                     <table class="table table-condensed table-responsive">
                         <thead>
                         <th>&nbsp;</th> <!-- cella vuota -->
-                        <th class="text-center row_icon" ng-repeat="dt in matrixDataTypeList.dataType_index">
-                            <i class="{{dt[2]}}"></i><br /><span>{{dt[1]}}</span>
+                        <th class="text-center row_icon" ng-repeat="hc in HazardCategory">
+                            <i class="{{getHCIcon(hc.category.id)}}"></i><br /><span>{{hc.category.name}}</span>
                         </th>
                         </thead>
 
@@ -129,9 +110,9 @@
 
                         <tr ng-repeat="matrixRow in matrixData">
                             <td class="text-center"><strong><a href="" ng-click="changepage('country-details.html?idcountry=' + matrixRow.code)">{{matrixRow.name}}</a></strong></td>
-                            <td class="text-center" ng-repeat="hazardValue in matrixRow.dataValue">
+                            <td class="text-center" ng-repeat="(key, value) in matrixRow.dataValue">
                                 <!-- click verso dataset list with filters country & category -->
-                                <a href="" alt="Profile: {{matrixRow.name}}"><div class="matrix_cell" style="{{colorCell(hazardValue)}}"></div></a>
+                                <a href="" ng-click="changepage('dataset_list.html?idcountry=' + matrixRow.code + '&idcategory=' + key)" alt="Profile: {{matrixRow.name}}"><div class="matrix_cell" style="{{colorCell(value)}}"></div></a>
                             </td>
                         </tr>
 
@@ -144,6 +125,10 @@
             </div>
         </div>
         <!--END Container fluid-->
+
+        <!-- Section FOOTER - INIZIO -->
+        <rodifooter></rodifooter>
+        <!-- Section FOOTER - FINE -->
 
         <!-- Include all compiled plugins (below), or include individual files as needed -->
         <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
