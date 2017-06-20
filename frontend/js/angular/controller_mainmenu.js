@@ -187,44 +187,56 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
     // ******* REGISTER & FORGOT PSW ******** //
     // ************************************** //
 
-    $scope.usr = {
-        username: "",
-        password: "",
-        email: ""
-    };
-    $scope.checkMail = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
-
-    $scope.sendRequestRegister = function()
+    if ($location.path().indexOf('register.html') !== -1)
     {
-        if($scope.usr.username != '' && $scope.usr.password != '' && $scope.usr.email != '')
+        $scope.usr = {
+            username: "",
+            password: "",
+            email: ""
+        };
+        $scope.checkMail = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
+
+        $scope.sendRequestRegister = function()
         {
-            // send request via API
-            RodiSrv.sendRegisterRequest($scope.usr, function (data){
-                // Success
+            if($scope.usr.username != '' && $scope.usr.password != '' && $scope.usr.email != '')
+            {
+                // send request via API
+                RodiSrv.sendRegisterRequest($scope.usr, function (data){
+                    // Success
 
-                console.log(data);
+                    vex.dialog.alert('Successfully sent request');
+                    $scope.usr = {
+                        username: "",
+                        password: "",
+                        email: ""
+                    };
 
-                vex.dialog.alert('Successfully sent request');
-                $scope.usr = {
-                    username: "",
-                    password: "",
-                    email: ""
-                };
+                }, function(data){
+                    // Error
 
-            }, function(data){
-                // Error
-                var sMsg = "";
-                angular.forEach(data, function(value, key) {
-                    sMsg += key.replace("_"," ") + ': ' + value + ' ';
+                    var sMsg = "";
+                    angular.forEach(data, function(value, key) {
+                        sMsg += key.replace("_"," ") + ': ' + value + '<br /> ';
 
-                });
-                vex.dialog.alert(sMsg);
-            })
+                    });
+                    vex.dialog.alert(sMsg);
+                })
 
-        } else
+            } else
             {
                 // Error message
                 vex.dialog.alert('All fields are required!');
             }
+        }
     }
+
+    if ($location.path().indexOf('confirm_registration.html') !== -1)
+    {
+        $scope.usernamepar = $location.search().username;
+        $scope.keypar = $location.search().key;
+        $scope.bRegConfirm = true;
+
+        console.log($scope.usernamepar + ' ' + $scope.keypar);
+    }
+
 } ]);

@@ -813,9 +813,9 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         }
 
         $http(req).then(function(data){
-            if(onSuccess) onSuccess(data);
+            if(onSuccess) onSuccess(data.data);
         }, function(data){
-            if(onError)onError(data);
+            if(onError)onError(data.data);
         });
 
     }
@@ -834,10 +834,9 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         if(strpath.indexOf('country-details.html') != -1){return "5"};
         if(strpath.indexOf('dataset_details.html') != -1){return "6"};
         if(strpath.indexOf('news-details.html') != -1){return "7"};
+        if(strpath.indexOf('confirm_registration.html') != -1){return "8"};
 
         return "0";
-
-
     }
 
     this.sendFeedback = function(obj)

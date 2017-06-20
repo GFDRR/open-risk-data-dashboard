@@ -14,18 +14,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
     if($scope.tokenid) {$scope.bLogin = true; } else {$scope.bLogin = false;}
 
-    $scope.objRodiVariable =
-        {
-            "valueData": "",
-            "countryID": "",
-            "countryDesc": "",
-            "bPopupCountry": false,
-            "popupClass": "",
-            "popupX": "",
-            "popupY": "",
-            "location": baseUrl
-        };
-
     // Hazard Filters
     $scope.objHazardFilters =
         {
@@ -39,15 +27,37 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
             "filterTsunami": ""
         };
 
-    // Chiamo il service per compilare l'arrayData
-    $scope.arrayData = RodiSrv.getMapScores($scope.objHazardFilters);
-
-    // Chiamo il servizio per le news
-    $scope.news = RodiSrv.getNewsList(4);
 
     $scope.changepage = function(page)
     {
         $window.location.href = baseUrl + page;
+    }
+
+    // ************************************** //
+    // ************ HOME PAGE *************** //
+    // ************************************** //
+
+    if ($location.path().indexOf('index') !== -1)
+    {
+
+        $scope.objRodiVariable =
+            {
+                "valueData": "",
+                "countryID": "",
+                "countryDesc": "",
+                "bPopupCountry": false,
+                "popupClass": "",
+                "popupX": "",
+                "popupY": "",
+                "location": baseUrl
+            };
+
+        // Chiamo il service per compilare l'arrayData
+        $scope.arrayData = RodiSrv.getMapScores($scope.objHazardFilters);
+
+        // Chiamo il servizio per le news
+        $scope.news = RodiSrv.getNewsList(4);
+
     }
 
     // ************************************** //
@@ -102,7 +112,13 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
     if ($location.path().indexOf('contribute.html') !== -1){
 
-        $scope.tab = 0;
+        $scope.tabpar = $location.search().tab;
+
+        if($scope.tabpar)
+        {
+            $scope.tab = $scope.tabpar;
+        } else {$scope.tab = 0;}
+
 
         $scope.objDataset = RodiSrv.getDatasetEmptyStructure();
         // $scope.objDatasetClass = RodiSrv.getDatasetClassification();

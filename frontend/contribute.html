@@ -217,7 +217,7 @@
                                 <div class="contribute_field_box">
                                     <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.link_dataset"></i>
                                     <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="!objDataset.link_dataset"></i>
-                                    <label>Link dataset details</label><br/>
+                                    <label>Link dataset details (*)</label><br/>
                                     <input type="text" ng-model="objDataset.link_dataset" class="form-control">
                                 </div>
                             </div>
@@ -225,8 +225,14 @@
                                 <div class="contribute_field_box">
                                     <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.link_metadata"></i>
                                     <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="!objDataset.link_metadata"></i>
-                                    <label>Link metadata download</label><br/>
+                                    <label>Link metadata download (*)</label><br/>
                                     <input type="text" ng-model="objDataset.link_metadata" class="form-control">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="contribute_field_box">
+                                    <label>Notes</label><br/>
+                                    <textarea name="notes" rows="5" class="form-control"></textarea>
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
@@ -243,7 +249,11 @@
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">[Dataset list]</div>
                         </div>
                         <div class="row" ng-if="!bDatasetProfile">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"><i>No dataset inserted at this time</i></div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <i>No dataset inserted at this time</i>
+                                <br /><br /><br />
+                                <u>Test template</u><br /><br />
+                            </div>
                         </div>
                     </div>
                     <div role="tabpanel" class="tab-pane fade" id="datasetreview">..3.</div>
