@@ -190,6 +190,38 @@ section
     color:red;
 }
 
+.rodi_footer
+{
+    width:100%;
+    background-color: #122b40;
+    margin-top: 30px;
+    padding-top: 30px;
+    padding-bottom:30px;
+}
+
+.footer_separator
+{
+    width:40%;
+    margin:auto;
+    margin-top:10px;
+    height:15px;
+    border-top:solid 1px #f0f0f0;
+}
+
+.footer_link
+{
+    color:#ffffff;
+    font-size: 18px;
+    margin-right:15px;
+}
+
+.footer_link:hover
+{
+    text-decoration: none;
+    color:red;
+}
+
+
 /*
 ==============================================================================
 
