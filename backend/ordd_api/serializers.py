@@ -126,7 +126,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
                 optin = OptIn(user=user)
                 optin.save()
                 subject = 'Open Risk Data Dashboard: registration for user %s' % user.username
-                reply_url = "%sconfirm_registration.html?username=%s&key=%s" % (
+                reply_url = "https://%s/confirm_registration.html?username=%s&key=%s" % (
                                         self.context['request'].get_host(),
                                         user.username,
                                         optin.key)
