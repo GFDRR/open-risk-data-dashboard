@@ -820,6 +820,25 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 
     }
 
+    this.sendConfirmRegistration = function(usr, key, onSuccess, onError)
+    {
+        // Send the confirm to activate the profile
+
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'registration?username=' + usr + '&key=' + key,
+            headers: {},
+            data: {}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+
+    }
+
     // ************************************** //
     // *************** UTILITY ***************** //
     // ************************************** //
@@ -854,11 +873,5 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         console.log(obj);
         return true;
     }
-
-    // ************************************** //
-    // *************** TEST ***************** //
-    // ************************************** //
-
-
 
 }]);

@@ -543,8 +543,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 // TODO: error message
         });
 
-
-
     }
 
 } ]);
