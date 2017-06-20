@@ -105,6 +105,15 @@ RodiApp.directive('mainmenu',function(){
     }
 });
 
+RodiApp.directive('rodifooter',function(){
+    return {
+        transclude: true,
+        restrict: 'E',
+        controller: "RodiCtrl",
+        templateUrl: 'views/footer.html'
+    }
+});
+
 
 RodiApp.directive('loginform',function(){
     return {
