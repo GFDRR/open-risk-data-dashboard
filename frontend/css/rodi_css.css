@@ -19,7 +19,7 @@ h1, h2, h3, h4, h5, h6, a, span {
 
 section
 {
-    margin-bottom:30px;
+    /* margin-bottom:30px; */
 }
 
 .m_b_20
@@ -257,6 +257,16 @@ Footer
 }
 
 
+.space {
+    height: 50vh;
+    /* height: auto; */
+}
+
+.footer {
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
 /*
 ==============================================================================
 
@@ -295,28 +305,19 @@ Footer
     border:solid 1px #000000;
 }
 
-
-.matrix_green_value
-{
-    padding:5px;
-    background-color: #add690;
+.matrix_green_value,
+.matrix_red_value {
+    font-size: 24px;
     color:#000000;
-    font-size: 12px;
+    padding:4px 10px;
+
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
-}
 
-.matrix_red_value
-{
-    padding:5px;
-    background-color: #f48388;
-    color:#000000;
-    font-size: 12px;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
 }
+.matrix_green_value {background-color: #add690;}
+.matrix_red_value {background-color: #f48388;}
 
 .row_icon i
 {
@@ -330,7 +331,7 @@ Footer
 .row_icon span
 {
     color: #a0a0a0;
-    font-size: 11px;
+    /*font-size: 11px;*/
     text-transform: uppercase;
 }
 
@@ -418,7 +419,8 @@ Footer
 .nav>li>a:hover i, .nav>li>a:focus i,
 .nav>li>a:hover, .nav>li>a:focus,
 .nav>li>a:hover span, .nav>li>a:focus span,
-.navbar-form>a:hover
+.navbar-form>a:hover,
+.row_icon>a:hover i
 {
     color:#007899 ;
     border-color:#007899 ;
@@ -595,7 +597,10 @@ hr {
     display: flex;
     flex-direction: row ;
 }
-
+.flex-container.title {
+    justify-content: space-between;
+    align-items: center;
+}
 
 /*
 ==============================================================================
@@ -630,14 +635,14 @@ hr {
     position: absolute;
     margin-left: -50vh;
     height: 100px;
-    width: 100vh;
-    top:50%;
-    top:50vh;
+    width: 90vh;
+    /* top:50%; */
+    /* top:50vh; */
     z-index:1;
-    margin-top: 5em;
+    top: 38vh;
     /*bottom: -50vh;*/
-
-
+    min-width: 50vh;
+    max-width: 90vh;
 }
 
 .head_sep.white  {margin-top:-50px;}
@@ -659,9 +664,7 @@ responsive
 ================================================
 */
 @media screen and (min-width:1200px) {
-    .page_title:after {
-        padding-left:calc(100%/3);
-    }
+    /*.page_title:after {        padding-left:calc(100%/3);    }*/
 }
 @media screen and (min-width:1024px) {}
 
@@ -673,9 +676,10 @@ responsive
 @media screen and (max-width:980px) {
     .page_title {font-size: 40px;}
     .nav>li>a>i {    font-size:2em;}
+    .head_sep {display: none;}
 }
 @media screen and (max-width:768px) and (orientation:portrait) {
-    .head_sep {display: none;}
+
     section {margin:0;}
     #rodi_header .img-responsive {
 
