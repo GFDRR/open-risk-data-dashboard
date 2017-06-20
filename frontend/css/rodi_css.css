@@ -132,8 +132,9 @@ section
 .contribute_field_validator_wait
 {
     font-size:20px;
-    color:#ffd700;
-    margin-top: -10px;
+    /*color:#ffd700;*/
+    color: #e6b217;
+    /*margin-top: -10px;*/
 }
 
 .contribute_feedbak_box
@@ -189,6 +190,34 @@ section
 {
     color:red;
 }
+
+
+
+
+
+/*
+==============================================================================
+
+        Dataset field
+
+==============================================================================
+*/
+/*.dataset.table th {text-align:center}*/
+.dataset.table td {vertical-align: middle; padding:0;}
+.dataset_value i {
+    color: white;
+    padding: 10px;
+    margin:2px;
+    font-size: 1.5em;
+    min-width: 40px;
+    max-width: 40px;
+    text-align: center;
+}
+.dataset_value p {margin:0;}
+.dataset_value i[aria-hidden~=false] {background: #EE3036;}
+.dataset_value i[aria-hidden~=true] {background: green;}
+
+
 
 /*
 ==============================================================================
@@ -528,7 +557,9 @@ hr {
     display: flex;
     flex-direction: row ;
 }
-
+.flex-container.dataset_value {
+    /*justify-content: center;*/
+}
 
 /*
 ==============================================================================
@@ -559,10 +590,12 @@ hr {
 }
 
 .vert {
-    transform: scale(5,1.2) rotate(-90deg);
-    position: absolute;
+    transform: scale(4,1.2) rotate(-90deg);
+    position: fixed;
     margin-left: -50vh;
-    height: 100px;
+    height: auto;
+    height:40px;
+    /*     min-height:25px; */
     width: 100vh;
     top:50%;
     top:50vh;
@@ -572,7 +605,6 @@ hr {
 
 
 }
-
 .head_sep.white  {margin-top:-50px;}
 .head_sep.white + div {margin-top:-60px;}
 
@@ -606,9 +638,13 @@ responsive
 @media screen and (max-width:980px) {
     .page_title {font-size: 40px;}
     .nav>li>a>i {    font-size:2em;}
+    /*.head_sep {display: none;}*/
+
+}
+@media screen and (max-width:980px), (orientation:portrait) {
+    .head_sep {display: none;}
 }
 @media screen and (max-width:768px) and (orientation:portrait) {
-    .head_sep {display: none;}
     section {margin:0;}
     #rodi_header .img-responsive {
 
