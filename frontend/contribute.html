@@ -229,7 +229,7 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" ng-repeat="quest in questions | filter: {type: 'yn'}">
                                 <div class="contribute_field_box">
-                                    <label>{{$index + 8}}) {{quest.desc}} (*)</label><br/>
+                                    <label>{{$index + 9}}) {{quest.desc}} (*)</label><br/>
                                     <input type="radio" value="yes" name="questioncode{{quest.code}}" ng-model="questioncode" ng-click="saveSelection(quest.code, 'yes')"> Yes
                                     &nbsp;&nbsp;
                                     <input type="radio" value="no" name="questioncode{{quest.code}}" ng-model="questioncode" ng-click="saveSelection(quest.code, 'no')"> No
@@ -241,18 +241,18 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <div class="contribute_field_box">
-                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.link_dataset"></i>
-                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="!objDataset.link_dataset"></i>
+                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.data_url"></i>
+                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="!objDataset.data_url"></i>
                                     <label>Link dataset details (*)</label><br/>
-                                    <input type="text" ng-model="objDataset.link_dataset" class="form-control">
+                                    <input type="text" ng-model="objDataset.data_url" class="form-control">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <div class="contribute_field_box">
-                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.link_metadata"></i>
-                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="!objDataset.link_metadata"></i>
+                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.metadata_url"></i>
+                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="!objDataset.metadata_url"></i>
                                     <label>Link metadata download (*)</label><br/>
-                                    <input type="text" ng-model="objDataset.link_metadata" class="form-control">
+                                    <input type="text" ng-model="objDataset.metadata_url" class="form-control">
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">

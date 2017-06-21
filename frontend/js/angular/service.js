@@ -568,30 +568,31 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 
         if(obj.name == ''){aErrors.push('Name')};
         if(obj.abstract == ''){aErrors.push('Abstract')};
-        if(obj.dataset_type == '--'){aErrors.push('Dataset category')};
+        if(obj.keydataset.dataset == '--'){aErrors.push('Dataset category')};
 
         // If level of Dataset is not Empty: check the field
-        objResolutions = this.getDatasetClassificationResolution(obj.dataset_type);
-        if(!angular.equals({}, objResolutions.level)){
-            if(obj.resolution == '--'){aErrors.push('Dataset resolution')};
-        }
+        // objResolutions = this.getDatasetClassificationResolution(obj.dataset_type);
+        // if(!angular.equals({}, objResolutions.level)){
+        //     if(obj.resolution == '--'){aErrors.push('Dataset resolution')};
+        // }
 
         if(obj.country == '--'){aErrors.push('Country')};
-        if(obj.hazard_category == '--'){aErrors.push('Hazard category')};
-        if(obj.hazard_category == 'h03' && obj.hazard == '--'){aErrors.push('Hazard')};
-        if(obj.link_dataset == ''){aErrors.push('Link dataset')};
-        if(obj.link_metadata == ''){aErrors.push('Link metadata')};
+        if(obj.keydataset.category == '--'){aErrors.push('Data category')};
+        if(obj.keydataset.category == '3' && obj.hazard == '--'){aErrors.push('Hazard')};
+        if(obj.data_url == ''){aErrors.push('Link dataset empty')};
+        if(obj.metadata_url == ''){aErrors.push('Link metadata empty')};
 
         /* Check the questions */
-        var aQuestions = [];
+        // TODO: check object fields
+        // var aQuestions = [];
 
-        $filter('filter')(obj.questions, function(e){
-            if(e.value == '') { aQuestions.push(e.code); };
-        })
+        // $filter('filter')(obj.questions, function(e){
+        //     if(e.value == '') { aQuestions.push(e.code); };
+        // })
 
-        if (aQuestions.length > 0){
-            aErrors.push('Answer all questions (Yes, No or Not available)')
-        }
+        // if (aQuestions.length > 0){
+        //     aErrors.push('Answer all questions (Yes, No or Not available)')
+        // }
 
         return aErrors;
     }
