@@ -64,23 +64,23 @@
             <!-- Section MENU - INIZIO -->
             <section id="top-menu">
                 <div class="row">
-<div class="pull-right">
+                    <div class="pull-right">
 
-    <!--<div class="col-sm-6 col-md-6 col-lg-6 hidden-xs">-->
-    <!-- Spazio vuoto -->
-    <!--</div>-->
-    <div class="col-xs-12 col-sm-2 col-md-7 col-lg-7">
-        <!--<h1 class="page_title pull-right">DATASET Details</h1>-->
-        <h1 class="page_title pull-right">
-            <i class="fa fa-pencil-square-o" aria-hidden="true" ng-if="userinfo.groups[0] == 'reviewer' || userinfo.groups[0] == 'admin'"></i>
-            <span class="text-uppercase">dataset name - Argentina</span>
-        </h1>
+                        <!--<div class="col-sm-6 col-md-6 col-lg-6 hidden-xs">-->
+                        <!-- Spazio vuoto -->
+                        <!--</div>-->
+                        <div class="col-xs-12 col-sm-2 col-md-7 col-lg-7">
+                            <!--<h1 class="page_title pull-right">DATASET Details</h1>-->
+                            <h1 class="page_title pull-right">
+                                <i class="fa fa-pencil-square-o" aria-hidden="true" ng-if="userinfo.groups[0] == 'reviewer' || userinfo.groups[0] == 'admin'"></i>
+                                <span class="text-uppercase">dataset name - Argentina</span>
+                            </h1>
 
-    </div>
-    <div class="col-xs-12 col-sm-4 col-md-5 col-lg-5">
-        <mainmenu></mainmenu>
-    </div>
-</div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-5 col-lg-5">
+                            <mainmenu></mainmenu>
+                        </div>
+                    </div>
 
                 </div>
             </section>
@@ -103,8 +103,8 @@
                     <!--<h1><a href=""><i class="fa fa-pencil-square-o" aria-hidden="true" ng-if="userinfo.groups[0] == 'reviewer' || userinfo.groups[0] == 'admin'"></i></a> <span class="text-uppercase">dataset name - Argentina</span></h1>-->
                     <br>
                     <h1>Abstract</h1>
-                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                    <input type="text" class="form-control" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.">
+                    <span ng-if="!bEdit">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+                    <input type="text" class="form-control" ng-if="bEdit" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.">
                     <br /><br />
                     <div class="progress">
                         <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em; width:50%;">
@@ -123,8 +123,8 @@
                             <tr>
                                 <td>Data category</td>
                                 <td>
-                                    Vulnerability
-                                    <select class="form-control">
+                                    <span ng-if="!bEdit">Vulnerability</span>
+                                    <select class="form-control" ng-if="bEdit">
                                         <option value="--">-- Select --</option>
                                     </select>
                                 </td>
@@ -132,8 +132,8 @@
                             <tr>
                                 <td>Hazard</td>
                                 <td>
-                                    -
-                                    <select class="form-control">
+                                    <span ng-if="!bEdit">-</span>
+                                    <select class="form-control" ng-if="bEdit">
                                         <option value="--">-- Select --</option>
                                     </select>
                                 </td>
@@ -141,8 +141,8 @@
                             <tr>
                                 <td>Dataset category</td>
                                 <td>
-                                    Buildings
-                                    <select class="form-control">
+                                    <span ng-if="!bEdit">Buildings</span>
+                                    <select class="form-control" ng-if="bEdit">
                                         <option value="--">-- Select --</option>
                                     </select>
                                 </td>
@@ -150,8 +150,8 @@
                             <tr>
                                 <td>Dataset description</td>
                                 <td>
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                                    <select class="form-control">
+                                    <span ng-if="!bEdit">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+                                    <select class="form-control" ng-if="bEdit">
                                         <option value="--">-- Select --</option>
                                     </select>
                                 </td>
@@ -177,10 +177,12 @@
                             <tr>
                                 <td>Does the data exist?</td>
                                 <td>
-                                    Yes |
-                                    <input type="radio" value="yes" name="questioncode"> Yes |
-                                    <input type="radio" value="no" name="questioncode"> No |
-                                    <input type="radio" value="na" name="questioncode"> Not available
+                                    <span ng-if="!bEdit">Yes</span>
+                                    <div ng-if="bEdit">
+                                        <input type="radio" value="yes" name="questioncode"> Yes |
+                                        <input type="radio" value="no" name="questioncode"> No |
+                                        <input type="radio" value="na" name="questioncode"> Not available
+                                    </div>
                                 </td>
                             </tr>
                             <tr>
@@ -212,15 +214,15 @@
                             <tr>
                                 <td>Link dataset data</td>
                                 <td>
-                                    <a href="https://www.riskopendata.org/" target="_blank">https://www.riskopendata.org/</a>
-                                    <input type="text" class="form-control" value="https://www.riskopendata.org/">
+                                    <a href="https://www.riskopendata.org/" target="_blank" ng-if="!bEdit">https://www.riskopendata.org/</a>
+                                    <input type="text" ng-if="bEdit" class="form-control" value="https://www.riskopendata.org/">
                                 </td>
                             </tr>
                             <tr>
                                 <td>Link metadata download</td>
                                 <td>
-                                    <a href="https://www.riskopendata.org/" target="_blank">https://www.riskopendata.org/</a>
-                                    <input type="text" class="form-control" value="https://www.riskopendata.org/">
+                                    <a href="https://www.riskopendata.org/" target="_blank" ng-if="!bEdit">https://www.riskopendata.org/</a>
+                                    <input type="text" ng-if="bEdit" class="form-control" value="https://www.riskopendata.org/">
                                 </td>
                             </tr>
                         </tbody>
