@@ -482,7 +482,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
             is_open_licence:"", //16
             is_prov_timely:"", //17
             data_url: "",
-            metadata_url: "0",
+            metadata_url: "",
 
             // temp fileds
             hazard:"--",
