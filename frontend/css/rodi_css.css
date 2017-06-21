@@ -30,8 +30,21 @@ section
 .rodi_big_text
 {
     font-size: 17px;
-}
+    display: flex;align-items: center;
+    color:white
 
+}
+.rodi_big_text i {color:white;}
+.jumbotron {
+    background: rgba(255,255,255,1);
+    background: -moz-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 28%, rgba(239,239,239,1) 100%);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%, rgba(255,255,255,1)), color-stop(28%, rgba(255,255,255,1)), color-stop(100%, rgba(239,239,239,1)));
+    background: -webkit-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 28%, rgba(239,239,239,1) 100%);
+    background: -o-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 28%, rgba(239,239,239,1) 100%);
+    background: -ms-radial-gradient(center, ellipse cover, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 28%, rgba(239,239,239,1) 100%);
+    background: radial-gradient(ellipse at center, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 28%, rgba(239,239,239,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#efefef', GradientType=1 );
+}
 .rodi_divider
 {
     height:20px;
@@ -48,16 +61,12 @@ section
     display: inherit !important;
 }
 
-.map_place
-{
-    width:100%;
-    /*background-color: #00b3ee;*/
-}
 
 .partner_box
 {
     width:100%;
     margin-top: -100px;
+    margin-bottom:120px;
 }
 
 
@@ -609,10 +618,9 @@ hr {
 
 ==============================================================================
 */
+#main-map{    width:100%; overflow-x: hidden; }
 
-.map_place svg {
-    background: lightblue;
-}
+.map_place svg {    background: lightblue;}
 
 
 
@@ -645,7 +653,7 @@ hr {
     max-width: 90vh;
 }
 
-.head_sep.white  {margin-top:-50px;}
+.head_sep.white  {margin-top:-28px;}
 .head_sep.white + div {margin-top:-60px;}
 
 .navbar {margin-bottom: 0;}
@@ -681,6 +689,7 @@ responsive
 @media screen and (max-width:768px) and (orientation:portrait) {
 
     section {margin:0;}
+    .head_sep.white + div {margin-top:0px;}
     #rodi_header .img-responsive {
 
         max-width:calc(100vh/3);
