@@ -38,6 +38,11 @@ section
     border-top: solid 1px #c0c0c0;
 }
 
+.rodi_cb_space
+{
+    margin-right:10px;
+}
+
 .display_none
 {
     display: none;

@@ -151,9 +151,9 @@
                             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                                 <div class="contribute_field_box">
                                     <label>4) Data category  (*)</label>
-                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.hazard_category != '--'"></i>
-                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.hazard_category == '--'"></i>
-                                    <select class="form-control" ng-model="objDataset.hazard_category" ng-change="setDatasetName(objDataset.hazard_category)">
+                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.keydataset.category != '--'"></i>
+                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.keydataset.category == '--'"></i>
+                                    <select class="form-control" ng-model="objDataset.keydataset.category" ng-change="setDatasetName(objDataset.keydataset.category)">
                                         <option value="--" selected>-- Select --</option>
                                         <option ng-repeat="hc in HazardCategory" value="{{hc.category.id}}">{{hc.category.name}}</option>
                                     </select>
@@ -163,9 +163,9 @@
                             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
 
                                 <div class="contribute_field_box">
-                                    <label>5) Hazard <span ng-if="objDataset.hazard_category != 'h03'">(optional)</span> <span ng-if="objDataset.hazard_category == '3'"> (*)</span></label>
-                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.hazard != '--' || objDataset.hazard_category != '3'"></i>
-                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.hazard == '--' && objDataset.hazard_category == '3'"></i>
+                                    <label>5) Hazard <span ng-if="objDataset.keydataset.category != '3'">(optional)</span> <span ng-if="objDataset.keydataset.category == '3'"> (*)</span></label>
+                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.hazard != '--' || objDataset.keydataset.category != '3'"></i>
+                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.hazard == '--' && objDataset.keydataset.category == '3'"></i>
                                     <select class="form-control" ng-model="objDataset.hazard">
                                         <option value="--" selected>-- Select --</option>
                                         <option ng-repeat="hazardDet in hazardList" value="{{hazardDet.code}}">{{hazardDet.desc}}</option>
@@ -179,9 +179,9 @@
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                 <div class="contribute_field_box">
                                     <label>6) Dataset category  (*)</label>
-                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.dataset_type != '--'"></i>
-                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.dataset_type == '--'"></i>
-                                    <select class="form-control" ng-model="objDataset.dataset_type" ng-change="filterDatasetResolution()">
+                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.keydataset.dataset != '--'"></i>
+                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.keydataset.dataset == '--'"></i>
+                                    <select class="form-control" ng-model="objDataset.keydataset.dataset" ng-change="setDatasetDescription(objDataset.keydataset.category, objDataset.keydataset.dataset)">
                                         <option value="--" selected>-- Select --</option>
                                         <option ng-repeat="dn in DatasetName" value="{{dn.dataset.id}}">{{dn.dataset.name}}</option>
                                     </select>
@@ -189,13 +189,36 @@
                             </div>
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                 <div class="contribute_field_box">
+                                    <label>7) Dataset description  (*)</label>
+                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.keydataset.description != '--'"></i>
+                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.keydataset.description == '--'"></i>
+                                    <select class="form-control" ng-model="objDataset.keydataset.description" ng-disabled="objDataset.keydataset.dataset == '--'">
+                                        <option value="--" selected>-- Select --</option>
+                                        <option ng-repeat="ds_desc in objDatasetDescription" value="{{ds_desc.description.id}}">{{ds_desc.description.name}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!--<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                <div class="contribute_field_box">
                                     <label>7) Dataset resolution  <span ng-if="!bResolutionDisable">(*)</span></label>
                                     <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.resolution != '--' || bResolutionDisable"></i>
                                     <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.resolution == '--' && !bResolutionDisable" ></i>
                                     <select class="form-control" ng-model="objDataset.resolution" ng-disabled="objDataset.dataset_type == '--' || bResolutionDisable">
                                         <option value="--" selected>-- Select --</option>
-                                        <option ng-repeat="haz_res in objResolutionList" value="{{haz_res.value}}"><!--{{haz_res.desc}}-->{{haz_res.scale}}</option>
+                                        <option ng-repeat="haz_res in objResolutionList" value="{{haz_res.value}}">{{haz_res.scale}}</option>
                                     </select>
+                                </div>
+                            </div>-->
+                        </div>
+                        <br /><br />
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                <div class="contribute_field_box">
+                                    <label>8) Dataset description tags</label>
+                                    <br /><br />
+                                    <span class="rodi_cb_space"><input type="checkbox" value="1"> Tags1</span>
+                                    <span class="rodi_cb_space"><input type="checkbox" value="1"> Tags2</span>
+                                    <span class="rodi_cb_space"><input type="checkbox" value="1"> Tags3</span>
                                 </div>
                             </div>
                         </div>

@@ -472,7 +472,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         */
 
         return obj = {
-            country: "",
+            country: "--",
             notes: "",
             is_digital_form: "", //9
             is_pub_available: "--", //14
@@ -484,6 +484,9 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
             data_url: "",
             metadata_url: "0",
 
+            // temp fileds
+            hazard:"--",
+
 
             owner:"",
             is_reviewed: "",
@@ -492,9 +495,9 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
             modify_time: "",
             keydataset:{
                 id:999,
-                category: "",
-                dataset:"",
-                description:"",
+                category: "--",
+                dataset:"--",
+                description:"--",
                 resolution:"",
                 scale:""
             },

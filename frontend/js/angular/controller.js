@@ -27,7 +27,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
             "filterTsunami": ""
         };
 
-
     $scope.changepage = function(page)
     {
         $window.location.href = baseUrl + page;
@@ -103,12 +102,9 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
         }
     }
 
-
-
     // ************************************** //
     // ********* CONTRIBUTE PAGE ************ //
     // ************************************** //
-
 
     if ($location.path().indexOf('contribute.html') !== -1){
 
@@ -126,6 +122,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
         // Get the Hazard Category
         $scope.HazardCategory = [];
         $scope.DatasetName = [];
+
         RodiSrv.getHazardCategory($scope.tokenid,
             function(data){
                 // Success
@@ -136,40 +133,36 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 $scope.HazardCategory = ["Error loading Category"];
         });
 
+        $scope.hazardList = RodiSrv.getHazardList();
+
         $scope.setDatasetName = function(hcId)
         {
-            console.log(hcId);
             RodiSrv.getDatasetName(hcId,
                 function(data){
                     // Success
                     $scope.DatasetName = data;
-                    console.log(data);
-
-                    // Description
-                    RodiSrv.getDatasetDescription(hcId, 1,
-                        function(data){
-                            // Success
-                            console.log(data);
-
-                            RodiSrv.getDatasetResolution(hcId, 1,1,
-                                function(data){
-                                    // Success
-                                    console.log(data);
-                                }, function(data){
-                                    // Error
-                                    console.log(data);
-                                })
-
-                        }, function(data){
-                            // Error
-                            console.log(data);
-                        })
-
 
                 }, function(data){
                     // Error
                     $scope.DatasetName = ["Error loading Dataset name"];
                 })
+        }
+
+        $scope.setDatasetDescription = function (hcId, dsId)
+        {
+            // Sets dataset description by Dataset category
+
+            RodiSrv.getDatasetDescription(hcId, dsId,
+                function(data)
+                {
+                    // Success
+                    $scope.objDatasetDescription = data;
+                }, function(data)
+                {
+                    // Error
+                    $scope.objDatasetDescription = [];
+                })
+
         }
 
         RodiSrv.getCountryList(
@@ -181,29 +174,9 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 // TODO: error message
             });
 
-        // $scope.hazardList = RodiSrv.getHazardList();
         $scope.questions = RodiSrv.getQuestions();
         $scope.objResolutionList = [];
         $scope.bResolutionDisable = true;
-
-        $scope.filterDatasetResolution = function()
-        {
-            var aFilter = [];
-            if($scope.objDataset.dataset_type != '--')
-            {
-                // hazard category selected
-                aFilter = $filter('filter')($scope.objDatasetClass, {code: $scope.objDataset.dataset_type});
-
-                if (!angular.equals({}, aFilter[0].level))
-                {
-                    // Resolution found
-                    $scope.objResolutionList = aFilter[0].level;
-                    $scope.bResolutionDisable = false;
-                } else {
-                    $scope.bResolutionDisable = true;
-                }
-            }
-        }
 
         $scope.saveSelection = function(qcode, value)
         {
@@ -542,6 +515,66 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 // Error
                 // TODO: error message
         });
+
+    }
+
+    if ($location.path().indexOf('dataset_details.html') !== -1)
+    {
+        // Dataset details page
+        $scope.idDataset = $location.search().keyds;
+        $scope.bReviewer = false;
+        $scope.biddataset = false;
+        $scope.bEdit = false;
+
+        // Check the dataset pk
+        if ($scope.idDataset != null)
+        {
+            // pk OK
+            $scope.biddataset = true;
+
+            $scope.$watch('bLogin', function()
+            {
+                if($scope.bLogin)
+                {
+                    $scope.tokenid = $cookieStore.get('rodi_token');
+                    $scope.userinfo = $cookieStore.get('rodi_user');
+
+                    // Check if user logged in
+                    if($scope.userinfo.groups[0] == 'reviewer' || $scope.userinfo.groups[0] == 'admin')
+                    {
+                        // Reviewer user
+                        $scope.bReviewer = true;
+                    } else
+                    {
+                        // Standard user
+                        $scope.bReviewer = false;
+                    }
+
+                } else
+                    {
+                        $scope.bReviewer = false;
+                        $scope.bEdit = false;
+                    }
+
+            });
+
+        } else
+            {
+                // pk Error
+                $scope.biddataset = false;
+                $scope.bReviewer = false;
+                $scope.bEdit = false;
+            }
+
+        $scope.setEditForm = function()
+        {
+            $scope.bEdit = true;
+        }
+
+        $scope.closeRevision = function()
+        {
+            $scope.bEdit = false;
+        }
 
     }
 
