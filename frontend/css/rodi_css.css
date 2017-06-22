@@ -138,17 +138,15 @@ section
 
 .contribute_field_validator
 {
-    font-size:20px;
+    /*font-size:20px;*/
     color:green;
-    margin-top: -10px;
+    /*margin-top: -10px;*/
 }
 
 .contribute_field_validator_wait
 {
-    font-size:20px;
-    /*color:#ffd700;*/
+    /*font-size:20px;*/
     color: #e6b217;
-    /*margin-top: -10px;*/
 }
 
 .contribute_feedbak_box

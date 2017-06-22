@@ -113,159 +113,199 @@
 
                     <!-- Insert new dataset pane - START -->
                     <div role="tabpanel" class="tab-pane fade in" ng-class="{active:tab==0}" id="dataset">
+
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
-                                <input type="button" class="btn btn-success" value="Save dataset" ng-click="saveDataser()"><br />
-                                <span class="small text-muted">(*) Required</span>
+                                <input type="button" class="btn btn-success" value="Save dataset" ng-click="saveDataset()">
+                                <!--<span class="small text-muted">(*) Required</span>-->
                             </div>
                         </div>
-                        <br />
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                                <div class="contribute_field_box">
-                                    <label>1) Name (*)</label>
-                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.name != ''"></i>
-                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.name == ''"></i>
-                                    <input type="text" ng-model="objDataset.name" name="objDataset.name" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                                <div class="contribute_field_box">
-                                    <label>2) Abstract  (*)</label>
-                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.abstract != ''"></i>
-                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.abstract == ''"></i>
-                                    <input type="text" ng-model="objDataset.abstract" class="form-control">
-                                </div>
-                            </div>
-                        </div>
-                        <br /> <br />
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                                <div class="contribute_field_box">
-                                    <label>3) Country  (*)</label>
-                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.country != '--'"></i>
-                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.country == '--'"></i>
-                                    <select class="form-control" ng-model="objDataset.country">
-                                        <option value="--" selected>-- Select --</option>
-                                        <option ng-repeat="country in countryList | orderBy: 'name'" value="{{country.iso2}}">{{country.name}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                                <div class="contribute_field_box">
-                                    <label>4) Data category  (*)</label>
-                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.keydataset.category != '--'"></i>
-                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.keydataset.category == '--'"></i>
-                                    <select class="form-control" ng-model="objDataset.keydataset.category" ng-change="setDatasetName(objDataset.keydataset.category)">
-                                        <option value="--" selected>-- Select --</option>
-                                        <option ng-repeat="hc in HazardCategory" value="{{hc.category.id}}">{{hc.category.name}}</option>
-                                    </select>
 
-                                </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" >
+                                <h1>
+                                    <i class="fa fa-check contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.name != ''"></i>
+                                    <i class="fa fa-clock-o contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.name == ''"></i>
+                                    Name
+                                </h1>
+                                <input type="text" class="form-control" value="" ng-model="objDataset.name">
                             </div>
-                            <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6" >
+                                <h1>
+                                    <i class="fa fa-check contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.abstract != ''"></i>
+                                    <i class="fa fa-clock-o contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.abstract == ''"></i>
+                                    Abstract
+                                </h1>
+                                <input type="text" ng-model="objDataset.abstract" class="form-control">
+                            </div>
+                        </div>
 
-                                <div class="contribute_field_box">
-                                    <label>5) Hazard <span ng-if="objDataset.keydataset.category != '3'">(optional)</span> <span ng-if="objDataset.keydataset.category == '3'"> (*)</span></label>
-                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.hazard != '--' || objDataset.keydataset.category != '3'"></i>
-                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.hazard == '--' && objDataset.keydataset.category == '3'"></i>
-                                    <select class="form-control" ng-model="objDataset.hazard">
-                                        <option value="--" selected>-- Select --</option>
-                                        <option ng-repeat="hazardDet in hazardList" value="{{hazardDet.code}}">{{hazardDet.desc}}</option>
-                                    </select>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
+                                <h1>A - Dataset classification</h1>
+                                <br />
+                                <table class="table table-responsive table-striped table-bordered table-hover">
+                                    <thead>
+                                    <th>#Category</th>
+                                    <th>#Answer</th>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <i class="fa fa-check contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.country != '--'"></i>
+                                            <i class="fa fa-clock-o contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.country == '--'"></i>
+                                            Country
+                                        </td>
+                                        <td>
+                                            <select class="form-control" ng-model="objDataset.country">
+                                                <option value="--" selected>-- Select --</option>
+                                                <option ng-repeat="country in countryList | orderBy: 'name'" value="{{country.iso2}}">{{country.name}}</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <i class="fa fa-check contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.keydataset.category != '--'"></i>
+                                            <i class="fa fa-clock-o contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.keydataset.category == '--'"></i>
+                                            Data category
+                                        </td>
+                                        <td>
+                                            <select class="form-control" ng-model="objDataset.keydataset.category" ng-change="setDatasetName(objDataset.keydataset.category)">
+                                                <option value="--" selected>-- Select --</option>
+                                                <option ng-repeat="hc in HazardCategory" value="{{hc.category.id}}">{{hc.category.name}}</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <i class="fa fa-check contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.hazard != '--' || objDataset.keydataset.category != '3'"></i>
+                                            <i class="fa fa-clock-o contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.hazard == '--' && objDataset.keydataset.category == '3'"></i>
+                                            Hazard <span ng-if="objDataset.keydataset.category != '3'">(optional)</span> <span ng-if="objDataset.keydataset.category == '3'"> (*)</span>
+                                        </td>
+                                        <td>
+                                            <select class="form-control" ng-model="objDataset.hazard">
+                                                <option value="--" selected>-- Select --</option>
+                                                <option ng-repeat="hazardDet in hazardList" value="{{hazardDet.code}}">{{hazardDet.desc}}</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <i class="fa fa-check contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.keydataset.dataset != '--'"></i>
+                                            <i class="fa fa-clock-o contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.keydataset.dataset == '--'"></i>
+                                            Dataset category
+                                        </td>
+                                        <td>
+                                            <select class="form-control" ng-model="objDataset.keydataset.dataset" ng-change="setDatasetDescription(objDataset.keydataset.category, objDataset.keydataset.dataset)">
+                                                <option value="--" selected>-- Select --</option>
+                                                <option ng-repeat="dn in DatasetName" value="{{dn.dataset.id}}">{{dn.dataset.name}}</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <i class="fa fa-check contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.keydataset.description != '--'"></i>
+                                            <i class="fa fa-clock-o contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.keydataset.description == '--'"></i>
+                                            Dataset description
+                                        </td>
+                                        <td>
+                                            <select class="form-control" ng-model="objDataset.keydataset.description" ng-disabled="objDataset.keydataset.dataset == '--'">
+                                                <option value="--" selected>-- Select --</option>
+                                                <option ng-repeat="ds_desc in objDatasetDescription" value="{{ds_desc.description.id}}">{{ds_desc.description.name}}</option>
+                                            </select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Dataset TAGS</td>
+                                        <td>
+                                            <span class="rodi_cb_space"><input type="checkbox" value="1"> Description</span>
+                                            <span class="rodi_cb_space"><input type="checkbox" value="1"> Description one</span>
+                                            <span class="rodi_cb_space"><input type="checkbox" value="1"> Description two</span>
+                                            <span class="rodi_cb_space"><input type="checkbox" value="1"> Description</span>
+                                            <span class="rodi_cb_space"><input type="checkbox" value="1"> Description one</span>
+                                            <span class="rodi_cb_space"><input type="checkbox" value="1"> Description two</span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Other details</td>
+                                        <td>
+                                            <textarea rows="2" class="form-control"></textarea>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
 
-                                </div>
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
+                                <h1>B - Questions</h1>
+                                <table class="table table-responsive table-striped table-bordered table-hover">
+                                    <thead>
+                                        <th>#Questions</th>
+                                        <th>#Answer</th>
+                                    </thead>
+                                    <tbody>
+                                        <tr ng-repeat="quest in questions">
+                                            <td>
+                                                <i class="fa fa-check contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="questioncode"></i>
+                                                <i class="fa fa-clock-o contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="!questioncode"></i>
+                                                {{quest.desc}} (*)
+                                            </td>
+                                            <td>
+                                                <input type="radio" value="yes" ng-model="questioncode" ng-click="saveSelection(quest.code, 'true')"> <span class="rodi_cb_space">Yes</span>
+                                                <input type="radio" value="no" ng-model="questioncode" ng-click="saveSelection(quest.code, 'false')"> <span class="rodi_cb_space">No</span>
+                                                <!--<input type="radio" value="na" ng-model="questioncode" ng-click="saveSelection(quest.code, 'na')"> <span class="rodi_cb_space">Not available</span>-->
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
-                        <br /><br />
+
                         <div class="row">
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                                <div class="contribute_field_box">
-                                    <label>6) Dataset category  (*)</label>
-                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.keydataset.dataset != '--'"></i>
-                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.keydataset.dataset == '--'"></i>
-                                    <select class="form-control" ng-model="objDataset.keydataset.dataset" ng-change="setDatasetDescription(objDataset.keydataset.category, objDataset.keydataset.dataset)">
-                                        <option value="--" selected>-- Select --</option>
-                                        <option ng-repeat="dn in DatasetName" value="{{dn.dataset.id}}">{{dn.dataset.name}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                                <div class="contribute_field_box">
-                                    <label>7) Dataset description  (*)</label>
-                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.keydataset.description != '--'"></i>
-                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.keydataset.description == '--'"></i>
-                                    <select class="form-control" ng-model="objDataset.keydataset.description" ng-disabled="objDataset.keydataset.dataset == '--'">
-                                        <option value="--" selected>-- Select --</option>
-                                        <option ng-repeat="ds_desc in objDatasetDescription" value="{{ds_desc.description.id}}">{{ds_desc.description.name}}</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <!--<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                                <div class="contribute_field_box">
-                                    <label>7) Dataset resolution  <span ng-if="!bResolutionDisable">(*)</span></label>
-                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.resolution != '--' || bResolutionDisable"></i>
-                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.resolution == '--' && !bResolutionDisable" ></i>
-                                    <select class="form-control" ng-model="objDataset.resolution" ng-disabled="objDataset.dataset_type == '--' || bResolutionDisable">
-                                        <option value="--" selected>-- Select --</option>
-                                        <option ng-repeat="haz_res in objResolutionList" value="{{haz_res.value}}">{{haz_res.scale}}</option>
-                                    </select>
-                                </div>
-                            </div>-->
-                        </div>
-                        <br /><br />
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <div class="contribute_field_box">
-                                    <label>8) Dataset description tags</label>
-                                    <br /><br />
-                                    <span class="rodi_cb_space"><input type="checkbox" value="1"> Tags1</span>
-                                    <span class="rodi_cb_space"><input type="checkbox" value="1"> Tags2</span>
-                                    <span class="rodi_cb_space"><input type="checkbox" value="1"> Tags3</span>
-                                </div>
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
+                                <h1>C - Metadata</h1>
+                                <table class="table table-responsive table-striped table-bordered table-hover">
+                                    <thead>
+                                    <th>#Info</th>
+                                    <th>#Answer</th>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>
+                                            <i class="fa fa-check contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.data_url"></i>
+                                            <i class="fa fa-clock-o contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="!objDataset.data_url"></i>
+                                            Link dataset data
+                                        </td>
+                                        <td>
+                                            <input type="text" ng-model="objDataset.data_url" class="form-control">
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <i class="fa fa-check contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.metadata_url"></i>
+                                            <i class="fa fa-clock-o contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="!objDataset.metadata_url"></i>
+                                            Link metadata download
+                                        </td>
+                                        <td>
+                                            <input type="text" ng-model="objDataset.metadata_url" class="form-control">
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                                <br />
+                                <input type="text" class="form-control" placeholder="Notes">
                             </div>
                         </div>
-                        <br /><br />
+
                         <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6" ng-repeat="quest in questions | filter: {type: 'yn'}">
-                                <div class="contribute_field_box">
-                                    <label>{{$index + 9}}) {{quest.desc}} (*)</label><br/>
-                                    <input type="radio" value="yes" name="questioncode{{quest.code}}" ng-model="questioncode" ng-click="saveSelection(quest.code, 'yes')"> Yes
-                                    &nbsp;&nbsp;
-                                    <input type="radio" value="no" name="questioncode{{quest.code}}" ng-model="questioncode" ng-click="saveSelection(quest.code, 'no')"> No
-                                    &nbsp;&nbsp;
-                                    <input type="radio" value="na" name="questioncode{{quest.code}}" ng-model="questioncode" ng-click="saveSelection(quest.code, 'na')"> Not available
-                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="questioncode"></i>
-                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="!questioncode"></i>
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <div class="contribute_field_box">
-                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.data_url"></i>
-                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="!objDataset.data_url"></i>
-                                    <label>Link dataset details (*)</label><br/>
-                                    <input type="text" ng-model="objDataset.data_url" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <div class="contribute_field_box">
-                                    <i class="fa fa-check pull-right contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.metadata_url"></i>
-                                    <i class="fa fa-clock-o pull-right contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="!objDataset.metadata_url"></i>
-                                    <label>Link metadata download (*)</label><br/>
-                                    <input type="text" ng-model="objDataset.metadata_url" class="form-control">
-                                </div>
-                            </div>
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <div class="contribute_field_box">
-                                    <label>Notes</label><br/>
-                                    <textarea name="notes" rows="5" class="form-control"></textarea>
-                                </div>
-                            </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right">
-                                <input type="button" class="btn btn-success" value="Save dataset" ng-click="saveDataser()"><br />
-                                <span class="small text-muted">(*) Required</span>
+                                <br /><br />
+                                <input type="button" class="btn btn-success" value="Save dataset" ng-click="saveDataset()">
                             </div>
                         </div>
+
                     </div>
                     <!-- Insert new dataset pane- END -->
 

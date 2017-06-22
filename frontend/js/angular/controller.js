@@ -117,7 +117,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
 
         $scope.objDataset = RodiSrv.getDatasetEmptyStructure();
-        // $scope.objDatasetClass = RodiSrv.getDatasetClassification();
 
         // Get the Hazard Category
         $scope.HazardCategory = [];
@@ -175,20 +174,16 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
             });
 
         $scope.questions = RodiSrv.getQuestions();
-        $scope.objResolutionList = [];
-        $scope.bResolutionDisable = true;
+        // $scope.objResolutionList = [];
+        // $scope.bResolutionDisable = true;
 
         $scope.saveSelection = function(qcode, value)
         {
-            var iIndex = 0;
-            var foundItem = $filter('filter')($scope.objDataset.questions, {code: qcode});
-
-            iIndex = $scope.objDataset.questions.indexOf(foundItem[0]);
-            $scope.objDataset.questions[iIndex].value = value;
+            $scope.objDataset[qcode] = value;
 
         }
 
-        $scope.saveDataser = function()
+        $scope.saveDataset = function()
         {
 
             var objQuestLost = [];
@@ -210,7 +205,31 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
             } else {
                 // Save the dataser
-                vex.dialog.alert('Under construction');
+
+                // Convert obj Kedataset in pk element (not string)
+                $scope.objDataset.keydataset.id = 0;
+                $scope.objDataset.keydataset.category = $scope.objDataset.keydataset.category * 1;
+                $scope.objDataset.keydataset.dataset = $scope.objDataset.keydataset.dataset * 1;
+                $scope.objDataset.keydataset.description = $scope.objDataset.keydataset.description * 1;
+                $scope.objDataset.keydataset.resolution = $scope.objDataset.keydataset.resolution * 1;
+                $scope.objDataset.keydataset.scale = $scope.objDataset.keydataset.scale * 1;
+
+                RodiSrv.saveDataset($scope.tokenid, $scope.objDataset,
+                    function(data){
+                        //Success
+                        vex.dialog.alert('Success');
+                    }, function(data){
+                        //Error
+                        var sMsg = "";
+                        angular.forEach(data, function(value, key) {
+                            sMsg = key.replace("_"," ") + ': ' + value
+                        });
+
+                        vex.dialog.alert(sMsg);
+
+                        console.log(data);
+                    })
+                // vex.dialog.alert('Under construction');
             }
 
 
@@ -461,8 +480,9 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                             var sMsg = "";
                             angular.forEach(data, function(value, key) {
                                 sMsg = key.replace("_"," ") + ': ' + value
-                                vex.dialog.alert(sMsg);
                             });
+
+                            vex.dialog.alert(sMsg);
 
                         })
 

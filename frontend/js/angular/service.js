@@ -448,19 +448,16 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
          */
 
         return objQuestions = [
-                {code: "q01", desc:"Does the data exist?", type: "yn"},
-                {code: "q02", desc:"Is data in digital form?", type: "yn"},
-                {code: "q03", desc:"Is the data available online?", type: "yn"},
-                {code: "q04", desc:"Is the metadata available online?", type: "yn"},
-                {code: "q05", desc:"Available in bulk?", type: "yn"},
-                {code: "q06", desc:"Is the data machine- readable?", type: "yn"},
-                {code: "q07", desc:"Publicly available?", type: "yn"},
-                {code: "q08", desc:"Is the data available for free?", type: "yn"},
-                {code: "q09", desc:"Openly licensed?", type: "yn"},
-                {code: "q10", desc:"Is the data provided on a timely and up to date basis?", type: "yn"},
-                {code: "q11", desc:"Resolution/scale of methodology", type: "ddl_filter"},
-                {code: "q12", desc:"URL Metadata", type: "link"},
-                {code: "q13", desc:"URL Data set", type: "link"}
+                {code: "q01", desc:"Does the data exist?"},
+                {code: "is_digital_form", desc:"Is data in digital form?"},
+                {code: "q03", desc:"Is the data available online?"},
+                {code: "q04", desc:"Is the metadata available online?"},
+                {code: "is_bulk_avail", desc:"Available in bulk?"},
+                {code: "is_machine_read", desc:"Is the data machine- readable?"},
+                {code: "is_pub_available", desc:"Publicly available?"},
+                {code: "is_avail_for_free", desc:"Is the data available for free?"},
+                {code: "is_open_licence", desc:"Openly licensed?"},
+                {code: "is_prov_timely", desc:"Is the data provided on a timely and up to date basis?"}
         ]
     };
 
@@ -472,6 +469,8 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         */
 
         return obj = {
+            name:"",
+            abstract:"",
             country: "--",
             notes: "",
             is_digital_form: "", //9
@@ -489,17 +488,17 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 
 
             owner:"",
-            is_reviewed: "",
-            review_date: "",
-            create_time: "",
-            modify_time: "",
+            is_reviewed: false,
+            review_date: new Date(),
+            create_time: new Date(),
+            modify_time: new Date(),
             keydataset:{
-                id:999,
+                id:0,
                 category: "--",
                 dataset:"--",
                 description:"--",
-                resolution:"",
-                scale:""
+                resolution:"0",
+                scale:"0"
             },
             changed_by:""
             }
@@ -597,9 +596,22 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         return aErrors;
     }
 
-    this.saveDataset = function(obj)
+    this.saveDataset = function(token, obj, onSuccess, onError)
     {
-        return true;
+        var req = {
+            method: 'POST',
+            url: baseAPIurl + 'profile/dataset/',
+            headers: {
+                'Authorization': 'Token ' + token
+            },
+            data: obj
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
     }
 
     // ************************************** //
