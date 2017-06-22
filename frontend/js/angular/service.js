@@ -567,31 +567,34 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 
         if(obj.name == ''){aErrors.push('Name')};
         if(obj.abstract == ''){aErrors.push('Abstract')};
-        if(obj.keydataset.dataset == '--'){aErrors.push('Dataset category')};
-
-        // If level of Dataset is not Empty: check the field
-        // objResolutions = this.getDatasetClassificationResolution(obj.dataset_type);
-        // if(!angular.equals({}, objResolutions.level)){
-        //     if(obj.resolution == '--'){aErrors.push('Dataset resolution')};
-        // }
-
         if(obj.country == '--'){aErrors.push('Country')};
         if(obj.keydataset.category == '--'){aErrors.push('Data category')};
+        // if(obj.hazard == '--'){aErrors.push('Data category')};
+        if(obj.keydataset.dataset == '--'){aErrors.push('Dataset category')};
+        // if(obj.datasetdescription == '--'){aErrors.push('Dataset description')};
+
+        // TAGS & Other details: TODO
+
         if(obj.keydataset.category == '3' && obj.hazard == '--'){aErrors.push('Hazard')};
         if(obj.data_url == ''){aErrors.push('Link dataset empty')};
         if(obj.metadata_url == ''){aErrors.push('Link metadata empty')};
 
         /* Check the questions */
-        // TODO: check object fields
-        // var aQuestions = [];
+        var aQuestions = [];
+        // if(obj.question01 == ''){aErrors.push('answer')}
+        if(obj.is_digital_form == ''){aQuestions.push('answer')}
+        // if(obj.question03 == ''){aQuestions.push('answer')}
+        // if(obj.question04 == ''){aQuestions.push('answer')}
+        if(obj.is_bulk_avail == ''){aQuestions.push('answer')}
+        if(obj.is_machine_read == ''){aQuestions.push('answer')}
+        if(obj.is_pub_available == ''){aQuestions.push('answer')}
+        if(obj.is_avail_for_free == ''){aQuestions.push('answer')}
+        if(obj.is_open_licence == ''){aQuestions.push('answer')}
+        if(obj.is_prov_timely == ''){aQuestions.push('answer')}
 
-        // $filter('filter')(obj.questions, function(e){
-        //     if(e.value == '') { aQuestions.push(e.code); };
-        // })
-
-        // if (aQuestions.length > 0){
-        //     aErrors.push('Answer all questions (Yes, No or Not available)')
-        // }
+        if (aQuestions.length > 0){
+            aErrors.push('Answer all questions (Yes, No)')
+        };
 
         return aErrors;
     }

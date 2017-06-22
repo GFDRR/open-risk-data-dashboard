@@ -220,14 +220,14 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                         vex.dialog.alert('Success');
                     }, function(data){
                         //Error
-                        var sMsg = "";
-                        angular.forEach(data, function(value, key) {
-                            sMsg = key.replace("_"," ") + ': ' + value
-                        });
+                        // var sMsg = "";
+                        // angular.forEach(data, function(value, key) {
+                        //     sMsg = key.replace("_"," ") + ': ' + value
+                        // });
 
-                        vex.dialog.alert(sMsg);
+                        // vex.dialog.alert(sMsg);
+                        vex.dialog.alert("Unable to save the dataset data");
 
-                        console.log(data);
                     })
                 // vex.dialog.alert('Under construction');
             }
