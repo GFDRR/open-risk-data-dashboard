@@ -218,6 +218,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                     function(data){
                         //Success
                         vex.dialog.alert('Success');
+                        $scope.objDataset = RodiSrv.getDatasetEmptyStructure();
                     }, function(data){
                         //Error
                         // var sMsg = "";
@@ -232,25 +233,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 // vex.dialog.alert('Under construction');
             }
 
-
-            /*
-             Save ***TODO***
-             usr_ins
-             data_ins
-             */
-
-            // var bMsh = RodiSrv.saveDataset($scope.objDataset);
-            //
-            // if (bMsh)
-            // {
-            //    Save success message
-            //     vex.dialog.alert('Dataset Inserted correctly');
-            //     $scope.objDataset = RodiSrv.getDatasetEmptyStructure();
-            // } else
-            // {
-            //    Save error message
-            // vex.dialog.alert('Error: dataser not insert!');
-            // }
         }
 
         // ************************************** //
@@ -495,7 +477,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
         }
 
     }
-
 
     // ************************************** //
     // ****** DATASET LIST & DETAILS ******** //

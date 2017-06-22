@@ -189,15 +189,15 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
                 "matrixData": {
                     // questionKey: ["questionkey", "description", valueH01, valueH02, valueH03, valueH04, valueH05, valueH06, valueH07, valueH08]
                     q01: ["q01", 0.1, 0.2, 0.3, 0.4, 0.5],
-                    q02: ["q02", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q02: ["is_digital_form", 0.6, 0.7, 0.8, 0.9, 1.0],
                     q03: ["q03", 0.1, 0.2, 0.3, 0.4, 0.5],
                     q04: ["q04", 0.6, 0.7, 0.8, 0.9, 1.0],
-                    q05: ["q05", 0.1, 0.2, 0.3, 0.4, 0.5],
-                    q06: ["q06", 0.6, 0.7, 0.8, 0.9, 1.0],
-                    q07: ["q07", 0.1, 0.2, 0.3, 0.4, 0.5],
-                    q08: ["q08", 0.6, 0.7, 0.8, 0.9, 1.0],
-                    q09: ["q09", 0.1, 0.2, 0.3, 0.4, 0.5],
-                    q10: ["q10", 0.6, 0.7, 0.8, 0.9, 1.0]
+                    q05: ["is_bulk_avail", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q06: ["is_machine_read", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q07: ["is_pub_available", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q08: ["is_avail_for_free", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q09: ["is_open_licence", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q10: ["is_prov_timely", 0.6, 0.7, 0.8, 0.9, 1.0]
                 }
             },
             {
@@ -215,15 +215,15 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
                 "matrixData": {
                     // "questionKey": ["description", valueH01, valueH02, valueH03, valueH04, valueH05, valueH06, valueH07, valueH08]
                     q01: ["q01", 0.1, 0.2, 0.3, 0.4, 0.5],
-                    q02: ["q02", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q02: ["is_digital_form", 0.6, 0.7, 0.8, 0.9, 1.0],
                     q03: ["q03", 0.1, 0.2, 0.3, 0.4, 0.5],
                     q04: ["q04", 0.6, 0.7, 0.8, 0.9, 1.0],
-                    q05: ["q05", 0.1, 0.2, 0.3, 0.4, 0.5],
-                    q06: ["q06", 0.6, 0.7, 0.8, 0.9, 1.0],
-                    q07: ["q07", 0.1, 0.2, 0.3, 0.4, 0.5],
-                    q08: ["q08", 0.6, 0.7, 0.8, 0.9, 1.0],
-                    q09: ["q09", 0.1, 0.2, 0.3, 0.4, 0.5],
-                    q10: ["q10", 0.6, 0.7, 0.8, 0.9, 1.0]
+                    q05: ["is_bulk_avail", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q06: ["is_machine_read", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q07: ["is_pub_available", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q08: ["is_avail_for_free", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q09: ["is_open_licence", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q10: ["is_prov_timely", 0.6, 0.7, 0.8, 0.9, 1.0]
                 }
             },
             {
@@ -241,15 +241,15 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
                 "matrixData": {
                     // "questionKey": ["description", valueH01, valueH02, valueH03, valueH04, valueH05, valueH06, valueH07, valueH08]
                     q01: ["q01", 0.1, 0.2, 0.3, 0.4, 0.5],
-                    q02: ["q02", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q02: ["is_digital_form", 0.6, 0.7, 0.8, 0.9, 1.0],
                     q03: ["q03", 0.1, 0.2, 0.3, 0.4, 0.5],
                     q04: ["q04", 0.6, 0.7, 0.8, 0.9, 1.0],
-                    q05: ["q05", 0.1, 0.2, 0.3, 0.4, 0.5],
-                    q06: ["q06", 0.6, 0.7, 0.8, 0.9, 1.0],
-                    q07: ["q07", 0.1, 0.2, 0.3, 0.4, 0.5],
-                    q08: ["q08", 0.6, 0.7, 0.8, 0.9, 1.0],
-                    q09: ["q09", 0.1, 0.2, 0.3, 0.4, 0.5],
-                    q10: ["q10", 0.6, 0.7, 0.8, 0.9, 1.0]
+                    q05: ["is_bulk_avail", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q06: ["is_machine_read", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q07: ["is_pub_available", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q08: ["is_avail_for_free", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q09: ["is_open_licence", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q10: ["is_prov_timely", 0.6, 0.7, 0.8, 0.9, 1.0]
                 }
             }
         ];
@@ -463,10 +463,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 
     this.getDatasetEmptyStructure = function()
     {
-        /*
-         return a Dataset list structure empty for new dataset contributor.
-
-        */
+        /* return a Dataset list structure empty for new dataset contributor. */
 
         return obj = {
             name:"",
