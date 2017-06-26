@@ -166,3 +166,9 @@ class ProfileDatasetCreateSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('owner', 'changed_by', 'create_time', 'modify_time', 'is_reviewed')
 
+
+class TagsSerializer(serializers.ModelSerializer):
+    """Serializer of Tags"""
+    class Meta:
+        model = Dataset
+        fields = ('tags',)

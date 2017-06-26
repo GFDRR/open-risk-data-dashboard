@@ -11,7 +11,8 @@ from .serializers import (
     RegionSerializer, CountrySerializer,
     ProfileSerializer, UserSerializer, RegistrationSerializer,
     ChangePasswordSerializer,
-    ProfileDatasetListSerializer, ProfileDatasetCreateSerializer)
+    ProfileDatasetListSerializer, ProfileDatasetCreateSerializer,
+    TagsSerializer)
 from .models import Region, Country, OptIn, Dataset
 
 
@@ -102,6 +103,7 @@ class RegistrationView(generics.CreateAPIView, generics.RetrieveAPIView):
 
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
 class RegionListView(generics.ListAPIView):
     """This class handles the GET and POSt requests of our rest api."""
     queryset = Region.objects.all()
@@ -119,6 +121,7 @@ class CountryDetailsView(generics.RetrieveAPIView):
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
 
+
 class UserCreateView(generics.ListCreateAPIView):
     """This class handles the GET and POSt requests of our rest api."""
     queryset = User.objects.all()
@@ -128,12 +131,14 @@ class UserCreateView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save()
 
+
 class UserDetailsView(generics.RetrieveUpdateDestroyAPIView):
     """This class handles GET, PUT, PATCH and DELETE requests."""
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (permissions.IsAdminUser,)
+
 
 class IsOwner(permissions.BasePermission):
     """
@@ -162,6 +167,7 @@ class ProfileDatasetListCreateView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user, changed_by=self.request.user)
 
+
 class ProfileDatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ProfileDatasetListSerializer
     permission_classes = (IsOwner, )
@@ -177,3 +183,8 @@ class ProfileDatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
         return Dataset.objects.filter(
             owner=self.request.user)
 
+
+class TagsListView(generics.ListAPIView):
+    """This class handles the GET requests of our rest api."""
+    queryset = Dataset.objects.values('tags')
+    serializer_class = TagsSerializer
