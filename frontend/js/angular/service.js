@@ -189,15 +189,15 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
                 "matrixData": {
                     // questionKey: ["questionkey", "description", valueH01, valueH02, valueH03, valueH04, valueH05, valueH06, valueH07, valueH08]
                     q01: ["q01", 0.1, 0.2, 0.3, 0.4, 0.5],
-                    q02: ["q02", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q02: ["is_digital_form", 0.6, 0.7, 0.8, 0.9, 1.0],
                     q03: ["q03", 0.1, 0.2, 0.3, 0.4, 0.5],
                     q04: ["q04", 0.6, 0.7, 0.8, 0.9, 1.0],
-                    q05: ["q05", 0.1, 0.2, 0.3, 0.4, 0.5],
-                    q06: ["q06", 0.6, 0.7, 0.8, 0.9, 1.0],
-                    q07: ["q07", 0.1, 0.2, 0.3, 0.4, 0.5],
-                    q08: ["q08", 0.6, 0.7, 0.8, 0.9, 1.0],
-                    q09: ["q09", 0.1, 0.2, 0.3, 0.4, 0.5],
-                    q10: ["q10", 0.6, 0.7, 0.8, 0.9, 1.0]
+                    q05: ["is_bulk_avail", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q06: ["is_machine_read", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q07: ["is_pub_available", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q08: ["is_avail_for_free", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q09: ["is_open_licence", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q10: ["is_prov_timely", 0.6, 0.7, 0.8, 0.9, 1.0]
                 }
             },
             {
@@ -215,15 +215,15 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
                 "matrixData": {
                     // "questionKey": ["description", valueH01, valueH02, valueH03, valueH04, valueH05, valueH06, valueH07, valueH08]
                     q01: ["q01", 0.1, 0.2, 0.3, 0.4, 0.5],
-                    q02: ["q02", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q02: ["is_digital_form", 0.6, 0.7, 0.8, 0.9, 1.0],
                     q03: ["q03", 0.1, 0.2, 0.3, 0.4, 0.5],
                     q04: ["q04", 0.6, 0.7, 0.8, 0.9, 1.0],
-                    q05: ["q05", 0.1, 0.2, 0.3, 0.4, 0.5],
-                    q06: ["q06", 0.6, 0.7, 0.8, 0.9, 1.0],
-                    q07: ["q07", 0.1, 0.2, 0.3, 0.4, 0.5],
-                    q08: ["q08", 0.6, 0.7, 0.8, 0.9, 1.0],
-                    q09: ["q09", 0.1, 0.2, 0.3, 0.4, 0.5],
-                    q10: ["q10", 0.6, 0.7, 0.8, 0.9, 1.0]
+                    q05: ["is_bulk_avail", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q06: ["is_machine_read", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q07: ["is_pub_available", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q08: ["is_avail_for_free", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q09: ["is_open_licence", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q10: ["is_prov_timely", 0.6, 0.7, 0.8, 0.9, 1.0]
                 }
             },
             {
@@ -241,15 +241,15 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
                 "matrixData": {
                     // "questionKey": ["description", valueH01, valueH02, valueH03, valueH04, valueH05, valueH06, valueH07, valueH08]
                     q01: ["q01", 0.1, 0.2, 0.3, 0.4, 0.5],
-                    q02: ["q02", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q02: ["is_digital_form", 0.6, 0.7, 0.8, 0.9, 1.0],
                     q03: ["q03", 0.1, 0.2, 0.3, 0.4, 0.5],
                     q04: ["q04", 0.6, 0.7, 0.8, 0.9, 1.0],
-                    q05: ["q05", 0.1, 0.2, 0.3, 0.4, 0.5],
-                    q06: ["q06", 0.6, 0.7, 0.8, 0.9, 1.0],
-                    q07: ["q07", 0.1, 0.2, 0.3, 0.4, 0.5],
-                    q08: ["q08", 0.6, 0.7, 0.8, 0.9, 1.0],
-                    q09: ["q09", 0.1, 0.2, 0.3, 0.4, 0.5],
-                    q10: ["q10", 0.6, 0.7, 0.8, 0.9, 1.0]
+                    q05: ["is_bulk_avail", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q06: ["is_machine_read", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q07: ["is_pub_available", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q08: ["is_avail_for_free", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q09: ["is_open_licence", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q10: ["is_prov_timely", 0.6, 0.7, 0.8, 0.9, 1.0]
                 }
             }
         ];
@@ -448,31 +448,27 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
          */
 
         return objQuestions = [
-                {code: "q01", desc:"Does the data exist?", type: "yn"},
-                {code: "q02", desc:"Is data in digital form?", type: "yn"},
-                {code: "q03", desc:"Is the data available online?", type: "yn"},
-                {code: "q04", desc:"Is the metadata available online?", type: "yn"},
-                {code: "q05", desc:"Available in bulk?", type: "yn"},
-                {code: "q06", desc:"Is the data machine- readable?", type: "yn"},
-                {code: "q07", desc:"Publicly available?", type: "yn"},
-                {code: "q08", desc:"Is the data available for free?", type: "yn"},
-                {code: "q09", desc:"Openly licensed?", type: "yn"},
-                {code: "q10", desc:"Is the data provided on a timely and up to date basis?", type: "yn"},
-                {code: "q11", desc:"Resolution/scale of methodology", type: "ddl_filter"},
-                {code: "q12", desc:"URL Metadata", type: "link"},
-                {code: "q13", desc:"URL Data set", type: "link"}
+                {code: "q01", desc:"Does the data exist?"},
+                {code: "is_digital_form", desc:"Is data in digital form?"},
+                {code: "q03", desc:"Is the data available online?"},
+                {code: "q04", desc:"Is the metadata available online?"},
+                {code: "is_bulk_avail", desc:"Available in bulk?"},
+                {code: "is_machine_read", desc:"Is the data machine- readable?"},
+                {code: "is_pub_available", desc:"Publicly available?"},
+                {code: "is_avail_for_free", desc:"Is the data available for free?"},
+                {code: "is_open_licence", desc:"Openly licensed?"},
+                {code: "is_prov_timely", desc:"Is the data provided on a timely and up to date basis?"}
         ]
     };
 
     this.getDatasetEmptyStructure = function()
     {
-        /*
-         return a Dataset list structure empty for new dataset contributor.
-
-        */
+        /* return a Dataset list structure empty for new dataset contributor. */
 
         return obj = {
-            country: "",
+            name:"",
+            abstract:"",
+            country: "--",
             notes: "",
             is_digital_form: "", //9
             is_pub_available: "--", //14
@@ -482,21 +478,24 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
             is_open_licence:"", //16
             is_prov_timely:"", //17
             data_url: "",
-            metadata_url: "0",
+            metadata_url: "",
+
+            // temp fileds
+            hazard:"--",
 
 
             owner:"",
-            is_reviewed: "",
-            review_date: "",
-            create_time: "",
-            modify_time: "",
+            is_reviewed: false,
+            review_date: new Date(),
+            create_time: new Date(),
+            modify_time: new Date(),
             keydataset:{
-                id:999,
-                category: "",
-                dataset:"",
-                description:"",
-                resolution:"",
-                scale:""
+                id:0,
+                category: "--",
+                dataset:"--",
+                description:"--",
+                resolution:"0",
+                scale:"0"
             },
             changed_by:""
             }
@@ -565,37 +564,54 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 
         if(obj.name == ''){aErrors.push('Name')};
         if(obj.abstract == ''){aErrors.push('Abstract')};
-        if(obj.dataset_type == '--'){aErrors.push('Dataset category')};
-
-        // If level of Dataset is not Empty: check the field
-        objResolutions = this.getDatasetClassificationResolution(obj.dataset_type);
-        if(!angular.equals({}, objResolutions.level)){
-            if(obj.resolution == '--'){aErrors.push('Dataset resolution')};
-        }
-
         if(obj.country == '--'){aErrors.push('Country')};
-        if(obj.hazard_category == '--'){aErrors.push('Hazard category')};
-        if(obj.hazard_category == 'h03' && obj.hazard == '--'){aErrors.push('Hazard')};
-        if(obj.link_dataset == ''){aErrors.push('Link dataset')};
-        if(obj.link_metadata == ''){aErrors.push('Link metadata')};
+        if(obj.keydataset.category == '--'){aErrors.push('Data category')};
+        // if(obj.hazard == '--'){aErrors.push('Data category')};
+        if(obj.keydataset.dataset == '--'){aErrors.push('Dataset category')};
+        // if(obj.datasetdescription == '--'){aErrors.push('Dataset description')};
+
+        // TAGS & Other details: TODO
+
+        if(obj.keydataset.category == '3' && obj.hazard == '--'){aErrors.push('Hazard')};
+        if(obj.data_url == ''){aErrors.push('Link dataset empty')};
+        if(obj.metadata_url == ''){aErrors.push('Link metadata empty')};
 
         /* Check the questions */
         var aQuestions = [];
-
-        $filter('filter')(obj.questions, function(e){
-            if(e.value == '') { aQuestions.push(e.code); };
-        })
+        // if(obj.question01 == ''){aErrors.push('answer')}
+        if(obj.is_digital_form == ''){aQuestions.push('answer')}
+        // if(obj.question03 == ''){aQuestions.push('answer')}
+        // if(obj.question04 == ''){aQuestions.push('answer')}
+        if(obj.is_bulk_avail == ''){aQuestions.push('answer')}
+        if(obj.is_machine_read == ''){aQuestions.push('answer')}
+        if(obj.is_pub_available == ''){aQuestions.push('answer')}
+        if(obj.is_avail_for_free == ''){aQuestions.push('answer')}
+        if(obj.is_open_licence == ''){aQuestions.push('answer')}
+        if(obj.is_prov_timely == ''){aQuestions.push('answer')}
 
         if (aQuestions.length > 0){
-            aErrors.push('Answer all questions (Yes, No or Not available)')
-        }
+            aErrors.push('Answer all questions (Yes, No)')
+        };
 
         return aErrors;
     }
 
-    this.saveDataset = function(obj)
+    this.saveDataset = function(token, obj, onSuccess, onError)
     {
-        return true;
+        var req = {
+            method: 'POST',
+            url: baseAPIurl + 'profile/dataset/',
+            headers: {
+                'Authorization': 'Token ' + token
+            },
+            data: obj
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
     }
 
     // ************************************** //
