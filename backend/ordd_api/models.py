@@ -128,7 +128,7 @@ class KeyDataset(models.Model):
         return (self.category, self.code)
 
     def __str__(self):
-        return "%s: %d - %s - %s - %s - %s" % (self.category, self.code, self.dataset, self.description, self.scale)
+        return "%s: %d - %s - %s - %s" % (self.category, self.code, self.dataset, self.description, self.scale)
 
 
 class Dataset(models.Model):
