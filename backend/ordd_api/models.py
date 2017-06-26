@@ -3,13 +3,18 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from randstr import randstr
+from django.contrib.postgres.fields import ArrayField
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=256, blank=True)
     institution = models.CharField(max_length=256, blank=True)
 
+
 def my_random_key():
     return randstr(16)
+
 
 class OptIn(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -18,10 +23,12 @@ class OptIn(models.Model):
     def __str__(self):
         return self.key
 
+
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         Profile.objects.create(user=instance)
+
 
 class Region(models.Model):
     """World regions"""
@@ -58,6 +65,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+
 class LevDataset(models.Model):
     name = models.CharField(max_length=128, blank=False, unique=True)
 
@@ -66,6 +74,7 @@ class LevDataset(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class LevDescription(models.Model):
     name = models.CharField(max_length=128, blank=False, unique=True)
@@ -76,6 +85,7 @@ class LevDescription(models.Model):
     def __str__(self):
         return self.name
 
+
 class LevScale(models.Model):
     name = models.CharField(max_length=32, blank=False, unique=True)
 
@@ -85,6 +95,7 @@ class LevScale(models.Model):
     def __str__(self):
         return self.name
 
+
 class Peril(models.Model):
     name = models.CharField(max_length=32, blank=False, unique=True)
 
@@ -93,6 +104,7 @@ class Peril(models.Model):
 
     def __str__(self):
         return self.name
+
 
 class KeyDataset(models.Model):
     code = models.IntegerField(null=False, blank=False)
@@ -118,6 +130,7 @@ class KeyDataset(models.Model):
     def __str__(self):
         return "%s: %d - %s - %s - %s - %s" % (self.category, self.code, self.dataset, self.description, self.scale)
 
+
 class Dataset(models.Model):
     owner = models.ForeignKey('auth.User', related_name='datasets', on_delete=models.CASCADE)
 
@@ -130,6 +143,9 @@ class Dataset(models.Model):
     modify_time = models.DateTimeField(auto_now=True)
     changed_by = models.ForeignKey('auth.User', blank=True, null=True)
     notes = models.CharField(max_length=4096, blank=True, null=False)
+    tags = ArrayField(
+            models.CharField(max_length=64, blank=True, null=True),
+        ),
 
     is_digital_form = models.BooleanField()
     is_pub_available = models.BooleanField()
