@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from .models import (
     Category, LevDataset, LevDescription,
-    LevResolution, LevScale, KeyDataset)
+    LevScale, KeyDataset)
 
 class KeyCategorySerializer(serializers.ModelSerializer):
     class Meta:
@@ -9,7 +9,7 @@ class KeyCategorySerializer(serializers.ModelSerializer):
         fields = ('id', 'name')
 
 
-class KeyDataset0on5Serializer(serializers.ModelSerializer):
+class KeyDataset0on4Serializer(serializers.ModelSerializer):
     """Partial serializer of key datasets -> categories """
 
     category = KeyCategorySerializer()
@@ -25,7 +25,7 @@ class KeyLevDatasetSerializer(serializers.ModelSerializer):
         fields = ('id', 'name')
 
 
-class KeyDataset1on5Serializer(serializers.ModelSerializer):
+class KeyDataset1on4Serializer(serializers.ModelSerializer):
     """Partial serializer of key datasets filtered by category -> datasets"""
 
     dataset = KeyLevDatasetSerializer()
@@ -41,7 +41,7 @@ class KeyLevDescriptionSerializer(serializers.ModelSerializer):
         fields = ('id', 'name')
 
 
-class KeyDataset2on5Serializer(serializers.ModelSerializer):
+class KeyDataset2on4Serializer(serializers.ModelSerializer):
     """Partial serializer of key datasets filtered by category
  and dataset -> descriptions"""
 
@@ -52,31 +52,15 @@ class KeyDataset2on5Serializer(serializers.ModelSerializer):
         fields = ('description',)
 
 
-class KeyLevResolutionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = LevResolution
-        fields = ('id', 'name')
-
-class KeyDataset3on5Serializer(serializers.ModelSerializer):
-    """Partial serializer of key datasets filtered by category,
- dataset and description -> resolutions (nullable)"""
-
-    resolution = KeyLevResolutionSerializer()
-
-    class Meta:
-        model = KeyDataset
-        fields = ('resolution',)
-
-
 class KeyLevScaleSerializer(serializers.ModelSerializer):
     class Meta:
         model = LevScale
         fields = ('id', 'name')
 
 
-class KeyDataset4on5Serializer(serializers.ModelSerializer):
+class KeyDataset3on4Serializer(serializers.ModelSerializer):
     """Partial serializer of key datasets filtered by category,
- dataset, description and resolution -> scales"""
+ dataset and description -> scales"""
 
     scale = KeyLevScaleSerializer()
 
@@ -85,22 +69,20 @@ class KeyDataset4on5Serializer(serializers.ModelSerializer):
         fields = ('scale',)
 
 
-class KeyDataset5on5Serializer(serializers.ModelSerializer):
-    """Serializer of key datasets filtered by category, dataset, description,
- resolution and scale"""
+class KeyDataset4on4Serializer(serializers.ModelSerializer):
+    """Serializer of key datasets filtered by category, dataset, description
+ and scale"""
     category = serializers.SlugRelatedField(
         read_only=True, slug_field='name')
     dataset = serializers.SlugRelatedField(
         read_only=True, slug_field='name')
     description = serializers.SlugRelatedField(
         read_only=True, slug_field='name')
-    resolution = serializers.SlugRelatedField(
-        read_only=True, slug_field='name')
     scale = serializers.SlugRelatedField(
         read_only=True, slug_field='name')
 
     class Meta:
         model = KeyDataset
-        fields = ('id', 'category', 'dataset', 'description', 'resolution', 'scale')
+        fields = ('id', 'category', 'dataset', 'description', 'scale')
 
 

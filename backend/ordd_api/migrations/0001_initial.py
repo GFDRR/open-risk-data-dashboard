@@ -80,13 +80,6 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
-            name='LevResolution',
-            fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=128, null=True, unique=True)),
-            ],
-        ),
-        migrations.CreateModel(
             name='LevScale',
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -146,11 +139,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AddField(
             model_name='keydataset',
-            name='resolution',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='ordd_api.LevResolution'),
-        ),
-        migrations.AddField(
-            model_name='keydataset',
             name='scale',
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='ordd_api.LevScale'),
         ),
@@ -171,6 +159,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name='keydataset',
-            unique_together=set([('category', 'code'), ('category', 'dataset', 'description', 'resolution', 'scale')]),
+            unique_together=set([('category', 'code'), ('category', 'dataset', 'description', 'scale')]),
         ),
     ]

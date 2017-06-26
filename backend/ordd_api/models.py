@@ -76,15 +76,6 @@ class LevDescription(models.Model):
     def __str__(self):
         return self.name
 
-class LevResolution(models.Model):
-    name = models.CharField(max_length=128, blank=False, null=True, unique=True)
-
-    def natural_key(self):
-        return self.name
-
-    def __str__(self):
-        return self.name
-
 class LevScale(models.Model):
     name = models.CharField(max_length=32, blank=False, unique=True)
 
@@ -108,7 +99,6 @@ class KeyDataset(models.Model):
     category = models.ForeignKey(Category)
     dataset = models.ForeignKey(LevDataset)
     description = models.ForeignKey(LevDescription)
-    resolution = models.ForeignKey(LevResolution, null=True)
     scale = models.ForeignKey(LevScale)
     applicability = models.ManyToManyField(Peril)
 
@@ -119,14 +109,14 @@ class KeyDataset(models.Model):
     class Meta:
         unique_together = (
             ('category', 'code'),
-            ('category', 'dataset', 'description', 'resolution', 'scale')
+            ('category', 'dataset', 'description', 'scale')
         )
 
     def natural_key(self):
         return (self.category, self.code)
 
     def __str__(self):
-        return "%s: %d - %s - %s - %s - %s" % (self.category, self.code, self.dataset, self.description, self.resolution, self.scale)
+        return "%s: %d - %s - %s - %s - %s" % (self.category, self.code, self.dataset, self.description, self.scale)
 
 class Dataset(models.Model):
     owner = models.ForeignKey('auth.User', related_name='datasets', on_delete=models.CASCADE)

@@ -2,12 +2,12 @@ from collections import namedtuple
 from django.core.management.base import BaseCommand, CommandError
 import csv, codecs
 from ordd_api.models import (Category, Peril, KeyDataset,
-                             LevDataset, LevDescription, LevResolution, LevScale)
+                             LevDataset, LevDescription, LevScale)
 
 # key dataset input rows description:
-# (category), ID,Dataset,Description,Format,Resolution,Flood,Tsunami,
+# (category), ID,Dataset,Description,Format,Flood,Tsunami,
 #             Cyclones,Earthquakes,Vulcano,Global,National,Local, (weight)
-KeyDataset_in = namedtuple('KeyDataset_in', 'category id dataset description format resolution Flood Tsunami'
+KeyDataset_in = namedtuple('KeyDataset_in', 'category id dataset description format Flood Tsunami'
                            ' Cyclone Earthquake Vulcano glob national local comment weight')
 
 
@@ -62,7 +62,6 @@ class Command(BaseCommand):
                 if options['reload']:
                     LevDataset.objects.all().delete()
                     LevDescription.objects.all().delete()
-                    LevResolution.objects.all().delete()
                     LevScale.objects.all().delete()
                     KeyDataset.objects.all().delete()
 
@@ -79,7 +78,7 @@ class Command(BaseCommand):
                 for kd_row, kd_in in enumerate(keydatasets):
                     keyobj_in = KeyDataset_in(
                         category=kd_in[0], id=kd_in[1], dataset=kd_in[2], description=kd_in[3], format=kd_in[4],
-                        resolution=kd_in[5], Flood=kd_in[6], Tsunami=kd_in[7], Cyclone=kd_in[8], Earthquake=kd_in[9],
+                        Flood=kd_in[6], Tsunami=kd_in[7], Cyclone=kd_in[8], Earthquake=kd_in[9],
                         Vulcano=kd_in[10], glob=kd_in[11], national=kd_in[12], local=kd_in[13], comment=kd_in[14],
                         weight=kd_in[15])
 
@@ -102,19 +101,8 @@ class Command(BaseCommand):
                     else:
                         description = description[0]
 
-                    if keyobj_in.resolution.strip() == '':
-                        resolution = None
-                    else:
-                        resolution = LevResolution.objects.filter(name=keyobj_in.resolution)
-                        if len(resolution) < 1:
-                            resolution = LevResolution(name=keyobj_in.resolution)
-                            resolution.save()
-                        else:
-                            resolution = resolution[0]
-
                     keydata = KeyDataset(
                         code=keyobj_in.id, category=category, dataset=dataset, description=description,
-                        resolution=resolution,
                         format=keyobj_in.format, comment=keyobj_in.comment, weight=keyobj_in.weight)
 
                     names = {'glob': 'Global', 'national': 'National', 'local': 'Local'}

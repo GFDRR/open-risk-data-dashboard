@@ -10,7 +10,7 @@ from rest_framework.serializers import ValidationError
 from rest_framework.reverse import reverse
 from .models import Region, Country, Profile, OptIn, Dataset
 
-from .keydatasets_serializers import KeyDataset5on5Serializer
+from .keydatasets_serializers import KeyDataset4on4Serializer
 from .mailer import mailer
 
 
@@ -151,7 +151,7 @@ class ProfileDatasetListSerializer(serializers.ModelSerializer):
     owner = serializers.SlugRelatedField(slug_field='username', queryset=User.objects.all())
     changed_by = serializers.SlugRelatedField(slug_field='username', queryset=User.objects.all())
     country = serializers.SlugRelatedField(slug_field='iso2', queryset=Country.objects.all())
-    keydataset = KeyDataset5on5Serializer(read_only=True)
+    keydataset = KeyDataset4on4Serializer(read_only=True)
 
     class Meta:
         model = Dataset

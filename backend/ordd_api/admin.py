@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 
 from .models import (
     Profile, OptIn,
-    Category, LevDataset, LevDescription, LevResolution, LevScale, Peril, KeyDataset,
+    Category, LevDataset, LevDescription, LevScale, Peril, KeyDataset,
     Dataset)
 
 
@@ -28,7 +28,6 @@ admin.site.register(Category)
 admin.site.register(Peril)
 admin.site.register(LevDataset)
 admin.site.register(LevDescription)
-admin.site.register(LevResolution)
 admin.site.register(LevScale)
 admin.site.register(KeyDataset)
 
