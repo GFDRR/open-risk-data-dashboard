@@ -145,7 +145,7 @@ class Dataset(models.Model):
     notes = models.CharField(max_length=4096, blank=True, null=False)
     tags = ArrayField(
             models.CharField(max_length=64, blank=True, null=True),
-        ),
+        )
 
     is_digital_form = models.BooleanField()
     is_pub_available = models.BooleanField()
