@@ -159,3 +159,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 EMAIL_HOST="localhost.localdomain"
 MAIL_SENDER="ordd@localhost.localdomain"
 
+try:
+    from ordd.local_settings import *
+except:
+    pass
