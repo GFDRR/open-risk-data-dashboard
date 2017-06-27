@@ -64,6 +64,7 @@ class ProfilePasswordUpdate(APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class RegistrationView(generics.CreateAPIView, generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = RegistrationSerializer
@@ -79,7 +80,8 @@ class RegistrationView(generics.CreateAPIView, generics.RetrieveAPIView):
         # in the other cases return a generic error for security reason
 
         detail = "user not exists, is already activated or passed key is wrong"
-        print("Request GET: username [%s] key [%s]" % (request.GET['username'], request.GET['key']))
+        print("Request GET: username [%s] key [%s]" % (request.GET['username'],
+              request.GET['key']))
         user = User.objects.filter(username=request.GET['username'])
 
         if len(user) != 1:
@@ -183,6 +185,12 @@ class ProfileDatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
     def get_queryset(self):
         return Dataset.objects.filter(
             owner=self.request.user)
+
+
+class DatasetListView(generics.ListAPIView):
+    """This class handles the GET requests of our rest api."""
+    queryset = Dataset.objects.all().order_by('country')
+    serializer_class = ProfileDatasetListSerializer
 
 
 class TagsListView(APIView):

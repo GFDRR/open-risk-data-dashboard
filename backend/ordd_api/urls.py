@@ -9,7 +9,7 @@ from .views import (
     ProfileDetails, ProfilePasswordUpdate,
     UserCreateView, UserDetailsView,
     RegistrationView, ProfileDatasetListCreateView, ProfileDatasetDetailsView,
-    TagsListView)
+    DatasetListView, TagsListView)
 
 from .keydatasets_views import (
     KeyDataset0on4ListView, KeyDataset1on4ListView, KeyDataset2on4ListView,
@@ -27,6 +27,7 @@ urlpatterns = [
         name="profile_dataset_listcreate"),
     url(r'^profile/dataset/(?P<pk>[0-9]+)$',
         ProfileDatasetDetailsView.as_view(), name="profile_dataset_details"),
+    url(r'^dataset/$', DatasetListView.as_view(), name="dataset_list"),
 
 
     url(r'^user/$', UserCreateView.as_view(), name="user_create"),
