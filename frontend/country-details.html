@@ -67,12 +67,12 @@
             </div>
 
             <!-- Content of page -->
-            <div class="col-xs-12 col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2">
+            <div class="col-xs-12 col-sm-12 col-md-11 col-md-offset-1 col-lg-10 col-lg-offset-2">
 
                 <div class="row ">
                     <!-- Menu versione mobile -->
                     <div class="col-xs-12 visible-xs">
-                        <div class="flex-container pull-right">
+                        <div class="flex-container title">
                             <h1 class="page_title ">{{countryData[0].desc}}</h1>
                             <mainmenu></mainmenu>
                         </div>
@@ -81,13 +81,13 @@
                     <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
                         <img ng-src="{{countryData[0].img}}" alt="Coutry Image" class="img-responsive" >
                     </div>
-                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-5">
                         <div class="hidden-xs">{{countryData[0].text}}</div>
                         <!--<span class="visible-xs">{{countryData[0].text}}</span>-->
                     </div>
-                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5 hidden-xs">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-5 hidden-xs">
 
-                        <div class="flex-container pull-right">
+                        <div class="flex-container title">
                             <h1 class="page_title ">{{countryData[0].desc}}</h1>
                             <mainmenu></mainmenu>
                         </div>
@@ -102,7 +102,7 @@
 
         <!-- Country Matrix -->
         <div class="row">
-            <div class="col-xs-12 col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2">
+            <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2">
 
                 <!-- row questions | column data type | click only on label data type: details datasets -->
                 <br />
@@ -121,7 +121,9 @@
                     <tbody>
                         <tr>
                             <th>&nbsp;</th> <!-- Indice generale -->
-                            <th class="text-center" ng-repeat="valHazard in hazardIndex"><span ng-class="{'matrix_green_value': valHazard[1] > 50, 'matrix_red_value': valHazard[1] <= 50}">{{valHazard[1]}}</span></th>
+                            <th class="text-center" ng-repeat="valHazard in hazardIndex">
+                                <span ng-class="{'matrix_green_value': valHazard[1] > 50, 'matrix_red_value': valHazard[1] <= 50}">{{valHazard[1]}}</span>
+                            </th>
                         </tr>
                         <tr ng-repeat="matrixRow in countryMatrix">
                             <td><strong>{{questionDesc(matrixRow[0])}}</strong></td>
@@ -143,9 +145,15 @@
     </div>
     <!--END Container fluid-->
 
-    <!-- Section FOOTER - INIZIO -->
-    <rodifooter></rodifooter>
-    <!-- Section FOOTER - FINE -->
+    <section>
+        <div class="footer">
+            <div class="space"></div>
+            <!-- Section FOOTER - INIZIO -->
+            <rodifooter></rodifooter>
+            <!-- Section FOOTER - FINE -->
+        </div>
+
+    </section>
 
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
