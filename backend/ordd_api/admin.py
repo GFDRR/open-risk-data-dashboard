@@ -15,6 +15,7 @@ class ProfilesInline(admin.StackedInline):
     can_delete = False
     verbose_name_plural = 'profiles'
 
+
 # Define a new User admin
 class UserAdmin(BaseUserAdmin):
     inlines = (ProfilesInline, )

@@ -130,21 +130,25 @@ class RegistrationSerializer(serializers.ModelSerializer):
                 user.save()
                 optin = OptIn(user=user)
                 optin.save()
-                subject = 'Open Risk Data Dashboard: registration for user %s' % user.username
-                reply_url = "https://%s/confirm_registration.html?username=%s&key=%s" % (
-                                        self.context['request'].get_host(),
-                                        user.username,
-                                        optin.key)
-                content_txt = '''To complete the registration to Open Risk Data Dashboard site
+                subject = ('Open Risk Data Dashboard: registration for user %s'
+                           % user.username)
+                reply_url = ("https://%s/confirm_registration.html?username=%s&key=%s"
+                             % (self.context['request'].get_host(),
+                                user.username,
+                                optin.key))
+                content_txt = ('''To complete the registration to Open Risk Data Dashboard site
 open this link in your favorite browser: %s .
 
-If you don't subscribe to this site, please ignore this message.''' % (reply_url, )
-                content_html = '''<div>To complete the registration to Open Risk Data Dashboard site<br>
+If you don't subscribe to this site, please ignore this message.'''
+                               % (reply_url, ))
+                content_html = ('''<div>To complete the registration to Open Risk Data Dashboard site<br>
 click here <a href="%s">%s</a><br>
 or open the link in your favorite browser.<br><br>
-If you don't subscribe to this site, please ignore this message.</div>''' % (reply_url, reply_url)
+If you don't subscribe to this site, please ignore this message.</div>'''
+                                % (reply_url, reply_url))
                 mailer(user.email, subject,
-                       {"title": subject, "content": content_txt}, {"title": subject, "content":content_html})
+                       {"title": subject, "content": content_txt},
+                       {"title": subject, "content": content_html})
         except IntegrityError:
             raise ValidationError({
                 'ret': 'Some DB error occurred.'
