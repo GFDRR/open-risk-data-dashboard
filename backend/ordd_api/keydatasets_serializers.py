@@ -3,6 +3,7 @@ from .models import (
     Category, LevDataset, LevDescription,
     LevScale, KeyDataset)
 
+
 class KeyCategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
@@ -84,5 +85,3 @@ class KeyDataset4on4Serializer(serializers.ModelSerializer):
     class Meta:
         model = KeyDataset
         fields = ('id', 'category', 'dataset', 'description', 'scale')
-
-

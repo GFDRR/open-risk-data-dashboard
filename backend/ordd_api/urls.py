@@ -38,7 +38,8 @@ urlpatterns = [
     url(r'^region/$', RegionListView.as_view(), name="region_list"),
 
     url(r'^country/$', CountryListView.as_view(), name="country_list"),
-    url(r'^country/(?P<pk>[A-Z]+)$', CountryDetailsView.as_view(), name="country_details"),
+    url(r'^country/(?P<pk>[A-Z]+)$', CountryDetailsView.as_view(),
+        name="country_details"),
 
     url(r'^keydataset/(?P<category>.+)/(?P<dataset>.+)/(?P<description>.+)/(?P<scale>.+)$',
         KeyDataset4on4ListView.as_view(), name="key_dataset4on4"),
@@ -48,7 +49,8 @@ urlpatterns = [
         KeyDataset2on4ListView.as_view(), name="key_dataset2on4"),
     url(r'^keydataset/(?P<category>.+)/$',
         KeyDataset1on4ListView.as_view(), name="key_dataset1on4"),
-    url(r'^keydataset/$', KeyDataset0on4ListView.as_view(), name="key_dataset0on4"),
+    url(r'^keydataset/$', KeyDataset0on4ListView.as_view(),
+        name="key_dataset0on4"),
 
     url(r'^tags/$', TagsListView.as_view(), name="tags_list"),
 

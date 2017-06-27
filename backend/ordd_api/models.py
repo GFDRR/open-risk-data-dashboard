@@ -128,14 +128,18 @@ class KeyDataset(models.Model):
         return (self.category, self.code)
 
     def __str__(self):
-        return "%s: %d - %s - %s - %s" % (self.category, self.code, self.dataset, self.description, self.scale)
+        return "%s: %d - %s - %s - %s" % (self.category, self.code,
+                                          self.dataset, self.description,
+                                          self.scale)
 
 
 class Dataset(models.Model):
-    owner = models.ForeignKey('auth.User', related_name='datasets', on_delete=models.CASCADE)
+    owner = models.ForeignKey('auth.User', related_name='datasets',
+                              on_delete=models.CASCADE)
 
     country = models.ForeignKey(Country, blank=False, null=False)
-    keydataset = models.ForeignKey(KeyDataset, blank=False, null=False, related_name='user_dataset')
+    keydataset = models.ForeignKey(KeyDataset, blank=False, null=False,
+                                   related_name='user_dataset')
 
     is_reviewed = models.BooleanField(default=False)
     review_date = models.DateTimeField(blank=True, null=True)

@@ -15,8 +15,9 @@ from .models import KeyDataset
 
 # import django_filters
 # class KeyDatasetFilter(django_filters.FilterSet):
-#     category = django_filters.CharFilter(name='category__name', distinct=True)
-
+#     category = django_filters.CharFilter(name='category__name',
+#                                          distinct=True)
+#
 #     class Meta:
 #         model = KeyDataset
 #         fields = ['category__name']
@@ -24,7 +25,8 @@ from .models import KeyDataset
 
 class KeyDataset0on4ListView(generics.ListAPIView):
     """This class handles the GET and POSt requests of our rest api."""
-    queryset = KeyDataset.objects.all().order_by("category").distinct("category")
+    queryset = (KeyDataset.objects.all().order_by("category")
+                .distinct("category"))
     serializer_class = KeyDataset0on4Serializer
 
 
