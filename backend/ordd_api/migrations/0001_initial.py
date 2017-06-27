@@ -43,7 +43,6 @@ class Migration(migrations.Migration):
                 ('create_time', models.DateTimeField(auto_now_add=True)),
                 ('modify_time', models.DateTimeField(auto_now=True)),
                 ('notes', models.CharField(blank=True, max_length=4096)),
-                ('tags', django.contrib.postgres.fields.ArrayField(base_field=models.CharField(blank=True, max_length=64, null=True), size=None)),
                 ('is_digital_form', models.BooleanField()),
                 ('is_pub_available', models.BooleanField()),
                 ('is_avail_for_free', models.BooleanField()),
@@ -184,5 +183,15 @@ class Migration(migrations.Migration):
             model_name='dataset',
             name='tag',
             field=models.ManyToManyField(to='ordd_api.Tag'),
+        ),
+        migrations.AlterField(
+            model_name='dataset',
+            name='tag',
+            field=models.ManyToManyField(blank=True, to='ordd_api.Tag'),
+        ),
+        migrations.AlterField(
+            model_name='dataset',
+            name='url',
+            field=models.ManyToManyField(blank=True, to='ordd_api.Url'),
         ),
     ]
