@@ -7,7 +7,7 @@ from django.db import transaction
 from django.db import IntegrityError
 from rest_framework import serializers
 from rest_framework.serializers import ValidationError
-from .models import Region, Country, Profile, OptIn, Dataset, Url
+from .models import Region, Country, Profile, OptIn, Dataset, Url, Tag
 
 from .keydatasets_serializers import KeyDataset4on4Serializer
 from .mailer import mailer
@@ -157,7 +157,7 @@ If you don't subscribe to this site, please ignore this message.</div>'''
         return user
 
 
-class CreateUrlSlugRelatedField(serializers.SlugRelatedField):
+class CreateSlugRelatedField(serializers.SlugRelatedField):
 
     def to_internal_value(self, data):
         try:
@@ -177,8 +177,10 @@ class ProfileDatasetListSerializer(serializers.ModelSerializer):
     country = serializers.SlugRelatedField(slug_field='iso2',
                                            queryset=Country.objects.all())
     keydataset = KeyDataset4on4Serializer(read_only=True)
-    url = CreateUrlSlugRelatedField(slug_field='url',
-                                    queryset=Url.objects.all(), many=True)
+    url = CreateSlugRelatedField(slug_field='url',
+                                 queryset=Url.objects.all(), many=True)
+    tag = CreateSlugRelatedField(slug_field='tag',
+                                 queryset=Tag.objects.all(), many=True)
 
     class Meta:
         model = Dataset
@@ -190,8 +192,10 @@ class ProfileDatasetListSerializer(serializers.ModelSerializer):
 class ProfileDatasetCreateSerializer(serializers.ModelSerializer):
     country = serializers.SlugRelatedField(slug_field='iso2',
                                            queryset=Country.objects.all())
-    url = CreateUrlSlugRelatedField(slug_field='url',
-                                    queryset=Url.objects.all(), many=True)
+    url = CreateSlugRelatedField(slug_field='url',
+                                 queryset=Url.objects.all(), many=True)
+    tag = CreateSlugRelatedField(slug_field='tag',
+                                 queryset=Tag.objects.all(), many=True)
 
     class Meta:
         model = Dataset
