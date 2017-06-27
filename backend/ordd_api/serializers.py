@@ -8,6 +8,7 @@ from django.db import IntegrityError
 from rest_framework import serializers
 from rest_framework.serializers import ValidationError
 from rest_framework.reverse import reverse
+from rest_framework.renderers import JSONRenderer
 from .models import Region, Country, Profile, OptIn, Dataset
 
 from .keydatasets_serializers import KeyDataset4on4Serializer
@@ -165,10 +166,3 @@ class ProfileDatasetCreateSerializer(serializers.ModelSerializer):
         model = Dataset
         fields = '__all__'
         read_only_fields = ('owner', 'changed_by', 'create_time', 'modify_time', 'is_reviewed')
-
-
-class TagsSerializer(serializers.ModelSerializer):
-    """Serializer of Tags"""
-    class Meta:
-        model = Dataset
-        fields = ('tags',)

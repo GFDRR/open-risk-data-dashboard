@@ -13,7 +13,7 @@ from .serializers import (
     ProfileSerializer, UserSerializer, RegistrationSerializer,
     ChangePasswordSerializer,
     ProfileDatasetListSerializer, ProfileDatasetCreateSerializer,
-    TagsSerializer)
+    )
 from .models import Region, Country, OptIn, Dataset
 
 
@@ -185,11 +185,19 @@ class ProfileDatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
             owner=self.request.user)
 
 
-class TagsListView(generics.ListAPIView):
-    """This class handles the GET requests of our rest api."""
-    queryset = (Dataset.objects.values('tags')
-                .annotate(tags_list=Func(F('tags'), function='unnest'))
-                .values_list('tags_list', flat=True)
-                .distinct())
+class MyOwnView(APIView):
+    def get(self, request):
+        return Response({'some': 'data'})
 
-    serializer_class = TagsSerializer
+
+class TagsListView(APIView):
+    """This class handles the GET requests of our rest api."""
+
+    def get_queryset(self):
+        return list(Dataset.objects.values('tags')
+                    .annotate(tags_list=Func(F('tags'), function='unnest'))
+                    .values_list('tags_list', flat=True)
+                    .distinct())
+
+    def get(self, request):
+        return Response({'tags': self.get_queryset()})
