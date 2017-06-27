@@ -133,6 +133,13 @@ class KeyDataset(models.Model):
                                           self.scale)
 
 
+class Url(models.Model):
+    url = models.URLField(max_length=4096, blank=True)
+
+    def __str__(self):
+        return self.url
+
+
 class Dataset(models.Model):
     owner = models.ForeignKey('auth.User', related_name='datasets',
                               on_delete=models.CASCADE)
@@ -155,8 +162,7 @@ class Dataset(models.Model):
     is_digital_form = models.BooleanField()
     is_pub_available = models.BooleanField()
     is_avail_for_free = models.BooleanField()
-    data_url = models.URLField(max_length=4096, blank=True, null=True)
-    metadata_url = models.URLField(max_length=4096, blank=True, null=True)
+    url = models.ManyToManyField(Url)
     is_machine_read = models.BooleanField()
     is_bulk_avail = models.BooleanField()
     is_open_licence = models.BooleanField()
