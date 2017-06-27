@@ -5,16 +5,15 @@ from rest_framework.response import Response
 from rest_framework.exceptions import NotFound
 # from django_filters.rest_framework import DjangoFilterBackend
 # import django_filters.rest_framework
-from django.db.models import Func, F
 from django.contrib.auth.models import User
 
 from .serializers import (
     RegionSerializer, CountrySerializer,
     ProfileSerializer, UserSerializer, RegistrationSerializer,
     ChangePasswordSerializer,
-    ProfileDatasetListSerializer, ProfileDatasetCreateSerializer,
+    ProfileDatasetListSerializer, ProfileDatasetCreateSerializer
     )
-from .models import Region, Country, OptIn, Dataset
+from .models import Region, Country, OptIn, Dataset, Tag
 
 
 # class IsOwner(permissions.BasePermission):
@@ -193,14 +192,11 @@ class DatasetListView(generics.ListAPIView):
     serializer_class = ProfileDatasetListSerializer
 
 
-class TagsListView(APIView):
+class TagListView(APIView):
     """This class handles the GET requests of our rest api."""
 
     def get_queryset(self):
-        return list(Dataset.objects.values('tags')
-                    .annotate(tags_list=Func(F('tags'), function='unnest'))
-                    .values_list('tags_list', flat=True)
-                    .distinct())
+        return list(Tag.objects.values_list('tag', flat=True).distinct())
 
     def get(self, request):
         return Response({'tags': self.get_queryset()})

@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from .models import (
     Profile, OptIn,
     Category, LevDataset, LevDescription, LevScale, Peril, KeyDataset,
-    Dataset)
+    Dataset, Url, Tag)
 
 
 # Define an inline admin descriptor for Employee model
@@ -31,5 +31,7 @@ admin.site.register(LevDataset)
 admin.site.register(LevDescription)
 admin.site.register(LevScale)
 admin.site.register(KeyDataset)
+admin.site.register(Url)
+admin.site.register(Tag)
 
 admin.site.register(Dataset)
