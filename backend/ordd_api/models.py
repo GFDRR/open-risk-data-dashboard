@@ -161,7 +161,6 @@ class Dataset(models.Model):
     modify_time = models.DateTimeField(auto_now=True)
     changed_by = models.ForeignKey('auth.User', blank=True, null=True)
     notes = models.CharField(max_length=4096, blank=True, null=False)
-    # ref: https://docs.djangoproject.com/en/1.11/ref/contrib/postgres/fields/#arrayfield
     tag = models.ManyToManyField(Tag)
     is_digital_form = models.BooleanField()
     is_pub_available = models.BooleanField()
