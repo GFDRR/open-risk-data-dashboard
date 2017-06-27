@@ -185,11 +185,6 @@ class ProfileDatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
             owner=self.request.user)
 
 
-class MyOwnView(APIView):
-    def get(self, request):
-        return Response({'some': 'data'})
-
-
 class TagsListView(APIView):
     """This class handles the GET requests of our rest api."""
 
