@@ -25,8 +25,8 @@ from .models import KeyDataset
 
 class KeyDataset0on4ListView(generics.ListAPIView):
     """This class handles the GET and POSt requests of our rest api."""
-    queryset = (KeyDataset.objects.all().order_by("category")
-                .distinct("category"))
+    queryset = (KeyDataset.objects.all().order_by("scale")
+                .distinct("scale"))
     serializer_class = KeyDataset0on4Serializer
 
 
@@ -35,10 +35,10 @@ class KeyDataset1on4ListView(generics.ListAPIView):
     serializer_class = KeyDataset1on4Serializer
 
     def get_queryset(self):
-        category = self.kwargs['category']
+        scale = self.kwargs['scale']
 
         return KeyDataset.objects.filter(
-            category=category).order_by("dataset").distinct("dataset")
+            scale=scale).order_by("category").distinct("category")
 
 
 class KeyDataset2on4ListView(generics.ListAPIView):
@@ -46,12 +46,16 @@ class KeyDataset2on4ListView(generics.ListAPIView):
     serializer_class = KeyDataset2on4Serializer
 
     def get_queryset(self):
+        scale = self.kwargs['scale']
         category = self.kwargs['category']
-        dataset = self.kwargs['dataset']
 
-        return KeyDataset.objects.filter(
-            category=category,
-            dataset=dataset).order_by("description").distinct("description")
+        filters = {'scale': scale}
+
+        if category > '0':
+            filters['category'] = category
+
+        return (KeyDataset.objects.filter(**filters)
+                .order_by("dataset").distinct("dataset"))
 
 
 class KeyDataset3on4ListView(generics.ListAPIView):
@@ -59,16 +63,19 @@ class KeyDataset3on4ListView(generics.ListAPIView):
     serializer_class = KeyDataset3on4Serializer
 
     def get_queryset(self):
+        scale = self.kwargs['scale']
         category = self.kwargs['category']
         dataset = self.kwargs['dataset']
-        description = self.kwargs['description']
 
-        filters = {'category': category,
-                   'dataset': dataset,
-                   'description': description}
+        filters = {'scale': scale}
+
+        if category > '0':
+            filters['category'] = category
+        if dataset > '0':
+            filters['dataset'] = dataset
 
         qs = KeyDataset.objects.filter(**filters).order_by(
-            "scale").distinct("scale")
+            "description").distinct("description")
 
         return qs
 
@@ -78,15 +85,19 @@ class KeyDataset4on4ListView(generics.ListAPIView):
     serializer_class = KeyDataset4on4Serializer
 
     def get_queryset(self):
+        scale = self.kwargs['scale']
         category = self.kwargs['category']
         dataset = self.kwargs['dataset']
         description = self.kwargs['description']
-        scale = self.kwargs['scale']
 
-        filters = {'category': category,
-                   'dataset': dataset,
-                   'description': description,
-                   'scale': scale}
+        filters = {'scale': scale}
+
+        if category > '0':
+            filters['category'] = category
+        if dataset > '0':
+            filters['dataset'] = dataset
+        if description > '0':
+            filters['description'] = description
 
         qs = KeyDataset.objects.filter(**filters)
 
