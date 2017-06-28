@@ -29,7 +29,7 @@ class KeyLevDescriptionSerializer(serializers.ModelSerializer):
 
 
 class KeyDataset0on4Serializer(serializers.ModelSerializer):
-    """Partial serializer of key datasets -> categories """
+    """Partial serializer of key datasets -> scale """
 
     scale = KeyLevScaleSerializer()
 
@@ -39,7 +39,7 @@ class KeyDataset0on4Serializer(serializers.ModelSerializer):
 
 
 class KeyDataset1on4Serializer(serializers.ModelSerializer):
-    """Partial serializer of key datasets filtered by category -> datasets"""
+    """Partial serializer of key datasets filtered by scale -> category"""
 
     scale = serializers.SlugRelatedField(
         read_only=True, slug_field='name')
@@ -51,8 +51,8 @@ class KeyDataset1on4Serializer(serializers.ModelSerializer):
 
 
 class KeyDataset2on4Serializer(serializers.ModelSerializer):
-    """Partial serializer of key datasets filtered by category
- and dataset -> descriptions"""
+    """Partial serializer of key datasets filtered by scale and
+       category -> dataset"""
 
     scale = serializers.SlugRelatedField(
         read_only=True, slug_field='name')
@@ -66,8 +66,8 @@ class KeyDataset2on4Serializer(serializers.ModelSerializer):
 
 
 class KeyDataset3on4Serializer(serializers.ModelSerializer):
-    """Partial serializer of key datasets filtered by category,
- dataset and description -> scales"""
+    """Partial serializer of key datasets filtered by scale, category,
+       and dataset -> description"""
 
     scale = serializers.SlugRelatedField(
         read_only=True, slug_field='name')
@@ -83,8 +83,8 @@ class KeyDataset3on4Serializer(serializers.ModelSerializer):
 
 
 class KeyDataset4on4Serializer(serializers.ModelSerializer):
-    """Serializer of key datasets filtered by category, dataset, description
- and scale"""
+    """Serializer of key datasets filtered by scale, category, dataset,
+       description"""
     scale = serializers.SlugRelatedField(
         read_only=True, slug_field='name')
     category = serializers.SlugRelatedField(
