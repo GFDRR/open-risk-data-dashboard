@@ -192,6 +192,12 @@ class DatasetListView(generics.ListAPIView):
     serializer_class = ProfileDatasetListSerializer
 
 
+class DatasetDetailsView(generics.RetrieveAPIView):
+    """This class handles the GET requests of our rest api."""
+    queryset = Dataset.objects.all()
+    serializer_class = ProfileDatasetListSerializer
+
+
 class TagListView(APIView):
     """This class handles the GET requests of our rest api."""
 
