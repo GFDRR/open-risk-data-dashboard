@@ -177,10 +177,10 @@ class ProfileDatasetListSerializer(serializers.ModelSerializer):
     country = serializers.SlugRelatedField(slug_field='iso2',
                                            queryset=Country.objects.all())
     keydataset = KeyDataset4on4Serializer(read_only=True)
-    url = CreateSlugRelatedField(slug_field='url',
-                                 queryset=Url.objects.all(), many=True)
-    tag = CreateSlugRelatedField(slug_field='tag',
-                                 queryset=Tag.objects.all(), many=True)
+    url = serializers.SlugRelatedField(slug_field='url',
+                                       queryset=Url.objects.all(), many=True)
+    tag = serializers.SlugRelatedField(slug_field='tag',
+                                       queryset=Tag.objects.all(), many=True)
 
     class Meta:
         model = Dataset
