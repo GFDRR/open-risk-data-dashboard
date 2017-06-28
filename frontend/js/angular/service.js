@@ -350,12 +350,12 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
     // ************ KEYDATASET LIST ********* //
     // ************************************** //
 
-    this.getHazardCategory = function(token, onSuccess, onError)
+    this.getDataCategory = function(scale_id, onSuccess, onError)
     {
         // Return a list of Hazard Macro Category
         var req = {
             method: 'GET',
-            url: baseAPIurl + 'keydataset/',
+            url: baseAPIurl + 'keydataset/' + scale_id + '/',
             headers: {
                 // 'Authorization': 'Token ' + token
             },
@@ -385,13 +385,13 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         return obj[index];
     }
 
-    this.getDatasetName = function(hcId, onSuccess, onError)
+    this.getDatasetCategory = function(scale_id, data_cat, onSuccess, onError)
     {
         // Return a list of dataset name
 
         var req = {
             method: 'GET',
-            url: baseAPIurl + 'keydataset/' + hcId + '/',
+            url: baseAPIurl + 'keydataset/' + scale_id + '/' + data_cat + '/',
             headers: {
                 // 'Authorization': 'Token ' + token
             },
@@ -405,11 +405,11 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         });
     }
 
-    this.getDatasetDescription = function(hcId, dsId, onSuccess, onError)
+    this.getDatasetDescription = function(scale_id, data_cat, dataset_cat, onSuccess, onError)
     {
         var req = {
             method: 'GET',
-            url: baseAPIurl + 'keydataset/' + hcId + '/' + dsId + '/',
+            url: baseAPIurl + 'keydataset/' + scale_id + '/' + data_cat + '/' + dataset_cat + '/',
             headers: {
                 // 'Authorization': 'Token ' + token
             },
@@ -423,11 +423,47 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         });
     }
 
-    this.getDatasetResolution = function(hcId, dsId, dsDescId, onSuccess, onError)
+    // this.getDatasetResolution = function(hcId, dsId, dsDescId, onSuccess, onError)
+    // {
+    //     var req = {
+    //         method: 'GET',
+    //         url: baseAPIurl + 'keydataset/' + hcId + '/' + dsId + '/' + dsDescId + '/',
+    //         headers: {
+                // 'Authorization': 'Token ' + token
+            // },
+            // data: {}
+        // }
+        //
+        // $http(req).then(function(data){
+        //     if(onSuccess) onSuccess(data.data);
+        // }, function(data){
+        //     if(onError)onError(data.data);
+        // });
+    // }
+
+    this.getDatasetScale = function(onSuccess, onError)
     {
         var req = {
             method: 'GET',
-            url: baseAPIurl + 'keydataset/' + hcId + '/' + dsId + '/' + dsDescId + '/',
+            url: baseAPIurl + 'keydataset/',
+            headers: {
+                // 'Authorization': 'Token ' + token
+            },
+            data: {}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+    }
+
+    this.getDatasetTags = function(onSuccess, onError)
+    {
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'tags/',
             headers: {
                 // 'Authorization': 'Token ' + token
             },
@@ -448,10 +484,10 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
          */
 
         return objQuestions = [
-                {code: "q01", desc:"Does the data exist?"},
+                {code: "is_existing", desc:"Does the data exist?"},
                 {code: "is_digital_form", desc:"Is data in digital form?"},
-                {code: "q03", desc:"Is the data available online?"},
-                {code: "q04", desc:"Is the metadata available online?"},
+                {code: "is_avail_online", desc:"Is the data available online?"},
+                {code: "is_avail_online_meta", desc:"Is the metadata available online?"},
                 {code: "is_bulk_avail", desc:"Available in bulk?"},
                 {code: "is_machine_read", desc:"Is the data machine- readable?"},
                 {code: "is_pub_available", desc:"Publicly available?"},
@@ -465,95 +501,61 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
     {
         /* return a Dataset list structure empty for new dataset contributor. */
 
-        return obj = {
-            name:"",
-            abstract:"",
-            country: "--",
-            notes: "",
-            is_digital_form: "", //9
-            is_pub_available: "--", //14
-            is_avail_for_free: "", //15
-            is_machine_read: "", //13
-            is_bulk_avail:"", //12
-            is_open_licence:"", //16
-            is_prov_timely:"", //17
-            data_url: "",
-            metadata_url: "",
-
-            // temp fileds
-            hazard:"--",
-
-
-            owner:"",
-            is_reviewed: false,
-            review_date: new Date(),
-            create_time: new Date(),
-            modify_time: new Date(),
-            keydataset:{
-                id:0,
-                category: "--",
-                dataset:"--",
-                description:"--",
-                resolution:"0",
-                scale:"0"
-            },
-            changed_by:""
+        return obj =
+            {
+                changed_by:null,
+                country: "--",
+                create_time:null,
+                id:-999,
+                is_avail_for_free: "", //15
+                is_avail_online: "", //
+                is_avail_online_meta: "", //
+                is_bulk_avail:"", //12
+                is_digital_form: "", //9
+                is_existing:"",
+                is_machine_read: "", //13
+                is_open_licence:"", //16
+                is_prov_timely:"", //17
+                is_pub_available: "--", //14
+                is_reviewed: false,
+                keydataset:{
+                    category: "--",
+                    dataset:"--",
+                    description:"--",
+                    id:-999,
+                    scale:"2"
+                },
+                modify_time: new Date(),
+                notes: "",
+                owner:"",
+                review_date:null,
+                tag:[],
+                url:[]
             }
 
     }
 
-    this.getDatasetList = function(countryCode)
+    this.getDatasetList_bycountry = function(countryCode, onSuccess, onError)
     {
         /*
             return a Dataset list for country.
             param.: country code (ex: IT)
-
-            obj = [
-            {
-                "code": "datasetcode",
-                 name: "",
-                 abstract: "",
-                 dataset_type: "--",
-                 resolution: "--",
-                "country": "country code",
-                "hazard_category": "hazard category code",
-                 hazard: "--",
-                "usr_ins": "user name insert",
-                "data_ins": "datatime insert",
-                "status": "0 or 1", -> 0: not validate | 1: validate
-                "data_validate": "datatime validation",
-                "questions":
-                {
-                    "questioncode": "value", -> value = Yes, No or not available
-                    "questioncode": "value",
-                    "questioncode": "value",
-                    ...
-                },
-                "link_dataset": "link text",
-                "link_metadata": "link text"
-            },
-             {
-                 "code": "datasetcode",
-                 "country": "country code",
-                 "hazard_category": "hazard category code",
-                 "usr_ins": "user name insert",
-                 "data_ins": "datatime insert",
-                 "status": "0 or 1", -> 0: not validate | 1: validate
-                 "data_validate": "datatime validation",
-                 "questions":
-                 {
-                 "questioncode": "value", -> value = Yes, No or not available
-                 "questioncode": "value",
-                 "questioncode": "value",
-                 ...
-                 },
-                 "link_dataset": "link text",
-                 "link_metadata": "link text"
-             },
-             ...
-            ]
-
         */
+
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'dataset/',
+            headers: {
+                // 'Authorization': 'Token ' + token
+            },
+            data: {}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data);
+        }, function(data){
+            if(onError)onError(data);
+        });
 
     }
 
@@ -610,7 +612,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         $http(req).then(function(data){
             if(onSuccess) onSuccess(data.data);
         }, function(data){
-            if(onError)onError(data.data);
+            if(onError)onError(data);
         });
     }
 
