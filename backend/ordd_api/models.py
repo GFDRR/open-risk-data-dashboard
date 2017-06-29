@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from randstr import randstr
-from django.contrib.postgres.fields import ArrayField
 
 
 class Profile(models.Model):
@@ -163,13 +162,32 @@ class Dataset(models.Model):
     notes = models.CharField(max_length=4096, blank=True, null=False)
     url = models.ManyToManyField(Url, blank=True)
     is_existing = models.BooleanField()
+    is_existing_txt = models.CharField(max_length=256, blank=True, null=False)
     is_digital_form = models.BooleanField()
+    is_digital_form_txt = models.CharField(max_length=256,
+                                           blank=True, null=False)
     is_avail_online = models.BooleanField()
+    is_avail_online_txt = models.CharField(max_length=256,
+                                           blank=True, null=False)
     is_avail_online_meta = models.BooleanField()
+    is_avail_online_meta_txt = models.CharField(max_length=256,
+                                                blank=True, null=False)
     is_bulk_avail = models.BooleanField()
+    is_bulk_avail_txt = models.CharField(max_length=256,
+                                         blank=True, null=False)
     is_machine_read = models.BooleanField()
+    is_machine_read_txt = models.CharField(max_length=256,
+                                           blank=True, null=False)
     is_pub_available = models.BooleanField()
+    is_pub_available_txt = models.CharField(max_length=256,
+                                            blank=True, null=False)
     is_avail_for_free = models.BooleanField()
+    is_avail_for_free_txt = models.CharField(max_length=256,
+                                             blank=True, null=False)
     is_open_licence = models.BooleanField()
+    is_open_licence_txt = models.CharField(max_length=256,
+                                           blank=True, null=False)
     is_prov_timely = models.BooleanField()
+    is_prov_timely_txt = models.CharField(max_length=256,
+                                          blank=True, null=False)
     tag = models.ManyToManyField(Tag, blank=True)
