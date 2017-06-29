@@ -159,7 +159,7 @@ class Dataset(models.Model):
     create_time = models.DateTimeField(auto_now_add=True)
     modify_time = models.DateTimeField(auto_now=True)
     changed_by = models.ForeignKey('auth.User', blank=True, null=True)
-    notes = models.CharField(max_length=4096, blank=True, null=False)
+    notes = models.TextField(blank=True, null=False)
     url = models.ManyToManyField(Url, blank=True)
     is_existing = models.BooleanField()
     is_existing_txt = models.CharField(max_length=256, blank=True, null=False)
