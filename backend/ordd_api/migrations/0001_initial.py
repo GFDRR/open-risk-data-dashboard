@@ -181,7 +181,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='dataset',
             name='elements',
-            field=models.ManyToManyField(blank=True, to='ordd_api.Tag'),
+            field=models.ManyToManyField(blank=True, to='ordd_api.Element'),
         ),
         migrations.AddField(
             model_name='dataset',
