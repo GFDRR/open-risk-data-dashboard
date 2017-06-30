@@ -224,6 +224,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='dataset',
             name='is_prov_timely_last',
-            field=models.DateTimeField(blank=True, max_length=256, null=True),
+            field=models.CharField(blank=True, max_length=128),
         ),
     ]

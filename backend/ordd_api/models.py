@@ -176,6 +176,6 @@ class Dataset(models.Model):
     is_open_licence_txt = models.CharField(max_length=256,
                                            blank=True, null=False)
     is_prov_timely = models.BooleanField()
-    is_prov_timely_last = models.DateTimeField(max_length=256,
-                                               blank=True, null=True)
+    is_prov_timely_last = models.CharField(max_length=128,
+                                           blank=True, null=False)
     elements = models.ManyToManyField(Element, blank=True)
