@@ -13,7 +13,7 @@ from .serializers import (
     ChangePasswordSerializer,
     ProfileDatasetListSerializer, ProfileDatasetCreateSerializer
     )
-from .models import Region, Country, OptIn, Dataset, Tag
+from .models import Region, Country, OptIn, Dataset, Element
 
 
 # class IsOwner(permissions.BasePermission):
@@ -198,11 +198,11 @@ class DatasetDetailsView(generics.RetrieveAPIView):
     serializer_class = ProfileDatasetListSerializer
 
 
-class TagListView(APIView):
+class ElementListView(APIView):
     """This class handles the GET requests of our rest api."""
 
     def get_queryset(self):
-        return list(Tag.objects.values_list('tag', flat=True).distinct())
+        return list(Element.objects.values_list('name', flat=True).distinct())
 
     def get(self, request):
-        return Response({'tags': self.get_queryset()})
+        return Response({'elements': self.get_queryset()})
