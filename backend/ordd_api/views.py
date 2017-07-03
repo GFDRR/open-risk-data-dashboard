@@ -11,8 +11,9 @@ from .serializers import (
     RegionSerializer, CountrySerializer,
     ProfileSerializer, UserSerializer, RegistrationSerializer,
     ChangePasswordSerializer,
-    ProfileDatasetListSerializer, ProfileDatasetCreateSerializer)
-from .models import Region, Country, OptIn, Dataset
+    ProfileDatasetListSerializer, ProfileDatasetCreateSerializer
+    )
+from .models import Region, Country, OptIn, Dataset, Element
 
 
 # class IsOwner(permissions.BasePermission):
@@ -62,6 +63,7 @@ class ProfilePasswordUpdate(APIView):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
 class RegistrationView(generics.CreateAPIView, generics.RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = RegistrationSerializer
@@ -77,7 +79,8 @@ class RegistrationView(generics.CreateAPIView, generics.RetrieveAPIView):
         # in the other cases return a generic error for security reason
 
         detail = "user not exists, is already activated or passed key is wrong"
-        print("Request GET: username [%s] key [%s]" % (request.GET['username'], request.GET['key']))
+        print("Request GET: username [%s] key [%s]" % (request.GET['username'],
+              request.GET['key']))
         user = User.objects.filter(username=request.GET['username'])
 
         if len(user) != 1:
@@ -102,6 +105,7 @@ class RegistrationView(generics.CreateAPIView, generics.RetrieveAPIView):
 
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
 class RegionListView(generics.ListAPIView):
     """This class handles the GET and POSt requests of our rest api."""
     queryset = Region.objects.all()
@@ -119,6 +123,7 @@ class CountryDetailsView(generics.RetrieveAPIView):
     queryset = Country.objects.all()
     serializer_class = CountrySerializer
 
+
 class UserCreateView(generics.ListCreateAPIView):
     """This class handles the GET and POSt requests of our rest api."""
     queryset = User.objects.all()
@@ -128,12 +133,14 @@ class UserCreateView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save()
 
+
 class UserDetailsView(generics.RetrieveUpdateDestroyAPIView):
     """This class handles GET, PUT, PATCH and DELETE requests."""
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (permissions.IsAdminUser,)
+
 
 class IsOwner(permissions.BasePermission):
     """
@@ -162,6 +169,7 @@ class ProfileDatasetListCreateView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user, changed_by=self.request.user)
 
+
 class ProfileDatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = ProfileDatasetListSerializer
     permission_classes = (IsOwner, )
@@ -177,3 +185,24 @@ class ProfileDatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
         return Dataset.objects.filter(
             owner=self.request.user)
 
+
+class DatasetListView(generics.ListAPIView):
+    """This class handles the GET requests of our rest api."""
+    queryset = Dataset.objects.all().order_by('country')
+    serializer_class = ProfileDatasetListSerializer
+
+
+class DatasetDetailsView(generics.RetrieveAPIView):
+    """This class handles the GET requests of our rest api."""
+    queryset = Dataset.objects.all()
+    serializer_class = ProfileDatasetListSerializer
+
+
+class ElementListView(APIView):
+    """This class handles the GET requests of our rest api."""
+
+    def get_queryset(self):
+        return list(Element.objects.values_list('name', flat=True).distinct())
+
+    def get(self, request):
+        return Response({'elements': self.get_queryset()})

@@ -7,10 +7,9 @@ from django.db import transaction
 from django.db import IntegrityError
 from rest_framework import serializers
 from rest_framework.serializers import ValidationError
-from rest_framework.reverse import reverse
-from .models import Region, Country, Profile, OptIn, Dataset
+from .models import Region, Country, Profile, OptIn, Dataset, Url, Element
 
-from .keydatasets_serializers import KeyDataset5on5Serializer
+from .keydatasets_serializers import KeyDataset4on4Serializer
 from .mailer import mailer
 
 
@@ -36,12 +35,14 @@ class GroupsRelatedField(serializers.StringRelatedField):
 class ProfileSerializer(serializers.ModelSerializer):
     # A field from the user's profile:
     title = serializers.CharField(source='profile.title', allow_blank=True)
-    institution = serializers.CharField(source='profile.institution', allow_blank=True)
+    institution = serializers.CharField(source='profile.institution',
+                                        allow_blank=True)
     groups = GroupsRelatedField(many=True, read_only=True)
 
     class Meta:
         model = User
-        fields = ('pk', 'username', 'first_name', 'last_name', 'email', 'groups', 'title', 'institution')
+        fields = ('pk', 'username', 'first_name', 'last_name', 'email',
+                  'groups', 'title', 'institution')
         read_only_fields = ('pk', 'username', 'groups', 'is_staff')
         extra_kwargs = {'password': {'write_only': True}}
 
@@ -78,12 +79,14 @@ class ChangePasswordSerializer(serializers.Serializer):
 class UserSerializer(serializers.ModelSerializer):
     # A field from the user's profile:
     title = serializers.CharField(source='profile.title', allow_blank=True)
-    institution = serializers.CharField(source='profile.institution', allow_blank=True)
+    institution = serializers.CharField(source='profile.institution',
+                                        allow_blank=True)
     groups = GroupsRelatedField(many=True)
 
     class Meta:
         model = User
-        fields = ('pk', 'username', 'first_name', 'last_name', 'email', 'groups', 'is_staff', 'title', 'institution')
+        fields = ('pk', 'username', 'first_name', 'last_name', 'email',
+                  'groups', 'is_staff', 'title', 'institution')
         read_only_fields = ('pk', )
 
     def create(self, validated_data):
@@ -109,7 +112,9 @@ class RegistrationSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'password', 'is_active', 'email')
-        extra_kwargs = {'password': {'write_only': True}, 'is_active': {'write_only': True}, 'email': {'write_only': True}}
+        extra_kwargs = {'password': {'write_only': True},
+                        'is_active': {'write_only': True},
+                        'email': {'write_only': True}}
 
     def create(self, validated_data):
         try:
@@ -125,21 +130,25 @@ class RegistrationSerializer(serializers.ModelSerializer):
                 user.save()
                 optin = OptIn(user=user)
                 optin.save()
-                subject = 'Open Risk Data Dashboard: registration for user %s' % user.username
-                reply_url = "https://%s/confirm_registration.html?username=%s&key=%s" % (
-                                        self.context['request'].get_host(),
-                                        user.username,
-                                        optin.key)
-                content_txt = '''To complete the registration to Open Risk Data Dashboard site
+                subject = ('Open Risk Data Dashboard: registration for user %s'
+                           % user.username)
+                reply_url = ("https://%s/confirm_registration.html?username=%s&key=%s"
+                             % (self.context['request'].get_host(),
+                                user.username,
+                                optin.key))
+                content_txt = ('''To complete the registration to Open Risk Data Dashboard site
 open this link in your favorite browser: %s .
 
-If you don't subscribe to this site, please ignore this message.''' % (reply_url, )
-                content_html = '''<div>To complete the registration to Open Risk Data Dashboard site<br>
+If you don't subscribe to this site, please ignore this message.'''
+                               % (reply_url, ))
+                content_html = ('''<div>To complete the registration to Open Risk Data Dashboard site<br>
 click here <a href="%s">%s</a><br>
 or open the link in your favorite browser.<br><br>
-If you don't subscribe to this site, please ignore this message.</div>''' % (reply_url, reply_url)
+If you don't subscribe to this site, please ignore this message.</div>'''
+                                % (reply_url, reply_url))
                 mailer(user.email, subject,
-                       {"title": subject, "content":content_txt}, {"title": subject, "content":content_html})
+                       {"title": subject, "content": content_txt},
+                       {"title": subject, "content": content_html})
         except IntegrityError:
             raise ValidationError({
                 'ret': 'Some DB error occurred.'
@@ -147,22 +156,51 @@ If you don't subscribe to this site, please ignore this message.</div>''' % (rep
 
         return user
 
+
+class CreateSlugRelatedField(serializers.SlugRelatedField):
+
+    def to_internal_value(self, data):
+        try:
+            return (self.get_queryset()
+                    .get_or_create(**{self.slug_field: data})[0])
+        except django.core.exceptions.ObjectDoesNotExist:
+            self.fail('does_not_exist', slug_name=self.slug_field, value=data)
+        except (TypeError, ValueError):
+            self.fail('invalid')
+
+
 class ProfileDatasetListSerializer(serializers.ModelSerializer):
-    owner = serializers.SlugRelatedField(slug_field='username', queryset=User.objects.all())
-    changed_by = serializers.SlugRelatedField(slug_field='username', queryset=User.objects.all())
-    country = serializers.SlugRelatedField(slug_field='iso2', queryset=Country.objects.all())
-    keydataset = KeyDataset5on5Serializer(read_only=True)
+    owner = serializers.SlugRelatedField(slug_field='username',
+                                         queryset=User.objects.all())
+    changed_by = serializers.SlugRelatedField(slug_field='username',
+                                              queryset=User.objects.all())
+    country = serializers.SlugRelatedField(slug_field='iso2',
+                                           queryset=Country.objects.all())
+    keydataset = KeyDataset4on4Serializer(read_only=True)
+    url = serializers.SlugRelatedField(slug_field='url',
+                                       queryset=Url.objects.all(), many=True)
+    elements = serializers.SlugRelatedField(slug_field='name',
+                                            queryset=Element.objects.all(),
+                                            many=True)
 
     class Meta:
         model = Dataset
         fields = '__all__'
-        read_only_fields = ('owner', 'changed_by', 'create_time', 'modify_time', 'is_reviewed')
+        read_only_fields = ('owner', 'changed_by', 'create_time',
+                            'modify_time', 'is_reviewed')
+
 
 class ProfileDatasetCreateSerializer(serializers.ModelSerializer):
-    country = serializers.SlugRelatedField(slug_field='iso2', queryset=Country.objects.all())
+    country = serializers.SlugRelatedField(slug_field='iso2',
+                                           queryset=Country.objects.all())
+    url = CreateSlugRelatedField(slug_field='url',
+                                 queryset=Url.objects.all(), many=True)
+    elements = serializers.SlugRelatedField(slug_field='name',
+                                            queryset=Element.objects.all(),
+                                            many=True)
 
     class Meta:
         model = Dataset
         fields = '__all__'
-        read_only_fields = ('owner', 'changed_by', 'create_time', 'modify_time', 'is_reviewed')
-
+        read_only_fields = ('owner', 'changed_by', 'create_time',
+                            'modify_time', 'is_reviewed')
