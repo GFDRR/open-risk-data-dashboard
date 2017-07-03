@@ -12,14 +12,16 @@ USAGE
 EXAMPLE 
     if you want to process this set of files:
 
-        OpenDataDashboard_levels_v6__Basic_Data.csv
-        OpenDataDashboard_levels_v6__Exposure.csv
-        OpenDataDashboard_levels_v6__Hazard.csv
-        OpenDataDashboard_levels_v6__Risk.csv
-        OpenDataDashboard_levels_v6__Vulnerability.csv
+        OpenDataDashboard_levels_v7__Basic_Data.csv
+        OpenDataDashboard_levels_v7__Exposure.csv
+        OpenDataDashboard_levels_v7__Hazard.csv
+        OpenDataDashboard_levels_v7__Risk.csv
+        OpenDataDashboard_levels_v7__Vulnerability.csv
+        _or_
+        OpenDataDashboard_levels_v7__Combined.csv
 
     call:
-        $0 OpenDataDashboard_levels_v6
+        $0 OpenDataDashboard_levels_v7
     
 EOF
     exit $1
@@ -36,10 +38,7 @@ fi
 
 IFS='
 '
-rm -f levels.csv
-touch levels.csv
+rm -f kd-datasets.csv
 for f in $(ls ${1}__*.csv); do
-    name="$(echo "$f" | sed 's/.*__//g;s/\.csv$//g' | tr '_' ' ')"
-    fname="$(echo "$name" | tr 'A-Z' 'a-z' | tr ' ' '_')"
-    cat "$f" | tail -n +3 | grep -v '^[0-9]*,*$' | sed "s/^/$name,/g;s/$/,10/g" >> kd-datasets.csv
+    cat "$f" | tail -n +3 | grep -v '^[0-9]*,*$' | sed "s/$/,10/g" >> kd-datasets.csv
 done
