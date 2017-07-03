@@ -55,6 +55,7 @@ class Country(models.Model):
 
 
 class Category(models.Model):
+    code = models.CharField(max_length=2, blank=False, unique=True)
     name = models.CharField(max_length=64, blank=False, unique=True)
     weight = models.IntegerField(blank=False)
 
@@ -76,7 +77,7 @@ class LevDataset(models.Model):
 
 
 class LevDescription(models.Model):
-    name = models.CharField(max_length=128, blank=False, unique=True)
+    name = models.CharField(max_length=256, blank=False, unique=True)
 
     def natural_key(self):
         return self.name
@@ -106,7 +107,7 @@ class Peril(models.Model):
 
 
 class KeyDataset(models.Model):
-    code = models.IntegerField(null=False, blank=False)
+    code = models.CharField(max_length=6, null=False, blank=False)
     category = models.ForeignKey(Category)
     dataset = models.ForeignKey(LevDataset)
     description = models.ForeignKey(LevDescription)
@@ -120,7 +121,9 @@ class KeyDataset(models.Model):
     class Meta:
         unique_together = (
             ('category', 'code'),
-            ('category', 'dataset', 'description', 'scale')
+            # FIXME: format is there because of RI_1C and RI_1D.
+            # They are the same expect for the format
+            ('category', 'dataset', 'description', 'scale', 'format')
         )
 
     def natural_key(self):
