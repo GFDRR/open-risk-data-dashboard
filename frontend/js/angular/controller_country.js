@@ -20,14 +20,7 @@ RodiApp.controller('RodiCtrlCountry', function ($scope, RodiSrv, $location, $fil
 
 
     // Get the Hazard Category
-    $scope.HazardCategory = [];
-    RodiSrv.getHazardCategory($scope.tokenid,
-        function(data){
-            // Success
-            $scope.HazardCategory = data;
-        }, function(data){
-            //Error
-        })
+    $scope.HazardCategory = RodiSrv.getDataCategoryIcon();
 
     $scope.getHCIcon = function(index)
     {

@@ -188,10 +188,10 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
                 },
                 "matrixData": {
                     // questionKey: ["questionkey", "description", valueH01, valueH02, valueH03, valueH04, valueH05, valueH06, valueH07, valueH08]
-                    q01: ["q01", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q01: ["is_existing", 0.1, 0.2, 0.3, 0.4, 0.5],
                     q02: ["is_digital_form", 0.6, 0.7, 0.8, 0.9, 1.0],
-                    q03: ["q03", 0.1, 0.2, 0.3, 0.4, 0.5],
-                    q04: ["q04", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q03: ["is_avail_online", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q04: ["is_avail_online_meta", 0.6, 0.7, 0.8, 0.9, 1.0],
                     q05: ["is_bulk_avail", 0.1, 0.2, 0.3, 0.4, 0.5],
                     q06: ["is_machine_read", 0.6, 0.7, 0.8, 0.9, 1.0],
                     q07: ["is_pub_available", 0.1, 0.2, 0.3, 0.4, 0.5],
@@ -214,10 +214,10 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
                 },
                 "matrixData": {
                     // "questionKey": ["description", valueH01, valueH02, valueH03, valueH04, valueH05, valueH06, valueH07, valueH08]
-                    q01: ["q01", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q01: ["is_existing", 0.1, 0.2, 0.3, 0.4, 0.5],
                     q02: ["is_digital_form", 0.6, 0.7, 0.8, 0.9, 1.0],
-                    q03: ["q03", 0.1, 0.2, 0.3, 0.4, 0.5],
-                    q04: ["q04", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q03: ["is_avail_online", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q04: ["is_avail_online_meta", 0.6, 0.7, 0.8, 0.9, 1.0],
                     q05: ["is_bulk_avail", 0.1, 0.2, 0.3, 0.4, 0.5],
                     q06: ["is_machine_read", 0.6, 0.7, 0.8, 0.9, 1.0],
                     q07: ["is_pub_available", 0.1, 0.2, 0.3, 0.4, 0.5],
@@ -240,10 +240,10 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
                 },
                 "matrixData": {
                     // "questionKey": ["description", valueH01, valueH02, valueH03, valueH04, valueH05, valueH06, valueH07, valueH08]
-                    q01: ["q01", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q01: ["is_existing", 0.1, 0.2, 0.3, 0.4, 0.5],
                     q02: ["is_digital_form", 0.6, 0.7, 0.8, 0.9, 1.0],
-                    q03: ["q03", 0.1, 0.2, 0.3, 0.4, 0.5],
-                    q04: ["q04", 0.6, 0.7, 0.8, 0.9, 1.0],
+                    q03: ["is_avail_online", 0.1, 0.2, 0.3, 0.4, 0.5],
+                    q04: ["is_avail_online_meta", 0.6, 0.7, 0.8, 0.9, 1.0],
                     q05: ["is_bulk_avail", 0.1, 0.2, 0.3, 0.4, 0.5],
                     q06: ["is_machine_read", 0.6, 0.7, 0.8, 0.9, 1.0],
                     q07: ["is_pub_available", 0.1, 0.2, 0.3, 0.4, 0.5],
@@ -350,6 +350,69 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
     // ************ KEYDATASET LIST ********* //
     // ************************************** //
 
+    this.getDatasetEmptyStructure = function()
+    {
+        /* return a Dataset list structure empty for new dataset contributor. */
+
+        return obj =
+            {
+                changed_by:null,
+                country: "--",
+                create_time:null,
+                id:-999,
+                is_avail_for_free: "", //15
+                is_avail_online: "", //
+                is_avail_online_meta: "", //
+                is_bulk_avail:"", //12
+                is_digital_form: "", //9
+                is_existing:"",
+                is_machine_read: "", //13
+                is_open_licence:"", //16
+                is_prov_timely:"", //17
+                is_pub_available: "--", //14
+                is_reviewed: false,
+                keydataset:{
+                    category: "--",
+                    dataset:"--",
+                    description:"--",
+                    id:-999,
+                    scale:"2"
+                },
+                modify_time: new Date(),
+                notes: "",
+                owner:"",
+                review_date:null,
+                tag:[],
+                url:[]
+            }
+
+    }
+
+    this.getDataCategoryIcon = function()
+    {
+        // return data category icon & description for matrix view
+        var obj =
+            [
+                {
+                    "category": {id: 1, name: "Basic Data"}
+                },
+                {
+                    "category": {id: 2, name: "Exposure"}
+                },
+                {
+                    "category": {id: 3, name: "Hazard"}
+                },
+                {
+                    "category": {id: 4, name: "Risk"}
+                },
+                {
+                    "category": {id: 5, name: "Vulnerability"}
+                }
+            ];
+
+        return obj;
+    }
+
     this.getDataCategory = function(scale_id, onSuccess, onError)
     {
         // Return a list of Hazard Macro Category
@@ -410,6 +473,46 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         var req = {
             method: 'GET',
             url: baseAPIurl + 'keydataset/' + scale_id + '/' + data_cat + '/' + dataset_cat + '/',
+            headers: {
+                // 'Authorization': 'Token ' + token
+            },
+            data: {}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+    }
+
+    this.getKeydatasetId = function(scale_id, data_cat, dataset_cat, dataset_desc, onSuccess, onError)
+    {
+        // Return a list of dataset name
+
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'keydataset/' + scale_id + '/' + data_cat + '/' + dataset_cat + '/' + dataset_desc,
+            headers: {
+                // 'Authorization': 'Token ' + token
+            },
+            data: {}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+    }
+
+    this.getDatasetInfo = function(token, ds_id, onSuccess, onError)
+    {
+        // Return the dataset info by ID
+
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'dataset/' + ds_id,
             headers: {
                 // 'Authorization': 'Token ' + token
             },
@@ -484,55 +587,60 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
          */
 
         return objQuestions = [
-                {code: "is_existing", desc:"Does the data exist?"},
-                {code: "is_digital_form", desc:"Is data in digital form?"},
-                {code: "is_avail_online", desc:"Is the data available online?"},
-                {code: "is_avail_online_meta", desc:"Is the metadata available online?"},
-                {code: "is_bulk_avail", desc:"Available in bulk?"},
-                {code: "is_machine_read", desc:"Is the data machine- readable?"},
-                {code: "is_pub_available", desc:"Publicly available?"},
-                {code: "is_avail_for_free", desc:"Is the data available for free?"},
-                {code: "is_open_licence", desc:"Openly licensed?"},
-                {code: "is_prov_timely", desc:"Is the data provided on a timely and up to date basis?"}
+                {code: "is_existing", desc:"Does the data exist?", altTXT:"is_existing_txt", altDesc:"existing alternative text"},
+                {code: "is_digital_form", desc:"Is data in digital form?", altTXT:"", altDesc:""},
+                {code: "is_avail_online", desc:"Is the data available online?", altTXT:"", altDesc:""},
+                {code: "is_avail_online_meta", desc:"Is the metadata available online?", altTXT:"", altDesc:""},
+                {code: "is_bulk_avail", desc:"Available in bulk?", altTXT:"", altDesc:""},
+                {code: "is_machine_read", desc:"Is the data machine- readable?", altTXT:"is_machine_read_txt", altDesc:"machine alternative text"},
+                {code: "is_pub_available", desc:"Publicly available?", altTXT:"", altDesc:""},
+                {code: "is_avail_for_free", desc:"Is the data available for free?", altTXT:"", altDesc:""},
+                {code: "is_open_licence", desc:"Openly licensed?", altTXT:"is_open_licence_txt", altDesc:"license alternative text"},
+                {code: "is_prov_timely", desc:"Is the data provided on a timely and up to date basis?", altTXT:"", altDesc:""}
         ]
     };
 
-    this.getDatasetEmptyStructure = function()
+    this.getQuestions_code = function(questionCode)
     {
-        /* return a Dataset list structure empty for new dataset contributor. */
+        /*
+         Return the list of questions for dataset (Y/N)
+         */
 
-        return obj =
-            {
-                changed_by:null,
-                country: "--",
-                create_time:null,
-                id:-999,
-                is_avail_for_free: "", //15
-                is_avail_online: "", //
-                is_avail_online_meta: "", //
-                is_bulk_avail:"", //12
-                is_digital_form: "", //9
-                is_existing:"",
-                is_machine_read: "", //13
-                is_open_licence:"", //16
-                is_prov_timely:"", //17
-                is_pub_available: "--", //14
-                is_reviewed: false,
-                keydataset:{
-                    category: "--",
-                    dataset:"--",
-                    description:"--",
-                    id:-999,
-                    scale:"2"
-                },
-                modify_time: new Date(),
-                notes: "",
-                owner:"",
-                review_date:null,
-                tag:[],
-                url:[]
-            }
+        var objQuestions = [
+            {code: "is_existing", desc:"Does the data exist?", altTXT:"is_existing_txt", altDesc:"existing alternative text"},
+            {code: "is_digital_form", desc:"Is data in digital form?", altTXT:"", altDesc:""},
+            {code: "is_avail_online", desc:"Is the data available online?", altTXT:"", altDesc:""},
+            {code: "is_avail_online_meta", desc:"Is the metadata available online?", altTXT:"", altDesc:""},
+            {code: "is_bulk_avail", desc:"Available in bulk?", altTXT:"", altDesc:""},
+            {code: "is_machine_read", desc:"Is the data machine- readable?", altTXT:"is_machine_read_txt", altDesc:"machine alternative text"},
+            {code: "is_pub_available", desc:"Publicly available?", altTXT:"", altDesc:""},
+            {code: "is_avail_for_free", desc:"Is the data available for free?", altTXT:"", altDesc:""},
+            {code: "is_open_licence", desc:"Openly licensed?", altTXT:"is_open_licence_txt", altDesc:"license alternative text"},
+            {code: "is_prov_timely", desc:"Is the data provided on a timely and up to date basis?", altTXT:"", altDesc:""}
+        ];
 
+        var aQuestion = $filter('filter')(objQuestions, {"code": questionCode});
+
+        return aQuestion[0].desc;
+
+    };
+
+    this.getQuestionsHelp = function(index)
+    {
+        var obj = [
+            'Does the data exist at all? The data can be in any form (paper or digital, offline or online etc). If it is not, then all the other questions are not',
+            'This question addresses whether the data is in digital form (stored on computers or digital storage) or if it only in e.g. paper form.',
+            'This question addresses whether the data is available online from an official source. In the cases that this is answered with a "yes", then the link is put in the URL field below.',
+            'This question addresses whether the metadata is available online from an official source. In the cases that this is answered with a "yes", then the link is put in the URL field below.',
+            'Data is available in bulk if the whole dataset can be downloaded or accessed easily. Conversely it is considered non-bulk if the citizens are limited to just getting parts of the dataset (for example, if restricted to querying a web form and retrieving a few results at a time from a very large database).',
+            'Data is machine-readable if it is in a format that can be easily structured by a computer. Data can be digital but not machine-readable. For example, consider a PDF document containing tables of data. These are definitely digital but are not machine-readable because a computer would struggle to access the tabular information (even though they are very human-readable!). The equivalent tables in a format such as a spreadsheet would be machine-readable. Note: The appropriate machine-readable format may vary by type of data – so, for example, machine-readable formats for geographic data may be different than for tabular data. In general, HTML and PDF are not machine-readable.',
+            'This question addresses whether the data is "public". This does not require it to be freely available, but does require that someone outside of the government can access it in some form (examples include if the data is available for purchase, if it exists as a PDF on a website that you can access, if you can get it in paper form - then it is public). If a freedom of information request or similar is needed to access the data, it is not considered public.',
+            'This question addresses whether the data is available for free or if there is a charge. If there is a charge, then that is stated in the comments section.',
+            'This question addresses whether the dataset is open as per http://opendefinition.org. It needs to state the terms of use or license that allow anyone to freely use, reuse or redistribute the data (subject at most to attribution or share alike requirements). It is vital that a licence is available (if there is no licence, the data is not openly licensed). Open licences which meet the requirements of the Open Definition are listed at http://opendefinition.org/licenses/.',
+            'This question addresses whether the data is up to date and timely - or long delayed. For example, for election data that it is made available immediately or soon after the election or if it is only available many years later. Any comments around uncertainty are put in the comments field.',
+        ];
+
+        return obj[index];
     }
 
     this.getDatasetList_bycountry = function(countryCode, onSuccess, onError)
@@ -564,32 +672,31 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         var aErrors = [];
         var objResolutions = {};
 
-        if(obj.name == ''){aErrors.push('Name')};
-        if(obj.abstract == ''){aErrors.push('Abstract')};
+        // if(obj.name == ''){aErrors.push('Name')};
+        // if(obj.abstract == ''){aErrors.push('Abstract')};
         if(obj.country == '--'){aErrors.push('Country')};
+        if(obj.keydataset.scale == '--'){aErrors.push('Dataset scale')};
         if(obj.keydataset.category == '--'){aErrors.push('Data category')};
         // if(obj.hazard == '--'){aErrors.push('Data category')};
         if(obj.keydataset.dataset == '--'){aErrors.push('Dataset category')};
-        // if(obj.datasetdescription == '--'){aErrors.push('Dataset description')};
+        if(obj.keydataset.description == '--'){aErrors.push('Dataset description')};
 
-        // TAGS & Other details: TODO
-
-        if(obj.keydataset.category == '3' && obj.hazard == '--'){aErrors.push('Hazard')};
-        if(obj.data_url == ''){aErrors.push('Link dataset empty')};
-        if(obj.metadata_url == ''){aErrors.push('Link metadata empty')};
+        // if(obj.keydataset.category == '3' && obj.hazard == '--'){aErrors.push('Hazard')};
+        // if(obj.data_url == ''){aErrors.push('Link dataset empty')};
+        // if(obj.metadata_url == ''){aErrors.push('Link metadata empty')};
 
         /* Check the questions */
         var aQuestions = [];
-        // if(obj.question01 == ''){aErrors.push('answer')}
-        if(obj.is_digital_form == ''){aQuestions.push('answer')}
-        // if(obj.question03 == ''){aQuestions.push('answer')}
-        // if(obj.question04 == ''){aQuestions.push('answer')}
-        if(obj.is_bulk_avail == ''){aQuestions.push('answer')}
-        if(obj.is_machine_read == ''){aQuestions.push('answer')}
-        if(obj.is_pub_available == ''){aQuestions.push('answer')}
         if(obj.is_avail_for_free == ''){aQuestions.push('answer')}
+        if(obj.is_avail_online == ''){aQuestions.push('answer')}
+        if(obj.is_avail_online_meta == ''){aQuestions.push('answer')}
+        if(obj.is_bulk_avail == ''){aQuestions.push('answer')}
+        if(obj.is_digital_form == ''){aQuestions.push('answer')}
+        if(obj.is_existing == ''){aQuestions.push('answer')}
+        if(obj.is_machine_read == ''){aQuestions.push('answer')}
         if(obj.is_open_licence == ''){aQuestions.push('answer')}
         if(obj.is_prov_timely == ''){aQuestions.push('answer')}
+        if(obj.is_pub_available == ''){aQuestions.push('answer')}
 
         if (aQuestions.length > 0){
             aErrors.push('Answer all questions (Yes, No)')
@@ -603,6 +710,24 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         var req = {
             method: 'POST',
             url: baseAPIurl + 'profile/dataset/',
+            headers: {
+                'Authorization': 'Token ' + token
+            },
+            data: obj
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data);
+        });
+    }
+
+    this.updateDataset = function(token, obj, onSuccess, onError)
+    {
+        var req = {
+            method: 'PUT',
+            url: baseAPIurl + 'dataset/' + obj.id,
             headers: {
                 'Authorization': 'Token ' + token
             },
@@ -698,7 +823,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 
     }
 
-    this.getProfileDataset = function(token, objUsr, onSuccess, onError)
+    this.getProfileDataset = function(token, onSuccess, onError)
     {
         // Return a list of user's datasets
 

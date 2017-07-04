@@ -44,6 +44,15 @@
 
     <!-- RODI css -->
     <link href="css/rodi_css.css" rel="stylesheet">
+
+    <!-- Tooltip init -->
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
+
 </head>
 <body ng-app="RodiApp" ng-controller="RodiCtrl">
 
@@ -89,28 +98,30 @@
                 <!--<h2>{{objCountry[0].name}} - {{HazardCategory[0].category.name}}</h2>-->
                 <br />
 
-                <table class="table dataset">
+                <table class="table table-striped table-hover dataset">
                     <thead>
-                        <th>Dataset</th>
+                        <th>Scale</th>
+                        <th>Data category</th>
                         <th>Questions</th>
                         <th>Year</th>
                         <th>Score</th>
                     </thead>
                     <tbody>
                         <tr>
-                            <td><a href="" ng-click="changepage('dataset_details.html?keyds=1')">Dataset one</a></td>
+                            <td><a href="" ng-click="changepage('dataset_details.html?keyds=1')">National</a></td>
+                            <td></td>
                             <td>
                                 <div class="flex-container dataset_value">
-                                    <i class="fa" aria-hidden="true"><p>1</p></i>
-                                    <i class="fa" aria-hidden="false"><p>2</p></i>
-                                    <i class="fa" aria-hidden="true"><p>3</p></i>
-                                    <i class="fa" aria-hidden="true"><p>4</p></i>
-                                    <i class="fa" aria-hidden="false"><p>5</p></i>
-                                    <i class="fa" aria-hidden="true"><p>6</p></i>
-                                    <i class="fa" aria-hidden="false"><p>7</p></i>
-                                    <i class="fa" aria-hidden="false"><p>8</p></i>
-                                    <i class="fa" aria-hidden="false"><p>9</p></i>
-                                    <i class="fa" aria-hidden="false"><p>10</p></i>
+                                    <i class="fa" aria-hidden="true" data-toggle="tooltip" title="questione 1"><p>1</p></i>
+                                    <i class="fa" aria-hidden="false" data-toggle="tooltip" title="questione 1"><p>2</p></i>
+                                    <i class="fa" aria-hidden="true" data-toggle="tooltip" title="questione 1"><p>3</p></i>
+                                    <i class="fa" aria-hidden="true" data-toggle="tooltip" title="questione 1"><p>4</p></i>
+                                    <i class="fa" aria-hidden="false" data-toggle="tooltip" title="questione 1"><p>5</p></i>
+                                    <i class="fa" aria-hidden="true" data-toggle="tooltip" title="questione 1"><p>6</p></i>
+                                    <i class="fa" aria-hidden="false" data-toggle="tooltip" title="questione 1"><p>7</p></i>
+                                    <i class="fa" aria-hidden="false" data-toggle="tooltip" title="questione 1"><p>8</p></i>
+                                    <i class="fa" aria-hidden="false" data-toggle="tooltip" title="questione 1"><p>9</p></i>
+                                    <i class="fa" aria-hidden="false" data-toggle="tooltip" title="questione 1"><p>10</p></i>
 
                                 </div>
 

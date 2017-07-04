@@ -27,6 +27,11 @@ section
     margin-bottom: 20px;
 }
 
+.rodi_txt_big
+{
+    font-size: 25px;
+}
+
 .rodi_big_text
 {
     font-size: 17px;
@@ -203,9 +208,37 @@ section
     color:red;
 }
 
+#mydataset
+{
+    min-height:350px;
+}
 
+.rodi_tag_item
+{
+    padding:3px;
+    margin-right:5px;
+    background-color: #007899;
+    color:#ffffff;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
 
+.rodi_section_01
+{
+    background-color: rgba(240,240,240,.4);
+    color:#232323;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
 
+.rodi_section_02
+{
+    background-color: rgba(240,240,240,.8);
+    color:#232323;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
 
 /*
 ==============================================================================
@@ -228,6 +261,79 @@ section
 .dataset_value p {margin:0;}
 .dataset_value i[aria-hidden~=false] {background: #EE3036;}
 .dataset_value i[aria-hidden~=true] {background: green;}
+
+
+.dataset_form_select_style
+{
+    border:0px;
+    padding:10px;
+    font-size:25px;
+    color:#a0a0a0;
+    background-color: transparent;
+    font-weight: 500;
+}
+
+.rodi_dataset_label_code
+{
+    font-size:30px;
+    color:#a0a0a0;
+}
+
+.rodi_dataset_label
+{
+    font-size:30px;
+    color:#000000;
+}
+
+.rodi_btn_yes_no
+{
+    width:100%;
+    padding:20px;
+    border:solid 2px #232323;
+    color:#232323;
+    text-align: center;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.rodi_btn_yes_bg_green
+{
+    background-color: green;
+    color:#ffffff;
+}
+
+.rodi_btn_yes_bg_red
+{
+    background-color:red;
+    color:#ffffff;
+}
+
+.vertical-align {
+    display: flex;
+    align-items: center;
+}
+
+.rodi_ul
+{
+    list-style: none;
+}
+
+.rodi_ul li
+{
+    padding:5px;
+    background-color: rgba(0,120,153,.5);
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
+    color:#ffffff;
+    margin-top:5px;
+}
+
+.rodi_ul li a
+{
+    color:#ffffff;
+}
 
 
 /*
