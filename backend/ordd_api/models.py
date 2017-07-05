@@ -158,21 +158,8 @@ class KeyDataset(models.Model):
         return (self.category, self.code)
 
     def __str__(self):
-        if self.hazard_category is None:
-            dataset = self.dataset
-        else:
-            print(self.hazard_category)
-            dataset = "%s - %s" % (self.hazard_category, self.dataset)
-
-        return "%s: %s - %s - %s" % (self.code, dataset,
+        return "%s: %s - %s - %s" % (self.code, self.dataset,
                                      self.description, self.scale)
-
-
-class Element(models.Model):
-    name = models.CharField(max_length=64, blank=True)
-
-    def __str__(self):
-        return self.name
 
 
 class Url(models.Model):
@@ -214,4 +201,4 @@ class Dataset(models.Model):
     is_prov_timely = models.BooleanField()
     is_prov_timely_last = models.CharField(max_length=128,
                                            blank=True, null=False)
-    elements = models.ManyToManyField(Element, blank=True)
+    applicability = models.ManyToManyField(KeyPeril)

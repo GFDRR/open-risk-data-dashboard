@@ -17,6 +17,12 @@ class KeyCategorySerializer(serializers.ModelSerializer):
 
 
 class KeyDatasetSerializer(serializers.ModelSerializer):
+    name = serializers.SerializerMethodField('name_str')
+
+    # We want the str representation of the object, not just the name field
+    def name_str(self, obj):
+        return str(obj)
+
     class Meta:
         model = KeyDatasetName
         fields = ('id', 'name')
@@ -82,8 +88,7 @@ class KeyDataset3on4Serializer(serializers.ModelSerializer):
         read_only=True, slug_field='name')
     category = serializers.SlugRelatedField(
         read_only=True, slug_field='name')
-    dataset = serializers.SlugRelatedField(
-        read_only=True, slug_field='name')
+    dataset = serializers.StringRelatedField()
     description = KeyDescriptionSerializer()
 
     class Meta:

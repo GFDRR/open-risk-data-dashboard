@@ -6,7 +6,7 @@ from .models import (
     Profile, OptIn,
     KeyCategory, KeyDatasetName, KeyDescription,
     KeyScale, KeyPeril, KeyDataset, KeyTag, KeyTagGroup,
-    Dataset, Url, Element)
+    Dataset, Url)
 
 
 # Define an inline admin descriptor for Employee model
@@ -36,5 +36,4 @@ admin.site.register(KeyScale)
 admin.site.register(KeyDataset)
 
 admin.site.register(Url)
-admin.site.register(Element)
 admin.site.register(Dataset)

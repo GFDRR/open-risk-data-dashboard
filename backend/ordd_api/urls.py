@@ -9,7 +9,7 @@ from .views import (
     ProfileDetails, ProfilePasswordUpdate,
     UserCreateView, UserDetailsView,
     RegistrationView, ProfileDatasetListCreateView, ProfileDatasetDetailsView,
-    DatasetListView, DatasetDetailsView, ElementListView)
+    DatasetListView, DatasetDetailsView)
 
 from .keydatasets_views import (
     KeyDataset0on4ListView, KeyDataset1on4ListView, KeyDataset2on4ListView,
@@ -59,8 +59,6 @@ urlpatterns = [
         KeyDataset1on4ListView.as_view(), name="key_dataset1on4"),
     url(r'^keydataset/$', KeyDataset0on4ListView.as_view(),
         name="key_dataset0on4"),
-
-    url(r'^elements/$', ElementListView.as_view(), name="elements"),
 
     url(r'^get-token/', obtain_auth_token),
 ]
