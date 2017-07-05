@@ -1,0 +1,21 @@
+hazard,River Flooding
+hazard,Coastal Flooding
+hazard,Cyclones
+hazard,Earthquake
+hazard,Volcano
+hazard,Landslides
+hazard,Tsunamis
+hazard,Water scarcity
+building,Count
+building,Replacement value
+building,Height
+building,Material
+building,Roof type
+facilities,Road infrastructure
+facilities,Railways
+facilities,Bridges
+facilities,Airports
+facilities,Harbours
+facilities,Education
+facilities,Health
+facilities,Power

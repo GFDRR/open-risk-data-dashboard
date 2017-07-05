@@ -3,18 +3,15 @@ from django.core.management.base import BaseCommand, CommandError
 import csv
 import codecs
 import warnings
-from ordd_api.models import (KeyCategory, KeyHazardCategory, KeyPeril,
-                             KeyDatasetName, KeyDescription, KeyScale,
-                             KeyDataset)
+from ordd_api.models import (KeyCategory, KeyHazardCategory, KeyPeril, KeyTag,
+                             KeyTagGroup, KeyDatasetName, KeyDescription,
+                             KeyScale, KeyDataset)
 
-# key dataset input rows description:
-# (category), ID,Dataset,Description,Format,Flood,Tsunami,
-#             Cyclones,Earthquakes,Vulcano,Global,National,Local, (weight)
-KeyDataset_in = namedtuple('KeyDataset_in', 'category id dataset tag'
-                           ' description comment format resolution RiverFlood'
-                           ' CostalFlood Tsunami Cyclone Earthquake Vulcano'
-                           ' Landslide WaterScarcity international national'
-                           ' local weight')
+KeyDataset_in = namedtuple('KeyDataset_in', 'category id hazard_category'
+                           ' dataset tag description comment format resolution'
+                           ' RiverFlood CostalFlood Tsunami Cyclone Earthquake'
+                           ' Vulcano Landslide WaterScarcity international'
+                           ' national local weight')
 
 
 class Command(BaseCommand):
@@ -22,9 +19,9 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            '--filein', nargs=3, type=str, required=True,
+            '--filein', nargs=4, type=str, required=True,
             help=('path of peril csv file, weighted category csv file,'
-                  ' weighted key datasets csv file'))
+                  ' tags csv file, weighted key datasets csv file'))
         parser.add_argument(
             '--reload', action='store_true',
             help='reload tables if already exists', required=False)
@@ -65,10 +62,28 @@ class Command(BaseCommand):
             print(e)
             raise CommandError('Failed to import Key Datasets during category'
                                ' import phase.')
+        try:
+            # load tags
+            with (codecs.open(options['filein'][2], 'rb',
+                  encoding='utf-8')) as csvfile:
+                if options['reload']:
+                    KeyTag.objects.all().delete()
+                    KeyTagGroup.objects.all().delete()
+
+                tags = csv.reader(csvfile)
+                for tag_in in tags:
+                    tag_group = KeyTagGroup.objects.get_or_create(
+                                                            name=tag_in[0])
+                    tag = KeyTag(group=tag_group[0], name=tag_in[1])
+                    tag.save()
+        except Exception as e:
+            print(e)
+            raise CommandError('Failed to import Key Datasets during tags'
+                               ' import phase.')
 
         kd_row = -1
         try:
-            with (codecs.open(options['filein'][2], 'rb',
+            with (codecs.open(options['filein'][3], 'rb',
                   encoding='utf-8')) as csvfile:
                 keydatasets = csv.reader(csvfile)
 
@@ -89,7 +104,7 @@ class Command(BaseCommand):
                 # cat_cur = None
 
                 for kd_row, kd_in in enumerate(keydatasets):
-                    if kd_in[0] == '':
+                    if kd_in[0] == '' or kd_in[0] == 'NN':
                         continue
 
                     composite_id = kd_in[0].split('_')
@@ -99,6 +114,7 @@ class Command(BaseCommand):
                         hazard_category = composite_ds[0]
                         dataset = composite_ds[1]
                     elif len(composite_ds) == 1:
+                        hazard_category = ''
                         dataset = composite_ds[0]
                     else:
                         raise ValueError('Too many \'-\' separators in'
@@ -106,7 +122,7 @@ class Command(BaseCommand):
 
                     keyobj_in = KeyDataset_in(
                         category=KeyCategory.objects.get(code=composite_id[0]),
-                        id=composite_id[1], hazard_category=hazard_category,
+                        id=kd_in[0], hazard_category=hazard_category,
                         dataset=dataset, tag=kd_in[2], description=kd_in[3],
                         comment=kd_in[4], format=kd_in[5], resolution=kd_in[6],
                         RiverFlood=kd_in[7], CostalFlood=kd_in[8],
@@ -140,6 +156,13 @@ class Command(BaseCommand):
                     else:
                         dataset = dataset[0]
 
+                    tag = KeyTagGroup.objects.filter(
+                                                name__iexact=keyobj_in.tag)
+                    if len(tag) < 1 and keyobj_in.tag != '':
+                        raise ValueError('Tag group: [%s] not exists in list'
+                                         % keyobj_in.tag)
+                    tag = tag[0] if tag else None
+
                     description = KeyDescription.objects.filter(
                                      name=keyobj_in.description)
                     if len(description) < 1:
@@ -152,6 +175,7 @@ class Command(BaseCommand):
                     keydata = KeyDataset(
                         code=keyobj_in.id, category=category, dataset=dataset,
                         description=description,
+                        hazard_category=hazard_category, tag_group=tag,
                         resolution=keyobj_in.resolution,
                         format=keyobj_in.format,
                         comment=keyobj_in.comment, weight=keyobj_in.weight)

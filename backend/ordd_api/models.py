@@ -86,15 +86,30 @@ class KeyDatasetName(models.Model):
         return self.name
 
 
-class KeyTag(models.Model):
-    group = models.CharField(max_length=16, blank=False, unique=True)
-    name = models.CharField(max_length=32, blank=False, unique=True)
+class KeyTagGroup(models.Model):
+    name = models.CharField(max_length=16, blank=False, unique=True)
 
     def natural_key(self):
         return self.name
 
     def __str__(self):
         return self.name
+
+
+class KeyTag(models.Model):
+    group = models.ForeignKey(KeyTagGroup, null=False)
+    name = models.CharField(max_length=32, blank=False)
+
+    class Meta:
+        unique_together = (
+            ('group', 'name')
+        )
+
+    def natural_key(self):
+        return self.name
+
+    def __str__(self):
+        return ("%s - %s" % (self.group, self.name))
 
 
 class KeyDescription(models.Model):
@@ -130,16 +145,16 @@ class KeyPeril(models.Model):
 class KeyDataset(models.Model):
     code = models.CharField(max_length=6, null=False, blank=False)
     category = models.ForeignKey(KeyCategory)
-    hazard_category = models.ForeignKey(KeyHazardCategory)
+    hazard_category = models.ForeignKey(KeyHazardCategory, null=True)
     dataset = models.ForeignKey(KeyDatasetName)
-    tag = models.ForeignKey(KeyTag)
+    tag_group = models.ForeignKey(KeyTagGroup, null=True)
     description = models.ForeignKey(KeyDescription)
     applicability = models.ManyToManyField(KeyPeril)
     scale = models.ForeignKey(KeyScale)
 
-    resolution = models.CharField(max_length=32)
-    format = models.CharField(max_length=32)
-    comment = models.CharField(max_length=1024)
+    resolution = models.CharField(max_length=32, blank=True)
+    format = models.CharField(max_length=32, blank=True)
+    comment = models.CharField(max_length=1024, blank=True)
     weight = models.IntegerField(blank=False)
 
     class Meta:
@@ -152,13 +167,13 @@ class KeyDataset(models.Model):
         return (self.category, self.code)
 
     def __str__(self):
-        if self.hazard_category == '':
-            dataset = self.dataset
-        else:
-            dataset = "%s - %s" % (self.hazard_category, self.dataset)
+        # if self.hazard_category:
+        dataset = self.dataset
+        # else:
+        #     dataset = "%s - %s" % (self.hazard_category, self.dataset)
 
-        return "%s: %d - %s - %s - %s" % (self.code, self.code, dataset,
-                                          self.description, self.scale)
+        return "%s: %s - %s - %s" % (self.code, dataset,
+                                     self.description, self.scale)
 
 
 class Element(models.Model):

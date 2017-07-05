@@ -1,37 +1,37 @@
 from rest_framework import serializers
 from .models import (
-    Category, LevDataset, LevDescription,
-    LevScale, KeyDataset)
+    KeyCategory, KeyDatasetName, KeyDescription,
+    KeyScale, KeyDataset)
 
 
-class KeyLevScaleSerializer(serializers.ModelSerializer):
+class KeyScaleSerializer(serializers.ModelSerializer):
     class Meta:
-        model = LevScale
+        model = KeyScale
         fields = ('id', 'name')
 
 
 class KeyCategorySerializer(serializers.ModelSerializer):
     class Meta:
-        model = Category
+        model = KeyCategory
         fields = ('id', 'name')
 
 
-class KeyLevDatasetSerializer(serializers.ModelSerializer):
+class KeyDatasetSerializer(serializers.ModelSerializer):
     class Meta:
-        model = LevDataset
+        model = KeyDataset
         fields = ('id', 'name')
 
 
-class KeyLevDescriptionSerializer(serializers.ModelSerializer):
+class KeyDescriptionSerializer(serializers.ModelSerializer):
     class Meta:
-        model = LevDescription
+        model = KeyDescription
         fields = ('id', 'name')
 
 
 class KeyDataset0on4Serializer(serializers.ModelSerializer):
     """Partial serializer of key datasets -> scale """
 
-    scale = KeyLevScaleSerializer()
+    scale = KeyScaleSerializer()
 
     class Meta:
         model = KeyDataset
@@ -58,7 +58,7 @@ class KeyDataset2on4Serializer(serializers.ModelSerializer):
         read_only=True, slug_field='name')
     category = serializers.SlugRelatedField(
         read_only=True, slug_field='name')
-    dataset = KeyLevDatasetSerializer()
+    dataset = KeyDatasetSerializer()
 
     class Meta:
         model = KeyDataset
@@ -75,7 +75,7 @@ class KeyDataset3on4Serializer(serializers.ModelSerializer):
         read_only=True, slug_field='name')
     dataset = serializers.SlugRelatedField(
         read_only=True, slug_field='name')
-    description = KeyLevDescriptionSerializer()
+    description = KeyDescriptionSerializer()
 
     class Meta:
         model = KeyDataset
