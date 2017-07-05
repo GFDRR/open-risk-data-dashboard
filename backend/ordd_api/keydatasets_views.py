@@ -1,9 +1,8 @@
 # keydatasets_views.py
 from rest_framework import generics
+from rest_framework.views import APIView
+from rest_framework.response import Response
 from rest_framework.exceptions import NotFound
-
-from django.db.models import Value
-from django.db.models.functions import Concat
 
 # from django_filters.rest_framework import DjangoFilterBackend
 # import django_filters.rest_framework
@@ -12,9 +11,9 @@ from django.db.models.functions import Concat
 from .keydatasets_serializers import (
     KeyDataset0on4Serializer, KeyDataset1on4Serializer,
     KeyDataset2on4Serializer, KeyDataset3on4Serializer,
-    KeyDataset4on4Serializer,
+    KeyDataset4on4Serializer, KeyTagSerializer
     )
-from .models import KeyDataset
+from .models import KeyDataset, KeyTagGroup
 
 # import django_filters
 # class KeyDatasetFilter(django_filters.FilterSet):
@@ -63,9 +62,6 @@ class KeyDataset2on4ListView(generics.ListAPIView):
             filters['category'] = category
 
         return (KeyDataset.objects.filter(**filters)
-                #.annotate(datase=Concat('hazard_category',
-                #                         Value(' - '),
-                #                        'dataset'))
                 .order_by("dataset").distinct("dataset"))
 
 
@@ -121,3 +117,21 @@ class KeyDataset4on4ListView(generics.ListAPIView):
 
 #    filter_backends = (KeyDatasetFilter,)
 #    filter_fields = ('category',)
+
+
+class KeyDatasetTagGroup(APIView):
+    """This class handles the GET requests of our rest api."""
+
+    def get_queryset(self):
+        return list(KeyTagGroup.objects.values_list('name', flat=True))
+
+    def get(self, request):
+        return Response({'tags': self.get_queryset()})
+
+
+class KeyDatasetTag(generics.ListAPIView):
+    """This class handles the GET and POSt requests of our rest api."""
+    serializer_class = KeyTagSerializer
+
+    def get_queryset(self):
+        return KeyTagGroup.objects.filter(name=self.kwargs['name'])

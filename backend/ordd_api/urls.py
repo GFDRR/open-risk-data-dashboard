@@ -13,7 +13,8 @@ from .views import (
 
 from .keydatasets_views import (
     KeyDataset0on4ListView, KeyDataset1on4ListView, KeyDataset2on4ListView,
-    KeyDataset3on4ListView, KeyDataset4on4ListView
+    KeyDataset3on4ListView, KeyDataset4on4ListView, KeyDatasetTagGroup,
+    KeyDatasetTag
     )
 
 # To add a namespace you need to change reverse calls around the source code.
@@ -44,6 +45,10 @@ urlpatterns = [
     url(r'^country/(?P<pk>[A-Z]+)$', CountryDetailsView.as_view(),
         name="country_details"),
 
+    url(r'^keydataset/tag/$',  KeyDatasetTagGroup.as_view(),
+        name="key_dataset_tag_group"),
+    url(r'^keydataset/tag/(?P<name>.+)$',
+        KeyDatasetTag.as_view(), name="key_dataset_tag"),
     url(r'^keydataset/(?P<scale>.+)/(?P<category>.+)/(?P<dataset>.+)/(?P<description>.+)$',
         KeyDataset4on4ListView.as_view(), name="key_dataset4on4"),
     url(r'^keydataset/(?P<scale>.+)/(?P<category>.+)/(?P<dataset>.+)/$',
