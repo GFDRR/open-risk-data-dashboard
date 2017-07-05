@@ -145,9 +145,10 @@ class KeyPeril(models.Model):
 class KeyDataset(models.Model):
     code = models.CharField(max_length=6, null=False, blank=False)
     category = models.ForeignKey(KeyCategory)
-    hazard_category = models.ForeignKey(KeyHazardCategory, null=True)
+    hazard_category = models.ForeignKey(KeyHazardCategory,
+                                        null=True, blank=True)
     dataset = models.ForeignKey(KeyDatasetName)
-    tag_group = models.ForeignKey(KeyTagGroup, null=True)
+    tag_group = models.ForeignKey(KeyTagGroup, null=True, blank=True)
     description = models.ForeignKey(KeyDescription)
     applicability = models.ManyToManyField(KeyPeril)
     scale = models.ForeignKey(KeyScale)

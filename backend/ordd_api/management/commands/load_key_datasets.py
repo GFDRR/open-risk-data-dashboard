@@ -114,7 +114,7 @@ class Command(BaseCommand):
                         hazard_category = composite_ds[0]
                         dataset = composite_ds[1]
                     elif len(composite_ds) == 1:
-                        hazard_category = ''
+                        hazard_category = None
                         dataset = composite_ds[0]
                     else:
                         raise ValueError('Too many \'-\' separators in'
@@ -132,6 +132,7 @@ class Command(BaseCommand):
                         international=kd_in[15], national=kd_in[16],
                         local=kd_in[17], weight=kd_in[18])
 
+                    # Category
                     category = KeyCategory.objects.filter(
                                                     name=keyobj_in.category)
                     if len(category) != 1:
@@ -139,38 +140,33 @@ class Command(BaseCommand):
                                          % keyobj_in.category)
                     category = category[0]
 
-                    hazard_category = KeyHazardCategory.objects.filter(
-                                        name=keyobj_in.hazard_category)
-                    if len(hazard_category) < 1:
-                        hazard_category = KeyHazardCategory(
-                                    name=keyobj_in.hazard_category)
-                        hazard_category.save()
-                    else:
+                    # HazardCategory
+                    if keyobj_in.hazard_category:
+                        hazard_category = (
+                                    KeyHazardCategory.objects.get_or_create(
+                                             name=keyobj_in.hazard_category))
                         hazard_category = hazard_category[0]
 
-                    dataset = KeyDatasetName.objects.filter(
+                    # DatasetName
+                    dataset = KeyDatasetName.objects.get_or_create(
                                                     name=keyobj_in.dataset)
-                    if len(dataset) < 1:
-                        dataset = KeyDatasetName(name=keyobj_in.dataset)
-                        dataset.save()
+                    dataset = dataset[0]
+
+                    # TagGroup
+                    if keyobj_in.tag == '':
+                        tag = None
                     else:
-                        dataset = dataset[0]
+                        tag = KeyTagGroup.objects.filter(
+                                                    name__iexact=keyobj_in.tag)
+                        if len(tag) != 1:
+                            raise ValueError('Tag group: [%s] not exists'
+                                             ' in list' % keyobj_in.tag)
+                        tag = tag[0]
 
-                    tag = KeyTagGroup.objects.filter(
-                                                name__iexact=keyobj_in.tag)
-                    if len(tag) < 1 and keyobj_in.tag != '':
-                        raise ValueError('Tag group: [%s] not exists in list'
-                                         % keyobj_in.tag)
-                    tag = tag[0] if tag else None
-
-                    description = KeyDescription.objects.filter(
+                    # Description
+                    description = KeyDescription.objects.get_or_create(
                                      name=keyobj_in.description)
-                    if len(description) < 1:
-                        description = KeyDescription(
-                                        name=keyobj_in.description)
-                        description.save()
-                    else:
-                        description = description[0]
+                    description = description[0]
 
                     keydata = KeyDataset(
                         code=keyobj_in.id, category=category, dataset=dataset,
