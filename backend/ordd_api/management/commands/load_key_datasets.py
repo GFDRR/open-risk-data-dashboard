@@ -9,9 +9,9 @@ from ordd_api.models import (KeyCategory, KeyHazardCategory, KeyPeril, KeyTag,
 
 KeyDataset_in = namedtuple('KeyDataset_in', 'category id hazard_category'
                            ' dataset tag description comment format resolution'
-                           ' RiverFlood CostalFlood Tsunami Cyclone Earthquake'
-                           ' Vulcano Landslide WaterScarcity international'
-                           ' national local weight')
+                           ' RiverFlooding CoastalFlooding Tsunami Cyclone'
+                           ' Earthquake Vulcano Landslide WaterScarcity'
+                           ' international national local weight')
 
 
 class Command(BaseCommand):
@@ -125,7 +125,7 @@ class Command(BaseCommand):
                         id=kd_in[0], hazard_category=hazard_category,
                         dataset=dataset, tag=kd_in[2], description=kd_in[3],
                         comment=kd_in[4], format=kd_in[5], resolution=kd_in[6],
-                        RiverFlood=kd_in[7], CostalFlood=kd_in[8],
+                        RiverFlooding=kd_in[7], CoastalFlooding=kd_in[8],
                         Tsunami=kd_in[9], Cyclone=kd_in[10],
                         Earthquake=kd_in[11], Vulcano=kd_in[12],
                         Landslide=kd_in[13], WaterScarcity=kd_in[14],
@@ -203,10 +203,12 @@ class Command(BaseCommand):
 
                     keydata.save()
 
-                    for app in ['River Flooding', 'Coastal Flooding',
-                                'Tsunami', 'Cyclones', 'Earthquakes',
-                                'Vulcano', 'Landslides', 'Water scarcity']:
-                        cur_value = getattr(keyobj_in, app, None)
+                    for app in ['River flooding', 'Coastal flooding',
+                                'Tsunami', 'Cyclone', 'Earthquake',
+                                'Vulcano', 'Landslide', 'Water scarcity']:
+                        cur_value = getattr(keyobj_in,
+                                            app.title().replace(' ', ''),
+                                            None)
                         if cur_value is not None:
                             cur_value = cur_value.strip()
                             if cur_value == '':
