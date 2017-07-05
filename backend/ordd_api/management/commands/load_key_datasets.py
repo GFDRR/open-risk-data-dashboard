@@ -3,7 +3,7 @@ from django.core.management.base import BaseCommand, CommandError
 import csv
 import codecs
 import warnings
-from ordd_api.models import (KeyCategory, KeyHazardCategory, KeyPeril, KeyTag,
+from ordd_api.models import (KeyCategory, KeyPeril, KeyTag,
                              KeyTagGroup, KeyDatasetName, KeyDescription,
                              KeyScale, KeyDataset)
 
@@ -72,10 +72,14 @@ class Command(BaseCommand):
 
                 tags = csv.reader(csvfile)
                 for tag_in in tags:
-                    tag_group = KeyTagGroup.objects.get_or_create(
-                                                            name=tag_in[0])
-                    tag = KeyTag(group=tag_group[0], name=tag_in[1])
-                    tag.save()
+                    KeyTag.objects.get_or_create(name=tag_in[1])
+                    KeyTagGroup.objects.get_or_create(name=tag_in[0])
+
+                    tag = KeyTag.objects.get(name=tag_in[1])
+                    tag_group = KeyTagGroup.objects.get(name=tag_in[0])
+
+                    tag_group.tags.add(tag)
+                    tag_group.save()
         except Exception as e:
             print(e)
             raise CommandError('Failed to import Key Datasets during tags'
@@ -140,16 +144,10 @@ class Command(BaseCommand):
                                          % keyobj_in.category)
                     category = category[0]
 
-                    # HazardCategory
-                    if keyobj_in.hazard_category:
-                        hazard_category = (
-                                    KeyHazardCategory.objects.get_or_create(
-                                             name=keyobj_in.hazard_category))
-                        hazard_category = hazard_category[0]
-
                     # DatasetName
                     dataset = KeyDatasetName.objects.get_or_create(
-                                                    name=keyobj_in.dataset)
+                                            name=keyobj_in.dataset,
+                                            category=keyobj_in.hazard_category)
                     dataset = dataset[0]
 
                     # TagGroup
@@ -170,8 +168,7 @@ class Command(BaseCommand):
 
                     keydata = KeyDataset(
                         code=keyobj_in.id, category=category, dataset=dataset,
-                        description=description,
-                        hazard_category=hazard_category, tag_group=tag,
+                        description=description, tag_group=tag,
                         resolution=keyobj_in.resolution,
                         format=keyobj_in.format,
                         comment=keyobj_in.comment, weight=keyobj_in.weight)

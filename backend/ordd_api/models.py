@@ -66,50 +66,42 @@ class KeyCategory(models.Model):
         return self.name
 
 
-class KeyHazardCategory(models.Model):
-    name = models.CharField(max_length=32, blank=False, unique=True)
-
-    def natural_key(self):
-        return self.name
-
-    def __str__(self):
-        return self.name
-
-
 class KeyDatasetName(models.Model):
-    name = models.CharField(max_length=128, blank=False, unique=True)
-
-    def natural_key(self):
-        return self.name
-
-    def __str__(self):
-        return self.name
-
-
-class KeyTagGroup(models.Model):
-    name = models.CharField(max_length=16, blank=False, unique=True)
-
-    def natural_key(self):
-        return self.name
-
-    def __str__(self):
-        return self.name
-
-
-class KeyTag(models.Model):
-    group = models.ForeignKey(KeyTagGroup, null=False)
-    name = models.CharField(max_length=32, blank=False)
+    name = models.CharField(max_length=128, blank=False)
+    category = models.CharField(max_length=32, blank=True, null=True)
 
     class Meta:
         unique_together = (
-            ('group', 'name')
+            ('name', 'category'),
         )
 
     def natural_key(self):
         return self.name
 
     def __str__(self):
-        return ("%s - %s" % (self.group, self.name))
+        return ("%s - %s" % (self.category, self.name) if self.category
+                is not None else self.name)
+
+
+class KeyTag(models.Model):
+    name = models.CharField(max_length=32, blank=False)
+
+    def natural_key(self):
+        return self.name
+
+    def __str__(self):
+        return (self.name)
+
+
+class KeyTagGroup(models.Model):
+    name = models.CharField(max_length=16, blank=False, unique=True)
+    tags = models.ManyToManyField(KeyTag)
+
+    def natural_key(self):
+        return self.name
+
+    def __str__(self):
+        return self.name
 
 
 class KeyDescription(models.Model):
@@ -145,8 +137,6 @@ class KeyPeril(models.Model):
 class KeyDataset(models.Model):
     code = models.CharField(max_length=6, null=False, blank=False)
     category = models.ForeignKey(KeyCategory)
-    hazard_category = models.ForeignKey(KeyHazardCategory,
-                                        null=True, blank=True)
     dataset = models.ForeignKey(KeyDatasetName)
     tag_group = models.ForeignKey(KeyTagGroup, null=True, blank=True)
     description = models.ForeignKey(KeyDescription)
@@ -168,10 +158,11 @@ class KeyDataset(models.Model):
         return (self.category, self.code)
 
     def __str__(self):
-        # if self.hazard_category:
-        dataset = self.dataset
-        # else:
-        #     dataset = "%s - %s" % (self.hazard_category, self.dataset)
+        if self.hazard_category is None:
+            dataset = self.dataset
+        else:
+            print(self.hazard_category)
+            dataset = "%s - %s" % (self.hazard_category, self.dataset)
 
         return "%s: %s - %s - %s" % (self.code, dataset,
                                      self.description, self.scale)

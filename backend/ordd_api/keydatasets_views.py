@@ -2,6 +2,9 @@
 from rest_framework import generics
 from rest_framework.exceptions import NotFound
 
+from django.db.models import Value
+from django.db.models.functions import Concat
+
 # from django_filters.rest_framework import DjangoFilterBackend
 # import django_filters.rest_framework
 # from .permissions import IsOwner
@@ -37,8 +40,12 @@ class KeyDataset1on4ListView(generics.ListAPIView):
     def get_queryset(self):
         scale = self.kwargs['scale']
 
-        return KeyDataset.objects.filter(
-            scale=scale).order_by("category").distinct("category")
+        filters = {}
+        if scale > '0':
+            filters['scale'] = scale
+
+        return (KeyDataset.objects.filter(**filters).
+                order_by("category").distinct("category"))
 
 
 class KeyDataset2on4ListView(generics.ListAPIView):
@@ -49,12 +56,16 @@ class KeyDataset2on4ListView(generics.ListAPIView):
         scale = self.kwargs['scale']
         category = self.kwargs['category']
 
-        filters = {'scale': scale}
-
+        filters = {}
+        if scale > '0':
+            filters['scale'] = scale
         if category > '0':
             filters['category'] = category
 
         return (KeyDataset.objects.filter(**filters)
+                #.annotate(datase=Concat('hazard_category',
+                #                         Value(' - '),
+                #                        'dataset'))
                 .order_by("dataset").distinct("dataset"))
 
 
@@ -67,8 +78,9 @@ class KeyDataset3on4ListView(generics.ListAPIView):
         category = self.kwargs['category']
         dataset = self.kwargs['dataset']
 
-        filters = {'scale': scale}
-
+        filters = {}
+        if scale > '0':
+            filters['scale'] = scale
         if category > '0':
             filters['category'] = category
         if dataset > '0':
@@ -90,8 +102,9 @@ class KeyDataset4on4ListView(generics.ListAPIView):
         dataset = self.kwargs['dataset']
         description = self.kwargs['description']
 
-        filters = {'scale': scale}
-
+        filters = {}
+        if scale > '0':
+            filters['scale'] = scale
         if category > '0':
             filters['category'] = category
         if dataset > '0':

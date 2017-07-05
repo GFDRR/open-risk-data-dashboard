@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import (
-    KeyCategory, KeyDatasetName, KeyDescription,
+    KeyCategory, KeyDatasetName, KeyDescription, KeyTag, KeyTagGroup,
     KeyScale, KeyDataset)
 
 
@@ -18,8 +18,24 @@ class KeyCategorySerializer(serializers.ModelSerializer):
 
 class KeyDatasetSerializer(serializers.ModelSerializer):
     class Meta:
-        model = KeyDataset
+        model = KeyDatasetName
         fields = ('id', 'name')
+
+
+class KeyTagSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = KeyTag
+        fields = ('name',)
+
+
+class KeyTagGroupSerializer(serializers.ModelSerializer):
+    tags = serializers.SlugRelatedField(read_only=True, many=True,
+                                        slug_field='name')
+
+    class Meta:
+        model = KeyTagGroup
+        fields = ('name', 'tags')
 
 
 class KeyDescriptionSerializer(serializers.ModelSerializer):
@@ -62,7 +78,7 @@ class KeyDataset2on4Serializer(serializers.ModelSerializer):
 
     class Meta:
         model = KeyDataset
-        fields = ('scale', 'category', 'dataset',)
+        fields = ('scale', 'category', 'dataset')
 
 
 class KeyDataset3on4Serializer(serializers.ModelSerializer):
@@ -89,11 +105,14 @@ class KeyDataset4on4Serializer(serializers.ModelSerializer):
         read_only=True, slug_field='name')
     category = serializers.SlugRelatedField(
         read_only=True, slug_field='name')
-    dataset = serializers.SlugRelatedField(
-        read_only=True, slug_field='name')
+    dataset = serializers.StringRelatedField()
     description = serializers.SlugRelatedField(
         read_only=True, slug_field='name')
+    tag_group = KeyTagGroupSerializer()
+    applicability = serializers.SlugRelatedField(
+        read_only=True, many=True, slug_field='name')
 
     class Meta:
         model = KeyDataset
-        fields = ('id', 'scale', 'category', 'dataset', 'description')
+        fields = ('id', 'scale', 'category', 'dataset', 'description',
+                  'tag_group', 'applicability')
