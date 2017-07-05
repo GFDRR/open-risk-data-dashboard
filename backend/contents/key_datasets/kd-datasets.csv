@@ -1,75 +1,60 @@
-BA_1B,Digital Elevation Model,,"Digital Elevation Model describing the bare surface of the earth, with a resolution between 0.1 and 1 meters, as provided by national geodata authority",for example LiDAR data,raster (.tif),0.1-1m,1,1,1,,,,,3,10
-BA_2A,Background map,,"Aerial Imagery as a base layer for analysis and mapping, with a resolution between 1 and 10 meter, as provided from national geodata authorities",,raster (.tif),1-10m,1,1,1,1,1,,2,,10
-BA_2B,Background map,,"Aerial Imagery as a base layer for analysis and mapping, with a resolution between 0.1 and 1 meter, as provided from national geodata authorities",,raster (.tif),0.1-1m,1,1,1,1,1,,,3,10
-BA_3,Administrative Data,,"Boundaries of country and its administrative units such as states, regions or districts, as provided from national geodata authorities",,shape (.shp),,1,1,1,1,1,,2,,10
-BA_4,Placenames,,"Names of capital and main cities, as provided from national geodata authorities",,shape (.shp),,1,1,1,1,1,,2,,10
-HA_1,River Flooding,Watershed Boundaries,"Boundaries of the watershed for the characterization of river basins, provided by national metoffice or other national institution in charge",can be derived from DEM,shape (.shp),,1,,,,,,2,,10
-HA_2,River Flooding,Hydrological Network,"Description of the river network, provided by national metoffice or other national institution in charge",can be derived from DEM,shape (.shp),,1,,,,,,2,,10
-HA_3A,River Flooding,Historical records,Measurements of river discharge for a number of river gauges,,tabular,daily or annual maximum,,,,1,,,2,,10
-HA_3B,River Flooding,Historical records,"Records of previous flood events containing information about dates, flooded places, flood severity even in descriptive form",,tabular,,1,,,1,,,2,,10
-HA_4,Geology,Geology Map,"geological characterization of the Soil, with resolution typically between 100-500 meters",,raster (.tif),100-500m,1,,,1,1,,2,,10
-HA_5,Geology,Soil Map,"characterisation of soil types, with resolution typically between 100-500 meters",,raster (.tif),100-500m,1,1,1,1,1,,2,,10
-HA_6A,River Flooding,Flooding,"water depth, duration for return periods 2, 5, 10, 20, 50, 100, 200, 500, 1000 yrs",,raster (.tif),100m,,,,,,,2,,10
-HA_6B,River Flooding,Flooding,"water depth, duration and flow velocity for return periods 2, 5, 10, 20, 50, 100, 200, 500, 1000 yrs",,raster (.tif),10m,,,,,,,,3,10
-HA_7,River Flooding,Global meteo forcing,meteorological data,,,,1,,1,,,1,,,10
-HA_8,River Flooding,Global hydrological data,hydrological data,,,,1,,,,,1,,,10
-HA_9A,Coastal Flooding,Bathymetry ,"characterisation of sea surface, resolution 1km or lower",,raster (.tif),1km,,1,,,,1,,,10
-HA_9B,Coastal Flooding,Bathymetry ,"characterisation of sea surface, provided by national nautics and navigation authority, resolution 100m or higher",,raster (.tif),10-100m,,1,,,,,2,,10
-HA_10,Coastal Flooding,Nearshore tsunami wave heigths,Tsunami wave heights nearshore,"can be found in literature, such as: Thio, H. K., P. Somerville, and G. Ichinose (2007), Probabilistic analysis of strong ground motion and tsunami hazard in Southeast Asia, J. Earthquake Tsunami, 1(2), 119–137, doi:10.1142/S1793431107000080; Sørensen, M. B., M. Spada, A. Babeyko, S. Wiemer, and G. Grünthal (2012), Probabilistic tsunami hazard in the Mediterranean Sea, J. Geophys. Res., 117, B01305, doi:10.1029/2010JB008169.,10
-",tabular,,,1,,,,1,,,10
-HA_11A,Coastal Flooding,Wave runup ,based on terrain slope,,raster (.tif),,,1,,,,1,,,10
-HA_11B,Coastal Flooding,Wave runup ,based on model incl. Digital Surface Model,,raster (.tif),,,1,,,,,2,,10
-HA_12,River Flooding,Flood protection measures,"map of flood protection measures, incl. design return periods, from national authorities",alternative source: FLOPROS database,shape (.shp),,1,1,,,,,2,,10
-HA_13,Cyclones,Wind speeds ,"Wind speeds (peak velocities) for different return periods (2, 5, 10, 20, 50, 100, 200, 500, 1000 years) with a resolution typically between 1-10 km, based on local measurements",,raster (.tif),,,,1,,,,2,,10
-HA_14A,Earthquake,earthquake catalogue,list of past earthquake events on a national scale from national authorities,,tabular,,,,,1,,,2,,10
-HA_14B,Earthquake,earthquake catalogue,list of past earthquake events on a detailled scale from national authorities,,tabular,,,,,1,,,,3,10
-HA_15A,Earthquake,active fault data,map with active faults on a national scale from national authorities,,shape (.shp),,,,,1,,,2,,10
-HA_15B,Earthquake,active fault data,map with active faults on a detailled scale from national authorities,,shape (.shp),,,,,1,,,,3,10
-HA_16A,Earthquake,seismic hazard curves ,curves of seismic hazard for a number of return periods,,tabular,,,,,1,,1,,,10
-HA_16B,Earthquake,seismic hazard maps,map of seismic hazard for a number of return periods,,shape (.shp),,,,,1,,,2,,10
-HA_17A,Earthquake,seismic hazard model,national seismic hazard model,,,,,,,1,,,2,,10
-HA_17B,Earthquake,seismic hazard model,regional seismic hazard model,,,,,,,1,,,,3,10
-HA_18A,Earthquake,site conditions map,"site conditions map, derived from topograpy or geology)",,shape (.shp),,,,,1,,,2,,10
-HA_18B,Earthquake,site conditions map,"site conditions map, derived from microzonation studies)",,shape (.shp),,,,,1,,,,3,10
-HA_19,Coastal Flooding,Digital Surface model,incl. buildings and vegetation,,raster (.tif),1-100m,1,1,1,,,,2,,10
-HA_20,Coastal Flooding,Future Development Trends,expected changes in hazard intensity and probability,,tabular,,1,1,,,,1,,,10
-EX_1,Land Cover,,"dataset describing the land cover / land use such as residential, industrial, agricultural, with a resolution of typically 100m",,raster (.tif),100m,1,1,1,1,1,,2,,10
-EX_2A,Population Distribution,,"national population statistics, usually available per administrative unit",spatial disaggregation required,shape (.shp),,1,1,1,1,1,,2,,10
-EX_2B,Population Distribution,,"local population statistics, from local offices, per adress or district, incl. age and gender",,shape (.shp),1km,1,1,1,1,1,,,3,10
-EX_3A,Economic Activities,,"Information about economic activites, expressed as economic production output per economic sector, available from national ministry of trade and finance",,raster (.tif),100m,1,1,1,1,1,,2,,10
-EX_3B,Economic Activities,,"Information about economic activites, expressed as economic production output and output on building or adress level, available from national ministry of trade and finance",,shape (.shp),footprint,1,1,1,1,1,,,3,10
-EX_4A,Buildings,count,"specification of building use expressed as count per spatial unit, classified for example as residential, industrial, commercial, public building with a resolution typically between 100m and 1km",,raster (.tif),1km,1,1,1,1,1,1,,,10
-EX_4B,Buildings,replacement value,specification of building replacement value use expressed as average value per building type,,tabular,,1,1,1,1,1,,2,,10
-EX_4C,Buildings,height,"specification of building height (meters, number of storeys)on a building footprint basis",,shape (.shp),footprint,1,1,1,1,1,,,3,10
-EX_4D,Buildings,material,specification of building  material on building footprint basis,,shape (.shp),footprint,1,1,1,1,1,,,3,10
-EX_4E,Buildings,roof type,specification of roof type on building footprint basis,,shape (.shp),footprint,,,1,,,,,3,10
-EX_5,Agriculture,,agricultural production per crop type,,raster (.tif),1km,1,1,1,1,1,,2,,10
-EX_6A,Critical facilites and infrastructures,road infrastructure,"Characterisation of the road infrastructure, classified as road types, such as major roads, highways, available from national road authority ",,shape (.shp),,1,1,1,1,1,1,,,10
-EX_6B,Critical facilites and infrastructures,railways,"Characterisation of the railway infrastructure, classified by railway use such as main lines, regional lines, available from national railway authority ",,shape (.shp),,1,1,1,1,1,,2,,10
-EX_6C,Critical facilites and infrastructures,bridges,Location of bridges for road and rail infrastructure,,shape (.shp),,1,1,1,1,1,1,,,10
-EX_6D,Critical facilites and infrastructures,airports,"Location of airports, including function of the airport (national, international)",,shape (.shp),,1,1,1,1,1,,2,,10
-EX_6E,Critical facilites and infrastructures,harbours,"Location of harbours, including economic significance (e.g.  tons of goods shipped)",,shape (.shp),,,,,,,,,,10
-EX_6F,Critical facilites and infrastructures,education,"Location of educational facilities, classified by type of education such as primary school, highschool, university",,shape (.shp),,,,,,,,,,10
-EX_6G,Critical facilites and infrastructures,health,"Location of healt facilities such as hospitals, health centres, emergency stations",,,,,,,,,,,,10
-EX_6H,Critical facilites and infrastructures,power,"Characterisation of power networks such as electrical network, gas network, including storage and generation",,shape (.shp),,,,,,,,,,10
-EX_7,records of previous natural disasters,,information about affected exposure during previous hazard events,,tabular,,1,1,1,1,1,1,,,10
-EX_8A,Future Development Trends,,expected growth of population and economy,e.g. SSP scenarios,tabular,,1,1,1,1,1,1,,,10
-EX_8B,Future Development Trends,,"expected growth of population, economy, planned infrastructure, planned exploitations",,tabular,,1,1,1,1,1,,2,,10
-VU_1,Administrative,,vulnerability functions per country or region,for earthquakes: PAGER,tabular,,1,1,1,1,1,1,,,10
-VU_2,Land use,,quantitative vulnerability curves per land use type based on national land cover dataset,,tabular,,1,1,1,1,1,,2,,10
-VU_3A,Critical Infrastructures,,"BOOLEAN function with a water depth threshold when critical infrastructure is assumed to be affected, per infrastructure type",,tabular,,1,1,1,1,1,1,,,10
-VU_3B,Critical Infrastructures,,"quantitative vulnerability curve to describe the vulnerability of critical infrastructure, per infrastructure type",,tabular,,1,1,1,1,1,,2,,10
-VU_4A,Population,,BOOLEAN function with a water depth threshold when people are assumed to be affected,,tabular,,1,1,1,1,1,1,,,10
-VU_4B,Population,,quantitative vulnerability function and/or mortality curve,,tabular,,1,1,1,1,1,,2,,10
-VU_5A,Economy,,"economic impact of hazard per economic sector, from national statistics",,tabular,,1,1,1,1,1,1,,,10
-VU_5B,Economy,,"production/stock losses per company, provided by chamber of industry",,tabular,,1,1,1,1,1,,2,,10
-VU_5C,Economy,,indirect losses as a consequence of business interruption per economic sector,from input/output models,tabular,,1,1,1,1,1,,,3,10
-VU_6A,Buildings,,"function of hazard intensity and damage fraction per building type (residential, industrial, …)",,tabular,,1,1,1,1,1,1,,,10
-VU_6B,Buildings,,function of hazard intensity and damage fraction per roof type,,tabular,,1,1,1,1,1,,2,,10
-VU_6C,Buildings,,"function of hazard intensity and damage fraction per building type (high rise, low rise, single family)",,tabular,,1,1,1,1,1,,,3,10
-VU_7A,Agriculture,,function for agricultural losses per crop type,,tabular,,1,1,1,1,1,1,,,10
-VU_7B,Agriculture,,function for agricultural losses per crop type and season,,tabular,,1,1,1,1,1,,2,,10
-RI_1A,risk indicators,,"existing risk assessment (monetary/non-monetary), from previous national assessments",,report,,1,1,1,1,1,,2,,10
-RI_1B,risk indicators,,"existing risk assessment (monetary/non-monetary), from previous local studies",,report,,1,1,1,1,1,,,3,10
-RI_1C,risk indicators,,"existing risk assessment (monetary/non-monetary), from previous national assessments",,.shp,,1,1,1,1,1,,2,,10
-RI_1D,risk indicators,,"existing risk assessment (monetary/non-monetary), from previous local studies",,.shp,,1,1,1,1,1,,,3,10
+BA_1B,Digital Elevation Model,hazard,"Digital Elevation Model describing the bare surface of the earth, with a resolution between 0.1 and 1 meters, as provided by national geodata authority",for example LiDAR data,raster (.tif),0.1-1m,1,1,1,1,1,1,1,1,,,3,10
+BA_2A,Background map,hazard,"Aerial Imagery as a base layer for analysis and mapping, with a resolution between 1 and 10 meter, as provided from national geodata authorities",,raster (.tif),1-10m,1,1,1,1,1,1,1,1,,2,,10
+BA_2B,Background map,hazard,"Aerial Imagery as a base layer for analysis and mapping, with a resolution between 0.1 and 1 meter, as provided from national geodata authorities",,raster (.tif),0.1-1m,1,1,1,1,1,1,1,1,,,3,10
+BA_3,Administrative Data,,"Boundaries of country and its administrative units such as states, regions or districts, as provided from national geodata authorities",,shape (.shp),,1,1,1,1,1,1,1,1,,2,,10
+BA_4,Placenames,,"Names of capital and main cities, as provided from national geodata authorities",,shape (.shp),,1,1,1,1,1,1,1,1,,2,,10
+HA_1,River Flooding - Watershed Boundaries,hazard,"Boundaries of the watershed for the characterization of river basins, provided by national metoffice or other national institution in charge",can be derived from DEM,shape (.shp),,1,,,,,,,,,2,,10
+HA_2,River Flooding - Hydrological Network,hazard,"Description of the river network, provided by national metoffice or other national institution in charge",can be derived from DEM,shape (.shp),,1,,,,,,,,,2,,10
+HA_3A,River Flooding - Historical records,hazard,Measurements of river discharge for a number of river gauges,,tabular,daily or annual maximum,,,,,1,,,,,2,,10
+HA_3B,River Flooding - Historical records,hazard,"Records of previous flood events containing information about dates, flooded places, flood severity even in descriptive form",,tabular,,1,,1,1,1,1,,,,2,,10
+HA_4,Geology - Geology,hazard,"geological characterization of the Soil, with resolution typically between 100-500 meters",,raster (.tif),100-500m,1,,,,1,1,,,,2,,10
+HA_5,Geology - Geology,hazard,"characterisation of soil types, with resolution typically between 100-500 meters",,raster (.tif),100-500m,1,,1,1,1,1,,,,2,,10
+HA_6A,River Flooding - Flooding,hazard,"water depth, duration for return periods 2, 5, 10, 20, 50, 100, 200, 500, 1000 yrs",,raster (.tif),100m,,,,,,,,,,2,,10
+HA_6B,River Flooding - Flooding,hazard,"water depth, duration and flow velocity for return periods 2, 5, 10, 20, 50, 100, 200, 500, 1000 yrs",,raster (.tif),10m,,,,,,,,,,,3,10
+HA_7,River Flooding - Global meteo forcing,hazard,meteorological data,,,,1,,,1,,,,,1,,,10
+HA_8,River Flooding - Global hydrological data,hazard,hydrological data,,,,1,,,,,,,,1,,,10
+HA_9A,Coastal Flooding - Bathymetry ,hazard,"characterisation of sea surface, resolution 1km or lower",,raster (.tif),1km,,1,1,,,,,,1,,,10
+HA_9B,Coastal Flooding - Bathymetry ,hazard,"characterisation of sea surface, provided by national nautics and navigation authority, resolution 100m or higher",,raster (.tif),10-100m,,1,1,,,,,,,2,,10
+HA_10,Coastal Flooding and tsunamis - Nearshore tsunami wave heigths,hazard,Tsunami wave heights nearshore,"can be found in literature, such as: Thio, H. K., P. Somerville, and G. Ichinose (2007), Probabilistic analysis of strong ground motion and tsunami hazard in Southeast Asia, J. Earthquake Tsunami, 1(2), 119–137, doi:10.1142/S1793431107000080; Sørensen, M. B., M. Spada, A. Babeyko, S. Wiemer, and G. Grünthal (2012), Probabilistic tsunami hazard in the Mediterranean Sea, J. Geophys. Res., 117, B01305, doi:10.1029/2010JB008169.,10
+",tabular,,,1,1,,,,,,1,,,10
+HA_11A,Coastal Flooding - Wave runup ,hazard,based on terrain slope,,raster (.tif),,,1,1,,,,,,1,,,10
+HA_11B,Coastal Flooding - Wave runup ,hazard,based on model incl. Digital Surface Model,,raster (.tif),,,1,1,,,,,,,2,,10
+HA_12,River Flooding - Flood protection measures,hazard,"map of flood protection measures, incl. design return periods, from national authorities",alternative source: FLOPROS database,shape (.shp),,1,,1,,,,,,,2,,10
+HA_13,Cyclones - Wind speeds ,hazard,"Wind speeds (peak velocities) for different return periods (2, 5, 10, 20, 50, 100, 200, 500, 1000 years) with a resolution typically between 1-10 km, based on local measurements",,raster (.tif),,,,,1,,,,,,2,,10
+HA_14A,Earthquake - Catalogue,hazard,list of past earthquake events on a national scale from national authorities,,tabular,,,,,,1,,,,,2,,10
+HA_14B,Earthquake - Catalogue,hazard,list of past earthquake events on a detailled scale from national authorities,,tabular,,,,,,1,,,,,,3,10
+HA_15A,Earthquake - Active fault data,hazard,map with active faults on a national scale from national authorities,,shape (.shp),,,,,,1,,,,,2,,10
+HA_15B,Earthquake - Active fault data,hazard,map with active faults on a detailled scale from national authorities,,shape (.shp),,,,,,1,,,,,,3,10
+HA_16A,Earthquake - Hazard curves ,hazard,curves of seismic hazard for a number of return periods,,tabular,,,,,,1,,,,1,,,10
+HA_16B,Earthquake - Hazard maps,hazard,map of seismic hazard for a number of return periods,,shape (.shp),,,,,,1,,,,,2,,10
+HA_17A,Earthquake - Hazard model,hazard,national seismic hazard model,,,,,,,,1,,,,,2,,10
+HA_17B,Earthquake - Hazard model,hazard,regional seismic hazard model,,,,,,,,1,,,,,,3,10
+HA_18A,Earthquake - Site conditions map,hazard,"site conditions map, derived from topograpy or geology)",,shape (.shp),,,,,,1,,,,,2,,10
+HA_18B,Earthquake - Site conditions map,hazard,"site conditions map, derived from microzonation studies)",,shape (.shp),,,,,,1,,,,,,3,10
+HA_19,Coastal Flooding - Digital Surface model,hazard,incl. buildings and vegetation,,raster (.tif),1-100m,1,1,1,1,,,,,,2,,10
+HA_20,Coastal Flooding - Future Development Trends,hazard,expected changes in hazard intensity and probability,,tabular,,1,1,1,,,,,,1,,,10
+HA_21,Volcano - List type of volcanoes,hazard,A list with the location and type of volcanoes in the country or region.,,,,,,,,,,,,,,,10
+HA_22,Volcano - Wind direction model,hazard,A model describing the direction and intensity of the wind at different altitudes. ,,,,,,,,,,,,,,,10
+EX_1,Land Cover,,"dataset describing the land cover / land use such as residential, industrial, agricultural, with a resolution of typically 100m",,raster (.tif),100m,1,1,1,1,1,1,1,1,,2,,10
+EX_2A,Population Distribution,,"national population statistics, usually available per administrative unit",spatial disaggregation required,shape (.shp),,1,1,1,1,1,1,1,1,,2,,10
+EX_2B,Population Distribution,,"local population statistics, from local offices, per adress or district, incl. age and gender",,shape (.shp),1km,1,1,1,1,1,1,1,1,,,3,10
+EX_3A,Economic Activities,,"Information about economic activites, expressed as economic production output per economic sector, available from national ministry of trade and finance",,raster (.tif),100m,1,1,1,1,1,1,1,1,,2,,10
+EX_3B,Economic Activities,,"Information about economic activites, expressed as economic production output and output on building or adress level, available from national ministry of trade and finance",,shape (.shp),footprint,1,1,1,1,1,1,1,1,,,3,10
+EX_4,Buildings,building,"specification of building use expressed as count per spatial unit, classified for example as residential, industrial, commercial, public building with a resolution typically between 100m and 1km",,raster (.tif),1km,1,1,1,1,1,1,1,1,1,,,10
+EX_5,Agriculture,,agricultural production per crop type,,raster (.tif),1km,1,1,1,1,1,1,1,1,,2,,10
+EX_6,Critical facilites and infrastructures,facilities,"Characterisation of the road infrastructure, classified as road types, such as major roads, highways, available from national road authority ",,shape (.shp),,1,1,1,1,1,1,1,1,1,,,10
+EX_7,records of previous natural disasters,,information about affected exposure during previous hazard events,,tabular,,1,1,1,1,1,1,1,1,1,,,10
+EX_8A,Future Development Trends,,expected growth of population and economy,e.g. SSP scenarios,tabular,,1,1,1,1,1,1,1,1,1,,,10
+EX_8B,Future Development Trends,,"expected growth of population, economy, planned infrastructure, planned exploitations",,tabular,,1,1,1,1,1,1,1,1,,2,,10
+VU_1,Administrative,hazard,vulnerability functions per country or region,for earthquakes: PAGER,tabular,,1,1,1,1,1,1,1,1,1,,,10
+VU_2,Land use,hazard,quantitative vulnerability curves per land use type based on national land cover dataset,,tabular,,1,1,1,1,1,1,1,1,,2,,10
+VU_3,Critical Infrastructures,hazard,"quantitative vulnerability curve to describe the vulnerability of critical infrastructure, per infrastructure type",,tabular,,1,1,1,1,1,1,1,1,1,,,10
+VU_4,Population,hazard,quantitative vulnerability function and/or mortality curve,,tabular,,1,1,1,1,1,1,1,1,1,,,10
+VU_5A,Economy,hazard,"economic impact of hazard per economic sector, from national statistics",,tabular,,1,1,1,1,1,1,1,1,1,,,10
+VU_5B,Economy,hazard,"production/stock losses per company, provided by chamber of industry",,tabular,,1,1,1,1,1,1,1,1,,2,,10
+VU_5C,Economy,hazard,indirect losses as a consequence of business interruption per economic sector,from input/output models,tabular,,1,1,1,1,1,1,1,1,,,3,10
+VU_6,Buildings,hazard,"function of hazard intensity and damage fraction per building type (residential, industrial, …)",,tabular,,1,1,1,1,1,1,1,1,1,,,10
+VU_7A,Agriculture,hazard,function for agricultural losses per crop type,,tabular,,1,1,1,1,1,1,1,1,1,,,10
+VU_7B,Agriculture,hazard,function for agricultural losses per crop type and season,,tabular,,1,1,1,1,1,1,1,1,,2,,10
+RI_1A,risk indicators,Hazard,"existing risk assessment (monetary/non-monetary), from previous national assessments",,report,,1,1,1,1,1,1,1,1,,2,,10
+RI_1B,risk indicators,Hazard,"existing risk assessment (monetary/non-monetary), from previous local studies",,report,,1,1,1,1,1,1,1,1,,,3,10
