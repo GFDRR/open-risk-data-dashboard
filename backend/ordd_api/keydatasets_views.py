@@ -27,8 +27,8 @@ from .models import KeyDataset, KeyTagGroup
 
 class KeyDataset0on4ListView(generics.ListAPIView):
     """This class handles the GET and POSt requests of our rest api."""
-    queryset = (KeyDataset.objects.all().order_by("scale")
-                .distinct("scale"))
+    queryset = (KeyDataset.objects.all().order_by("level")
+                .distinct("level"))
     serializer_class = KeyDataset0on4Serializer
 
 
@@ -37,11 +37,11 @@ class KeyDataset1on4ListView(generics.ListAPIView):
     serializer_class = KeyDataset1on4Serializer
 
     def get_queryset(self):
-        scale = self.kwargs['scale']
+        level = self.kwargs['level']
 
         filters = {}
-        if scale > '0':
-            filters['scale'] = scale
+        if level > '0':
+            filters['level'] = level
 
         return (KeyDataset.objects.filter(**filters).
                 order_by("category").distinct("category"))
@@ -52,12 +52,12 @@ class KeyDataset2on4ListView(generics.ListAPIView):
     serializer_class = KeyDataset2on4Serializer
 
     def get_queryset(self):
-        scale = self.kwargs['scale']
+        level = self.kwargs['level']
         category = self.kwargs['category']
 
         filters = {}
-        if scale > '0':
-            filters['scale'] = scale
+        if level > '0':
+            filters['level'] = level
         if category > '0':
             filters['category'] = category
 
@@ -70,13 +70,13 @@ class KeyDataset3on4ListView(generics.ListAPIView):
     serializer_class = KeyDataset3on4Serializer
 
     def get_queryset(self):
-        scale = self.kwargs['scale']
+        level = self.kwargs['level']
         category = self.kwargs['category']
         dataset = self.kwargs['dataset']
 
         filters = {}
-        if scale > '0':
-            filters['scale'] = scale
+        if level > '0':
+            filters['level'] = level
         if category > '0':
             filters['category'] = category
         if dataset > '0':
@@ -93,14 +93,14 @@ class KeyDataset4on4ListView(generics.ListAPIView):
     serializer_class = KeyDataset4on4Serializer
 
     def get_queryset(self):
-        scale = self.kwargs['scale']
+        level = self.kwargs['level']
         category = self.kwargs['category']
         dataset = self.kwargs['dataset']
         description = self.kwargs['description']
 
         filters = {}
-        if scale > '0':
-            filters['scale'] = scale
+        if level > '0':
+            filters['level'] = level
         if category > '0':
             filters['category'] = category
         if dataset > '0':

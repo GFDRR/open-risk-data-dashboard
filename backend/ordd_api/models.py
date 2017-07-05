@@ -138,10 +138,10 @@ class KeyDataset(models.Model):
     code = models.CharField(max_length=6, null=False, blank=False)
     category = models.ForeignKey(KeyCategory)
     dataset = models.ForeignKey(KeyDatasetName)
-    tag_group = models.ForeignKey(KeyTagGroup, null=True, blank=True)
+    tag_available = models.ForeignKey(KeyTagGroup, null=True, blank=True)
     description = models.ForeignKey(KeyDescription)
     applicability = models.ManyToManyField(KeyPeril)
-    scale = models.ForeignKey(KeyScale)
+    level = models.ForeignKey(KeyScale)
 
     resolution = models.CharField(max_length=32, blank=True)
     format = models.CharField(max_length=32, blank=True)
@@ -151,7 +151,7 @@ class KeyDataset(models.Model):
     class Meta:
         unique_together = (
             ('category', 'code'),
-            ('category', 'dataset', 'description', 'scale')
+            ('category', 'dataset', 'description', 'level')
         )
 
     def natural_key(self):
@@ -159,7 +159,7 @@ class KeyDataset(models.Model):
 
     def __str__(self):
         return "%s: %s - %s - %s" % (self.code, self.dataset,
-                                     self.description, self.scale)
+                                     self.description, self.level)
 
 
 class Url(models.Model):
@@ -202,3 +202,4 @@ class Dataset(models.Model):
     is_prov_timely_last = models.CharField(max_length=128,
                                            blank=True, null=False)
     applicability = models.ManyToManyField(KeyPeril)
+    tag = models.ManyToManyField(KeyTag)

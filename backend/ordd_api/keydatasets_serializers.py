@@ -44,32 +44,32 @@ class KeyDescriptionSerializer(serializers.ModelSerializer):
 
 
 class KeyDataset0on4Serializer(serializers.ModelSerializer):
-    """Partial serializer of key datasets -> scale """
+    """Partial serializer of key datasets -> level """
 
-    scale = KeyScaleSerializer()
+    level = KeyScaleSerializer()
 
     class Meta:
         model = KeyDataset
-        fields = ('scale',)
+        fields = ('level',)
 
 
 class KeyDataset1on4Serializer(serializers.ModelSerializer):
-    """Partial serializer of key datasets filtered by scale -> category"""
+    """Partial serializer of key datasets filtered by level -> category"""
 
-    scale = serializers.SlugRelatedField(
+    level = serializers.SlugRelatedField(
         read_only=True, slug_field='name')
     category = KeyCategorySerializer()
 
     class Meta:
         model = KeyDataset
-        fields = ('scale', 'category')
+        fields = ('level', 'category')
 
 
 class KeyDataset2on4Serializer(serializers.ModelSerializer):
-    """Partial serializer of key datasets filtered by scale and
+    """Partial serializer of key datasets filtered by level and
        category -> dataset"""
 
-    scale = serializers.SlugRelatedField(
+    level = serializers.SlugRelatedField(
         read_only=True, slug_field='name')
     category = serializers.SlugRelatedField(
         read_only=True, slug_field='name')
@@ -77,14 +77,14 @@ class KeyDataset2on4Serializer(serializers.ModelSerializer):
 
     class Meta:
         model = KeyDataset
-        fields = ('scale', 'category', 'dataset')
+        fields = ('level', 'category', 'dataset')
 
 
 class KeyDataset3on4Serializer(serializers.ModelSerializer):
-    """Partial serializer of key datasets filtered by scale, category,
+    """Partial serializer of key datasets filtered by level, category,
        and dataset -> description"""
 
-    scale = serializers.SlugRelatedField(
+    level = serializers.SlugRelatedField(
         read_only=True, slug_field='name')
     category = serializers.SlugRelatedField(
         read_only=True, slug_field='name')
@@ -93,24 +93,24 @@ class KeyDataset3on4Serializer(serializers.ModelSerializer):
 
     class Meta:
         model = KeyDataset
-        fields = ('scale', 'category', 'dataset', 'description',)
+        fields = ('level', 'category', 'dataset', 'description',)
 
 
 class KeyDataset4on4Serializer(serializers.ModelSerializer):
-    """Serializer of key datasets filtered by scale, category, dataset,
+    """Serializer of key datasets filtered by level, category, dataset,
        description"""
-    scale = serializers.SlugRelatedField(
+    level = serializers.SlugRelatedField(
         read_only=True, slug_field='name')
     category = serializers.SlugRelatedField(
         read_only=True, slug_field='name')
     dataset = serializers.StringRelatedField()
     description = serializers.SlugRelatedField(
         read_only=True, slug_field='name')
-    tag_group = KeyTagSerializer()
+    tag_available = KeyTagSerializer()
     applicability = serializers.SlugRelatedField(
         read_only=True, many=True, slug_field='name')
 
     class Meta:
         model = KeyDataset
-        fields = ('id', 'scale', 'category', 'dataset', 'description',
-                  'tag_group', 'applicability')
+        fields = ('id', 'level', 'category', 'dataset', 'description',
+                  'tag_available', 'applicability')

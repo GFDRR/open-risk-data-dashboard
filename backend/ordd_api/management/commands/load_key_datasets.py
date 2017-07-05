@@ -97,12 +97,12 @@ class Command(BaseCommand):
                     KeyScale.objects.all().delete()
                     KeyDataset.objects.all().delete()
 
-                scale = KeyScale(name='International')
-                scale.save()
-                scale = KeyScale(name='National')
-                scale.save()
-                scale = KeyScale(name='Local')
-                scale.save()
+                level = KeyScale(name='International')
+                level.save()
+                level = KeyScale(name='National')
+                level.save()
+                level = KeyScale(name='Local')
+                level.save()
 
                 # prev_cat = None
                 # cat_cur = None
@@ -168,7 +168,7 @@ class Command(BaseCommand):
 
                     keydata = KeyDataset(
                         code=keyobj_in.id, category=category, dataset=dataset,
-                        description=description, tag_group=tag,
+                        description=description, tag_available=tag,
                         resolution=keyobj_in.resolution,
                         format=keyobj_in.format,
                         comment=keyobj_in.comment, weight=keyobj_in.weight)
@@ -186,17 +186,17 @@ class Command(BaseCommand):
                         else:
                             continue
 
-                        scale = KeyScale.objects.filter(name=names[sca_field])
+                        level = KeyScale.objects.filter(name=names[sca_field])
                         ct += 1
 
                     if ct != 1:
-                        keydata.scale = KeyScale.objects.get(name='National')
+                        keydata.level = KeyScale.objects.get(name='National')
                         warnings.warn('Keydataset from row %d isn\'t assinged'
                                       ' to any applicability level:'
                                       ' \'National\' will be used then.'
                                       % (kd_row), Warning)
                     else:
-                        keydata.scale = scale[0]
+                        keydata.level = level[0]
 
                     keydata.save()
 
