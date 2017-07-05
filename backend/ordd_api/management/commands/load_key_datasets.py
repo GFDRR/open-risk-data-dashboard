@@ -3,19 +3,21 @@ from django.core.management.base import BaseCommand, CommandError
 import csv
 import codecs
 import warnings
-from ordd_api.models import (Category, Peril, KeyDataset,
-                             LevDataset, LevDescription, LevScale)
+from ordd_api.models import (Category, HazardCategory, Peril, KeyDataset,
+                             Dataset, Description, Scale)
 
 # key dataset input rows description:
 # (category), ID,Dataset,Description,Format,Flood,Tsunami,
 #             Cyclones,Earthquakes,Vulcano,Global,National,Local, (weight)
-KeyDataset_in = namedtuple('KeyDataset_in', 'category id dataset description'
-                           ' comment format Flood Tsunami Cyclone Earthquake'
-                           ' Vulcano international national local weight')
+KeyDataset_in = namedtuple('KeyDataset_in', 'category id dataset tag'
+                           ' description comment format resolution RiverFlood'
+                           ' CostalFlood Tsunami Cyclone Earthquake Vulcano'
+                           ' Landslide WaterScarcity international national'
+                           ' local weight')
 
 
 class Command(BaseCommand):
-    help = 'Populare Peril, Category, KeyDataset and all Lev* related tables'
+    help = 'Populare Peril, Category, KeyDataset and all related tables'
 
     def add_arguments(self, parser):
         parser.add_argument(
@@ -70,16 +72,16 @@ class Command(BaseCommand):
                 keydatasets = csv.reader(csvfile)
 
                 if options['reload']:
-                    LevDataset.objects.all().delete()
-                    LevDescription.objects.all().delete()
-                    LevScale.objects.all().delete()
+                    Dataset.objects.all().delete()
+                    Description.objects.all().delete()
+                    Scale.objects.all().delete()
                     KeyDataset.objects.all().delete()
 
-                scale = LevScale(name='International')
+                scale = Scale(name='International')
                 scale.save()
-                scale = LevScale(name='National')
+                scale = Scale(name='National')
                 scale.save()
-                scale = LevScale(name='Local')
+                scale = Scale(name='Local')
                 scale.save()
 
                 # prev_cat = None
@@ -90,16 +92,28 @@ class Command(BaseCommand):
                         continue
 
                     composite_id = kd_in[0].split('_')
+                    composite_ds = kd_in[1].split(' - ')
+
+                    if len(composite_ds) == 2:
+                        hazard_category = composite_ds[0]
+                        dataset = composite_ds[1]
+                    elif len(composite_ds) == 1:
+                        dataset = composite_ds[0]
+                    else:
+                        raise ValueError('Too many \'-\' separators in'
+                                         ' dataset \'%s\'' % kd_in[1])
 
                     keyobj_in = KeyDataset_in(
                         category=Category.objects.get(code=composite_id[0]),
-                        id=composite_id[1],
-                        dataset=kd_in[1], description=kd_in[3],
-                        comment=kd_in[4], format=kd_in[5], Flood=kd_in[7],
-                        Tsunami=kd_in[8], Cyclone=kd_in[9],
-                        Earthquake=kd_in[10], Vulcano=kd_in[11],
-                        international=kd_in[12], national=kd_in[13],
-                        local=kd_in[14], weight=kd_in[15])
+                        id=composite_id[1], hazard_category=hazard_category,
+                        dataset=dataset, tag=kd_in[2], description=kd_in[3],
+                        comment=kd_in[4], format=kd_in[5], resolution=kd_in[6],
+                        RiverFlood=kd_in[7], CostalFlood=kd_in[8],
+                        Tsunami=kd_in[9], Cyclone=kd_in[10],
+                        Earthquake=kd_in[11], Vulcano=kd_in[12],
+                        Landslide=kd_in[13], WaterScarcity=kd_in[14],
+                        international=kd_in[15], national=kd_in[16],
+                        local=kd_in[17], weight=kd_in[18])
 
                     category = Category.objects.filter(name=keyobj_in.category)
                     if len(category) != 1:
@@ -107,17 +121,26 @@ class Command(BaseCommand):
                                          % keyobj_in.category)
                     category = category[0]
 
-                    dataset = LevDataset.objects.filter(name=keyobj_in.dataset)
+                    hazard_category = HazardCategory.objects.filter(
+                                        name=keyobj_in.hazard_category)
+                    if len(hazard_category) < 1:
+                        hazard_category = HazardCategory(
+                                    name=keyobj_in.hazard_category)
+                        hazard_category.save()
+                    else:
+                        hazard_category = hazard_category[0]
+
+                    dataset = Dataset.objects.filter(name=keyobj_in.dataset)
                     if len(dataset) < 1:
-                        dataset = LevDataset(name=keyobj_in.dataset)
+                        dataset = Dataset(name=keyobj_in.dataset)
                         dataset.save()
                     else:
                         dataset = dataset[0]
 
-                    description = LevDescription.objects.filter(
+                    description = Description.objects.filter(
                                      name=keyobj_in.description)
                     if len(description) < 1:
-                        description = LevDescription(
+                        description = Description(
                                         name=keyobj_in.description)
                         description.save()
                     else:
@@ -125,7 +148,9 @@ class Command(BaseCommand):
 
                     keydata = KeyDataset(
                         code=keyobj_in.id, category=category, dataset=dataset,
-                        description=description, format=keyobj_in.format,
+                        description=description,
+                        resolution=keyobj_in.resolution,
+                        format=keyobj_in.format,
                         comment=keyobj_in.comment, weight=keyobj_in.weight)
 
                     names = {'international': 'International',
@@ -141,11 +166,11 @@ class Command(BaseCommand):
                         else:
                             continue
 
-                        scale = LevScale.objects.filter(name=names[sca_field])
+                        scale = Scale.objects.filter(name=names[sca_field])
                         ct += 1
 
                     if ct != 1:
-                        keydata.scale = LevScale.objects.get(name='National')
+                        keydata.scale = Scale.objects.get(name='National')
                         warnings.warn('Keydataset from row %d isn\'t assinged'
                                       ' to any applicability level:'
                                       ' \'National\' will be used then.'
@@ -155,8 +180,9 @@ class Command(BaseCommand):
 
                     keydata.save()
 
-                    for app in ['Flood', 'Tsunami', 'Cyclone',
-                                'Earthquake', 'Vulcano']:
+                    for app in ['River Flooding', 'Coastal Flooding',
+                                'Tsunami', 'Cyclones', 'Earthquakes',
+                                'Vulcano', 'Landslides', 'Water scarcity']:
                         cur_value = getattr(keyobj_in, app, None)
                         if cur_value is not None:
                             cur_value = cur_value.strip()
@@ -179,4 +205,4 @@ class Command(BaseCommand):
 
         self.stdout.write(self.style.SUCCESS('Successfully imported Peril,'
                                              ' Category, KeyDataset and all'
-                                             ' related Lev* tables.'))
+                                             ' related tables.'))

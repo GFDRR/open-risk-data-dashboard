@@ -66,7 +66,17 @@ class Category(models.Model):
         return self.name
 
 
-class LevDataset(models.Model):
+class HazardCategory(models.Model):
+    name = models.CharField(max_length=32, blank=False, unique=True)
+
+    def natural_key(self):
+        return self.name
+
+    def __str__(self):
+        return self.name
+
+
+class Dataset(models.Model):
     name = models.CharField(max_length=128, blank=False, unique=True)
 
     def natural_key(self):
@@ -76,7 +86,18 @@ class LevDataset(models.Model):
         return self.name
 
 
-class LevDescription(models.Model):
+class Tag(models.Model):
+    group = models.CharField(max_length=16, blank=False, unique=True)
+    name = models.CharField(max_length=32, blank=False, unique=True)
+
+    def natural_key(self):
+        return self.name
+
+    def __str__(self):
+        return self.name
+
+
+class Description(models.Model):
     name = models.CharField(max_length=256, blank=False, unique=True)
 
     def natural_key(self):
@@ -86,7 +107,7 @@ class LevDescription(models.Model):
         return self.name
 
 
-class LevScale(models.Model):
+class Scale(models.Model):
     name = models.CharField(max_length=32, blank=False, unique=True)
 
     def natural_key(self):
@@ -109,11 +130,14 @@ class Peril(models.Model):
 class KeyDataset(models.Model):
     code = models.CharField(max_length=6, null=False, blank=False)
     category = models.ForeignKey(Category)
-    dataset = models.ForeignKey(LevDataset)
-    description = models.ForeignKey(LevDescription)
-    scale = models.ForeignKey(LevScale)
+    hazard_category = models.ForeignKey(HazardCategory)
+    dataset = models.ForeignKey(Dataset)
+    tag = models.ForeignKey(Tag)
+    description = models.ForeignKey(Description)
     applicability = models.ManyToManyField(Peril)
+    scale = models.ForeignKey(Scale)
 
+    resolution = models.CharField(max_length=32)
     format = models.CharField(max_length=32)
     comment = models.CharField(max_length=1024)
     weight = models.IntegerField(blank=False)
@@ -121,18 +145,20 @@ class KeyDataset(models.Model):
     class Meta:
         unique_together = (
             ('category', 'code'),
-            # FIXME: format is there because of RI_1C and RI_1D.
-            # They are the same expect for the format
-            ('category', 'dataset', 'description', 'scale', 'format')
+            ('category', 'dataset', 'description', 'scale')
         )
 
     def natural_key(self):
         return (self.category, self.code)
 
     def __str__(self):
-        return "%s: %d - %s - %s - %s" % (self.category, self.code,
-                                          self.dataset, self.description,
-                                          self.scale)
+        if self.hazard_category == '':
+            dataset = self.dataset
+        else:
+            dataset = "%s - %s" % (self.hazard_category, self.dataset)
+
+        return "%s: %d - %s - %s - %s" % (self.code, self.code, dataset,
+                                          self.description, self.scale)
 
 
 class Element(models.Model):
