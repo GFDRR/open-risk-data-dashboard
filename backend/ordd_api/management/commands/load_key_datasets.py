@@ -3,8 +3,9 @@ from django.core.management.base import BaseCommand, CommandError
 import csv
 import codecs
 import warnings
-from ordd_api.models import (Category, HazardCategory, Peril, KeyDataset,
-                             Dataset, Description, Scale)
+from ordd_api.models import (KeyCategory, KeyHazardCategory, KeyPeril,
+                             KeyDatasetName, KeyDescription, KeyScale,
+                             KeyDataset)
 
 # key dataset input rows description:
 # (category), ID,Dataset,Description,Format,Flood,Tsunami,
@@ -34,11 +35,11 @@ class Command(BaseCommand):
             with (codecs.open(options['filein'][0], 'rb',
                   encoding='utf-8')) as csvfile:
                 if options['reload']:
-                    Peril.objects.all().delete()
+                    KeyPeril.objects.all().delete()
 
                 perils = csv.reader(csvfile)
                 for peril_in in perils:
-                    peril = Peril(name=peril_in[0])
+                    peril = KeyPeril(name=peril_in[0])
                     peril.save()
 
         except Exception as e:
@@ -51,13 +52,13 @@ class Command(BaseCommand):
             with (codecs.open(options['filein'][1], 'rb',
                   encoding='utf-8')) as csvfile:
                 if options['reload']:
-                    Category.objects.all().delete()
+                    KeyCategory.objects.all().delete()
 
                 categories = csv.reader(csvfile)
                 for category_in in categories:
-                    category = Category(code=category_in[0],
-                                        name=category_in[1],
-                                        weight=category_in[2])
+                    category = KeyCategory(code=category_in[0],
+                                           name=category_in[1],
+                                           weight=category_in[2])
                     category.save()
 
         except Exception as e:
@@ -72,16 +73,16 @@ class Command(BaseCommand):
                 keydatasets = csv.reader(csvfile)
 
                 if options['reload']:
-                    Dataset.objects.all().delete()
-                    Description.objects.all().delete()
-                    Scale.objects.all().delete()
+                    KeyDatasetName.objects.all().delete()
+                    KeyDescription.objects.all().delete()
+                    KeyScale.objects.all().delete()
                     KeyDataset.objects.all().delete()
 
-                scale = Scale(name='International')
+                scale = KeyScale(name='International')
                 scale.save()
-                scale = Scale(name='National')
+                scale = KeyScale(name='National')
                 scale.save()
-                scale = Scale(name='Local')
+                scale = KeyScale(name='Local')
                 scale.save()
 
                 # prev_cat = None
@@ -104,7 +105,7 @@ class Command(BaseCommand):
                                          ' dataset \'%s\'' % kd_in[1])
 
                     keyobj_in = KeyDataset_in(
-                        category=Category.objects.get(code=composite_id[0]),
+                        category=KeyCategory.objects.get(code=composite_id[0]),
                         id=composite_id[1], hazard_category=hazard_category,
                         dataset=dataset, tag=kd_in[2], description=kd_in[3],
                         comment=kd_in[4], format=kd_in[5], resolution=kd_in[6],
@@ -115,32 +116,34 @@ class Command(BaseCommand):
                         international=kd_in[15], national=kd_in[16],
                         local=kd_in[17], weight=kd_in[18])
 
-                    category = Category.objects.filter(name=keyobj_in.category)
+                    category = KeyCategory.objects.filter(
+                                                    name=keyobj_in.category)
                     if len(category) != 1:
                         raise ValueError('Category: [%s] not exists in list'
                                          % keyobj_in.category)
                     category = category[0]
 
-                    hazard_category = HazardCategory.objects.filter(
+                    hazard_category = KeyHazardCategory.objects.filter(
                                         name=keyobj_in.hazard_category)
                     if len(hazard_category) < 1:
-                        hazard_category = HazardCategory(
+                        hazard_category = KeyHazardCategory(
                                     name=keyobj_in.hazard_category)
                         hazard_category.save()
                     else:
                         hazard_category = hazard_category[0]
 
-                    dataset = Dataset.objects.filter(name=keyobj_in.dataset)
+                    dataset = KeyDatasetName.objects.filter(
+                                                    name=keyobj_in.dataset)
                     if len(dataset) < 1:
-                        dataset = Dataset(name=keyobj_in.dataset)
+                        dataset = KeyDatasetName(name=keyobj_in.dataset)
                         dataset.save()
                     else:
                         dataset = dataset[0]
 
-                    description = Description.objects.filter(
+                    description = KeyDescription.objects.filter(
                                      name=keyobj_in.description)
                     if len(description) < 1:
-                        description = Description(
+                        description = KeyDescription(
                                         name=keyobj_in.description)
                         description.save()
                     else:
@@ -166,11 +169,11 @@ class Command(BaseCommand):
                         else:
                             continue
 
-                        scale = Scale.objects.filter(name=names[sca_field])
+                        scale = KeyScale.objects.filter(name=names[sca_field])
                         ct += 1
 
                     if ct != 1:
-                        keydata.scale = Scale.objects.get(name='National')
+                        keydata.scale = KeyScale.objects.get(name='National')
                         warnings.warn('Keydataset from row %d isn\'t assinged'
                                       ' to any applicability level:'
                                       ' \'National\' will be used then.'
@@ -191,7 +194,7 @@ class Command(BaseCommand):
                         else:
                             continue
 
-                        peril = Peril.objects.filter(name=app)
+                        peril = KeyPeril.objects.filter(name=app)
                         if len(peril) != 1:
                             raise ValueError('Peril: [%s] not match 1'
                                              ' peril item' % app)

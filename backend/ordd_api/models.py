@@ -54,7 +54,7 @@ class Country(models.Model):
         return self.name
 
 
-class Category(models.Model):
+class KeyCategory(models.Model):
     code = models.CharField(max_length=2, blank=False, unique=True)
     name = models.CharField(max_length=64, blank=False, unique=True)
     weight = models.IntegerField(blank=False)
@@ -66,7 +66,7 @@ class Category(models.Model):
         return self.name
 
 
-class HazardCategory(models.Model):
+class KeyHazardCategory(models.Model):
     name = models.CharField(max_length=32, blank=False, unique=True)
 
     def natural_key(self):
@@ -76,7 +76,7 @@ class HazardCategory(models.Model):
         return self.name
 
 
-class Dataset(models.Model):
+class KeyDatasetName(models.Model):
     name = models.CharField(max_length=128, blank=False, unique=True)
 
     def natural_key(self):
@@ -86,7 +86,7 @@ class Dataset(models.Model):
         return self.name
 
 
-class Tag(models.Model):
+class KeyTag(models.Model):
     group = models.CharField(max_length=16, blank=False, unique=True)
     name = models.CharField(max_length=32, blank=False, unique=True)
 
@@ -97,7 +97,7 @@ class Tag(models.Model):
         return self.name
 
 
-class Description(models.Model):
+class KeyDescription(models.Model):
     name = models.CharField(max_length=256, blank=False, unique=True)
 
     def natural_key(self):
@@ -107,7 +107,7 @@ class Description(models.Model):
         return self.name
 
 
-class Scale(models.Model):
+class KeyScale(models.Model):
     name = models.CharField(max_length=32, blank=False, unique=True)
 
     def natural_key(self):
@@ -117,7 +117,7 @@ class Scale(models.Model):
         return self.name
 
 
-class Peril(models.Model):
+class KeyPeril(models.Model):
     name = models.CharField(max_length=32, blank=False, unique=True)
 
     def natural_key(self):
@@ -129,13 +129,13 @@ class Peril(models.Model):
 
 class KeyDataset(models.Model):
     code = models.CharField(max_length=6, null=False, blank=False)
-    category = models.ForeignKey(Category)
-    hazard_category = models.ForeignKey(HazardCategory)
-    dataset = models.ForeignKey(Dataset)
-    tag = models.ForeignKey(Tag)
-    description = models.ForeignKey(Description)
-    applicability = models.ManyToManyField(Peril)
-    scale = models.ForeignKey(Scale)
+    category = models.ForeignKey(KeyCategory)
+    hazard_category = models.ForeignKey(KeyHazardCategory)
+    dataset = models.ForeignKey(KeyDatasetName)
+    tag = models.ForeignKey(KeyTag)
+    description = models.ForeignKey(KeyDescription)
+    applicability = models.ManyToManyField(KeyPeril)
+    scale = models.ForeignKey(KeyScale)
 
     resolution = models.CharField(max_length=32)
     format = models.CharField(max_length=32)
