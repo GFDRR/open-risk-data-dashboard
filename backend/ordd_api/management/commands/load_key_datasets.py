@@ -73,10 +73,10 @@ class Command(BaseCommand):
                 tags = csv.reader(csvfile)
                 for tag_in in tags:
                     KeyTag.objects.get_or_create(name=tag_in[1])
-                    KeyTagGroup.objects.get_or_create(name=tag_in[0])
+                    KeyTagGroup.objects.get_or_create(group=tag_in[0])
 
                     tag = KeyTag.objects.get(name=tag_in[1])
-                    tag_group = KeyTagGroup.objects.get(name=tag_in[0])
+                    tag_group = KeyTagGroup.objects.get(group=tag_in[0])
 
                     tag_group.tags.add(tag)
                     tag_group.save()
@@ -155,7 +155,7 @@ class Command(BaseCommand):
                         tag = None
                     else:
                         tag = KeyTagGroup.objects.filter(
-                                                    name__iexact=keyobj_in.tag)
+                                                group__iexact=keyobj_in.tag)
                         if len(tag) != 1:
                             raise ValueError('Tag group: [%s] not exists'
                                              ' in list' % keyobj_in.tag)

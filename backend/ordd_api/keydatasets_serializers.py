@@ -34,7 +34,7 @@ class KeyTagSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = KeyTagGroup
-        fields = ('name', 'tags')
+        fields = ('group', 'tags')
 
 
 class KeyDescriptionSerializer(serializers.ModelSerializer):

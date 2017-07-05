@@ -94,14 +94,14 @@ class KeyTag(models.Model):
 
 
 class KeyTagGroup(models.Model):
-    name = models.CharField(max_length=16, blank=False, unique=True)
+    group = models.CharField(max_length=16, blank=False, unique=True)
     tags = models.ManyToManyField(KeyTag)
 
     def natural_key(self):
-        return self.name
+        return self.group
 
     def __str__(self):
-        return self.name
+        return self.group
 
 
 class KeyDescription(models.Model):
