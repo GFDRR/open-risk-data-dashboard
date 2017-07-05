@@ -263,9 +263,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
         $scope.saveSelection = function(qcode, value)
         {
             $scope.objDataset[qcode] = value;
-
-            console.log($scope.objDataset);
-
         }
 
         $scope.saveDataset = function()
