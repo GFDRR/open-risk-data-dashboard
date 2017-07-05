@@ -108,6 +108,11 @@ class Command(BaseCommand):
                 # cat_cur = None
 
                 for kd_row, kd_in in enumerate(keydatasets):
+
+                    # Sanitize all the trailing and leading spaces
+                    for n, kd_in_clean in enumerate(kd_in):
+                        kd_in[n] = kd_in_clean.strip()
+
                     if kd_in[0] == '' or kd_in[0] == 'NN':
                         continue
 
