@@ -257,6 +257,13 @@ section
 
 ==============================================================================
 */
+
+.dataset_form_select_style {
+    width: 100%;
+    border: 2px solid #555;
+    border-radius: 5px;
+}
+
 /*.dataset.table th {text-align:center}*/
 .dataset.table td {vertical-align: middle; padding:0;}
 .dataset_value i {
@@ -299,7 +306,7 @@ section
 {
     width:100%;
     padding:20px;
-    border:solid 2px #232323;
+    border:solid 2px #555;
     color:#232323;
     text-align: center;
     -webkit-border-radius: 5px;
@@ -312,12 +319,14 @@ section
 {
     background-color: green;
     color:#ffffff;
+    border-color: #00b200;
 }
 
 .rodi_btn_yes_bg_red
 {
     background-color:red;
     color:#ffffff;
+    border-color: #b00000;
 }
 
 .vertical-align {
@@ -345,7 +354,16 @@ section
 {
     color:#ffffff;
 }
-
+.rodi_section_01 {
+    display:flex;
+    flex-direction:column;
+}
+.rodi_section_01 .row {
+    display:flex;
+    flex-direction:row;
+    align-content: center;
+    justify-content: space-around;
+}
 
 /*
 ==============================================================================
