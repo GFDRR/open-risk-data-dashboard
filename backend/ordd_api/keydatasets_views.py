@@ -123,7 +123,7 @@ class KeyDatasetTagGroup(APIView):
     """This class handles the GET requests of our rest api."""
 
     def get_queryset(self):
-        return list(KeyTagGroup.objects.values_list('name', flat=True))
+        return list(KeyTagGroup.objects.values_list('group', flat=True))
 
     def get(self, request):
         return Response({'tags': self.get_queryset()})
@@ -134,4 +134,4 @@ class KeyDatasetTag(generics.ListAPIView):
     serializer_class = KeyTagSerializer
 
     def get_queryset(self):
-        return KeyTagGroup.objects.filter(name=self.kwargs['name'])
+        return KeyTagGroup.objects.filter(group=self.kwargs['group'])
