@@ -258,11 +258,6 @@ section
 ==============================================================================
 */
 
-.dataset_form_select_style {
-    width: 100%;
-    border: 2px solid #555;
-    border-radius: 5px;
-}
 
 /*.dataset.table th {text-align:center}*/
 .dataset.table td {vertical-align: middle; padding:0;}
@@ -280,7 +275,7 @@ section
 .dataset_value i[aria-hidden~=true] {background: green;}
 
 
-.dataset_form_select_style
+.dataset_form_select_style select
 {
     border:0px;
     padding:10px;
@@ -288,6 +283,26 @@ section
     color:#a0a0a0;
     background-color: transparent;
     font-weight: 500;
+}
+.dataset_form_select_style { margin:1em;}
+.rodi_dataset_label_code{ padding-right:1em;}
+.dataset_form_select_style select {
+    width: 100%;
+    border: 2px solid #555;
+    border-radius: 5px;
+}
+input.dataset_form_select_style,
+input.form-control,
+textarea.form-control {
+    padding:10px; background: rgba(255,255,255,0.5);
+    border:none;
+    /*margin-top:1em;*/
+}
+small.label {
+    color:inherit;
+    position: absolute;
+    margin-left:2em;
+    margin-top:-4em;
 }
 
 .rodi_dataset_label_code
@@ -354,17 +369,45 @@ section
 {
     color:#ffffff;
 }
-.rodi_section_01 {
-    display:flex;
-    flex-direction:column;
-}
-.rodi_section_01 .row {
-    display:flex;
-    flex-direction:row;
-    align-content: center;
+
+.flex-container .row,
+.flex-container .row div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     justify-content: space-around;
 }
+.flex-container.col {
+    flex-direction:column;
+}
 
+/*.rodi_section_02 .flex-container {flex-direction: row;}*/
+[class*="rodi_section"] .row + .row {margin-top:1em; margin-bottom:1em;}
+@media screen and (max-width:768px) {
+
+    .col .row {
+        flex-direction: column;
+        /*align-items: flex-start;*/
+    }
+    .flex-container .row div {
+        flex-direction: row;
+        align-content:flex-start;
+    }
+    .flex-container .row:after {
+        border-bottom:1px solid rgba(0,0,0,.1);
+        width:90%;
+        margin:1em;
+    }
+
+    [class*="rodi_section"] {
+        padding-left: 2em;
+        padding-right: 2em;
+    }
+
+
+
+
+}
 /*
 ==============================================================================
 
