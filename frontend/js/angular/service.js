@@ -526,103 +526,38 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         });
     }
 
-    // this.getDataCategoryIcon = function()
-    // {
-    //     // return data category icon & description for matrix view
-    //     var obj =
-    //         [
-    //             {
-    //                 "category": {id: 1, name: "Basic Data"}
-    //             },
-    //             {
-    //                 "category": {id: 2, name: "Exposure"}
-    //             },
-    //             {
-    //                 "category": {id: 3, name: "Hazard"}
-    //             },
-    //             {
-    //                 "category": {id: 4, name: "Risk"}
-    //             },
-    //             {
-    //                 "category": {id: 5, name: "Vulnerability"}
-    //             }
-    //         ];
-    //
-    //     return obj;
-    // }
+    this.getDataCategoryIcon = function()
+    {
+        // return data category icon & description for matrix view
+        var obj =
+            [
+                {
+                    "category": {id: 1, name: "Basic Data"}
+                },
+                {
+                    "category": {id: 2, name: "Exposure"}
+                },
+                {
+                    "category": {id: 3, name: "Hazard"}
+                },
+                {
+                    "category": {id: 4, name: "Risk"}
+                },
+                {
+                    "category": {id: 5, name: "Vulnerability"}
+                }
+            ];
 
-    // this.getDataCategory = function(scale_id, onSuccess, onError)
-    // {
-    //     // Return a list of Hazard Macro Category
-    //     var req = {
-    //         method: 'GET',
-    //         url: baseAPIurl + 'keydataset/' + scale_id + '/',
-    //         headers: {
-    //             // 'Authorization': 'Token ' + token
-    //         },
-    //         data: {}
-    //     }
-    //
-    //     $http(req).then(function(data){
-    //         if(onSuccess) onSuccess(data.data);
-    //     }, function(data){
-    //         if(onError)onError(data.data);
-    //     });
-    //
-    //     // return objHazardCategoryList = [
-    //     //     {code:"h01", desc:"Base data", icon:"icon-base_data"},
-    //     //     {code:"h02", desc:"Exposure", icon:"icon-exposure"},
-    //     //     {code:"h03", desc:"Hazard info", icon:"icon-hazard_info"},
-    //     //     {code:"h04", desc:"Vulnerability", icon:"icon-vulnerability"},
-    //     //     {code:"h05", desc:"Risk info", icon:"icon-info"}
-    //     // ];
-    // };
+        return obj;
+    }
 
-    // this.getHCIcon = function(index)
-    // {
-    //     // Return the icon set for the category
-    //     var obj = ["icon-base_data", "icon-exposure", "icon-hazard_info", "icon-info", "icon-vulnerability"];
-    //
-    //     return obj[index];
-    // }
+    this.getHCIcon = function(index)
+    {
+        // Return the icon set for the category
+        var obj = ["icon-base_data", "icon-exposure", "icon-hazard_info", "icon-info", "icon-vulnerability"];
 
-    // this.getDatasetCategory = function(scale_id, data_cat, onSuccess, onError)
-    // {
-    //     // Return a list of dataset name
-    //
-    //     var req = {
-    //         method: 'GET',
-    //         url: baseAPIurl + 'keydataset/' + scale_id + '/' + data_cat + '/',
-    //         headers: {
-    //             // 'Authorization': 'Token ' + token
-    //         },
-    //         data: {}
-    //     }
-    //
-    //     $http(req).then(function(data){
-    //         if(onSuccess) onSuccess(data.data);
-    //     }, function(data){
-    //         if(onError)onError(data.data);
-    //     });
-    // }
-
-    // this.getDatasetDescription = function(scale_id, data_cat, dataset_cat, onSuccess, onError)
-    // {
-    //     var req = {
-    //         method: 'GET',
-    //         url: baseAPIurl + 'keydataset/' + scale_id + '/' + data_cat + '/' + dataset_cat + '/',
-    //         headers: {
-    //             // 'Authorization': 'Token ' + token
-    //         },
-    //         data: {}
-    //     }
-    //
-    //     $http(req).then(function(data){
-    //         if(onSuccess) onSuccess(data.data);
-    //     }, function(data){
-    //         if(onError)onError(data.data);
-    //     });
-    // }
+        return obj[index];
+    }
 
     this.getKeydatasetId = function(scale_id, data_cat, dataset_cat, dataset_desc, onSuccess, onError)
     {
@@ -663,60 +598,6 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
             if(onError)onError(data.data);
         });
     }
-
-    // this.getDatasetResolution = function(hcId, dsId, dsDescId, onSuccess, onError)
-    // {
-    //     var req = {
-    //         method: 'GET',
-    //         url: baseAPIurl + 'keydataset/' + hcId + '/' + dsId + '/' + dsDescId + '/',
-    //         headers: {
-                // 'Authorization': 'Token ' + token
-            // },
-            // data: {}
-        // }
-        //
-        // $http(req).then(function(data){
-        //     if(onSuccess) onSuccess(data.data);
-        // }, function(data){
-        //     if(onError)onError(data.data);
-        // });
-    // }
-
-    // this.getDatasetScale = function(onSuccess, onError)
-    // {
-    //     var req = {
-    //         method: 'GET',
-    //         url: baseAPIurl + 'keydataset/',
-    //         headers: {
-    //             // 'Authorization': 'Token ' + token
-    //         },
-    //         data: {}
-    //     }
-    //
-    //     $http(req).then(function(data){
-    //         if(onSuccess) onSuccess(data.data);
-    //     }, function(data){
-    //         if(onError)onError(data.data);
-    //     });
-    // }
-
-    // this.getDatasetTags = function(onSuccess, onError)
-    // {
-    //     var req = {
-    //         method: 'GET',
-    //         url: baseAPIurl + 'tags/',
-    //         headers: {
-    //             // 'Authorization': 'Token ' + token
-    //         },
-    //         data: {}
-    //     }
-    //
-    //     $http(req).then(function(data){
-    //         if(onSuccess) onSuccess(data.data);
-    //     }, function(data){
-    //         if(onError)onError(data.data);
-    //     });
-    // }
 
     this.getQuestions = function()
     {
