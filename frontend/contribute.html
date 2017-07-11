@@ -221,16 +221,18 @@
 
                                 </div>
                                 <div class="row">
-                                    <div>
+                                    <!--<div>-->
                                         <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
                                         <span class="rodi_dataset_label_code">A4.</span>
                                         <span class="rodi_dataset_label">Datasets elements</span>
                                         <!--</div>-->
-                                        <div ng-model="selectedTags" class="rodi_cb_space" ng-repeat="tag in datasetTags[0].tags" ng-click="setTags(tag)">
+                                    <div class="flex-container">
+                                        <div ng-model="selectedTags" class="rodi_cb_space" ng-repeat="tag in datasetTags[0].tags" ng-click="setTags(tag)" ng-class="{active:selectedTags.indexOf(tag) !== -1}">
                                             <i class="fa fa-check" aria-hidden="true" ng-if="selectedTags.indexOf(tag) !== -1"></i> <span >{{tag}}</span>
                                             <!--<input type="checkbox" class="form-control" ng-model="selectedTags" > -->
                                         </div>
                                     </div>
+                                    <!--</div>-->
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
@@ -259,7 +261,8 @@
                                         </div>
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                             <div class="rodi_btn_yes_no" ng-class="{'rodi_btn_yes_bg_red': objDataset.is_existing == 'false' && objDataset.is_existing !== ''}" ng-click="saveSelection('is_existing', 'false')">
-                                                NO
+                                                <span class="hidden-xs hidden-sm">NO</span>
+                                                <span class="visible-xs visible-sm">N</span>
                                             </div>
                                         </div>
                                     </div>
@@ -296,12 +299,14 @@
                                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                             <div class="rodi_btn_yes_no" ng-class="{'rodi_btn_yes_bg_green': objDataset.is_digital_form == 'true'}" ng-click="saveSelection('is_digital_form', 'true')">
-                                                YES
+                                                <span class="hidden-xs hidden-sm">YES</span>
+                                                <span class="visible-xs visible-sm">Y</span>
                                             </div>
                                         </div>
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                             <div class="rodi_btn_yes_no" ng-class="{'rodi_btn_yes_bg_red': objDataset.is_digital_form == 'false' && objDataset.is_digital_form !== ''}" ng-click="saveSelection('is_digital_form', 'false')">
-                                                NO
+                                                <span class="hidden-xs hidden-sm">NO</span>
+                                                <span class="visible-xs visible-sm">N</span>
                                             </div>
                                         </div>
                                     </div>
@@ -324,12 +329,14 @@
                                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                             <div class="rodi_btn_yes_no" ng-class="{'rodi_btn_yes_bg_green': objDataset.is_avail_online == 'true'}" ng-click="saveSelection('is_avail_online', 'true')">
-                                                YES
+                                                <span class="hidden-xs hidden-sm">YES</span>
+                                                <span class="visible-xs visible-sm">Y</span>
                                             </div>
                                         </div>
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                             <div class="rodi_btn_yes_no" ng-class="{'rodi_btn_yes_bg_red': objDataset.is_avail_online == 'false' && objDataset.is_avail_online !== ''}" ng-click="saveSelection('is_avail_online', 'false')">
-                                                NO
+                                                <span class="hidden-xs hidden-sm">NO</span>
+                                                <span class="visible-xs visible-sm">N</span>
                                             </div>
                                         </div>
                                     </div>
@@ -351,12 +358,14 @@
                                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                             <div class="rodi_btn_yes_no" ng-class="{'rodi_btn_yes_bg_green': objDataset.is_avail_online_meta == 'true'}" ng-click="saveSelection('is_avail_online_meta', 'true')">
-                                                YES
+                                                <span class="hidden-xs hidden-sm">YES</span>
+                                                <span class="visible-xs visible-sm">Y</span>
                                             </div>
                                         </div>
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                             <div class="rodi_btn_yes_no" ng-class="{'rodi_btn_yes_bg_red': objDataset.is_avail_online_meta == 'false' && objDataset.is_avail_online_meta !== ''}" ng-click="saveSelection('is_avail_online_meta', 'false')">
-                                                NO
+                                                <span class="hidden-xs hidden-sm">NO</span>
+                                                <span class="visible-xs visible-sm">N</span>
                                             </div>
                                         </div>
                                     </div>
@@ -378,12 +387,14 @@
                                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                             <div class="rodi_btn_yes_no" ng-class="{'rodi_btn_yes_bg_green': objDataset.is_bulk_avail == 'true'}" ng-click="saveSelection('is_bulk_avail', 'true')">
-                                                YES
+                                                <span class="hidden-xs hidden-sm">YES</span>
+                                                <span class="visible-xs visible-sm">Y</span>
                                             </div>
                                         </div>
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                             <div class="rodi_btn_yes_no" ng-class="{'rodi_btn_yes_bg_red': objDataset.is_bulk_avail == 'false' && objDataset.is_bulk_avail !== ''}" ng-click="saveSelection('is_bulk_avail', 'false')">
-                                                NO
+                                                <span class="hidden-xs hidden-sm">NO</span>
+                                                <span class="visible-xs visible-sm">N</span>
                                             </div>
                                         </div>
                                     </div>
@@ -406,12 +417,14 @@
                                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                             <div class="rodi_btn_yes_no" ng-class="{'rodi_btn_yes_bg_green': objDataset.is_machine_read == 'true'}" ng-click="saveSelection('is_machine_read', 'true')">
-                                                YES
+                                                <span class="hidden-xs hidden-sm">YES</span>
+                                                <span class="visible-xs visible-sm">Y</span>
                                             </div>
                                         </div>
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                             <div class="rodi_btn_yes_no" ng-class="{'rodi_btn_yes_bg_red': objDataset.is_machine_read == 'false' && objDataset.is_machine_read !== ''}" ng-click="saveSelection('is_machine_read', 'false')">
-                                                NO
+                                                <span class="hidden-xs hidden-sm">NO</span>
+                                                <span class="visible-xs visible-sm">N</span>
                                             </div>
                                         </div>
                                     </div>
@@ -437,12 +450,14 @@
                                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                             <div class="rodi_btn_yes_no" ng-class="{'rodi_btn_yes_bg_green': objDataset.is_pub_available == 'true'}" ng-click="saveSelection('is_pub_available', 'true')">
-                                                YES
+                                                <span class="hidden-xs hidden-sm">YES</span>
+                                                <span class="visible-xs visible-sm">Y</span>
                                             </div>
                                         </div>
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                             <div class="rodi_btn_yes_no" ng-class="{'rodi_btn_yes_bg_red': objDataset.is_pub_available == 'false' && objDataset.is_pub_available !== ''}" ng-click="saveSelection('is_pub_available', 'false')">
-                                                NO
+                                                <span class="hidden-xs hidden-sm">NO</span>
+                                                <span class="visible-xs visible-sm">N</span>
                                             </div>
                                         </div>
                                     </div>
@@ -463,12 +478,14 @@
                                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                             <div class="rodi_btn_yes_no" ng-class="{'rodi_btn_yes_bg_green': objDataset.is_avail_for_free == 'true'}" ng-click="saveSelection('is_avail_for_free', 'true')">
-                                                YES
+                                                <span class="hidden-xs hidden-sm">YES</span>
+                                                <span class="visible-xs visible-sm">Y</span>
                                             </div>
                                         </div>
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                             <div class="rodi_btn_yes_no" ng-class="{'rodi_btn_yes_bg_red': objDataset.is_avail_for_free == 'false' && objDataset.is_avail_for_free !== ''}" ng-click="saveSelection('is_avail_for_free', 'false')">
-                                                NO
+                                                <span class="hidden-xs hidden-sm">NO</span>
+                                                <span class="visible-xs visible-sm">N</span>
                                             </div>
                                         </div>
                                     </div>
@@ -489,12 +506,14 @@
                                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                             <div class="rodi_btn_yes_no" ng-class="{'rodi_btn_yes_bg_green': objDataset.is_open_licence == 'true'}" ng-click="saveSelection('is_open_licence', 'true')">
-                                                YES
+                                                <span class="hidden-xs hidden-sm">YES</span>
+                                                <span class="visible-xs visible-sm">Y</span>
                                             </div>
                                         </div>
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                             <div class="rodi_btn_yes_no" ng-class="{'rodi_btn_yes_bg_red': objDataset.is_open_licence == 'false' && objDataset.is_open_licence !== ''}" ng-click="saveSelection('is_open_licence', 'false')">
-                                                NO
+                                                <span class="hidden-xs hidden-sm">NO</span>
+                                                <span class="visible-xs visible-sm">N</span>
                                             </div>
                                         </div>
                                     </div>
@@ -518,12 +537,14 @@
                                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                                             <div class="rodi_btn_yes_no" ng-class="{'rodi_btn_yes_bg_green': objDataset.is_prov_timely == 'true'}" ng-click="saveSelection('is_prov_timely', 'true')">
-                                                YES
+                                                <span class="hidden-xs hidden-sm">YES</span>
+                                                <span class="visible-xs visible-sm">Y</span>
                                             </div>
                                         </div>
-                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                            <div class="rodi_btn_yes_no" ng-class="{'rodi_btn_yes_bg_red': objDataset.is_prov_timely == 'false' && objDataset.is_prov_timely !== ''}" ng-click="saveSelection('is_prov_timely', 'false')">
-                                                NO
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-NO">
+                                            <div class="rodi_btn_yes_novisibleng-visible="{'rodi_btn_yes_bg_red' objDataset.is_prov_timely == 'false' && objDataset.is_prov_timely !==
+                                            ''}" ng-click="saveSelection('is_prov_timely', 'falsNO">
+
                                             </div>
                                         </div>
                                     </div>
@@ -977,25 +998,29 @@
                     <br><br><br><br>
                     <div class="text-center">
                         <button class="btn btn-lg btn-custom " type="button" ng-click="changepage('register.html')">
-                                <span class="rodi_big_text">
-                                    <i class="fa icon-register fa-2x"></i>
-                                    REGISTER NOW
+                                <span classvisible"NOvisible
+
+                                    <iclass="fa icon-register fa-2x">NO>
+                                    REGISTER
                                 </span>
                         </button>
                         <!--<span class="rodi_big_text">|</span>-->
                         <button class="btn btn-primary btn-lg" type="button" ng-click="loginform()">
-                                <span class="rodi_big_text">
-                                    <i class="fa icon-login fa-3x"></i>
-                                    LOGIN NOW
+                                <span classvisible"NOvisible
+
+                                    <iclass="fa icon-login fa-3x">NO>
+                                    LOGIN
                                 </span>
                         </button>
                     </div>
                 </div>
             </div>
-            <!--<h3>If you want to contribute to Risk Open Data Index you must to register.</h3>
-            <a href="" ng-click="changepage('register.html')"><span class="rodi_big_text"><i class="fa icon-register"></i> REGISTER NOW</span></a>
-            <span class="rodi_big_text">|</span>
-            <a href="" ng-click="loginform()"><span class="rodi_big_text"><i class="fa icon-login"></i> LOGIN NOW</span></a>-->
+            <!--<h3>If you want to contribute to Risk Open Data Index visiblemust to visible>
+
+            <ahref="" ng-click="changepage('register.html')"><span class="rodi_big_text"><i class="fa icon-register"NOi> REGISTER
+            <visibleclass="visible>
+
+            <ahref="" ng-click="loginform()"><span class="rodi_big_text"><i class="fa icon-login"NOi> LOGIN
         </div>
         <!--</div>-->
 </div>

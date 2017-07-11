@@ -55,15 +55,18 @@ section
     height:20px;
     border-top: solid 1px #c0c0c0;
 }
-
+.rodi_cb_space.active {
+    background-color: #00b3ee;
+}
 .rodi_cb_space
+
 {
     padding:5px;
     width:100px;
-    height: 100px;
-    background-color: #00b3ee;
+    height: 80px;
+    background-color: rgba(0, 193, 255, 0.64);
     color:#ffffff;
-    margin-right:10px;
+    margin:10px;
     text-align: center;
     font-size: 17px;
     -webkit-border-radius: 5px;
@@ -330,7 +333,7 @@ small.label {
 .rodi_btn_yes_no
 {
     width:100%;
-    padding:20px;
+    padding:15px 10px;
     border:solid 2px #555;
     color:#232323;
     text-align: center;
@@ -390,6 +393,17 @@ small.label {
 .flex-container.col {
     flex-direction:column;
 }
+.rodi_section_01 .flex-container.col .row {
+    flex-direction: column;
+}
+
+.rodi_section_01 .flex-container.col .row .flex-container {
+    /*display:flex;*/
+    flex-direction:row;
+    flex-wrap:wrap;
+}
+
+.rodi_section_02 [class*="col-"] [class*="col-"] [class*="col-"]  {}
 
 /*.rodi_section_02 .flex-container {flex-direction: row;}*/
 [class*="rodi_section"] .row + .row {margin-top:1em; margin-bottom:1em;}
