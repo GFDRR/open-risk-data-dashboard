@@ -624,25 +624,25 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
     //     });
     // }
 
-    // this.getKeydatasetId = function(scale_id, data_cat, dataset_cat, dataset_desc, onSuccess, onError)
-    // {
-    //     // Return a list of dataset name
-    //
-    //     var req = {
-    //         method: 'GET',
-    //         url: baseAPIurl + 'keydataset/' + scale_id + '/' + data_cat + '/' + dataset_cat + '/' + dataset_desc,
-    //         headers: {
-    //             // 'Authorization': 'Token ' + token
-    //         },
-    //         data: {}
-    //     }
-    //
-    //     $http(req).then(function(data){
-    //         if(onSuccess) onSuccess(data.data);
-    //     }, function(data){
-    //         if(onError)onError(data.data);
-    //     });
-    // }
+    this.getKeydatasetId = function(scale_id, data_cat, dataset_cat, dataset_desc, onSuccess, onError)
+    {
+        // Return a list of dataset name
+
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'keydataset/' + scale_id + '/' + data_cat + '/' + dataset_cat + '/' + dataset_desc,
+            headers: {
+                // 'Authorization': 'Token ' + token
+            },
+            data: {}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+    }
 
     this.getDatasetInfo = function(token, ds_id, onSuccess, onError)
     {
@@ -808,13 +808,12 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
     this.validateDataset = function(obj)
     {
         var aErrors = [];
-        var objResolutions = {};
 
         // if(obj.name == ''){aErrors.push('Name')};
         // if(obj.abstract == ''){aErrors.push('Abstract')};
         if(obj.country == '--'){aErrors.push('Country')};
-        if(obj.keydataset.scale == '--'){aErrors.push('Dataset scale')};
-        if(obj.keydataset.category == '--'){aErrors.push('Data category')};
+        // if(obj.keydataset.scale == '--'){aErrors.push('Dataset scale')};
+        // if(obj.keydataset.category == '--'){aErrors.push('Data category')};
         // if(obj.hazard == '--'){aErrors.push('Data category')};
         if(obj.keydataset.dataset == '--'){aErrors.push('Dataset category')};
         if(obj.keydataset.description == '--'){aErrors.push('Dataset description')};

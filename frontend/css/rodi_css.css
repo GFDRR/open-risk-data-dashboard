@@ -58,7 +58,17 @@ section
 
 .rodi_cb_space
 {
+    padding:5px;
+    width:100px;
+    height: 100px;
+    background-color: #00b3ee;
+    color:#ffffff;
     margin-right:10px;
+    text-align: center;
+    font-size: 17px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 
 .display_none
