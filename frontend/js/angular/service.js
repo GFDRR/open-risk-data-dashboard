@@ -579,7 +579,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         });
     }
 
-    this.getDatasetInfo = function(token, ds_id, onSuccess, onError)
+    this.getDatasetInfo = function(ds_id, onSuccess, onError)
     {
         // Return the dataset info by ID
 
@@ -848,6 +848,27 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         var req = {
             method: 'GET',
             url: baseAPIurl + 'profile/dataset/',
+            headers: {
+                'Authorization': 'Token ' + token
+            },
+            data: {}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+
+    }
+
+    this.getProfileDatasetDetails = function(id_dataset, token, onSuccess, onError)
+    {
+        // Return a list of user's datasets
+
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'profile/dataset/' + id_dataset,
             headers: {
                 'Authorization': 'Token ' + token
             },
