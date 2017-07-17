@@ -156,7 +156,7 @@ echo "from django.contrib.auth.models import User, Group ; us = User.objects.cre
 echo "from django.contrib.auth.models import User, Group ; us = User.objects.create_user(username='normal_user', password='$ORDD_ADMIN_PASSWORD', first_name='Giuseppe', last_name='Verdi'); us.save(); us.profile.title = 'Maestro'; us.profile.institution = 'Conservatorio di Busseto'; us.profile.save()" | python3 manage.py shell
 
 python3 manage.py load_countries --filein contents/countries/ordd_countries_list_iso3166.csv
-python3 manage.py load_key_datasets --reload --filein contents/key_datasets/kd-perils.csv contents/key_datasets/kd-categories.csv contents/key_datasets/kd-datasets.csv
+python3 manage.py load_key_datasets --reload --filein contents/key_datasets/kd-perils.csv contents/key_datasets/kd-categories.csv contents/key_datasets/kd-tags.csv contents/key_datasets/kd-datasets.csv
 
 # Populate DB section: END
 

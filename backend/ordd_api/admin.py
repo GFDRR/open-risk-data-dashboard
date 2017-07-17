@@ -4,8 +4,9 @@ from django.contrib.auth.models import User
 
 from .models import (
     Profile, OptIn,
-    Category, LevDataset, LevDescription, LevResolution, LevScale, Peril, KeyDataset,
-    Dataset)
+    KeyCategory, KeyDatasetName, KeyDescription,
+    KeyLevel, KeyPeril, KeyDataset, KeyTag, KeyTagGroup,
+    Dataset, Url)
 
 
 # Define an inline admin descriptor for Employee model
@@ -14,6 +15,7 @@ class ProfilesInline(admin.StackedInline):
     model = Profile
     can_delete = False
     verbose_name_plural = 'profiles'
+
 
 # Define a new User admin
 class UserAdmin(BaseUserAdmin):
@@ -24,12 +26,14 @@ admin.site.unregister(User)
 admin.site.register(User, UserAdmin)
 admin.site.register(OptIn)
 
-admin.site.register(Category)
-admin.site.register(Peril)
-admin.site.register(LevDataset)
-admin.site.register(LevDescription)
-admin.site.register(LevResolution)
-admin.site.register(LevScale)
+admin.site.register(KeyCategory)
+admin.site.register(KeyDatasetName)
+admin.site.register(KeyTag)
+admin.site.register(KeyTagGroup)
+admin.site.register(KeyDescription)
+admin.site.register(KeyPeril)
+admin.site.register(KeyLevel)
 admin.site.register(KeyDataset)
 
+admin.site.register(Url)
 admin.site.register(Dataset)
