@@ -12,16 +12,16 @@ USAGE
 EXAMPLE 
     if you want to process this set of files:
 
-        OpenDataDashboard_levels_v7__Basic_Data.csv
-        OpenDataDashboard_levels_v7__Exposure.csv
-        OpenDataDashboard_levels_v7__Hazard.csv
-        OpenDataDashboard_levels_v7__Risk.csv
-        OpenDataDashboard_levels_v7__Vulnerability.csv
+        OpenDataDashboard_levels_v8__Basic_Data.csv
+        OpenDataDashboard_levels_v8__Exposure.csv
+        OpenDataDashboard_levels_v8__Hazard.csv
+        OpenDataDashboard_levels_v8__Risk.csv
+        OpenDataDashboard_levels_v8__Vulnerability.csv
         _or_
-        OpenDataDashboard_levels_v7__Combined.csv
+        OpenDataDashboard_levels_v8__Combined.csv
 
     call:
-        $0 OpenDataDashboard_levels_v7
+        $0 OpenDataDashboard_levels_v8
     
 EOF
     exit $1

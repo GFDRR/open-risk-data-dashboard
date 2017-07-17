@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from .models import (
     Profile, OptIn,
     KeyCategory, KeyDatasetName, KeyDescription,
-    KeyScale, KeyPeril, KeyDataset, KeyTag, KeyTagGroup,
+    KeyLevel, KeyPeril, KeyDataset, KeyTag, KeyTagGroup,
     Dataset, Url)
 
 
@@ -32,7 +32,7 @@ admin.site.register(KeyTag)
 admin.site.register(KeyTagGroup)
 admin.site.register(KeyDescription)
 admin.site.register(KeyPeril)
-admin.site.register(KeyScale)
+admin.site.register(KeyLevel)
 admin.site.register(KeyDataset)
 
 admin.site.register(Url)

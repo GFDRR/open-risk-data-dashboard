@@ -114,7 +114,7 @@ class KeyDescription(models.Model):
         return self.name
 
 
-class KeyScale(models.Model):
+class KeyLevel(models.Model):
     name = models.CharField(max_length=32, blank=False, unique=True)
 
     def natural_key(self):
@@ -141,7 +141,7 @@ class KeyDataset(models.Model):
     tag_available = models.ForeignKey(KeyTagGroup, null=True, blank=True)
     description = models.ForeignKey(KeyDescription)
     applicability = models.ManyToManyField(KeyPeril)
-    level = models.ForeignKey(KeyScale)
+    level = models.ForeignKey(KeyLevel)
 
     resolution = models.CharField(max_length=32, blank=True)
     format = models.CharField(max_length=32, blank=True)

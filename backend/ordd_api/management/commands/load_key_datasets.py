@@ -5,7 +5,7 @@ import codecs
 import warnings
 from ordd_api.models import (KeyCategory, KeyPeril, KeyTag,
                              KeyTagGroup, KeyDatasetName, KeyDescription,
-                             KeyScale, KeyDataset)
+                             KeyLevel, KeyDataset)
 
 KeyDataset_in = namedtuple('KeyDataset_in', 'category id hazard_category'
                            ' dataset tag description comment format resolution'
@@ -94,14 +94,14 @@ class Command(BaseCommand):
                 if options['reload']:
                     KeyDatasetName.objects.all().delete()
                     KeyDescription.objects.all().delete()
-                    KeyScale.objects.all().delete()
+                    KeyLevel.objects.all().delete()
                     KeyDataset.objects.all().delete()
 
-                level = KeyScale(name='International')
+                level = KeyLevel(name='International')
                 level.save()
-                level = KeyScale(name='National')
+                level = KeyLevel(name='National')
                 level.save()
-                level = KeyScale(name='Local')
+                level = KeyLevel(name='Local')
                 level.save()
 
                 # prev_cat = None
@@ -191,11 +191,11 @@ class Command(BaseCommand):
                         else:
                             continue
 
-                        level = KeyScale.objects.filter(name=names[sca_field])
+                        level = KeyLevel.objects.filter(name=names[sca_field])
                         ct += 1
 
                     if ct != 1:
-                        keydata.level = KeyScale.objects.get(name='National')
+                        keydata.level = KeyLevel.objects.get(name='National')
                         warnings.warn('Keydataset from row %d isn\'t assinged'
                                       ' to any applicability level:'
                                       ' \'National\' will be used then.'

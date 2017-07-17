@@ -1,12 +1,12 @@
 from rest_framework import serializers
 from .models import (
     KeyCategory, KeyDatasetName, KeyDescription, KeyTagGroup,
-    KeyScale, KeyDataset)
+    KeyLevel, KeyDataset)
 
 
-class KeyScaleSerializer(serializers.ModelSerializer):
+class KeyLevelSerializer(serializers.ModelSerializer):
     class Meta:
-        model = KeyScale
+        model = KeyLevel
         fields = ('id', 'name')
 
 
@@ -46,7 +46,7 @@ class KeyDescriptionSerializer(serializers.ModelSerializer):
 class KeyDataset0on4Serializer(serializers.ModelSerializer):
     """Partial serializer of key datasets -> level """
 
-    level = KeyScaleSerializer()
+    level = KeyLevelSerializer()
 
     class Meta:
         model = KeyDataset
