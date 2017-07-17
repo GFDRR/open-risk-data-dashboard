@@ -1,0 +1,5 @@
+/db.sqlite3
+/reports
+__pycache__
+/contents/countries/iso3166.*
+/ordd/settings.py
