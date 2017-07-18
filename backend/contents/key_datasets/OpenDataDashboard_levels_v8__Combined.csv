@@ -37,8 +37,8 @@ HA_18A,Earthquake - Site conditions map,hazard,"site conditions map, derived fro
 HA_18B,Earthquake - Site conditions map,hazard,"site conditions map, derived from microzonation studies)",,shape (.shp),,,,,,1,,,,,,3
 HA_19,Coastal Flooding - Digital Surface model,hazard,incl. buildings and vegetation,,raster (.tif),1-100m,1,1,1,1,,,,,,2,
 HA_20,Coastal Flooding - Future Development Trends,hazard,expected changes in hazard intensity and probability,,tabular,,1,1,1,,,,,,1,,
-HA_21,Volcano - List type of volcanoes,hazard,A list with the location and type of volcanoes in the country or region.,,,,,,,,,,,,,,
-HA_22,Volcano - Wind direction model,hazard,A model describing the direction and intensity of the wind at different altitudes. ,,,,,,,,,,,,,,
+HA_21,Volcano - List type of volcanoes,hazard,A list with the location and type of volcanoes in the country or region.,,,,,,,,,1,,,,2,
+HA_22,Volcano - Wind direction model,hazard,A model describing the direction and intensity of the wind at different altitudes. ,,,,,,,,,1,,,,2,
 ,,,,,,,,,,,,,,,,,
 ,,,,,,,,,,,,,,,,,
 EX_1,Land Cover,,"dataset describing the land cover / land use such as residential, industrial, agricultural, with a resolution of typically 100m",,raster (.tif),100m,1,1,1,1,1,1,1,1,,2,
