@@ -7,8 +7,7 @@ from django.db import transaction
 from django.db import IntegrityError
 from rest_framework import serializers
 from rest_framework.serializers import ValidationError
-from .models import (Region, Country, Profile, OptIn, Dataset, Url, KeyPeril,
-                     KeyTag)
+from .models import (Region, Country, Profile, OptIn, Dataset, Url, KeyTag)
 
 from .keydatasets_serializers import KeyDataset4on4Serializer
 from .mailer import mailer
@@ -180,10 +179,6 @@ class ProfileDatasetListSerializer(serializers.ModelSerializer):
     keydataset = KeyDataset4on4Serializer(read_only=True)
     url = serializers.SlugRelatedField(slug_field='url',
                                        queryset=Url.objects.all(), many=True)
-    applicability = serializers.SlugRelatedField(
-                                            slug_field='name',
-                                            queryset=KeyPeril.objects.all(),
-                                            many=True)
     tag = serializers.SlugRelatedField(slug_field='name',
                                        queryset=KeyTag.objects.all(),
                                        many=True)
@@ -200,10 +195,6 @@ class ProfileDatasetCreateSerializer(serializers.ModelSerializer):
                                            queryset=Country.objects.all())
     url = CreateSlugRelatedField(slug_field='url',
                                  queryset=Url.objects.all(), many=True)
-    applicability = serializers.SlugRelatedField(
-                                            slug_field='name',
-                                            queryset=KeyPeril.objects.all(),
-                                            many=True)
     tag = serializers.SlugRelatedField(slug_field='name',
                                        queryset=KeyTag.objects.all(),
                                        many=True)
