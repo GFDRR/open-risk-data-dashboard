@@ -789,6 +789,24 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         });
     }
 
+    this.deleteDataset = function(token, obj, onSuccess, onError)
+    {
+        var req = {
+            method: 'DELETE',
+            url: baseAPIurl + 'profile/dataset/' + obj.id,
+            headers: {
+                'Authorization': 'Token ' + token
+            },
+            data: obj
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data);
+        });
+    }
+
     // ************************************** //
     // **** LOGIN / ADMIN USERS / PROFILE *** //
     // ************************************** //

@@ -29,6 +29,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
     $scope.bMylist = $location.search().ml;
     $scope.bReviewer = false;
     $scope.biddataset = false;
+    $scope.bDelete = false;
     $scope.bEdit = false;
     $scope.objDataset = {};
 
@@ -458,6 +459,35 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
 
         }
 
+        $scope.deleteDataset = function()
+        {
+            // Delete the dataset structure
+
+            vex.dialog.confirm({
+                message: "Do you really want to delete the dataset?",
+                callback: function(value){
+                    if (value){
+
+                        RodiSrv.deleteDataset($scope.tokenid, $scope.objDataset,
+                            function(data){
+                                // Success
+                                vex.dialog.alert('Dataset delete successfully');
+
+                                $scope.changepage("contribute.html?tab=1");
+
+                            }, function(data){
+                                //     Error
+                                console.log(data);
+                                vex.dialog.alert("Unable to delete the dataset");
+                            }
+                        )
+                    }
+                }
+            });
+
+
+        }
+
         $scope.$watch('bLogin', function(newVal, oldVal)
         {
             if($scope.bLogin)
@@ -468,6 +498,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                 {
                     // Reviewer user
                     $scope.bReviewer = true;
+                    $scope.bDelete = true;
 
                 } else
                 {

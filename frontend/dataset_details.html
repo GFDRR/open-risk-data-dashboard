@@ -107,7 +107,8 @@
                             &nbsp;&nbsp;
                             <a href="" ng-click="changepage('contribute.html?tab=1')" ng-if="bMylist && !bEdit"><i class="fa fa-history" aria-hidden="true" data-toggle="tooltip" title="Back to my dataset list"></i></a>
                             <a href="" class="btn btn-sm btn-success" ng-if="bEdit" ng-click="updateDataset()"><i class="fa fa-floppy-o" aria-hidden="true" data-toggle="tooltip" title="Save dataset"></i></a>
-                            <a href="" class="btn btn-sm btn-danger" ng-if="bEdit" ng-click="closeRevision()"><i class="fa fa-times" aria-hidden="true" data-toggle="tooltip" title="Close edit mode"></i></a>
+                            <a href="" class="btn btn-sm btn-info" ng-if="bEdit" ng-click="closeRevision()"><i class="fa fa-times" aria-hidden="true" data-toggle="tooltip" title="Close edit mode"></i></a>
+                            <a href="" class="btn btn-sm btn-danger" ng-if="bEdit && bReviewer" ng-click="deleteDataset()"><i class="fa fa-trash-o" aria-hidden="true" title="Delete dataset"></i></a>
                         </span>
                     </div>
 
@@ -586,7 +587,8 @@
                             &nbsp;&nbsp;
                             <a href="" ng-click="changepage('contribute.html?tab=1')" ng-if="bMylist && !bEdit"><i class="fa fa-history" aria-hidden="true" data-toggle="tooltip" title="Back to my dataset list"></i></a>
                             <a href="" class="btn btn-sm btn-success" ng-if="bEdit" ng-click="updateDataset()"><i class="fa fa-floppy-o" aria-hidden="true" data-toggle="tooltip" title="Save dataset"></i></a>
-                            <a href="" class="btn btn-sm btn-danger" ng-if="bEdit" ng-click="closeRevision()"><i class="fa fa-times" aria-hidden="true" data-toggle="tooltip" title="Close edit mode"></i></a>
+                            <a href="" class="btn btn-sm btn-info" ng-if="bEdit" ng-click="closeRevision()"><i class="fa fa-times" aria-hidden="true" data-toggle="tooltip" title="Close edit mode"></i></a>
+                            <a href="" class="btn btn-sm btn-danger" ng-if="bEdit && bReviewer" ng-click="deleteDataset()"><i class="fa fa-trash-o" aria-hidden="true" title="Delete dataset"></i></a>
                         </span>
                     </div>
 
