@@ -142,14 +142,14 @@
 
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                                <input type="button" class="btn btn-lg btn-success" value="Save dataset" ng-click="saveDataset()">
+                                <input type="button" class="btn btn-lg btn-success" value="Insert dataset" ng-click="saveDataset()">
                                 <!--<span class="small text-muted">(*) Required</span>-->
                             </div>
                         </div>
                         <br />
 
                         <div class="rodi_section_01 ">
-                        <div class="row">
+                            <div class="row">
                             <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
                             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 flex-container col">
                                 <h1>Section A - Dataset classification</h1>
@@ -228,9 +228,12 @@
                                         <span class="rodi_dataset_label">Datasets elements</span>
                                         <!--</div>-->
                                     <div class="flex-container">
-                                        <div ng-model="selectedTags" class="rodi_cb_space" ng-repeat="tag in datasetTags[0].tags" ng-click="setTags(tag)" ng-class="{active:selectedTags.indexOf(tag) !== -1}">
+                                        <div ng-model="selectedTags" class="rodi_cb_space" ng-repeat="tag in datasetTags" ng-click="setTags(tag)" ng-class="{active:selectedTags.indexOf(tag) !== -1}">
                                             <i class="fa fa-check" aria-hidden="true" ng-if="selectedTags.indexOf(tag) !== -1"></i> <span >{{tag}}</span>
                                             <!--<input type="checkbox" class="form-control" ng-model="selectedTags" > -->
+                                        </div>
+                                        <div>
+                                            <span class="text-muted"><u>{{sTagsMsg}}</u></span>
                                         </div>
                                     </div>
                                     <!--</div>-->
@@ -240,7 +243,8 @@
 
                             </div>
                         </div>
-                    </div>
+
+                        </div>
 
                         <div class="rodi_section_02">
                             <div class="row">
@@ -782,7 +786,7 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
                                 <br /><br />
-                                <input type="button" class="btn btn-lg btn-success" value="Save dataset" ng-click="saveDataset()">
+                                <input type="button" class="btn btn-lg btn-success" value="Insert dataset" ng-click="saveDataset()">
                             </div>
                         </div>
 

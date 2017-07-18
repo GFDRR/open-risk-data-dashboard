@@ -38,6 +38,7 @@
         <script src="js/angular/app.js"></script>
         <script src="js/angular/service.js" type="text/javascript"></script>
         <script src="js/angular/controller.js" type="text/javascript"></script>
+        <script src="js/angular/controller_dataset_details.js" type="text/javascript"></script>
         <script src="js/angular/controller_mainmenu.js" type="text/javascript"></script>
         <script src="js/angular/directive.js" type="text/javascript"></script>
         <!-- RODI APP -->
@@ -53,7 +54,7 @@
         </script>
 
     </head>
-    <body ng-app="RodiApp" ng-controller="RodiCtrl">
+    <body ng-app="RodiApp" ng-controller="RodiCtrlDataset">
 
         <div class="container-fluid">
 
@@ -105,7 +106,7 @@
                             <a href="" ng-click="setEditForm()"><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" title="Edit dataset" ng-if="bReviewer && !bEdit"></i></a>
                             &nbsp;&nbsp;
                             <a href="" ng-click="changepage('contribute.html?tab=1')" ng-if="bMylist && !bEdit"><i class="fa fa-history" aria-hidden="true" data-toggle="tooltip" title="Back to my dataset list"></i></a>
-                            <a href="" class="btn btn-sm btn-success" ng-if="bEdit"><i class="fa fa-floppy-o" aria-hidden="true" data-toggle="tooltip" title="Save dataset"></i></a>
+                            <a href="" class="btn btn-sm btn-success" ng-if="bEdit" ng-click="updateDataset()"><i class="fa fa-floppy-o" aria-hidden="true" data-toggle="tooltip" title="Save dataset"></i></a>
                             <a href="" class="btn btn-sm btn-danger" ng-if="bEdit" ng-click="closeRevision()"><i class="fa fa-times" aria-hidden="true" data-toggle="tooltip" title="Close edit mode"></i></a>
                         </span>
                     </div>
@@ -155,7 +156,7 @@
 
                                     <div class="dataset_form_select_style">
                                         <select class="dataset_form_select_style" ng-model="objDataset.keydataset.dataset" ng-change="changeDatasetSelection(objDataset.keydataset.dataset)">
-                                            <option value="0" selected>-- Select dataset --</option>
+                                            <option value="0">-- Select dataset --</option>
                                             <option ng-repeat="dsname in datasetCategory" value="{{dsname.dataset.id}}">{{dsname.dataset.name}}</option>
                                         </select>
                                     </div><!--<br />-->
@@ -187,16 +188,18 @@
 
                                 </div>
                                 <div class="row">
-                                    <div>
-                                        <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
-                                        <span class="rodi_dataset_label_code">A4.</span>
-                                        <span class="rodi_dataset_label">Datasets elements</span>
-                                        <!--</div>-->
-                                        <div ng-model="selectedTags" class="rodi_cb_space" ng-repeat="tag in datasetTags[0].tags" ng-click="setTags(tag)">
+                                    <!--<div>-->
+                                    <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
+                                    <span class="rodi_dataset_label_code">A4.</span>
+                                    <span class="rodi_dataset_label">Datasets elements</span>
+                                    <!--</div>-->
+                                    <div class="flex-container">
+                                        <div ng-model="selectedTags" class="rodi_cb_space" ng-repeat="tag in datasetTags" ng-click="setTags(tag)" ng-class="{active:selectedTags.indexOf(tag) !== -1}">
                                             <i class="fa fa-check" aria-hidden="true" ng-if="selectedTags.indexOf(tag) !== -1"></i> <span >{{tag}}</span>
                                             <!--<input type="checkbox" class="form-control" ng-model="selectedTags" > -->
                                         </div>
                                     </div>
+                                    <!--</div>-->
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
@@ -568,11 +571,23 @@
 
                     </div>
 
+                    <br />
+
                     <div ng-if="!bEdit" class="text-center">
                         <h1>Soon online</h1>
                         <br /><br /><br /><br /><br />
                         <br /><br /><br /><br /><br /><br />
                         <br /><br /><br /><br /><br />
+                    </div>
+
+                    <div class="text-center">
+                        <span class="rodi_txt_big">
+                            <a href="" ng-click="setEditForm()"><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" title="Edit dataset" ng-if="bReviewer && !bEdit"></i></a>
+                            &nbsp;&nbsp;
+                            <a href="" ng-click="changepage('contribute.html?tab=1')" ng-if="bMylist && !bEdit"><i class="fa fa-history" aria-hidden="true" data-toggle="tooltip" title="Back to my dataset list"></i></a>
+                            <a href="" class="btn btn-sm btn-success" ng-if="bEdit" ng-click="updateDataset()"><i class="fa fa-floppy-o" aria-hidden="true" data-toggle="tooltip" title="Save dataset"></i></a>
+                            <a href="" class="btn btn-sm btn-danger" ng-if="bEdit" ng-click="closeRevision()"><i class="fa fa-times" aria-hidden="true" data-toggle="tooltip" title="Close edit mode"></i></a>
+                        </span>
                     </div>
 
 

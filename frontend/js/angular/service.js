@@ -705,16 +705,46 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 
         /* Check the questions */
         var aQuestions = [];
-        if(obj.is_avail_for_free == ''){aQuestions.push('answer')}
-        if(obj.is_avail_online == ''){aQuestions.push('answer')}
-        if(obj.is_avail_online_meta == ''){aQuestions.push('answer')}
-        if(obj.is_bulk_avail == ''){aQuestions.push('answer')}
-        if(obj.is_digital_form == ''){aQuestions.push('answer')}
-        if(obj.is_existing == ''){aQuestions.push('answer')}
-        if(obj.is_machine_read == ''){aQuestions.push('answer')}
-        if(obj.is_open_licence == ''){aQuestions.push('answer')}
-        if(obj.is_prov_timely == ''){aQuestions.push('answer')}
-        if(obj.is_pub_available == ''){aQuestions.push('answer')}
+        if(obj.is_avail_for_free + "" == '')
+        {
+            aQuestions.push('1')
+        };
+        if(obj.is_avail_online + "" == '')
+        {
+            aQuestions.push('2')
+        };
+        if(obj.is_avail_online_meta + "" == '')
+        {
+            aQuestions.push('3')
+        };
+        if(obj.is_bulk_avail + "" == '')
+        {
+            aQuestions.push('4')
+        };
+        if(obj.is_digital_form + "" == '')
+        {
+            aQuestions.push('5')
+        };
+        if(obj.is_existing + "" == '')
+        {
+            aQuestions.push('6')
+        };
+        if(obj.is_machine_read + "" == '')
+        {
+            aQuestions.push('7')
+        };
+        if(obj.is_open_licence + "" == '')
+        {
+            aQuestions.push('8')
+        };
+        if(obj.is_prov_timely + "" == '')
+        {
+            aQuestions.push('9')
+        };
+        if(obj.is_pub_available + "" == '')
+        {
+            aQuestions.push('10')
+        };
 
         if (aQuestions.length > 0){
             aErrors.push('Answer all questions (Yes, No)')
@@ -745,7 +775,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
     {
         var req = {
             method: 'PUT',
-            url: baseAPIurl + 'dataset/' + obj.id,
+            url: baseAPIurl + 'profile/dataset/' + obj.id,
             headers: {
                 'Authorization': 'Token ' + token
             },

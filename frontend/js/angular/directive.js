@@ -114,7 +114,6 @@ RodiApp.directive('rodifooter',function(){
     }
 });
 
-
 RodiApp.directive('loginform',function(){
     return {
         transclude: true,
