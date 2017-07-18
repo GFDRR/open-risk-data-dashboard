@@ -40,5 +40,5 @@ IFS='
 '
 rm -f kd-datasets.csv
 for f in $(ls ${1}__*.csv); do
-    cat "$f" | tail -n +3 | grep -v '^[0-9]*,*$' | sed "s/$/,10/g" >> kd-datasets.csv
+    cat "$f" | tail -n +2 | grep -v '^[0-9]*,*$' | sed "s/$/,10/g" >> kd-datasets.csv
 done

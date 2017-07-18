@@ -1,3 +1,4 @@
+BA_1A,Digital Elevation Model,hazard,"Digital Elevation Model describing the bare surface of the earth, with a resolution between 1 and 10 meters, as provided by national geodata authority",for example LiDAR data,raster (.tif),1-10m,1,1,1,1,1,1,1,1,,2,,10
 BA_1B,Digital Elevation Model,hazard,"Digital Elevation Model describing the bare surface of the earth, with a resolution between 0.1 and 1 meters, as provided by national geodata authority",for example LiDAR data,raster (.tif),0.1-1m,1,1,1,1,1,1,1,1,,,3,10
 BA_2A,Background map,hazard,"Aerial Imagery as a base layer for analysis and mapping, with a resolution between 1 and 10 meter, as provided from national geodata authorities",,raster (.tif),1-10m,1,1,1,1,1,1,1,1,,2,,10
 BA_2B,Background map,hazard,"Aerial Imagery as a base layer for analysis and mapping, with a resolution between 0.1 and 1 meter, as provided from national geodata authorities",,raster (.tif),0.1-1m,1,1,1,1,1,1,1,1,,,3,10
@@ -6,11 +7,11 @@ BA_4,Placenames,,"Names of capital and main cities, as provided from national ge
 HA_1,River Flooding - Watershed Boundaries,hazard,"Boundaries of the watershed for the characterization of river basins, provided by national metoffice or other national institution in charge",can be derived from DEM,shape (.shp),,1,,,,,,,,,2,,10
 HA_2,River Flooding - Hydrological Network,hazard,"Description of the river network, provided by national metoffice or other national institution in charge",can be derived from DEM,shape (.shp),,1,,,,,,,,,2,,10
 HA_3A,River Flooding - Historical records,hazard,Measurements of river discharge for a number of river gauges,,tabular,daily or annual maximum,,,,,1,,,,,2,,10
-HA_3B,River Flooding - Historical records,hazard,"Records of previous flood events containing information about dates, flooded places, flood severity even in descriptive form",,tabular,,1,,1,1,1,1,,,,2,,10
+HA_3B,River Flooding - Historical records,hazard,"Records of previous flood events containing information about dates, flooded places, flood severity even in descriptive form",,tabular,,1,,1,1,,,,,,2,,10
 HA_4,Geology - Geology,hazard,"geological characterization of the Soil, with resolution typically between 100-500 meters",,raster (.tif),100-500m,1,,,,1,1,,,,2,,10
 HA_5,Geology - Geology,hazard,"characterisation of soil types, with resolution typically between 100-500 meters",,raster (.tif),100-500m,1,,1,1,1,1,,,,2,,10
-HA_6A,River Flooding - Flooding,hazard,"water depth, duration for return periods 2, 5, 10, 20, 50, 100, 200, 500, 1000 yrs",,raster (.tif),100m,,,,,,,,,,2,,10
-HA_6B,River Flooding - Flooding,hazard,"water depth, duration and flow velocity for return periods 2, 5, 10, 20, 50, 100, 200, 500, 1000 yrs",,raster (.tif),10m,,,,,,,,,,,3,10
+HA_6A,River Flooding - Flood Hazard Maps,hazard,"water depth, duration for return periods 2, 5, 10, 20, 50, 100, 200, 500, 1000 yrs",,raster (.tif),100m,,,,,,,,,,2,,10
+HA_6B,River Flooding - Flood Hazard Maps,hazard,"water depth, duration and flow velocity for return periods 2, 5, 10, 20, 50, 100, 200, 500, 1000 yrs",,raster (.tif),10m,,,,,,,,,,,3,10
 HA_7,River Flooding - Global meteo forcing,hazard,meteorological data,,,,1,,,1,,,,,1,,,10
 HA_8,River Flooding - Global hydrological data,hazard,hydrological data,,,,1,,,,,,,,1,,,10
 HA_9A,Coastal Flooding - Bathymetry ,hazard,"characterisation of sea surface, resolution 1km or lower",,raster (.tif),1km,,1,1,,,,,,1,,,10
@@ -46,15 +47,15 @@ EX_6,Critical facilites and infrastructures,facilities,"Characterisation of the 
 EX_7,records of previous natural disasters,,information about affected exposure during previous hazard events,,tabular,,1,1,1,1,1,1,1,1,1,,,10
 EX_8A,Future Development Trends,,expected growth of population and economy,e.g. SSP scenarios,tabular,,1,1,1,1,1,1,1,1,1,,,10
 EX_8B,Future Development Trends,,"expected growth of population, economy, planned infrastructure, planned exploitations",,tabular,,1,1,1,1,1,1,1,1,,2,,10
-VU_1,Administrative,hazard,vulnerability functions per country or region,for earthquakes: PAGER,tabular,,1,1,1,1,1,1,1,1,1,,,10
-VU_2,Land use,hazard,quantitative vulnerability curves per land use type based on national land cover dataset,,tabular,,1,1,1,1,1,1,1,1,,2,,10
-VU_3,Critical Infrastructures,hazard,"quantitative vulnerability curve to describe the vulnerability of critical infrastructure, per infrastructure type",,tabular,,1,1,1,1,1,1,1,1,1,,,10
-VU_4,Population,hazard,quantitative vulnerability function and/or mortality curve,,tabular,,1,1,1,1,1,1,1,1,1,,,10
-VU_5A,Economy,hazard,"economic impact of hazard per economic sector, from national statistics",,tabular,,1,1,1,1,1,1,1,1,1,,,10
-VU_5B,Economy,hazard,"production/stock losses per company, provided by chamber of industry",,tabular,,1,1,1,1,1,1,1,1,,2,,10
-VU_5C,Economy,hazard,indirect losses as a consequence of business interruption per economic sector,from input/output models,tabular,,1,1,1,1,1,1,1,1,,,3,10
-VU_6,Buildings,hazard,"function of hazard intensity and damage fraction per building type (residential, industrial, …)",,tabular,,1,1,1,1,1,1,1,1,1,,,10
-VU_7A,Agriculture,hazard,function for agricultural losses per crop type,,tabular,,1,1,1,1,1,1,1,1,1,,,10
-VU_7B,Agriculture,hazard,function for agricultural losses per crop type and season,,tabular,,1,1,1,1,1,1,1,1,,2,,10
-RI_1A,risk indicators,Hazard,"existing risk assessment (monetary/non-monetary), from previous national assessments",,report,,1,1,1,1,1,1,1,1,,2,,10
-RI_1B,risk indicators,Hazard,"existing risk assessment (monetary/non-monetary), from previous local studies",,report,,1,1,1,1,1,1,1,1,,,3,10
+VU_1,Administrative Level Vulnerability Curve,hazard,vulnerability functions per country or region,for earthquakes: PAGER,tabular,,1,1,1,1,1,1,1,1,1,,,10
+VU_2,Land use Vulnerability Curve,hazard,quantitative vulnerability curves per land use type based on national land cover dataset,,tabular,,1,1,1,1,1,1,1,1,,2,,10
+VU_3,Critical Infrastructures Vulnerability Curve,hazard,"quantitative vulnerability curve to describe the vulnerability of critical infrastructure, per infrastructure type",,tabular,,1,1,1,1,1,1,1,1,1,,,10
+VU_4,Population Vulnerability Curve,hazard,quantitative vulnerability function and/or mortality curve,,tabular,,1,1,1,1,1,1,1,1,1,,,10
+VU_5A,Economy Vulnerability Curve,hazard,"economic impact of hazard per economic sector, from national statistics",,tabular,,1,1,1,1,1,1,1,1,1,,,10
+VU_5B,Economy Vulnerability Curve,hazard,"production/stock losses per company, provided by chamber of industry",,tabular,,1,1,1,1,1,1,1,1,,2,,10
+VU_5C,Economy Vulnerability Curve,hazard,indirect losses as a consequence of business interruption per economic sector,from input/output models,tabular,,1,1,1,1,1,1,1,1,,,3,10
+VU_6,Buildings Vulnerability Curve,hazard,"function of hazard intensity and damage fraction per building type (residential, industrial, …)",,tabular,,1,1,1,1,1,1,1,1,1,,,10
+VU_7A,Agriculture Vulnerability Curve,hazard,function for agricultural losses per crop type,,tabular,,1,1,1,1,1,1,1,1,1,,,10
+VU_7B,Agriculture Vulnerability Curve,hazard,function for agricultural losses per crop type and season,,tabular,,1,1,1,1,1,1,1,1,,2,,10
+RI_1A,risk indicators,hazard,"existing risk assessment (monetary/non-monetary), from previous national assessments",,report,,1,1,1,1,1,1,1,1,,2,,10
+RI_1B,risk indicators,hazard,"existing risk assessment (monetary/non-monetary), from previous local studies",,report,,1,1,1,1,1,1,1,1,,,3,10

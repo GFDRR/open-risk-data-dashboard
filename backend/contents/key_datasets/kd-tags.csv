@@ -1,10 +1,10 @@
-hazard,River Flooding
-hazard,Coastal Flooding
-hazard,Cyclones
+hazard,River flooding
+hazard,Coastal flooding
+hazard,Tsunami
+hazard,Cyclone
 hazard,Earthquake
-hazard,Volcano
-hazard,Landslides
-hazard,Tsunamis
+hazard,Vulcano
+hazard,Landslide
 hazard,Water scarcity
 building,Count
 building,Replacement value
