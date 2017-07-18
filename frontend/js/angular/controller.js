@@ -302,10 +302,12 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                     $scope.objDataset.keydataset.dataset, $scope.objDataset.keydataset.description,
                     function(data)
                     {
+
                         // Success
                         if(data[0].tag_available)
                         {
                             $scope.datasetTags = data[0].tag_available.tags;
+                            $scope.selectedTags = data[0].applicability;
                             $scope.sTagsMsg = "";
                         } else
                         {
@@ -628,6 +630,11 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
             // ************************************** //
             if ($scope.bLogin && $scope.userinfo.groups[0] == 'reviewer'){
 
+                // ************************************** //
+                // ******* DATASET NOT REVIWERED ****** //
+                // ************************************** //
+
+                RodiSrv.getDatasetList_bycountry()
             }
         });
 
