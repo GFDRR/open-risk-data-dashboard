@@ -438,7 +438,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                         $scope.objDataset.keydataset = data[0].id;
 
                         // Save the dataset structure
-                        RodiSrv.updateDataset($scope.tokenid, $scope.objDataset,
+                        RodiSrv.updateprofileDataset($scope.tokenid, $scope.objDataset,
                             function(data){
                                 // Success
                                 vex.dialog.alert('Dataset update correctly');
@@ -468,7 +468,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                 callback: function(value){
                     if (value){
 
-                        RodiSrv.deleteDataset($scope.tokenid, $scope.objDataset,
+                        RodiSrv.deleteprofileDataset($scope.tokenid, $scope.objDataset,
                             function(data){
                                 // Success
                                 vex.dialog.alert('Dataset delete successfully');

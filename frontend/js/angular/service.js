@@ -753,7 +753,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         return aErrors;
     }
 
-    this.saveDataset = function(token, obj, onSuccess, onError)
+    this.saveprofileDataset = function(token, obj, onSuccess, onError)
     {
         var req = {
             method: 'POST',
@@ -771,7 +771,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         });
     }
 
-    this.updateDataset = function(token, obj, onSuccess, onError)
+    this.updateprofileDataset = function(token, obj, onSuccess, onError)
     {
         var req = {
             method: 'PUT',
@@ -789,7 +789,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         });
     }
 
-    this.deleteDataset = function(token, obj, onSuccess, onError)
+    this.deleteprofileDataset = function(token, obj, onSuccess, onError)
     {
         var req = {
             method: 'DELETE',

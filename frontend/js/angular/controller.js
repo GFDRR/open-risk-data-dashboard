@@ -415,7 +415,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                         $scope.objDataset.keydataset = data[0].id;
 
                         // Save the dataset structure
-                        RodiSrv.saveDataset($scope.tokenid, $scope.objDataset,
+                        RodiSrv.saveprofileDataset($scope.tokenid, $scope.objDataset,
                             function(data){
                                 // Success
                                 vex.dialog.alert('Dataset insert correctly');
