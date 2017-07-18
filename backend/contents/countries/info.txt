@@ -1,0 +1,4 @@
+ORIGIN OF DATA
+
+iso3166.web: is a raw copy of the https://www.iso.org/obp/ui/#search/code/ (with 300 results per page)
+ordd_countries_list.csv: is coming from internal documentation
