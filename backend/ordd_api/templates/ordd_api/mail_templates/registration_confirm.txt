@@ -1,2 +1,2 @@
-title: {{ title }}
-body:  {{ content }}
+title: {{ title|safe }}
+body:  {{ content|safe }}
