@@ -595,16 +595,50 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 );
             }
 
+
             // ************************************** //
             // ****** ADMIN/REVIEWER FUNCTIONS ****** //
             // ************************************** //
 
+            if ($scope.bLogin && $scope.userinfo.groups[0] == 'reviewer' || $scope.userinfo.groups[0] == 'admin'){
+
+                // ************************************** //
+                // ******* DATASET NOT REVIWERED ****** //
+                // ************************************** //
+
+                $scope.bDatasetReview = false;
+                $scope.datasetReviewList = [];
+                $scope.iNrDatasetToReview = 0;
+
+                RodiSrv.getAllDatasetList(
+                    function(data)
+                    {
+                        // Success
+
+                        $scope.datasetReviewList = $filter('filter')(data, {'is_reviewed': false});
+
+                        if ($scope.datasetReviewList.length > 0)
+                        {
+                            $scope.iNrDatasetToReview = $scope.datasetReviewList.length;
+                            $scope.bDatasetReview = true;
+
+                        } else {$scope.bDatasetReview = false;}
+
+                    }, function(data)
+                    {
+                        // Error
+                        console.log(data);
+                    })
+
+
+            }
 
             // ************************************** //
             // ********* ALL USER FUNCTIONS ********* //
             // ************************************** //
 
             $scope.myDatasetList = [];
+            $scope.iNrMyDataset = 0;
 
             if ($scope.bLogin)
             {
@@ -615,6 +649,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                         // Success
                         if (data.length > 0)
                         {
+                            $scope.iNrMyDataset = data.length;
                             $scope.myDatasetList = data;
                             $scope.bDatasetProfile = true;
 
@@ -625,17 +660,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                     })
             }
 
-            // ************************************** //
-            // ******* REVIEWER USER FUNCTIONS ****** //
-            // ************************************** //
-            if ($scope.bLogin && $scope.userinfo.groups[0] == 'reviewer'){
-
-                // ************************************** //
-                // ******* DATASET NOT REVIWERED ****** //
-                // ************************************** //
-
-                RodiSrv.getDatasetList_bycountry()
-            }
         });
 
         $scope.putProfile = function()
@@ -696,28 +720,67 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
     {
         // Dataset page
         $scope.idCountry = $location.search().idcountry;
-        $scope.idHazCat = $location.search().idcategory;
+        $scope.idDatasetCat = $location.search().idcategory;
+        $scope.DataCategory = [];
+        $scope.DatasetList_Country_DataCat = [];
+        $scope.bLoading = true;
+        $scope.bNoDataset = false;
 
         RodiSrv.getCountryList(
             function(data){
                 // Success
                 $scope.countryList = data;
-
-                $scope.HazardCategory = [];
-                RodiSrv.getDataCategory('1',
-                    function(data){
-                        // Success
-                        $scope.HazardCategory = data;
-
-                        $scope.HazardCategory = $filter('filter')($scope.HazardCategory, function(e){
-                            return e.category.id == $scope.idHazCat;
-                        });
-
-                    }, function(data){
-                        //Error
-                    });
-
                 $scope.objCountry = $filter('filter')($scope.countryList, {iso2: $scope.idCountry});
+
+                // Get Data risk category
+                RodiSrv.getDataRiskCategory(0,
+                    function(data)
+                    {
+                        // Success
+                        $scope.DataCategory = $filter('filter')(data,
+                            function(e)
+                            {
+                                return e.category.id == $scope.idDatasetCat;
+                            }
+                        );
+
+                        // Get & filter dataset list
+                        RodiSrv.getDatasetlist(
+                            function(data)
+                            {
+                                // Success
+
+                                $scope.DatasetList_Country_DataCat = $filter('filter')(data,
+                                    function(e)
+                                    {
+                                        return e.country == $scope.idCountry && e.keydataset.category == $scope.DataCategory[0].category.name;
+                                    }
+                                );
+
+                                if ($scope.DatasetList_Country_DataCat.length > 0)
+                                {
+                                    $scope.bNoDataset = false;
+                                } else
+                                    {
+                                        $scope.bNoDataset = true;
+                                    }
+
+                                $scope.bLoading = false;
+
+                            }, function(data)
+                            {
+                                //Error
+                                console.log(data);
+                                $scope.bLoading = false;
+                                $scope.bNoDataset = true;
+                            }
+                        );
+
+                    }, function(data)
+                    {
+                        console.log(data);
+                    }
+                );
 
 
             }, function(data){
@@ -725,15 +788,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 // TODO: error message
         });
 
-        RodiSrv.getDatasetList_bycountry($scope.idCountry,
-            function(data){
-                // Success
-                console.log(data);
-            }, function(data){
-                // Error
-                console.log(data);
-            }
-        );
     }
 
 } ]);

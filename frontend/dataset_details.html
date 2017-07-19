@@ -105,10 +105,12 @@
                         <span class="rodi_txt_big">
                             <a href="" ng-click="setEditForm()"><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" title="Edit dataset" ng-if="bReviewer && !bEdit"></i></a>
                             &nbsp;&nbsp;
-                            <a href="" ng-click="changepage('contribute.html?tab=1')" ng-if="bMylist && !bEdit"><i class="fa fa-history" aria-hidden="true" data-toggle="tooltip" title="Back to my dataset list"></i></a>
-                            <a href="" class="btn btn-sm btn-success" ng-if="bEdit" ng-click="updateDataset()"><i class="fa fa-floppy-o" aria-hidden="true" data-toggle="tooltip" title="Save dataset"></i></a>
-                            <a href="" class="btn btn-sm btn-info" ng-if="bEdit" ng-click="closeRevision()"><i class="fa fa-times" aria-hidden="true" data-toggle="tooltip" title="Close edit mode"></i></a>
-                            <a href="" class="btn btn-sm btn-danger" ng-if="bEdit && bReviewer" ng-click="deleteDataset()"><i class="fa fa-trash-o" aria-hidden="true" title="Delete dataset"></i></a>
+                            <a href="" ng-click="changepage('contribute.html?tab=1')" ng-if="bMylist && !bEdit"><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to my dataset list"></i></a>
+                            <a href="" ng-click="changepage('contribute.html?tab=2')" ng-if="bReviewlist && !bEdit"><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to review list"></i></a>
+                            <a href="javascript:history.back()" ng-if="!bReviewlist && !bMylist && !bEdit"><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back"></i></a>
+                            <a href="" class="btn btn-md btn-success" ng-if="bEdit" ng-click="updateDataset()"><i class="fa fa-floppy-o" aria-hidden="true" data-toggle="tooltip" title="Save dataset"></i></a>
+                            <a href="" class="btn btn-md btn-info" ng-if="bEdit" ng-click="closeRevision()"><i class="fa fa-times" aria-hidden="true" data-toggle="tooltip" title="Close edit mode"></i></a>
+                            <a href="" class="btn btn-md btn-danger" ng-if="bEdit && bReviewer" ng-click="deleteDataset()"><i class="fa fa-trash-o" aria-hidden="true" title="Delete dataset"></i></a>
                         </span>
                     </div>
 
@@ -576,7 +578,7 @@
                     <br />
 
                     <div ng-if="!bEdit" class="text-center">
-                        <h1>Soon online</h1>
+                        <h1>{{objDatasetView.country}} - {{objDatasetView.keydataset.category}}</h1>
                         <br /><br /><br /><br /><br />
                         <br /><br /><br /><br /><br /><br />
                         <br /><br /><br /><br /><br />
@@ -586,10 +588,12 @@
                         <span class="rodi_txt_big">
                             <a href="" ng-click="setEditForm()"><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" title="Edit dataset" ng-if="bReviewer && !bEdit"></i></a>
                             &nbsp;&nbsp;
-                            <a href="" ng-click="changepage('contribute.html?tab=1')" ng-if="bMylist && !bEdit"><i class="fa fa-history" aria-hidden="true" data-toggle="tooltip" title="Back to my dataset list"></i></a>
-                            <a href="" class="btn btn-sm btn-success" ng-if="bEdit" ng-click="updateDataset()"><i class="fa fa-floppy-o" aria-hidden="true" data-toggle="tooltip" title="Save dataset"></i></a>
-                            <a href="" class="btn btn-sm btn-info" ng-if="bEdit" ng-click="closeRevision()"><i class="fa fa-times" aria-hidden="true" data-toggle="tooltip" title="Close edit mode"></i></a>
-                            <a href="" class="btn btn-sm btn-danger" ng-if="bEdit && bReviewer" ng-click="deleteDataset()"><i class="fa fa-trash-o" aria-hidden="true" title="Delete dataset"></i></a>
+                            <a href="" ng-click="changepage('contribute.html?tab=1')" ng-if="bMylist && !bEdit"><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to my dataset list"></i></a>
+                            <a href="" ng-click="changepage('contribute.html?tab=2')" ng-if="bReviewlist && !bEdit"><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to review list"></i></a>
+                            <a href="javascript:history.back()" ng-if="!bReviewlist && !bMylist && !bEdit"><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back"></i></a>
+                            <a href="" class="btn btn-md btn-success" ng-if="bEdit" ng-click="updateDataset()"><i class="fa fa-floppy-o" aria-hidden="true" data-toggle="tooltip" title="Save dataset"></i></a>
+                            <a href="" class="btn btn-md btn-info" ng-if="bEdit" ng-click="closeRevision()"><i class="fa fa-times" aria-hidden="true" data-toggle="tooltip" title="Close edit mode"></i></a>
+                            <a href="" class="btn btn-md btn-danger" ng-if="bEdit && bReviewer" ng-click="deleteDataset()"><i class="fa fa-trash-o" aria-hidden="true" title="Delete dataset"></i></a>
                         </span>
                     </div>
 

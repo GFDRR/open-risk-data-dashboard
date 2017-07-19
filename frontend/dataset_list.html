@@ -79,7 +79,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3">
                     <!--<h1 class="page_title pull-right">DATASET LIST</h1>-->
-                    <h1 class="page_title pull-right">{{objCountry[0].name}} - {{HazardCategory[0].category.name}}</h1>
+                    <h1 class="page_title pull-right">{{objCountry[0].name}} - {{DataCategory[0].category.name}}</h1>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
                     <mainmenu></mainmenu>
@@ -95,99 +95,52 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2">
                 <br />
+                <div class="pull-left"><a href="javascript:history.back()"><span class="btn btn-sm btn-info"><i class="fa fa-caret-left" aria-hidden="true"></i> Back</span></a><br /><br /></div>
                 <!--<h2>{{objCountry[0].name}} - {{HazardCategory[0].category.name}}</h2>-->
-                <br />
 
                 <table class="table table-striped table-hover dataset">
                     <thead>
-                        <th>Nation</th>
-                        <th>Dataset</th>
-                        <th>Data risk category</th>
-                        <th>Questions</th>
-                        <th>Year</th>
-                        <th>Score</th>
+                    <th>#</th>
+                    <th>Dataset</th>
+                    <th>Insert date</th>
+                    <th>Questions</th>
+                    <th class="text-center">Year</th>
+                    <th class="text-center">Review</th>
+                    <th></th>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>IT</td>
-                            <td>Dataset category</td>
-                            <td>Risk</td>
-                            <td>
-                                <div class="flex-container dataset_value">
-                                    <i class="fa" aria-hidden="true" data-toggle="tooltip" title="questione 1"><p>1</p></i>
-                                    <i class="fa" aria-hidden="false" data-toggle="tooltip" title="questione 1"><p>2</p></i>
-                                    <i class="fa" aria-hidden="true" data-toggle="tooltip" title="questione 1"><p>3</p></i>
-                                    <i class="fa" aria-hidden="true" data-toggle="tooltip" title="questione 1"><p>4</p></i>
-                                    <i class="fa" aria-hidden="false" data-toggle="tooltip" title="questione 1"><p>5</p></i>
-                                    <i class="fa" aria-hidden="true" data-toggle="tooltip" title="questione 1"><p>6</p></i>
-                                    <i class="fa" aria-hidden="false" data-toggle="tooltip" title="questione 1"><p>7</p></i>
-                                    <i class="fa" aria-hidden="false" data-toggle="tooltip" title="questione 1"><p>8</p></i>
-                                    <i class="fa" aria-hidden="false" data-toggle="tooltip" title="questione 1"><p>9</p></i>
-                                    <i class="fa" aria-hidden="false" data-toggle="tooltip" title="questione 1"><p>10</p></i>
-
-                                </div>
-
-                            </td>
-                            <td>2016</td>
-                            <td><div>score</div></td>
-                            <td>
-                                <a href="" title="details" ng-click="changepage('dataset_details.html?keyds=1')"><i class="fa fa-search"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><a href="" ng-click="changepage('dataset_details.html?keyds=1')">Dataset one</a></td>
-                            <td>Hazard</td>
-                            <td>
-                                <div class="flex-container dataset_value">
-                                    <i class="fa" aria-hidden="true"><p>1</p></i>
-                                    <i class="fa" aria-hidden="false"><p>2</p></i>
-                                    <i class="fa" aria-hidden="true"><p>3</p></i>
-                                    <i class="fa" aria-hidden="true"><p>4</p></i>
-                                    <i class="fa" aria-hidden="false"><p>5</p></i>
-                                    <i class="fa" aria-hidden="true"><p>6</p></i>
-                                    <i class="fa" aria-hidden="false"><p>7</p></i>
-                                    <i class="fa" aria-hidden="false"><p>8</p></i>
-                                    <i class="fa" aria-hidden="false"><p>9</p></i>
-                                    <i class="fa" aria-hidden="false"><p>10</p></i>
-
-                                </div>
-
-                            </td>
-                            <td>2016</td>
-                            <td><div>score</div></td>
-                            <td>
-                                <a href="" title="details" ng-click="changepage('dataset_details.html?keyds=1')"><i class="fa fa-search"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><a href="">Dataset one</a></td>
-                            <td>Basic Data</td>
-                            <td>
-                                <div class="flex-container dataset_value">
-                                    <i class="fa" aria-hidden="true"><p>1</p></i>
-                                    <i class="fa" aria-hidden="false"><p>2</p></i>
-                                    <i class="fa" aria-hidden="true"><p>3</p></i>
-                                    <i class="fa" aria-hidden="true"><p>4</p></i>
-                                    <i class="fa" aria-hidden="false"><p>5</p></i>
-                                    <i class="fa" aria-hidden="true"><p>6</p></i>
-                                    <i class="fa" aria-hidden="false"><p>7</p></i>
-                                    <i class="fa" aria-hidden="false"><p>8</p></i>
-                                    <i class="fa" aria-hidden="false"><p>9</p></i>
-                                    <i class="fa" aria-hidden="false"><p>10</p></i>
-
-                                </div>
-
-                            </td>
-                            <td>2016</td>
-                            <td><div>score</div></td>
-                            <td>
-                                <a href="" title="details" ng-click="changepage('dataset_details.html?keyds=1')"><i class="fa fa-search"></i></a>
-                            </td>
-                        </tr>
+                    <tr ng-repeat="ds in DatasetList_Country_DataCat">
+                        <td>{{$index + 1}}</td>
+                        <td>{{ds.keydataset.dataset}}</td>
+                        <!--<td><a href="" ng-click="changepage('dataset_details.html?keyds=' + mydataset.id + '&ml=true') ">{{mydataset.keydataset.level}}</a></td>-->
+                        <td>{{ds.create_time | date: 'dd/MM/yyyy'}}</td>
+                        <td>
+                            <div class="flex-container dataset_value">
+                                <i class="fa" aria-hidden="{{ds.is_existing}}" data-toggle="tooltip" title="{{questions[0].desc}}"><p>1</p></i>
+                                <i class="fa" aria-hidden="{{ds.is_digital_form}}" data-toggle="tooltip" title="{{questions[1].desc}}"><p>2</p></i>
+                                <i class="fa" aria-hidden="{{ds.is_avail_online}}" data-toggle="tooltip" title="{{questions[2].desc}}"><p>3</p></i>
+                                <i class="fa" aria-hidden="{{ds.is_avail_online_meta}}" data-toggle="tooltip" title="{{questions[3].desc}}"><p>4</p></i>
+                                <i class="fa" aria-hidden="{{ds.is_bulk_avail}}" data-toggle="tooltip" title="{{questions[4].desc}}"><p>5</p></i>
+                                <i class="fa" aria-hidden="{{ds.is_machine_read}}" data-toggle="tooltip" title="{{questions[5].desc}}"><p>6</p></i>
+                                <i class="fa" aria-hidden="{{ds.is_pub_available}}" data-toggle="tooltip" title="{{questions[6].desc}}"><p>7</p></i>
+                                <i class="fa" aria-hidden="{{ds.is_avail_for_free}}" data-toggle="tooltip" title="{{questions[7].desc}}"><p>8</p></i>
+                                <i class="fa" aria-hidden="{{ds.is_open_licence}}" data-toggle="tooltip" title="{{questions[8].desc}}"><p>9</p></i>
+                                <i class="fa" aria-hidden="{{ds.is_prov_timely}}" data-toggle="tooltip" title="{{questions[9].desc}}"><p>10</p></i>
+                            </div>
+                        </td>
+                        <td class="text-center">{{ds.create_time | date: 'yyyy'}}</td>
+                        <td class="text-center">
+                            <i class="fa fa-check-circle-o" aria-hidden="true" ng-if="ds.is_reviewed"></i>
+                            <i class="fa fa-clock-o" aria-hidden="true" ng-if="!ds.is_reviewed"></i>
+                        </td>
+                        <td>
+                            <a href="" title="details" ng-click="changepage('dataset_details.html?keyds=' + ds.id)"><i class="fa fa-search"></i></a>
+                        </td>
+                    </tr>
                     </tbody>
-
                 </table>
-
+                <div class="rodi_loading" ng-if="bLoading"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i> Loading data ...</div>
+                <div ng-if="bNoDataset" class="text-center"><br /><h3>No dataset found</h3></div>
             </div>
 
         </div>

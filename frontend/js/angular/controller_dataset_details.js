@@ -27,11 +27,13 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
     // Dataset details page
     $scope.idDataset = $location.search().keyds;
     $scope.bMylist = $location.search().ml;
+    $scope.bReviewlist = $location.search().rl;
     $scope.bReviewer = false;
     $scope.biddataset = false;
     $scope.bDelete = false;
     $scope.bEdit = false;
     $scope.objDataset = {};
+    $scope.objDatasetView = {};
 
     // Check the dataset pk
     if ($scope.idDataset != null)
@@ -47,10 +49,13 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
 
         // Get dataset info from profile API
         RodiSrv.getDatasetInfo($scope.idDataset,
-            function(data)
+            function(dataDS)
             {
                 // Load the dataset information
-                $scope.objDataset = data;
+                $scope.objDataset = dataDS;
+                $scope.objDatasetView = angular.copy(dataDS);
+
+                console.log($scope.objDatasetView);
 
                 // Dataset classification set
                 $scope.dataCategory = [];
@@ -437,17 +442,35 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                         // Success
                         $scope.objDataset.keydataset = data[0].id;
 
-                        // Save the dataset structure
-                        RodiSrv.updateprofileDataset($scope.tokenid, $scope.objDataset,
-                            function(data){
-                                // Success
-                                vex.dialog.alert('Dataset update correctly');
+                        if($scope.objDataset.owner == $scope.userinfo.username)
+                        {
+                            // Dataset owner / API profile/dataset
+                            RodiSrv.updateprofileDataset($scope.tokenid, $scope.objDataset,
+                                function(data){
+                                    // Success
+                                    vex.dialog.alert('Dataset update correctly');
 
-                            }, function(data){
-                                //     Error
-                                console.log(data);
-                                vex.dialog.alert("Unable to update the dataset");
-                            })
+                                }, function(data){
+                                    //     Error
+                                    console.log(data);
+                                    vex.dialog.alert("Unable to update the dataset");
+                                }
+                            );
+                        } else
+                        {
+                            // Dataset owner / API profile/dataset
+                            RodiSrv.updateAdminDataset($scope.tokenid, $scope.objDataset,
+                                function(data){
+                                    // Success
+                                    vex.dialog.alert('Dataset update correctly');
+
+                                }, function(data){
+                                    //     Error
+                                    console.log(data);
+                                    vex.dialog.alert("Unable to update the dataset");
+                                }
+                            );
+                        }
 
                     }, function(data)
                     {
@@ -468,19 +491,39 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                 callback: function(value){
                     if (value){
 
-                        RodiSrv.deleteprofileDataset($scope.tokenid, $scope.objDataset,
-                            function(data){
-                                // Success
-                                vex.dialog.alert('Dataset delete successfully');
+                        if($scope.objDataset.owner == $scope.userinfo.username)
+                        {
+                            RodiSrv.deleteprofileDataset($scope.tokenid, $scope.objDataset,
+                                function(data){
+                                    // Success
+                                    vex.dialog.alert('Dataset delete successfully');
 
-                                $scope.changepage("contribute.html?tab=1");
+                                    $scope.changepage("contribute.html?tab=1");
 
-                            }, function(data){
-                                //     Error
-                                console.log(data);
-                                vex.dialog.alert("Unable to delete the dataset");
-                            }
-                        )
+                                }, function(data){
+                                    //     Error
+                                    console.log(data);
+                                    vex.dialog.alert("Unable to delete the dataset");
+                                }
+                            );
+                        } else
+                        {
+                            RodiSrv.deleteAdminDataset($scope.tokenid, $scope.objDataset,
+                                function(data){
+                                    // Success
+                                    vex.dialog.alert('Dataset delete successfully');
+
+                                    $scope.changepage("contribute.html?tab=1");
+
+                                }, function(data){
+                                    //     Error
+                                    console.log(data);
+                                    vex.dialog.alert("Unable to delete the dataset");
+                                }
+                            );
+                        };
+
+
                     }
                 }
             });

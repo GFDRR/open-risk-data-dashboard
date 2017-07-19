@@ -135,11 +135,11 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 
                 "dataValue":
                     {
-                        "h01": 0.1,
-                        "h02": 0.2,
-                        "h03": 0.3,
-                        "h04": 0.4,
-                        "h05": 0.5
+                        "1": 0.1,
+                        "2": 0.2,
+                        "3": 0.3,
+                        "4": 0.4,
+                        "5": 0.5
                     }
             },
             {
@@ -147,11 +147,11 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
                 "name": "Argentina",
                 "dataValue":
                     {
-                        "h01": 0.1,
-                        "h02": 0.2,
-                        "h03": 0.3,
-                        "h04": 0.4,
-                        "h05": 0.5
+                        "1": 0.1,
+                        "2": 0.2,
+                        "3": 0.3,
+                        "4": 0.4,
+                        "5": 0.5
                     }
             },
             {
@@ -159,11 +159,11 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
                 "name": "Australia",
                 "dataValue":
                     {
-                        "h01": 0.1,
-                        "h02": 0.2,
-                        "h03": 0.3,
-                        "h04": 0.4,
-                        "h05": 0.5
+                        "1": 0.1,
+                        "2": 0.2,
+                        "3": 0.3,
+                        "4": 0.4,
+                        "5": 0.5
                     }
             }
         ];
@@ -180,11 +180,11 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
                 "text": "IT Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                 "img": "img/template/test_news_image.jpg",
                 "haz_index": {
-                    "h01":["description hazard 01", "95"],
-                    "h02":["description hazard 02", "75"],
-                    "h03":["description hazard 03", "80"],
-                    "h04":["description hazard 04", "65"],
-                    "h05":["description hazard 05", "10"]
+                    "1":["description hazard 01", "95"],
+                    "2":["description hazard 02", "75"],
+                    "3":["description hazard 03", "80"],
+                    "4":["description hazard 04", "65"],
+                    "5":["description hazard 05", "10"]
                 },
                 "matrixData": {
                     // questionKey: ["questionkey", "description", valueH01, valueH02, valueH03, valueH04, valueH05, valueH06, valueH07, valueH08]
@@ -206,11 +206,11 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
                 "text": "AU Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                 "img": "img/template/test_news_image.jpg",
                 "haz_index": {
-                    "h01":["description hazard 01", "95"],
-                    "h02":["description hazard 02", "75"],
-                    "h03":["description hazard 03", "80"],
-                    "h04":["description hazard 04", "65"],
-                    "h05":["description hazard 05", "10"]
+                    "1":["description hazard 01", "95"],
+                    "2":["description hazard 02", "75"],
+                    "3":["description hazard 03", "80"],
+                    "4":["description hazard 04", "65"],
+                    "5":["description hazard 05", "10"]
                 },
                 "matrixData": {
                     // "questionKey": ["description", valueH01, valueH02, valueH03, valueH04, valueH05, valueH06, valueH07, valueH08]
@@ -232,11 +232,11 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
                 "text": "AR Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
                 "img": "img/template/test_news_image.jpg",
                 "haz_index": {
-                    "h01":["description hazard 01", "95"],
-                    "h02":["description hazard 02", "75"],
-                    "h03":["description hazard 03", "80"],
-                    "h04":["description hazard 04", "65"],
-                    "h05":["description hazard 05", "10"]
+                    "1":["description hazard 01", "95"],
+                    "2":["description hazard 02", "75"],
+                    "3":["description hazard 03", "80"],
+                    "4":["description hazard 04", "65"],
+                    "5":["description hazard 05", "10"]
                 },
                 "matrixData": {
                     // "questionKey": ["description", valueH01, valueH02, valueH03, valueH04, valueH05, valueH06, valueH07, valueH08]
@@ -535,16 +535,16 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
                     "category": {id: 1, name: "Basic Data"}
                 },
                 {
-                    "category": {id: 2, name: "Exposure"}
+                    "category": {id: 2, name: "Hazard"}
                 },
                 {
-                    "category": {id: 3, name: "Hazard"}
+                    "category": {id: 3, name: "Exposure"}
                 },
                 {
-                    "category": {id: 4, name: "Risk"}
+                    "category": {id: 4, name: "Vulnerability"}
                 },
                 {
-                    "category": {id: 5, name: "Vulnerability"}
+                    "category": {id: 5, name: "Risk"}
                 }
             ];
 
@@ -662,12 +662,11 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         return obj[index];
     }
 
-    this.getDatasetList_bycountry = function(countryCode, onSuccess, onError)
+    this.getAllDatasetList = function(onSuccess, onError)
     {
         /*
-            return a Dataset list for country.
-            param.: country code (ex: IT)
-        */
+         return a Dataset list sorted by country.
+         */
 
         var req = {
             method: 'GET',
@@ -679,9 +678,9 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         }
 
         $http(req).then(function(data){
-            if(onSuccess) onSuccess(data);
+            if(onSuccess) onSuccess(data.data);
         }, function(data){
-            if(onError)onError(data);
+            if(onError)onError(data.data);
         });
 
     }
@@ -696,8 +695,8 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         // if(obj.keydataset.scale == '--'){aErrors.push('Dataset scale')};
         // if(obj.keydataset.category == '--'){aErrors.push('Data category')};
         // if(obj.hazard == '--'){aErrors.push('Data category')};
-        if(obj.keydataset.dataset == '--'){aErrors.push('Dataset category')};
-        if(obj.keydataset.description == '--'){aErrors.push('Dataset description')};
+        if(obj.keydataset.dataset == '0'){aErrors.push('Dataset category')};
+        if(obj.keydataset.description == '0'){aErrors.push('Dataset description')};
 
         // if(obj.keydataset.category == '3' && obj.hazard == '--'){aErrors.push('Hazard')};
         // if(obj.data_url == ''){aErrors.push('Link dataset empty')};
@@ -789,11 +788,47 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         });
     }
 
+    this.updateAdminDataset = function(token, obj, onSuccess, onError)
+    {
+        var req = {
+            method: 'PUT',
+            url: baseAPIurl + 'dataset/' + obj.id,
+            headers: {
+                'Authorization': 'Token ' + token
+            },
+            data: obj
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data);
+        });
+    }
+
     this.deleteprofileDataset = function(token, obj, onSuccess, onError)
     {
         var req = {
             method: 'DELETE',
             url: baseAPIurl + 'profile/dataset/' + obj.id,
+            headers: {
+                'Authorization': 'Token ' + token
+            },
+            data: obj
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data);
+        });
+    }
+
+    this.deleteAdminDataset = function(token, obj, onSuccess, onError)
+    {
+        var req = {
+            method: 'DELETE',
+            url: baseAPIurl + 'dataset/' + obj.id,
             headers: {
                 'Authorization': 'Token ' + token
             },

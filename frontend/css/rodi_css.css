@@ -22,6 +22,13 @@ section
     /* margin-bottom:30px; */
 }
 
+.rodi_loading
+{
+    text-align: center;
+    font-size: 12px;
+    color: #c0c0c0;
+}
+
 .m_b_20
 {
     margin-bottom: 20px;
