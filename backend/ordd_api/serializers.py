@@ -139,12 +139,12 @@ class RegistrationSerializer(serializers.ModelSerializer):
                 content_txt = ('''To complete the registration to Open Risk Data Dashboard site
 open this link in your favorite browser: %s .
 
-If you don't subscribe to this site, please ignore this message.'''
+If you didn't subscribe to this site, please ignore this message.'''
                                % (reply_url, ))
                 content_html = ('''<div>To complete the registration to Open Risk Data Dashboard site<br>
 click here <a href="%s">%s</a><br>
 or open the link in your favorite browser.<br><br>
-If you don't subscribe to this site, please ignore this message.</div>'''
+If you didn't subscribe to this site, please ignore this message.</div>'''
                                 % (reply_url, reply_url))
                 mailer(user.email, subject,
                        {"title": subject, "content": content_txt},
