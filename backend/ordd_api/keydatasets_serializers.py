@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import (
-    KeyCategory, KeyDatasetName, KeyDescription, KeyTagGroup,
+    KeyCategory, KeyDatasetName, KeyDescription, KeyTag, KeyTagGroup,
     KeyLevel, KeyDataset)
 
 
@@ -28,9 +28,20 @@ class KeyDatasetSerializer(serializers.ModelSerializer):
         fields = ('id', 'name')
 
 
+class KeyTagField(serializers.RelatedField):
+    def to_representation(self, value):
+        return "%s" % value.name
+
+
 class KeyTagSerializer(serializers.ModelSerializer):
-    tags = serializers.SlugRelatedField(read_only=True, many=True,
-                                        slug_field='name')
+    class Meta:
+        model = KeyTag
+        fields = ('group', 'name')
+
+
+class KeyTagGroupSerializer(serializers.ModelSerializer):
+    group = serializers.CharField(source='name')
+    tags = KeyTagField(many=True, read_only=True)
 
     class Meta:
         model = KeyTagGroup
@@ -106,7 +117,7 @@ class KeyDataset4on4Serializer(serializers.ModelSerializer):
     dataset = serializers.StringRelatedField()
     description = serializers.SlugRelatedField(
         read_only=True, slug_field='name')
-    tag_available = KeyTagSerializer()
+    tag_available = KeyTagGroupSerializer()
     applicability = serializers.SlugRelatedField(
         read_only=True, many=True, slug_field='name')
 
