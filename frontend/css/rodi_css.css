@@ -880,6 +880,22 @@ hr {
 
 /*
 ================================================
+review mode
+================================================
+*/
+
+
+.viewer [class*="rodi_dataset_label"] {font-size:1.5em;}
+.viewer .flex-container .rodi_cb_space {padding:1px 2px; margin:2px; height:inherit;  align-items: center; }
+.viewer .flex-container {
+    align-items: center;
+    justify-content: space-between;
+    /*text-align: left;*/
+}
+.flex-container.tag {flex-wrap:wrap; justify-content: space-around;}
+.viewer [class*="rodi_btn_"] {padding:0; margin-left: 1em;}
+/*
+================================================
 responsive
 ================================================
 */
