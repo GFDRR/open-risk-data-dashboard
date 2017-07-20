@@ -60,4 +60,9 @@ class Migration(migrations.Migration):
             name='group',
             field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='tags', to='ordd_api.KeyTagGroup'),
         ),
+        migrations.AlterField(
+            model_name='dataset',
+            name='tag',
+            field=models.ManyToManyField(blank=True, to='ordd_api.KeyTag'),
+        ),
     ]

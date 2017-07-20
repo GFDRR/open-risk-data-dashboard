@@ -207,4 +207,4 @@ class Dataset(models.Model):
     is_prov_timely = models.BooleanField()
     is_prov_timely_last = models.CharField(max_length=128,
                                            blank=True, null=False)
-    tag = models.ManyToManyField(KeyTag)
+    tag = models.ManyToManyField(KeyTag, blank=True)
