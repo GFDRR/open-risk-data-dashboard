@@ -27,14 +27,17 @@ class KeyDatasetSerializer(serializers.ModelSerializer):
         model = KeyDatasetName
         fields = ('id', 'name')
 
+
 class KeyTagField(serializers.RelatedField):
     def to_representation(self, value):
         return "%s" % value.name
+
 
 class KeyTagSerializer(serializers.ModelSerializer):
     class Meta:
         model = KeyTag
         fields = ('group', 'name')
+
 
 class KeyTagGroupSerializer(serializers.ModelSerializer):
     group = serializers.CharField(source='name')

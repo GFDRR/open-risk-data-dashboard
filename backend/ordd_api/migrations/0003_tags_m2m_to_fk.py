@@ -16,8 +16,8 @@ class Migration(migrations.Migration):
         KeyTagGroup = apps.get_model("ordd_api", "KeyTagGroup")
         for keytaggroup in KeyTagGroup.objects.all():
             for tag in keytaggroup.tags.all():
-                  tag.group = keytaggroup
-                  tag.save()
+                tag.group = keytaggroup
+                tag.save()
 
     def migrate_fk_to_m2m(apps, schema_editor):
         KeyTag = apps.get_model("ordd_api", "KeyTag")
@@ -26,12 +26,14 @@ class Migration(migrations.Migration):
                 keytag.group.tags.add(keytag)
                 keytag.group.save()
 
-
     operations = [
         migrations.AddField(
             model_name='keytag',
             name='group',
-            field=models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.SET_NULL, to='ordd_api.KeyTagGroup'),
+            field=models.ForeignKey(
+                blank=True, default=None, null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to='ordd_api.KeyTagGroup'),
         ),
         migrations.RunPython(
             code=migrate_m2m_to_fk,
@@ -49,7 +51,10 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='keytag',
             name='group',
-            field=models.ForeignKey(blank=True, default=None, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='tags', to='ordd_api.KeyTagGroup'),
+            field=models.ForeignKey(
+                blank=True, default=None, null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name='tags', to='ordd_api.KeyTagGroup'),
         ),
         migrations.AlterUniqueTogether(
             name='keytag',
@@ -58,7 +63,9 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='keytag',
             name='group',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='tags', to='ordd_api.KeyTagGroup'),
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name='tags', to='ordd_api.KeyTagGroup'),
         ),
         migrations.AlterField(
             model_name='dataset',
