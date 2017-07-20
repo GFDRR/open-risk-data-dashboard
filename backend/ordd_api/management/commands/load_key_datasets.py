@@ -72,14 +72,11 @@ class Command(BaseCommand):
 
                 tags = csv.reader(csvfile)
                 for tag_in in tags:
-                    KeyTag.objects.get_or_create(name=tag_in[1])
-                    KeyTagGroup.objects.get_or_create(group=tag_in[0])
+                    tag_group = KeyTagGroup.objects.get_or_create(name=tag_in[0])
+                    tag_group = tag_group[0]
+                    tag = KeyTag(group=tag_group, name=tag_in[1])
+                    tag.save()
 
-                    tag = KeyTag.objects.get(name=tag_in[1])
-                    tag_group = KeyTagGroup.objects.get(group=tag_in[0])
-
-                    tag_group.tags.add(tag)
-                    tag_group.save()
         except Exception as e:
             print(e)
             raise CommandError('Failed to import Key Datasets during tags'
@@ -160,7 +157,7 @@ class Command(BaseCommand):
                         tag = None
                     else:
                         tag = KeyTagGroup.objects.filter(
-                                                group__iexact=keyobj_in.tag)
+                                                name__iexact=keyobj_in.tag)
                         if len(tag) != 1:
                             raise ValueError('Tag group: [%s] not exists'
                                              ' in list' % keyobj_in.tag)

@@ -83,8 +83,8 @@ class KeyDatasetName(models.Model):
                 is not None else self.name)
 
 
-class KeyTag(models.Model):
-    name = models.CharField(max_length=32, blank=False)
+class KeyTagGroup(models.Model):
+    name = models.CharField(max_length=16, blank=False, unique=True)
 
     def natural_key(self):
         return self.name
@@ -93,15 +93,21 @@ class KeyTag(models.Model):
         return (self.name)
 
 
-class KeyTagGroup(models.Model):
-    group = models.CharField(max_length=16, blank=False, unique=True)
-    tags = models.ManyToManyField(KeyTag)
+class KeyTag(models.Model):
+    group = models.ForeignKey(KeyTagGroup, related_name='tags',
+                              on_delete=models.CASCADE)
+    name = models.CharField(max_length=32, blank=False)
+
+    class Meta:
+        unique_together = (
+            ('group', 'name'),
+        )
 
     def natural_key(self):
-        return self.group
+        return (self.group, self.name)
 
     def __str__(self):
-        return self.group
+        return "%s - %s" % (self.group, self.name)
 
 
 class KeyDescription(models.Model):
