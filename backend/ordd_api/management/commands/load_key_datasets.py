@@ -4,7 +4,7 @@ import csv
 import codecs
 import warnings
 from ordd_api.models import (KeyCategory, KeyPeril, KeyTag,
-                             KeyTagGroup, KeyDatasetName, KeyDescription,
+                             KeyTagGroup, KeyDatasetName,
                              KeyLevel, KeyDataset)
 
 KeyDataset_in = namedtuple('KeyDataset_in', 'category id hazard_category'
@@ -72,7 +72,8 @@ class Command(BaseCommand):
 
                 tags = csv.reader(csvfile)
                 for tag_in in tags:
-                    tag_group = KeyTagGroup.objects.get_or_create(name=tag_in[0])
+                    tag_group = KeyTagGroup.objects.get_or_create(
+                        name=tag_in[0])
                     tag_group = tag_group[0]
                     tag = KeyTag(group=tag_group, name=tag_in[1])
                     tag.save()
@@ -90,7 +91,6 @@ class Command(BaseCommand):
 
                 if options['reload']:
                     KeyDatasetName.objects.all().delete()
-                    KeyDescription.objects.all().delete()
                     KeyLevel.objects.all().delete()
                     KeyDataset.objects.all().delete()
 
@@ -163,14 +163,9 @@ class Command(BaseCommand):
                                              ' in list' % keyobj_in.tag)
                         tag = tag[0]
 
-                    # Description
-                    description = KeyDescription.objects.get_or_create(
-                                     name=keyobj_in.description)
-                    description = description[0]
-
                     keydata = KeyDataset(
                         code=keyobj_in.id, category=category, dataset=dataset,
-                        description=description, tag_available=tag,
+                        description=keyobj_in.description, tag_available=tag,
                         resolution=keyobj_in.resolution,
                         format=keyobj_in.format,
                         comment=keyobj_in.comment, weight=keyobj_in.weight)
