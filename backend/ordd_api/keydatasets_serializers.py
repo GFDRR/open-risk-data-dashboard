@@ -87,17 +87,22 @@ class KeyDataset2on4Serializer(serializers.ModelSerializer):
 
 class KeyDataset3on4Serializer(serializers.ModelSerializer):
     """Partial serializer of key datasets filtered by level, category,
-       and dataset -> description"""
-
-    level = serializers.SlugRelatedField(
-        read_only=True, slug_field='name')
-    category = serializers.SlugRelatedField(
-        read_only=True, slug_field='name')
-    dataset = serializers.StringRelatedField()
+       and dataset -> code, description"""
 
     class Meta:
         model = KeyDataset
-        fields = ('level', 'category', 'dataset', 'code', 'description',)
+        fields = ('level', 'category', 'dataset', 'code', 'description')
+
+    def to_representation(self, obj):
+        return {
+            'level': obj.level.name,
+            'category': obj.category.name,
+            'dataset': obj.dataset.name,
+            'keydataset': {
+                'code': obj.code,
+                'description': obj.description
+                }
+            }
 
 
 class KeyDataset4on4Serializer(serializers.ModelSerializer):
