@@ -5,6 +5,7 @@ from rest_framework.response import Response
 from rest_framework.exceptions import NotFound
 # from django_filters.rest_framework import DjangoFilterBackend
 # import django_filters.rest_framework
+from django.db.models import Q
 from django.contrib.auth.models import User
 
 from .serializers import (
@@ -186,13 +187,36 @@ class ProfileDatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
             owner=self.request.user)
 
 
-class DatasetListView(generics.ListAPIView):
-    """This class handles the GET requests of our rest api."""
-    queryset = Dataset.objects.all().order_by('country')
-    serializer_class = ProfileDatasetListSerializer
-
-
 class DatasetDetailsView(generics.RetrieveAPIView):
     """This class handles the GET requests of our rest api."""
     queryset = Dataset.objects.all()
     serializer_class = ProfileDatasetListSerializer
+
+
+class DatasetListView(generics.ListAPIView):
+    serializer_class = ProfileDatasetListSerializer
+
+    def get_queryset(self):
+        queryset = Dataset.objects.all()
+        kd = self.request.query_params.getlist('kd')
+        country = self.request.query_params.getlist('country')
+        category = self.request.query_params.getlist('category')
+        applicability = self.request.query_params.getlist('applicability')
+        tag = self.request.query_params.getlist('tag')
+
+        if len(kd) > 0:
+            queryset = queryset.filter(keydataset__code__in=kd)
+        if len(country) > 0:
+            queryset = queryset.filter(country__iso2__in=country)
+        if len(category) > 0:
+            queryset = queryset.filter(keydataset__category__name__in=category)
+        # FIXME currently in tag we may have extra applicailities when category
+        # is hazard (tag group)
+        if len(applicability) > 0:
+            queryset = queryset.filter(
+                        Q(keydataset__applicability__name__in=applicability) |
+                        Q(tag__name__in=applicability))
+        if len(tag) > 0:
+            queryset = queryset.filter(tag__name__in=tag)
+
+        return queryset
