@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import (
-    KeyCategory, KeyDatasetName, KeyDescription, KeyTag, KeyTagGroup,
+    KeyCategory, KeyDatasetName, KeyTag, KeyTagGroup,
     KeyLevel, KeyDataset)
 
 
@@ -48,12 +48,6 @@ class KeyTagGroupSerializer(serializers.ModelSerializer):
         fields = ('group', 'tags')
 
 
-class KeyDescriptionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = KeyDescription
-        fields = ('id', 'name')
-
-
 class KeyDataset0on4Serializer(serializers.ModelSerializer):
     """Partial serializer of key datasets -> level """
 
@@ -93,18 +87,22 @@ class KeyDataset2on4Serializer(serializers.ModelSerializer):
 
 class KeyDataset3on4Serializer(serializers.ModelSerializer):
     """Partial serializer of key datasets filtered by level, category,
-       and dataset -> description"""
-
-    level = serializers.SlugRelatedField(
-        read_only=True, slug_field='name')
-    category = serializers.SlugRelatedField(
-        read_only=True, slug_field='name')
-    dataset = serializers.StringRelatedField()
-    description = KeyDescriptionSerializer()
+       and dataset -> code, description"""
 
     class Meta:
         model = KeyDataset
-        fields = ('level', 'category', 'dataset', 'description',)
+        fields = ('level', 'category', 'dataset', 'code', 'description')
+
+    def to_representation(self, obj):
+        return {
+            'level': obj.level.name,
+            'category': obj.category.name,
+            'dataset': obj.dataset.name,
+            'description': {
+                'code': obj.code,
+                'name': obj.description
+                }
+            }
 
 
 class KeyDataset4on4Serializer(serializers.ModelSerializer):
@@ -115,13 +113,11 @@ class KeyDataset4on4Serializer(serializers.ModelSerializer):
     category = serializers.SlugRelatedField(
         read_only=True, slug_field='name')
     dataset = serializers.StringRelatedField()
-    description = serializers.SlugRelatedField(
-        read_only=True, slug_field='name')
     tag_available = KeyTagGroupSerializer()
     applicability = serializers.SlugRelatedField(
         read_only=True, many=True, slug_field='name')
 
     class Meta:
         model = KeyDataset
-        fields = ('id', 'level', 'category', 'dataset', 'description',
+        fields = ('code', 'level', 'category', 'dataset', 'description',
                   'tag_available', 'applicability')

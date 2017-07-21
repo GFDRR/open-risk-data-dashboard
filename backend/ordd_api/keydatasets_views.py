@@ -83,7 +83,7 @@ class KeyDataset3on4ListView(generics.ListAPIView):
             filters['dataset'] = dataset
 
         qs = KeyDataset.objects.filter(**filters).order_by(
-            "description").distinct("description")
+            "description")
 
         return qs
 
@@ -96,7 +96,7 @@ class KeyDataset4on4ListView(generics.ListAPIView):
         level = self.kwargs['level']
         category = self.kwargs['category']
         dataset = self.kwargs['dataset']
-        description = self.kwargs['description']
+        code = self.kwargs['code']
 
         filters = {}
         if level > '0':
@@ -105,8 +105,7 @@ class KeyDataset4on4ListView(generics.ListAPIView):
             filters['category'] = category
         if dataset > '0':
             filters['dataset'] = dataset
-        if description > '0':
-            filters['description'] = description
+        filters['code'] = code
 
         qs = KeyDataset.objects.filter(**filters)
 
@@ -114,9 +113,6 @@ class KeyDataset4on4ListView(generics.ListAPIView):
             raise NotFound('key not found')
 
         return qs
-
-#    filter_backends = (KeyDatasetFilter,)
-#    filter_fields = ('category',)
 
 
 class KeyDatasetTagGroup(APIView):

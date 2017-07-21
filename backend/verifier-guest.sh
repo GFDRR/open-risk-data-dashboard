@@ -18,11 +18,11 @@ ORDD_SERVER_PORT="${ORDD_SERVER_PORT:-8000}"
 ORDD_SKIP_APT_UPDATE="${ORDD_SKIP_APT_UPDATE:-}"
 
 # name for database
-ORDD_DB_NAME="${ORDD_DB_NAME:-ordd}"
+ORDD_DB_NAME="${ORDD_DB_NAME:-ordd_dev}"
 # username for database
-ORDD_DB_USER="${ORDD_DB_USER:-ordd}"
+ORDD_DB_USER="${ORDD_DB_USER:-ordd_dev}"
 # password for database
-ORDD_DB_PASSWD="${ORDD_DB_PASSWO:-canarino}"
+ORDD_DB_PASSWD="${ORDD_DB_PASSWO:-the_db_password}"
 # Vars section: END
 
 if [ "$underscore" != "$0" ]; then
