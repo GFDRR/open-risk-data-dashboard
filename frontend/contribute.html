@@ -216,7 +216,7 @@
                                         <!--<br />-->
                                         <select class="dataset_form_select_style" ng-model="objDataset.keydataset.description" ng-disabled="objDataset.keydataset.dataset == '0'" ng-change="changeDescription(objDataset.keydataset.description)">
                                             <option value="0" selected>-- Select description --</option>
-                                            <option ng-repeat="ds_desc in datasetDescription | orderBy: 'description.name'" value="{{ds_desc.description.id}}">{{ds_desc.description.name}}</option>
+                                            <option ng-repeat="ds_desc in datasetDescription | orderBy: 'description.name'" value="{{ds_desc.description.code}}">{{ds_desc.description.name}}</option>
                                         </select>
                                     </div>
 

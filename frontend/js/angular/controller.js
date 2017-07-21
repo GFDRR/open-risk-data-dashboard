@@ -98,7 +98,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
     // ********* CONTRIBUTE PAGE ************ //
     // ************************************** //
 
-    if ($location.path().indexOf('contribute.html') !== -1){
+    if ($location.path().indexOf('contribute.html') !== -1)
+    {
 
         $scope.tabpar = $location.search().tab;
 
@@ -279,12 +280,11 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
             if(idDesc !== '0')
             {
-
                 // Get level of description
                 var objDesc = $filter('filter')($scope.datasetDescription,
                     function(e)
                     {
-                        return e.description.id == $scope.objDataset.keydataset.description;
+                        return e.description.code == idDesc;
                     }
                 );
 
@@ -317,7 +317,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
                     }, function(data){
                         // Error
-                    })
+                    }
+                );
 
             } else
             {
@@ -412,7 +413,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                     function(data)
                     {
                         // Success
-                        $scope.objDataset.keydataset = data[0].id;
+                        $scope.objDataset.keydataset = data[0].code;
 
                         // Save the dataset structure
                         RodiSrv.saveprofileDataset($scope.tokenid, $scope.objDataset,
@@ -689,7 +690,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                     RodiSrv.resetProfilePsw($scope.tokenid, old_psw, new_psw,
                         function(data){
                             // Success
-                            console.log(data);
                             vex.dialog.alert('Password update!');
                         }, function(data){
                             // Error

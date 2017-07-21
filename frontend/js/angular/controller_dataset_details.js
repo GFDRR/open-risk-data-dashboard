@@ -55,8 +55,6 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                 $scope.objDataset = dataDS;
                 $scope.objDatasetView = angular.copy(dataDS);
 
-                console.log($scope.objDatasetView);
-
                 // Dataset classification set
                 $scope.dataCategory = [];
                 $scope.dataCategoryId = "0";
@@ -72,6 +70,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                 $scope.newLink = "";
                 $scope.datasetTags = [];
                 $scope.selectedTags = [];
+                $scope.sTagsMsg = "";
 
                 if($scope.objDataset.keydataset.tag_available) {$scope.datasetTags = $scope.objDataset.keydataset.tag_available.tags;}
 
@@ -93,7 +92,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                     function(data) {
                         // console.log(data);
                         $scope.dataCategory = data;
-                        $scope.dataCategoryAll = data;
+                        $scope.dataCategoryAll = angular.copy(data);
 
                         // Get data risk category ID
                         var aCategory = $filter('filter')($scope.dataCategoryAll,
@@ -110,11 +109,11 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                         }
 
                         // Load all Dataset list
-                        RodiSrv.getDatasetCategoryList(0,$scope.dataCategoryId,
+                        RodiSrv.getDatasetCategoryList(0,0,
                             function(data)
                             {
                                 $scope.datasetCategory = data;
-                                $scope.datasetCategoryAll = data;
+                                $scope.datasetCategoryAll = angular.copy(data);
 
                                 // Get dataset category ID
                                 var aDataset = $filter('filter')($scope.datasetCategoryAll,
@@ -147,8 +146,8 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
 
                                         if (aDesc.length > 0)
                                         {
-                                            $scope.datasetDescriptionId = aDesc[0].description.id + "";
-                                            $scope.objDataset.keydataset.description = aDesc[0].description.id + "";
+                                            $scope.datasetDescriptionId = aDesc[0].description.code + "";
+                                            $scope.objDataset.keydataset.description = aDesc[0].description.code + "";
                                         }
 
                                         // Get Dataset scale available
@@ -227,6 +226,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                     {
                         // Dataset selected
                         // get the dataset obj
+
                         var aFiltered = [];
                         aFiltered = $filter('filter')($scope.datasetCategoryAll, function(e)
                         {
@@ -304,8 +304,6 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                         {
                             $scope.datasetDescription = data;
 
-                            console.log(data);
-
                             $scope.objDataset.keydataset.description = '0';
                         },
                         function(data)
@@ -324,7 +322,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                         var objDesc = $filter('filter')($scope.datasetDescription,
                             function(e)
                             {
-                                return e.description.id == $scope.objDataset.keydataset.description;
+                                return e.description.code == $scope.objDataset.keydataset.description;
                             }
                         );
 
@@ -338,24 +336,33 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                         $scope.datasetScaleId = objLevel[0].level.id + "";
                         $scope.objDataset.keydataset.level = $scope.datasetScaleId;
 
+                        RodiSrv.getKeydatasetId($scope.datasetScaleId, $scope.dataCategoryId,
+                            $scope.objDataset.keydataset.dataset, $scope.objDataset.keydataset.description,
+                            function(data)
+                            {
+
+                                // Success
+                                if(data[0].tag_available)
+                                {
+                                    $scope.datasetTags = data[0].tag_available.tags;
+                                    $scope.selectedTags = data[0].applicability;
+                                    $scope.sTagsMsg = "";
+                                } else
+                                {
+                                    $scope.datasetTags=[];
+                                    $scope.sTagsMsg = "** No elemnts available **";
+                                }
+
+                            }, function(data){
+                                // Error
+                            }
+                        );
+
                     } else
                     {
                         $scope.datasetScaleId = "0";
                         $scope.objDataset.keydataset.level = "0";
                     }
-
-                    // get available Tags list
-                    RodiSrv.getTags('hazard',
-                        function(data)
-                        {
-                            console.log(data);
-                            if (data.length > 0)
-                            {
-                                $scope.datasetTags = data[0].tags;
-                            }
-
-                        },
-                        function(data){$scope.datasetTags = [];})
 
                 }
 
@@ -393,7 +400,6 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                 $scope.saveSelection = function(qcode, value)
                 {
                     $scope.objDataset[qcode] = value;
-                    console.log($scope.objDataset);
                 }
 
                 $scope.questionHelp = function(index)
@@ -440,7 +446,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                     function(data)
                     {
                         // Success
-                        $scope.objDataset.keydataset = data[0].id;
+                        $scope.objDataset.keydataset = data[0].code;
 
                         if($scope.objDataset.owner == $scope.userinfo.username)
                         {
