@@ -210,8 +210,8 @@ class DatasetListView(generics.ListAPIView):
             queryset = queryset.filter(country__iso2__in=country)
         if len(category) > 0:
             queryset = queryset.filter(keydataset__category__name__in=category)
-        # FIXME currently in tag we may have extra applicailities when category
-        # is hazard (tag group)
+        # FIXME currently in tag we may have extra applicailities
+        # when category (tag group) is 'hazard'
         if len(applicability) > 0:
             queryset = queryset.filter(
                         Q(keydataset__applicability__name__in=applicability) |
