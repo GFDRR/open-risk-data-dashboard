@@ -98,9 +98,9 @@ class KeyDataset3on4Serializer(serializers.ModelSerializer):
             'level': obj.level.name,
             'category': obj.category.name,
             'dataset': obj.dataset.name,
-            'keydataset': {
+            'description': {
                 'code': obj.code,
-                'description': obj.description
+                'name': obj.description
                 }
             }
 
