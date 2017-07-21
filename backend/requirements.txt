@@ -4,7 +4,6 @@ psycopg2==2.7.1
 djangorestframework==3.6.3
 django-cors-headers==2.1.0
 randstr==0.1.2
-django-filter==1.0.4
 django-jenkins==0.110.0
 # django-admin-view-permission==0.9
 gunicorn==19.7.1
