@@ -221,7 +221,7 @@ class DatasetListView(generics.ListAPIView):
 
         q = Q()
         for v in applicability:
-            # FIXME currently in tag we may have extra applicailities
+            # FIXME currently in tag we may have extra applicabilities
             # when category (tag group) is 'hazard'
             q = q | (Q(keydataset__applicability__name__iexact=v) |
                      Q(tag__name__iexact=v))
