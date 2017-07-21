@@ -204,19 +204,32 @@ class DatasetListView(generics.ListAPIView):
         applicability = self.request.query_params.getlist('applicability')
         tag = self.request.query_params.getlist('tag')
 
-        if len(kd) > 0:
-            queryset = queryset.filter(keydataset__code__in=kd)
-        if len(country) > 0:
-            queryset = queryset.filter(country__iso2__in=country)
-        if len(category) > 0:
-            queryset = queryset.filter(keydataset__category__name__in=category)
-        # FIXME currently in tag we may have extra applicailities
-        # when category (tag group) is 'hazard'
-        if len(applicability) > 0:
-            queryset = queryset.filter(
-                        Q(keydataset__applicability__name__in=applicability) |
-                        Q(tag__name__in=applicability))
-        if len(tag) > 0:
-            queryset = queryset.filter(tag__name__in=tag)
+        q = Q()
+        for v in country:
+            q = q | Q(country__iso2__iexact=v)
+        queryset = queryset.filter(q)
+
+        q = Q()
+        for v in kd:
+            q = q | Q(keydataset__code__iexact=v)
+        queryset = queryset.filter(q)
+
+        q = Q()
+        for v in category:
+            q = q | Q(keydataset__category__name__iexact=v)
+        queryset = queryset.filter(q)
+
+        q = Q()
+        for v in applicability:
+            # FIXME currently in tag we may have extra applicailities
+            # when category (tag group) is 'hazard'
+            q = q | (Q(keydataset__applicability__name__iexact=v) |
+                     Q(tag__name__iexact=v))
+        queryset = queryset.filter(q)
+
+        q = Q()
+        for v in tag:
+            q = q | Q(tag__name__iexact=v)
+        queryset = queryset.filter(q)
 
         return queryset
