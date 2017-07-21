@@ -49,7 +49,7 @@ urlpatterns = [
         name="key_dataset_tag_group"),
     url(r'^keydataset/tag/(?P<group>.+)$',
         KeyDatasetTag.as_view(), name="key_dataset_tag"),
-    url(r'^keydataset/(?P<level>.+)/(?P<category>.+)/(?P<dataset>.+)/(?P<description>.+)$',
+    url(r'^keydataset/(?P<level>.+)/(?P<category>.+)/(?P<dataset>.+)/(?P<code>.+)$',
         KeyDataset4on4ListView.as_view(), name="key_dataset4on4"),
     url(r'^keydataset/(?P<level>.+)/(?P<category>.+)/(?P<dataset>.+)/$',
         KeyDataset3on4ListView.as_view(), name="key_dataset3on4"),
