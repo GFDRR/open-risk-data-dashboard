@@ -3,8 +3,7 @@ from rest_framework import generics, permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import NotFound
-# from django_filters.rest_framework import DjangoFilterBackend
-# import django_filters.rest_framework
+
 from django.db.models import Q
 from django.contrib.auth.models import User
 
@@ -15,7 +14,7 @@ from .serializers import (
     ProfileDatasetListSerializer, ProfileDatasetCreateSerializer
     )
 from .models import Region, Country, OptIn, Dataset
-
+from ordd_api import __VERSION__
 
 # class IsOwner(permissions.BasePermission):
 #     """
@@ -27,6 +26,12 @@ from .models import Region, Country, OptIn, Dataset
 #     def has_object_permission(self, request, view, obj):
 #         return obj.user == request.user
 
+
+class VersionGet(APIView):
+    """This class handles the GET requests of our rest api."""
+
+    def get(self, request):
+        return Response(__VERSION__)
 
 class ProfileDetails(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()
