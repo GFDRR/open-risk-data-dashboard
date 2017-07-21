@@ -101,18 +101,18 @@
                 <!-- Dataset details -->
                 <div class="col-xs-12 col-sm-11 col-sm-offset-1 col-md-11 col-md-offset-1 col-lg-11 col-lg-offset-1 text-justify" ng-if="biddataset">
 
-                    <div class="text-center">
-                        <span class="rodi_txt_big">
-                            <a href="" ng-click="setEditForm()"><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" title="Edit dataset" ng-if="bReviewer && !bEdit"></i></a>
-                            &nbsp;&nbsp;
-                            <a href="" ng-click="changepage('contribute.html?tab=1')" ng-if="bMylist && !bEdit"><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to my dataset list"></i></a>
-                            <a href="" ng-click="changepage('contribute.html?tab=2')" ng-if="bReviewlist && !bEdit"><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to review list"></i></a>
-                            <a href="javascript:history.back()" ng-if="!bReviewlist && !bMylist && !bEdit"><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back"></i></a>
-                            <a href="" class="btn btn-md btn-success" ng-if="bEdit" ng-click="updateDataset()"><i class="fa fa-floppy-o" aria-hidden="true" data-toggle="tooltip" title="Save dataset"></i></a>
-                            <a href="" class="btn btn-md btn-info" ng-if="bEdit" ng-click="closeRevision()"><i class="fa fa-times" aria-hidden="true" data-toggle="tooltip" title="Close edit mode"></i></a>
-                            <a href="" class="btn btn-md btn-danger" ng-if="bEdit && bReviewer" ng-click="deleteDataset()"><i class="fa fa-trash-o" aria-hidden="true" title="Delete dataset"></i></a>
-                        </span>
+
+                    <div class="rodi_txt_big text-center">
+                        <a href="" ng-click="setEditForm()"><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" title="Edit dataset" ng-if="bReviewer && !bEdit"></i></a>
+                        &nbsp;&nbsp;
+                        <a href="" ng-click="changepage('contribute.html?tab=1')" ng-if="bMylist && !bEdit"><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to my dataset list"></i></a>
+                        <a href="" ng-click="changepage('contribute.html?tab=2')" ng-if="bReviewlist && !bEdit"><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to review list"></i></a>
+                        <a href="javascript:history.back()" ng-if="!bReviewlist && !bMylist && !bEdit"><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back"></i></a>
+                        <a href="" class="btn btn-md btn-success" ng-if="bEdit" ng-click="updateDataset()"><i class="fa fa-floppy-o" aria-hidden="true" data-toggle="tooltip" title="Save dataset"></i></a>
+                        <a href="" class="btn btn-md btn-info" ng-if="bEdit" ng-click="closeRevision()"><i class="fa fa-times" aria-hidden="true" data-toggle="tooltip" title="Close edit mode"></i></a>
+                        <a href="" class="btn btn-md btn-danger" ng-if="bEdit && bReviewer" ng-click="deleteDataset()"><i class="fa fa-trash-o" aria-hidden="true" title="Delete dataset"></i></a>
                     </div>
+
 
                     <br />
 
@@ -577,15 +577,130 @@
 
                     <br />
 
-                    <div ng-if="!bEdit" class="text-center">
-                        <h1>{{objDatasetView.country}} - {{objDatasetView.keydataset.category}}</h1>
-                        <br /><br /><br /><br /><br />
-                        <br /><br /><br /><br /><br /><br />
-                        <br /><br /><br /><br /><br />
-                    </div>
 
-                    <div class="text-center">
-                        <span class="rodi_txt_big">
+
+
+
+
+                    <div ng-if="!bEdit" class="">
+                        <h1 class="text-center">{{objDatasetView.country}} - {{objDatasetView.keydataset.category}}</h1>
+
+                        <div class="rodi_section viewer">
+                           <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                <h2>Section A - Dataset classification</h2>
+                                <hr>
+                                <div class="flex-container">
+                                    <span class="rodi_dataset_label_code">A1.</span>
+                                    <span class="rodi_dataset_label">{{country.name}}</span>
+                                </div>
+                               <div class="flex-container">
+                                   <span class="rodi_dataset_label_code">A2.</span>
+                                   <span class="rodi_dataset_label">{{dsCat.category.name}}</span>
+                                   <span class="rodi_dataset_label">{{dsname.dataset.name}}</span>
+
+                               </div>
+                               <div class="flex-container">
+                                   <span class="rodi_dataset_label_code">A3.</span>
+                                   <span class="rodi_dataset_label">{{objDataset.keydataset.name}}</span>
+                                   <span class="rodi_dataset_label">{{objDataset.keydataset.description}}</span>
+                               </div>
+                               <div class="flex-container">
+                                   <span class="rodi_dataset_label_code">A4.</span>
+                                   <div class="flex-container tag">
+                                       <div class="rodi_cb_space" ng-repeat="tag in datasetTags" ng-class="{active:selectedTags.indexOf(tag) !== -1}">
+                                           <span >{{tag}}</span>
+                                       </div>
+                                   </div>
+                               </div>
+
+
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                <h2>Section B - Questions</h2>
+                                <hr />
+                                <div class="flex-container">
+                                    <span class="rodi_dataset_label_code">B1.</span>
+                                    <span class="rodi_dataset_label">{{getQuestionCode('is_existing')}}</span>
+                                    <div class="rodi_cb_space rodi_btn_yes_bg_green" ng-if="objDataset.is_existing == true">YES</div>
+                                    <div class="rodi_cb_space rodi_btn_yes_bg_red" ng-if=" objDataset.is_existing == false && objDataset.is_existing !== ''">NO</div>
+                                </div>
+                                <div class="flex-container">
+                                    <span class="rodi_dataset_label_code">B2.</span>
+                                    <span class="rodi_dataset_label">{{getQuestionCode('is_digital_form')}}</span>
+                                    <div class="rodi_cb_space rodi_btn_yes_bg_green" ng-if="objDataset.is_digital_form == true">YES</div>
+                                    <div class="rodi_cb_space rodi_btn_yes_bg_red" ng-if=" objDataset.is_digital_form == false && objDataset.is_digital_form !== ''">NO</div>
+                                </div>
+                                <div class="flex-container">
+                                    <span class="rodi_dataset_label_code">B3.</span>
+                                    <span class="rodi_dataset_label">{{getQuestionCode('is_avail_online')}}</span>
+                                    <div class="rodi_cb_space rodi_btn_yes_bg_green" ng-if="objDataset.is_avail_online == true">YES</div>
+                                    <div class="rodi_cb_space rodi_btn_yes_bg_red" ng-if=" objDataset.is_avail_online == false && objDataset.is_avail_online !== ''">NO</div>
+                                </div>
+                                <div class="flex-container">
+                                    <span class="rodi_dataset_label_code">B4.</span>
+                                    <span class="rodi_dataset_label">{{getQuestionCode('is_avail_online_meta')}}</span>
+                                    <div class="rodi_cb_space rodi_btn_yes_bg_green" ng-if="objDataset.is_avail_online_meta == true">YES</div>
+                                    <div class="rodi_cb_space rodi_btn_yes_bg_red" ng-if=" objDataset.is_avail_online_meta == false && objDataset.is_avail_online_meta !== ''">NO</div>
+                                </div>
+                                <div class="flex-container">
+                                    <span class="rodi_dataset_label_code">B5.</span>
+                                    <span class="rodi_dataset_label">{{getQuestionCode('is_bulk_avail')}}</span>
+                                    <div class="rodi_cb_space rodi_btn_yes_bg_green" ng-if="objDataset.is_bulk_avail == true">YES</div>
+                                    <div class="rodi_cb_space rodi_btn_yes_bg_red" ng-if=" objDataset.is_bulk_avail == false && objDataset.is_bulk_avail !== ''">NO</div>
+                                </div>
+                                <div class="flex-container">
+                                    <span class="rodi_dataset_label_code">B6.</span>
+                                    <span class="rodi_dataset_label">{{getQuestionCode('is_machine_read')}}</span>
+                                    <div class="rodi_cb_space rodi_btn_yes_bg_green" ng-if="objDataset.is_machine_read == true">YES</div>
+                                    <div class="rodi_cb_space rodi_btn_yes_bg_red" ng-if=" objDataset.is_machine_read == false && objDataset.is_machine_read !== ''">NO</div>
+                                </div>
+                                <div class="flex-container">
+                                    <span class="rodi_dataset_label_code">B7.</span>
+                                    <span class="rodi_dataset_label">{{getQuestionCode('is_pub_available')}}</span>
+                                    <div class="rodi_cb_space rodi_btn_yes_bg_green" ng-if="objDataset.is_pub_available == true">YES</div>
+                                    <div class="rodi_cb_space rodi_btn_yes_bg_red" ng-if=" objDataset.is_pub_available == false && objDataset.is_pub_available !== ''">NO</div>
+                                </div>
+                                 <div class="flex-container">
+                                     <span class="rodi_dataset_label_code">B8.</span>
+                                     <span class="rodi_dataset_label">{{getQuestionCode('is_avail_for_free')}}</span>
+                                    <div class="rodi_cb_space rodi_btn_yes_bg_green" ng-if="objDataset.is_avail_for_free  == true">YES</div>
+                                    <div class="rodi_cb_space rodi_btn_yes_bg_red" ng-if=" objDataset.is_avail_for_free  == false && objDataset.is_avail_for_free  !== ''">NO</div>
+                                </div>
+                                <div class="flex-container">
+                                    <span class="rodi_dataset_label_code">B9.</span>
+                                    <span class="rodi_dataset_label">{{getQuestionCode('is_open_licence')}}</span>
+                                    <div class="rodi_cb_space rodi_btn_yes_bg_green" ng-if="objDataset.is_open_licence  == true">YES</div>
+                                    <div class="rodi_cb_space rodi_btn_yes_bg_red" ng-if=" objDataset.is_open_licence  == false && objDataset.is_open_licence  !== ''">NO</div>
+                                </div>
+                                <div class="flex-container">
+                                    <span class="rodi_dataset_label_code">B10.</span>
+                                    <span class="rodi_dataset_label">{{getQuestionCode('is_prov_timely')}}</span>
+                                    <div class="rodi_cb_space rodi_btn_yes_bg_green" ng-if="objDataset.is_prov_timely  == true">YES</div>
+                                    <div class="rodi_cb_space rodi_btn_yes_bg_red" ng-if=" objDataset.is_prov_timely  == false && objDataset.is_prov_timely  !== ''">NO</div>
+                                </div>
+
+                            </div>
+                            <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4">
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <h2>Section C - Dataset metadata link</h2>
+                                    <hr />
+                                    <div class="flex-container">
+                                        <div class="rodi_ul">
+                                            <a ng-repeat="link in selectedLink">
+                                                - {{link}}
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <h2>Section D - Any other comments?</h2>
+                                    <hr />
+                                    <p > {{objDataset.notes}}</p>
+                                </div>
+                            </div>
+                       </div>
+
+                        <div class="rodi_txt_big text-center">
                             <a href="" ng-click="setEditForm()"><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" title="Edit dataset" ng-if="bReviewer && !bEdit"></i></a>
                             &nbsp;&nbsp;
                             <a href="" ng-click="changepage('contribute.html?tab=1')" ng-if="bMylist && !bEdit"><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to my dataset list"></i></a>
@@ -594,9 +709,8 @@
                             <a href="" class="btn btn-md btn-success" ng-if="bEdit" ng-click="updateDataset()"><i class="fa fa-floppy-o" aria-hidden="true" data-toggle="tooltip" title="Save dataset"></i></a>
                             <a href="" class="btn btn-md btn-info" ng-if="bEdit" ng-click="closeRevision()"><i class="fa fa-times" aria-hidden="true" data-toggle="tooltip" title="Close edit mode"></i></a>
                             <a href="" class="btn btn-md btn-danger" ng-if="bEdit && bReviewer" ng-click="deleteDataset()"><i class="fa fa-trash-o" aria-hidden="true" title="Delete dataset"></i></a>
-                        </span>
+                        </div>
                     </div>
-
 
                 </div>
 
