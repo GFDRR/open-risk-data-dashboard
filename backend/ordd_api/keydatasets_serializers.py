@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .models import (
-    KeyCategory, KeyDatasetName, KeyDescription, KeyTag, KeyTagGroup,
+    KeyCategory, KeyDatasetName, KeyTag, KeyTagGroup,
     KeyLevel, KeyDataset)
 
 
@@ -46,12 +46,6 @@ class KeyTagGroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = KeyTagGroup
         fields = ('group', 'tags')
-
-
-class KeyDescriptionSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = KeyDescription
-        fields = ('id', 'name')
 
 
 class KeyDataset0on4Serializer(serializers.ModelSerializer):
@@ -100,11 +94,10 @@ class KeyDataset3on4Serializer(serializers.ModelSerializer):
     category = serializers.SlugRelatedField(
         read_only=True, slug_field='name')
     dataset = serializers.StringRelatedField()
-    description = KeyDescriptionSerializer()
 
     class Meta:
         model = KeyDataset
-        fields = ('level', 'category', 'dataset', 'description',)
+        fields = ('level', 'category', 'dataset', 'code', 'description',)
 
 
 class KeyDataset4on4Serializer(serializers.ModelSerializer):
@@ -115,13 +108,11 @@ class KeyDataset4on4Serializer(serializers.ModelSerializer):
     category = serializers.SlugRelatedField(
         read_only=True, slug_field='name')
     dataset = serializers.StringRelatedField()
-    description = serializers.SlugRelatedField(
-        read_only=True, slug_field='name')
     tag_available = KeyTagGroupSerializer()
     applicability = serializers.SlugRelatedField(
         read_only=True, many=True, slug_field='name')
 
     class Meta:
         model = KeyDataset
-        fields = ('id', 'level', 'category', 'dataset', 'description',
+        fields = ('code', 'level', 'category', 'dataset', 'description',
                   'tag_available', 'applicability')
