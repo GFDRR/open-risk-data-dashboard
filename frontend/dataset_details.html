@@ -607,7 +607,7 @@
                                     <div class="flex-container">
                                         <span class="rodi_dataset_label_code">A4.</span>
                                         <div class="flex-container tag">
-                                            <div class="rodi_cb_space" ng-repeat="tag in datasetTags" ng-class="{active:selectedTags.indexOf(tag) !== -1}">
+                                            <div class="rodi_cb_space" ng-repeat="tag in selectedTags" ng-class="{active:selectedTags.indexOf(tag) !== -1}">
                                                 <span >{{tag}}</span>
                                             </div>
                                         </div>
@@ -687,7 +687,7 @@
                                         <div class="flex-container">
                                             <div class="rodi_ul">
                                                 <a href="{{link}}" target="_blank" ng-repeat="link in selectedLink">
-                                                    - {{link}}
+                                                    - {{link}}<br />
                                                 </a>
                                             </div>
                                         </div>
