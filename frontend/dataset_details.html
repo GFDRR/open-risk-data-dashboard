@@ -103,11 +103,11 @@
 
 
                     <div class="rodi_txt_big text-center">
-                        <a href="" ng-click="setEditForm()"><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" title="Edit dataset" ng-if="bReviewer && !bEdit"></i></a>
+                        <a href="" ng-click="setEditForm()"><small><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" title="Edit dataset" ng-if="bReviewer && !bEdit"></i></small></a>
                         &nbsp;&nbsp;
-                        <a href="" ng-click="changepage('contribute.html?tab=1')" ng-if="bMylist && !bEdit"><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to my dataset list"></i></a>
-                        <a href="" ng-click="changepage('contribute.html?tab=2')" ng-if="bReviewlist && !bEdit"><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to review list"></i></a>
-                        <a href="javascript:history.back()" ng-if="!bReviewlist && !bMylist && !bEdit"><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back"></i></a>
+                        <a href="" ng-click="changepage('contribute.html?tab=1')" ng-if="bMylist && !bEdit"><small><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to my dataset list"></i></small></a>
+                        <a href="" ng-click="changepage('contribute.html?tab=2')" ng-if="bReviewlist && !bEdit"><small><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to review list"></i></small></a>
+                        <a href="javascript:history.back()" ng-if="!bReviewlist && !bMylist && !bEdit"><small><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back"></i></small></a>
                         <a href="" class="btn btn-md btn-success" ng-if="bEdit" ng-click="updateDataset()"><i class="fa fa-floppy-o" aria-hidden="true" data-toggle="tooltip" title="Save dataset"></i></a>
                         <a href="" class="btn btn-md btn-info" ng-if="bEdit" ng-click="closeRevision()"><i class="fa fa-times" aria-hidden="true" data-toggle="tooltip" title="Close edit mode"></i></a>
                         <a href="" class="btn btn-md btn-danger" ng-if="bEdit && bReviewer" ng-click="deleteDataset()"><i class="fa fa-trash-o" aria-hidden="true" title="Delete dataset"></i></a>
@@ -148,9 +148,9 @@
                                     </div>
                                     <!--<br />-->
                                     <div class="dataset_form_select_style">
-                                        <small class="text-muted label">Filter by:</small>
+                                        <!--<small class="text-muted label">Filter by:</small>-->
                                         <select class="dataset_form_select_style" ng-model="objDataset.keydataset.category" ng-change="changeDataRiskSelection(objDataset.keydataset.category)">
-                                            <option value="0" selected>-- Select data risk category --</option>
+                                            <option value="0" selected>-- Filter dataset by data risk category --</option>
                                             <option ng-repeat="dsCat in dataCategory" value="{{dsCat.category.id}}">
                                                 {{dsCat.category.name}}
                                             </option>
@@ -169,15 +169,14 @@
                                 <div class="row">
                                     <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
                                     <div>
-
                                         <span class="rodi_dataset_label_code">A3.</span>
                                         <span class="rodi_dataset_label">Dataset description</span>
                                     </div>
                                     <!--<br />-->
                                     <div class="dataset_form_select_style">
-                                        <small class="text-muted label">Filter by:</small>
+                                        <!--<small class="text-muted label">Filter by:</small>-->
                                         <select class="dataset_form_select_style" ng-model="objDataset.keydataset.level" ng-disabled="objDataset.keydataset.dataset == '0'" ng-change="changeLevelSelection(objDataset.keydataset.level)">
-                                            <option value="0" selected>-- Select level --</option>
+                                            <option value="0" selected>-- Filter description by dataset level --</option>
                                             <option ng-repeat="scale in datasetScale" value="{{scale.level.id}}">{{scale.level.name}}</option>
                                         </select>
                                     </div>
@@ -191,11 +190,11 @@
 
                                 </div>
                                 <div class="row">
-                                    <!--<div>-->
+                                    <div>
                                     <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
-                                    <span class="rodi_dataset_label_code">A4.</span>
-                                    <span class="rodi_dataset_label">Datasets elements</span>
-                                    <!--</div>-->
+                                        <span class="rodi_dataset_label_code">A4.</span>
+                                        <span class="rodi_dataset_label">Datasets elements</span>
+                                    </div>
                                     <div class="flex-container">
                                         <div ng-model="selectedTags" class="rodi_cb_space" ng-repeat="tag in datasetTags" ng-click="setTags(tag)" ng-class="{active:selectedTags.indexOf(tag) !== -1}">
                                             <i class="fa fa-check" aria-hidden="true" ng-if="selectedTags.indexOf(tag) !== -1"></i> <span >{{tag}}</span>
@@ -580,9 +579,8 @@
 
                     <br />
 
-
                     <div ng-if="!bEdit" class="">
-                        <h1 class="text-center">{{countryDesc}} - {{objDatasetView.keydataset.category}}</h1>
+                        <h1 class="text-center" style="font-weight: 600;">{{countryDesc}} - {{objDatasetView.keydataset.category}}</h1>
 
                         <div class="rodi_section viewer">
                             <div class="row">
@@ -595,7 +593,7 @@
                                     </div>
                                     <div class="flex-container">
                                         <span class="rodi_dataset_label_code">A2.</span>
-                                        <span class="rodi_dataset_label">{{objDatasetView.keydataset.category}}</span>
+                                        <span class="rodi_dataset_label">{{objDatasetView.keydataset.category}} | </span>
                                         <span class="rodi_dataset_label">{{objDatasetView.keydataset.dataset}}</span>
 
                                     </div>
@@ -708,11 +706,11 @@
                     <div class="rodi_txt_big text-center">
                         <br /><br />
 
-                        <a href="" ng-click="setEditForm()"><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" title="Edit dataset" ng-if="bReviewer && !bEdit"></i></a>
+                        <a href="" ng-click="setEditForm()"><small><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" title="Edit dataset" ng-if="bReviewer && !bEdit"></i></small></a>
                         &nbsp;&nbsp;
-                        <a href="" ng-click="changepage('contribute.html?tab=1')" ng-if="bMylist && !bEdit"><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to my dataset list"></i></a>
-                        <a href="" ng-click="changepage('contribute.html?tab=2')" ng-if="bReviewlist && !bEdit"><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to review list"></i></a>
-                        <a href="javascript:history.back()" ng-if="!bReviewlist && !bMylist && !bEdit"><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back"></i></a>
+                        <a href="" ng-click="changepage('contribute.html?tab=1')" ng-if="bMylist && !bEdit"><small><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to my dataset list"></i></small></a>
+                        <a href="" ng-click="changepage('contribute.html?tab=2')" ng-if="bReviewlist && !bEdit"><small><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to review list"></i></small></a>
+                        <a href="javascript:history.back()" ng-if="!bReviewlist && !bMylist && !bEdit"><small><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back"></i></small></a>
                         <a href="" class="btn btn-md btn-success" ng-if="bEdit" ng-click="updateDataset()"><i class="fa fa-floppy-o" aria-hidden="true" data-toggle="tooltip" title="Save dataset"></i></a>
                         <a href="" class="btn btn-md btn-info" ng-if="bEdit" ng-click="closeRevision()"><i class="fa fa-times" aria-hidden="true" data-toggle="tooltip" title="Close edit mode"></i></a>
                         <a href="" class="btn btn-md btn-danger" ng-if="bEdit && bReviewer" ng-click="deleteDataset()"><i class="fa fa-trash-o" aria-hidden="true" title="Delete dataset"></i></a>

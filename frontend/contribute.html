@@ -224,11 +224,11 @@
 
                                 </div>
                                 <div class="row">
-                                    <!--<div>-->
+                                    <div>
                                         <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
                                         <span class="rodi_dataset_label_code">A4.</span>
                                         <span class="rodi_dataset_label">Datasets elements</span>
-                                        <!--</div>-->
+                                    </div>
                                     <div class="flex-container">
                                         <div ng-model="selectedTags" class="rodi_cb_space" ng-repeat="tag in datasetTags" ng-click="setTags(tag)" ng-class="{active:selectedTags.indexOf(tag) !== -1}">
                                             <i class="fa fa-check" aria-hidden="true" ng-if="selectedTags.indexOf(tag) !== -1"></i> <span >{{tag}}</span>
