@@ -198,6 +198,12 @@ class DatasetListView(generics.ListAPIView):
         category = self.request.query_params.getlist('category')
         applicability = self.request.query_params.getlist('applicability')
         tag = self.request.query_params.getlist('tag')
+        is_reviewed = self.request.query_params.getlist('is_reviewed')
+
+        q = Q()
+        for v in is_reviewed:
+            q = q | Q(is_reviewed__iexact=v)
+        queryset = queryset.filter(q)
 
         q = Q()
         for v in country:
