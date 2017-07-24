@@ -970,13 +970,6 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
     this.getUserInfo = function(token, onSuccess, onError)
     {
     //    Return user info
-
-        $http(ver).then(function(data){
-            if(onSuccess) {console.log(data)};
-        }, function(data){
-            if(onError){console.log(data)};
-        });
-
         var req = {
             method: 'GET',
             url: baseAPIurl + 'profile',
