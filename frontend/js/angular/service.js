@@ -173,8 +173,6 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
             }
             );
 
-        console.log(objCountry);
-
         return objCountry[0].name;
 
     };

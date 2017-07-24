@@ -437,7 +437,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                             }, function(data){
                             //     Error
                                 console.log(data);
-                                vex.dialog.alert("Unable to save the dataset data");
+                                vex.dialog.alert("Unable to save the dataset data: " + data.data);
                             })
 
                     }, function(data)

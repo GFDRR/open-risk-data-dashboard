@@ -163,7 +163,7 @@
                                     <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
                                     <!--<br />-->
                                     <div class="dataset_form_select_style">
-                                        <select ng-model="objDataset.country" class="dataset_form_select_style text-center">
+                                        <select ng-model="objDataset.country" class="dataset_form_select_style">
                                             <option value="--" selected>-- Select country --</option>
                                             <option ng-repeat="country in countryList | orderBy: 'name'" value="{{country.iso2}}">{{country.name}}</option>
                                         </select>
@@ -178,9 +178,10 @@
                                     </div>
                                     <!--<br />-->
                                     <div class="dataset_form_select_style">
-                                        <small class="text-muted label">Filter by:</small>
+                                        <!--<small class="text-muted label">Filter by:</small>-->
+
                                         <select class="dataset_form_select_style" ng-model="objDataset.keydataset.category" ng-change="changeDataRiskSelection(objDataset.keydataset.category)">
-                                            <option value="0" selected>-- Select data risk category --</option>
+                                            <option value="0" selected>-- Filter dataset by data risk category --</option>
                                             <option ng-repeat="dsCat in dataCategory" value="{{dsCat.category.id}}">
                                                 {{dsCat.category.name}}
                                             </option>
@@ -206,14 +207,15 @@
                                     </div>
                                     <!--<br />-->
                                     <div class="dataset_form_select_style">
-                                        <small class="text-muted label">Filter by:</small>
+                                        <!--<small class="text-muted label">Filter by:</small>-->
                                         <select class="dataset_form_select_style" ng-model="objDataset.keydataset.level" ng-disabled="objDataset.keydataset.dataset == '0'" ng-change="changeLevelSelection(objDataset.keydataset.level)">
-                                            <option value="0" selected>-- Select level --</option>
+                                            <option value="0" selected>-- Filter description by dataset level --</option>
                                             <option ng-repeat="scale in datasetScale" value="{{scale.level.id}}">{{scale.level.name}}</option>
                                         </select>
                                     </div>
                                     <div class="dataset_form_select_style">
                                         <!--<br />-->
+
                                         <select class="dataset_form_select_style" ng-model="objDataset.keydataset.description" ng-disabled="objDataset.keydataset.dataset == '0'" ng-change="changeDescription(objDataset.keydataset.description)">
                                             <option value="0" selected>-- Select description --</option>
                                             <option ng-repeat="ds_desc in datasetDescription | orderBy: 'description.name'" value="{{ds_desc.description.code}}">{{ds_desc.description.name}}</option>
@@ -1074,7 +1076,7 @@
                 <div class="container">
                     <h1 class="text-center">If you want to contribute to Risk Open Data Index</h1>
                     <br><br>
-                    <h2 class="text-center">you must to register!</h2>
+                    <h2 class="text-center">you must register or login!</h2>
                     <br><br><br><br>
                     <div class="text-center">
                         <button class="btn btn-lg btn-custom " type="button" ng-click="changepage('register.html')">

@@ -57,6 +57,19 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                 $scope.objDataset = dataDS;
                 $scope.objDatasetView = angular.copy(dataDS);
 
+                // Check if user logged in can edit dataset, LOAD DATASET PROFILE API
+                if($scope.objDataset.owner == $scope.userinfo.username)
+                {
+                    // Reviewer user
+                    $scope.bReviewer = true;
+                    $scope.bDelete = true;
+
+                } else
+                {
+                    // Standard user, load dataset from DATASET API
+                    $scope.bReviewer = false;
+                }
+
                 // Dataset classification set
                 $scope.dataCategory = [];
                 $scope.dataCategoryId = "0";
@@ -549,7 +562,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
             {
 
                 // Check if user logged in can edit dataset, LOAD DATASET PROFILE API
-                if($scope.userinfo.groups[0] == 'reviewer' || $scope.userinfo.groups[0] == 'admin' || data.owner == $scope.userinfo.username)
+                if($scope.userinfo.groups[0] == 'reviewer' || $scope.userinfo.groups[0] == 'admin' || $scope.objDataset.owner == $scope.userinfo.username)
                 {
                     // Reviewer user
                     $scope.bReviewer = true;

@@ -394,7 +394,7 @@ small.label {
 .flex-container .row div {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: left;
     justify-content: space-around;
 }
 .flex-container.col {
