@@ -8,6 +8,8 @@ RodiApp.controller('RodiCtrlConfirmMail', ['$scope', 'RodiSrv', '$location', fun
     // ********** INIT CONFIRM ************** //
     // ************************************** //
 
+    RodiSrv.checkAPIversion(function(data){}, function(data){});
+
     if ($location.path().indexOf('confirm_registration.html') !== -1)
     {
         $scope.usernamepar = $location.search().username;

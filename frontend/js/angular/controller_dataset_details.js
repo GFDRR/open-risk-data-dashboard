@@ -9,6 +9,8 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
     // *************** INIT ***************** //
     // ************************************** //
 
+    RodiSrv.checkAPIversion(function(data){}, function(data){});
+
     $scope.bLogin = false;
     $scope.tokenid = $cookieStore.get('rodi_token');
     $scope.userinfo = $cookieStore.get('rodi_user');
@@ -71,6 +73,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                 $scope.datasetTags = [];
                 $scope.selectedTags = [];
                 $scope.sTagsMsg = "";
+                $scope.countryDesc = "";
 
                 if($scope.objDataset.keydataset.tag_available) {$scope.datasetTags = $scope.objDataset.keydataset.tag_available.tags;}
 
@@ -82,6 +85,9 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                     function(data){
                         // Success
                         $scope.countryList = data;
+
+                        $scope.countryDesc = RodiSrv.getCountryDescription(data, $scope.objDataset.country);
+
                     }, function(data){
                         // Error
                         // TODO: error message

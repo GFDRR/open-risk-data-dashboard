@@ -5,6 +5,53 @@
 RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 {
 
+    // ************************************** //
+    // ********* API VERSIONE CHECK ********* //
+    // ************************************** //
+
+    this.checkAPIversion = function(onSuccess, onError)
+    {
+        // Return True if API version is compatible
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'version',
+            headers: {
+                // 'Authorization': 'Token ' + token
+            },
+            data: {}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess)
+            {
+                var aVersion = data.data.split('.');
+                var appAPIVersion = APIversion.split('.');
+
+                if(aVersion[0] !== appAPIVersion[0])
+                {
+                    console.log('Warning: API version not compatible!');
+                } else if(aVersion[1] * 1 > appAPIVersion[1] * 1)
+                    {
+                        console.log('Warning: API version not compatible!');
+                    } else
+                        {
+                            console.log('API version ' + data.data);
+                        };
+
+            };
+        }, function(data){
+            if(onError)
+            {
+                //Error load API
+                console.log('Error loading API service');
+            };
+        });
+    }
+
+    // ************************************** //
+    // ************ SCORE - API ************* //
+    // ************************************** //
+
     this.getMapScores = function(filters)
     {
 
@@ -114,6 +161,22 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 
         // var objCountry = [{code:"IT", desc:"Italy"}, {code:"AR", desc:"Argentina"}, {code:"AU", desc:"Australia"}];
         // return objCountry;
+    };
+
+    this.getCountryDescription = function(objCountryList, idCountry)
+        // Return the list of country Available
+    {
+        var objCountry = $filter('filter')(objCountryList,
+            function(e)
+            {
+                return e.iso2 == idCountry;
+            }
+            );
+
+        console.log(objCountry);
+
+        return objCountry[0].name;
+
     };
 
     this.getMatrixData = function(filters)
@@ -438,6 +501,26 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         var req = {
             method: 'GET',
             url: baseAPIurl + 'dataset/',
+            headers: {
+                // 'Authorization': 'Token ' + token
+            },
+            data: {}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess)onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+    }
+
+    this.getDatasetlistFiltered = function(idCountry, descCategory, descApplicability, onSuccess, onError)
+    {
+        // Return the dataset info filtered by country, category & applicability
+
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'dataset/?country=' + idCountry + "&category=" + descCategory + "&applicability=" + descApplicability,
             headers: {
                 // 'Authorization': 'Token ' + token
             },
@@ -887,6 +970,12 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
     this.getUserInfo = function(token, onSuccess, onError)
     {
     //    Return user info
+
+        $http(ver).then(function(data){
+            if(onSuccess) {console.log(data)};
+        }, function(data){
+            if(onError){console.log(data)};
+        });
 
         var req = {
             method: 'GET',

@@ -8,9 +8,16 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
     // *************** INIT ***************** //
     // ************************************** //
 
+    RodiSrv.checkAPIversion(function(data){}, function(data){});
+
     $scope.bLogin = false;
     $scope.tokenid = $cookieStore.get('rodi_token');
     $scope.userinfo = $cookieStore.get('rodi_user');
+
+    if(!$scope.userinfo)
+    {
+        $scope.userinfo = RodiSrv.getUserStructureEmpty();
+    }
 
     if($scope.tokenid) {$scope.bLogin = true; } else {$scope.bLogin = false;}
 
@@ -749,6 +756,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                             function(data)
                             {
                                 // Success
+                                console.log(data);
 
                                 $scope.DatasetList_Country_DataCat = $filter('filter')(data,
                                     function(e)
