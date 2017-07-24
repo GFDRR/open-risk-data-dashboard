@@ -16,16 +16,6 @@ from .serializers import (
 from .models import Region, Country, OptIn, Dataset
 from ordd_api import __VERSION__
 
-# class IsOwner(permissions.BasePermission):
-#     """
-#     Custom permission to only allow owners of an object to edit it.
-#     """
-#     def has_permission(self, request, view):
-#         return request.user and request.user.is_authenticated()
-
-#     def has_object_permission(self, request, view, obj):
-#         return obj.user == request.user
-
 
 class VersionGet(APIView):
     """This class handles the GET requests of our rest api."""
