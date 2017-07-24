@@ -182,8 +182,32 @@ class ProfileDatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
             owner=self.request.user)
 
 
-class DatasetDetailsView(generics.RetrieveAPIView):
+class DatasetDetailsViewPerms(permissions.BasePermission):
+    """
+    Custom permission to only allow members of 'reviewer' and 'admin' groups
+    to manage datasets.
+    """
+
+    def has_permission(self, request, view):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        else:
+            perms = (request.user.groups.filter(name='reviewer').exists() or
+                     request.user.groups.filter(name='admin').exists())
+        return perms
+
+    def has_object_permission(self, request, view, obj):
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        else:
+            perms = (request.user.groups.filter(name='reviewer').exists() or
+                     request.user.groups.filter(name='admin').exists())
+        return perms
+
+
+class DatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
     """This class handles the GET requests of our rest api."""
+    permission_classes = (DatasetDetailsViewPerms, )
     queryset = Dataset.objects.all()
     serializer_class = ProfileDatasetListSerializer
 
