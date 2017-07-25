@@ -109,6 +109,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
     {
 
         $scope.tabpar = $location.search().tab;
+        $scope.questions = RodiSrv.getQuestions();
 
         if($scope.tabpar)
         {
@@ -284,7 +285,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
         $scope.changeDescription = function(idDesc)
         {
-
             if(idDesc !== '0')
             {
                 // Get level of description
@@ -302,6 +302,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                     }
                 );
 
+                $scope.objDataset.keydataset.description = idDesc;
                 $scope.datasetScaleId = objLevel[0].level.id + "";
                 $scope.objDataset.keydataset.level = $scope.datasetScaleId;
 
@@ -319,6 +320,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                         } else
                         {
                             $scope.datasetTags=[];
+                            $scope.selectedTags = [];
                             $scope.sTagsMsg = "** No elemnts available **";
                         }
 
@@ -732,6 +734,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
         $scope.DatasetList_Country_DataCat = [];
         $scope.bLoading = true;
         $scope.bNoDataset = false;
+        $scope.questions = RodiSrv.getQuestions();
 
         RodiSrv.getCountryList(
             function(data){

@@ -108,9 +108,9 @@
                         <a href="" ng-click="changepage('contribute.html?tab=1')" ng-if="bMylist && !bEdit"><small><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to my dataset list"></i></small></a>
                         <a href="" ng-click="changepage('contribute.html?tab=2')" ng-if="bReviewlist && !bEdit"><small><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to review list"></i></small></a>
                         <a href="javascript:history.back()" ng-if="!bReviewlist && !bMylist && !bEdit"><small><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back"></i></small></a>
-                        <a href="" class="btn btn-md btn-success" ng-if="bEdit" ng-click="updateDataset()"><i class="fa fa-floppy-o" aria-hidden="true" data-toggle="tooltip" title="Save dataset"></i></a>
-                        <a href="" class="btn btn-md btn-info" ng-if="bEdit" ng-click="closeRevision()"><i class="fa fa-times" aria-hidden="true" data-toggle="tooltip" title="Close edit mode"></i></a>
-                        <a href="" class="btn btn-md btn-danger" ng-if="bEdit && bReviewer" ng-click="deleteDataset()"><i class="fa fa-trash-o" aria-hidden="true" title="Delete dataset"></i></a>
+                        <a href="" class="btn btn-md btn-success" ng-if="bEdit" ng-click="updateDataset()"><i class="fa fa-floppy-o" aria-hidden="true" data-toggle="tooltip" title="Save dataset"></i> Save dataset</a>
+                        <a href="" class="btn btn-md btn-info" ng-if="bEdit" ng-click="closeRevision()"><i class="fa fa-times" aria-hidden="true" data-toggle="tooltip" title="Close edit mode"></i> Close edit mode</a>
+                        <a href="" class="btn btn-md btn-danger" ng-if="bEdit && bReviewer" ng-click="deleteDataset()"><i class="fa fa-trash-o" aria-hidden="true" title="Delete dataset"></i> Delete dataset</a>
                     </div>
 
 
@@ -180,13 +180,20 @@
                                             <option ng-repeat="scale in datasetScale" value="{{scale.level.id}}">{{scale.level.name}}</option>
                                         </select>
                                     </div>
-                                    <div class="dataset_form_select_style">
-                                        <!--<br />-->
+
+                                    <ul class="rodi_ul_datasetDesc" style="list-style: none;">
+                                        <li ng-repeat="ds_desc in datasetDescription | orderBy: 'description.name'" class="rodi_description_box_item" ng-click="changeDescription(ds_desc.description.code)" ng-class="{'selected': ds_desc.description.code == objDataset.keydataset.description}">
+                                            <!--{{ds_desc.description.code}}<br />--> {{ds_desc.description.name}}
+                                        </li>
+                                    </ul>
+
+                                    <!--<div class="dataset_form_select_style">
+
                                         <select class="dataset_form_select_style" ng-model="objDataset.keydataset.description" ng-disabled="objDataset.keydataset.dataset == '0'" ng-change="changeDescription(objDataset.keydataset.description)">
                                             <option value="0" selected>-- Select description --</option>
                                             <option ng-repeat="ds_desc in datasetDescription" value="{{ds_desc.description.code}}">{{ds_desc.description.name}}</option>
                                         </select>
-                                    </div>
+                                    </div>-->
 
                                 </div>
                                 <div class="row">
@@ -217,6 +224,7 @@
                             <div class="row">
                                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
                                 <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+                                    <span class="pull-right rodi_question_help"><a href="http://census.okfn.org/en/latest/survey-flow/" target="_blank"><i class="fa fa-book fa-2x" aria-hidden="true" title="Survey Flow"></i></a></span>
                                     <h1>Section B - Questions</h1>
                                     <hr />
 
@@ -522,7 +530,7 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                        <input type="text" class="form-control dataset_form_select_style" ng-model="objDataset.is_prov_timely_last" placeholder="Lorem ipsum">
+                                        <input type="text" class="form-control dataset_form_select_style" ng-model="objDataset.is_prov_timely_last" placeholder="Date of last update">
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
@@ -711,9 +719,9 @@
                         <a href="" ng-click="changepage('contribute.html?tab=1')" ng-if="bMylist && !bEdit"><small><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to my dataset list"></i></small></a>
                         <a href="" ng-click="changepage('contribute.html?tab=2')" ng-if="bReviewlist && !bEdit"><small><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to review list"></i></small></a>
                         <a href="javascript:history.back()" ng-if="!bReviewlist && !bMylist && !bEdit"><small><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back"></i></small></a>
-                        <a href="" class="btn btn-md btn-success" ng-if="bEdit" ng-click="updateDataset()"><i class="fa fa-floppy-o" aria-hidden="true" data-toggle="tooltip" title="Save dataset"></i></a>
-                        <a href="" class="btn btn-md btn-info" ng-if="bEdit" ng-click="closeRevision()"><i class="fa fa-times" aria-hidden="true" data-toggle="tooltip" title="Close edit mode"></i></a>
-                        <a href="" class="btn btn-md btn-danger" ng-if="bEdit && bReviewer" ng-click="deleteDataset()"><i class="fa fa-trash-o" aria-hidden="true" title="Delete dataset"></i></a>
+                        <a href="" class="btn btn-md btn-success" ng-if="bEdit" ng-click="updateDataset()"><i class="fa fa-floppy-o" aria-hidden="true" data-toggle="tooltip" title="Save dataset"></i> Save dataset</a>
+                        <a href="" class="btn btn-md btn-info" ng-if="bEdit" ng-click="closeRevision()"><i class="fa fa-times" aria-hidden="true" data-toggle="tooltip" title="Close edit mode"></i> Close edit mode</a>
+                        <a href="" class="btn btn-md btn-danger" ng-if="bEdit && bReviewer" ng-click="deleteDataset()"><i class="fa fa-trash-o" aria-hidden="true" title="Delete dataset"></i> Delete dataset</a>
                     </div>
 
                 </div>

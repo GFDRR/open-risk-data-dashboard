@@ -285,7 +285,7 @@ section
     color: white;
     padding: 10px;
     margin:2px;
-    font-size: 1.5em;
+    font-size: 1.1em;
     min-width: 40px;
     max-width: 40px;
     text-align: center;
@@ -318,6 +318,7 @@ textarea.form-control {
     border:none;
     /*margin-top:1em;*/
 }
+
 small.label {
     color:inherit;
     position: absolute;
@@ -435,10 +436,48 @@ small.label {
         padding-right: 2em;
     }
 
-
-
-
 }
+
+.rodi_ul_datasetDesc
+{
+    list-style: none;
+}
+
+.rodi_ul_datasetDesc li
+{
+    width:100%;
+}
+
+.rodi_description_box_item
+{
+    padding:10px;
+    border:solid 1px #c0c0c0;
+    webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    font-size:25px;
+    color:#a0a0a0;
+    margin-top: 20px;
+}
+
+.rodi_description_box_item:hover
+{
+    color:#ffffff;
+    background-color: #232323;
+}
+
+.rodi_description_box_item.selected
+{
+    border:solid 1px #00b200;
+    background-color: green;
+    color:#ffffff;
+}
+
+.rodi_question_help
+{
+    margin-top: 25px;
+}
+
 /*
 ==============================================================================
 
