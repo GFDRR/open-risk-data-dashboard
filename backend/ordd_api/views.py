@@ -240,7 +240,8 @@ class DatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
         serializer.validated_data['changed_by'] = self.request.user
         if (pre.validated_data['is_reviewed'] is False and
                 serializer.validated_data['is_reviewed'] is True):
-            serializer.validated_data['review_date'] = datetime.now()
+            serializer.validated_data['review_date'] = datetime.now().replace(
+                microsecond=0)
 
         # save and get update version of the record
         post = DatasetPutSerializer(serializer.save())
