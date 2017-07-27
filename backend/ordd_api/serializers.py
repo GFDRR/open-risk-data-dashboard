@@ -7,7 +7,8 @@ from django.db import transaction
 from django.db import IntegrityError
 from rest_framework import serializers
 from rest_framework.serializers import ValidationError
-from .models import (Region, Country, Profile, OptIn, Dataset, Url, KeyTag)
+from .models import (Region, Country, Profile, OptIn, Dataset, Url, KeyTag,
+                     KeyDataset)
 
 from .keydatasets_serializers import KeyDataset4on4Serializer
 from .mailer import mailer
@@ -205,3 +206,42 @@ class ProfileDatasetCreateSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('owner', 'changed_by', 'create_time',
                             'modify_time', 'is_reviewed')
+
+
+class DatasetListSerializer(serializers.ModelSerializer):
+    owner = serializers.SlugRelatedField(slug_field='username',
+                                         queryset=User.objects.all())
+    changed_by = serializers.SlugRelatedField(slug_field='username',
+                                              queryset=User.objects.all())
+    country = serializers.SlugRelatedField(slug_field='iso2',
+                                           queryset=Country.objects.all())
+    keydataset = KeyDataset4on4Serializer(read_only=True)
+    url = serializers.SlugRelatedField(slug_field='url',
+                                       queryset=Url.objects.all(), many=True)
+    tag = serializers.SlugRelatedField(slug_field='name',
+                                       queryset=KeyTag.objects.all(),
+                                       many=True)
+
+    class Meta:
+        model = Dataset
+        fields = '__all__'
+        read_only_fields = ('changed_by', 'create_time', 'modify_time')
+
+
+class DatasetPutSerializer(serializers.ModelSerializer):
+    owner = serializers.SlugRelatedField(slug_field='username',
+                                         queryset=User.objects.all())
+    changed_by = serializers.SlugRelatedField(slug_field='username',
+                                              queryset=User.objects.all())
+    country = serializers.SlugRelatedField(slug_field='name',
+                                           queryset=Country.objects.all())
+    url = serializers.SlugRelatedField(slug_field='url',
+                                       queryset=Url.objects.all(), many=True)
+    tag = serializers.SlugRelatedField(slug_field='name',
+                                       queryset=KeyTag.objects.all(),
+                                       many=True)
+
+    class Meta:
+        model = Dataset
+        fields = '__all__'
+        read_only_fields = ('create_time', 'modify_time')

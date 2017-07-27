@@ -1,4 +1,7 @@
 # views.py
+from datetime import datetime
+import json
+from rest_framework.renderers import JSONRenderer
 from rest_framework import generics, permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -11,9 +14,9 @@ from .serializers import (
     RegionSerializer, CountrySerializer,
     ProfileSerializer, UserSerializer, RegistrationSerializer,
     ChangePasswordSerializer,
-    ProfileDatasetListSerializer, ProfileDatasetCreateSerializer
-    )
-from .models import Region, Country, OptIn, Dataset
+    ProfileDatasetListSerializer, ProfileDatasetCreateSerializer,
+    DatasetListSerializer, DatasetPutSerializer)
+from .models import Region, Country, OptIn, Dataset, KeyDataset
 from ordd_api import __VERSION__
 
 
@@ -22,6 +25,7 @@ class VersionGet(APIView):
 
     def get(self, request):
         return Response(__VERSION__)
+
 
 class ProfileDetails(generics.RetrieveUpdateAPIView):
     queryset = User.objects.all()
@@ -163,6 +167,7 @@ class ProfileDatasetListCreateView(generics.ListCreateAPIView):
             owner=self.request.user)
 
     def perform_create(self, serializer):
+        print("perform_create: BEGIN")
         serializer.save(owner=self.request.user, changed_by=self.request.user)
 
 
@@ -209,11 +214,79 @@ class DatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
     """This class handles the GET requests of our rest api."""
     permission_classes = (DatasetDetailsViewPerms, )
     queryset = Dataset.objects.all()
-    serializer_class = ProfileDatasetListSerializer
+    serializer_class = DatasetListSerializer
+
+    def get_serializer_class(self):
+        try:
+            if self.request.method == 'PUT':
+                return DatasetPutSerializer
+        except:
+            pass
+        return DatasetListSerializer
+
+    def perform_update(self, serializer):
+        # to take a picture of the field before update we follow
+        # a serialize->render->deserialize approach
+        pre = DatasetPutSerializer(self.get_object())
+        pre_json = JSONRenderer().render(pre.data)
+        pre = DatasetPutSerializer(data=json.loads(pre_json.decode()))
+        pre.is_valid()
+
+        # comodity keydataset is retrieved in a custom way
+        pre_keydataset = KeyDataset.objects.get(
+            code=pre['keydataset'].value).__str__()
+
+        # update fields
+        serializer.validated_data['changed_by'] = self.request.user
+        if (pre.validated_data['is_reviewed'] is False and
+                serializer.validated_data['is_reviewed'] is True):
+            serializer.validated_data['review_date'] = datetime.now()
+
+        # save and get update version of the record
+        post = DatasetPutSerializer(serializer.save())
+        post_json = JSONRenderer().render(post.data)
+        post = DatasetPutSerializer(data=json.loads(post_json.decode()))
+        post.is_valid()
+        post_keydataset = KeyDataset.objects.get(
+            code=post['keydataset'].value).__str__()
+
+        # extract list of read/write field
+        if post.Meta.fields == '__all__':
+            fields = ()
+            for field in post.get_fields():
+                if post.Meta.read_only_fields:
+                    if field not in post.Meta.read_only_fields:
+                        fields += (field,)
+                else:
+                    fields += (field,)
+        else:
+            fields = ()
+            for field in post.get_fields():
+                if field in post.Meta.fields:
+                    fields += (field)
+
+        # manage differences between pre and post changes
+        for field in fields:
+            if field == "keydataset":
+                if pre_keydataset != post_keydataset:
+                    print("[%s] are different: [%s] => [%s]" % (
+                        field, pre_keydataset, post_keydataset))
+                else:
+                    print("[%s] are identical" % field)
+            else:
+                if pre[field].value != post[field].value:
+                    print("[%s] are different: [%s] => [%s]" % (
+                        field, pre[field].value, post[field].value))
+                else:
+                    print("[%s] are identical" % field)
+
+    def perform_destroy(self, instance):
+        print("perform_destroy: BEGIN")
+        instance.delete()
 
 
 class DatasetListView(generics.ListAPIView):
-    serializer_class = ProfileDatasetListSerializer
+    serializer_class = DatasetListSerializer
 
     def get_queryset(self):
         queryset = Dataset.objects.all()
