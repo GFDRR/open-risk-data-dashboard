@@ -7,8 +7,8 @@ from django.db import transaction
 from django.db import IntegrityError
 from rest_framework import serializers
 from rest_framework.serializers import ValidationError
-from .models import (Region, Country, Profile, OptIn, Dataset, Url, KeyTag,
-                     KeyDataset)
+from .models import (Region, Country, Profile, OptIn, Dataset, Url, KeyTag)
+from ordd_api import MAIL_SUBJECT_PREFIX
 
 from .keydatasets_serializers import KeyDataset4on4Serializer
 from .mailer import mailer
@@ -131,10 +131,12 @@ class RegistrationSerializer(serializers.ModelSerializer):
                 user.save()
                 optin = OptIn(user=user)
                 optin.save()
-                subject = ('Open Risk Data Dashboard: registration for user %s'
-                           % user.username)
-                # use 'http' because where 'https' is required an automatic redirect is triggered
-                reply_url = ("http://%s/confirm_registration.html?username=%s&key=%s"
+                subject = ('%s: registration for user %s'
+                           % (MAIL_SUBJECT_PREFIX, user.username))
+                # use 'http' because where 'https' is required an automatic
+                # redirect is triggered
+                reply_url = ("http://%s/confirm_registration.html"
+                             "?username=%s&key=%s"
                              % (self.context['request'].get_host(),
                                 user.username,
                                 optin.key))
@@ -150,7 +152,8 @@ If you didn't subscribe to this site, please ignore this message.</div>'''
                                 % (reply_url, reply_url))
                 mailer(user.email, subject,
                        {"title": subject, "content": content_txt},
-                       {"title": subject, "content": content_html})
+                       {"title": subject, "content": content_html},
+                       'registration_confirm')
         except IntegrityError:
             raise ValidationError({
                 'ret': 'Some DB error occurred.'
@@ -244,4 +247,4 @@ class DatasetPutSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dataset
         fields = '__all__'
-        read_only_fields = ('create_time', 'modify_time')
+        read_only_fields = ('changed_by', 'create_time', 'modify_time')

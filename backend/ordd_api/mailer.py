@@ -6,11 +6,13 @@ from email.mime.image import MIMEImage
 from ordd.settings import MAIL_SENDER
 
 
-def mailer(address, subject, content_txt, content_html):
+def mailer(address, subject, content_txt, content_html, template):
     # You probably want all the following code in a function or method.
     # You also need to set subject, sender and to_mail yourself.
-    text_content = render_to_string('ordd_api/mail_templates/registration_confirm.txt', content_txt)
-    html_content = render_to_string('ordd_api/mail_templates/registration_confirm.html', content_html)
+    text_content = render_to_string('ordd_api/mail_templates/%s.txt'
+                                    % template, content_txt)
+    html_content = render_to_string('ordd_api/mail_templates/%s.html'
+                                    % template, content_html)
     msg = EmailMultiAlternatives(subject, text_content,
                                  MAIL_SENDER, [address])
 

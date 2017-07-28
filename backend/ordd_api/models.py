@@ -255,7 +255,7 @@ class Dataset(models.Model):
     is_existing = models.BooleanField()
     is_existing_txt = models.CharField(max_length=256, blank=True, null=False)
     is_digital_form = models.BooleanField()
-    is_avail_online = models.BooleanField()
+    is_avail_online = models.BooleanField("Is available Online")
     is_avail_online_meta = models.BooleanField()
     is_bulk_avail = models.BooleanField()
     is_machine_read = models.BooleanField()

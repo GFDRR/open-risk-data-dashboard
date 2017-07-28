@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <title>{{ title }}</title>
+    <style>
+      table.table {
+      border-collapse: collapse;
+      }
+      .table th, .table td {
+      border: 1px solid gray;
+      padding: 8px;
+      vertical-align: top;
+      }
+      .table table td {
+      border: 0px;
+      }
+      </style>
+  </head>
+  
+<body>
+<img src="cid:img1.png">
+{% block content %}{% endblock content %}
+<img src="cid:img2.png">
+</body>
+</html>

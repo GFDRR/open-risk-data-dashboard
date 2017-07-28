@@ -1,5 +1,6 @@
 # views.py
 from datetime import datetime
+import pytz
 import json
 from rest_framework.renderers import JSONRenderer
 from rest_framework import generics, permissions, status
@@ -17,7 +18,8 @@ from .serializers import (
     ProfileDatasetListSerializer, ProfileDatasetCreateSerializer,
     DatasetListSerializer, DatasetPutSerializer)
 from .models import Region, Country, OptIn, Dataset, KeyDataset
-from ordd_api import __VERSION__
+from .mailer import mailer
+from ordd_api import __VERSION__, MAIL_SUBJECT_PREFIX
 
 
 class VersionGet(APIView):
@@ -240,11 +242,13 @@ class DatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
         serializer.validated_data['changed_by'] = self.request.user
         if (pre.validated_data['is_reviewed'] is False and
                 serializer.validated_data['is_reviewed'] is True):
-            serializer.validated_data['review_date'] = datetime.now().replace(
-                microsecond=0)
+            serializer.validated_data['review_date'] = datetime.now(
+                tz=pytz.utc).replace(microsecond=0)
 
         # save and get update version of the record
-        post = DatasetPutSerializer(serializer.save())
+        post_field = serializer.save()
+        # import pdb ; pdb.set_trace()
+        post = DatasetPutSerializer(post_field)
         post_json = JSONRenderer().render(post.data)
         post = DatasetPutSerializer(data=json.loads(post_json.decode()))
         post.is_valid()
@@ -266,20 +270,44 @@ class DatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
                 if field in post.Meta.fields:
                     fields += (field)
 
+        subject = "%s: update dataset for keydataset [%s] and country [%s]" % (
+            MAIL_SUBJECT_PREFIX, pre['keydataset'].value, pre['country'].value)
+
+        rows = []
         # manage differences between pre and post changes
         for field in fields:
+            if field in ["id", "owner", "review_date"]:
+                continue
+
             if field == "keydataset":
-                if pre_keydataset != post_keydataset:
-                    print("[%s] are different: [%s] => [%s]" % (
-                        field, pre_keydataset, post_keydataset))
-                else:
-                    print("[%s] are identical" % field)
+                pre_value = pre_keydataset
+                post_value = post_keydataset
             else:
-                if pre[field].value != post[field].value:
-                    print("[%s] are different: [%s] => [%s]" % (
-                        field, pre[field].value, post[field].value))
-                else:
-                    print("[%s] are identical" % field)
+                pre_value = pre[field].value
+                post_value = post[field].value
+
+            rows.append(
+                {"is_list": (type(pre_value) is list),
+                 "name":
+                 post_field._meta.get_field(field).verbose_name,
+                 "post": post_value,
+                 "is_changed": pre_value != post_value,
+                 "pre": pre_value if pre_value != post_value else None})
+
+            # print("[%s] are different: [%s] => [%s]" % (
+            #     field, pre_value, post_value))
+
+        if (rows):
+            # import pdb ; pdb.set_trace()
+            mailer(
+                post_field.owner.email, subject,
+                {"title": subject,
+                 "changed_by": post_field.changed_by.username,
+                 "is_reviewed": post['is_reviewed'].value, "rows": rows},
+                {"title": subject,
+                 "changed_by": post_field.changed_by.username,
+                 "is_reviewed": post['is_reviewed'].value, "rows": rows},
+                'update_by_reviewer')
 
     def perform_destroy(self, instance):
         print("perform_destroy: BEGIN")
