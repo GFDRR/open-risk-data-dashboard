@@ -9,6 +9,8 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
     // *************** INIT ***************** //
     // ************************************** //
 
+    RodiSrv.checkAPIversion(function(data){}, function(data){});
+
     $scope.bLogin = false;
     $scope.tokenid = $cookieStore.get('rodi_token');
     $scope.userinfo = $cookieStore.get('rodi_user');
@@ -47,6 +49,393 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
             return RodiSrv.getQuestions_code(questionCode);
         }
 
+        initDataset ()
+
+        $scope.changeDataRiskSelection = function(idCategory)
+        {
+            // Filter Dataset list
+            RodiSrv.getDatasetCategoryList(0,idCategory,
+                function(data)
+                {
+                    // Set Dataset selection
+                    $scope.datasetCategory = data;
+
+                    $scope.objDataset.keydataset.dataset = '0';
+                    $scope.objDataset.keydataset.level = '0';
+                    $scope.datasetScale = [];
+                    $scope.objDataset.keydataset.description = '0';
+                    $scope.datasetDescription = [];
+
+                },
+                function(data)
+                {
+                    // do nothing
+                });
+        };
+
+        $scope.changeDatasetSelection = function(idDataset)
+        {
+            if(idDataset !== '0')
+            {
+                // Dataset selected
+                // get the dataset obj
+
+                var aFiltered = [];
+                aFiltered = $filter('filter')($scope.datasetCategoryAll, function(e)
+                {
+                    return e.dataset.id == idDataset;
+                });
+
+                // Get data risk category ID
+                var aCategory = $filter('filter')($scope.dataCategoryAll,
+                    function(e)
+                    {
+                        return e.category.name == aFiltered[0].category;
+                    }
+                );
+
+                $scope.dataCategoryId = aCategory[0].category.id + "";
+                $scope.objDataset.keydataset.category = $scope.dataCategoryId;
+
+                // Set dataset description selection
+                RodiSrv.getDescription(0, $scope.dataCategoryId, idDataset,
+                    function(data)
+                    {
+                        $scope.datasetDescription = data;
+
+                        $scope.objDataset.keydataset.level = '0';
+                        $scope.objDataset.keydataset.description = '0';
+
+                        // Get Dataset scale available
+                        RodiSrv.getLevelList(
+                            function(data)
+                            {
+                                $scope.datasetScale = $filter('filter')(data,
+                                    function(e)
+                                    {
+                                        var i = 0;
+                                        var aLevel = [];
+
+                                        while (i <=  $scope.datasetDescription.length - 1)
+                                        {
+                                            // console.log(i + ' e: ' + e.level.name + ' desc: ' + $scope.datasetDescription[i].level);
+                                            if(e.level.name ==  $scope.datasetDescription[i].level)
+                                            {
+                                                aLevel.push(e);
+                                            }
+                                            i +=1;
+                                        }
+
+                                        if (aLevel.length > 0) {return aLevel;}
+                                    }
+                                );
+
+                            }, function(data) {}
+                        );
+
+                    },
+                    function(data)
+                    {
+                        console.log(data);
+                    }
+                );
+            } else
+            {
+                $scope.objDataset.keydataset.level = '0';
+                $scope.datasetScale = [];
+                $scope.objDataset.keydataset.description = '0';
+                $scope.datasetDescription = [];
+            }
+
+        }
+
+        $scope.changeLevelSelection = function(idLevel)
+        {
+            // get the dataset obj
+            RodiSrv.getDescription(idLevel, $scope.objDataset.keydataset.category, $scope.objDataset.keydataset.dataset,
+                function(data)
+                {
+                    $scope.datasetDescription = data;
+
+                    $scope.objDataset.keydataset.description = '0';
+                },
+                function(data)
+                {
+                    $scope.datasetDescription = [];
+                })
+        }
+
+        $scope.changeDescription = function(idDesc)
+        {
+
+            $scope.objDataset.keydataset.description = idDesc;
+
+            if(idDesc !== '0')
+            {
+
+                // Get level of description
+                var objDesc = $filter('filter')($scope.datasetDescription,
+                    function(e)
+                    {
+                        return e.description.code == $scope.objDataset.keydataset.description;
+                    }
+                );
+
+                var objLevel = $filter('filter')($scope.datasetScale,
+                    function(e)
+                    {
+                        return e.level.name == objDesc[0].level;
+                    }
+                );
+
+                $scope.datasetScaleId = objLevel[0].level.id + "";
+                $scope.objDataset.keydataset.level = $scope.datasetScaleId;
+
+                RodiSrv.getKeydatasetId($scope.datasetScaleId, $scope.dataCategoryId,
+                    $scope.objDataset.keydataset.dataset, $scope.objDataset.keydataset.description,
+                    function(data)
+                    {
+
+                        // Success
+                        if(data[0].tag_available)
+                        {
+                            $scope.datasetTags = data[0].tag_available.tags;
+                            $scope.selectedTags = data[0].applicability;
+                            $scope.sTagsMsg = "";
+                        } else
+                        {
+                            $scope.datasetTags=[];
+                            $scope.selectedTags = [];
+                            $scope.sTagsMsg = "** No elemnts available **";
+                        }
+
+                    }, function(data){
+                        // Error
+                    }
+                );
+
+            } else
+            {
+                $scope.datasetScaleId = "0";
+                $scope.objDataset.keydataset.level = "0";
+            }
+
+        }
+
+        $scope.setTags = function(tag)
+        {
+            var indexElem = $scope.selectedTags.indexOf(tag);
+
+            if(indexElem !== -1)
+            {
+                $scope.selectedTags.splice(indexElem, 1);
+            } else {
+                $scope.selectedTags.push(tag);
+            }
+
+        }
+
+        $scope.addLink = function(strLink)
+        {
+            var indexElem = $scope.selectedLink.indexOf(strLink);
+            if(indexElem == -1)
+            {
+                $scope.selectedLink.push(strLink);
+                $scope.newLink = "";
+            }
+        }
+
+        $scope.deleteLink = function(link)
+        {
+            var indexElem = $scope.selectedLink.indexOf(link);
+
+            $scope.selectedLink.splice(indexElem, 1);
+
+        }
+
+        $scope.saveSelection = function(qcode, value)
+        {
+            $scope.objDataset[qcode] = value;
+        }
+
+        $scope.questionHelp = function(index)
+        {
+            vex.dialog.alert(RodiSrv.getQuestionsHelp(index));
+        }
+
+        $scope.updateDataset = function()
+        {
+            // Update dataset info
+            var aErrorsValidation = [];
+
+            console.log($scope.objDataset);
+
+            // Set tags and links
+            $scope.objDataset.tag = $scope.selectedTags;
+            $scope.objDataset.url = $scope.selectedLink;
+
+            // Validate Dataset structure
+            aErrorsValidation = RodiSrv.validateDataset($scope.objDataset);
+
+            if(aErrorsValidation.length > 0) {
+                // Errors
+                var strMsg = "Required fields: <ul>";
+                for(var i=0; i< aErrorsValidation.length; i++)
+                {
+                    strMsg += '<li>' + aErrorsValidation[i] + '</li> ';
+                }
+
+                strMsg += "</ul>";
+                vex.dialog.alert(strMsg);
+
+            } else {
+                // Save the dataser
+
+                // Get the pk_id of Keydataset
+                RodiSrv.getKeydatasetId($scope.datasetScaleId, $scope.dataCategoryId,
+                    $scope.objDataset.keydataset.dataset, $scope.objDataset.keydataset.description,
+                    function(data)
+                    {
+                        // Success
+                        $scope.objDataset.keydataset = data[0].code;
+
+                        if($scope.objDataset.owner == $scope.userinfo.username)
+                        {
+                            // Dataset owner / API profile/dataset
+                            RodiSrv.updateprofileDataset($scope.tokenid, $scope.objDataset,
+                                function(data){
+                                    // Success
+                                    // Init tha new Dataset structure
+                                    initDataset ()
+                                    vex.dialog.alert('Dataset update correctly');
+
+                                }, function(data){
+                                    //     Error
+                                    console.log(data);
+                                    vex.dialog.alert("Unable to update the dataset");
+                                }
+                            );
+                        } else
+                        {
+                            // Dataset owner / API profile/dataset
+                            RodiSrv.updateAdminDataset($scope.tokenid, $scope.objDataset,
+                                function(data){
+                                    // Success
+                                    vex.dialog.alert('Dataset update correctly');
+
+                                }, function(data){
+                                    //     Error
+                                    console.log(data);
+                                    vex.dialog.alert("Unable to update the dataset");
+                                }
+                            );
+                        }
+
+                    }, function(data)
+                    {
+                        // Error
+                        console.log('Error');
+                        console.log(data);
+                    })
+            }
+
+        }
+
+        $scope.deleteDataset = function()
+        {
+            // Delete the dataset structure
+
+            vex.dialog.confirm({
+                message: "Do you really want to delete the dataset?",
+                callback: function(value){
+                    if (value){
+
+                        if($scope.objDataset.owner == $scope.userinfo.username)
+                        {
+                            RodiSrv.deleteprofileDataset($scope.tokenid, $scope.objDataset,
+                                function(data){
+                                    // Success
+                                    vex.dialog.alert('Dataset delete successfully');
+
+                                    $scope.changepage("contribute.html?tab=1");
+
+                                }, function(data){
+                                    //     Error
+                                    console.log(data);
+                                    vex.dialog.alert("Unable to delete the dataset");
+                                }
+                            );
+                        } else
+                        {
+                            RodiSrv.deleteAdminDataset($scope.tokenid, $scope.objDataset,
+                                function(data){
+                                    // Success
+                                    vex.dialog.alert('Dataset delete successfully');
+
+                                    $scope.changepage("contribute.html?tab=1");
+
+                                }, function(data){
+                                    //     Error
+                                    console.log(data);
+                                    vex.dialog.alert("Unable to delete the dataset");
+                                }
+                            );
+                        };
+
+
+                    }
+                }
+            });
+
+
+        }
+
+        $scope.$watch('bLogin', function(newVal, oldVal)
+        {
+            if($scope.bLogin)
+            {
+
+                // Check if user logged in can edit dataset, LOAD DATASET PROFILE API
+                if($scope.userinfo.groups[0] == 'reviewer' || $scope.userinfo.groups[0] == 'admin' || $scope.objDataset.owner == $scope.userinfo.username)
+                {
+                    // Reviewer user
+                    $scope.bReviewer = true;
+                    $scope.bDelete = true;
+
+                } else
+                {
+                    // Standard user, load dataset from DATASET API
+                    $scope.bReviewer = false;
+                }
+
+            } else
+            {
+                $scope.bReviewer = false;
+                $scope.bEdit = false;
+            }
+
+        });
+
+    } else
+    {
+        // pk Error
+        $scope.biddataset = false;
+        $scope.bReviewer = false;
+        $scope.bEdit = false;
+    }
+
+    $scope.setEditForm = function()
+    {
+        $scope.bEdit = true;
+    }
+
+    $scope.closeRevision = function()
+    {
+        $scope.bEdit = false;
+    }
+
+    function initDataset ()
+    {
         // Get dataset info from profile API
         RodiSrv.getDatasetInfo($scope.idDataset,
             function(dataDS)
@@ -54,6 +443,19 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                 // Load the dataset information
                 $scope.objDataset = dataDS;
                 $scope.objDatasetView = angular.copy(dataDS);
+
+                // Check if user logged in can edit dataset, LOAD DATASET PROFILE API
+                if($scope.objDataset.owner == $scope.userinfo.username)
+                {
+                    // Reviewer user
+                    $scope.bReviewer = true;
+                    $scope.bDelete = true;
+
+                } else
+                {
+                    // Standard user, load dataset from DATASET API
+                    $scope.bReviewer = false;
+                }
 
                 // Dataset classification set
                 $scope.dataCategory = [];
@@ -71,6 +473,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                 $scope.datasetTags = [];
                 $scope.selectedTags = [];
                 $scope.sTagsMsg = "";
+                $scope.countryDesc = "";
 
                 if($scope.objDataset.keydataset.tag_available) {$scope.datasetTags = $scope.objDataset.keydataset.tag_available.tags;}
 
@@ -82,6 +485,9 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                     function(data){
                         // Success
                         $scope.countryList = data;
+
+                        $scope.countryDesc = RodiSrv.getCountryDescription(data, $scope.objDataset.country);
+
                     }, function(data){
                         // Error
                         // TODO: error message
@@ -198,387 +604,12 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                     }
                 );
 
-                $scope.changeDataRiskSelection = function(idCategory)
-                {
-                    // Filter Dataset list
-                    RodiSrv.getDatasetCategoryList(0,idCategory,
-                        function(data)
-                        {
-                            // Set Dataset selection
-                            $scope.datasetCategory = data;
-
-                            $scope.objDataset.keydataset.dataset = '0';
-                            $scope.objDataset.keydataset.level = '0';
-                            $scope.datasetScale = [];
-                            $scope.objDataset.keydataset.description = '0';
-                            $scope.datasetDescription = [];
-
-                        },
-                        function(data)
-                        {
-                            // do nothing
-                        });
-                };
-
-                $scope.changeDatasetSelection = function(idDataset)
-                {
-                    if(idDataset !== '0')
-                    {
-                        // Dataset selected
-                        // get the dataset obj
-
-                        var aFiltered = [];
-                        aFiltered = $filter('filter')($scope.datasetCategoryAll, function(e)
-                        {
-                            return e.dataset.id == idDataset;
-                        });
-
-                        // Get data risk category ID
-                        var aCategory = $filter('filter')($scope.dataCategoryAll,
-                            function(e)
-                            {
-                                return e.category.name == aFiltered[0].category;
-                            }
-                        );
-
-                        $scope.dataCategoryId = aCategory[0].category.id + "";
-                        $scope.objDataset.keydataset.category = $scope.dataCategoryId;
-
-                        // Set dataset description selection
-                        RodiSrv.getDescription(0, $scope.dataCategoryId, idDataset,
-                            function(data)
-                            {
-                                $scope.datasetDescription = data;
-
-                                $scope.objDataset.keydataset.level = '0';
-                                $scope.objDataset.keydataset.description = '0';
-
-                                // Get Dataset scale available
-                                RodiSrv.getLevelList(
-                                    function(data)
-                                    {
-                                        $scope.datasetScale = $filter('filter')(data,
-                                            function(e)
-                                            {
-                                                var i = 0;
-                                                var aLevel = [];
-
-                                                while (i <=  $scope.datasetDescription.length - 1)
-                                                {
-                                                    // console.log(i + ' e: ' + e.level.name + ' desc: ' + $scope.datasetDescription[i].level);
-                                                    if(e.level.name ==  $scope.datasetDescription[i].level)
-                                                    {
-                                                        aLevel.push(e);
-                                                    }
-                                                    i +=1;
-                                                }
-
-                                                if (aLevel.length > 0) {return aLevel;}
-                                            }
-                                        );
-
-                                    }, function(data) {}
-                                );
-
-                            },
-                            function(data)
-                            {
-                                console.log(data);
-                            }
-                        );
-                    } else
-                    {
-                        $scope.objDataset.keydataset.level = '0';
-                        $scope.datasetScale = [];
-                        $scope.objDataset.keydataset.description = '0';
-                        $scope.datasetDescription = [];
-                    }
-
-                }
-
-                $scope.changeLevelSelection = function(idLevel)
-                {
-                    // get the dataset obj
-                    RodiSrv.getDescription(idLevel, $scope.objDataset.keydataset.category, $scope.objDataset.keydataset.dataset,
-                        function(data)
-                        {
-                            $scope.datasetDescription = data;
-
-                            $scope.objDataset.keydataset.description = '0';
-                        },
-                        function(data)
-                        {
-                            $scope.datasetDescription = [];
-                        })
-                }
-
-                $scope.changeDescription = function(idDesc)
-                {
-
-                    if(idDesc !== '0')
-                    {
-
-                        // Get level of description
-                        var objDesc = $filter('filter')($scope.datasetDescription,
-                            function(e)
-                            {
-                                return e.description.code == $scope.objDataset.keydataset.description;
-                            }
-                        );
-
-                        var objLevel = $filter('filter')($scope.datasetScale,
-                            function(e)
-                            {
-                                return e.level.name == objDesc[0].level;
-                            }
-                        );
-
-                        $scope.datasetScaleId = objLevel[0].level.id + "";
-                        $scope.objDataset.keydataset.level = $scope.datasetScaleId;
-
-                        RodiSrv.getKeydatasetId($scope.datasetScaleId, $scope.dataCategoryId,
-                            $scope.objDataset.keydataset.dataset, $scope.objDataset.keydataset.description,
-                            function(data)
-                            {
-
-                                // Success
-                                if(data[0].tag_available)
-                                {
-                                    $scope.datasetTags = data[0].tag_available.tags;
-                                    $scope.selectedTags = data[0].applicability;
-                                    $scope.sTagsMsg = "";
-                                } else
-                                {
-                                    $scope.datasetTags=[];
-                                    $scope.sTagsMsg = "** No elemnts available **";
-                                }
-
-                            }, function(data){
-                                // Error
-                            }
-                        );
-
-                    } else
-                    {
-                        $scope.datasetScaleId = "0";
-                        $scope.objDataset.keydataset.level = "0";
-                    }
-
-                }
-
-                $scope.setTags = function(tag)
-                {
-                    var indexElem = $scope.selectedTags.indexOf(tag);
-
-                    if(indexElem !== -1)
-                    {
-                        $scope.selectedTags.splice(indexElem, 1);
-                    } else {
-                        $scope.selectedTags.push(tag);
-                    }
-
-                }
-
-                $scope.addLink = function(strLink)
-                {
-                    var indexElem = $scope.selectedLink.indexOf(strLink);
-                    if(indexElem == -1)
-                    {
-                        $scope.selectedLink.push(strLink);
-                        $scope.newLink = "";
-                    }
-                }
-
-                $scope.deleteLink = function(link)
-                {
-                    var indexElem = $scope.selectedLink.indexOf(link);
-
-                    $scope.selectedLink.splice(indexElem, 1);
-
-                }
-
-                $scope.saveSelection = function(qcode, value)
-                {
-                    $scope.objDataset[qcode] = value;
-                }
-
-                $scope.questionHelp = function(index)
-                {
-                    vex.dialog.alert(RodiSrv.getQuestionsHelp(index));
-                }
-
             }, function(data)
             {
                 // Error
                 vex.dialog.alert("Error load dataset information");
             }
         );
-
-        $scope.updateDataset = function()
-        {
-            // Update dataset info
-            var aErrorsValidation = [];
-
-            // Set tags and links
-            $scope.objDataset.tag = $scope.selectedTags;
-            $scope.objDataset.url = $scope.selectedLink;
-
-            // Validate Dataset structure
-            aErrorsValidation = RodiSrv.validateDataset($scope.objDataset);
-
-            if(aErrorsValidation.length > 0) {
-                // Errors
-                var strMsg = "Required fields: <ul>";
-                for(var i=0; i< aErrorsValidation.length; i++)
-                {
-                    strMsg += '<li>' + aErrorsValidation[i] + '</li> ';
-                }
-
-                strMsg += "</ul>";
-                vex.dialog.alert(strMsg);
-
-            } else {
-                // Save the dataser
-
-                // Get the pk_id of Keydataset
-                RodiSrv.getKeydatasetId($scope.datasetScaleId, $scope.dataCategoryId,
-                    $scope.objDataset.keydataset.dataset, $scope.objDataset.keydataset.description,
-                    function(data)
-                    {
-                        // Success
-                        $scope.objDataset.keydataset = data[0].code;
-
-                        if($scope.objDataset.owner == $scope.userinfo.username)
-                        {
-                            // Dataset owner / API profile/dataset
-                            RodiSrv.updateprofileDataset($scope.tokenid, $scope.objDataset,
-                                function(data){
-                                    // Success
-                                    vex.dialog.alert('Dataset update correctly');
-
-                                }, function(data){
-                                    //     Error
-                                    console.log(data);
-                                    vex.dialog.alert("Unable to update the dataset");
-                                }
-                            );
-                        } else
-                        {
-                            // Dataset owner / API profile/dataset
-                            RodiSrv.updateAdminDataset($scope.tokenid, $scope.objDataset,
-                                function(data){
-                                    // Success
-                                    vex.dialog.alert('Dataset update correctly');
-
-                                }, function(data){
-                                    //     Error
-                                    console.log(data);
-                                    vex.dialog.alert("Unable to update the dataset");
-                                }
-                            );
-                        }
-
-                    }, function(data)
-                    {
-                        // Error
-                        console.log('Error');
-                        console.log(data);
-                    })
-            }
-
-        }
-
-        $scope.deleteDataset = function()
-        {
-            // Delete the dataset structure
-
-            vex.dialog.confirm({
-                message: "Do you really want to delete the dataset?",
-                callback: function(value){
-                    if (value){
-
-                        if($scope.objDataset.owner == $scope.userinfo.username)
-                        {
-                            RodiSrv.deleteprofileDataset($scope.tokenid, $scope.objDataset,
-                                function(data){
-                                    // Success
-                                    vex.dialog.alert('Dataset delete successfully');
-
-                                    $scope.changepage("contribute.html?tab=1");
-
-                                }, function(data){
-                                    //     Error
-                                    console.log(data);
-                                    vex.dialog.alert("Unable to delete the dataset");
-                                }
-                            );
-                        } else
-                        {
-                            RodiSrv.deleteAdminDataset($scope.tokenid, $scope.objDataset,
-                                function(data){
-                                    // Success
-                                    vex.dialog.alert('Dataset delete successfully');
-
-                                    $scope.changepage("contribute.html?tab=1");
-
-                                }, function(data){
-                                    //     Error
-                                    console.log(data);
-                                    vex.dialog.alert("Unable to delete the dataset");
-                                }
-                            );
-                        };
-
-
-                    }
-                }
-            });
-
-
-        }
-
-        $scope.$watch('bLogin', function(newVal, oldVal)
-        {
-            if($scope.bLogin)
-            {
-
-                // Check if user logged in can edit dataset, LOAD DATASET PROFILE API
-                if($scope.userinfo.groups[0] == 'reviewer' || $scope.userinfo.groups[0] == 'admin' || data.owner == $scope.userinfo.username)
-                {
-                    // Reviewer user
-                    $scope.bReviewer = true;
-                    $scope.bDelete = true;
-
-                } else
-                {
-                    // Standard user, load dataset from DATASET API
-                    $scope.bReviewer = false;
-                }
-
-            } else
-            {
-                $scope.bReviewer = false;
-                $scope.bEdit = false;
-            }
-
-        });
-
-    } else
-    {
-        // pk Error
-        $scope.biddataset = false;
-        $scope.bReviewer = false;
-        $scope.bEdit = false;
-    }
-
-    $scope.setEditForm = function()
-    {
-        $scope.bEdit = true;
-    }
-
-    $scope.closeRevision = function()
-    {
-        $scope.bEdit = false;
     }
 
 } ]);

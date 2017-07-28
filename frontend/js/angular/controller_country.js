@@ -4,6 +4,19 @@
 
 RodiApp.controller('RodiCtrlCountry', function ($scope, RodiSrv, $location, $filter, $window) {
     // Data details controller
+
+    // ************************************** //
+    // *************** INIT ***************** //
+    // ************************************** //
+
+    RodiSrv.checkAPIversion(function(data){}, function(data){});
+
+
+
+
+    // ************************************** //
+    // *************** DEMO ***************** //
+    // ************************************** //
     $scope.idCountry = $location.search().idcountry;
 
     $scope.changepage = function(page)
@@ -29,6 +42,7 @@ RodiApp.controller('RodiCtrlCountry', function ($scope, RodiSrv, $location, $fil
     // $scope.matrixDataTypeList = RodiSrv.getHazardCategory();
 
     $scope.questions = RodiSrv.getQuestions();
+    console.log($scope.questions);
 
     $scope.colorCell = function(value){
         //Check the value

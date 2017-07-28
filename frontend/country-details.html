@@ -126,7 +126,7 @@
                             </th>
                         </tr>
                         <tr ng-repeat="matrixRow in countryMatrix">
-                            <td><strong>{{questionDesc(matrixRow[0])}}</strong></td>
+                            <td><strong>B{{$index + 1}}. {{questionDesc(matrixRow[0])}}</strong></td>
                             <td class="text-center"><div class="matrix_cell" style="{{colorCell(matrixRow[1])}}"></div></td>
                             <td class="text-center"><div class="matrix_cell" style="{{colorCell(matrixRow[2])}}"></div></td>
                             <td class="text-center"><div class="matrix_cell" style="{{colorCell(matrixRow[3])}}"></div></td>

@@ -285,7 +285,7 @@ section
     color: white;
     padding: 10px;
     margin:2px;
-    font-size: 1.5em;
+    font-size: 1.1em;
     min-width: 40px;
     max-width: 40px;
     text-align: center;
@@ -318,6 +318,7 @@ textarea.form-control {
     border:none;
     /*margin-top:1em;*/
 }
+
 small.label {
     color:inherit;
     position: absolute;
@@ -394,7 +395,7 @@ small.label {
 .flex-container .row div {
     display: flex;
     flex-direction: row;
-    align-items: center;
+    align-items: left;
     justify-content: space-around;
 }
 .flex-container.col {
@@ -435,10 +436,48 @@ small.label {
         padding-right: 2em;
     }
 
-
-
-
 }
+
+.rodi_ul_datasetDesc
+{
+    list-style: none;
+}
+
+.rodi_ul_datasetDesc li
+{
+    width:100%;
+}
+
+.rodi_description_box_item
+{
+    padding:10px;
+    border:solid 1px #c0c0c0;
+    webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    font-size:25px;
+    color:#a0a0a0;
+    margin-top: 20px;
+}
+
+.rodi_description_box_item:hover
+{
+    color:#ffffff;
+    background-color: #232323;
+}
+
+.rodi_description_box_item.selected
+{
+    border:solid 1px #00b200;
+    background-color: green;
+    color:#ffffff;
+}
+
+.rodi_question_help
+{
+    margin-top: 25px;
+}
+
 /*
 ==============================================================================
 
@@ -889,9 +928,10 @@ review mode
 .viewer .flex-container .rodi_cb_space {padding:1px 2px; margin:2px; height:inherit;  align-items: center; }
 .viewer .flex-container {
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     /*text-align: left;*/
 }
+.rodi_dataset_label.flex-item {flex-grow: 2;}
 .flex-container.tag {flex-wrap:wrap; justify-content: space-around;}
 .viewer [class*="rodi_btn_"] {padding:0; margin-left: 1em;}
 /*
