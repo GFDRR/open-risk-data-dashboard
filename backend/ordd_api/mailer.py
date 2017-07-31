@@ -3,7 +3,7 @@ import os
 from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from email.mime.image import MIMEImage
-from ordd.settings import MAIL_SENDER
+from ordd.settings import ORDD_ADMIN_MAIL
 
 
 def mailer(address, subject, content_txt, content_html, template):
@@ -14,7 +14,7 @@ def mailer(address, subject, content_txt, content_html, template):
     html_content = render_to_string('ordd_api/mail_templates/%s.html'
                                     % template, content_html)
     msg = EmailMultiAlternatives(subject, text_content,
-                                 MAIL_SENDER, [address])
+                                 ORDD_ADMIN_MAIL, [address])
 
     msg.attach_alternative(html_content, "text/html")
 
