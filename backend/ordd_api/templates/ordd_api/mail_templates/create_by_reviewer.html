@@ -9,8 +9,8 @@
 <p>It is still in review phase.</p>
 {% endif %}
 {% endblock %}
-<h2>Dataset With Changes</h2>
-<table class="table"><tr><th>Field Name</th><th>Current</th><th>Previous</th></tr>
+<h2>Dataset with changes</h2>
+<table class="table"><tr><th>Field Name</th><th>Value</th></tr>
   {% for r in rows %}
   {% if r.is_list is True %}
   <tr><td>{{r.name}}</td><td>
@@ -20,20 +20,9 @@
         {% endfor %}
       </table>
     </td>
-    <td>
-      {% if r.is_changed == False %}
-      <i>(no changes)</i>
-      {% else %}
-      <table>
-      {% for sub_pre in r.pre %}
-        <tr><td>{{ sub_pre }}</td></tr>
-        {% endfor %}
-      </table>
-      {% endif %}
-      </td>
   </tr>
   {% else %}
-  <tr><td>{{ r.name }}</td><td>{{ r.post }}</td><td>{% if r.is_changed == False %}<i>(no changes)</i>{% else %}{{ r.pre }}{% endif %}</td></tr>
+  <tr><td>{{ r.name }}</td><td>{{ r.post }}</td></tr>
   {% endif %}
   {% endfor %}
 </table>
