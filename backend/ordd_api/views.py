@@ -82,8 +82,6 @@ class RegistrationView(generics.CreateAPIView, generics.RetrieveAPIView):
         # in the other cases return a generic error for security reason
 
         detail = "user not exists, is already activated or passed key is wrong"
-        print("Request GET: username [%s] key [%s]" % (request.GET['username'],
-              request.GET['key']))
         user = User.objects.filter(username=request.GET['username'])
 
         if len(user) != 1:
@@ -159,7 +157,6 @@ class ProfileDatasetListCreateView(generics.ListCreateAPIView):
     permission_classes = (IsOwner, )
 
     def get_serializer_class(self):
-        print(self.request.method)
         if self.request.method == "GET":
             return ProfileDatasetListSerializer
         elif self.request.method == "POST":
@@ -170,7 +167,6 @@ class ProfileDatasetListCreateView(generics.ListCreateAPIView):
             owner=self.request.user)
 
     def perform_create(self, serializer):
-        print("perform_create: BEGIN")
         post_field = serializer.save(owner=self.request.user,
                                      changed_by=self.request.user)
         post = DatasetPutSerializer(post_field)
@@ -320,11 +316,7 @@ class ProfileDatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
                  "is_changed": pre_value != post_value,
                  "pre": pre_value if pre_value != post_value else None})
 
-            # print("[%s] are different: [%s] => [%s]" % (
-            #     field, pre_value, post_value))
-
         if (rows):
-            # import pdb ; pdb.set_trace()
             mailer(
                 ORDD_ADMIN_MAIL, subject,
                 {"title": subject,
@@ -456,7 +448,6 @@ class DatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
 
         # save and get update version of the record
         post_field = serializer.save()
-        # import pdb ; pdb.set_trace()
         post = DatasetPutSerializer(post_field)
         post_json = JSONRenderer().render(post.data)
         post = DatasetPutSerializer(data=json.loads(post_json.decode()))
@@ -503,11 +494,7 @@ class DatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
                  "is_changed": pre_value != post_value,
                  "pre": pre_value if pre_value != post_value else None})
 
-            # print("[%s] are different: [%s] => [%s]" % (
-            #     field, pre_value, post_value))
-
         if (rows):
-            # import pdb ; pdb.set_trace()
             mailer(
                 post_field.owner.email, subject,
                 {"title": subject,
