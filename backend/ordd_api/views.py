@@ -171,7 +171,65 @@ class ProfileDatasetListCreateView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         print("perform_create: BEGIN")
-        serializer.save(owner=self.request.user, changed_by=self.request.user)
+        post_field = serializer.save(owner=self.request.user,
+                                     changed_by=self.request.user)
+        post = DatasetPutSerializer(post_field)
+        post_json = JSONRenderer().render(post.data)
+        post = DatasetPutSerializer(data=json.loads(post_json.decode()))
+        post.is_valid()
+        post_keydataset = KeyDataset.objects.get(
+            code=post['keydataset'].value).__str__()
+
+        # extract list of read/write field
+        if post.Meta.fields == '__all__':
+            fields = ()
+            for field in post.get_fields():
+                if post.Meta.read_only_fields:
+                    if field not in post.Meta.read_only_fields:
+                        fields += (field,)
+                else:
+                    fields += (field,)
+        else:
+            fields = ()
+            for field in post.get_fields():
+                if field in post.Meta.fields:
+                    fields += (field)
+
+        subject = ("%s: new dataset from user '%s' for"
+                   " keydataset [%s] and country [%s]" % (
+                       MAIL_SUBJECT_PREFIX,
+                       post_field.changed_by.username,
+                       post['keydataset'].value,
+                       post['country'].value))
+
+        rows = []
+        # manage differences between pre and post changes
+        for field in fields:
+            if field in ["id", "review_date"]:
+                continue
+
+            if field == "keydataset":
+                post_value = post_keydataset
+            else:
+                post_value = post[field].value
+
+            rows.append(
+                {"is_list": (type(post_value) is list),
+                 "name":
+                 post_field._meta.get_field(field).verbose_name,
+                 "post": post_value})
+
+        mailer(
+            ORDD_ADMIN_MAIL, subject,
+            {"title": subject,
+             "owner": post_field.changed_by.username,
+             "table_title": "Created Dataset",
+             "rows": rows},
+            {"title": subject,
+             "owner": post_field.changed_by.username,
+             "table_title": "Created Dataset",
+             "rows": rows},
+            'create_by_owner')
 
 
 class ProfileDatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
@@ -237,7 +295,7 @@ class ProfileDatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
         subject = ("%s: user '%s' updated dataset for"
                    " keydataset [%s] and country [%s]" % (
                        MAIL_SUBJECT_PREFIX,
-                       post_field.changed_by.username,
+                       self.request.user.username,
                        pre['keydataset'].value,
                        pre['country'].value))
 
@@ -270,12 +328,74 @@ class ProfileDatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
             mailer(
                 ORDD_ADMIN_MAIL, subject,
                 {"title": subject,
-                 "changed_by": post_field.changed_by.username,
-                 "is_reviewed": post['is_reviewed'].value, "rows": rows},
+                 "changed_by": self.request.user.username,
+                 "is_reviewed": post['is_reviewed'].value,
+                 "rows": rows},
                 {"title": subject,
-                 "changed_by": post_field.changed_by.username,
-                 "is_reviewed": post['is_reviewed'].value, "rows": rows},
+                 "changed_by": self.request.user.username,
+                 "is_reviewed": post['is_reviewed'].value,
+                 "rows": rows},
                 'update_by_owner')
+
+    def perform_destroy(self, instance):
+        post = DatasetPutSerializer(instance)
+        post_json = JSONRenderer().render(post.data)
+        post = DatasetPutSerializer(data=json.loads(post_json.decode()))
+        post.is_valid()
+        post_keydataset = KeyDataset.objects.get(
+            code=post['keydataset'].value).__str__()
+
+        # extract list of read/write field
+        if post.Meta.fields == '__all__':
+            fields = ()
+            for field in post.get_fields():
+                if post.Meta.read_only_fields:
+                    if field not in post.Meta.read_only_fields:
+                        fields += (field,)
+                else:
+                    fields += (field,)
+        else:
+            fields = ()
+            for field in post.get_fields():
+                if field in post.Meta.fields:
+                    fields += (field)
+
+        subject = ("%s: deleted dataset from user '%s' for"
+                   " keydataset [%s] and country [%s]" % (
+                       MAIL_SUBJECT_PREFIX,
+                       instance.changed_by.username,
+                       post['keydataset'].value,
+                       post['country'].value))
+
+        rows = []
+        # manage differences between pre and post changes
+        for field in fields:
+            if field in ["id", "review_date"]:
+                continue
+
+            if field == "keydataset":
+                post_value = post_keydataset
+            else:
+                post_value = post[field].value
+
+            rows.append(
+                {"is_list": (type(post_value) is list),
+                 "name":
+                 instance._meta.get_field(field).verbose_name,
+                 "post": post_value})
+
+        mailer(
+            ORDD_ADMIN_MAIL, subject,
+            {"title": subject,
+             "owner": instance.changed_by.username,
+             "table_title": "Deleted Dataset",
+             "rows": rows},
+            {"title": subject,
+             "owner": instance.changed_by.username,
+             "table_title": "Deleted Dataset",
+             "rows": rows},
+            'delete_by_owner')
+        instance.delete()
 
 
 class DatasetDetailsViewPerms(permissions.BasePermission):
@@ -399,7 +519,63 @@ class DatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
                 'update_by_reviewer')
 
     def perform_destroy(self, instance):
-        print("perform_destroy: BEGIN")
+        post = DatasetPutSerializer(instance)
+        post_json = JSONRenderer().render(post.data)
+        post = DatasetPutSerializer(data=json.loads(post_json.decode()))
+        post.is_valid()
+        post_keydataset = KeyDataset.objects.get(
+            code=post['keydataset'].value).__str__()
+
+        # extract list of read/write field
+        if post.Meta.fields == '__all__':
+            fields = ()
+            for field in post.get_fields():
+                if post.Meta.read_only_fields:
+                    if field not in post.Meta.read_only_fields:
+                        fields += (field,)
+                else:
+                    fields += (field,)
+        else:
+            fields = ()
+            for field in post.get_fields():
+                if field in post.Meta.fields:
+                    fields += (field)
+
+        subject = ("%s: deleted dataset from reviewer '%s' for"
+                   " keydataset [%s] and country [%s]" % (
+                       MAIL_SUBJECT_PREFIX,
+                       instance.changed_by.username,
+                       post['keydataset'].value,
+                       post['country'].value))
+
+        rows = []
+        # manage differences between pre and post changes
+        for field in fields:
+            if field in ["id", "review_date"]:
+                continue
+
+            if field == "keydataset":
+                post_value = post_keydataset
+            else:
+                post_value = post[field].value
+
+            rows.append(
+                {"is_list": (type(post_value) is list),
+                 "name":
+                 instance._meta.get_field(field).verbose_name,
+                 "post": post_value})
+
+        mailer(
+            instance.owner.email, subject,
+            {"title": subject,
+             "reviewer": self.request.user.username,
+             "table_title": "Deleted Dataset",
+             "rows": rows},
+            {"title": subject,
+             "reviewer": self.request.user.username,
+             "table_title": "Deleted Dataset",
+             "rows": rows},
+            'delete_by_reviewer')
         instance.delete()
 
 
