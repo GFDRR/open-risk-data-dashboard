@@ -1,4 +1,0 @@
-{% extends "ordd_api/mail_templates/base.txt" %}
-{% block content %}
-UPDATE BY REVIEWER FIXME
-{% endblock content %}
