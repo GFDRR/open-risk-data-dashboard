@@ -140,12 +140,12 @@
                     <!-- Insert new dataset pane - START -->
                     <div role="tabpanel" class="tab-pane fade in" ng-class="{active:tab==0}" id="dataset">
 
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                                <input type="button" class="btn btn-lg btn-success" value="Insert dataset" ng-click="saveDataset()">
-                                <!--<span class="small text-muted">(*) Required</span>-->
-                            </div>
-                        </div>
+                        <!--<div class="row">-->
+                            <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">-->
+                                <!--<input type="button" class="btn btn-lg btn-success" value="Insert dataset" ng-click="saveDataset()">-->
+                                <!--&lt;!&ndash;<span class="small text-muted">(*) Required</span>&ndash;&gt;-->
+                            <!--</div>-->
+                        <!--</div>-->
                         <br />
 
                         <div class="rodi_section_01 ">
@@ -177,15 +177,22 @@
                                         <span class="rodi_dataset_label">Dataset</span>
                                     </div>
                                     <!--<br />-->
+                                    <!--edited by dario-->
+
                                     <div class="dataset_form_select_style">
                                         <!--<small class="text-muted label">Filter by:</small>-->
+                                        <span style="padding-left: 5px;" ng-repeat="dsCat in dataCategory" >
+                                            <input style="margin-left: 15px;" type="button" class="btn btn-lg " ng-class="dataRiskSelectionClass(dsCat.category.id)" value="{{dsCat.category.name}}" ng-click="changeDataRiskSelection(dsCat.category.id)">
+                                        </span>
 
-                                        <select class="dataset_form_select_style" ng-model="objDataset.keydataset.category" ng-change="changeDataRiskSelection(objDataset.keydataset.category)">
-                                            <option value="0" selected>-- Filter dataset by data risk category --</option>
-                                            <option ng-repeat="dsCat in dataCategory" value="{{dsCat.category.id}}">
-                                                {{dsCat.category.name}}
-                                            </option>
-                                        </select>
+
+                                        <!--<select class="dataset_form_select_style" ng-model="objDataset.keydataset.category" ng-change="changeDataRiskSelection(objDataset.keydataset.category)">-->
+                                            <!--<option value="0" selected>&#45;&#45; Filter dataset by data risk category &#45;&#45;</option>-->
+                                            <!--<option ng-repeat="dsCat in dataCategory" value="{{dsCat.category.id}}">-->
+                                                <!--{{dsCat.category.name}}-->
+                                            <!--</option>-->
+                                        <!--</select>-->
+
                                     </div>
 
                                     <div class="dataset_form_select_style">
@@ -200,21 +207,24 @@
                                 <!--<br />-->
                                 <div class="row">
                                     <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
-                                    <div>
+                                    <!--<div>-->
 
-                                        <span class="rodi_dataset_label_code">A3.</span>
-                                        <span class="rodi_dataset_label">Dataset description</span>
-                                    </div>
+                                        <!--<span class="rodi_dataset_label_code">A3.</span>-->
+                                        <!--<span class="rodi_dataset_label">Dataset description</span>-->
+                                    <!--</div>-->
+                                    <!--by dario-->
                                     <!--<br />-->
-                                    <div class="dataset_form_select_style">
-                                        <!--<small class="text-muted label">Filter by:</small>-->
-                                        <select class="dataset_form_select_style" ng-model="objDataset.keydataset.level" ng-disabled="objDataset.keydataset.dataset == '0'" ng-change="changeLevelSelection(objDataset.keydataset.level)">
-                                            <option value="0" selected>-- Filter description by dataset level --</option>
-                                            <option ng-repeat="scale in datasetScale" value="{{scale.level.id}}">{{scale.level.name}}</option>
-                                        </select>
-                                    </div>
+                                    <!--<div class="dataset_form_select_style">-->
+                                        <!--&lt;!&ndash;<small class="text-muted label">Filter by:</small>&ndash;&gt;-->
+                                        <!--<select class="dataset_form_select_style" ng-model="objDataset.keydataset.level" ng-disabled="objDataset.keydataset.dataset == '0'" ng-change="changeLevelSelection(objDataset.keydataset.level)">-->
+                                            <!--<option value="0" selected>&#45;&#45; Filter description by dataset level &#45;&#45;</option>-->
+                                            <!--<option ng-repeat="scale in datasetScale" value="{{scale.level.id}}">{{scale.level.name}}</option>-->
+                                        <!--</select>-->
+                                    <!--</div>-->
                                     <!--<div class="dataset_form_select_style">-->
                                         <!--<br />-->
+
+                                    <!--by dario end-->
                                     <ul class="rodi_ul_datasetDesc" style="list-style: none;">
                                         <li ng-repeat="ds_desc in datasetDescription | orderBy: 'description.name'" class="rodi_description_box_item" ng-click="changeDescription(ds_desc.description.code)" ng-class="{'selected': ds_desc.description.code == objDataset.keydataset.description}">
                                             <!--{{ds_desc.description.code}}<br />--> {{ds_desc.description.name}}
@@ -358,6 +368,30 @@
                                             </div>
                                         </div>
                                     </div>
+
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="input-group">
+                                            <span class="input-group-btn ">
+                                                <button class="btn btn-info" type="button" ng-click="addLink(newLink)">
+                                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                                    Add Link
+                                                </button>
+                                            </span>
+                                            <input type="text" class="form-control " placeholder="Add new link" ng-model="newLink">
+                                        </div><!-- /input-group -->
+                                        <br />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <ul class="rodi_ul">
+                                            <li ng-repeat="link in selectedLink">
+                                                - {{link}}
+                                                <div class="pull-right">
+                                                    <a href="" ng-click="deleteLink(link)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>&nbsp;&nbsp;
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+
                                 </div>
                                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
                             </div>
@@ -387,7 +421,33 @@
                                             </div>
                                         </div>
                                     </div>
+
+
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <div class="input-group">
+                                            <span class="input-group-btn ">
+                                                <button class="btn btn-info" type="button" ng-click="addLink(newMeta)">
+                                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                                                    Add Link
+                                                </button>
+                                            </span>
+                                            <input type="text" class="form-control " placeholder="Add new link" ng-model="newMeta">
+                                        </div><!-- /input-group -->
+                                        <br />
+                                    </div>
+                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                        <ul class="rodi_ul">
+                                            <li ng-repeat="link in selectedLink">
+                                                - {{link}}
+                                                <div class="pull-right">
+                                                    <a href="" ng-click="deleteLink(link)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>&nbsp;&nbsp;
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
+
                                 </div>
+
                                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
                             </div>
 
@@ -447,7 +507,7 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                        <input type="text" class="form-control dataset_form_select_style" ng-model="objDataset.is_machine_read_txt" placeholder="In which formats?">
+                                        <input type="text" class="form-control dataset_form_select_style" ng-model="objDataset.is_machine_read_txt" placeholder="In which formats? (excel, json, shape)">
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
@@ -567,46 +627,46 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                        <input type="text" class="form-control dataset_form_select_style" ng-model="objDataset.is_prov_timely_last" placeholder="Date of last update">
+                                        <input type="date" id="" class="form-control dataset_form_select_style" ng-model="objDataset.is_prov_timely_last" placeholder="Date of last update">
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
                             </div>
                         </div>
 
-                        <div class="rodi_section_01">
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
-                                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                                    <h1>Section C - Dataset metadata link</h1>
-                                    <hr />
-                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                        <div class="input-group">
-                                            <span class="input-group-btn ">
-                                                <button class="btn btn-info" type="button" ng-click="addLink(newLink)">
-                                                    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                                    Add Link
-                                                </button>
-                                            </span>
-                                            <input type="text" class="form-control " placeholder="Add new link" ng-model="newLink">
-                                        </div><!-- /input-group -->
-                                        <br />
-                                    </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                        <ul class="rodi_ul">
-                                            <li ng-repeat="link in selectedLink">
-                                                - {{link}}
-                                                <div class="pull-right">
-                                                    <a href="" ng-click="deleteLink(link)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>&nbsp;&nbsp;
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
+                        <!--<div class="rodi_section_01">-->
+                            <!--<div class="row">-->
+                                <!--<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>-->
+                                <!--<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">-->
+                                    <!--<h1>Section C - Dataset metadata link</h1>-->
+                                    <!--<hr />-->
+                                    <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">-->
+                                        <!--<div class="input-group">-->
+                                            <!--<span class="input-group-btn ">-->
+                                                <!--<button class="btn btn-info" type="button" ng-click="addLink(newLink)">-->
+                                                    <!--<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>-->
+                                                    <!--Add Link-->
+                                                <!--</button>-->
+                                            <!--</span>-->
+                                            <!--<input type="text" class="form-control " placeholder="Add new link" ng-model="newLink">-->
+                                        <!--</div>&lt;!&ndash; /input-group &ndash;&gt;-->
+                                        <!--<br />-->
+                                    <!--</div>-->
+                                    <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">-->
+                                        <!--<ul class="rodi_ul">-->
+                                            <!--<li ng-repeat="link in selectedLink">-->
+                                                <!-- - {{link}}-->
+                                                <!--<div class="pull-right">-->
+                                                    <!--<a href="" ng-click="deleteLink(link)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>&nbsp;&nbsp;-->
+                                                <!--</div>-->
+                                            <!--</li>-->
+                                        <!--</ul>-->
+                                    <!--</div>-->
 
-                                </div>
-                                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
-                            </div>
-                        </div>
+                                <!--</div>-->
+                                <!--<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>-->
+                            <!--</div>-->
+                        <!--</div>-->
 
                         <div class="rodi_section_02">
                             <div class="row">

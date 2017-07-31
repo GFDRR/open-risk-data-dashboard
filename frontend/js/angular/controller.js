@@ -162,6 +162,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
         $scope.changeDataRiskSelection = function(idCategory)
         {
+            $scope.lastSelectedCategoty = idCategory;
             // Filter Dataset list
             RodiSrv.getDatasetCategoryList(0,idCategory,
                 function(data)
@@ -185,6 +186,11 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 });
         };
 
+        $scope.dataRiskSelectionClass = function (id) {
+
+            return ($scope.lastSelectedCategoty == id)?'btn-warning':'btn-success';
+        }
+
         $scope.changeDatasetSelection = function(idDataset)
         {
             if(idDataset !== '0')
@@ -192,6 +198,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 // Dataset selected
                 // get the dataset obj
                 var aFiltered = [];
+
                 aFiltered = $filter('filter')($scope.datasetCategoryAll, function(e)
                 {
                     return e.dataset.id == idDataset;
