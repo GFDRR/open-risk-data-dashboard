@@ -1,2 +1,1 @@
-title: {{ title|safe }}
-body:  {{ content|safe }}
+{% extends "ordd_api/mail_templates/base.txt" %}

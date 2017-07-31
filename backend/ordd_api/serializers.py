@@ -8,6 +8,7 @@ from django.db import IntegrityError
 from rest_framework import serializers
 from rest_framework.serializers import ValidationError
 from .models import (Region, Country, Profile, OptIn, Dataset, Url, KeyTag)
+from ordd_api import MAIL_SUBJECT_PREFIX
 
 from .keydatasets_serializers import KeyDataset4on4Serializer
 from .mailer import mailer
@@ -130,10 +131,12 @@ class RegistrationSerializer(serializers.ModelSerializer):
                 user.save()
                 optin = OptIn(user=user)
                 optin.save()
-                subject = ('Open Risk Data Dashboard: registration for user %s'
-                           % user.username)
-                # use 'http' because where 'https' is required an automatic redirect is triggered
-                reply_url = ("http://%s/confirm_registration.html?username=%s&key=%s"
+                subject = ('%s: registration for user %s'
+                           % (MAIL_SUBJECT_PREFIX, user.username))
+                # use 'http' because where 'https' is required an automatic
+                # redirect is triggered
+                reply_url = ("http://%s/confirm_registration.html"
+                             "?username=%s&key=%s"
                              % (self.context['request'].get_host(),
                                 user.username,
                                 optin.key))
@@ -149,7 +152,8 @@ If you didn't subscribe to this site, please ignore this message.</div>'''
                                 % (reply_url, reply_url))
                 mailer(user.email, subject,
                        {"title": subject, "content": content_txt},
-                       {"title": subject, "content": content_html})
+                       {"title": subject, "content": content_html},
+                       'registration_confirm')
         except IntegrityError:
             raise ValidationError({
                 'ret': 'Some DB error occurred.'
@@ -205,3 +209,42 @@ class ProfileDatasetCreateSerializer(serializers.ModelSerializer):
         fields = '__all__'
         read_only_fields = ('owner', 'changed_by', 'create_time',
                             'modify_time', 'is_reviewed')
+
+
+class DatasetListSerializer(serializers.ModelSerializer):
+    owner = serializers.SlugRelatedField(slug_field='username',
+                                         queryset=User.objects.all())
+    changed_by = serializers.SlugRelatedField(slug_field='username',
+                                              queryset=User.objects.all())
+    country = serializers.SlugRelatedField(slug_field='iso2',
+                                           queryset=Country.objects.all())
+    keydataset = KeyDataset4on4Serializer(read_only=True)
+    url = serializers.SlugRelatedField(slug_field='url',
+                                       queryset=Url.objects.all(), many=True)
+    tag = serializers.SlugRelatedField(slug_field='name',
+                                       queryset=KeyTag.objects.all(),
+                                       many=True)
+
+    class Meta:
+        model = Dataset
+        fields = '__all__'
+        read_only_fields = ('changed_by', 'create_time', 'modify_time')
+
+
+class DatasetPutSerializer(serializers.ModelSerializer):
+    owner = serializers.SlugRelatedField(slug_field='username',
+                                         queryset=User.objects.all())
+    changed_by = serializers.SlugRelatedField(slug_field='username',
+                                              queryset=User.objects.all())
+    country = serializers.SlugRelatedField(slug_field='name',
+                                           queryset=Country.objects.all())
+    url = serializers.SlugRelatedField(slug_field='url',
+                                       queryset=Url.objects.all(), many=True)
+    tag = serializers.SlugRelatedField(slug_field='name',
+                                       queryset=KeyTag.objects.all(),
+                                       many=True)
+
+    class Meta:
+        model = Dataset
+        fields = '__all__'
+        read_only_fields = ('changed_by', 'create_time', 'modify_time')
