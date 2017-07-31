@@ -5,12 +5,12 @@
     <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
-    <meta content="***" name="description" />
+    <meta content="" name="description" />
     <meta content="" name="author" />
 
     <base href="{{$locationProvider.$get}}" />
 
-    <title>RODI - Risk Open Data Index - Soon online</title>
+    <title>RODI - Risk Open Data Index</title>
 
     <!-- jQuery library -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -19,7 +19,6 @@
     <script src="bower_components/angular/angular.min.js"></script>
 
     <!-- bootstrap Framework -->
-    <!-- Bootstrap -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- font awesome-->
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
@@ -33,6 +32,15 @@
 
     <link href="bower_components/animate.css/animate.min.css" rel="stylesheet">
 
+    <!-- RODI APP -->
+    <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="js/angular/app.js"></script>
+    <script src="js/angular/service.js" type="text/javascript"></script>
+    <script src="js/angular/controller.js" type="text/javascript"></script>
+    <script src="js/angular/controller_mainmenu.js" type="text/javascript"></script>
+    <script src="js/angular/directive.js" type="text/javascript"></script>
+    <!-- RODI APP -->
+
     <!--ADOBE typekit-->
     <!--<script src="https://use.typekit.net/yxp8fxq.js"></script>-->
     <!--<script>try{Typekit.load({ async: true });}catch(e){}</script>-->
@@ -41,56 +49,172 @@
     <link href="css/rodi_css.css" rel="stylesheet">
     <link href="css/style_map.css" rel="stylesheet">
 
+    <!-- Guida: https://medium.com/@tweededbadger/tutorial-dynamic-data-driven-svg-map-with-angularjs-b112fdec421d -->
+    <!--<script src="js/change_svg.js"></script>-->
 </head>
-<body>
-
+<body ng-app="RodiApp" ng-controller="RodiCtrl">
 
     <div class="container-fluid">
 
-        <div class="row text-center" style="margin-top: 3%; font-size: 20px; color:#232323; line-height: 35px">
-            <img src="img/template/rodi_logo.png" alt="Risk OpenData Index" style="max-width:50%;" />
-            <br />
-            <hr />
-            <br />
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-justify">
-                <p class="text-justify">
-                    The Global Facility for Disaster Reduction and Recovery (GFDRR) works closely with UN agencies, client governments, World Bank regional offices, and other partners and focuses on five pillars of action to further the Disaster Risk Management (DRM) agenda: Risk Identification, Risk Reduction, Preparedness, Financial Protection and Resilient Recovery.
-                    GFDRR hosts the GFDRR Innovation Lab. The Innovation Lab strategy is to build partnerships and communities that utilize open data and open source technology to assist decision-making. Often, engagement in DRM projects across the globe is hindered by a lack of awareness of what data already exist, where to find it, and whether it is openly accessible.
-                    This dashboard has the objective of providing an overview on the openness and accessibility of risk data worldwide with the aim of:
-                </p>
-                <ul>
-                    <li>advocating for data openness and accessibility</li>
-                    <li>highlighting gaps to direct investment in new risk information</li>
-                    <li>facilitate the trading and access to risk related data.</li>
-                </ul>
-                <br /><br />
-                <div class="text-center">
-                    <a href="index_home.html" class="btn btn-success btn-lg btn-block"><strong>ENTER</strong></a>
+
+
+        <!-- Section HEADER - INIZIO -->
+        <section id="rodi_header">
+            <div class="row">
+                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
+                    <helpfeedbackbox></helpfeedbackbox>
+                    <img src="img/template/rodi_logo.png" alt="Risk OpenData Index" class="img-responsive" />
+                </div>
+            </div>
+        </section>
+        <!-- Section HEADER - FINE -->
+
+        <!-- Section MENU - INIZIO -->
+        <section id="top-menu">
+            <div class="row">
+
+
+                <div class="col-xs-12 col-sm-7 col-md-8 col-lg-8">
+
+                    <hazardmenu></hazardmenu>
+
+                </div>
+                <div class="col-xs-12 col-sm-5 col-md-4 col-lg-4">
+                    <mainmenu></mainmenu>
                 </div>
 
             </div>
-        </div>
+        </section>
+        <!-- Section MENU - FINE -->
 
-        <div class="rodi_footer">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                        <img src="img/template/rodi_logo_w.png" alt="Risk OpenData Index" style="max-width:200px;" />
-                        <div class="footer_separator"></div>
-                        <a href="#" class="footer_link">Privacy Policy</a>
-                        <a href="#" class="footer_link">Cookies Policy</a>
-                        <a href="#" class="footer_link">Term of use</a>
-                        <br /><br />
-                        <span class="text-muted">Copyright 2017 - All rights reserved</span>
+        <!-- Section MAP - INIZIO -->
+        <section id="main-map">
+            <!--<div class="row">-->
+
+                <!-- <div class="head_sep horiz">
+                     <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+                  viewBox="0 0 2000 100" style="enable-background:new 0 0 2000 100;" xml:space="preserve">
+                         <style type="text/css">
+                             .st0{fill:#FFFFFF;}
+                             #Layer_1 {
+                                 background: lightblue;
+                             }
+
+                         </style>
+                         <g id="Layer_1">
+                             <path class="st0" d="M2000,15.1C1537.7,102.6,463.2,105.2,0,17.4v-35.9h1999.5L2000,15.1z" />
+                         </g>
+                     </svg>
+                 </div>-->
+            <!--</div>-->
+
+            <div class="head_sep white horiz">
+               <!-- <svg viewBox="0 0 1000 100">
+                    <use xlink:href="img/separator.svg#sep"></use>
+                </svg>-->
+                <!--<svg version="1.1" id="sep" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 4000 200" style="enable-background:new 0 0 4000 200;" xml:space="preserve">
+                    <g>
+                        <path class="path" d="M4057,49.5C3106.4,218.8,897.4,223.9-55,54v-69.5h4111L4057,49.5z"/>
+                    </g>
+                </svg>-->
+            </div>
+            <div class="row" style="">
+                <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">-->
+
+                <div class="map_place">
+                    <div svg-map></div>
+
+                    <div class="popup_country_data {{popupClass}}" ng-style="{'top':objRodiVariable.popupY, 'left': objRodiVariable.popupX}" ng-if="objRodiVariable.bPopupCountry">
+                        <strong>Country code:</strong> {{objRodiVariable.countryID}}<br />
+                        <strong>Country description:</strong> {{objRodiVariable.countryDesc}}<br />
+                        <strong>Country index: {{objRodiVariable.valueData}}</strong>
                     </div>
                 </div>
+
+                <!--</div>-->
             </div>
-        </div>
+            <div class="row">
+                <div class="partner_box text-center">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"><img src="img/partner/logo_GFDRR.png" class="" alt="" /></div>
+                    <!--<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 text-right"><img src="img/partner/logo_CIMA.png" class="little" alt="" /></div>-->
+                    <!--<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"><img src="img/partner/logo_DELTARES.png" class="" alt="" /></div>-->
+                    <!--<div class="col-xs-3 col-sm-3 col-md-3 col-lg-3"><img src="img/partner/logo_GEM.png" class="" alt="" /></div>-->
+                </div>
+            </div>
+
+        </section>
+        <!-- Section MAP - FINE -->
+
+        <!-- Section NWEWS - INIZIO -->
+        <section id="news">
+
+            <!--<div class="head_sep horiz"></div>-->
+            <div class="row">
+                <div ng-repeat="new in news" class="col-xs-12 col-sm-3 col-md-3 col-lg-3 news_box" style="background-image: url({{new.img}});">
+                    <a href="" ng-click="changepage('news-details.html?idnews=' + new.id)">
+                        <img src="img/template/box_news_empty.png" alt="" class="img-responsive" />
+                        <div class="news_title">{{new.title}}</div>
+                    </a>
+                </div>
+
+            </div>
+
+        </section>
+        <!-- Section NWEWS - FINE -->
 
     </div>
 
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Section FOOTER - INIZIO -->
+    <rodifooter></rodifooter>
+    <!-- Section FOOTER - FINE -->
+    
+    
+    
+    
+    <!--start modal intro-->
+    <!-- Button trigger modal -->
+    <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">-->
+        <!--Launch demo modal-->
+    <!--</button>-->
 
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <script>
+        $('#myModal').modal('show')
+    </script>
+    <!-- Modal -->
+    <div class="modal fade " id="myModal" >
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!--<h5 class="modal-title" id="exampleModalLabel">Modal title</h5>-->
+                    <img src="img/template/rodi_logo.png" alt="Risk OpenData Index" style="max-width:50%;" />
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-justify">
+                        The Global Facility for Disaster Reduction and Recovery (GFDRR) works closely with UN agencies, client governments, World Bank regional offices, and other partners and focuses on five pillars of action to further the Disaster Risk Management (DRM) agenda: Risk Identification, Risk Reduction, Preparedness, Financial Protection and Resilient Recovery.
+                        GFDRR hosts the GFDRR Innovation Lab. The Innovation Lab strategy is to build partnerships and communities that utilize open data and open source technology to assist decision-making. Often, engagement in DRM projects across the globe is hindered by a lack of awareness of what data already exist, where to find it, and whether it is openly accessible.
+                        This dashboard has the objective of providing an overview on the openness and accessibility of risk data worldwide with the aim of:
+                    </p>
+                    <ul>
+                        <li>advocating for data openness and accessibility</li>
+                        <li>highlighting gaps to direct investment in new risk information</li>
+                        <li>facilitate the trading and access to risk related data.</li>
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">I Agree</button>
+                    <button type="button" class="btn btn-primary">more</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--end modal intro-->
 </body>
 </html>

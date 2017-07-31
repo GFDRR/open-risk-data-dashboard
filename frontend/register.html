@@ -58,7 +58,9 @@
         <div class="row">
             <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
                 <!-- Left Banner / logo -->
-                <a href="index.html"><img src="img/template/rodi_logo.png" alt="Risk OpenData Index" class="img-responsive" /></a>
+                <a ng-if="bHome" href="" ng-click="changeview('index.html', '0')" data-toggle="tooltip" title="Home">
+                    <img src="img/template/rodi_logo.png" alt="Risk OpenData Index" class="img-responsive" />
+                </a>
 
             </div>
         </div>
@@ -71,7 +73,7 @@
 
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">&nbsp;</div>
             <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3">
-                <h1 class="page_title pull-right">REGISTER</h1>
+                <h1 class="page_title">REGISTER</h1>
             </div>
             <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
 
@@ -82,12 +84,12 @@
     </section>
     <!-- Section MENU - FINE -->
     </section>
-    <div class="head_sep blu vert"></div>
-    <hr>
+    <!--<div class="head_sep blu vert"></div>-->
+    <!--<hr>-->
 
     <!-- Register Form -->
     <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
 
             <h3>Request form</h3>
             <br />

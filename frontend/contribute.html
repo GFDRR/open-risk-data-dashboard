@@ -65,16 +65,20 @@
 
 <div class="container-fluid">
 
-    <helpfeedbackbox></helpfeedbackbox>
-
-    <!-- Section HEADER - INIZIO -->
-    <section id="rodi_header">
-        <div class="row">
-            <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
-                <img src="img/template/rodi_logo.png" alt="Risk OpenData Index" class="img-responsive" />
-            </div>
-        </div>
+    <
+    <section id="header">
+        <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
+        <!-- Left Banner / logo -->
+        <helpfeedbackbox></helpfeedbackbox>
+        <a ng-if="bHome" href="" ng-click="changeview('index.html', '0')" data-toggle="tooltip" title="Home">
+            <img src="img/template/rodi_logo.png" alt="Risk OpenData Index" class="img-responsive" />
+        </a>
+        <!--</div>-->
+        <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+        </div>-->
+        <!--<div class="head_sep blu vert"></div>-->
     </section>
+
     <!-- Section HEADER - FINE -->
 
     <!-- Section MENU - INIZIO -->
@@ -101,7 +105,7 @@
             <!--</div>-->
             <!--<div class="col-xs-12 col-sm-2 col-md-3 col-lg-3">-->
             <div class="col-xs-12 col-sm-2 col-md-7 col-lg-7">
-                <h1 class="page_title pull-right">R.O.D.I. - Contribute</h1>
+                <h1 class="page_title ">R.O.D.I. - Contribute</h1>
             </div>
             <!--<div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">-->
             <div class="col-xs-12 col-sm-4 col-md-5 col-lg-5">
@@ -834,16 +838,16 @@
                                         <td>{{mydataset.create_time | date: 'dd/MM/yyyy'}}</td>
                                         <td>
                                             <div class="flex-container dataset_value">
-                                                <i class="fa" aria-hidden="{{mydataset.is_existing}}" data-toggle="tooltip" title="{{questions[0].desc}}"><p>B1</p></i>
-                                                <i class="fa" aria-hidden="{{mydataset.is_digital_form}}" data-toggle="tooltip" title="{{questions[1].desc}}"><p>B2</p></i>
-                                                <i class="fa" aria-hidden="{{mydataset.is_avail_online}}" data-toggle="tooltip" title="{{questions[2].desc}}"><p>B3</p></i>
-                                                <i class="fa" aria-hidden="{{mydataset.is_avail_online_meta}}" data-toggle="tooltip" title="{{questions[3].desc}}"><p>B4</p></i>
-                                                <i class="fa" aria-hidden="{{mydataset.is_bulk_avail}}" data-toggle="tooltip" title="{{questions[4].desc}}"><p>B5</p></i>
-                                                <i class="fa" aria-hidden="{{mydataset.is_machine_read}}" data-toggle="tooltip" title="{{questions[5].desc}}"><p>B6</p></i>
-                                                <i class="fa" aria-hidden="{{mydataset.is_pub_available}}" data-toggle="tooltip" title="{{questions[6].desc}}"><p>B7</p></i>
-                                                <i class="fa" aria-hidden="{{mydataset.is_avail_for_free}}" data-toggle="tooltip" title="{{questions[7].desc}}"><p>B8</p></i>
-                                                <i class="fa" aria-hidden="{{mydataset.is_open_licence}}" data-toggle="tooltip" title="{{questions[8].desc}}"><p>B9</p></i>
-                                                <i class="fa" aria-hidden="{{mydataset.is_prov_timely}}" data-toggle="tooltip" title="{{questions[9].desc}}"><p>B10</p></i>
+                                                <i class="fa fa-check-circle-o" aria-hidden="{{mydataset.is_existing}}" data-toggle="tooltip" title="{{questions[0].desc}}"></i>
+                                                <i class="fa fa-desktop" aria-hidden="{{mydataset.is_digital_form}}" data-toggle="tooltip" title="{{questions[1].desc}}"></i>
+                                                <i class="fa fa-cloud" aria-hidden="{{mydataset.is_avail_online}}" data-toggle="tooltip" title="{{questions[2].desc}}"></i>
+                                                <i class="fa fa-tag" aria-hidden="{{mydataset.is_avail_online_meta}}" data-toggle="tooltip" title="{{questions[3].desc}}"></i>
+                                                <i class="fa fa-copy" aria-hidden="{{mydataset.is_bulk_avail}}" data-toggle="tooltip" title="{{questions[4].desc}}"></i>
+                                                <i class="fa fa-keyboard-o" aria-hidden="{{mydataset.is_machine_read}}" data-toggle="tooltip" title="{{questions[5].desc}}"></i>
+                                                <i class="fa fa-eye" aria-hidden="{{mydataset.is_pub_available}}" data-toggle="tooltip" title="{{questions[6].desc}}"></i>
+                                                <i class="fa fa-dollar" aria-hidden="{{mydataset.is_avail_for_free}}" data-toggle="tooltip" title="{{questions[7].desc}}"></i>
+                                                <i class="fa fa-unlock-alt" aria-hidden="{{mydataset.is_open_licence}}" data-toggle="tooltip" title="{{questions[8].desc}}"></i>
+                                                <i class="fa fa-clock-o" aria-hidden="{{mydataset.is_prov_timely}}" data-toggle="tooltip" title="{{questions[9].desc}}"></i>
                                             </div>
 
                                         </td>
@@ -900,16 +904,16 @@
                                         <td>{{dsToReview.create_time | date: 'dd/MM/yyyy'}}</td>
                                         <td>
                                             <div class="flex-container dataset_value">
-                                                <i class="fa" aria-hidden="{{dsToReview.is_existing}}" data-toggle="tooltip" title="{{questions[0].desc}}"><p>1</p></i>
-                                                <i class="fa" aria-hidden="{{dsToReview.is_digital_form}}" data-toggle="tooltip" title="{{questions[1].desc}}"><p>2</p></i>
-                                                <i class="fa" aria-hidden="{{dsToReview.is_avail_online}}" data-toggle="tooltip" title="{{questions[2].desc}}"><p>3</p></i>
-                                                <i class="fa" aria-hidden="{{dsToReview.is_avail_online_meta}}" data-toggle="tooltip" title="{{questions[3].desc}}"><p>4</p></i>
-                                                <i class="fa" aria-hidden="{{dsToReview.is_bulk_avail}}" data-toggle="tooltip" title="{{questions[4].desc}}"><p>5</p></i>
-                                                <i class="fa" aria-hidden="{{dsToReview.is_machine_read}}" data-toggle="tooltip" title="{{questions[5].desc}}"><p>6</p></i>
-                                                <i class="fa" aria-hidden="{{dsToReview.is_pub_available}}" data-toggle="tooltip" title="{{questions[6].desc}}"><p>7</p></i>
-                                                <i class="fa" aria-hidden="{{dsToReview.is_avail_for_free}}" data-toggle="tooltip" title="{{questions[7].desc}}"><p>8</p></i>
-                                                <i class="fa" aria-hidden="{{dsToReview.is_open_licence}}" data-toggle="tooltip" title="{{questions[8].desc}}"><p>9</p></i>
-                                                <i class="fa" aria-hidden="{{dsToReview.is_prov_timely}}" data-toggle="tooltip" title="{{questions[9].desc}}"><p>10</p></i>
+                                                <i class="fa fa-check-circle-o" aria-hidden="{{dsToReview.is_existing}}" data-toggle="tooltip" title="{{questions[0].desc}}"></i>
+                                                <i class="fa fa-desktop" aria-hidden="{{dsToReview.is_digital_form}}" data-toggle="tooltip" title="{{questions[1].desc}}"></i>
+                                                <i class="fa fa-cloud" aria-hidden="{{dsToReview.is_avail_online}}" data-toggle="tooltip" title="{{questions[2].desc}}"></i>
+                                                <i class="fa fa-tag" aria-hidden="{{dsToReview.is_avail_online_meta}}" data-toggle="tooltip" title="{{questions[3].desc}}"></i>
+                                                <i class="fa fa-copy" aria-hidden="{{dsToReview.is_bulk_avail}}" data-toggle="tooltip" title="{{questions[4].desc}}"></i>
+                                                <i class="fa fa-keyboard-o" aria-hidden="{{dsToReview.is_machine_read}}" data-toggle="tooltip" title="{{questions[5].desc}}"></i>
+                                                <i class="fa fa-eye" aria-hidden="{{dsToReview.is_pub_available}}" data-toggle="tooltip" title="{{questions[6].desc}}"></i>
+                                                <i class="fa fa-dollar" aria-hidden="{{dsToReview.is_avail_for_free}}" data-toggle="tooltip" title="{{questions[7].desc}}"></i>
+                                                <i class="fa fa-unlock-alt" aria-hidden="{{dsToReview.is_open_licence}}" data-toggle="tooltip" title="{{questions[8].desc}}"></i>
+                                                <i class="fa fa-clock-o" aria-hidden="{{dsToReview.is_prov_timely}}" data-toggle="tooltip" title="{{questions[9].desc}}"></i>
                                             </div>
 
                                         </td>

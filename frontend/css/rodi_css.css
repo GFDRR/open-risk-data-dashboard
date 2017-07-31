@@ -488,26 +488,37 @@ Footer
 .rodi_footer
 {
     width:100%;
-    background-color: #122b40;
+    /*background-color: #122b40;*/
+    background-color: #111111;
     margin-top: 30px;
     padding-top: 30px;
     padding-bottom:30px;
+    min-height: 270px;
 }
+/*
+.rodi_footer {
+    position: absolute;
+    bottom: 0;
+    margin-left: -15px;
+}
+*/
+
 
 .footer_separator
 {
-    width:40%;
-    margin:auto;
-    margin-top:10px;
-    height:15px;
-    border-top:solid 1px #f0f0f0;
+    width:120%;
+    margin-left:-15px;
+    padding: 0;
+    /*margin-top:10px;*/
+    /*height:1px;*/
+    border-top:solid 1px #555555;
 }
 
 .footer_link
 {
-    color:#ffffff;
-    font-size: 18px;
-    margin-right:15px;
+    /*color:#ffffff;*/
+    /*font-size: 18px;*/
+    /*margin-right:15px;*/
 }
 
 .footer_link:hover
@@ -515,7 +526,7 @@ Footer
     text-decoration: none;
     color:red;
 }
-
+/*.footer_down {position: absolute;bottom:0;}*/
 
 .space {
     height: 50vh;
@@ -527,6 +538,12 @@ Footer
     padding-bottom: 0;
 }
 
+
+.form-inline {
+    border:1px solid #555;
+    padding:0.5em;
+    margin:2em;
+}
 /*
 ==============================================================================
 
@@ -645,13 +662,17 @@ Footer
 
 .navbar-nav li.active
 {
-    background-color: rgba(238,48,54,1);
+    /*background-color: rgba(238,48,54,1);*/
+    color: #007899;
     z-index: 100;
 }
 
+#menu-hazard .nav li.active {transform: scale(1.2);}
+#menu-hazard .nav li.active  a i {border-color:#007899;}
+
 .navbar-nav li.active span, .navbar-nav li.active i
 {
-    color:#ffffff;
+    color:#ee3036;
 }
 
 [class^="icon-"], [class*=" icon-"],
@@ -671,9 +692,21 @@ Footer
 .nav li a i {
     z-index: -1;
     overflow: hidden;
+
+
+}
+#menu-hazard .nav li a i {
     border-radius:50%;
     border: 2px solid #EE3036;
     font-size: 3em;
+}
+.nav>li>a.active:hover i,
+.nav>li>a.active:focus i,
+.nav>li>a.active:hover,
+.nav>li>a.active:focus,
+.nav>li>a.active:hover span,
+.nav>li>a.active:focus span {
+    opacity:0.75;
 }
 
 .nav>li>a:hover i, .nav>li>a:focus i,
@@ -819,7 +852,10 @@ fieldset[disabled] .btn-custom.active {
     animation: all 0.3s ease;
 }
 
-
+#header .img-responsive {
+    max-height: 120px;
+    padding: 1em;
+}
 
 
 /*
@@ -862,6 +898,11 @@ hr {
     align-items: center;
 }
 
+.flex-row {flex-direction: row; align-items: center;}
+.flex-col{flex-direction: column;}
+
+.flex-row .flex-item {padding:2px 5px;}
+.footer_down .flex-row .flex-item {font-size:1.3em;}
 /*
 ==============================================================================
 
