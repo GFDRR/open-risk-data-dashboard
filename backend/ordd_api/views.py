@@ -618,7 +618,7 @@ class DatasetListView(generics.ListAPIView):
 
 class Score(object):
     @classmethod
-    def dataset_old(cls, request, dataset):
+    def dataset(cls, request, dataset):
         sum = 0.0
 
         if dataset.is_existing:
@@ -660,8 +660,7 @@ class Score(object):
             queryset = queryset.filter(q)
 
         for dataset in queryset:
-            score = cls.dataset_old(request, dataset)
-            print(score)
+            score = cls.dataset(request, dataset)
             if score_max < score:
                 score_max = score
 
@@ -705,7 +704,6 @@ class Score(object):
 
     @classmethod
     def all_countries_old(cls, request):
-        print("BEGIN: %s" % datetime.now())
         ret = []
         for country in Country.objects.all():
             score = cls.country_old(request, country)
@@ -713,35 +711,7 @@ class Score(object):
                 continue
             ret.append({"iso2": country.iso2, "name": country.name,
                         "score": score})
-        print("END: %s" % datetime.now())
         return ret
-
-    @classmethod
-    def dataset(cls, dataset):
-        sum = 0.0
-
-        if dataset.is_existing:
-            sum += 5.0
-        if dataset.is_digital_form:
-            sum += 5.0
-        if dataset.is_avail_online:
-            sum += 5.0
-        if dataset.is_avail_online_meta:
-            sum += 5.0
-        if dataset.is_bulk_avail:
-            sum += 10.0
-        if dataset.is_machine_read:
-            sum += 15.0
-        if dataset.is_pub_available:
-            sum += 5.0
-        if dataset.is_avail_for_free:
-            sum += 15.0
-        if dataset.is_open_licence:
-            sum += 30.0
-        if dataset.is_prov_timely:
-            sum += 5.0
-
-        return sum / 100.0
 
     @classmethod
     def country(cls, country_score_tree, country):
@@ -786,7 +756,6 @@ class Score(object):
 
     @classmethod
     def all_countries(cls, request):
-        print("BEGIN: %s" % datetime.now())
         queryset = Dataset.objects.all()
         applicability = request.query_params.getlist('applicability')
         if applicability:
@@ -794,12 +763,12 @@ class Score(object):
             for v in applicability:
                 # FIXME currently in tag we may have extra applicabilities
                 # when category (tag group) is 'hazard'
-                print("filter")
                 q = q | (Q(keydataset__applicability__name__iexact=v) |
                          Q(tag__name__iexact=v))
             queryset = queryset.filter(q).distinct()
 
-        print("Number of item: %d" % queryset.count())
+        # check-point to investigate correctness of query filtering
+        # print("Number of item: %d" % queryset.count())
 
         # preloaded tree with data from datasets to avoid bad performances
         world_score = {}
@@ -816,23 +785,23 @@ class Score(object):
             if keydataset_id not in category_score:
                 category_score[keydataset_id] = {'value': 0}
             keydataset_score = category_score[keydataset_id]
-            score = cls.dataset(dataset)
+            score = cls.dataset(request, dataset)
             if score > keydataset_score['value']:
                 keydataset_score['value'] = score
 
         ret = []
 
         for country in Country.objects.all():
-            # print("COUNTRY: %s" % country.name)
             if country.iso2 not in world_score:
-                score = 0
+                continue
             else:
                 score = cls.country(world_score[country.iso2], country)
-            if score == 0:
-                continue
-            ret.append({"iso2": country.iso2, "name": country.name,
-                        "score": score})
-        print("END: %s" % datetime.now())
+            # we could think to hide country with score == 0 (usefull
+            # in development phase, at least)
+            # if score == 0:
+            #     continue
+            ret.append({"country": country.iso2,
+                        "score": "%.1f" % (score * 100.0)})
 
         return ret
 
