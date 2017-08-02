@@ -15,15 +15,6 @@ from .keydatasets_serializers import (
     )
 from .models import KeyDataset, KeyTagGroup
 
-# import django_filters
-# class KeyDatasetFilter(django_filters.FilterSet):
-#     category = django_filters.CharFilter(name='category__name',
-#                                          distinct=True)
-#
-#     class Meta:
-#         model = KeyDataset
-#         fields = ['category__name']
-
 
 class KeyDataset0on4ListView(generics.ListAPIView):
     """This class handles the GET and POSt requests of our rest api."""

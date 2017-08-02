@@ -1,0 +1,29 @@
+{% extends "ordd_api/mail_templates/base.html" %}
+{% block content %}
+{% block cont_header %}
+<p>User &quot;{{ changed_by }}&quot; reviewed your dataset.</p>
+
+{% if is_reviewed == True %}
+<p>It passed the review phase.</p>
+{% else %}
+<p>It is still in review phase.</p>
+{% endif %}
+{% endblock %}
+<h2>Dataset with changes</h2>
+<table class="table"><tr><th>Field Name</th><th>Value</th></tr>
+  {% for r in rows %}
+  {% if r.is_list is True %}
+  <tr><td>{{r.name}}</td><td>
+      <table class="table">
+      {% for sub_post in r.post %}
+        <tr><td>{{ sub_post }}</td></tr>
+        {% endfor %}
+      </table>
+    </td>
+  </tr>
+  {% else %}
+  <tr><td>{{ r.name }}</td><td>{{ r.post }}</td></tr>
+  {% endif %}
+  {% endfor %}
+</table>
+{% endblock content %}

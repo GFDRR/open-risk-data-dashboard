@@ -64,7 +64,9 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
                     <!-- Left Banner / logo -->
-                    <a href="index.html"><img src="img/template/rodi_logo.png" alt="Risk OpenData Index" class="img-responsive" /></a>
+                    <a ng-if="bHome" href="" ng-click="changeview('index.html', '0')" data-toggle="tooltip" title="Home">
+                        <img src="img/template/rodi_logo.png" alt="Risk OpenData Index" class="img-responsive" />
+                    </a>
 
                 </div>
             </div>
@@ -79,7 +81,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-2 col-md-3 col-lg-3">
                     <!--<h1 class="page_title pull-right">DATASET LIST</h1>-->
-                    <h1 class="page_title pull-right">{{objCountry[0].name}} - {{DataCategory[0].category.name}}</h1>
+                    <h1 class="page_title ">{{objCountry[0].name}} - {{DataCategory[0].category.name}}</h1>
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-3 col-lg-3">
                     <mainmenu></mainmenu>
@@ -88,12 +90,12 @@
             </div>
         </section>
         <!-- Section MENU - FINE -->
-        <div class="head_sep blu vert"></div>
+        <!--<div class="head_sep blu vert"></div>-->
         <hr />
 
         <!-- Country Matrix -->
         <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <br />
                 <div class="pull-left"><a href="javascript:history.back()"><span class="btn btn-sm btn-info"><i class="fa fa-caret-left" aria-hidden="true"></i> Back</span></a><br /><br /></div>
                 <!--<h2>{{objCountry[0].name}} - {{HazardCategory[0].category.name}}</h2>-->
@@ -116,16 +118,16 @@
                         <td>{{ds.create_time | date: 'dd/MM/yyyy'}}</td>
                         <td>
                             <div class="flex-container dataset_value">
-                                <i class="fa" aria-hidden="{{ds.is_existing}}" data-toggle="tooltip" title="{{questions[0].desc}}"><p>B1</p></i>
-                                <i class="fa" aria-hidden="{{ds.is_digital_form}}" data-toggle="tooltip" title="{{questions[1].desc}}"><p>B2</p></i>
-                                <i class="fa" aria-hidden="{{ds.is_avail_online}}" data-toggle="tooltip" title="{{questions[2].desc}}"><p>B3</p></i>
-                                <i class="fa" aria-hidden="{{ds.is_avail_online_meta}}" data-toggle="tooltip" title="{{questions[3].desc}}"><p>B4</p></i>
-                                <i class="fa" aria-hidden="{{ds.is_bulk_avail}}" data-toggle="tooltip" title="{{questions[4].desc}}"><p>B5</p></i>
-                                <i class="fa" aria-hidden="{{ds.is_machine_read}}" data-toggle="tooltip" title="{{questions[5].desc}}"><p>B6</p></i>
-                                <i class="fa" aria-hidden="{{ds.is_pub_available}}" data-toggle="tooltip" title="{{questions[6].desc}}"><p>B7</p></i>
-                                <i class="fa" aria-hidden="{{ds.is_avail_for_free}}" data-toggle="tooltip" title="{{questions[7].desc}}"><p>B8</p></i>
-                                <i class="fa" aria-hidden="{{ds.is_open_licence}}" data-toggle="tooltip" title="{{questions[8].desc}}"><p>B9</p></i>
-                                <i class="fa" aria-hidden="{{ds.is_prov_timely}}" data-toggle="tooltip" title="{{questions[9].desc}}"><p>B10</p></i>
+                                <i class="fa fa-check-circle-o" aria-hidden="{{ds.is_existing}}" data-toggle="tooltip" title="{{questions[0].desc}}"></i>
+                                <i class="fa fa-desktop" aria-hidden="{{ds.is_digital_form}}" data-toggle="tooltip" title="{{questions[1].desc}}"></i>
+                                <i class="fa fa-cloud" aria-hidden="{{ds.is_avail_online}}" data-toggle="tooltip" title="{{questions[2].desc}}"></i>
+                                <i class="fa fa-tag" aria-hidden="{{ds.is_avail_online_meta}}" data-toggle="tooltip" title="{{questions[3].desc}}"></i>
+                                <i class="fa fa-copy" aria-hidden="{{ds.is_bulk_avail}}" data-toggle="tooltip" title="{{questions[4].desc}}"></i>
+                                <i class="fa fa-keyboard-o" aria-hidden="{{ds.is_machine_read}}" data-toggle="tooltip" title="{{questions[5].desc}}"></i>
+                                <i class="fa fa-eye" aria-hidden="{{ds.is_pub_available}}" data-toggle="tooltip" title="{{questions[6].desc}}"></i>
+                                <i class="fa fa-dollar" aria-hidden="{{ds.is_avail_for_free}}" data-toggle="tooltip" title="{{questions[7].desc}}"></i>
+                                <i class="fa fa-unlock-alt" aria-hidden="{{ds.is_open_licence}}" data-toggle="tooltip" title="{{questions[8].desc}}"></i>
+                                <i class="fa fa-clock-o" aria-hidden="{{ds.is_prov_timely}}" data-toggle="tooltip" title="{{questions[9].desc}}"></i>
                             </div>
                         </td>
                         <td class="text-center">{{ds.create_time | date: 'yyyy'}}</td>

@@ -58,16 +58,13 @@
 
         <div class="container-fluid">
 
-            <helpfeedbackbox></helpfeedbackbox>
+            <section id="header">
 
-            <section id="rodi_header">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
-                        <!-- Left Banner / logo -->
-                        <a href="index.html"><img src="img/template/rodi_logo.png" alt="Risk OpenData Index" class="img-responsive" /></a>
+                <helpfeedbackbox></helpfeedbackbox>
+                <a ng-if="bHome" href="" ng-click="changeview('index.html', '0')" data-toggle="tooltip" title="Home">
+                    <img src="img/template/rodi_logo.png" alt="Risk OpenData Index" class="img-responsive" />
+                </a>
 
-                    </div>
-                </div>
             </section>
 
             <!-- Section MENU - INIZIO -->
@@ -80,7 +77,7 @@
                         <!--</div>-->
                         <div class="col-xs-12 col-sm-2 col-md-7 col-lg-7">
                             <!--<h1 class="page_title pull-right">DATASET Details</h1>-->
-                            <h1 class="page_title pull-right">
+                            <h1 class="page_title ">
                                 <span class="text-uppercase">dataset details</span>
                             </h1>
 
@@ -93,7 +90,7 @@
                 </div>
             </section>
             <!-- Section MENU - FINE -->
-            <div class="head_sep blu vert"></div>
+            <!--<div class="head_sep blu vert"></div>-->
             <hr />
 
             <!-- Content page -->
@@ -727,7 +724,7 @@
                 </div>
 
                 <!-- Error section: dataset key not set -->
-                <div class="col-xs-12 col-sm-10 col-sm-offset-2 col-md-10 col-md-offset-2 col-lg-10 col-lg-offset-2 text-justify" ng-if="!biddataset">
+                <div class="col-xs-12 col-sm-10 col-sm-offset-2 col-md-12 col-lg-12text-justify" ng-if="!biddataset">
 
                 </div>
             </div>

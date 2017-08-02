@@ -31,7 +31,7 @@ if [ "$underscore" != "$0" ]; then
         source $HOME/$ORDD_VENV/bin/activate
     fi
     cd "$BASE_DIR"
-    python3 ./manage.py runserver 0.0.0.0:${ORDD_SERVER_PORT} &
+    python3 ./manage.py runserver --nothreading 0.0.0.0:${ORDD_SERVER_PORT} &
     echo "ssh -L 127.0.1.1:8000:127.0.1.1:${ORDD_SERVER_PORT} <your-django-machine>"
     echo "and then connect your browser to localhost.localdomain:8000"
     cd -

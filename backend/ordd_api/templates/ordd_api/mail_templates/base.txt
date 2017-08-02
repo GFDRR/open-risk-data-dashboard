@@ -1,4 +1,4 @@
-{% extends "ordd_api/mail_templates/base.html" %}
+=== {{ title }} ===
 {% block content %}
 {{ content|safe }}
 {% endblock content %}
