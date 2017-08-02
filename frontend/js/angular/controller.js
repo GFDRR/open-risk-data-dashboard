@@ -820,7 +820,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
                 // (item.keydataset.applicability.indexOf())
 
-                if((hasCategory && bApplicability) && isCountrySelected){
+                if((hasCategory || bApplicability) && isCountrySelected){
                     $scope.newSetOfData.push(item);
                 }
             });
