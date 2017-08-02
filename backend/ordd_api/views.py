@@ -613,7 +613,7 @@ class DatasetListView(generics.ListAPIView):
             q = q | Q(tag__name__iexact=v)
         queryset = queryset.filter(q)
 
-        return queryset
+        return queryset.distinct()
 
 
 class Score(object):
@@ -797,7 +797,7 @@ class Score(object):
                 print("filter")
                 q = q | (Q(keydataset__applicability__name__iexact=v) |
                          Q(tag__name__iexact=v))
-            queryset = queryset.filter(q)
+            queryset = queryset.filter(q).distinct()
 
         print("Number of item: %d" % queryset.count())
 
