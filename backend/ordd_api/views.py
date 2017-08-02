@@ -618,7 +618,106 @@ class DatasetListView(generics.ListAPIView):
 
 class Score(object):
     @classmethod
-    def dataset(cls, request, dataset):
+    def dataset_old(cls, request, dataset):
+        sum = 0.0
+
+        if dataset.is_existing:
+            sum += 5.0
+        if dataset.is_digital_form:
+            sum += 5.0
+        if dataset.is_avail_online:
+            sum += 5.0
+        if dataset.is_avail_online_meta:
+            sum += 5.0
+        if dataset.is_bulk_avail:
+            sum += 10.0
+        if dataset.is_machine_read:
+            sum += 15.0
+        if dataset.is_pub_available:
+            sum += 5.0
+        if dataset.is_avail_for_free:
+            sum += 15.0
+        if dataset.is_open_licence:
+            sum += 30.0
+        if dataset.is_prov_timely:
+            sum += 5.0
+        return sum / 100.0
+
+    @classmethod
+    def keydataset_old(cls, queryset, request, country, category, keydataset):
+        score_max = 0
+
+        queryset = queryset.filter(country=country, keydataset=keydataset)
+
+        applicability = request.query_params.getlist('applicability')
+        if applicability:
+            q = Q()
+            for v in applicability:
+                # FIXME currently in tag we may have extra applicabilities
+                # when category (tag group) is 'hazard'
+                q = q | (Q(keydataset__applicability__name__iexact=v) |
+                         Q(tag__name__iexact=v))
+            queryset = queryset.filter(q)
+
+        for dataset in queryset:
+            score = cls.dataset_old(request, dataset)
+            print(score)
+            if score_max < score:
+                score_max = score
+
+        return score_max
+
+    @classmethod
+    def country_old(cls, request, country):
+
+        queryset = Dataset.objects.filter(country=country)
+
+        category_weights_sum = KeyCategory.objects.aggregate(
+            Sum('weight'))
+        category_weights_sum = float(category_weights_sum['weight__sum'])
+
+        keydataset_weights_sum = KeyDataset.objects.aggregate(
+            Sum('weight'))
+        keydataset_weights_sum = float(keydataset_weights_sum['weight__sum'])
+
+        applicability_n = KeyPeril.objects.count()
+        country_score = 0
+        for category in KeyCategory.objects.all():
+            category_score = 0
+            for keydataset in KeyDataset.objects.filter(category=category):
+                keydataset_score = cls.keydataset_old(
+                    queryset, request, country, category, keydataset)
+
+                # score must be multiplied by
+                #  len(keydataset.applicabilty ⋂ Nation.applicability)
+                #      / len(Nation.applicability)
+                # Currently we are fallback to this more simple approach
+                keydataset_score *= (float(keydataset.applicability.count()) /
+                                     float(applicability_n))
+                category_score += float(keydataset_score * keydataset.weight)
+
+            category_score /= keydataset_weights_sum
+            country_score += float(category_score * category.weight)
+
+        country_score /= category_weights_sum
+
+        return country_score
+
+    @classmethod
+    def all_countries_old(cls, request):
+        print("BEGIN: %s" % datetime.now())
+        ret = []
+        for country in Country.objects.all():
+            score = cls.country_old(request, country)
+            if score == 0:
+                continue
+            ret.append({"iso2": country.iso2, "name": country.name,
+                        "score": score})
+        print("END: %s" % datetime.now())
+        return ret
+
+    @classmethod
+    def dataset(cls, dataset):
         sum = 0.0
 
         if dataset.is_existing:
@@ -645,38 +744,7 @@ class Score(object):
         return sum / 100.0
 
     @classmethod
-    def keydataset(cls, queryset, request, country, category, keydataset):
-        score_max = 0
-
-        q = Q(country__iso2=country)
-        queryset = queryset.filter(q)
-
-        q = Q(keydataset=keydataset)
-        queryset = queryset.filter(q)
-
-        applicability = request.query_params.getlist('applicability')
-        if applicability:
-            q = Q()
-            for v in applicability:
-                # FIXME currently in tag we may have extra applicabilities
-                # when category (tag group) is 'hazard'
-                q = q | (Q(keydataset__applicability__name__iexact=v) |
-                         Q(tag__name__iexact=v))
-            queryset = queryset.filter(q)
-
-        for dataset in queryset:
-            score = cls.dataset(request, dataset)
-            print(score)
-            if score_max < score:
-                score_max = score
-
-        return score_max
-
-    @classmethod
-    def country(cls, request, country):
-
-        queryset = Dataset.objects.filter(country=country)
-
+    def country(cls, country_score_tree, country):
         category_weights_sum = KeyCategory.objects.aggregate(
             Sum('weight'))
         category_weights_sum = float(category_weights_sum['weight__sum'])
@@ -688,15 +756,23 @@ class Score(object):
         applicability_n = KeyPeril.objects.count()
         country_score = 0
         for category in KeyCategory.objects.all():
+            if category.code not in country_score_tree:
+                continue
+            category_score_tree = country_score_tree[category.code]
+
             category_score = 0
             for keydataset in KeyDataset.objects.filter(category=category):
-                keydataset_score = cls.keydataset(
-                    queryset, request, country, category, keydataset)
+                if keydataset.code not in category_score_tree:
+                    continue
+                keydataset_score = category_score_tree[keydataset.code][
+                    'value']
 
                 # score must be multiplied by
                 #  len(keydataset.applicabilty ⋂ Nation.applicability)
                 #      / len(Nation.applicability)
                 # Currently we are fallback to this more simple approach
+                # import pdb ; pdb.set_trace()
+
                 keydataset_score *= (float(keydataset.applicability.count()) /
                                      float(applicability_n))
                 category_score += float(keydataset_score * keydataset.weight)
@@ -710,12 +786,54 @@ class Score(object):
 
     @classmethod
     def all_countries(cls, request):
-        print("BEGIN")
+        print("BEGIN: %s" % datetime.now())
+        queryset = Dataset.objects.all()
+        applicability = request.query_params.getlist('applicability')
+        if applicability:
+            q = Q()
+            for v in applicability:
+                # FIXME currently in tag we may have extra applicabilities
+                # when category (tag group) is 'hazard'
+                print("filter")
+                q = q | (Q(keydataset__applicability__name__iexact=v) |
+                         Q(tag__name__iexact=v))
+            queryset = queryset.filter(q)
+
+        print("Number of item: %d" % queryset.count())
+
+        # preloaded tree with data from datasets to avoid bad performances
+        world_score = {}
+        for dataset in queryset:
+            country_id = dataset.country.iso2
+            category_id = dataset.keydataset.category.code
+            keydataset_id = dataset.keydataset.code
+            if country_id not in world_score:
+                world_score[country_id] = {}
+            country_score = world_score[country_id]
+            if (category_id not in country_score):
+                country_score[category_id] = {}
+            category_score = country_score[category_id]
+            if keydataset_id not in category_score:
+                category_score[keydataset_id] = {'value': 0}
+            keydataset_score = category_score[keydataset_id]
+            score = cls.dataset(dataset)
+            if score > keydataset_score['value']:
+                keydataset_score['value'] = score
+
         ret = []
+
         for country in Country.objects.all():
-            print("COUNTRY: %s" % country.name)
+            # print("COUNTRY: %s" % country.name)
+            if country.iso2 not in world_score:
+                score = 0
+            else:
+                score = cls.country(world_score[country.iso2], country)
+            if score == 0:
+                continue
             ret.append({"iso2": country.iso2, "name": country.name,
-                        "score": cls.country(request, country)})
+                        "score": score})
+        print("END: %s" % datetime.now())
+
         return ret
 
 
