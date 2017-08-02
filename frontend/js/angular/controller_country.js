@@ -25,6 +25,9 @@ RodiApp.controller('RodiCtrlCountry', function ($scope, RodiSrv, $location, $fil
     }
 
     $scope.countriesData = RodiSrv.getCountryDetails();
+
+
+
     $scope.countryData = $filter('filter')($scope.countriesData, {code: $scope.idCountry}, true);
 
     $scope.countryMatrix = $scope.countryData[0].matrixData;
