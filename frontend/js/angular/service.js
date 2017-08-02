@@ -143,6 +143,17 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         return objNews;
     };
 
+    this.getKeyDatasetTag = function (onSuccess, onError) {
+        $http({
+            method: 'GET',
+            url: baseAPIurl + 'keydataset/tag/'
+        }).then(function (data) {
+            if(onSuccess) onSuccess(data.data)
+        },function(data){
+            if(onError)onError(data)
+        });
+    }
+
     this.getCountryList = function(onSuccess, onError)
     // Return the list of country Available
     {
@@ -395,14 +406,14 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         // Return country list
 
         var objHazard = [
-            {code:"RF", desc:"River Flood"},
-            {code:"EQ", desc:"Earthquake"},
-            {code:"VO", desc:"Volcano"},
-            {code:"CY", desc:"Cyclone"},
-            {code:"CF", desc:"Coastal Flood"},
-            {code:"WS", desc:"Water Scarsity"},
-            {code:"LS", desc:"Landslide"},
-            {code:"TS", desc:"Tsunami"}
+            {code:"RF", desc:"River flooding",icon:"icon-river_flood"},
+            {code:"EQ", desc:"Earthquake",icon:"icon-earthquake"},
+            {code:"VO", desc:"Vulcano",icon:"icon-volcano"},
+            {code:"CY", desc:"Cyclone",icon:"icon-cyclone"},
+            {code:"CF", desc:"Coastal flooding",icon:"icon-coastal_flood"},
+            {code:"WS", desc:"Water scarcity",icon:"icon-water_scarcity"},
+            {code:"LS", desc:"Landslide",icon:"icon-landslide"},
+            {code:"TS", desc:"Tsunami",icon:"icon-tsunami"}
             ];
         return objHazard;
     };

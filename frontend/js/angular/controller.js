@@ -2,7 +2,7 @@
  * Created by Manuel on 15/05/2017.
  */
 
-RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$cookieStore', '$location', function ($scope, RodiSrv, $window, $filter, $cookieStore, $location) {
+RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$cookieStore', '$location','NgTableParams','$timeout', function ($scope, RodiSrv, $window, $filter, $cookieStore, $location,NgTableParams,$timeout) {
 
     // ************************************** //
     // *************** INIT ***************** //
@@ -742,6 +742,95 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
         $scope.bLoading = true;
         $scope.bNoDataset = false;
         $scope.questions = RodiSrv.getQuestions();
+        $scope.HazardCategory = RodiSrv.getDataCategoryIcon();
+
+        $scope.getHCIcon = function(index)
+        {
+            return RodiSrv.getHCIcon(index - 1);
+        };
+
+        $scope.datasetList = [];
+
+        RodiSrv.getDatasetlist(function (data) {
+            $scope.datasetList = data;
+        });
+
+        $scope.arrayHazardList=RodiSrv.getHazardList();
+
+
+
+
+        $scope.filterArray = [];
+
+        $scope.setFilterDatasetList = function (filter) {
+
+            var index =$scope.filterArray.indexOf(filter);
+            if (index >-1){
+                $scope.filterArray.splice(index,1);
+                $scope.buildFilterdObject();
+            }else {
+                $scope.filterArray.push(filter);
+                $scope.buildFilterdObject();
+            }
+        };
+        // http://localhost:63342/RODIGitHub/frontend/%7B%7B$LocationProvider.$get%7D%7D
+
+        $scope.filterCssClass = function (filter) {
+            var index =$scope.filterArray.indexOf(filter);
+            if (index >-1){
+                return "active";
+            }else return "";
+        };
+
+        $scope.filterCssStyle = function (filter) {
+            var index =$scope.filterArray.indexOf(filter);
+            if (index >-1){
+                return {"background-color" : '#2EA620' } ;
+            }else return "";
+        };
+
+        $scope.buildFilterdObject = function () {
+
+            $scope.newSetOfData = [];
+            console.log($scope.filterArray);
+
+            $scope.DatasetList.forEach(function (item) {
+                // applicability check
+
+                var bApplicability =  false;
+
+                if(item.keydataset.applicability && item.keydataset.applicability.length == 0){
+                    bApplicability = true;
+
+                } else{
+                    for(var filter in $scope.filterArray){
+                        if ( item.tag.indexOf($scope.filterArray[filter])>-1){
+                            bApplicability = true;
+                        }
+                    }
+                }
+
+                var hasCategory =($scope.filterArray.indexOf(item.keydataset.category)>-1);
+
+                // se non c sono selezionate categorie le prendo tutte
+                if ($scope.filterArray.length == 0) hasCategory = true;
+
+                //selectdCountry
+                var isCountrySelected = item.country==$scope.idCountry
+
+                // (item.keydataset.applicability.indexOf())
+
+                if((hasCategory && bApplicability) && isCountrySelected){
+                    $scope.newSetOfData.push(item);
+                }
+            });
+            $scope.tableParams = new NgTableParams({}, { dataset: $scope.newSetOfData});
+            //console.log($scope.DatasetList_Country_DataCat);
+
+        }
+
+        
+
 
         RodiSrv.getCountryList(
             function(data){
@@ -761,12 +850,15 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                             }
                         );
 
+
                         // Get & filter dataset list
                         RodiSrv.getDatasetlist(
                             function(data)
                             {
                                 // Success
-                                console.log(data);
+                                //console.log(data);
+
+                                $scope.DatasetList = data;
 
                                 $scope.DatasetList_Country_DataCat = $filter('filter')(data,
                                     function(e)
@@ -774,6 +866,23 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                                         return e.country == $scope.idCountry && e.keydataset.category == $scope.DataCategory[0].category.name;
                                     }
                                 );
+
+                                $scope.tableParams = new NgTableParams({}, { dataset: $scope.DatasetList_Country_DataCat});
+
+                                //preset Filter
+                                if($scope.filterArray.indexOf($scope.DataCategory[0].category.name)==-1) $scope.filterArray.push($scope.DataCategory[0].category.name)
+
+                                //load all applicability
+                                // $scope.arraypippo=[]
+                                // $scope.DatasetList.forEach(function (item) {
+                                //     if (item.keydataset.applicability){
+                                //         item.keydataset.applicability.forEach(function (item2) {
+                                //           if ($scope.arraypippo.indexOf(item2)== -1)$scope.arraypippo.push(item2);
+                                //         })
+                                //     }
+                                // });
+                                // console.log($scope.arraypippo);
+
 
                                 if ($scope.DatasetList_Country_DataCat.length > 0)
                                 {
@@ -809,3 +918,4 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
     }
 
 } ]);
+
