@@ -9,7 +9,7 @@ from .views import (
     ProfileDetails, ProfilePasswordUpdate,
     UserCreateView, UserDetailsView,
     RegistrationView, ProfileDatasetListCreateView, ProfileDatasetDetailsView,
-    DatasetListView, DatasetDetailsView, VersionGet)
+    DatasetListView, DatasetDetailsView, VersionGet, ScoringWorldGet)
 
 from .keydatasets_views import (
     KeyDataset0on4ListView, KeyDataset1on4ListView, KeyDataset2on4ListView,
@@ -21,6 +21,7 @@ from .keydatasets_views import (
 # app_name="ordd_api"
 
 urlpatterns = [
+    url(r'^scoring/', ScoringWorldGet.as_view(), name="scoring_world"),
     url(r'^version$', VersionGet.as_view(), name="version"),
     url(r'^profile$', ProfileDetails.as_view(), name="profile_details"),
     url(r'^profile/password$', ProfilePasswordUpdate.as_view(),
