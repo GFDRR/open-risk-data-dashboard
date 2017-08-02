@@ -779,6 +779,7 @@ class Score(object):
     def all_countries(cls, request):
         queryset = Dataset.objects.all()
         applicability = request.query_params.getlist('applicability')
+        category = request.query_params.getlist('category')
         if applicability:
             q = Q()
             for v in applicability:
@@ -786,6 +787,12 @@ class Score(object):
                 # when category (tag group) is 'hazard'
                 q = q | (Q(keydataset__applicability__name__iexact=v) |
                          Q(tag__name__iexact=v))
+            queryset = queryset.filter(q).distinct()
+
+        if category:
+            q = Q()
+            for v in category:
+                q = q | Q(keydataset__category__name__iexact=v)
             queryset = queryset.filter(q).distinct()
 
         # check-point to investigate correctness of query filtering
