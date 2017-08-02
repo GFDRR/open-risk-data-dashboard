@@ -645,7 +645,7 @@ class Score(object):
 
     @classmethod
     def keydataset_old(cls, queryset, request, country, category, keydataset):
-        score_max = 0
+        score_max = -1
 
         queryset = queryset.filter(country=country, keydataset=keydataset)
 
@@ -675,28 +675,43 @@ class Score(object):
             Sum('weight'))
         category_weights_sum = float(category_weights_sum['weight__sum'])
 
-        keydataset_weights_sum = KeyDataset.objects.aggregate(
-            Sum('weight'))
-        keydataset_weights_sum = float(keydataset_weights_sum['weight__sum'])
+        # OLD METHOD
+        #keydataset_weights_sum = KeyDataset.objects.aggregate(
+        #    Sum('weight'))
+        #keydataset_weights_sum = float(keydataset_weights_sum['weight__sum'])
 
         applicability_n = KeyPeril.objects.count()
         country_score = 0
+        category_is_valid = False
         for category in KeyCategory.objects.all():
-            category_score = 0
+            category_score = -1
             for keydataset in KeyDataset.objects.filter(category=category):
                 keydataset_score = cls.keydataset_old(
                     queryset, request, country, category, keydataset)
-
+                if keydataset_score == -1:
+                    continue
                 # score must be multiplied by
                 #  len(keydataset.applicabilty ⋂ Nation.applicability)
                 #      / len(Nation.applicability)
                 # Currently we are fallback to this more simple approach
                 keydataset_score *= (float(keydataset.applicability.count()) /
                                      float(applicability_n))
-                category_score += float(keydataset_score * keydataset.weight)
+                # OLD METHOD (with weighted average)
+                # category_score += float(keydataset_score * keydataset.weight)
 
-            category_score /= keydataset_weights_sum
+                # NEW METHOD (with max_score())
+                if category_score < keydataset_score:
+                    category_score = keydataset_score
+
+            # OLD METHOD
+            # category_score /= keydataset_weights_sum
+            if category_score == -1:
+                continue
+            category_is_valid = True
             country_score += float(category_score * category.weight)
+
+        if category_is_valid is False:
+            return -1
 
         country_score /= category_weights_sum
 
@@ -707,10 +722,10 @@ class Score(object):
         ret = []
         for country in Country.objects.all():
             score = cls.country_old(request, country)
-            if score == 0:
+            if score == -1:
                 continue
-            ret.append({"iso2": country.iso2, "name": country.name,
-                        "score": score})
+            ret.append({"country": country.iso2,
+                        "score": "%.1f" % (score * 100.0)})
         return ret
 
     @classmethod
@@ -719,9 +734,10 @@ class Score(object):
             Sum('weight'))
         category_weights_sum = float(category_weights_sum['weight__sum'])
 
-        keydataset_weights_sum = KeyDataset.objects.aggregate(
-            Sum('weight'))
-        keydataset_weights_sum = float(keydataset_weights_sum['weight__sum'])
+        # OLD METHOD
+        # keydataset_weights_sum = KeyDataset.objects.aggregate(
+        #    Sum('weight'))
+        # keydataset_weights_sum = float(keydataset_weights_sum['weight__sum'])
 
         applicability_n = KeyPeril.objects.count()
         country_score = 0
@@ -741,13 +757,18 @@ class Score(object):
                 #  len(keydataset.applicabilty ⋂ Nation.applicability)
                 #      / len(Nation.applicability)
                 # Currently we are fallback to this more simple approach
-                # import pdb ; pdb.set_trace()
 
                 keydataset_score *= (float(keydataset.applicability.count()) /
                                      float(applicability_n))
-                category_score += float(keydataset_score * keydataset.weight)
+                # OLD METHOD (with weighted average):
+                # category_score += float(keydataset_score * keydataset.weight)
+                #
+                # NEW METHOD (with max_score):
+                if category_score < keydataset_score:
+                    category_score = keydataset_score
 
-            category_score /= keydataset_weights_sum
+            # OLD METHOD
+            # category_score /= keydataset_weights_sum
             country_score += float(category_score * category.weight)
 
         country_score /= category_weights_sum
