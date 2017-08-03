@@ -833,10 +833,61 @@ class Score(object):
 
         return ret
 
+    @classmethod
+    def country_details(cls, request, country_id):
+        queryset = Dataset.objects.filter(
+            country__iso2=country_id).order_by('keydataset__pk')
+
+        country_score = []
+        for dataset in queryset:
+            score = cls.dataset(request, dataset)
+            for keydataset_score in country_score:
+                # search for list a element with the same keydataset code
+                if (keydataset_score['dataset'].keydataset.code ==
+                        dataset.keydataset.code):
+                    if keydataset_score['value'] < score:
+                        keydataset_score['value'] = score
+                        keydataset_score['dataset'] = dataset
+                    break
+            else:
+                country_score.append(
+                    {'dataset': dataset, 'value': score})
+
+        interesting_fields = [
+            'is_existing', 'is_digital_form', 'is_avail_online',
+            'is_avail_online_meta', 'is_bulk_avail', 'is_machine_read',
+            'is_pub_available', 'is_avail_for_free', 'is_open_licence',
+            'is_prov_timely']
+
+        ret = [["kd_code", "kd_description", "score"]]
+        for int_field in interesting_fields:
+            ret[0].append(Dataset._meta.get_field(int_field).verbose_name)
+
+        for keydataset_score in country_score:
+            dataset = keydataset_score['dataset']
+            value = "%.1f" % (keydataset_score['value'] * 100.0)
+            row = [dataset.keydataset.code, dataset.keydataset.description,
+                   value]
+            for int_field in interesting_fields:
+                row.append(getattr(dataset, int_field))
+
+            ret.append(row)
+        return ret
+
 
 class ScoringWorldGet(APIView):
-    """This class handles the GET requests of our rest api."""
+    """This view return the list of country with dataset instances and
+ their scores"""
 
     def get(self, request):
         ret = Score.all_countries(request)
+        return Response(ret)
+
+
+class ScoringCountryDetailsGet(APIView):
+    """This view return the list best datasets for each keydataset for a specific
+country with related scores"""
+
+    def get(self, request, country_id):
+        ret = Score.country_details(request, country_id)
         return Response(ret)

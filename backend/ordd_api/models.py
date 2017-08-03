@@ -252,18 +252,76 @@ class Dataset(models.Model):
     changed_by = models.ForeignKey('auth.User', blank=True, null=True)
     notes = models.TextField(blank=True, null=False)
     url = models.ManyToManyField(Url, blank=True)
-    is_existing = models.BooleanField()
+    is_existing = models.BooleanField(
+        "Does the data exist?",
+        help_text="Does the data exist at all? The data can be in any form "
+        "(paper or digital, offline or online etc). If it is not, then "
+        "all the other questions are not answered.")
     is_existing_txt = models.TextField(blank=True, null=False)
-    is_digital_form = models.BooleanField()
-    is_avail_online = models.BooleanField("Is available Online")
-    is_avail_online_meta = models.BooleanField()
-    is_bulk_avail = models.BooleanField()
-    is_machine_read = models.BooleanField()
+    is_digital_form = models.BooleanField(
+        "Is data in digital form?", help_text="This question addresses "
+        "whether the data is in digital form (stored on computers or "
+        "digital storage) or if it only in e.g. paper form.")
+    is_avail_online = models.BooleanField(
+        "Is available Online?", help_text="This question addresses whether "
+        "the data is available online from an official source. In the cases "
+        "that this is answered with a 'yes', then the link is put "
+        "in a URL field.")
+    is_avail_online_meta = models.BooleanField(
+        "Is the metadata available online?", help_text="This question "
+        "addresses whether the metadata is available online from an official "
+        "source. In the cases that this is answered with a 'yes', then the "
+        "link is put in a URL field.")
+    is_bulk_avail = models.BooleanField(
+        "Available in bulk?", help_text="Data is available in bulk if the "
+        "whole dataset can be downloaded or accessed easily. Conversely it "
+        "is considered non-bulk if the citizens are limited to just getting "
+        "parts of the dataset (for example, if restricted to querying a web "
+        "form and retrieving a few results at a time from a very large "
+        "database).")
+    is_machine_read = models.BooleanField(
+        "Is the data machine-readable?", help_text="Data is machine-readable "
+        "if it is in a format that can be easily structured by a computer. "
+        "Data can be digital but not machine-readable. For example, consider "
+        "a PDF document containing tables of data. These are definitely "
+        "digital but are not machine-readable because a computer would "
+        "struggle to access the tabular information (even though they are "
+        "very human-readable!). The equivalent tables in a format such as a "
+        "spreadsheet would be machine-readable. Note: The appropriate machine-"
+        "readable format may vary by type of data – so, for example, machine-"
+        "readable formats for geographic data may be different than for "
+        "tabular data. In general, HTML and PDF are not machine-readable."
+    )
     is_machine_read_txt = models.TextField(blank=True, null=False)
-    is_pub_available = models.BooleanField()
-    is_avail_for_free = models.BooleanField()
-    is_open_licence = models.BooleanField()
+    is_pub_available = models.BooleanField(
+        "Publicly available?", help_text="This question addresses whether "
+        "the data is \"public\". This does not require it to be "
+        "freely available, but does require that someone outside of "
+        "the government can access it in some form (examples include if "
+        "the data is available for purchase, if it exists as a PDF on a "
+        "website that you can access, if you can get it in paper form - "
+        "then it is public). If a freedom of information request or "
+        "similar is needed to access the data, it is not considered public.")
+    is_avail_for_free = models.BooleanField(
+        "Is the data available for free?", help_text="This question addresses "
+        "whether the data is available for free or if there is a charge. "
+        "If there is a charge, then that is stated in the comments section.")
+    is_open_licence = models.BooleanField(
+        "Openly licensed?", help_text="This question addresses whether the "
+        "dataset is open as per http://opendefinition.org. It needs to state "
+        "the terms of use or license that allow anyone to freely use, reuse "
+        "or redistribute the data (subject at most to attribution or share "
+        "alike requirements). It is vital that a licence is available (if "
+        "there is no licence, the data is not openly licensed). Open licences "
+        "which meet the requirements of the Open Definition are listed at "
+        "http://opendefinition.org/licenses/.")
     is_open_licence_txt = models.TextField(blank=True, null=False)
-    is_prov_timely = models.BooleanField()
+    is_prov_timely = models.BooleanField(
+        "Is the data provided on a timely and up to date basis?",
+        help_text="This question addresses whether the data is up to date and "
+        "timely - or long delayed. For example, for census data that it is "
+        "made available soon after the census is performed or if it is only "
+        "available many years later. Any comments around uncertainty are put "
+        "in the comments field.")
     is_prov_timely_last = models.TextField(blank=True, null=False)
     tag = models.ManyToManyField(KeyTag, blank=True)
