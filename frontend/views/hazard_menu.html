@@ -5,7 +5,7 @@
             <!-- mobile display -->
 
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle navbar-toggle-right-black collapsed" data-toggle="collapse" data-target="#menu-website" aria-expanded="false">
+               <!-- <button type="button" class="navbar-toggle navbar-toggle-right-black collapsed" data-toggle="collapse" data-target="#menu-website" aria-expanded="false">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar icon-bar-white"></span>
                     <span class="icon-bar icon-bar-white"></span>
@@ -16,7 +16,7 @@
                     <span class="icon-bar icon-bar-white"></span>
                     <span class="icon-bar icon-bar-white"></span>
                     <span class="icon-bar icon-bar-white"></span>
-                </button>
+                </button>-->
                 <!--<a class="navbar-brand" href="#">Brand</a>-->
             </div>
         </div>
@@ -39,7 +39,7 @@
         <div class="collapse navbar-collapse" id="menu-hazard">
             <ul class="nav navbar-nav text-center">
                 <li class="{{objHazardFilters.filterRiverFlood}}">
-                    <a href="" ng-click="setFilter('filterRiverFlood')" class="active">
+                    <a href="" ng-click="setFilter('filterRiverFlood')" >
                         <i class="icon-river_flood"></i>
                         <span>RIVER FLOOD</span>
                     </a>
@@ -85,6 +85,19 @@
                         <i class="icon-tsunami"></i>
                         <span>TSUNAMI</span>
                     </a>
+                </li>
+                <li class="search ">
+                    <div class=" flex-container flex-row ">
+                        <a type="submit" class="" ng-click="searchSubmit()" >
+                                <i class="fa fa-search"></i>
+                        </a>
+                        <input list="countryList" ng-model="searchValue" type="text" class="form-control" placeholder="Search" />
+                            <datalist id="countryList" style="overflow:auto;">
+                                <option ng-repeat="item in countrySuggestion | orderBy: 'name' " value="{{ item.name }}">{{ item.iso2 }}</option>
+                            </datalist>
+
+                    </div>
+                    <span>SEARCH</span>
                 </li>
 
 <!--                <li>
