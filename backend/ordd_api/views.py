@@ -111,19 +111,19 @@ class RegistrationView(generics.CreateAPIView, generics.RetrieveAPIView):
 
 class RegionListView(generics.ListAPIView):
     """This class handles the GET and POSt requests of our rest api."""
-    queryset = Region.objects.all()
+    queryset = Region.objects.all().order_by('id')
     serializer_class = RegionSerializer
 
 
 class CountryListView(generics.ListAPIView):
     """This class handles the GET and POSt requests of our rest api."""
-    queryset = Country.objects.all()
+    queryset = Country.objects.all().order_by('name')
     serializer_class = CountrySerializer
 
 
 class CountryDetailsView(generics.RetrieveAPIView):
     """This class handles the GET and POSt requests of our rest api."""
-    queryset = Country.objects.all()
+    queryset = Country.objects.all().order_by('name')
     serializer_class = CountrySerializer
 
 
@@ -166,7 +166,8 @@ class ProfileDatasetListCreateView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         return Dataset.objects.filter(
-            owner=self.request.user)
+            owner=self.request.user).order_by('country__name',
+                                              'keydataset__id')
 
     def perform_create(self, serializer):
         post_field = serializer.save(owner=self.request.user,
@@ -572,7 +573,8 @@ class DatasetListView(generics.ListAPIView):
     serializer_class = DatasetListSerializer
 
     def get_queryset(self):
-        queryset = Dataset.objects.all()
+        queryset = Dataset.objects.all().order_by('country__name',
+                                                  'keydataset__id')
         kd = self.request.query_params.getlist('kd')
         country = self.request.query_params.getlist('country')
         category = self.request.query_params.getlist('category')
@@ -669,7 +671,8 @@ class Score(object):
     @classmethod
     def country_old(cls, request, country):
 
-        queryset = Dataset.objects.filter(country=country)
+        queryset = Dataset.objects.filter(country=country).order_by(
+            'keydataset__id')
 
         category_weights_sum = KeyCategory.objects.aggregate(
             Sum('weight'))
@@ -720,7 +723,7 @@ class Score(object):
     @classmethod
     def all_countries_old(cls, request):
         ret = []
-        for country in Country.objects.all():
+        for country in Country.objects.all().order_by('name'):
             score = cls.country_old(request, country)
             if score == -1:
                 continue
@@ -819,7 +822,7 @@ class Score(object):
 
         ret = []
 
-        for country in Country.objects.all():
+        for country in Country.objects.all().order_by('name'):
             if country.iso2 not in world_score:
                 continue
             else:

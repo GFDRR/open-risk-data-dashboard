@@ -22,6 +22,8 @@ from .keydatasets_views import (
 # app_name="ordd_api"
 
 urlpatterns = [
+    url(r'^scoring_categories/$', ScoringWorldCategoriesGet.as_view(),
+        name='scoring_categories'),
     url(r'^scoring/(?P<country_id>[A-Z0-9][A-Z0-9])$',
         ScoringCountryDetailsGet.as_view(), name="scoring_country"),
     url(r'^scoring/$', ScoringWorldGet.as_view(), name="scoring_world"),
