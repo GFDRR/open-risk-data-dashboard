@@ -732,7 +732,37 @@ class Score(object):
         return ret
 
     @classmethod
+    def category(cls, category, country_score_tree, applicability_n):
+        category_score = 0
+
+        category_score_tree = country_score_tree[category.code]
+
+        for keydataset in KeyDataset.objects.filter(category=category):
+            if keydataset.code not in category_score_tree:
+                continue
+            keydataset_score = category_score_tree[keydataset.code][
+                'value']
+
+            # score must be multiplied by
+            #  len(keydataset.applicabilty ⋂ Nation.applicability)
+            #      / len(Nation.applicability)
+            # Currently we are fallback to this more simple approach
+
+            keydataset_score *= (float(keydataset.applicability.count()) /
+                                 float(applicability_n))
+            # OLD METHOD (with weighted average):
+            # category_score += float(keydataset_score * keydataset.weight)
+            #
+            # NEW METHOD (with max_score):
+            if category_score < keydataset_score:
+                category_score = keydataset_score
+
+        return category_score
+
+    @classmethod
     def country(cls, country_score_tree, country):
+        applicability_n = KeyPeril.objects.count()
+
         category_weights_sum = KeyCategory.objects.aggregate(
             Sum('weight'))
         category_weights_sum = float(category_weights_sum['weight__sum'])
@@ -742,34 +772,12 @@ class Score(object):
         #    Sum('weight'))
         # keydataset_weights_sum = float(keydataset_weights_sum['weight__sum'])
 
-        applicability_n = KeyPeril.objects.count()
         country_score = 0
-        for category in KeyCategory.objects.all():
+        for category in KeyCategory.objects.all().order_by('id'):
             if category.code not in country_score_tree:
                 continue
-            category_score_tree = country_score_tree[category.code]
-
-            category_score = 0
-            for keydataset in KeyDataset.objects.filter(category=category):
-                if keydataset.code not in category_score_tree:
-                    continue
-                keydataset_score = category_score_tree[keydataset.code][
-                    'value']
-
-                # score must be multiplied by
-                #  len(keydataset.applicabilty ⋂ Nation.applicability)
-                #      / len(Nation.applicability)
-                # Currently we are fallback to this more simple approach
-
-                keydataset_score *= (float(keydataset.applicability.count()) /
-                                     float(applicability_n))
-                # OLD METHOD (with weighted average):
-                # category_score += float(keydataset_score * keydataset.weight)
-                #
-                # NEW METHOD (with max_score):
-                if category_score < keydataset_score:
-                    category_score = keydataset_score
-
+            category_score = cls.category(category, country_score_tree,
+                                          applicability_n)
             # OLD METHOD
             # category_score /= keydataset_weights_sum
             country_score += float(category_score * category.weight)
@@ -777,6 +785,29 @@ class Score(object):
         country_score /= category_weights_sum
 
         return country_score
+
+    @classmethod
+    def dataset_loadtree(cls, request, queryset):
+        # preloaded tree with data from datasets to avoid bad performances
+        world_score = {}
+        for dataset in queryset:
+            country_id = dataset.country.iso2
+            category_id = dataset.keydataset.category.code
+            keydataset_id = dataset.keydataset.code
+            if country_id not in world_score:
+                world_score[country_id] = {}
+            country_score = world_score[country_id]
+            if (category_id not in country_score):
+                country_score[category_id] = {}
+            category_score = country_score[category_id]
+            if keydataset_id not in category_score:
+                category_score[keydataset_id] = {'value': 0}
+            keydataset_score = category_score[keydataset_id]
+            score = cls.dataset(request, dataset)
+            if score > keydataset_score['value']:
+                keydataset_score['value'] = score
+
+        return world_score
 
     @classmethod
     def all_countries(cls, request):
@@ -801,24 +832,7 @@ class Score(object):
         # check-point to investigate correctness of query filtering
         # print("Number of item: %d" % queryset.count())
 
-        # preloaded tree with data from datasets to avoid bad performances
-        world_score = {}
-        for dataset in queryset:
-            country_id = dataset.country.iso2
-            category_id = dataset.keydataset.category.code
-            keydataset_id = dataset.keydataset.code
-            if country_id not in world_score:
-                world_score[country_id] = {}
-            country_score = world_score[country_id]
-            if (category_id not in country_score):
-                country_score[category_id] = {}
-            category_score = country_score[category_id]
-            if keydataset_id not in category_score:
-                category_score[keydataset_id] = {'value': 0}
-            keydataset_score = category_score[keydataset_id]
-            score = cls.dataset(request, dataset)
-            if score > keydataset_score['value']:
-                keydataset_score['value'] = score
+        world_score = cls.dataset_loadtree(request, queryset)
 
         ret = []
 
@@ -877,6 +891,39 @@ class Score(object):
             ret.append(row)
         return ret
 
+    @classmethod
+    def all_countries_categories(cls, request):
+        queryset = Dataset.objects.all()
+        applicability_n = KeyPeril.objects.count()
+        categories = KeyCategory.objects.all().order_by('id')
+
+        world_score_tree = cls.dataset_loadtree(request, queryset)
+
+        row = ['country']
+        for category in categories:
+            row.append(category.name)
+        ret = [row]
+
+        for country in Country.objects.all().order_by('name'):
+            if country.iso2 not in world_score_tree:
+                continue
+            else:
+                country_score_tree = world_score_tree[country.iso2]
+
+                row = [country.iso2]
+                for category in categories:
+                    if category.code not in country_score_tree:
+                        row.append("%.1f" % (-1,))
+                        continue
+                    category_score = cls.category(
+                        category, country_score_tree,
+                        applicability_n)
+                    row.append("%.1f" % (category_score * 100.0))
+
+                ret.append(row)
+
+        return ret
+
 
 class ScoringWorldGet(APIView):
     """This view return the list of country with dataset instances and
@@ -893,4 +940,12 @@ country with related scores"""
 
     def get(self, request, country_id):
         ret = Score.country_details(request, country_id)
+        return Response(ret)
+
+
+class ScoringWorldCategoriesGet(APIView):
+    """This view return the list of countries with score for each category"""
+
+    def get(self, request):
+        ret = Score.all_countries_categories(request)
         return Response(ret)

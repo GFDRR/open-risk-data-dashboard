@@ -10,7 +10,7 @@ from .views import (
     UserCreateView, UserDetailsView,
     RegistrationView, ProfileDatasetListCreateView, ProfileDatasetDetailsView,
     DatasetListView, DatasetDetailsView, VersionGet,
-    ScoringWorldGet, ScoringCountryDetailsGet)
+    ScoringWorldGet, ScoringCountryDetailsGet, ScoringWorldCategoriesGet)
 
 from .keydatasets_views import (
     KeyDataset0on4ListView, KeyDataset1on4ListView, KeyDataset2on4ListView,
