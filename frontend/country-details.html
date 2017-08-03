@@ -59,49 +59,53 @@
     <div class="container-fluid">
 
 
+        <!-- Section HEADER - INIZIO -->
+        <section id="rodi_header">
 
-        <div class="row">
-            <section id="header">
+            <div class="row  ">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <a ng-if="bHome" href="" ng-click="changeview('index.html', '0')" data-toggle="tooltip" title="Home">
+                            <img src="img/template/rodi_logo.png" alt="Risk OpenData Index" class="img-responsive pull-left" />
+                        </a>
 
-            <helpfeedbackbox></helpfeedbackbox>
-            <a ng-if="bHome" href="" ng-click="changeview('index.html', '0')" data-toggle="tooltip" title="Home">
-                <img src="img/template/rodi_logo.png" alt="Risk OpenData Index" class="img-responsive" />
-            </a>
-
-        </section>
-            <!-- Content of page -->
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
-                <div class="row ">
-                    <!-- Menu versione mobile -->
-                    <div class="col-xs-12 visible-xs">
-                        <div class="flex-container title">
-                            <h1 class="page_title ">{{countryData[0].desc}}</h1>
-                            <mainmenu></mainmenu>
-                        </div>
                     </div>
+                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
 
-                    <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
-                        <img ng-src="{{countryData[0].img}}" alt="Coutry Image" class="img-responsive" >
+                        <mainmenu ></mainmenu>
+                        <!--<button type="button" class="navbar-toggle navbar-toggle-left-black " data-toggle="collapse" data-target="#menu-hazard" aria-expanded="false">-->
+                            <!--<span class="sr-only">Toggle navigation</span>-->
+                            <!--<span class="icon-bar icon-bar-white"></span>-->
+                            <!--<span class="icon-bar icon-bar-white"></span>-->
+                            <!--<span class="icon-bar icon-bar-white"></span>-->
+                        <!--</button>-->
+                        <button type="button" class="navbar-toggle navbar-toggle-right-black " data-toggle="collapse" data-target="#menu-website" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar icon-bar-white"></span>
+                            <span class="icon-bar icon-bar-white"></span>
+                            <span class="icon-bar icon-bar-white"></span>
+                        </button>
                     </div>
-                    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-4">
-                        <div class="hidden-xs">{{countryData[0].text}}</div>
-                        <!--<span class="visible-xs">{{countryData[0].text}}</span>-->
-                    </div>
-                    <div class="col-xs-12 col-sm-7 col-md-7 col-lg-6 hidden-xs">
-
-                        <div class="flex-container title">
-                            <h1 class="page_title ">{{countryData[0].desc}}</h1>
-                            <mainmenu></mainmenu>
-                        </div>
-                    </div>
-
                 </div>
             </div>
+            <div class="row" id="top-menu">
+                <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                    <!--<hazardmenu></hazardmenu>-->
+                    <div class="media">
+                        <img ng-src="{{countryData[0].img}}" alt="Coutry Image" class="media-object pull-left" >
+                    	<div class="media-body">
+                            <div class="hidden-xs">{{countryData[0].text}}</div>
+                    	</div>
+                    </div>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <h1 class="page_title ">{{countryData[0].desc}}</h1>
+                </div>
+            </div>
+        </section>
+        <!-- Section HEADER - FINE -->
 
-        </div>
 
-        <!--<hr />-->
 
         <!-- Country Matrix -->
         <div class="row">

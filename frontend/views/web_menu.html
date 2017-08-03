@@ -38,14 +38,18 @@
                         <li><a href="" ng-click="changeview('browse-data.html', '3')">Countries</a></li>
                         <li><a href="" >About</a></li>
                         <li><a href="" ng-click="showHelp()">
-                            <i class="fa fa-question-circle-o" aria-hidden="true" data-toggle="tooltip" title="Contestual help"></i>
+                            <!--<i class="fa fa-question-circle-o" aria-hidden="true" data-toggle="tooltip" title="Contestual help"></i>-->
+                            Contextual Help
                         </a>
-                          </li>
+                        </li>
                         <li>
                             <a href="" ng-if="bLogin" ng-click="showFeed()" alt="Feedback">
-                                <i class="fa fa-commenting-o" aria-hidden="true" data-toggle="tooltip" title="Feedback"></i>
+                                <!--<i class="fa fa-commenting-o" aria-hidden="true" data-toggle="tooltip" title="Feedback"></i>-->
+                                Feedback
                             </a>
                         </li>
+                        <li><helpfeedbackbox></helpfeedbackbox></li>
+
                         <!--
                             <li ng-if="!bLogin"><a href="" ng-click="loginform()">Login</a></li>
                             <li ng-if="bLogin"><small>Welcome {{username}} <a href="" ng-click="logout()">Logout</a></small></li>
@@ -60,9 +64,8 @@
     </nav>
 </div>
 
+<!--
 <div class="search">
-<!--<div>-->
-
     <form class="navbar-form navbar-left pull-right">
         <div class="form-group">
             <input list="countryList" ng-model="searchValue" type="text" class="form-control" placeholder="Search">
@@ -73,6 +76,7 @@
         <a type="submit" class="" ng-click="searchSubmit()"><i class="fa fa-search fa-2x"></i></a>
     </form>
 </div>
+-->
 
 
 <loginform></loginform>
