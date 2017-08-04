@@ -5,6 +5,9 @@
 RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 {
 
+
+    this.countryList = null;
+
     // ************************************** //
     // ********* API VERSIONE CHECK ********* //
     // ************************************** //
@@ -157,16 +160,23 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
     this.getCountryList = function(onSuccess, onError)
     // Return the list of country Available
     {
+        var _this =this
+        if (this.countryList && onSuccess){
+            onSuccess(this.countryList);
+        } else{
+            // Return country list
+            $http({
+                method: 'GET',
+                url: baseAPIurl + 'country/'
+            }).then(function (data) {
+                _this.countryList =data.data;
+                if(onSuccess) onSuccess(data.data);
+            },function(data){
+                if(onError)onError(data)
+            });
+        }
 
-        // Return country list
-        $http({
-            method: 'GET',
-            url: baseAPIurl + 'country/'
-        }).then(function (data) {
-            if(onSuccess) onSuccess(data.data)
-        },function(data){
-            if(onError)onError(data)
-        });
+
 
 
 
@@ -188,8 +198,35 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 
     };
 
-    this.getMatrixData = function(filters)
+    this.getMatrixData = function(filters, onSuccess, onError)
     {
+
+
+        $http({
+            method: 'GET',
+            url: baseAPIurl + 'scoring_category/'
+            // url: baseAPIurl + 'scoring_categories/'
+        }).then(function (data) {
+
+            // var aOfIndex = data.data[0];
+            // data.data.splice(0,1);
+            // var aObj = [];
+            // data.data.forEach(function (item,index, array) {
+            //     va
+            //     aOfIndex.forEach(function (keyIndex) {
+            //         obj.push({
+            //             keyIne
+            //         });
+            //     })
+            //
+            //     for (var field in aOfIndex)
+            // })
+
+            if(onSuccess)onSuccess(data.data)
+        },function(data){
+            alert('Error');
+        });
+
 
         /*
             Return Matrix Strucutre (page countries)
@@ -240,7 +277,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
             }
         ];
 
-        return dataTemp;
+        //return dataTemp;
     }
 
     this.getCountryDetails = function(idcountry)
@@ -396,7 +433,14 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
     this.matrixColorCell = function(value){
 
         var numberFloat = parseFloat(value);
-        return "background-color: rgb(255," + parseInt((1 - numberFloat) * 255) + "," + parseInt((1 - numberFloat) * 255) + ");"
+        if (numberFloat == -1){
+            return "background-color:grey";
+        }else{
+            var n = 255/100*numberFloat;
+            return "background-color: rgb(255,"+ parseInt(numberFloat).toString() + "," + parseInt(numberFloat).toString() + ");"
+            // return "background-color: rgb(255," + parseInt((1 - numberFloat) * 255) + "," + parseInt((1 - numberFloat) * 255) + ");"
+        }
+
     };
 
     this.getHazardList = function()

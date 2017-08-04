@@ -86,21 +86,88 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
     if ($location.path().indexOf('browse-data.html') !== -1)
     {
-        // Get the Hazard Category
-        $scope.HazardCategory = RodiSrv.getDataCategoryIcon();
 
-        $scope.matrixData = RodiSrv.getMatrixData($scope.objHazardFilters);
 
-        $scope.getHCIcon = function(index)
-        {
-            return RodiSrv.getHCIcon(index - 1);
-        };
+        // filtro applicability non category
 
-        $scope.colorCell = function(value){
-            return RodiSrv.matrixColorCell(value);
+
+
+        function mergeMatrixData() {
+
         }
-    }
 
+
+        RodiSrv.getCountryList(
+            function(countryList) {
+                // Success
+                $scope.aCountryList = {};
+
+                countryList.forEach(function (item) {
+                    $scope.aCountryList[item.iso2] = item;
+                });
+
+                RodiSrv.getMatrixData($scope.objHazardFilters, function (data) {
+                    // $scope.matrixData = [];
+                    //tolgo elemento indici
+                    var aIndex = data[0];
+                    data.splice(0, 1);
+
+                    // compongo un array chiave valore
+
+                    data.forEach(function (currValue, index, array) {
+                        var obj = {};
+                        var countrycode;
+                        for (var i in aIndex) {
+
+                            if (aIndex[i] == "country") {
+                                countrycode  = currValue[i];
+                            }else{
+                                obj[aIndex[i]] = {
+                                    id:i,
+                                    value:currValue[i]
+                                }
+                            }
+
+                        }
+                        // $scope.aCountryList[countrycode].data = {};
+                        $scope.aCountryList[countrycode].data = obj;
+
+                    });
+                    //fill country without data
+                    var obj= {}
+                    for (var i in aIndex) {
+                        if (aIndex[i] != "country") {
+                            obj[aIndex[i]] = {
+                                id:i,
+                                value:"-1.0"
+                            }
+                        }
+                    }
+
+                    for(var country in $scope.aCountryList){
+                        if (angular.isUndefined($scope.aCountryList[country].data)) $scope.aCountryList[country].data = obj;
+                    }
+                    //end filling
+
+                }, function (data) {
+                    // Error
+                    // TODO: set e message error
+                });
+            })
+
+                // Get the Hazard Category
+                $scope.HazardCategory = RodiSrv.getDataCategoryIcon();
+
+
+                $scope.getHCIcon = function (index) {
+                    return RodiSrv.getHCIcon(index - 1);
+                };
+
+                $scope.colorCell = function (value) {
+                    return RodiSrv.matrixColorCell(value);
+                }
+
+    }
     // ************************************** //
     // ********* CONTRIBUTE PAGE ************ //
     // ************************************** //
