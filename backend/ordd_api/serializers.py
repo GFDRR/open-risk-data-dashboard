@@ -24,6 +24,9 @@ class RegionSerializer(serializers.ModelSerializer):
 
 class CountrySerializer(serializers.ModelSerializer):
     """Serializer of countries"""
+    region = serializers.SlugRelatedField(slug_field='name',
+                                          queryset=Region.objects.all())
+
     class Meta:
         model = Country
         fields = ('iso2', 'name', 'region')
