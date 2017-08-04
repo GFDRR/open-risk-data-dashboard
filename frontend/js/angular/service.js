@@ -438,18 +438,20 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
             return obj;
     }
 
-    this.matrixColorCell = function(value){
+    this.matrixColorCell = function(value) {
 
         var numberFloat = parseFloat(value);
-        if (numberFloat == -1){
-            return "background-color:grey";
-        }else{
-            var n = 255/100*numberFloat;
-            return "background-color: rgb(255,"+ parseInt(numberFloat).toString() + "," + parseInt(numberFloat).toString() + ");"
-            // return "background-color: rgb(255," + parseInt((1 - numberFloat) * 255) + "," + parseInt((1 - numberFloat) * 255) + ");"
-        }
 
-    };
+
+        if (numberFloat == -1) {
+            return "background-color:grey";
+        } else {
+            return "background-color: rgb(255," + parseInt((1 - numberFloat) * 255) + "," + parseInt((1 - numberFloat) * 255) + ");"
+        }
+    }
+
+
+
 
     this.getApplicability = function( onSuccess, onError)
     {

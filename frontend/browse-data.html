@@ -97,7 +97,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <div class="" id="menu-hazard">
                         <ul class="nav navbar-nav text-center">
-                            <li ng-style="filterCssStyle(appli.name.name)"  ng-class="filterCssClass(appli.name)" ng-repeat="appli in applicability">
+                            <li  ng-class="filterApplicabilityClass(appli.name)" ng-repeat="appli in applicability">
                                 <a href="" ng-click="setUnSetFilter(appli.name)" >
                                     <i class="{{appli.icon}} fa-2x"></i>
                                     <span>{{appli.name}}</span>

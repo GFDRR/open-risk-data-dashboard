@@ -87,7 +87,15 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
     if ($location.path().indexOf('browse-data.html') !== -1)
     {
 
+        
+        
+        $scope.filterApplicabilityClass = function () {
+            if($scope.filteredApplicability[0] == name){
+                return "active";
+            }else return "unactive" ;
 
+
+        }
         // filtro applicability non category
 
         // https://dev.riskopendata.org/api-dev/peril/
