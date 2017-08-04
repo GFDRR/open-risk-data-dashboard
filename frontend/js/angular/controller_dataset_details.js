@@ -445,7 +445,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                 $scope.objDatasetView = angular.copy(dataDS);
 
                 // Check if user logged in can edit dataset, LOAD DATASET PROFILE API
-                if($scope.objDataset.owner == $scope.userinfo.username)
+                if($scope.objDataset.owner == $scope.userinfo.username ||$scope.userinfo.groups[0] == 'reviewer')
                 {
                     // Reviewer user
                     $scope.bReviewer = true;
