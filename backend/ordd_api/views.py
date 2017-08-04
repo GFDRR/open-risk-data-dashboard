@@ -894,6 +894,16 @@ class Score(object):
     @classmethod
     def all_countries_categories(cls, request):
         queryset = Dataset.objects.all()
+        applicability = request.query_params.getlist('applicability')
+        if applicability:
+            q = Q()
+            for v in applicability:
+                # FIXME currently in tag we may have extra applicabilities
+                # when category (tag group) is 'hazard'
+                q = q | (Q(keydataset__applicability__name__iexact=v) |
+                         Q(tag__name__iexact=v))
+            queryset = queryset.filter(q).distinct()
+
         applicability_n = KeyPeril.objects.count()
         categories = KeyCategory.objects.all().order_by('id')
 
