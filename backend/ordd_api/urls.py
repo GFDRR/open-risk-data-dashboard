@@ -5,7 +5,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 from rest_framework.authtoken.views import obtain_auth_token
 from .views import (
-    RegionListView, CountryListView, CountryDetailsView,
+    RegionListView, CountryListView, KeyPerilListView, CountryDetailsView,
     ProfileDetails, ProfilePasswordUpdate,
     UserCreateView, UserDetailsView,
     RegistrationView, ProfileDatasetListCreateView, ProfileDatasetDetailsView,
@@ -22,8 +22,8 @@ from .keydatasets_views import (
 # app_name="ordd_api"
 
 urlpatterns = [
-    url(r'^scoring_categories/$', ScoringWorldCategoriesGet.as_view(),
-        name='scoring_categories'),
+    url(r'^scoring_category/$', ScoringWorldCategoriesGet.as_view(),
+        name='scoring_category'),
     url(r'^scoring/(?P<country_id>[A-Z0-9][A-Z0-9])$',
         ScoringCountryDetailsGet.as_view(), name="scoring_country"),
     url(r'^scoring/$', ScoringWorldGet.as_view(), name="scoring_world"),
@@ -45,6 +45,8 @@ urlpatterns = [
         UserDetailsView.as_view(), name="user_details"),
 
     url(r'^registration$', RegistrationView.as_view(), name="registration"),
+
+    url(r'^peril/$', KeyPerilListView.as_view(), name="peril"),
 
     url(r'^region/$', RegionListView.as_view(), name="region_list"),
 

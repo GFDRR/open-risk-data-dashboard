@@ -13,7 +13,7 @@ from django.db.models import Q
 from django.contrib.auth.models import User
 
 from .serializers import (
-    RegionSerializer, CountrySerializer,
+    RegionSerializer, CountrySerializer, KeyPerilSerializer,
     ProfileSerializer, UserSerializer, RegistrationSerializer,
     ChangePasswordSerializer,
     ProfileDatasetListSerializer, ProfileDatasetCreateSerializer,
@@ -119,6 +119,12 @@ class CountryListView(generics.ListAPIView):
     """This class handles the GET and POSt requests of our rest api."""
     queryset = Country.objects.all().order_by('name')
     serializer_class = CountrySerializer
+
+
+class KeyPerilListView(generics.ListAPIView):
+    """This class handles the GET and POSt requests of our rest api."""
+    queryset = KeyPeril.objects.all().order_by('name')
+    serializer_class = KeyPerilSerializer
 
 
 class CountryDetailsView(generics.RetrieveAPIView):
