@@ -90,10 +90,79 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
         // filtro applicability non category
 
+        // https://dev.riskopendata.org/api-dev/peril/
 
+        $scope.filteredApplicability = [];
 
-        function mergeMatrixData() {
+        RodiSrv.getApplicability(function (data) {
 
+            $scope.applicability= [];
+
+            data.forEach(function(item){
+                var obj = {};
+                obj.icon = "ico-"+ item.name.replace(/\s+/g, '_');
+                obj.title = item.name;
+                $scope.applicability.push(obj);
+            })
+
+            $scope.applicability  = data;
+        });
+
+        $scope.setUnSetFilter = function (filter){
+
+            $scope.filteredApplicability = [];
+            $scope.filteredApplicability.push(filter);
+            $scope.mergeMatrixData();
+        }
+
+        $scope.mergeMatrixData= function() {
+            RodiSrv.getMatrixData($scope.filteredApplicability, function (data) {
+                // $scope.matrixData = [];
+                //tolgo elemento indici
+                var aIndex = data[0];
+                data.splice(0, 1);
+
+                // compongo un array chiave valore
+
+                data.forEach(function (currValue, index, array) {
+                    var obj = {};
+                    var countrycode;
+                    for (var i in aIndex) {
+
+                        if (aIndex[i] == "country") {
+                            countrycode  = currValue[i];
+                        }else{
+                            obj[aIndex[i]] = {
+                                id:i,
+                                value:currValue[i]
+                            }
+                        }
+
+                    }
+                    // $scope.aCountryList[countrycode].data = {};
+                    $scope.aCountryList[countrycode].data = obj;
+
+                });
+                //fill country without data
+                var obj= {}
+                for (var i in aIndex) {
+                    if (aIndex[i] != "country") {
+                        obj[aIndex[i]] = {
+                            id:i,
+                            value:"-1.0"
+                        }
+                    }
+                }
+
+                for(var country in $scope.aCountryList){
+                    if (angular.isUndefined($scope.aCountryList[country].data)) $scope.aCountryList[country].data = obj;
+                }
+                //end filling
+
+            }, function (data) {
+                // Error
+                // TODO: set e message error
+            });
         }
 
 
@@ -106,53 +175,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                     $scope.aCountryList[item.iso2] = item;
                 });
 
-                RodiSrv.getMatrixData($scope.objHazardFilters, function (data) {
-                    // $scope.matrixData = [];
-                    //tolgo elemento indici
-                    var aIndex = data[0];
-                    data.splice(0, 1);
+                $scope.mergeMatrixData();
 
-                    // compongo un array chiave valore
-
-                    data.forEach(function (currValue, index, array) {
-                        var obj = {};
-                        var countrycode;
-                        for (var i in aIndex) {
-
-                            if (aIndex[i] == "country") {
-                                countrycode  = currValue[i];
-                            }else{
-                                obj[aIndex[i]] = {
-                                    id:i,
-                                    value:currValue[i]
-                                }
-                            }
-
-                        }
-                        // $scope.aCountryList[countrycode].data = {};
-                        $scope.aCountryList[countrycode].data = obj;
-
-                    });
-                    //fill country without data
-                    var obj= {}
-                    for (var i in aIndex) {
-                        if (aIndex[i] != "country") {
-                            obj[aIndex[i]] = {
-                                id:i,
-                                value:"-1.0"
-                            }
-                        }
-                    }
-
-                    for(var country in $scope.aCountryList){
-                        if (angular.isUndefined($scope.aCountryList[country].data)) $scope.aCountryList[country].data = obj;
-                    }
-                    //end filling
-
-                }, function (data) {
-                    // Error
-                    // TODO: set e message error
-                });
             })
 
                 // Get the Hazard Category

@@ -201,10 +201,18 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
     this.getMatrixData = function(filters, onSuccess, onError)
     {
 
+        if(filters.length> 0){
+            var string = '?applicability='
+            filters.forEach(function (item) {
+                string = string+item;
+            })
+        }else{
+            var string = ''
+        }
 
         $http({
             method: 'GET',
-            url: baseAPIurl + 'scoring_category/'
+            url: baseAPIurl + 'scoring_category/'+string
             // url: baseAPIurl + 'scoring_categories/'
         }).then(function (data) {
 
@@ -443,11 +451,29 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 
     };
 
+    this.getApplicability = function( onSuccess, onError)
+    {
+        //https://dev.riskopendata.org/api-dev/peril/
+
+        $http({
+            method: 'GET',
+            url: baseAPIurl + 'peril/'
+            // url: baseAPIurl + 'scoring_categories/'
+        }).then(function (data) {
+            if(onSuccess)onSuccess(data.data)
+        },function(data){
+            alert('Error');
+        });
+
+
+
+    }
+
+
+
     this.getHazardList = function()
-        // Return the list of country Available
     {
 
-        // Return country list
 
         var objHazard = [
             {code:"RF", desc:"River flooding",icon:"icon-river_flood"},
