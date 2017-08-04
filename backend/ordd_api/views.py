@@ -173,7 +173,7 @@ class ProfileDatasetListCreateView(generics.ListCreateAPIView):
     def get_queryset(self):
         return Dataset.objects.filter(
             owner=self.request.user).order_by('country__name',
-                                              'keydataset__id')
+                                              'keydataset__code')
 
     def perform_create(self, serializer):
         post_field = serializer.save(owner=self.request.user,
@@ -580,7 +580,7 @@ class DatasetListView(generics.ListAPIView):
 
     def get_queryset(self):
         queryset = Dataset.objects.all().order_by('country__name',
-                                                  'keydataset__id')
+                                                  'keydataset__code')
         kd = self.request.query_params.getlist('kd')
         country = self.request.query_params.getlist('country')
         category = self.request.query_params.getlist('category')
@@ -678,7 +678,7 @@ class Score(object):
     def country_old(cls, request, country):
 
         queryset = Dataset.objects.filter(country=country).order_by(
-            'keydataset__id')
+            'keydataset__code')
 
         category_weights_sum = KeyCategory.objects.aggregate(
             Sum('weight'))
