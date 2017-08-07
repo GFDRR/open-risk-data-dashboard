@@ -151,6 +151,52 @@
 
     </div>
     <!--END Container fluid-->
+    <!-- start count stats -->
+    <section id="counter-stats" class="wow fadeInRight" data-wow-duration="1.4s">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 stats">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <i class="fa fa-code" aria-hidden="true"></i>
+                            <div class="counting" data-count="900000">0</div>
+                            <h5>Countries with Data</h5>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 stats">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <div class="counting" data-count="280">0</div>
+                            <h5>Total Dataset Contribute</h5>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 stats">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            <div class="counting" data-count="75">0</div>
+                            <h5>Datasets contribute by Hazards</h5>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </section>
+    <!-- end cont stats -->
 
     <section>
         <div class="footer">
@@ -165,7 +211,37 @@
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!--wow for animate.css-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/0.1.12/wow.min.js"></script>
+
+    <script>
+        // number count for stats, using jQuery animate
+
+        $('.counting').each(function() {
+            var $this = $(this),
+                countTo = $this.attr('data-count');
+
+            $({ countNum: $this.text()}).animate({
+                    countNum: countTo
+                },
+
+                {
+
+                    duration: 5000,
+                    easing:'linear',
+                    step: function() {
+                        $this.text(Math.floor(this.countNum));
+                    },
+                    complete: function() {
+                        $this.text(this.countNum);
+                        //alert('finished');
+                    }
+
+                });
 
 
+        });
+    </script>
 </body>
 </html>
+

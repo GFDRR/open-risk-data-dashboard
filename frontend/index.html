@@ -33,6 +33,9 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+
+
+
     <link href="bower_components/animate.css/animate.min.css" rel="stylesheet">
 
     <!-- RODI APP -->
@@ -106,13 +109,15 @@
                             <li>highlighting gaps to direct investment in new risk information</li>
                             <li>facilitate the trading and access to risk related data.</li>
                         </ul>
-                        <button type="button" class="btn btn-primary">more</button>
+                        <button  type="button" class="btn btn-custom" ng-click="changeview('about.html', '0')">More...</button>
 
                     </div>
                 </div>
 
             </div>
         </div>
+
+
         <div class="row" id="top-menu">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <hazardmenu></hazardmenu>
@@ -125,35 +130,10 @@
 
     <!-- Section MAP - INIZIO -->
     <section id="main-map">
-        <!--<div class="row">-->
 
-        <!-- <div class="head_sep horiz">
-             <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
-          viewBox="0 0 2000 100" style="enable-background:new 0 0 2000 100;" xml:space="preserve">
-                 <style type="text/css">
-                     .st0{fill:#FFFFFF;}
-                     #Layer_1 {
-                         background: lightblue;
-                     }
-
-                 </style>
-                 <g id="Layer_1">
-                     <path class="st0" d="M2000,15.1C1537.7,102.6,463.2,105.2,0,17.4v-35.9h1999.5L2000,15.1z" />
-                 </g>
-             </svg>
-         </div>-->
-        <!--</div>-->
 
         <div class="head_sep white horiz">
-            <!-- <svg viewBox="0 0 1000 100">
-                 <use xlink:href="img/separator.svg#sep"></use>
-             </svg>-->
-            <!--<svg version="1.1" id="sep" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
- viewBox="0 0 4000 200" style="enable-background:new 0 0 4000 200;" xml:space="preserve">
-                <g>
-                    <path class="path" d="M4057,49.5C3106.4,218.8,897.4,223.9-55,54v-69.5h4111L4057,49.5z"/>
-                </g>
-            </svg>-->
+
         </div>
         <!-- TAB NAVIGATION -->
 
@@ -217,8 +197,98 @@
     </section>
     <!-- Section MAP - FINE -->
 
+
+
+    <!-- start count stats -->
+    <section id="counter-stats" class="wow fadeInRight" data-wow-duration="1.4s">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 stats">
+                    <div class="panel panel-default">
+                    	<div class="panel-body">
+                            <i class="fa fa-code" aria-hidden="true"></i>
+                            <div class="counting" data-count="900000">0</div>
+                            <h5>Countries with Data</h5>
+                    	</div>
+                    </div>
+
+                </div>
+
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 stats">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <i class="fa fa-check" aria-hidden="true"></i>
+                            <div class="counting" data-count="280">0</div>
+                            <h5>Total Dataset Contribute</h5>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 stats">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                            <div class="counting" data-count="75">0</div>
+                            <h5>Datasets contribute by Hazards</h5>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+            <!-- end row -->
+        </div>
+        <!-- end container -->
+    </section>
+    <!-- end cont stats -->
+
+
+
     <!-- Section NWEWS - INIZIO -->
     <section id="news">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+
+                            <div class="flex-container flex-col">
+
+                                <img class="img-responsive" src="img/partner/GFDRR_Primary-Logo_BW-Shade-3-e1476203323738.jpg" alt="">
+                                <a class="btn btn-custom news_title text-center btn-block" href="https://www.gfdrr.org/" target="_blank"><h5>Global Facility for Disaster Reduction and Recovery</h5> </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="flex-container flex-col">
+                                <img class="img-responsive" src="https://opendri.org/wp-content/themes/openDRI/logo-extended.svg" alt="">
+                                <a class="btn btn-custom news_title text-center btn-block" href="https://opendri.org/" target="_blank"><h5>Open Data for Resilience Initiative</h5> </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+
+                            <div class="flex-container flex-col">
+
+                                <img class="img-responsive" src="img/partner/UR-full-color.png" alt="">
+                                <a class="btn btn-custom news_title text-center btn-block" href="https://understandrisk.org/" target="_blank"><h5>Understanding Risk</h5></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!--<div class="head_sep horiz"></div>-->
         <!--
@@ -231,43 +301,8 @@
             </div>
         </div>
         -->
-        <div class="row">
-            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-                        <div class="flex-container flex-col">
-                            <img class="img-responsive" src="img/partner/WBG_Horizontal-black-1.png" alt="">
-                            <a class="btn btn-custom news_title text-center btn-block" href="http://www.worldbank.org/" target="_blank"><h5>The World Bank </h5> </a>
-                        </div>
-                    </div>
-                </div>
 
-            </div>
-            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                <div class="panel panel-default">
-                    <div class="panel-body">
 
-                        <div class="flex-container flex-col">
-
-                            <img class="img-responsive" src="img/partner/GFDRR_Primary-Logo_BW-Shade-3-e1476203323738.jpg" alt="">
-                            <a class="btn btn-custom news_title text-center btn-block" href=https://www.gfdrr.org/" target="_blank"><h5>Global Facility for Disaster Reduction and Recovery</h5> </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                <div class="panel panel-default">
-                    <div class="panel-body">
-
-                        <div class="flex-container flex-col">
-
-                            <img class="img-responsive" src="img/partner/UR-full-color.png" alt="">
-                            <a class="btn btn-custom news_title text-center btn-block" href="https://understandrisk.org/" target="_blank"><h5>Understanding Risk</h5></a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
     </section>
     <!-- Section NWEWS - FINE -->
@@ -297,8 +332,39 @@
     });
 </script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!--wow for animate.css-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/wow/0.1.12/wow.min.js"></script>
+
 <script>
     $('#myModal').modal('show')
+</script>
+<script>
+    // number count for stats, using jQuery animate
+
+    $('.counting').each(function() {
+        var $this = $(this),
+            countTo = $this.attr('data-count');
+
+        $({ countNum: $this.text()}).animate({
+                countNum: countTo
+            },
+
+            {
+
+                duration: 5000,
+                easing:'linear',
+                step: function() {
+                    $this.text(Math.floor(this.countNum));
+                },
+                complete: function() {
+                    $this.text(this.countNum);
+                    //alert('finished');
+                }
+
+            });
+
+
+    });
 </script>
 <!-- Modal -->
 <div class="modal fade " id="myModal" >

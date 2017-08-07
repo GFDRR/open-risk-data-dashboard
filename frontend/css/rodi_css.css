@@ -297,11 +297,52 @@ section
 
 
 .panel .panel-body .img-responsive {
-    height: auto;
+    /*height: auto;*/
     padding: 5em 1em;
-    width: 200px;
+    /*width: 200px;*/
     margin: auto;
 }
+
+
+/*
+==============================================================================
+
+
+
+==============================================================================
+*/
+
+
+/*
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700|Montserrat:400,700);
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css);
+*/
+
+#counter-stats {
+    /*background: #eee;*/
+}
+
+/*/ start count stats /*/
+
+section#counter-stats {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+.stats {
+    text-align: center;
+    font-size: 35px;
+    font-weight: 700;
+    /*font-family: 'Montserrat', sans-serif;*/
+}
+
+.stats .fa {
+    color: #00C1FF;
+    font-size: 60px;
+}
+
+/*/ end count stats /*/
 
 
 /*

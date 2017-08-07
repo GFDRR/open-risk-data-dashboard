@@ -10,7 +10,8 @@
   font-style: normal;
 }
 
-[class^="ico-"], [class*=" ico-"] {
+[class^="ico-"], [class*=" ico-"],
+[class^="icon-"], [class*=" icon-"]{
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'hazard' !important;
   speak: none;
@@ -25,126 +26,167 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.ico-register:before {
+.ico-register:before,
+.icon-register:before{
   content: "\e906";
 }
-.ico-login:before {
+.ico-login:before,
+.icon-login:before{
   content: "\e907";
 }
-.ico-contribute:before {
+.ico-contribute:before,
+.icon-contribute:before{
   content: "\e908";
 }
-.ico-news:before {
+.ico-news:before,
+.icon-news:before{
   content: "\e909";
 }
-.ico-world2:before {
+.ico-world2:before,
+.icon-world2:before{
   content: "\e902";
 }
-.ico-globe2:before {
+.ico-globe2:before,
+.icon-globe2:before{
   content: "\e902";
 }
-.ico-internet2:before {
+.ico-internet2:before,
+.icon-internet2:before{
   content: "\e902";
 }
-.ico-network2:before {
+.ico-network2:before,
+.icon-network2:before{
   content: "\e902";
 }
-.ico-base_data2:before {
+.ico-base_data2:before,
+.icon-base_data2:before{
   content: "\e902";
 }
-.ico-cyclone:before {
+.ico-cyclone:before,
+.icon-cyclone:before{
   content: "\e64a";
 }
-.ico-river_flood:before {
+.ico-river_flood:before,
+.icon-river_flood:before{
   content: "\e652";
 }
-.ico-river_flooding:before {
+.ico-river_flooding:before,
+.icon-river_flooding:before{
   content: "\e652";
 }
-.ico-earthquake:before {
+.ico-earthquake:before,
+.icon-earthquake:before{
   content: "\e64b";
 }
-.ico-water_scarcity:before {
+.ico-water_scarcity:before,
+.icon-water_scarcity:before{
   content: "\e650";
 }
-.ico-tsunami:before {
+.ico-tsunami:before,
+.icon-tsunami:before{
   content: "\e655";
 }
-.ico-landslide:before {
+.ico-landslide:before,
+.icon-landslide:before{
   content: "\e656";
 }
-.ico-volcano:before {
+.ico-volcano:before,
+.icon-volcano:before{
   content: "\e65d";
 }
-.ico-vulcano:before {
+.ico-vulcano:before,
+.icon-vulcano:before{
   content: "\e65d";
 }
-.ico-logout:before {
+.ico-logout:before,
+.icon-logout:before{
   content: "\e90c";
 }
-.ico-world:before {
+.ico-world:before,
+.icon-world:before{
   content: "\e900";
 }
-.ico-globe:before {
+.ico-globe:before,
+.icon-globe:before{
   content: "\e900";
 }
-.ico-internet:before {
+.ico-internet:before,
+.icon-internet:before{
   content: "\e900";
 }
-.ico-network:before {
+.ico-network:before,
+.icon-network:before{
   content: "\e900";
 }
-.ico-base_data:before {
+.ico-base_data:before,
+.icon-base_data:before{
   content: "\e900";
 }
-.ico-vulnerability:before {
+.ico-vulnerability:before,
+.icon-vulnerability:before{
   content: "\e903";
 }
-.ico-extreme_heat:before {
+.ico-extreme_heat:before,
+.icon-extreme_heat:before{
   content: "\e90d";
 }
-.ico-wildfire:before {
+.ico-wildfire:before,
+.icon-wildfire:before{
   content: "\e910";
 }
-.ico-urban_flood:before {
+.ico-urban_flood:before,
+.icon-urban_flood:before{
   content: "\e90f";
 }
-.ico-tornado:before {
+.ico-tornado:before,
+.icon-tornado:before{
   content: "\e90e";
 }
-.ico-coastal_flood:before {
+.ico-coastal_flood:before,
+.icon-coastal_flood:before{
   content: "\e901";
 }
-.ico-coastal_flooding:before {
+.ico-coastal_flooding:before,
+.icon-coastal_flooding:before{
   content: "\e901";
 }
-.ico-methodology:before {
+.ico-methodology:before,
+.icon-methodology:before{
   content: "\e90a";
 }
-.ico-info:before {
+.ico-info:before,
+.icon-info:before{
   content: "\e904";
 }
-.ico-information:before {
+.ico-information:before,
+.icon-information:before{
   content: "\e904";
 }
-.ico-office:before {
+.ico-office:before,
+.icon-office:before{
   content: "\e905";
 }
-.ico-buildings:before {
+.ico-buildings:before,
+.icon-buildings:before{
   content: "\e905";
 }
-.ico-work:before {
+.ico-work:before,
+.icon-work:before{
   content: "\e905";
 }
-.ico-exposure:before {
+.ico-exposure:before,
+.icon-exposure:before{
   content: "\e905";
 }
-.ico-warning:before {
+.ico-warning:before,
+.icon-warning:before{
   content: "\e90b";
 }
-.ico-alert:before {
+.ico-alert:before,
+.icon-alert:before{
   content: "\e90b";
 }
-.ico-hazard_info:before {
+.ico-hazard_info:before,
+.icon-hazard_info:before{
   content: "\e90b";
 }
