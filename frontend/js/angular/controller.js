@@ -877,14 +877,15 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
         $scope.filterCssClass = function (filter) {
             var index =$scope.filterArray.indexOf(filter);
             if (index >-1){
-                return "active";
-            }else return "";
+                return "unactive";
+            }else return "active";
         };
 
         $scope.filterCssStyle = function (filter) {
             var index =$scope.filterArray.indexOf(filter);
             if (index >-1){
-                return {"background-color" : '#2EA620' } ;
+                // return {"background-color" : '#2EA620' } ;
+                return {"background-color" : 'white' } ;
             }else return "";
         };
 

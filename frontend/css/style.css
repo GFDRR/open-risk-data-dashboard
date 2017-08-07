@@ -1,16 +1,16 @@
 @font-face {
   font-family: 'hazard';
-  src:  url('fonts/hazard.eot?l4lpjz');
-  src:  url('fonts/hazard.eot?l4lpjz#iefix') format('embedded-opentype'),
-    url('fonts/hazard.woff2?l4lpjz') format('woff2'),
-    url('fonts/hazard.ttf?l4lpjz') format('truetype'),
-    url('fonts/hazard.woff?l4lpjz') format('woff'),
-    url('fonts/hazard.svg?l4lpjz#hazard') format('svg');
+  src:  url('fonts/hazard.eot?xogkm6');
+  src:  url('fonts/hazard.eot?xogkm6#iefix') format('embedded-opentype'),
+    url('fonts/hazard.woff2?xogkm6') format('woff2'),
+    url('fonts/hazard.ttf?xogkm6') format('truetype'),
+    url('fonts/hazard.woff?xogkm6') format('woff'),
+    url('fonts/hazard.svg?xogkm6#hazard') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
-[class^="icon-"], [class*=" icon-"] {
+[class^="ico-"], [class*=" ico-"] {
   /* use !important to prevent issues with browser extensions that change fonts */
   font-family: 'hazard' !important;
   speak: none;
@@ -25,105 +25,126 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.icon-register:before {
+.ico-register:before {
   content: "\e906";
 }
-.icon-login:before {
+.ico-login:before {
   content: "\e907";
 }
-.icon-contribute:before {
+.ico-contribute:before {
   content: "\e908";
 }
-.icon-news:before {
+.ico-news:before {
   content: "\e909";
 }
-.icon-world2:before {
+.ico-world2:before {
   content: "\e902";
 }
-.icon-globe2:before {
+.ico-globe2:before {
   content: "\e902";
 }
-.icon-internet2:before {
+.ico-internet2:before {
   content: "\e902";
 }
-.icon-network2:before {
+.ico-network2:before {
   content: "\e902";
 }
-.icon-base_data2:before {
+.ico-base_data2:before {
   content: "\e902";
 }
-.icon-cyclone:before {
+.ico-cyclone:before {
   content: "\e64a";
 }
-.icon-river_flood:before {
+.ico-river_flood:before {
   content: "\e652";
 }
-.icon-earthquake:before {
+.ico-river_flooding:before {
+  content: "\e652";
+}
+.ico-earthquake:before {
   content: "\e64b";
 }
-.icon-water_scarcity:before {
+.ico-water_scarcity:before {
   content: "\e650";
 }
-.icon-tsunami:before {
+.ico-tsunami:before {
   content: "\e655";
 }
-.icon-landslide:before {
+.ico-landslide:before {
   content: "\e656";
 }
-.icon-volcano:before {
+.ico-volcano:before {
   content: "\e65d";
 }
-.icon-logout:before {
+.ico-vulcano:before {
+  content: "\e65d";
+}
+.ico-logout:before {
   content: "\e90c";
 }
-.icon-coastal_flood:before {
-  content: "\e901";
-}
-.icon-world:before {
+.ico-world:before {
   content: "\e900";
 }
-.icon-globe:before {
+.ico-globe:before {
   content: "\e900";
 }
-.icon-internet:before {
+.ico-internet:before {
   content: "\e900";
 }
-.icon-network:before {
+.ico-network:before {
   content: "\e900";
 }
-.icon-base_data:before {
+.ico-base_data:before {
   content: "\e900";
 }
-.icon-vulnerability:before {
+.ico-vulnerability:before {
   content: "\e903";
 }
-.icon-methodology:before {
+.ico-extreme_heat:before {
+  content: "\e90d";
+}
+.ico-wildfire:before {
+  content: "\e910";
+}
+.ico-urban_flood:before {
+  content: "\e90f";
+}
+.ico-tornado:before {
+  content: "\e90e";
+}
+.ico-coastal_flood:before {
+  content: "\e901";
+}
+.ico-coastal_flooding:before {
+  content: "\e901";
+}
+.ico-methodology:before {
   content: "\e90a";
 }
-.icon-info:before {
+.ico-info:before {
   content: "\e904";
 }
-.icon-information:before {
+.ico-information:before {
   content: "\e904";
 }
-.icon-office:before {
+.ico-office:before {
   content: "\e905";
 }
-.icon-buildings:before {
+.ico-buildings:before {
   content: "\e905";
 }
-.icon-work:before {
+.ico-work:before {
   content: "\e905";
 }
-.icon-exposure:before {
+.ico-exposure:before {
   content: "\e905";
 }
-.icon-warning:before {
+.ico-warning:before {
   content: "\e90b";
 }
-.icon-alert:before {
+.ico-alert:before {
   content: "\e90b";
 }
-.icon-hazard_info:before {
+.ico-hazard_info:before {
   content: "\e90b";
 }
