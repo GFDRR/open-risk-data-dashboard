@@ -1,0 +1,8 @@
+Version 0.17.1
+
+  * import of ThinkHazard! countries applicability
+  * fix DatasetPutSerializer using 'iso2' code instead of 'name'
+    as serialization field for 'country' foreign key field.
+
+Version 0.16.1
+  ...
