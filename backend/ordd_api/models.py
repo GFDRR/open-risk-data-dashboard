@@ -59,6 +59,7 @@ class Country(models.Model):
     iso2 = models.CharField(max_length=2, blank=False, unique=True)
     name = models.CharField(max_length=64, blank=False, unique=True)
     region = models.ForeignKey(Region)
+    thinkhazard_appl = models.ManyToManyField("ordd_api.KeyPeril")
 
     def __str__(self):
         return self.name
@@ -199,7 +200,7 @@ class KeyDataset(models.Model):
     dataset = models.ForeignKey(KeyDatasetName)
     tag_available = models.ForeignKey(KeyTagGroup, null=True, blank=True)
     description = models.CharField(max_length=256, blank=False, unique=True)
-    applicability = models.ManyToManyField(KeyPeril)
+    applicability = models.ManyToManyField('ordd_api.KeyPeril')
     level = models.ForeignKey(KeyLevel)
 
     resolution = models.CharField(max_length=32, blank=True)

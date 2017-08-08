@@ -638,119 +638,43 @@ class DatasetListView(generics.ListAPIView):
 
 class Score(object):
     @classmethod
-    def dataset(cls, request, dataset):
-        sum = 0.0
+    def dataset(cls, request, dataset, th_applicability):
+        score = 0.0
 
         if dataset.is_existing:
-            sum += 5.0
+            score += 0.05
         if dataset.is_digital_form:
-            sum += 5.0
+            score += 0.05
         if dataset.is_avail_online:
-            sum += 5.0
+            score += 0.05
         if dataset.is_avail_online_meta:
-            sum += 5.0
+            score += 0.05
         if dataset.is_bulk_avail:
-            sum += 10.0
+            score += 0.10
         if dataset.is_machine_read:
-            sum += 15.0
+            score += 0.15
         if dataset.is_pub_available:
-            sum += 5.0
+            score += 0.05
         if dataset.is_avail_for_free:
-            sum += 15.0
+            score += 0.15
         if dataset.is_open_licence:
-            sum += 30.0
+            score += 0.30
         if dataset.is_prov_timely:
-            sum += 5.0
-        return sum / 100.0
+            score += 0.05
+
+        appl = set()
+        for kd_appl in dataset.keydataset.applicability.all():
+            appl.add(kd_appl.name)
+
+        for ds_appl in dataset.tag.all():
+            appl.add(ds_appl.name)
+
+        score *= len(appl & th_applicability) / len(th_applicability)
+
+        return score
 
     @classmethod
-    def keydataset_old(cls, queryset, request, country, category, keydataset):
-        score_max = -1
-
-        queryset = queryset.filter(country=country, keydataset=keydataset)
-
-        applicability = request.query_params.getlist('applicability')
-        if applicability:
-            q = Q()
-            for v in applicability:
-                # FIXME currently in tag we may have extra applicabilities
-                # when category (tag group) is 'hazard'
-                q = q | (Q(keydataset__applicability__name__iexact=v) |
-                         Q(tag__name__iexact=v))
-            queryset = queryset.filter(q)
-
-        for dataset in queryset:
-            score = cls.dataset(request, dataset)
-            if score_max < score:
-                score_max = score
-
-        return score_max
-
-    @classmethod
-    def country_old(cls, request, country):
-
-        queryset = Dataset.objects.filter(country=country).order_by(
-            'keydataset__code')
-
-        category_weights_sum = KeyCategory.objects.aggregate(
-            Sum('weight'))
-        category_weights_sum = float(category_weights_sum['weight__sum'])
-
-        # OLD METHOD
-        #keydataset_weights_sum = KeyDataset.objects.aggregate(
-        #    Sum('weight'))
-        #keydataset_weights_sum = float(keydataset_weights_sum['weight__sum'])
-
-        applicability_n = KeyPeril.objects.count()
-        country_score = 0
-        category_is_valid = False
-        for category in KeyCategory.objects.all():
-            category_score = -1
-            for keydataset in KeyDataset.objects.filter(category=category):
-                keydataset_score = cls.keydataset_old(
-                    queryset, request, country, category, keydataset)
-                if keydataset_score == -1:
-                    continue
-                # score must be multiplied by
-                #  len(keydataset.applicabilty ⋂ Nation.applicability)
-                #      / len(Nation.applicability)
-                # Currently we are fallback to this more simple approach
-                keydataset_score *= (float(keydataset.applicability.count()) /
-                                     float(applicability_n))
-                # OLD METHOD (with weighted average)
-                # category_score += float(keydataset_score * keydataset.weight)
-
-                # NEW METHOD (with max_score())
-                if category_score < keydataset_score:
-                    category_score = keydataset_score
-
-            # OLD METHOD
-            # category_score /= keydataset_weights_sum
-            if category_score == -1:
-                continue
-            category_is_valid = True
-            country_score += float(category_score * category.weight)
-
-        if category_is_valid is False:
-            return -1
-
-        country_score /= category_weights_sum
-
-        return country_score
-
-    @classmethod
-    def all_countries_old(cls, request):
-        ret = []
-        for country in Country.objects.all().order_by('name'):
-            score = cls.country_old(request, country)
-            if score == -1:
-                continue
-            ret.append({"country": country.iso2,
-                        "score": "%.1f" % (score * 100.0)})
-        return ret
-
-    @classmethod
-    def category(cls, category, country_score_tree, applicability_n):
+    def category(cls, category, country_score_tree):
         category_score = 0
 
         category_score_tree = country_score_tree[category.code]
@@ -761,17 +685,6 @@ class Score(object):
             keydataset_score = category_score_tree[keydataset.code][
                 'value']
 
-            # score must be multiplied by
-            #  len(keydataset.applicabilty ⋂ Nation.applicability)
-            #      / len(Nation.applicability)
-            # Currently we are fallback to this more simple approach
-
-            keydataset_score *= (float(keydataset.applicability.count()) /
-                                 float(applicability_n))
-            # OLD METHOD (with weighted average):
-            # category_score += float(keydataset_score * keydataset.weight)
-            #
-            # NEW METHOD (with max_score):
             if category_score < keydataset_score:
                 category_score = keydataset_score
 
@@ -779,23 +692,20 @@ class Score(object):
 
     @classmethod
     def country(cls, country_score_tree, country):
-        applicability_n = KeyPeril.objects.count()
+
+        th_applicability = set()
+        for appl in country.thinkhazard_appl.all():
+            th_applicability.add(appl.name)
 
         category_weights_sum = KeyCategory.objects.aggregate(
             Sum('weight'))
         category_weights_sum = float(category_weights_sum['weight__sum'])
 
-        # OLD METHOD
-        # keydataset_weights_sum = KeyDataset.objects.aggregate(
-        #    Sum('weight'))
-        # keydataset_weights_sum = float(keydataset_weights_sum['weight__sum'])
-
         country_score = 0
         for category in KeyCategory.objects.all().order_by('id'):
             if category.code not in country_score_tree:
                 continue
-            category_score = cls.category(category, country_score_tree,
-                                          applicability_n)
+            category_score = cls.category(category, country_score_tree)
             # OLD METHOD
             # category_score /= keydataset_weights_sum
             country_score += float(category_score * category.weight)
@@ -810,6 +720,10 @@ class Score(object):
         world_score = {}
         for dataset in queryset:
             country_id = dataset.country.iso2
+            th_applicability = set()
+            for appl in dataset.country.thinkhazard_appl.all():
+                th_applicability.add(appl.name)
+
             category_id = dataset.keydataset.category.code
             keydataset_id = dataset.keydataset.code
             if country_id not in world_score:
@@ -819,11 +733,12 @@ class Score(object):
                 country_score[category_id] = {}
             category_score = country_score[category_id]
             if keydataset_id not in category_score:
-                category_score[keydataset_id] = {'value': 0}
+                category_score[keydataset_id] = {'value': 0, "dataset": None}
             keydataset_score = category_score[keydataset_id]
-            score = cls.dataset(request, dataset)
+            score = cls.dataset(request, dataset, th_applicability)
             if score > keydataset_score['value']:
                 keydataset_score['value'] = score
+                keydataset_score['dataset'] = dataset
 
         return world_score
 
@@ -872,10 +787,14 @@ class Score(object):
     def country_details(cls, request, country_id):
         queryset = Dataset.objects.filter(
             country__iso2=country_id).order_by('keydataset__pk')
+        country = Country.objects.get(iso2=country_id)
+        th_applicability = set()
+        for appl in country.thinkhazard_appl.all():
+            th_applicability.add(appl.name)
 
         country_score = []
         for dataset in queryset:
-            score = cls.dataset(request, dataset)
+            score = cls.dataset(request, dataset, th_applicability)
             for keydataset_score in country_score:
                 # search for list a element with the same keydataset code
                 if (keydataset_score['dataset'].keydataset.code ==
@@ -922,7 +841,6 @@ class Score(object):
                          Q(tag__name__iexact=v))
             queryset = queryset.filter(q).distinct()
 
-        applicability_n = KeyPeril.objects.count()
         categories = KeyCategory.objects.all().order_by('id')
 
         world_score_tree = cls.dataset_loadtree(request, queryset)
@@ -944,8 +862,7 @@ class Score(object):
                         row.append("%.1f" % (-1,))
                         continue
                     category_score = cls.category(
-                        category, country_score_tree,
-                        applicability_n)
+                        category, country_score_tree)
                     row.append("%.1f" % (category_score * 100.0))
 
                 ret.append(row)
