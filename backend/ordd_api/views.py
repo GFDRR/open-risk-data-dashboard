@@ -215,6 +215,8 @@ class ProfileDatasetListCreateView(generics.ListCreateAPIView):
 
             if field == "keydataset":
                 post_value = post_keydataset
+            elif field == "country":
+                post_value = Country.objects.get(iso2=post[field].value).name
             else:
                 post_value = post[field].value
 
@@ -313,6 +315,9 @@ class ProfileDatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
             if field == "keydataset":
                 pre_value = pre_keydataset
                 post_value = post_keydataset
+            elif field == "country":
+                pre_value = Country.objects.get(iso2=pre[field].value).name
+                post_value = Country.objects.get(iso2=post[field].value).name
             else:
                 pre_value = pre[field].value
                 post_value = post[field].value
@@ -376,6 +381,8 @@ class ProfileDatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
 
             if field == "keydataset":
                 post_value = post_keydataset
+            elif field == "country":
+                post_value = Country.objects.get(iso2=post[field].value).name
             else:
                 post_value = post[field].value
 
@@ -491,6 +498,9 @@ class DatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
             if field == "keydataset":
                 pre_value = pre_keydataset
                 post_value = post_keydataset
+            elif field == "country":
+                pre_value = Country.objects.get(iso2=pre[field].value).name
+                post_value = Country.objects.get(iso2=post[field].value).name
             else:
                 pre_value = pre[field].value
                 post_value = post[field].value
@@ -552,6 +562,8 @@ class DatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
 
             if field == "keydataset":
                 post_value = post_keydataset
+            elif field == "country":
+                post_value = Country.objects.get(iso2=post[field].value).name
             else:
                 post_value = post[field].value
 
