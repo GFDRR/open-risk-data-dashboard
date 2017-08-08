@@ -32,57 +32,63 @@ RodiApp.directive('region', ['$compile', '$window', function ($compile, $window)
         },
         link: function (scope, element, attrs) {
 
-            scope.elementId = element.attr("id");
-            scope.elementDesc = element.attr("data-name");
+            scope.$watch("arrayData", function(newValue, oldValue) {
 
-            scope.regionClick = function () {
-                $window.location.href = scope.objRodiVariable.location + 'country-details.html?idcountry='+ scope.elementId;
-            };
+                scope.elementId = element[0].attributes.id.value;
+                scope.elementDesc = element[0].attributes[2].value;
 
-            scope.showPopup = function ($event) {
+                scope.regionClick = function () {
+                    $window.location.href = scope.objRodiVariable.location + 'dataset_list.html?idcountry='+ scope.elementId + '&idcategory=0';
+                };
 
-                scope.objRodiVariable.popupX = $event.originalEvent.pageX;
-                scope.objRodiVariable.popupY = $event.originalEvent.pageY;
+                scope.showPopup = function ($event) {
 
-                scope.objRodiVariable.bPopupCountry = true;
-                scope.objRodiVariable.countryID = scope.elementId;
-                scope.objRodiVariable.countryDesc = scope.elementDesc;
-                scope.objRodiVariable.valueData = scope.arrayData[scope.elementId].value;
-                scope.objRodiVariable.popupClass = "animated fadeIn";
+                    scope.objRodiVariable.popupX = $event.originalEvent.clientX;
+                    scope.objRodiVariable.popupY = $event.originalEvent.clientY;
 
-            };
+                    scope.objRodiVariable.bPopupCountry = true;
+                    scope.objRodiVariable.countryID = scope.elementId;
+                    scope.objRodiVariable.countryDesc = scope.elementDesc;
+                    scope.objRodiVariable.valueData = parseInt(scope.arrayData[scope.elementId].media * 100);
+                    scope.objRodiVariable.popupClass = "animated fadeIn";
 
-            scope.hidePopup = function () {
+                };
 
-                scope.objRodiVariable.bPopupCountry = false;
-                // scope.bPopupCountry = false;
-                scope.objRodiVariable.valueData = "";
-                scope.objRodiVariable.countryID ="";
-                scope.objRodiVariable.countryDesc = "";
-                scope.objRodiVariable.popupClass = "animated fadeOut";
-            };
+                scope.hidePopup = function () {
 
-            if(scope.elementId in scope.arrayData){
+                    scope.objRodiVariable.bPopupCountry = false;
+                    // scope.bPopupCountry = false;
+                    scope.objRodiVariable.valueData = "";
+                    scope.objRodiVariable.countryID ="";
+                    scope.objRodiVariable.countryDesc = "";
+                    scope.objRodiVariable.popupClass = "animated fadeOut";
+                };
 
-                // Click event
-                element.attr("ng-click", "regionClick()");
+                if(scope.arrayData != undefined)
+                {
+                    if(scope.elementId in scope.arrayData){
 
-                // Mouse over-leave
-                element.attr("ng-mouseover", "showPopup($event)");
-                element.attr("ng-mouseleave", "hidePopup()");
+                        // Click event
+                        element.attr("ng-click", "regionClick()");
 
-                // Remove style elements from svg
-                element.removeAttr("style");
-                // Replace new style elements
+                        // Mouse over-leave
+                        element.attr("ng-mouseover", "showPopup($event)");
+                        element.attr("ng-mouseleave", "hidePopup()");
 
-                scope.$watch("arrayData", function(newValue, oldValue) {
-                    element.attr("style", "fill:rgb(255," + parseInt((1-scope.arrayData[scope.elementId].value) * 255) + "," + parseInt((1-scope.arrayData[scope.elementId].value) * 255)  + "); fill-rule:evenodd;");
-                });
+                        // Remove style elements from svg
+                        element.removeAttr("style");
 
-            }
+                        // Replace new style elements
+                        element.attr("style", "fill:rgb(" + parseInt((1-scope.arrayData[scope.elementId].media) * 255)  + "," + parseInt((1-scope.arrayData[scope.elementId].media) * 255) + ",255); fill-rule:evenodd;");
 
-            element.removeAttr("region");
-            $compile(element)(scope);
+                    }
+                }
+
+                element.removeAttr("region");
+                $compile(element)(scope);
+
+            });
+
         }
     }
 }]);
@@ -102,6 +108,15 @@ RodiApp.directive('mainmenu',function(){
         restrict: 'E',
         controller: "RodiCtrlMainMenu",
         templateUrl: 'views/web_menu.html'
+    }
+});
+
+RodiApp.directive('browsedata',function(){
+    return {
+        transclude: true,
+        restrict: 'E',
+        controller: "RodiCtrl",
+        templateUrl: 'views/browse_data.html'
     }
 });
 

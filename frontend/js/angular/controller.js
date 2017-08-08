@@ -45,6 +45,146 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
     if ($location.path().indexOf('index') !== -1 || $location.path() == baseUrl.replace("http:/", "") || $location.path() == baseUrl.replace("https:/", ""))
     {
 
+
+        // ************************************** //
+        // ************* MATRIX ***************** //
+        // ************************************** //
+
+        $scope.filterApplicabilityClass = function () {
+            if($scope.filteredApplicability[0] == name){
+                return "active";
+            }else return "unactive" ;
+
+
+        }
+
+        $scope.filteredApplicability = [];
+
+        RodiSrv.getApplicability(function (data) {
+
+            $scope.applicability= [];
+
+            data.forEach(function(item){
+                var obj = {};
+                obj.icon = $filter('lowercase')("ico-"+ item.name.replace(/\s+/g, '_'));
+                obj.title = item.name;
+                $scope.applicability.push(obj);
+            })
+
+            // $scope.applicability  = data;
+        });
+
+        $scope.setUnSetFilter = function (filter){
+
+            $scope.filteredApplicability = [];
+            $scope.filteredApplicability.push(filter);
+            $scope.mergeMatrixData();
+        }
+
+        RodiSrv.getCountryList(
+            function(countryList) {
+                // Success
+                $scope.aCountryList = {};
+
+                countryList.forEach(function (item) {
+                    $scope.aCountryList[item.iso2] = item;
+                });
+
+                $scope.mergeMatrixData();
+
+        })
+
+
+        $scope.mergeMatrixData= function() {
+            RodiSrv.getMatrixData($scope.filteredApplicability, function (data) {
+                // $scope.matrixData = [];
+
+                $scope.arrayData = [];
+                $scope.nrClassHazard = 0;
+
+                //tolgo elemento indici
+                var aIndex = data[0];
+                data.splice(0, 1);
+
+                // compongo un array chiave valore
+
+                data.forEach(function (currValue, index, array) {
+                    var obj = {};
+                    var countrycode;
+                    $scope.countryMedia = 0;
+
+                    for (var i in aIndex) {
+
+                        if (aIndex[i] == "country") {
+                            countrycode  = currValue[i];
+                        }else{
+                            obj[aIndex[i]] = {
+                                id:i,
+                                value:currValue[i]
+                            }
+
+                            $scope.countryMedia +=  currValue[i] * 1;
+                            $scope.nrClassHazard += 1;
+                        }
+
+                    }
+
+                    // $scope.aCountryList[countrycode].data = {};
+                    $scope.aCountryList[countrycode].data = obj;
+                    $scope.aCountryList[countrycode].media = ($scope.countryMedia / $scope.nrClassHazard) / 100;
+
+                });
+
+                //fill country without data
+                var obj= {}
+                for (var i in aIndex) {
+                    if (aIndex[i] != "country") {
+                        obj[aIndex[i]] = {
+                            id:i,
+                            value:"-1.0"
+                        }
+                    }
+                }
+
+                for(var country in $scope.aCountryList){
+
+                    if(angular.isUndefined($scope.aCountryList[country].data))
+                    {
+                        $scope.aCountryList[country].data = obj;
+                        $scope.aCountryList[country].media = 0;
+                    }
+
+                    // if (angular.isUndefined($scope.aCountryList[country].data)) $scope.aCountryList[country].data = obj;
+                    // $scope.arrayData[country] = {value: 0};
+                }
+                //end filling
+
+                $scope.arrayData = angular.copy($scope.aCountryList);
+
+            }, function (data) {
+                // Error
+                // TODO: set e message error
+            });
+        }
+
+        // Get the Hazard Category
+        $scope.HazardCategory = RodiSrv.getDataCategoryIcon();
+
+
+        $scope.getHCIcon = function (index) {
+            return RodiSrv.getHCIcon(index - 1);
+        };
+
+        $scope.colorCell = function (value) {
+            return RodiSrv.matrixColorCell(value);
+        }
+
+
+        // ************************************** //
+        // ************* MAP DATA *************** //
+        // ************************************** //
+
+
         $scope.objRodiVariable =
             {
                 "valueData": "",
@@ -58,10 +198,10 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
             };
 
         // Chiamo il service per compilare l'arrayData
-        $scope.arrayData = RodiSrv.getMapScores($scope.objHazardFilters);
+        // $scope.arrayData = RodiSrv.getMapScores($scope.objHazardFilters);
 
         // Chiamo il servizio per le news
-        $scope.news = RodiSrv.getNewsList(4);
+        // $scope.news = RodiSrv.getNewsList(4);
 
     }
 
@@ -80,26 +220,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
     };
 
-    // ************************************** //
-    // ************* MATRIX ***************** //
-    // ************************************** //
-
-    if ($location.path().indexOf('browse-data.html') !== -1)
-    {
-        // Get the Hazard Category
-        $scope.HazardCategory = RodiSrv.getDataCategoryIcon();
-
-        $scope.matrixData = RodiSrv.getMatrixData($scope.objHazardFilters);
-
-        $scope.getHCIcon = function(index)
-        {
-            return RodiSrv.getHCIcon(index - 1);
-        };
-
-        $scope.colorCell = function(value){
-            return RodiSrv.matrixColorCell(value);
-        }
-    }
 
     // ************************************** //
     // ********* CONTRIBUTE PAGE ************ //
@@ -729,191 +849,306 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
     }
 
     // ************************************** //
-    // ****** DATASET LIST & DETAILS ******** //
+    // ********** DATASET LIST ************** //
     // ************************************** //
 
     if ($location.path().indexOf('dataset_list.html') !== -1)
     {
-        // Dataset page
+
         $scope.idCountry = $location.search().idcountry;
         $scope.idDatasetCat = $location.search().idcategory;
-        $scope.DataCategory = [];
-        $scope.DatasetList_Country_DataCat = [];
         $scope.bLoading = true;
         $scope.bNoDataset = false;
+        $scope.datasetList = [];
+        $scope.aCategory = [];
+        $scope.aApplicability = [];
+
         $scope.questions = RodiSrv.getQuestions();
         $scope.HazardCategory = RodiSrv.getDataCategoryIcon();
+        $scope.arrayHazardList=RodiSrv.getHazardList();
+
+        RodiSrv.getCountryList(function(data)
+        {
+            // Success
+
+            $scope.countryList = data;
+            $scope.objCountry = $filter('filter')($scope.countryList, {iso2: $scope.idCountry});
+
+        }, function(data)
+        {
+            // Error API
+            console.log(data);
+        });
 
         $scope.getHCIcon = function(index)
         {
             return RodiSrv.getHCIcon(index - 1);
         };
 
-        $scope.datasetList = [];
+        // Load Dataset list with filter
+        $scope.loadDatasetList = function()
+        {
+            $scope.datasetList = [];
+            $scope.bLoading = true;
 
-        RodiSrv.getDatasetlist(function (data) {
-            $scope.datasetList = data;
-        });
+            RodiSrv.getDatasetlistFiltered($scope.idCountry, $scope.aCategory, $scope.aApplicability,
+                function(data)
+                {
+                    // Success
+                    $scope.datasetList = data;
 
-        $scope.arrayHazardList=RodiSrv.getHazardList();
+                    $scope.tableParams = new NgTableParams({}, { dataset: $scope.datasetList});
+
+                }, function(data)
+                {
+                    // Error API
+                    console.log(data);
+                })
+
+            $scope.bLoading = false;
+        }
+
+        if($scope.idDatasetCat !== '0')
+        {
+            // Category filter initialize
+            $scope.aCategory = [];
+
+            RodiSrv.getDataRiskCategory(0,
+                function(data)
+                {
+                    // Success
+
+                    $scope.DataCategory = $filter('filter')(data,
+                        function(e)
+                        {
+                            return e.category.id == $scope.idDatasetCat;
+                        }
+                    );
+
+                    $scope.aCategory.push($scope.DataCategory[0].category.name);
+                    $scope.loadDatasetList();
 
 
+                }, function(data)
+                {
+                    console.log(data);
+                }
+            );
 
 
-        $scope.filterArray = [];
+        } else
+            {
+                $scope.loadDatasetList();
+            }
 
-        $scope.setFilterDatasetList = function (filter) {
+        $scope.setFilterApplicabilityDatasetList = function (filter) {
 
-            var index =$scope.filterArray.indexOf(filter);
+            var index = $scope.aApplicability.indexOf(filter);
+
             if (index >-1){
-                $scope.filterArray.splice(index,1);
-                $scope.buildFilterdObject();
+                $scope.aApplicability.splice(index,1);
+                $scope.loadDatasetList();
             }else {
-                $scope.filterArray.push(filter);
-                $scope.buildFilterdObject();
+                $scope.aApplicability.push(filter);
+                $scope.loadDatasetList();
+            }
+
+        };
+
+        $scope.filterApplicabilityCssClass = function (filter) {
+            var index =$scope.aApplicability.indexOf(filter);
+            if (index >-1){
+                return "unactive";
+            }else return "active";
+        };
+
+        $scope.filterApplicabilityCssStyle = function (filter) {
+            var index =$scope.aApplicability.indexOf(filter);
+            if (index >-1){
+                // return {"background-color" : '#2EA620' } ;
+                return {"background-color" : 'white' } ;
+            }else return "";
+        };
+
+        $scope.setFilterCategoryDatasetList = function (filter) {
+
+            var index = $scope.aCategory.indexOf(filter);
+
+            if (index >-1){
+                $scope.aCategory.splice(index,1);
+                $scope.loadDatasetList();
+            }else {
+                $scope.aCategory.push(filter);
+                $scope.loadDatasetList();
             }
         };
+
+        $scope.filterCategoryCssClass = function (filter) {
+            var index =$scope.aCategory.indexOf(filter);
+            if (index >-1){
+                return "unactive";
+            }else return "active";
+        };
+
+        $scope.filterCategoryCssStyle = function (filter) {
+            var index =$scope.aCategory.indexOf(filter);
+            if (index >-1){
+                // return {"background-color" : '#2EA620' } ;
+                return {"background-color" : 'white' } ;
+            }else return "";
+        };
+
+
+
+        // Dataset page -- OLD VERSION
+
+        // $scope.DataCategory = [];
+        // $scope.DatasetList_Country_DataCat = [];
+
+
+
+        // RodiSrv.getDatasetlist(function (data) {
+        //     $scope.datasetList = data;
+        // });
+
+        // $scope.arrayHazardList=RodiSrv.getHazardList();
+
+
+        // $scope.filterArray = [];
+
+
         // http://localhost:63342/RODIGitHub/frontend/%7B%7B$LocationProvider.$get%7D%7D
 
-        $scope.filterCssClass = function (filter) {
-            var index =$scope.filterArray.indexOf(filter);
-            if (index >-1){
-                return "active";
-            }else return "";
-        };
 
-        $scope.filterCssStyle = function (filter) {
-            var index =$scope.filterArray.indexOf(filter);
-            if (index >-1){
-                return {"background-color" : '#2EA620' } ;
-            }else return "";
-        };
 
-        $scope.buildFilterdObject = function () {
 
-            $scope.newSetOfData = [];
-            console.log($scope.filterArray);
 
-            $scope.DatasetList.forEach(function (item) {
-                // applicability check
-
-                var bApplicability =  false;
-
-                if(item.keydataset.applicability && item.keydataset.applicability.length == 0){
-                    bApplicability = true;
-
-                } else{
-                    for(var filter in $scope.filterArray){
-                        if ( item.tag.indexOf($scope.filterArray[filter])>-1){
-                            bApplicability = true;
-                        }
-                    }
-                }
-
-                var hasCategory =($scope.filterArray.indexOf(item.keydataset.category)>-1);
-
-                // se non c sono selezionate categorie le prendo tutte
-                if ($scope.filterArray.length == 0) hasCategory = true;
+        // $scope.buildFilterdObject = function () {
+        //
+        //     $scope.newSetOfData = [];
+        //     console.log($scope.filterArray);
+        //
+        //     $scope.DatasetList.forEach(function (item) {
+        //         applicability check
+                //
+                // var bApplicability =  false;
+                //
+                // if(item.keydataset.applicability && item.keydataset.applicability.length == 0){
+                //     bApplicability = true;
+                //
+                // } else{
+                //     for(var filter in $scope.filterArray){
+                //         if ( item.tag.indexOf($scope.filterArray[filter])>-1){
+                //             bApplicability = true;
+                //         }
+                //     }
+                // }
+                //
+                // var hasCategory =($scope.filterArray.indexOf(item.keydataset.category)>-1);
+                //
+                // se non ci sono selezionate categorie le prendo tutte
+                // if ($scope.filterArray.length == 0) hasCategory = true;
 
                 //selectdCountry
-                var isCountrySelected = item.country==$scope.idCountry
+                // var isCountrySelected = item.country==$scope.idCountry
 
                 // (item.keydataset.applicability.indexOf())
 
-                if((hasCategory || bApplicability) && isCountrySelected){
-                    $scope.newSetOfData.push(item);
-                }
-            });
-            $scope.tableParams = new NgTableParams({}, { dataset: $scope.newSetOfData});
+                // if((hasCategory || bApplicability) && isCountrySelected){
+                //     $scope.newSetOfData.push(item);
+                // }
+            // });
+            // $scope.tableParams = new NgTableParams({}, { dataset: $scope.newSetOfData});
             //console.log($scope.DatasetList_Country_DataCat);
 
-        }
-
-        
+        // }
 
 
-        RodiSrv.getCountryList(
-            function(data){
+        // RodiSrv.getCountryList(
+        //     function(data){
                 // Success
-                $scope.countryList = data;
-                $scope.objCountry = $filter('filter')($scope.countryList, {iso2: $scope.idCountry});
+                // $scope.countryList = data;
+                // $scope.objCountry = $filter('filter')($scope.countryList, {iso2: $scope.idCountry});
 
                 // Get Data risk category
-                RodiSrv.getDataRiskCategory(0,
-                    function(data)
-                    {
+                // RodiSrv.getDataRiskCategory(0,
+                //     function(data)
+                //     {
                         // Success
-                        $scope.DataCategory = $filter('filter')(data,
-                            function(e)
-                            {
-                                return e.category.id == $scope.idDatasetCat;
-                            }
-                        );
+
+                        // $scope.DataCategory = $filter('filter')(data,
+                        //     function(e)
+                        //     {
+                        //         return e.category.id == $scope.idDatasetCat;
+                        //     }
+                        // );
 
 
                         // Get & filter dataset list
-                        RodiSrv.getDatasetlist(
-                            function(data)
-                            {
-                                // Success
-                                //console.log(data);
-
-                                $scope.DatasetList = data;
-
-                                $scope.DatasetList_Country_DataCat = $filter('filter')(data,
-                                    function(e)
-                                    {
-                                        return e.country == $scope.idCountry && e.keydataset.category == $scope.DataCategory[0].category.name;
-                                    }
-                                );
-
-                                $scope.tableParams = new NgTableParams({}, { dataset: $scope.DatasetList_Country_DataCat});
-
-                                //preset Filter
-                                if($scope.filterArray.indexOf($scope.DataCategory[0].category.name)==-1) $scope.filterArray.push($scope.DataCategory[0].category.name)
-
-                                //load all applicability
-                                // $scope.arraypippo=[]
-                                // $scope.DatasetList.forEach(function (item) {
-                                //     if (item.keydataset.applicability){
-                                //         item.keydataset.applicability.forEach(function (item2) {
-                                //           if ($scope.arraypippo.indexOf(item2)== -1)$scope.arraypippo.push(item2);
-                                //         })
-                                //     }
-                                // });
-                                // console.log($scope.arraypippo);
-
-
-                                if ($scope.DatasetList_Country_DataCat.length > 0)
-                                {
-                                    $scope.bNoDataset = false;
-                                } else
-                                    {
-                                        $scope.bNoDataset = true;
-                                    }
-
-                                $scope.bLoading = false;
-
-                            }, function(data)
-                            {
+                        // RodiSrv.getDatasetlist(
+                        //     function(data)
+                        //     {
+                        //         // Success
+                        //         //console.log(data);
+                        //
+                        //         $scope.DatasetList = data;
+                        //
+                        //
+                        //         $scope.DatasetList_Country_DataCat = $filter('filter')(data,
+                        //             function(e)
+                        //             {
+                        //                 return e.country == $scope.idCountry && e.keydataset.category == $scope.DataCategory[0].category.name;
+                        //             }
+                        //         );
+                        //
+                        //
+                        //         $scope.tableParams = new NgTableParams({}, { dataset: $scope.DatasetList_Country_DataCat});
+                        //
+                        //         //preset Filter
+                        //         if($scope.filterArray.indexOf($scope.DataCategory[0].category.name)==-1) $scope.filterArray.push($scope.DataCategory[0].category.name)
+                        //
+                        //         //load all applicability
+                        //         // $scope.arraypippo=[]
+                        //         // $scope.DatasetList.forEach(function (item) {
+                        //         //     if (item.keydataset.applicability){
+                        //         //         item.keydataset.applicability.forEach(function (item2) {
+                        //         //           if ($scope.arraypippo.indexOf(item2)== -1)$scope.arraypippo.push(item2);
+                        //         //         })
+                        //         //     }
+                        //         // });
+                        //         // console.log($scope.arraypippo);
+                        //
+                        //
+                        //         if ($scope.DatasetList_Country_DataCat.length > 0)
+                        //         {
+                        //             $scope.bNoDataset = false;
+                        //         } else
+                        //             {
+                        //                 $scope.bNoDataset = true;
+                        //             }
+                        //
+                        //         $scope.bLoading = false;
+                        //
+                        //     }, function(data)
+                        //     {
                                 //Error
-                                console.log(data);
-                                $scope.bLoading = false;
-                                $scope.bNoDataset = true;
-                            }
-                        );
+                                // console.log(data);
+                                // $scope.bLoading = false;
+                                // $scope.bNoDataset = true;
+                            // }
+                        // );
 
-                    }, function(data)
-                    {
-                        console.log(data);
-                    }
-                );
+                    // }, function(data)
+                    // {
+                    //     console.log(data);
+                    // }
+                // );
 
 
-            }, function(data){
-                // Error
-                // TODO: error message
-        });
+            // }, function(data){
+            //     Error
+            //     TODO: error message
+        // });
 
     }
 

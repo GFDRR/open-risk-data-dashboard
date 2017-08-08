@@ -5,6 +5,9 @@
 RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 {
 
+
+    this.countryList = null;
+
     // ************************************** //
     // ********* API VERSIONE CHECK ********* //
     // ************************************** //
@@ -157,16 +160,23 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
     this.getCountryList = function(onSuccess, onError)
     // Return the list of country Available
     {
+        var _this =this
+        if (this.countryList && onSuccess){
+            onSuccess(this.countryList);
+        } else{
+            // Return country list
+            $http({
+                method: 'GET',
+                url: baseAPIurl + 'country/'
+            }).then(function (data) {
+                _this.countryList =data.data;
+                if(onSuccess) onSuccess(data.data);
+            },function(data){
+                if(onError)onError(data)
+            });
+        }
 
-        // Return country list
-        $http({
-            method: 'GET',
-            url: baseAPIurl + 'country/'
-        }).then(function (data) {
-            if(onSuccess) onSuccess(data.data)
-        },function(data){
-            if(onError)onError(data)
-        });
+
 
 
 
@@ -188,8 +198,43 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 
     };
 
-    this.getMatrixData = function(filters)
+    this.getMatrixData = function(filters, onSuccess, onError)
     {
+
+        if(filters.length> 0){
+            var string = '?applicability='
+            filters.forEach(function (item) {
+                string = string+item;
+            })
+        }else{
+            var string = ''
+        }
+
+        $http({
+            method: 'GET',
+            url: baseAPIurl + 'scoring_category/'+string
+            // url: baseAPIurl + 'scoring_categories/'
+        }).then(function (data) {
+
+            // var aOfIndex = data.data[0];
+            // data.data.splice(0,1);
+            // var aObj = [];
+            // data.data.forEach(function (item,index, array) {
+            //     va
+            //     aOfIndex.forEach(function (keyIndex) {
+            //         obj.push({
+            //             keyIne
+            //         });
+            //     })
+            //
+            //     for (var field in aOfIndex)
+            // })
+
+            if(onSuccess)onSuccess(data.data)
+        },function(data){
+            alert('Error');
+        });
+
 
         /*
             Return Matrix Strucutre (page countries)
@@ -240,7 +285,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
             }
         ];
 
-        return dataTemp;
+        //return dataTemp;
     }
 
     this.getCountryDetails = function(idcountry)
@@ -393,17 +438,40 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
             return obj;
     }
 
-    this.matrixColorCell = function(value){
+    this.matrixColorCell = function(value) {
 
         var numberFloat = parseFloat(value);
-        return "background-color: rgb(255," + parseInt((1 - numberFloat) * 255) + "," + parseInt((1 - numberFloat) * 255) + ");"
-    };
+
+        if (numberFloat == -1) {
+            return "background-color:grey";
+        } else {
+            numberFloat = numberFloat / 100;
+            // return "background-color: rgb(255," + parseInt((1 - numberFloat) * 255) + "," + parseInt((1 - numberFloat) * 255) + ");"
+            return "background-color: rgba(0,0,255, " + numberFloat + ");"
+        }
+    }
+
+    this.getApplicability = function( onSuccess, onError)
+    {
+        //https://dev.riskopendata.org/api-dev/peril/
+
+        $http({
+            method: 'GET',
+            url: baseAPIurl + 'peril/'
+            // url: baseAPIurl + 'scoring_categories/'
+        }).then(function (data) {
+            if(onSuccess)onSuccess(data.data)
+        },function(data){
+            alert('Error');
+        });
+
+
+
+    }
 
     this.getHazardList = function()
-        // Return the list of country Available
     {
 
-        // Return country list
 
         var objHazard = [
             {code:"RF", desc:"River flooding",icon:"icon-river_flood"},
@@ -523,13 +591,29 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         });
     }
 
-    this.getDatasetlistFiltered = function(idCountry, descCategory, descApplicability, onSuccess, onError)
+    this.getDatasetlistFiltered = function(idCountry, aCategory, aApplicability, onSuccess, onError)
     {
         // Return the dataset info filtered by country, category & applicability
+        var sCategoryFilter = "";
+        var sApplFilter = "";
+
+        if(aCategory.length > 0)
+        {
+            aCategory.forEach(function(item) {
+                sCategoryFilter = sCategoryFilter + "&category=" + $filter('lowercase')(item);
+            });
+        };
+
+        if(aApplicability.length > 0)
+        {
+            aApplicability.forEach(function(item) {
+                sApplFilter = sApplFilter + "&applicability=" + $filter('lowercase')(item);
+            });
+        };
 
         var req = {
             method: 'GET',
-            url: baseAPIurl + 'dataset/?country=' + idCountry + "&category=" + descCategory + "&applicability=" + descApplicability,
+            url: baseAPIurl + 'dataset/?country=' + idCountry + sCategoryFilter + sApplFilter,
             headers: {
                 // 'Authorization': 'Token ' + token
             },

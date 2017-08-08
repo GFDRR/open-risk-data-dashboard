@@ -141,13 +141,13 @@ section
 
 .news_title
 {
-    position: absolute;
-    left:20%;
+    /*position: absolute;*/
+    /*left:20%;*/
     text-align: center;
     padding:15px;
     background-color: rgba(238,48,54,1);
     color:#ffffff;
-    bottom:-25px;
+    /*bottom:-25px;*/
 }
 
 .page_title
@@ -294,6 +294,56 @@ section
 {
     font-weight:600;
 }
+
+
+.panel .panel-body .img-responsive {
+    /*height: auto;*/
+    padding: 5em 1em;
+    /*width: 200px;*/
+    margin: auto;
+}
+
+
+/*
+==============================================================================
+
+
+
+==============================================================================
+*/
+
+
+/*
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700|Montserrat:400,700);
+@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css);
+*/
+
+#counter-stats {
+    /*background: #eee;*/
+}
+
+/*/ start count stats /*/
+
+section#counter-stats {
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
+
+.stats {
+    text-align: center;
+    font-size: 35px;
+    font-weight: 700;
+    /*font-family: 'Montserrat', sans-serif;*/
+}
+
+.stats .fa {
+    color: #00C1FF;
+    font-size: 60px;
+}
+
+/*/ end count stats /*/
+
 
 /*
 ==============================================================================
@@ -579,11 +629,19 @@ Footer
 
 ==============================================================================
 */
+
+.matrix_cell {
+    height:12px;
+    line-height:0;
+    padding:2px;
+
+}
+
 .matrix_cell
 {
-    padding:4px;
-    width:40px;
-    min-height:40px;
+    /*padding:4px;*/
+    width:80px;
+    /*min-height:40px;*/
     -webkit-border-radius: 2px;
     -moz-border-radius: 2px;
     border-radius: 2px;
@@ -687,10 +745,11 @@ Navbar
 }
 
 
-.navbar-nav li.active span, .navbar-nav li.active i{    color:#ee3036;}
+/* .navbar-nav li.active span, .navbar-nav li.active i{    color:#ee3036;} */
 
 [class^="icon-"], [class*=" icon-"],
-.nav>li>a {    color: #ee3036; }
+[class^="ico-"], [class*=" ico-"],
+.nav>li>a {color: #ee3036;}
 
 .nav li a {
     display: flex;
@@ -709,7 +768,12 @@ Navbar
 
 .nav>li>a:focus,
 .nav>li>a:hover,
-.invert:hover, .invert:focus {
+.nav>li:hover>a,
+.nav>li:focus>a,
+.nav>li.active>a,
+.nav>li.active>a i,
+.invert:hover,
+.invert:focus {
     color:#00b3ee;
 }
 .invert:hover, .invert:focus {background: #eee; text-decoration: none;}
@@ -730,10 +794,12 @@ mainmenu .navbar {
 ======================================
 */
 
-#menu-hazard .nav>li:not(search)>a i {
+#menu-hazard .nav>li>a i {
     border-radius:50%;
-    border: 2px solid #EE3036;
-    font-size: 3em;
+    border: 2px solid red;
+    border-color: #EE3036;
+    font-size: 2.5em;
+    padding: 10px;
 
 }
 #menu-hazard .nav {display: flex; flex-wrap: nowrap; justify-content: center; width: 100%;}
@@ -749,21 +815,51 @@ mainmenu .navbar {
 }
 
 
-#menu-hazard .nav>li>a span {line-height:1;margin-top:1em; }
+#menu-hazard .nav>li>a span {line-height:1; margin-top:1em; }
 
-#menu-hazard .nav>li>a:focus i,
-#menu-hazard .nav>li>a:hover i,
-#menu-hazard .nav>li>a:focus span,
-#menu-hazard .nav>li>a:hover span
+
+#menu-hazard .nav>li:visited>a,
+#menu-hazard .nav>li.unactive>a,
+    /* #menu-hazard .nav>li>a span, */
+#menu-hazard .nav>li:visited>a i,
+#menu-hazard .nav>li.unactive>a i,
+#menu-hazard .nav>li:focus>a i,
+#menu-hazard .nav>li:focus>a span {
+    background: white;
+    color: #EE3036;
+    border-color: #EE3036;
+}
+
+
+.nav>li.active>a
+.nav>li.active>a i,
+.nav>li.active>a span,
+#menu-hazard .nav>li.active>a
+
+#menu-hazard .nav>li.active>a span,
+
+#menu-hazard .nav>li:hover>a span
 #menu-hazard .nav>li.search>div>a:focus,
-#menu-hazard .nav>li.search>div>a:hover {
+#menu-hazard .nav>li.search>div>a:focus i,
+#menu-hazard .nav>li.search>div>a:hover,
+#menu-hazard .nav>li.search>div>a:hover i {
     color:#00b3ee;
-    border-color:#00b3ee;
     background-color:#eee;
     text-decoration:none;
 }
+
+#menu-hazard .nav>li.active>a i,
+#menu-hazard .nav>li:hover>a i,
+#menu-hazard .nav>li.search>div>a:focus i,
+#menu-hazard .nav>li.search>div>a:hover i {
+    border-color:#00b3ee!important;
+    background-color:#eee;
+}
+
 #menu-hazard .nav>li.search>div>a:focus,
 #menu-hazard .nav>li.search>div>a:hover {border-radius:50%;}
+
+/*
 #menu-hazard .nav>li.active>a
 #menu-hazard .nav>li.active>a i,
 #menu-hazard .nav>li.active>a span,
@@ -771,15 +867,13 @@ mainmenu .navbar {
 #menu-hazard .nav>li.search>div>a:hover i {
     color:#00b3ee;
     border-color:#00b3ee;
+    background-color: #eee;
 }
-
-#menu-hazard .nav>li>a:focus span,
-#menu-hazard .nav>li>a:hover span {}
-
-
+ */
+#menu-hazard .nav>li.active>a span {padding:1em;}
+#menu-hazard .nav>li.unactive>a span { background: white;}
 
 
-/*#menu-hazard .nav li {    max-width: calc(100%/8);}*/
 
 
 /*
@@ -795,7 +889,8 @@ Menu nav e hazart transform/transitions
 
 #menu-hazard .nav>li>a:focus,
 #menu-hazard .nav>li>a:hover,
-.nav>li>a:focus, .nav>li>a:hover,
+.nav>li>a:focus,
+.nav>li>a:hover,
 #menu-hazard .nav>li.search>div>a:focus,
 #menu-hazard .nav>li.search>div>a:hover,
 .search .form-control.ng-empty,
@@ -805,13 +900,94 @@ Menu nav e hazart transform/transitions
 .search .form-control:hover,
 .invert:hover, .invert:focus { transform:scale(1.1); transition:all 0.3s ease;}
 
+.nav>li,
 .nav>li>a,
 .nav>li.active>a,
+.nav>li.unactive>a,
+.nav>li.active>a span,
+.nav>li.unactive>a span,
 .nav>li>a:focus,
 .nav>li>a:hover,
 .invert:hover, .invert:focus {transition:all 0.25s ease;}
 
 
+
+/*
+==============================================================================
+
+Collapse Expand
+
+==============================================================================
+*/
+.wrap{
+    /*width:80%;*/
+    margin:0 auto;
+}
+.expand {
+    background-color: rgba(255,255,255,0);
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    color: red;
+    padding: 15px;
+    margin:0px;
+    max-height:6EM;
+    overflow:hidden;
+    transition: all 0.4s;
+}
+.expand * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+
+}
+.expand.active {
+    background-color: rgba(235,235,235,0.9);
+    box-shadow: 0 8px 17px 0 rgba(0, 0, 0, 0.2);
+    z-index: 200;
+    color:#444;
+    max-height:3000px;
+    padding:10px 20px;
+    margin: 10px -10px;
+    transition: all 0.2s,max-height 4.8s;
+}
+.expand h2 {
+    font-size: 2em;
+    line-height: 0px;
+    position:relative;
+}
+.slide{
+    box-shadow:none !important;
+    margin:0px !important;
+    padding:10px !important
+}
+.transparent{
+    background-color: rgba(255,255,255,0) !important;
+    color:#fff !important;
+    box-shadow:none !important;
+    margin:0px !important;
+    padding:10px !important
+}
+.expand h2::after{
+    content: "+";
+    text-align:center;
+    position:absolute;
+    width: 32px;
+    height: 32px;
+    border:1px solid red;
+    border-radius:50%;
+    font-size: 1em;
+    line-height: 25px;
+    opacity:0.5;
+    right:0;
+    top:0;
+}
+.expand:hover h2::after{
+    opacity:1
+}
+
+.expand.active h2::after{
+    content: "-";
+}
 
 /*
 ==============================================================================
@@ -822,7 +998,7 @@ Search
 */
 
 
-.search {max-width:300px;}
+.search {max-width:300px; padding-top: 8px;}
 .search>a i {
     border-radius:inherit;
     border:none;
@@ -885,6 +1061,13 @@ Login
 }
 
 
+/*
+===============================================================================================
+
+Tables
+
+===============================================================================================
+*/
 
 .table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th
 {
@@ -896,16 +1079,16 @@ Login
 }
 
 
-/*#menu-hazard .nav>li:nth-last-child(1)>a,*/
-/*#menu-hazard .nav>li:nth-last-child(2)>a,*/
-/*#menu-hazard .nav>li:nth-last-child(3)>a,*/
-/*#menu-hazard .nav>li:nth-last-child(4)>a,*/
-/*#menu-hazard .nav>li:nth-last-child(5)>a{*/
-/*content: '';*/
-/*border-left: 2px solid rgba(128,128,132,0.5);*/
-/*}*/
 
 
+
+.data.table>tbody>tr>td {
+    /*     max-height: 10px!important; */
+    line-height:1;
+    margin:0;
+    padding:0;
+}
+.data.table>tbody>tr>td:first-child {text-align:right;}
 
 
 /*
