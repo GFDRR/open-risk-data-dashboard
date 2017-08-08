@@ -53,6 +53,9 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
 
         $scope.changeDataRiskSelection = function(idCategory)
         {
+
+            $scope.lastSelectedCategoty = idCategory;
+
             // Filter Dataset list
             RodiSrv.getDatasetCategoryList(0,idCategory,
                 function(data)
@@ -72,6 +75,11 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                     // do nothing
                 });
         };
+
+        $scope.dataRiskSelectionClass = function (id) {
+
+            return ($scope.lastSelectedCategoty == id)?'btn-warning':'btn-success';
+        }
 
         $scope.changeDatasetSelection = function(idDataset)
         {
@@ -268,8 +276,6 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
             // Update dataset info
             var aErrorsValidation = [];
 
-            console.log($scope.objDataset);
-
             // Set tags and links
             $scope.objDataset.tag = $scope.selectedTags;
             $scope.objDataset.url = $scope.selectedLink;
@@ -299,7 +305,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                         // Success
                         $scope.objDataset.keydataset = data[0].code;
 
-                        if($scope.objDataset.owner == $scope.userinfo.username)
+                        if($scope.objDataset.owner == $scope.userinfo.username && $scope.userinfo.groups[0] !== 'reviewer' && $scope.userinfo.groups[0] !== 'admin')
                         {
                             // Dataset owner / API profile/dataset
                             RodiSrv.updateprofileDataset($scope.tokenid, $scope.objDataset,
@@ -322,7 +328,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                                 function(data){
                                     // Success
                                     vex.dialog.alert('Dataset update correctly');
-
+                                    initDataset ()
                                 }, function(data){
                                     //     Error
                                     console.log(data);
@@ -444,8 +450,10 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                 $scope.objDataset = dataDS;
                 $scope.objDatasetView = angular.copy(dataDS);
 
+                console.log($scope.userinfo);
+
                 // Check if user logged in can edit dataset, LOAD DATASET PROFILE API
-                if($scope.objDataset.owner == $scope.userinfo.username ||$scope.userinfo.groups[0] == 'reviewer')
+                if($scope.objDataset.owner == $scope.userinfo.username || $scope.userinfo.groups[0] == 'reviewer' || $scope.userinfo.groups[0] == 'admin')
                 {
                     // Reviewer user
                     $scope.bReviewer = true;

@@ -442,16 +442,14 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 
         var numberFloat = parseFloat(value);
 
-
         if (numberFloat == -1) {
             return "background-color:grey";
         } else {
-            return "background-color: rgb(255," + parseInt((1 - numberFloat) * 255) + "," + parseInt((1 - numberFloat) * 255) + ");"
+            numberFloat = numberFloat / 100;
+            // return "background-color: rgb(255," + parseInt((1 - numberFloat) * 255) + "," + parseInt((1 - numberFloat) * 255) + ");"
+            return "background-color: rgba(0,0,255, " + numberFloat + ");"
         }
     }
-
-
-
 
     this.getApplicability = function( onSuccess, onError)
     {
@@ -470,8 +468,6 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 
 
     }
-
-
 
     this.getHazardList = function()
     {
@@ -595,13 +591,29 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         });
     }
 
-    this.getDatasetlistFiltered = function(idCountry, descCategory, descApplicability, onSuccess, onError)
+    this.getDatasetlistFiltered = function(idCountry, aCategory, aApplicability, onSuccess, onError)
     {
         // Return the dataset info filtered by country, category & applicability
+        var sCategoryFilter = "";
+        var sApplFilter = "";
+
+        if(aCategory.length > 0)
+        {
+            aCategory.forEach(function(item) {
+                sCategoryFilter = sCategoryFilter + "&category=" + $filter('lowercase')(item);
+            });
+        };
+
+        if(aApplicability.length > 0)
+        {
+            aApplicability.forEach(function(item) {
+                sApplFilter = sApplFilter + "&applicability=" + $filter('lowercase')(item);
+            });
+        };
 
         var req = {
             method: 'GET',
-            url: baseAPIurl + 'dataset/?country=' + idCountry + "&category=" + descCategory + "&applicability=" + descApplicability,
+            url: baseAPIurl + 'dataset/?country=' + idCountry + sCategoryFilter + sApplFilter,
             headers: {
                 // 'Authorization': 'Token ' + token
             },

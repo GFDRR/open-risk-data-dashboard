@@ -37,7 +37,23 @@
         -->
         <!-- Hazard menu -->
         <div class="collapse navbar-collapse" id="menu-hazard">
-            <ul class="nav navbar-nav text-center">
+
+
+            <div class="row">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <ul class="nav navbar-nav text-center">
+                        <li  ng-repeat="appli in applicability" >
+                            <a href="" ng-click="setUnSetFilter(appli.title)" ng-class="filterApplicabilityClass(appli.title)">
+                                <i class="{{appli.icon}} fa-2x"></i>
+                                <span>{{appli.title}}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+
+            <ul class="nav navbar-nav text-center" style="display: none;">
                 <li class="{{objHazardFilters.filterRiverFlood}}">
                     <a href="" ng-click="setFilter('filterRiverFlood')" >
                         <i class="ico-river_flood"></i>
