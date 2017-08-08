@@ -13,8 +13,12 @@ class Command(BaseCommand):
     help = 'Populare Region and Country tables'
 
     def add_arguments(self, parser):
-        parser.add_argument('--datapath', nargs=1, type=str,
-                            help='path where found json files')
+        parser.add_argument(
+            '--no-reports-cache', action='store_true', default=False,
+            help='does not use the cached report files')
+        parser.add_argument(
+            '--datapath', nargs=1, type=str,
+            help='path where found json files')
 
     def handle(self, *args, **options):
         peril_mapping = {
@@ -96,12 +100,29 @@ class Command(BaseCommand):
                             country.id, country_name, th['code']))
                         found += 1
 
+                        report_filename = os.path.join(
+                            options['datapath'][0], 'reports',
+                            'report_%s.json' % country.name)
+
                         # here data loading
-                        data = request.urlopen(REPORT_URL % th['code'])
                         reader = codecs.getreader("utf-8")
-                        appls = json.load(reader(data))
+                        if options['no_reports_cache'] is True:
+                            sleep(1)
+                            data = request.urlopen(REPORT_URL % th['code'])
+                            decoded_data = reader(data).read()
+                        else:
+                            with open(report_filename, 'r', encoding='utf-8'
+                                      ) as report_file:
+                                decoded_data = report_file.read()
+
+                        appls = json.loads(decoded_data)
+
+                        if options['no_reports_cache'] is True:
+                            with open(report_filename, 'w',
+                                      encoding='utf-8') as report_file:
+                                report_file.write(decoded_data)
+
                         for appl in appls:
-                            # print(appl)
                             th_peril = appl['hazardtype']['mnemonic']
                             peril_name = peril_mapping[th_peril]
                             if peril_name is None:
@@ -116,12 +137,10 @@ class Command(BaseCommand):
                     print("%d) %s NOT FOUND" % (country.id, country_name))
                     not_found += 1
 
-                sleep(1)
             print("Report: found %d, Not found %d" % (found, not_found))
             self.stdout.write(self.style.SUCCESS(
                 'Successfully imported ThinkHazard! countries '
                 'applicabilities.'))
-
         except Exception as ex:
             raise CommandError(
                 'Import ThinkHazard! countries applicabilities failed with '
