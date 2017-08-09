@@ -78,17 +78,17 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
              }
          */
 
-        var states = ["IT", "AR", "AU"];
+        // var states = ["IT", "AR", "AU"];
 
-        var dataTemp = {};
+        // var dataTemp = {};
 
-        angular.forEach(states, function (state, key) {
-            dataTemp[state] = {value: Math.random()}
-        });
+        // angular.forEach(states, function (state, key) {
+        //     dataTemp[state] = {value: Math.random()}
+        // });
 
-        dataTemp['filters'] = {value: filters};
+        // dataTemp['filters'] = {value: filters};
 
-        return dataTemp;
+        // return dataTemp;
 
     };
 
@@ -1312,6 +1312,32 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
          */
         console.log(obj);
         return true;
+    }
+
+    // ************************************** //
+    // ************ STATISTICS ************** //
+    // ************************************** //
+
+    this.getHomeStatistics = function(onSuccess, onError)
+    {
+        // Return statistics for home page
+
+        var req = {
+            method: 'GET',
+            // url: baseAPIurl + 'scoring/',
+            url: 'https://dev.riskopendata.org//api-dev2/scoring/',
+            headers: {
+                // 'Authorization': 'Token ' + token
+            },
+            data: {}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+
     }
 
 }]);

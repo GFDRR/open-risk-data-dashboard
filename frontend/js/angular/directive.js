@@ -44,12 +44,12 @@ RodiApp.directive('region', ['$compile', '$window', function ($compile, $window)
                 scope.showPopup = function ($event) {
 
                     scope.objRodiVariable.popupX = $event.originalEvent.clientX;
-                    scope.objRodiVariable.popupY = $event.originalEvent.clientY;
+                    scope.objRodiVariable.popupY = $event.originalEvent.clientY - 60;
 
                     scope.objRodiVariable.bPopupCountry = true;
                     scope.objRodiVariable.countryID = scope.elementId;
                     scope.objRodiVariable.countryDesc = scope.elementDesc;
-                    scope.objRodiVariable.valueData = parseInt(scope.arrayData[scope.elementId].media * 100);
+                    scope.objRodiVariable.valueData = parseInt(scope.arrayData[scope.elementId].score);
                     scope.objRodiVariable.popupClass = "animated fadeIn";
 
                 };
@@ -64,25 +64,36 @@ RodiApp.directive('region', ['$compile', '$window', function ($compile, $window)
                     scope.objRodiVariable.popupClass = "animated fadeOut";
                 };
 
-                if(scope.arrayData != undefined)
+                if(scope.arrayData !== undefined)
                 {
-                    if(scope.elementId in scope.arrayData){
+                    if (scope.arrayData[scope.elementId] !== undefined)
+                    {
+                        if('score' in scope.arrayData[scope.elementId])
+                        {
+                            if(scope.elementId in scope.arrayData){
 
-                        // Click event
-                        element.attr("ng-click", "regionClick()");
+                                // Calc score for color gradient
+                                var counrtyScore = scope.arrayData[scope.elementId].score * 1;
 
-                        // Mouse over-leave
-                        element.attr("ng-mouseover", "showPopup($event)");
-                        element.attr("ng-mouseleave", "hidePopup()");
+                                // Click event
+                                element.attr("ng-click", "regionClick()");
 
-                        // Remove style elements from svg
-                        element.removeAttr("style");
+                                // Mouse over-leave
+                                element.attr("ng-mouseover", "showPopup($event)");
+                                element.attr("ng-mouseleave", "hidePopup()");
 
-                        // Replace new style elements
-                        element.attr("style", "fill:rgb(" + parseInt((1-scope.arrayData[scope.elementId].media) * 255)  + "," + parseInt((1-scope.arrayData[scope.elementId].media) * 255) + ",255); fill-rule:evenodd;");
+                                // Remove style elements from svg
+                                element.removeAttr("style");
 
+                                // Replace new style elements
+                                element.attr("style", "fill:rgb(" + parseInt((1 - (counrtyScore / 100)) * 255)  + "," + parseInt((1-(counrtyScore / 100)) * 255) + ",255); fill-rule:evenodd;");
+
+                            }
+                        }
                     }
                 }
+
+
 
                 element.removeAttr("region");
                 $compile(element)(scope);

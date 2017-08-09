@@ -99,9 +99,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
             RodiSrv.getMatrixData($scope.filteredApplicability, function (data) {
                 // $scope.matrixData = [];
 
-                $scope.arrayData = [];
-                $scope.nrClassHazard = 0;
-
                 //tolgo elemento indici
                 var aIndex = data[0];
                 data.splice(0, 1);
@@ -111,7 +108,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 data.forEach(function (currValue, index, array) {
                     var obj = {};
                     var countrycode;
-                    $scope.countryMedia = 0;
 
                     for (var i in aIndex) {
 
@@ -122,16 +118,11 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                                 id:i,
                                 value:currValue[i]
                             }
-
-                            $scope.countryMedia +=  currValue[i] * 1;
-                            $scope.nrClassHazard += 1;
                         }
 
                     }
 
-                    // $scope.aCountryList[countrycode].data = {};
                     $scope.aCountryList[countrycode].data = obj;
-                    $scope.aCountryList[countrycode].media = ($scope.countryMedia / $scope.nrClassHazard) / 100;
 
                 });
 
@@ -151,7 +142,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                     if(angular.isUndefined($scope.aCountryList[country].data))
                     {
                         $scope.aCountryList[country].data = obj;
-                        $scope.aCountryList[country].media = 0;
                     }
 
                     // if (angular.isUndefined($scope.aCountryList[country].data)) $scope.aCountryList[country].data = obj;
@@ -159,7 +149,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 }
                 //end filling
 
-                $scope.arrayData = angular.copy($scope.aCountryList);
 
             }, function (data) {
                 // Error
@@ -181,9 +170,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
 
         // ************************************** //
-        // ************* MAP DATA *************** //
+        // ******* STATISTICS & MAP DATA ******** //
         // ************************************** //
-
 
         $scope.objRodiVariable =
             {
@@ -197,11 +185,38 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 "location": baseUrl
             };
 
-        // Chiamo il service per compilare l'arrayData
-        // $scope.arrayData = RodiSrv.getMapScores($scope.objHazardFilters);
+        RodiSrv.getHomeStatistics(function(data)
+        {
+            //Success
+            console.log(data);
 
-        // Chiamo il servizio per le news
-        // $scope.news = RodiSrv.getNewsList(4);
+            // Finding country score for MAP
+            var arrayStates = [];
+            var dataTemp = [];
+            $scope.arrayData = [];
+            angular.forEach(data.scores, function(value, key)
+            {
+                arrayStates.push(value.country);
+            });
+
+            angular.forEach(arrayStates, function(value, key)
+            {
+                var obj = $filter('filter')(data.scores, {country: value});
+                dataTemp[value] = {score: obj[0].score};
+            });
+
+            $scope.arrayData = dataTemp;
+
+            console.log($scope.arrayData);
+
+            // Statistics index
+            $scope.countryWithData = data.countries_count;
+            $scope.totalDataset = data.datasets_count;
+
+        }, function(data)
+        {
+            // Error
+        })
 
     }
 
