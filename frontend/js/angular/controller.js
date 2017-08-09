@@ -50,7 +50,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
         // ************* MATRIX ***************** //
         // ************************************** //
 
-        $scope.filterApplicabilityClass = function () {
+        $scope.filterApplicabilityClass = function (name) {
             if($scope.filteredApplicability[0] == name){
                 return "active";
             }else return "unactive" ;
@@ -76,8 +76,15 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
         $scope.setUnSetFilter = function (filter){
 
-            $scope.filteredApplicability = [];
-            $scope.filteredApplicability.push(filter);
+            if ($scope.filteredApplicability.indexOf(filter) > -1)
+            {
+                $scope.filteredApplicability = [];
+            } else
+            {
+                $scope.filteredApplicability = [];
+                $scope.filteredApplicability.push(filter);
+            }
+
             $scope.mergeMatrixData();
         }
 
@@ -207,9 +214,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
             $scope.arrayData = dataTemp;
 
-            console.log($scope.arrayData);
-
             // Statistics index
+            $scope.categoryCounters = data.categories_counters;
             $scope.countryWithData = data.countries_count;
             $scope.totalDataset = data.datasets_count;
 

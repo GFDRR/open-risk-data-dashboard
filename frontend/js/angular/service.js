@@ -730,7 +730,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
     this.getHCIcon = function(index)
     {
         // Return the icon set for the category
-        var obj = ["icon-base_data", "icon-exposure", "icon-hazard_info", "icon-info", "icon-vulnerability"];
+        var obj = ["icon-base_data", "icon-hazard_info", "icon-exposure", "icon-vulnerability", "icon-info" ];
 
         return obj[index];
     }
