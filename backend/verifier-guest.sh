@@ -157,6 +157,7 @@ echo "from django.contrib.auth.models import User, Group ; us = User.objects.cre
 
 python3 manage.py load_countries --filein contents/countries/ordd_countries_list_iso3166.csv
 python3 manage.py load_key_datasets --reload --filein contents/key_datasets/kd-perils.csv contents/key_datasets/kd-categories.csv contents/key_datasets/kd-tags.csv contents/key_datasets/kd-datasets.csv
+python3 manage.py load_thinkhazard --datapath ./contents/thinkhazard/cache
 
 # Populate DB section: END
 

@@ -247,7 +247,7 @@ class DatasetPutSerializer(serializers.ModelSerializer):
                                          queryset=User.objects.all())
     changed_by = serializers.SlugRelatedField(slug_field='username',
                                               queryset=User.objects.all())
-    country = serializers.SlugRelatedField(slug_field='name',
+    country = serializers.SlugRelatedField(slug_field='iso2',
                                            queryset=Country.objects.all())
     url = serializers.SlugRelatedField(slug_field='url',
                                        queryset=Url.objects.all(), many=True)

@@ -1,0 +1,203 @@
+# list of countries from database plus some that we need after a manual mapping
+United States of America
+Canada
+Mexico
+Panama
+Costa Rica
+Nicaragua
+El Salvador
+Honduras
+Guatemala
+Belize
+Argentina
+Bolivia
+Brazil
+Chile
+Colombia
+Ecuador
+French Guiana
+Guyana
+Paraguay
+Peru
+Suriname
+Uruguay
+Venezuela
+Antigua and Barbuda
+Bahamas
+Barbados
+Cuba
+Dominica
+Haiti
+Jamaica
+Dominican Republic
+Saint Kitts and Nevis
+Saint Vincent and the Grenadines
+Saint Lucia
+Trinidad and Tobago
+Guadeloupe
+Martinique
+Afghanistan
+Armenia
+Azerbaijan
+Bahrain
+Bangladesh
+Bhutan
+Cambodia
+China
+Georgia
+India
+Indonesia
+Iran
+Iraq
+Israel
+Japan
+Jordan
+Kazakhstan
+Kuwait
+Kyrgyzstan
+Lebanon
+Malaysia
+Maldives
+Mongolia
+Nepal
+Oman
+Pakistan
+Philippines
+Qatar
+Russian Federation
+Saudi Arabia
+Singapore
+the Republic of Korea
+Sri Lanka
+Tajikistan
+Thailand
+Timor-Leste
+Turkey
+Turkmenistan
+United Arab Emirates
+Uzbekistan
+Viet Nam
+Yemen
+Albania
+Andorra
+Austria
+Belarus
+Belgium
+Bosnia and Herzegovina
+Bulgaria
+Croatia
+Cyprus
+Czechia
+Denmark
+Estonia
+Faroe Islands
+Finland
+France
+Germany
+Gibraltar
+Greece
+Guernsey
+Hungary
+Iceland
+Ireland
+Italy
+Latvia
+Liechtenstein
+Lithuania
+Luxembourg
+Macedonia
+Malta
+Moldova
+Monaco
+Montenegro
+Netherlands
+Norway
+Poland
+Portugal
+Romania
+San Marino
+Serbia
+Slovakia
+Slovenia
+Spain
+Sweden
+Switzerland
+Ukraine
+United Kingdom of Great Britain and Northern Ireland
+Holy See
+Angola
+Benin
+Botswana
+Burkina Faso
+Burundi
+Cameroon
+Cabo Verde
+Central African Republic
+Comoros
+the Democratic Republic of the Congo
+Djibouti
+Equatorial Guinea
+Eritrea
+Ethiopia
+Gabon
+Gambia
+Ghana
+Guinea
+Guinea-Bissau
+Côte d'Ivoire
+Kenya
+Lesotho
+Liberia
+Libya
+Madagascar
+Malawi
+Mali
+Mauritania
+Mauritius
+Mayotte
+Mozambique
+Namibia
+Nigeria
+the Congo
+Réunion
+Rwanda
+Saint Helena, Ascension and Tristan da Cunha
+Sao Tome and Principe
+Senegal
+Seychelles
+Sierra Leone
+Somalia
+South Africa
+South Sudan
+Swaziland
+Tanzania
+Togo
+Uganda
+Zambia
+Zimbabwe
+Algeria
+Chad
+Egypt
+Morocco
+Niger
+Sudan
+Tunisia
+American Samoa
+Australia
+Fiji
+Guam
+New Zealand
+Papua New Guinea
+Samoa
+Solomon Islands
+Tonga
+Vanuatu
+Wallis and Futuna
+# the following countries are added after a manual review
+Korea
+Cape Verde
+Western Sahara
+United Kingdom
+Czech Republic
+Congo
+Saint Helena
