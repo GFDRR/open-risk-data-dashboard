@@ -680,9 +680,9 @@ class Score(object):
         category_score_tree = country_score_tree[category.code]
 
         for keydataset in KeyDataset.objects.filter(category=category):
-            if keydataset.code not in category_score_tree:
+            if keydataset.code not in category_score_tree['score']:
                 continue
-            keydataset_score = category_score_tree[keydataset.code][
+            keydataset_score = category_score_tree['score'][keydataset.code][
                 'value']
 
             if category_score < keydataset_score:
@@ -730,11 +730,13 @@ class Score(object):
                 world_score[country_id] = {}
             country_score = world_score[country_id]
             if (category_id not in country_score):
-                country_score[category_id] = {}
+                country_score[category_id] = {'score': {}, 'counter': 0}
             category_score = country_score[category_id]
+            category_score['counter'] += 1
             if keydataset_id not in category_score:
-                category_score[keydataset_id] = {'value': 0, "dataset": None}
-            keydataset_score = category_score[keydataset_id]
+                category_score['score'][keydataset_id] = {
+                    'value': 0, "dataset": None}
+            keydataset_score = category_score['score'][keydataset_id]
             score = cls.dataset(request, dataset, th_applicability)
             if score > keydataset_score['value']:
                 keydataset_score['value'] = score
@@ -766,8 +768,31 @@ class Score(object):
         # print("Number of item: %d" % queryset.count())
 
         world_score = cls.dataset_loadtree(request, queryset)
+        datasets_count = queryset.count()
+        countries_count = len(world_score)
 
-        ret = []
+        categories = KeyCategory.objects.all().order_by('id')
+        categories_counters = []
+        cat_cou = {}
+        for cat in categories:
+            cat_cou = 0
+
+            for dataset_key, dataset_country in world_score.items():
+                print('spia %s' % cat.code)
+                print(dataset_country)
+                if cat.code in dataset_country:
+                    dataset_category = dataset_country[cat.code]
+                    print(dataset_category)
+                    cat_cou += dataset_category['counter']
+            categories_counters.append({'category': cat.name,
+                                        'count': cat_cou})
+
+        ret = {'scores': [],
+               'datasets_count': datasets_count,
+               'countries_count': countries_count,
+               'categories_counters': categories_counters,
+               'perils_counters': []}
+        ret_score = ret['scores']
 
         for country in Country.objects.all().order_by('name'):
             if country.iso2 not in world_score:
@@ -778,8 +803,12 @@ class Score(object):
             # in development phase, at least)
             # if score == 0:
             #     continue
-            ret.append({"country": country.iso2,
-                        "score": "%.1f" % (score * 100.0)})
+            ret_score.append({"country": country.iso2,
+                              "score": "%.1f" % (score * 100.0)})
+
+        perils_counters = ret['perils_counters']
+        for i, peril in enumerate(KeyPeril.objects.all().order_by('name')):
+            perils_counters.append({'name': peril.name, 'count': i})
 
         return ret
 
