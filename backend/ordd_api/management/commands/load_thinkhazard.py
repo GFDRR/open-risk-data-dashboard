@@ -89,6 +89,8 @@ class Command(BaseCommand):
                 else:
                     country_name = country.name
 
+                report_cou_name = country.name.replace('*', '_STAR_')
+
                 for th in th_data:
                     if 'admin0' not in th:
                         continue
@@ -102,7 +104,7 @@ class Command(BaseCommand):
 
                         report_filename = os.path.join(
                             options['datapath'][0], 'reports',
-                            'report_%s.json' % country.name)
+                            'report_%s.json' % report_cou_name)
 
                         # here data loading
                         reader = codecs.getreader("utf-8")
