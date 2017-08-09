@@ -8,7 +8,7 @@ from rest_framework import generics, permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import NotFound
-
+from collections import OrderedDict
 from django.db.models import Q
 from django.contrib.auth.models import User
 
@@ -729,7 +729,8 @@ class Score(object):
             if country_id not in world_score:
                 world_score[country_id] = {}
             country_score = world_score[country_id]
-            if (category_id not in country_score):
+
+            if category_id not in country_score:
                 country_score[category_id] = {'score': {}, 'counter': 0}
             category_score = country_score[category_id]
             category_score['counter'] += 1
@@ -821,20 +822,25 @@ class Score(object):
         for appl in country.thinkhazard_appl.all():
             th_applicability.add(appl.name)
 
-        country_score = []
+        country_score = OrderedDict()
         for dataset in queryset:
+            category_id = dataset.keydataset.category.code
+            keydataset_id = dataset.keydataset.code
+
+            if category_id not in country_score:
+                country_score[category_id] = OrderedDict(
+                    [('score',  OrderedDict()), ('counter', 0)])
+            category_score = country_score[category_id]
+
+            if keydataset_id not in category_score['score']:
+                category_score['score'][keydataset_id] = {
+                    'dataset': None, 'value': -1}
+            keydataset_score = category_score['score'][keydataset_id]
             score = cls.dataset(request, dataset, th_applicability)
-            for keydataset_score in country_score:
-                # search for list a element with the same keydataset code
-                if (keydataset_score['dataset'].keydataset.code ==
-                        dataset.keydataset.code):
-                    if keydataset_score['value'] < score:
-                        keydataset_score['value'] = score
-                        keydataset_score['dataset'] = dataset
-                    break
-            else:
-                country_score.append(
-                    {'dataset': dataset, 'value': score})
+
+            if keydataset_score['value'] < score:
+                keydataset_score['value'] = score
+                keydataset_score['dataset'] = dataset
 
         interesting_fields = [
             'is_existing', 'is_digital_form', 'is_avail_online',
@@ -846,15 +852,16 @@ class Score(object):
         for int_field in interesting_fields:
             ret[0].append(Dataset._meta.get_field(int_field).verbose_name)
 
-        for keydataset_score in country_score:
-            dataset = keydataset_score['dataset']
-            value = "%.1f" % (keydataset_score['value'] * 100.0)
-            row = [dataset.keydataset.code, dataset.keydataset.description,
-                   value]
-            for int_field in interesting_fields:
-                row.append(getattr(dataset, int_field))
+        for _, category_score in country_score.items():
+            for _, keydataset_score in category_score['score'].items():
+                dataset = keydataset_score['dataset']
+                value = "%.1f" % (keydataset_score['value'] * 100.0)
+                row = [dataset.keydataset.code, dataset.keydataset.description,
+                       value]
+                for int_field in interesting_fields:
+                    row.append(getattr(dataset, int_field))
 
-            ret.append(row)
+                ret.append(row)
         return ret
 
     @classmethod
