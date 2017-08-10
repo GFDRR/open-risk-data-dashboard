@@ -1460,6 +1460,7 @@ hr {
 .flex-row .flex-item {padding:2px 5px;}
 .footer_down .flex-row .flex-item {font-size:1.3em;}
 .rodi_footer #menu-website .flex-container.flex-row {    flex-direction: column;}
+.rodi_footer .login_form_box {display:none;}
 
 .left {align-items: flex-start!important;}
 .right {align-items: flex-end!important;}
