@@ -1003,8 +1003,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
         $scope.filterApplicabilityCssClass = function (filter) {
             var index =$scope.aApplicability.indexOf(filter);
             if (index >-1){
-                return "unactive";
-            }else return "active";
+                return "active";
+            }else return "unactive";
         };
 
         $scope.filterApplicabilityCssStyle = function (filter) {
@@ -1031,8 +1031,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
         $scope.filterCategoryCssClass = function (filter) {
             var index =$scope.aCategory.indexOf(filter);
             if (index >-1){
-                return "unactive";
-            }else return "active";
+                return "active";
+            }else return "unactive";
         };
 
         $scope.filterCategoryCssStyle = function (filter) {
