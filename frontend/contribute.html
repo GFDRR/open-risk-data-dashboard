@@ -155,7 +155,7 @@
                                         <span class="rodi_dataset_label_code">A1.</span>
                                         <span class="rodi_dataset_label">Country</span>
                                     </div>
-                                    <small class="">lorem</small>
+                                    <span class="">Please select the Country the Dataset refers to</span>
                                     <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
                                     <!--<br />-->
                                     <div class="dataset_form_select_style">
@@ -172,6 +172,7 @@
                                         <span class="rodi_dataset_label_code">A2.</span>
                                         <span class="rodi_dataset_label">Dataset</span>
                                     </div>
+                                    <span>Specify the nature of the dataset, you can filter the list of key datasets per data category</span>
                                     <!--<br />-->
                                     <!--edited by dario-->
 
@@ -244,13 +245,12 @@
                                         <span class="rodi_dataset_label_code">A3.</span>
                                         <span class="rodi_dataset_label">Datasets elements</span>
                                     </div>
+                                    <span class="text-muted"><u>{{sTagsMsg}}</u></span>
+                                    <span>{{sTagsInfo}}</span>
                                     <div class="flex-container">
                                         <div ng-model="selectedTags" class="rodi_cb_space" ng-repeat="tag in datasetTags" ng-click="setTags(tag)" ng-class="{active:selectedTags.indexOf(tag) !== -1}">
                                             <i class="fa fa-check" aria-hidden="true" ng-if="selectedTags.indexOf(tag) !== -1"></i> <span >{{tag}}</span>
                                             <!--<input type="checkbox" class="form-control" ng-model="selectedTags" > -->
-                                        </div>
-                                        <div>
-                                            <span class="text-muted"><u>{{sTagsMsg}}</u></span>
                                         </div>
                                     </div>
                                     <!--</div>-->
@@ -269,6 +269,7 @@
                                 <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                                     <span class="pull-right rodi_question_help"><a href="http://census.okfn.org/en/latest/survey-flow/" target="_blank"><i class="fa fa-book fa-2x" aria-hidden="true" title="Survey Flow"></i></a></span>
                                     <h1>Section B - Questions</h1>
+                                    <span>The following questions will determine the openness and accessibility of the dataset you are entering</span>
                                     <hr />
 
                                     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
@@ -681,6 +682,7 @@
                                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
                                 <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                                     <h1>Section D - Any other comments?</h1>
+                                    <span>Please use this free text box to add anything relevant to the dataset description tat can help practitioners and risk analysts in understanding the potential and the limitations of these data.</span>
                                     <hr />
                                     <textarea class="form-control " rows="3" placeholder="Notes" ng-model="objDataset.notes"></textarea>
                                 </div>
