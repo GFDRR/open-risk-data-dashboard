@@ -230,9 +230,10 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
             //     for (var field in aOfIndex)
             // })
 
-            if(onSuccess)onSuccess(data.data)
+            if(onSuccess)onSuccess(data.data);
+
         },function(data){
-            alert('Error');
+            // Error todo
         });
 
 
@@ -1294,6 +1295,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         if(strpath.indexOf('dataset_details.html') != -1){return "6"};
         if(strpath.indexOf('news-details.html') != -1){return "7"};
         if(strpath.indexOf('confirm_registration.html') != -1){return "8"};
+        if(strpath.indexOf('about.html') != -1){return "9"};
 
         return "0";
     }
