@@ -757,20 +757,6 @@ class Score(object):
 
             cls.country_loadtree(request, country_score_tree, dataset,
                                  th_applicability)
-            # if category_id not in country_score:
-            #     country_score[category_id] = OrderedDict(
-            #         [('score', OrderedDict()), ('counter', 0)])
-            # category_score = country_score[category_id]
-            # category_score['counter'] += 1
-            # if keydataset_id not in category_score:
-            #     category_score['score'][keydataset_id] = {
-            #         "dataset": None, 'value': -1}
-            # keydataset_score = category_score['score'][keydataset_id]
-            # score = cls.dataset(request, dataset, th_applicability)
-
-            # if keydataset_score['value'] < score:
-            #     keydataset_score['value'] = score
-            #     keydataset_score['dataset'] = dataset
 
         return world_score_tree
 
@@ -826,10 +812,7 @@ class Score(object):
                 continue
             else:
                 score = cls.country(world_score_tree[country.iso2], country)
-            # we could think to hide country with score == 0 (usefull
-            # in development phase, at least)
-            # if score == 0:
-            #     continue
+
             ret_score.append({"country": country.iso2,
                               "score": cls.score_fmt(score)})
 
@@ -869,23 +852,6 @@ class Score(object):
         for dataset in queryset:
             cls.country_loadtree(request, country_score_tree, dataset,
                                  th_applicability)
-
-            # category_id = dataset.keydataset.category.code
-            # keydataset_id = dataset.keydataset.code
-            # if category_id not in country_score:
-            #     country_score[category_id] = OrderedDict(
-            #         [('score',  OrderedDict()), ('counter', 0)])
-            # category_score = country_score[category_id]
-            # category_score['counter'] += 1
-            # if keydataset_id not in category_score:
-            #     category_score['score'][keydataset_id] = {
-            #         'dataset': None, 'value': -1}
-            # keydataset_score = category_score['score'][keydataset_id]
-            # score = cls.dataset(request, dataset, th_applicability)
-
-            # if keydataset_score['value'] < score:
-            #     keydataset_score['value'] = score
-            #     keydataset_score['dataset'] = dataset
 
         datasets_count = queryset.count()
         country_score = cls.country(country_score_tree, country)
