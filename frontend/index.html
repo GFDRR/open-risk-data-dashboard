@@ -187,13 +187,11 @@
     </section>
     <!-- Section MAP - FINE -->
 
-
-
     <!-- start count stats -->
     <section id="counter-stats" class="wow fadeInRight" data-wow-duration="1.4s">
         <div class="container">
             <div class="row">
-                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 stats">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 stats">
                     <div class="panel panel-default">
                     	<div class="panel-body">
                             <i class="fa fa-code" aria-hidden="true"></i>
@@ -204,7 +202,7 @@
 
                 </div>
 
-                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 stats">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 stats">
                     <div class="panel panel-default">
                         <div class="panel-body">
                             <i class="fa fa-check" aria-hidden="true"></i>
@@ -215,68 +213,60 @@
 
                 </div>
 
-                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 stats">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <i class="fa icon-base_data" aria-hidden="true"></i>
-                            <div class="counting" data-count="">{{categoryCounters[0].count}}</div>
-                            <h5>{{categoryCounters[0].category}}</h5>
-                        </div>
-                    </div>
-                </div>
             </div>
             <div class="row">
-                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 stats">
+
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 stats_small">
                     <div class="panel panel-default">
                         <div class="panel-body">
-                            <i class="fa icon-hazard_info" aria-hidden="true"></i>
-                            <div class="counting" data-count="">{{categoryCounters[1].count}}</div>
-                            <h5>{{categoryCounters[1].category}}</h5>
+                            <table class="table table-responsive">
+                                <tr>
+                                    <td><i class="icon-base_data" aria-hidden="true"></i></td>
+                                    <td>{{categoryCounters[0].category}}</td>
+                                    <td>{{categoryCounters[0].count}}</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa icon-hazard_info" aria-hidden="true"></i></td>
+                                    <td>{{categoryCounters[1].category}}</td>
+                                    <td>{{categoryCounters[1].count}}</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa icon-exposure" aria-hidden="true"></i></td>
+                                    <td>{{categoryCounters[2].category}}</td>
+                                    <td>{{categoryCounters[2].count}}</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa icon-vulnerability" aria-hidden="true"></i></td>
+                                    <td>{{categoryCounters[3].category}}</td>
+                                    <td>{{categoryCounters[3].count}}</td>
+                                </tr>
+                                <tr>
+                                    <td><i class="fa icon-info" aria-hidden="true"></i></td>
+                                    <td>{{categoryCounters[4].category}}</td>
+                                    <td>{{categoryCounters[4].count}}</td>
+                                </tr>
+                            </table>
                         </div>
+                    </div>
+
+                </div>
+
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 stats_small">
+                    <div class="panel panel-default">
+                        <div class="panel-body"></div>
                     </div>
                 </div>
 
-                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 stats">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <i class="fa icon-exposure" aria-hidden="true"></i>
-                            <div class="counting" data-count="">{{categoryCounters[2].count}}</div>
-                            <h5>{{categoryCounters[2].category}}</h5>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 stats">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <i class="fa icon-vulnerability" aria-hidden="true"></i>
-                            <div class="counting" data-count="">{{categoryCounters[3].count}}</div>
-                            <h5>{{categoryCounters[3].category}}</h5>
-                        </div>
-                    </div>
-                </div>
 
             </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 stats">
-                    <div class="panel panel-default">
-                        <div class="panel-body">
-                            <i class="fa icon-info" aria-hidden="true"></i>
-                            <div class="counting" data-count="">{{categoryCounters[4].count}}</div>
-                            <h5>{{categoryCounters[4].category}}</h5>
-                        </div>
-                    </div>
-                </div>
-            </div>
+
             <!-- end row -->
         </div>
         <!-- end container -->
     </section>
     <!-- end cont stats -->
 
-
-
-    <!-- Section NWEWS - INIZIO -->
+    <!-- Section PARTNER - INIZIO -->
     <section id="news">
         <div class="container">
             <div class="row">

@@ -1289,13 +1289,14 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         if(strpath.indexOf('index.html') != -1){return "0"};
         if(strpath.indexOf('contribute.html') != -1){return "1"};
         if(strpath.indexOf('methodology.html') != -1){return "2"};
-        if(strpath.indexOf('browse-data.html') != -1){return "3"};
+        // if(strpath.indexOf('browse-data.html') != -1){return "3"};
         if(strpath.indexOf('register.html') != -1){return "4"};
-        if(strpath.indexOf('country-details.html') != -1){return "5"};
+        // if(strpath.indexOf('country-details.html') != -1){return "5"};
         if(strpath.indexOf('dataset_details.html') != -1){return "6"};
-        if(strpath.indexOf('news-details.html') != -1){return "7"};
+        // if(strpath.indexOf('news-details.html') != -1){return "7"};
         if(strpath.indexOf('confirm_registration.html') != -1){return "8"};
         if(strpath.indexOf('about.html') != -1){return "9"};
+        if(strpath.indexOf('dataset_list.html') != -1){return "10"};
 
         return "0";
     }
@@ -1327,7 +1328,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         var req = {
             method: 'GET',
             // url: baseAPIurl + 'scoring/',
-            url: 'https://dev.riskopendata.org//api-dev2/scoring/',
+            url: 'https://dev.riskopendata.org/api-dev2/scoring/',
             headers: {
                 // 'Authorization': 'Token ' + token
             },
@@ -1341,5 +1342,28 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         });
 
     }
+
+    this.getcOUNTRYStatistics = function(idCountry, onSuccess, onError)
+    {
+        // Return statistics for home page
+
+        var req = {
+            method: 'GET',
+            // url: baseAPIurl + 'scoring/',
+            url: 'https://dev.riskopendata.org/api-dev2/scoring/' + idCountry,
+            headers: {
+                // 'Authorization': 'Token ' + token
+            },
+            data: {}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+
+    }
+
 
 }]);

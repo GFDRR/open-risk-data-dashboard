@@ -419,6 +419,12 @@ section#counter-stats {
     /*font-family: 'Montserrat', sans-serif;*/
 }
 
+.stats_small {
+    font-size: 20px;
+    font-weight: 700;
+    /*font-family: 'Montserrat', sans-serif;*/
+}
+
 .stats .fa {
     color: #00C1FF;
     font-size: 60px;
