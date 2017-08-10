@@ -444,7 +444,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         var numberFloat = parseFloat(value);
 
         if (numberFloat == -1) {
-            return "background-color:rgba(255,255,255,0.3)";
+            return "background-color:rgba(211,211,211,0.4)";
         } else {
             numberFloat = numberFloat / 100;
             // return "background-color: rgb(255," + parseInt((1 - numberFloat) * 255) + "," + parseInt((1 - numberFloat) * 255) + ");"

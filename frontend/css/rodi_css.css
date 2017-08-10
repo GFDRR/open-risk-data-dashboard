@@ -3,6 +3,8 @@
 /*font set google*/
 @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Roboto+Condensed:300,400,700');
 
+@import url('table_color.css');
+
 @font-face {
     font-family: 'Bariol Bold';
     src: url('bariol/Bariol-Bold.eot'); /* IE9 Compat Modes */
@@ -124,13 +126,6 @@ section
     color:white
 
 }
-
-.rodi_big_text_page
-{
-    font-size: 20px;
-    line-height: 30px;
-}
-
 .rodi_big_text i {color:white;}
 .jumbotron {
     background: rgba(255,255,255,1);
@@ -418,18 +413,13 @@ section#counter-stats {
     font-weight: 700;
     /*font-family: 'Montserrat', sans-serif;*/
 }
-
-.stats_small {
-    font-size: 20px;
-    font-weight: 700;
-    /*font-family: 'Montserrat', sans-serif;*/
-}
-
+.stats.small {font-size:20px;  }
+.stats.small .fa {font-size: 40px;}
+.stats.small td {vertical-align: middle;}
 .stats .fa {
     color: #00C1FF;
     font-size: 60px;
 }
-
 
 /*/ end count stats /*/
 
@@ -697,7 +687,7 @@ Footer
     background: rgba(255,255,255,0.1);
 }
 .space {
-    height: 30vh;
+    height: 50vh;
     /* height: auto; */
 }
 
@@ -986,7 +976,8 @@ Collapse Expand
     border:1px solid red;
     border-radius:50%;
     font-size: 1em;
-    line-height: 25px;
+    line-height: 34px;
+    padding-left:1px;
     opacity:0.5;
     right:0;
     top:0;
@@ -1107,10 +1098,7 @@ Tables
 
 }
 
-.data td a {
-
-
-}
+/*
 .data td strong a {text-shadow:
         0 0 1px white,
         0 0 1px white,
@@ -1125,6 +1113,7 @@ Tables
         0 0 1px white;
 }
 
+*/
 
 
 .table.data strong {
@@ -1134,7 +1123,7 @@ Tables
     /*font-size: 1.4em;*/
     /*font-weight: bolder;*/
     /*font-family: monospace;*/
-    color: #fff;
+    /*color: #fff;*/
     display: flex;
     justify-content: space-between;
 
@@ -1144,17 +1133,21 @@ Tables
 
 .jumbotron {
     /* background: lightblue; */
-    background: background: -webkit-linear-gradient(left, lightblue, #eee);
-    background: linear-gradient(to right, lightblue, #fafcff);
+   /* background: background: -webkit-linear-gradient(left, lightblue, #eee);
+    background: linear-gradient(to right, lightblue, #fafcff);*/
     border-radius:0!important;
 }
+/*
 .jumbotron .table.data,
 .jumbotron .table.data tr {
 
     border: 1px solid rgba(255,255,255,0.3);
 }
+*/
 
-.jumbotron .table.data th {background: rgba(255,255,255,0.5);padding:2em;}
+.jumbotron .table.data th {
+    /*background: rgba(255,255,255,0.5);*/
+    padding:2em;}
 .jumbotron .table.data td {
     padding:1em ;
 }
@@ -1176,12 +1169,13 @@ Skills
 
 
 progress {
-    background-color: #f3f3f3;
-    border: 0;
+    /*background-color: #f3f3f3;*/
+    /*border: 0;*/
     height: 3em;
     width: 100%;
 
 }
+/*
 
 progress::-webkit-progress-bar {
     background-color: #e0eaf0;
@@ -1198,6 +1192,7 @@ progress::-moz-progress-bar {
 progress, .matrix_cell {
     border: 2px solid rgba(173, 216, 230, 0.5);
 }
+*/
 
 
 /*
@@ -1208,17 +1203,19 @@ progress, .matrix_cell {
 ==============================================================================
 */
 
+/*
 .matrix_cell:hover, .matrix_cell:focus,
 .data strong:hover ~ progress {
     border-color: #329ad1;
 }
+*/
 
 .data td strong:hover a,
 .data td strong:focus  a{
     text-decoration:none;
     font-size:1.2em;
     /*     color:#329ad1; */
-    color:rgba(255,255,255,0.75); text-shadow:none;
+    /*color:rgba(255,255,255,0.75); text-shadow:none;*/
 }
 
 
