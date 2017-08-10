@@ -156,8 +156,8 @@ section
 .rodi_cb_space
 
 {
-    padding:5px;
-    width:100px;
+    padding: 10px 1em;
+    min-width:100px;
     height: 80px;
     background-color: rgba(0, 193, 255, 0.64);
     color:#ffffff;
@@ -168,6 +168,7 @@ section
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
+.rodi_cb_space[class*="rodi_btn_"] {padding-top:4px; padding-bottom:4px}
 
 .display_none
 {
@@ -801,6 +802,11 @@ mainmenu .navbar {
     color:#00b3ee;
 }
 
+#tab1 .jumbotron {
+    height: 668px;
+    overflow: auto;
+}
+
 .nav-tabs>li>a,
 .nav-tabs>li>a:hover,
 .nav-tabs>li>a:focus {background-color: rgba(255,255,255,0.3);border:none;}
@@ -1089,8 +1095,6 @@ Tables
 
 
 
-
-
 .data.table>tbody>tr>td {
     /*     max-height: 10px!important; */
     line-height:1;
@@ -1141,8 +1145,8 @@ Tables
 
 .jumbotron {
     /* background: lightblue; */
-   /* background: background: -webkit-linear-gradient(left, lightblue, #eee);
-    background: linear-gradient(to right, lightblue, #fafcff);*/
+    /* background: background: -webkit-linear-gradient(left, lightblue, #eee);
+     background: linear-gradient(to right, lightblue, #fafcff);*/
     border-radius:0!important;
 }
 /*
@@ -1443,9 +1447,9 @@ hr {
     /*left:0;*/
     /*right:0;*/
 
-
-
 }
+
+
 /*
 ==============================================================================
 
@@ -1473,6 +1477,7 @@ hr {
 .left {align-items: flex-start!important;}
 .right {align-items: flex-end!important;}
 .center {}
+.sup {align-self: baseline;}
 
 /*
 ==============================================================================
@@ -1539,8 +1544,8 @@ review mode
 */
 
 
-.viewer [class*="rodi_dataset_label"] {font-size:1.5em;}
-.viewer .flex-container .rodi_cb_space {padding:1px 2px; margin:2px; height:inherit;  align-items: center; }
+.viewer [class*="rodi_dataset_label"] {font-size:1.5em; min-width: 60px;}
+.viewer .flex-container .rodi_cb_space {/* padding:1px 2px; */margin:2px;height:inherit;align-items: center;}
 .viewer .flex-container {
     align-items: center;
     justify-content: flex-start;
@@ -1550,7 +1555,7 @@ review mode
 .rodi_dataset_question i {background: #eee;border:1px solid #ccc; text-align: center; padding:10px; min-width: 55px;}
 .rodi_dataset_label.flex-item {flex-grow: 2;}
 .flex-container.tag {flex-wrap:wrap; justify-content: space-around;}
-.viewer [class*="rodi_btn_"] {padding:0; margin-left: 1em;}
+.viewer [class*="rodi_btn_"] {/* padding:0; */margin-left: 1em;}
 /*
 ================================================
 responsive
