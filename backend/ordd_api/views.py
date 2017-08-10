@@ -929,7 +929,7 @@ class Score(object):
 
         world_score_tree = cls.dataset_loadtree(request, queryset)
 
-        row = ['country']
+        row = ['country', 'score']
         for category in categories:
             row.append(category.name)
         ret = [row]
@@ -939,8 +939,11 @@ class Score(object):
                 continue
             else:
                 country_score_tree = world_score_tree[country.iso2]
+                country_score = cls.country(
+                    world_score_tree[country.iso2], country)
 
                 row = [country.iso2]
+                row.append("%.1f" % (country_score * 100.0))
                 for category in categories:
                     if category.code not in country_score_tree:
                         row.append("%.1f" % (-1,))
