@@ -126,6 +126,14 @@ section
     color:white
 
 }
+
+
+.rodi_big_text_page
+{
+    font-size:23px;
+    line-height: 30px;
+}
+
 .rodi_big_text i {color:white;}
 .jumbotron {
     background: rgba(255,255,255,1);
