@@ -1,0 +1,43 @@
+/*
+
+==============================================================================
+
+Color set matrix cell
+
+==============================================================================
+
+*/
+progress {
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  background-color: lightgrey; }
+  progress::-webkit-progress-bar {
+    background-color: lightgrey; }
+  progress::-webkit-progress-value {
+    background-color: #329ad1; }
+  progress::-moz-progress-bar {
+    background-color: #329ad1; }
+
+.matrix_cell {
+  background-color: rgba(211, 211, 211, 0.4);
+  border: 2px solid lightgrey; }
+
+.matrix_cell:hover,
+.matrix_cell:focus,
+.data strong:hover ~ progress {
+  border-color: #329ad1; }
+
+.data td strong:hover a, .data td strong:focus a {
+  color: rgba(51, 51, 51, 0.75); }
+
+.table.data strong small, .table.data strong a {
+  color: #333; }
+
+.jumbotron {
+  background: -webkit-linear-gradient(left, #E0F7FA, #dedede);
+  background: linear-gradient(to right, #E0F7FA, #dedede); }
+  .jumbotron .table.data tr {
+    border: 1px solid rgba(211, 211, 211, 0.6); }
+  .jumbotron .table.data th {
+    background: rgba(255, 255, 255, 0.5); }
+
+/*# sourceMappingURL=table_color.css.map */

@@ -78,17 +78,17 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
              }
          */
 
-        var states = ["IT", "AR", "AU"];
+        // var states = ["IT", "AR", "AU"];
 
-        var dataTemp = {};
+        // var dataTemp = {};
 
-        angular.forEach(states, function (state, key) {
-            dataTemp[state] = {value: Math.random()}
-        });
+        // angular.forEach(states, function (state, key) {
+        //     dataTemp[state] = {value: Math.random()}
+        // });
 
-        dataTemp['filters'] = {value: filters};
+        // dataTemp['filters'] = {value: filters};
 
-        return dataTemp;
+        // return dataTemp;
 
     };
 
@@ -230,9 +230,10 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
             //     for (var field in aOfIndex)
             // })
 
-            if(onSuccess)onSuccess(data.data)
+            if(onSuccess)onSuccess(data.data);
+
         },function(data){
-            alert('Error');
+            // Error todo
         });
 
 
@@ -443,7 +444,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         var numberFloat = parseFloat(value);
 
         if (numberFloat == -1) {
-            return "background-color:grey";
+            return "background-color:rgba(211,211,211,0.4)";
         } else {
             numberFloat = numberFloat / 100;
             // return "background-color: rgb(255," + parseInt((1 - numberFloat) * 255) + "," + parseInt((1 - numberFloat) * 255) + ");"
@@ -730,7 +731,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
     this.getHCIcon = function(index)
     {
         // Return the icon set for the category
-        var obj = ["icon-base_data", "icon-exposure", "icon-hazard_info", "icon-info", "icon-vulnerability"];
+        var obj = ["icon-base_data", "icon-hazard_info", "icon-exposure", "icon-vulnerability", "icon-info" ];
 
         return obj[index];
     }
@@ -1288,12 +1289,14 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         if(strpath.indexOf('index.html') != -1){return "0"};
         if(strpath.indexOf('contribute.html') != -1){return "1"};
         if(strpath.indexOf('methodology.html') != -1){return "2"};
-        if(strpath.indexOf('browse-data.html') != -1){return "3"};
+        // if(strpath.indexOf('browse-data.html') != -1){return "3"};
         if(strpath.indexOf('register.html') != -1){return "4"};
-        if(strpath.indexOf('country-details.html') != -1){return "5"};
+        // if(strpath.indexOf('country-details.html') != -1){return "5"};
         if(strpath.indexOf('dataset_details.html') != -1){return "6"};
-        if(strpath.indexOf('news-details.html') != -1){return "7"};
+        // if(strpath.indexOf('news-details.html') != -1){return "7"};
         if(strpath.indexOf('confirm_registration.html') != -1){return "8"};
+        if(strpath.indexOf('about.html') != -1){return "9"};
+        if(strpath.indexOf('dataset_list.html') != -1){return "10"};
 
         return "0";
     }
@@ -1313,5 +1316,54 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         console.log(obj);
         return true;
     }
+
+    // ************************************** //
+    // ************ STATISTICS ************** //
+    // ************************************** //
+
+    this.getHomeStatistics = function(onSuccess, onError)
+    {
+        // Return statistics for home page
+
+        var req = {
+            method: 'GET',
+            // url: baseAPIurl + 'scoring/',
+            url: 'https://dev.riskopendata.org/api-dev2/scoring/',
+            headers: {
+                // 'Authorization': 'Token ' + token
+            },
+            data: {}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+
+    }
+
+    this.getcOUNTRYStatistics = function(idCountry, onSuccess, onError)
+    {
+        // Return statistics for home page
+
+        var req = {
+            method: 'GET',
+            // url: baseAPIurl + 'scoring/',
+            url: 'https://dev.riskopendata.org/api-dev2/scoring/' + idCountry,
+            headers: {
+                // 'Authorization': 'Token ' + token
+            },
+            data: {}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+
+    }
+
 
 }]);

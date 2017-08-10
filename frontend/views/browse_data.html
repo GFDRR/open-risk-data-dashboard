@@ -1,39 +1,53 @@
-<div>
+
+<div class="jumbotron">
 
     <!-- Country Matrix -->
-    <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+    <div class="container">
+        <div class="row">
 
-            <!-- row: country | column data type | click details dataset -->
-
-            <table class="table table-condensed table-responsive data">
-                <thead>
-                <th>&nbsp;</th> <!-- cella vuota -->
-                <th class="text-center row_icon" ng-repeat="hc in HazardCategory">
-                    <i class="{{getHCIcon(hc.category.id)}}"></i><br /><span>{{hc.category.name}}</span>
-                </th>
-                </thead>
-
-                <tbody>
-
-                <tr ng-repeat="(key, row) in aCountryList">
-                    <td class="text-center"><strong><a href="" ng-click="changepage('dataset_list.html?idcountry=' + row.iso2 + '&idcategory=0')">{{row.name}}</a></strong></td>
-                    <td class="text-center" ng-repeat="(key, value) in row.data">
-                        <!-- click verso dataset list with filters country & category -->
-                        <a href="" ng-if="value.value !== '-1.0'" ng-click="changepage('dataset_list.html?idcountry=' + row.iso2 + '&idcategory=' + value.id)" alt="Profile: {{row.name}}"><div class="matrix_cell" style="{{colorCell(value.value)}}"></div></a>
-
-                        <!-- click verso contribute page -->
-                        <a href="" ng-if="value.value == '-1.0'" ng-click="changepage('contribute.html')" alt="Profile: {{row.name}}"><div class="matrix_cell" style="{{colorCell(value.value)}}"></div></a>
-                    </td>
-                </tr>
-
-                </tbody>
-
-            </table>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
 
+                <!-- row: country | column data type | click details dataset -->
 
+                <table class="table table-condensed table-responsive data">
+
+                    <thead>
+                    <th>&nbsp;</th> <!-- cella vuota -->
+                    <th class="text-center row_icon" ng-repeat="hc in HazardCategory">
+                        <i class="{{getHCIcon(hc.category.id)}}"></i><br /><span>{{hc.category.name}}</span>
+                    </th>
+                    </thead>
+
+                    <tbody>
+
+                    <tr ng-repeat="(key, row) in aCountryList">
+                        <td class="">
+                            <strong>
+                                <small>75%</small>
+                                <a href="" ng-click="changepage('dataset_list.html?idcountry=' + row.iso2 + '&idcategory=0')">{{row.name}}</a>
+                            </strong>
+
+                            <progress value="80" max="100"></progress>
+                        </td>
+                        <td class="text-center" ng-repeat="(key, value) in row.data">
+                            <!-- click verso dataset list with filters country & category -->
+                            <a href="" ng-if="value.value !== '-1.0'" ng-click="changepage('dataset_list.html?idcountry=' + row.iso2 + '&idcategory=' + value.id)" alt="Profile: {{row.name}}"><div class="matrix_cell" style="{{colorCell(value.value)}}"></div></a>
+
+                            <!-- click verso contribute page -->
+                            <a href="" ng-if="value.value == '-1.0'" ng-click="changepage('contribute.html')" alt="Profile: {{row.name}}"><div class="matrix_cell" style="{{colorCell(value.value)}}"></div></a>
+                        </td>
+                    </tr>
+
+                    </tbody>
+
+                </table>
+
+
+
+            </div>
         </div>
     </div>
 
 </div>
+
