@@ -251,6 +251,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
         $scope.tabpar = $location.search().tab;
         $scope.questions = RodiSrv.getQuestions();
+        $scope.bDescInfo = false;
 
         if($scope.tabpar)
         {
@@ -271,6 +272,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
         $scope.datasetTags = [];
         $scope.selectedTags = [];
         $scope.sTagsMsg = "** Select a dataset description **";
+        $scope.sTagsInfo = "";
 
         $scope.objDataset = RodiSrv.getDatasetEmptyStructure();
 
@@ -336,6 +338,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
         {
             if(idDataset !== '0')
             {
+
+                $scope.bDescInfo = true;
                 // Dataset selected
                 // get the dataset obj
                 var aFiltered = [];
@@ -400,6 +404,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 );
             } else
             {
+                $scope.bDescInfo = false;
                 $scope.objDataset.keydataset.level = '0';
                 $scope.datasetScale = [];
                 $scope.objDataset.keydataset.description = '0';
@@ -435,6 +440,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
         {
             if(idDesc !== '0')
             {
+
                 // Get level of description
                 var objDesc = $filter('filter')($scope.datasetDescription,
                     function(e)
@@ -465,11 +471,29 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                             $scope.datasetTags = data[0].tag_available.tags;
                             $scope.selectedTags = data[0].applicability;
                             $scope.sTagsMsg = "";
+
+                            if(data[0].tag_available.group == 'hazard')
+                            {
+                                $scope.sTagsInfo = "Please select the Hazard for which the dataset is relevant/used. A predefined suggestion is provided.";
+;                            }
+
+                            if(data[0].tag_available.group == 'building')
+                            {
+                                $scope.sTagsInfo = "Please select the Building characteristics that are included in the dataset you are entering";
+                            };
+
+                            if(data[0].tag_available.group == 'facilities')
+                            {
+                                $scope.sTagsInfo = "Please select the what type of critical infrastructures are included in the dataset you are entering";
+                            };
+
+
                         } else
                         {
                             $scope.datasetTags=[];
                             $scope.selectedTags = [];
                             $scope.sTagsMsg = "** No elemnts available **";
+                            $scope.sTagsInfo="";
                         }
 
                     }, function(data){
