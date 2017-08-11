@@ -10,6 +10,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
     RodiSrv.checkAPIversion(function(data){}, function(data){});
 
+    // Check server CALL
+
     $scope.bLogin = false;
     $scope.tokenid = $cookieStore.get('rodi_token');
     $scope.userinfo = $cookieStore.get('rodi_user');
@@ -136,7 +138,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                                 }
                             }
                         }
-
                     }
 
                     $scope.aCountryList[countrycode].data = obj;
@@ -144,7 +145,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
                 });
 
-                console.log(dataTemp);
                 $scope.arrayData = dataTemp;
 
                 //fill country without data
@@ -249,7 +249,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
         }, function(data)
         {
             // Error
-        })
+        });
 
     }
 
