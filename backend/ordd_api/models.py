@@ -146,7 +146,7 @@ class KeyTag(models.Model):
         )
 
     def natural_key(self):
-        return [self.name]
+        return [self.name, self.group.name]
 
     def __str__(self):
         return "%s - %s" % (self.group, self.name)
