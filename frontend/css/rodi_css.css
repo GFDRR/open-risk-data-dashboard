@@ -97,9 +97,10 @@ a, b, strong, span {
 /* R.O.D.I. STYLE ELEMENTS - INIZIO     */
 /* ************************************ */
 
-section
+section + section
 {
-    /* margin-bottom:30px; */
+    padding-top: 2em;
+    padding-bottom: 2em;
 }
 
 .rodi_loading
@@ -393,7 +394,7 @@ section
 /*
 ==============================================================================
 
-
+Stats
 
 ==============================================================================
 */
@@ -413,7 +414,7 @@ section
 section#counter-stats {
     display: flex;
     justify-content: center;
-    margin-top: 100px;
+    margin-top: 20px;
 }
 
 .stats {
@@ -429,8 +430,12 @@ section#counter-stats {
     color: #00C1FF;
     font-size: 60px;
 }
+.stats.small td {padding:6px 0;}
+.stats.small.cut .fa {font-size:30px;  }
+.stats.small.cut td {padding:0;}
 
 /*/ end count stats /*/
+
 
 
 
@@ -899,7 +904,9 @@ Menu nav e hazart transform/transitions
 .search .form-control:active,
 .search .form-control:focus,
 .search .form-control:hover,
-.invert:hover, .invert:focus { transform:scale(1.1); transition:all 0.3s ease;}
+.invert:hover, .invert:focus,
+.table.dataset td.status a i:hover,
+.table.dataset td.status a i:focus{ transform:scale(1.1); transition:all 0.3s ease;}
 
 .nav>li,
 .nav>li>a,
@@ -913,7 +920,10 @@ Menu nav e hazart transform/transitions
 .invert:focus,
 .data td strong a:hover,
 .data td strong a:focus,
-.data strong:hover +  progress
+.data strong:hover +  progress,
+.table.dataset td.status a i:hover,
+.table.dataset td.status a i:focus,
+.jumbotron.dataset
 {transition:all 0.25s ease;}
 
 .matrix_cell:hover, .matrix_cell:focus
@@ -1141,7 +1151,16 @@ Tables
 
 }
 .table.data strong small {margin-left: 2em;}
-
+.table.dataset td.status .fa {
+    width: 2em;
+    height: 2em;
+    color: white;
+    padding: 0;
+    line-height: 2;
+    text-align: center;
+    margin: 0 1em;
+    border-radius:50%;
+}
 
 .jumbotron {
     /* background: lightblue; */
@@ -1157,17 +1176,77 @@ Tables
 }
 */
 
-.jumbotron .table.data th {
-    /*background: rgba(255,255,255,0.5);*/
-    padding:2em;}
-.jumbotron .table.data td {
-    padding:1em ;
-}
+.jumbotron .table.data th,
+.jumbotron .table.dataset th {    padding:2em;}
+.jumbotron .table.dataset th {   font-size:1.2em;}
+.jumbotron .table.data td,
+.jumbotron .table.dataset td {    padding:1em ;}
 
 /*.jumbotron .table.data td .matrix_cell {background: rgba(255,255,255,0.2)!important;}*/
 
 
 
+.jumbotron.dataset {
+    overflow: auto;
+    padding: 5em 2em;
+    margin: 0;
+}
+@media screen and (max-width: 1024px) {
+    .jumbotron.dataset {
+        padding-left:0;
+    }
+    .jumbotron .dataset {
+        transform: scale(0.9);
+        margin-left:-30px;
+
+    }
+    .jumbotron .dataset th,
+    .jumbotron .dataset td {
+        padding:10px 5px!important;
+
+    }
+    .jumbotron .dataset td.status i  {
+        transform:scale(0.8);
+        margin:0!important;
+    }
+
+}
+@media screen and (max-width: 768px) {
+    .jumbotron .dataset {
+        transform: scale(0.7);
+        margin-left:-80px;
+
+    }
+}
+
+
+
+/*
+==============================================================================
+
+sort indicator / pagination
+
+==============================================================================
+*/
+
+.ng-table th.sortable .sort-indicator {white-space: nowrap;}
+
+
+
+
+.btn-group>.btn:first-child:not(:last-child):not(.dropdown-toggle),
+.btn-group>.btn:not(:first-child):not(:last-child):not(.dropdown-toggle),
+
+.btn-group>.btn:last-child:not(:first-child),
+.btn-group>.dropdown-toggle:not(:first-child) {
+
+    font-size:1.2em;
+    border-radius:0;
+    padding:8px 1em;
+    margin-top:1em;
+
+
+}
 
 
 /*
@@ -1223,7 +1302,7 @@ progress, .matrix_cell {
 */
 
 .data td strong:hover a,
-.data td strong:focus  a{
+.data td strong:focus  a {
     text-decoration:none;
     font-size:1.2em;
     /*     color:#329ad1; */

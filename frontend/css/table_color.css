@@ -35,9 +35,18 @@ progress {
 .jumbotron {
   background: -webkit-linear-gradient(left, #E0F7FA, #dedede);
   background: linear-gradient(to right, #E0F7FA, #dedede); }
-  .jumbotron .table.data tr {
+  .jumbotron .table.data tr,
+  .jumbotron .table.dataset tr {
     border: 1px solid rgba(211, 211, 211, 0.6); }
-  .jumbotron .table.data th {
+  .jumbotron .table.data th,
+  .jumbotron .table.dataset th {
     background: rgba(255, 255, 255, 0.5); }
+
+.table.dataset .status .fa {
+  background: rgba(50, 154, 209, 0.8); }
+  .table.dataset .status .fa.ok {
+    background: rgba(0, 128, 0, 0.8); }
+  .table.dataset .status .fa.rev {
+    background: rgba(255, 0, 0, 0.8); }
 
 /*# sourceMappingURL=table_color.css.map */
