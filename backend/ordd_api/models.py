@@ -139,6 +139,7 @@ class KeyTag(models.Model):
     group = models.ForeignKey(KeyTagGroup, related_name='tags',
                               on_delete=models.CASCADE)
     name = models.CharField(max_length=32, blank=False)
+    is_peril = models.BooleanField(default=False)
 
     class Meta:
         unique_together = (
