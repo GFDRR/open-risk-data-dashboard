@@ -102,11 +102,80 @@
         <div class="hidden-xs col-sm-1 col-md-1 col-lg-1"></div>
         <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-justify rodi_big_text_page">
             <br />
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            <br /><br />
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-            <br /><br /><br />
+            The methodology used to organise and contribute data and to score such data is based two main activities:
 
+            <ul>
+                <li>the definition of a key risk dataset</li>
+                <li>the definition of a scoring method for the datasets available for a specific country as compared to the key risk dataset identified</li>
+            </ul>
+            <br />
+
+            In the fist activity we defined a limited list of key risk datasets together with their definition, their content, including minimum criteria that datasets should meet,
+            as well as a related simple classification scheme for the datasets. All this information is included in the guided contribution form that allows for the classification of
+            the dataset into the Open Data for Resilience Index database.<br />
+            The identification of key risk datasets is based on a comprehensive review of recent disaster risk studies and is specific to the DRM sector and includes different
+            categories/facets such as type of: hazard (earthquake, water scarcity, volcano, etc.); risk assessment (hazard, exposure, vulnerability); and action (risk identification,
+            reduction, preparedness, financial protection, resilient recovery, etc.)
+            <br /><br />
+            The datasets are organised in 5 data categories:
+            <ul>
+                <li>Basic data: Datasets which are required for the overall assessment, such as administrative boundaries, Digital Elevation Model or Aerial Imagery</li>
+                <li>Hazard data: All datasets related to the modelling or, if already modelled, characterisation of the hazard.</li>
+                <li>Exposure data: All datasets describing the exposure at risk.</li>
+                <li>Vulnerability data: All data or models related to the likelihood of suffering damage or loss conditional on a given the intensity of the hazard.</li>
+                <li>Risk data: All quantitative information and indicators related to (economic) risk from previous assignments for validation and verification purposes.</li>
+            </ul>
+            <br />
+            The key risk dataset  are defined mainly to the national scale as a scope for analysis. but the dashboard stores and manages also global and local data, specifically
+            defining an applicability level for each dataset:
+            <ul>
+                <li>Level 0: Data from global sources, such as HurDat, GAR, GLOFRIS, FLOPROS, WorldPop.</li>
+                <li>Level 1: National Data, from national offices such as meteorological data, land use information, population statistics on postcode level.</li>
+                <li>Level 2: Detailed data, e.g. from higher resolution or more differentiated, such as economic activities or population count on address (building) level.</li>
+            </ul>
+            <br />
+            For more information on the key risk dataset identified you can read the Final report.
+            <br /><br />
+            The second activity has defined a scoring methodology that answers the following questions: 1) to what extent is a key risk dataset’s definition for a given country
+            covered by existing datasets (availability)?; 2) how open and easy to use are these datasets (accessibility)?; and 3) how well that datasets meet the key dataset
+            requirement outlined in the definition (fit-for-purpose/applicability)?
+            <br /><br />
+            The scoring methodology assesses if data are:
+
+            <ul>
+                <li>
+                    Within this schema, all key criteria can be identified, specifically if data are:
+                    <ul>
+                        <li>already collected;</li>
+                        <li>in digital format;</li>
+                        <li>available online;</li>
+                        <li>machine-readable;</li>
+                        <li>free of charge;</li>
+                        <li>open licensed;</li>
+                        <li>up to date;</li>
+                        <li>and available with its metadata.</li>
+                    </ul>
+                </li>
+                <li>
+                    The scoring will work on three levels:
+                    <ul>
+                        <li>The single dataset</li>
+                        <li>The dataset category: Basic data, Hazard, Exposure, Vulnerability, Risk</li>
+                        <li> The country under analysis</li>
+                    </ul>
+                </li>
+            </ul>
+
+            The scoring methodology is a bottom-up approach that aggregates results of the scoring methodology from the dataset scale up to the country scale.<br />
+            If all criteria to assess openness and accessibility are metthe dataset is scored as 100% open and accessible. If some of the question have negative answer and the
+            criteria are only partially met a score between 0 and 100 will be provided.<br />
+            The single dataset contributes in turn to the scoring of a data category they belong to: Basic data, Hazard, Exposure, Vulnerability and Risk.<br />
+            The Country scoring is based on the scoring obtained by the data categories: Basic data, Hazard, Exposure, Vulnerability and Risk.<br />
+            Since the ideal solution would be to have a complete data set for each data type for each hazard, this could be penalizing countries that did not invest in knowledge
+            with regards to some specific peril as their incidence in the risk profile of the country is low. To avoid this a threshold based on the information that can be found
+            in <a href="http://thinkhazard.org/en/" target="_blank">Thinkhazard.org</a> is set. If the specific peril is rated low in terms of hazard
+            by <a href="http://thinkhazard.org/en/" target="_blank">Thinkhazard.org</a> this hazard is not considered in the ideal set to be met for the country.
+            <br /><br /><br /><br />
         </div>
         <div class="hidden-xs col-sm-1 col-md-1 col-lg-1"></div>
     </div>
@@ -116,7 +185,7 @@
 
 <section>
     <div class="footer">
-        <div class="space"></div>
+        <!--<div class="space"></div>-->
         <!-- Section FOOTER - INIZIO -->
         <rodifooter></rodifooter>
         <!-- Section FOOTER - FINE -->
