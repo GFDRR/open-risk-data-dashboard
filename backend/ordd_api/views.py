@@ -9,8 +9,11 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import NotFound
 from collections import OrderedDict
+from django.core.exceptions import ObjectDoesNotExist
+
 from django.db.models import Q
 from django.contrib.auth.models import User
+from django.http import Http404
 
 from .serializers import (
     RegionSerializer, CountrySerializer, KeyPerilSerializer,
@@ -824,9 +827,12 @@ class Score(object):
 
     @classmethod
     def country_details(cls, request, country_id):
+        try:
+            country = Country.objects.get(iso2=country_id)
+        except ObjectDoesNotExist:
+            raise Http404()
         queryset = Dataset.objects.filter(
             country__iso2=country_id).order_by('keydataset__pk')
-        country = Country.objects.get(iso2=country_id)
         applicability = request.query_params.getlist('applicability')
         category = request.query_params.getlist('category')
         if applicability:
