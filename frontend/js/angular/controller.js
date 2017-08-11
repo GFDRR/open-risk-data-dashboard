@@ -147,31 +147,34 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
                 });
 
-                $scope.arrayData = dataTemp;
-
                 //fill country without data
                 var obj= {}
                 for (var i in aIndex) {
-                    if (aIndex[i] != "country") {
+                    if (aIndex[i] != "country" && aIndex[i] != "score") {
                         obj[aIndex[i]] = {
                             id:i,
                             value:"-1.0",
-                            score:"0"
                         }
                     }
+
                 }
+
+
 
                 for(var country in $scope.aCountryList){
 
                     if(angular.isUndefined($scope.aCountryList[country].data))
                     {
                         $scope.aCountryList[country].data = obj;
+                        $scope.aCountryList[country].score = 0;
                     }
 
                     // if (angular.isUndefined($scope.aCountryList[country].data)) $scope.aCountryList[country].data = obj;
                     // $scope.arrayData[country] = {value: 0};
                 }
                 //end filling
+
+                $scope.arrayData = dataTemp;
 
                 $scope.getCountryScore = function(code)
                 {
