@@ -131,7 +131,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                             } else {
                                 obj[aIndex[i]] = {
                                     id: i,
-                                    value: currValue[i]
+                                    value: currValue[i],
+                                    score:countryscore
                                 }
                             }
                         }
@@ -152,7 +153,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                     if (aIndex[i] != "country") {
                         obj[aIndex[i]] = {
                             id:i,
-                            value:"-1.0"
+                            value:"-1.0",
+                            score:"0"
                         }
                     }
                 }
