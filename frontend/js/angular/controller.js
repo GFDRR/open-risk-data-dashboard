@@ -99,8 +99,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                     $scope.aCountryList[item.iso2] = item;
                 });
 
-                console.log($scope.aCountryList);
-
                 $scope.mergeMatrixData();
 
         })
