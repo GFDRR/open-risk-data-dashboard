@@ -99,6 +99,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                     $scope.aCountryList[item.iso2] = item;
                 });
 
+                console.log($scope.aCountryList);
+
                 $scope.mergeMatrixData();
 
         })
@@ -133,14 +135,14 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                             } else {
                                 obj[aIndex[i]] = {
                                     id: i,
-                                    value: currValue[i],
-                                    score:countryscore
+                                    value: currValue[i]
                                 }
                             }
                         }
                     }
 
                     $scope.aCountryList[countrycode].data = obj;
+                    $scope.aCountryList[countrycode].score = countryscore;
                     dataTemp[countrycode] = {score: countryscore};
 
                 });
@@ -171,6 +173,10 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 }
                 //end filling
 
+                $scope.getCountryScore = function(code)
+                {
+                    return $scope.aCountryList[code].score;
+                }
 
             }, function (data) {
                 // Error
@@ -210,7 +216,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
         RodiSrv.getHomeStatistics(function(data)
         {
             //Success API
-            console.log(data);
 
             // Finding country score for MAP
             // var arrayStates = [];
