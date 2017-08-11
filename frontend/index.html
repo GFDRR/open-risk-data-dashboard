@@ -146,31 +146,12 @@
                                     <div class="panel panel-default">
                                         <div class="panel-body">
                                             <table class="table table-responsive">
-                                                <tr>
-                                                    <td><i class="fa icon-base_data" aria-hidden="true"></i></td>
-                                                    <td>{{categoryCounters[0].category}}</td>
-                                                    <td>{{categoryCounters[0].count}}</td>
+                                                <tr ng-repeat="dataclass in categoryCounters">
+                                                    <td><i class="fa {{dataCategoryIcon(dataclass.category)}}" aria-hidden="true"></i></td>
+                                                    <td>{{dataclass.category}}</td>
+                                                    <td>{{dataclass.count}}</td>
                                                 </tr>
-                                                <tr>
-                                                    <td><i class="fa icon-hazard_info" aria-hidden="true"></i></td>
-                                                    <td>{{categoryCounters[1].category}}</td>
-                                                    <td>{{categoryCounters[1].count}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><i class="fa icon-exposure" aria-hidden="true"></i></td>
-                                                    <td>{{categoryCounters[2].category}}</td>
-                                                    <td>{{categoryCounters[2].count}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><i class="fa icon-vulnerability" aria-hidden="true"></i></td>
-                                                    <td>{{categoryCounters[3].category}}</td>
-                                                    <td>{{categoryCounters[3].count}}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td><i class="fa icon-info" aria-hidden="true"></i></td>
-                                                    <td>{{categoryCounters[4].category}}</td>
-                                                    <td>{{categoryCounters[4].count}}</td>
-                                                </tr>
+
                                             </table>
                                         </div>
                                     </div>
@@ -179,7 +160,57 @@
 
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 stats small">
                                     <div class="panel panel-default">
-                                        <div class="panel-body"></div>
+                                        <div class="panel-body">
+                                            <table class="table table-responsive">
+                                                <tr ng-repeat="peril in perilCounters">
+                                                    <td><i class="fa {{getPelirsIcons(peril.name)}}" aria-hidden="true"></i></td>
+                                                    <td>{{peril.name}}</td>
+                                                    <td>{{peril.count}}</td>
+                                                </tr>
+
+
+                                                <!--<tr>
+                                                    <td><i class="fa {{getPelirsIcons('CF')}}" aria-hidden="true"></i></td>
+                                                    <td>{{perilCounters[0].name}}</td>
+                                                    <td>{{perilCounters[0].count}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><i class="fa {{getPelirsIcons('CY')}}" aria-hidden="true"></i></td>
+                                                    <td>{{perilCounters[1].name}}</td>
+                                                    <td>{{perilCounters[1].count}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><i class="fa {{getPelirsIcons('EQ')}}" aria-hidden="true"></i></td>
+                                                    <td>{{perilCounters[2].name}}</td>
+                                                    <td>{{perilCounters[2].count}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><i class="fa {{getPelirsIcons('LS')}}" aria-hidden="true"></i></td>
+                                                    <td>{{perilCounters[3].name}}</td>
+                                                    <td>{{perilCounters[3].count}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><i class="fa {{getPelirsIcons('RF')}}" aria-hidden="true"></i></td>
+                                                    <td>{{perilCounters[4].name}}</td>
+                                                    <td>{{perilCounters[4].count}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><i class="fa {{getPelirsIcons('TS')}}" aria-hidden="true"></i></td>
+                                                    <td>{{perilCounters[5].name}}</td>
+                                                    <td>{{perilCounters[5].count}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><i class="fa {{getPelirsIcons('VO')}}" aria-hidden="true"></i></td>
+                                                    <td>{{perilCounters[6].name}}</td>
+                                                    <td>{{perilCounters[6].count}}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td><i class="fa {{getPelirsIcons('WS')}}" aria-hidden="true"></i></td>
+                                                    <td>{{perilCounters[7].name}}</td>
+                                                    <td>{{perilCounters[7].count}}</td>
+                                                </tr>-->
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
 

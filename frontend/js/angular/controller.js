@@ -50,6 +50,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
         // ************* MATRIX ***************** //
         // ************************************** //
 
+        $scope.filteredApplicability = [];
+
         $scope.filterApplicabilityClass = function (name) {
             if($scope.filteredApplicability[0] == name){
                 return "active";
@@ -57,8 +59,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
 
         }
-
-        $scope.filteredApplicability = [];
 
         RodiSrv.getApplicability(function (data) {
 
@@ -105,6 +105,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
         $scope.mergeMatrixData= function() {
             RodiSrv.getMatrixData($scope.filteredApplicability, function (data) {
                 // $scope.matrixData = [];
+                $scope.arrayData = [];
+                var dataTemp = [];
 
                 //tolgo elemento indici
                 var aIndex = data[0];
@@ -115,23 +117,34 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 data.forEach(function (currValue, index, array) {
                     var obj = {};
                     var countrycode;
+                    var countryscore;
 
                     for (var i in aIndex) {
 
                         if (aIndex[i] == "country") {
                             countrycode  = currValue[i];
                         }else{
-                            obj[aIndex[i]] = {
-                                id:i,
-                                value:currValue[i]
+
+                            if(aIndex[i] == "score")
+                            {
+                                countryscore = currValue[i];
+                            } else {
+                                obj[aIndex[i]] = {
+                                    id: i,
+                                    value: currValue[i]
+                                }
                             }
                         }
 
                     }
 
                     $scope.aCountryList[countrycode].data = obj;
+                    dataTemp[countrycode] = {score: countryscore};
 
                 });
+
+                console.log(dataTemp);
+                $scope.arrayData = dataTemp;
 
                 //fill country without data
                 var obj= {}
@@ -194,27 +207,39 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
         RodiSrv.getHomeStatistics(function(data)
         {
-            //Success
+            //Success API
             console.log(data);
 
             // Finding country score for MAP
-            var arrayStates = [];
-            var dataTemp = [];
-            $scope.arrayData = [];
-            angular.forEach(data.scores, function(value, key)
-            {
-                arrayStates.push(value.country);
-            });
+            // var arrayStates = [];
+            // var dataTemp = [];
 
-            angular.forEach(arrayStates, function(value, key)
-            {
-                var obj = $filter('filter')(data.scores, {country: value});
-                dataTemp[value] = {score: obj[0].score};
-            });
+            // angular.forEach(data.scores, function(value, key)
+            // {
+            //     arrayStates.push(value.country);
+            // });
 
-            $scope.arrayData = dataTemp;
+            // angular.forEach(arrayStates, function(value, key)
+            // {
+            //     var obj = $filter('filter')(data.scores, {country: value});
+            //     dataTemp[value] = {score: obj[0].score};
+            // });
+
+            // $scope.arrayData = dataTemp;
 
             // Statistics index
+
+            $scope.getPelirsIcons = function(code)
+            {
+                return RodiSrv.getHazardIcon(code);
+            }
+
+            $scope.dataCategoryIcon = function(code)
+            {
+                return RodiSrv.getSingleDataCategoryIcon(code);
+            }
+
+            $scope.perilCounters = data.perils_counters;
             $scope.categoryCounters = data.categories_counters;
             $scope.countryWithData = data.countries_count;
             $scope.totalDataset = data.datasets_count;

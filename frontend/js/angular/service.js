@@ -213,7 +213,6 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         $http({
             method: 'GET',
             url: baseAPIurl + 'scoring_category/'+string
-            // url: baseAPIurl + 'scoring_categories/'
         }).then(function (data) {
 
             // var aOfIndex = data.data[0];
@@ -487,6 +486,27 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         return objHazard;
     };
 
+    this.getHazardIcon = function(code)
+    {
+
+        var objHazard = [
+            {code:"RF", desc:"River flooding",icon:"icon-river_flood"},
+            {code:"EQ", desc:"Earthquake",icon:"icon-earthquake"},
+            {code:"VO", desc:"Vulcano",icon:"icon-volcano"},
+            {code:"CY", desc:"Cyclone",icon:"icon-cyclone"},
+            {code:"CF", desc:"Coastal flooding",icon:"icon-coastal_flood"},
+            {code:"WS", desc:"Water scarcity",icon:"icon-water_scarcity"},
+            {code:"LS", desc:"Landslide",icon:"icon-landslide"},
+            {code:"TS", desc:"Tsunami",icon:"icon-tsunami"}
+        ];
+
+        var aObj = $filter('filter')(objHazard, function(item){
+            return item.desc == code;
+        })
+
+        return aObj[0].icon;
+    };
+
     // ************************************** //
     // ************ KEYDATASET LIST ********* //
     // ************************************** //
@@ -726,6 +746,34 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
             ];
 
         return obj;
+    }
+
+    this.getSingleDataCategoryIcon = function(code)
+    {
+        var obj =
+            [
+                {
+                    name: "Basic Data", icon: "icon-base_data"
+                },
+                {
+                    name: "Hazard", icon: "icon-hazard_info"
+                },
+                {
+                    name: "Exposure", icon: "icon-exposure"
+                },
+                {
+                    name: "Vulnerability", icon:"icon-vulnerability"
+                },
+                {
+                    name: "Risk", icon:"icon-info"
+                }
+            ];
+
+        var aObj = $filter('filter')(obj, function(item){
+            return item.name == code;
+        })
+
+        return aObj[0].icon;
     }
 
     this.getHCIcon = function(index)
@@ -1327,8 +1375,8 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 
         var req = {
             method: 'GET',
-            // url: baseAPIurl + 'scoring/',
-            url: 'https://dev.riskopendata.org/api-dev2/scoring/',
+            url: baseAPIurl + 'scoring/',
+            // url: 'https://dev.riskopendata.org/api-dev2/scoring/',
             headers: {
                 // 'Authorization': 'Token ' + token
             },
@@ -1349,8 +1397,8 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 
         var req = {
             method: 'GET',
-            // url: baseAPIurl + 'scoring/',
-            url: 'https://dev.riskopendata.org/api-dev2/scoring/' + idCountry,
+            url: baseAPIurl + 'scoring/' + idCountry,
+            // url: 'https://dev.riskopendata.org/api-dev2/scoring/' + idCountry,
             headers: {
                 // 'Authorization': 'Token ' + token
             },

@@ -9,7 +9,7 @@ var baseUrl = 'http://localhost:63342/RODI/frontend/';
 // var baseUrl = 'http://www.riskopendata.org/';
 
 var baseAPIurl = 'https://dev.riskopendata.org/api-dev/'; // Sviluppo
-var APIversion = '0.16.0';
+var APIversion = '0.18.0';
 
 RodiApp.config(function($locationProvider) {
 
