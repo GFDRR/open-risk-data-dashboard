@@ -1,2 +1,2 @@
-__VERSION__="0.17.1"
-MAIL_SUBJECT_PREFIX="R.O.D.I."
+__VERSION__="0.18.0"
+MAIL_SUBJECT_PREFIX="Open Data for Resilience Index"
