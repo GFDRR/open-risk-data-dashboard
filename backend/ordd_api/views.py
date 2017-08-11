@@ -8,7 +8,7 @@ from rest_framework import generics, permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import NotFound
-
+from collections import OrderedDict
 from django.db.models import Q
 from django.contrib.auth.models import User
 
@@ -638,6 +638,10 @@ class DatasetListView(generics.ListAPIView):
 
 class Score(object):
     @classmethod
+    def score_fmt(cls, score):
+        return "%.1f" % (score * 100.0)
+
+    @classmethod
     def dataset(cls, request, dataset, th_applicability):
         score = 0.0
 
@@ -680,9 +684,9 @@ class Score(object):
         category_score_tree = country_score_tree[category.code]
 
         for keydataset in KeyDataset.objects.filter(category=category):
-            if keydataset.code not in category_score_tree:
+            if keydataset.code not in category_score_tree['score']:
                 continue
-            keydataset_score = category_score_tree[keydataset.code][
+            keydataset_score = category_score_tree['score'][keydataset.code][
                 'value']
 
             if category_score < keydataset_score:
@@ -715,32 +719,46 @@ class Score(object):
         return country_score
 
     @classmethod
+    def country_loadtree(cls, request, country_score_tree, dataset,
+                         th_applicability):
+        category_id = dataset.keydataset.category.code
+        keydataset_id = dataset.keydataset.code
+
+        if category_id not in country_score_tree:
+            country_score_tree[category_id] = OrderedDict(
+                [('score', OrderedDict()), ('counter', 0)])
+        category_score_tree = country_score_tree[category_id]
+        category_score_tree['counter'] += 1
+        if keydataset_id not in category_score_tree:
+            category_score_tree['score'][keydataset_id] = {
+                "dataset": None, 'value': -1}
+        keydataset_score_tree = category_score_tree['score'][keydataset_id]
+        score = cls.dataset(request, dataset, th_applicability)
+
+        if keydataset_score_tree['value'] < score:
+            keydataset_score_tree['value'] = score
+            keydataset_score_tree['dataset'] = dataset
+
+    @classmethod
     def dataset_loadtree(cls, request, queryset):
         # preloaded tree with data from datasets to avoid bad performances
-        world_score = {}
+        world_score_tree = OrderedDict()
         for dataset in queryset:
             country_id = dataset.country.iso2
             th_applicability = set()
             for appl in dataset.country.thinkhazard_appl.all():
                 th_applicability.add(appl.name)
 
-            category_id = dataset.keydataset.category.code
-            keydataset_id = dataset.keydataset.code
-            if country_id not in world_score:
-                world_score[country_id] = {}
-            country_score = world_score[country_id]
-            if (category_id not in country_score):
-                country_score[category_id] = {}
-            category_score = country_score[category_id]
-            if keydataset_id not in category_score:
-                category_score[keydataset_id] = {'value': 0, "dataset": None}
-            keydataset_score = category_score[keydataset_id]
-            score = cls.dataset(request, dataset, th_applicability)
-            if score > keydataset_score['value']:
-                keydataset_score['value'] = score
-                keydataset_score['dataset'] = dataset
+            # category_id = dataset.keydataset.category.code
+            # keydataset_id = dataset.keydataset.code
+            if country_id not in world_score_tree:
+                world_score_tree[country_id] = OrderedDict()
+            country_score_tree = world_score_tree[country_id]
 
-        return world_score
+            cls.country_loadtree(request, country_score_tree, dataset,
+                                 th_applicability)
+
+        return world_score_tree
 
     @classmethod
     def all_countries(cls, request):
@@ -765,21 +783,42 @@ class Score(object):
         # check-point to investigate correctness of query filtering
         # print("Number of item: %d" % queryset.count())
 
-        world_score = cls.dataset_loadtree(request, queryset)
+        world_score_tree = cls.dataset_loadtree(request, queryset)
+        datasets_count = queryset.count()
+        countries_count = len(world_score_tree)
 
-        ret = []
+        categories = KeyCategory.objects.all().order_by('id')
+        categories_counters = []
+        cat_cou = {}
+        for cat in categories:
+            cat_cou = 0
+
+            for _, country_score in world_score_tree.items():
+                if cat.code in country_score:
+                    category_score = country_score[cat.code]
+                    cat_cou += category_score['counter']
+            categories_counters.append({'category': cat.name,
+                                        'count': cat_cou})
+
+        ret = {'scores': [],
+               'datasets_count': datasets_count,
+               'countries_count': countries_count,
+               'categories_counters': categories_counters,
+               'perils_counters': []}
+        ret_score = ret['scores']
 
         for country in Country.objects.all().order_by('name'):
-            if country.iso2 not in world_score:
+            if country.iso2 not in world_score_tree:
                 continue
             else:
-                score = cls.country(world_score[country.iso2], country)
-            # we could think to hide country with score == 0 (usefull
-            # in development phase, at least)
-            # if score == 0:
-            #     continue
-            ret.append({"country": country.iso2,
-                        "score": "%.1f" % (score * 100.0)})
+                score = cls.country(world_score_tree[country.iso2], country)
+
+            ret_score.append({"country": country.iso2,
+                              "score": cls.score_fmt(score)})
+
+        perils_counters = ret['perils_counters']
+        for i, peril in enumerate(KeyPeril.objects.all().order_by('name')):
+            perils_counters.append({'name': peril.name, 'count': i})
 
         return ret
 
@@ -788,24 +827,34 @@ class Score(object):
         queryset = Dataset.objects.filter(
             country__iso2=country_id).order_by('keydataset__pk')
         country = Country.objects.get(iso2=country_id)
+        applicability = request.query_params.getlist('applicability')
+        category = request.query_params.getlist('category')
+        if applicability:
+            q = Q()
+            for v in applicability:
+                # FIXME currently in tag we may have extra applicabilities
+                # when category (tag group) is 'hazard'
+                q = q | (Q(keydataset__applicability__name__iexact=v) |
+                         Q(tag__name__iexact=v))
+            queryset = queryset.filter(q).distinct()
+
+        if category:
+            q = Q()
+            for v in category:
+                q = q | Q(keydataset__category__name__iexact=v)
+            queryset = queryset.filter(q).distinct()
+
         th_applicability = set()
         for appl in country.thinkhazard_appl.all():
             th_applicability.add(appl.name)
 
-        country_score = []
+        country_score_tree = OrderedDict()
         for dataset in queryset:
-            score = cls.dataset(request, dataset, th_applicability)
-            for keydataset_score in country_score:
-                # search for list a element with the same keydataset code
-                if (keydataset_score['dataset'].keydataset.code ==
-                        dataset.keydataset.code):
-                    if keydataset_score['value'] < score:
-                        keydataset_score['value'] = score
-                        keydataset_score['dataset'] = dataset
-                    break
-            else:
-                country_score.append(
-                    {'dataset': dataset, 'value': score})
+            cls.country_loadtree(request, country_score_tree, dataset,
+                                 th_applicability)
+
+        datasets_count = queryset.count()
+        country_score = cls.country(country_score_tree, country)
 
         interesting_fields = [
             'is_existing', 'is_digital_form', 'is_avail_online',
@@ -813,19 +862,44 @@ class Score(object):
             'is_pub_available', 'is_avail_for_free', 'is_open_licence',
             'is_prov_timely']
 
-        ret = [["kd_code", "kd_description", "score"]]
+        categories = KeyCategory.objects.all().order_by('id')
+        categories_counters = []
+        cat_cou = {}
+        for cat in categories:
+            cat_cou = 0
+            if cat.code in country_score_tree:
+                category_score_tree = country_score_tree[cat.code]
+                cat_cou += category_score_tree['counter']
+            categories_counters.append({'category': cat.name,
+                                        'count': cat_cou})
+
+        ret = {'score': cls.score_fmt(country_score),
+               'scores': [["kd_code", "kd_description", "score"]],
+               'datasets_count': datasets_count,
+               'categories_counters': categories_counters,
+               'perils_counters': []}
+        ret_score = ret['scores']
+
         for int_field in interesting_fields:
-            ret[0].append(Dataset._meta.get_field(int_field).verbose_name)
+            ret_score[0].append(Dataset._meta.get_field(
+                int_field).verbose_name)
 
-        for keydataset_score in country_score:
-            dataset = keydataset_score['dataset']
-            value = "%.1f" % (keydataset_score['value'] * 100.0)
-            row = [dataset.keydataset.code, dataset.keydataset.description,
-                   value]
-            for int_field in interesting_fields:
-                row.append(getattr(dataset, int_field))
+        for _, category_score_tree in country_score_tree.items():
+            for _, keydataset_score_tree in category_score_tree['score'
+                                                                ].items():
+                dataset = keydataset_score_tree['dataset']
+                value = cls.score_fmt(keydataset_score_tree['value'])
+                row = [dataset.keydataset.code, dataset.keydataset.description,
+                       value]
+                for int_field in interesting_fields:
+                    row.append(getattr(dataset, int_field))
 
-            ret.append(row)
+                ret_score.append(row)
+
+        perils_counters = ret['perils_counters']
+        for i, peril in enumerate(KeyPeril.objects.all().order_by('name')):
+            perils_counters.append({'name': peril.name, 'count': i})
+
         return ret
 
     @classmethod
@@ -845,7 +919,7 @@ class Score(object):
 
         world_score_tree = cls.dataset_loadtree(request, queryset)
 
-        row = ['country']
+        row = ['country', 'score']
         for category in categories:
             row.append(category.name)
         ret = [row]
@@ -855,15 +929,18 @@ class Score(object):
                 continue
             else:
                 country_score_tree = world_score_tree[country.iso2]
+                country_score = cls.country(
+                    world_score_tree[country.iso2], country)
 
                 row = [country.iso2]
+                row.append(cls.score_fmt(country_score))
                 for category in categories:
                     if category.code not in country_score_tree:
-                        row.append("%.1f" % (-1,))
+                        row.append(cls.score_fmt(-1))
                         continue
                     category_score = cls.category(
                         category, country_score_tree)
-                    row.append("%.1f" % (category_score * 100.0))
+                    row.append(cls.score_fmt(category_score))
 
                 ret.append(row)
 

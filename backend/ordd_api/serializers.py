@@ -228,7 +228,8 @@ class DatasetListSerializer(serializers.ModelSerializer):
     changed_by = serializers.SlugRelatedField(slug_field='username',
                                               queryset=User.objects.all())
     country = serializers.SlugRelatedField(slug_field='iso2',
-                                           queryset=Country.objects.all())
+                                           queryset=Country.objects.all(
+                                           ).order_by('name'))
     keydataset = KeyDataset4on4Serializer(read_only=True)
     url = serializers.SlugRelatedField(slug_field='url',
                                        queryset=Url.objects.all(), many=True)
@@ -248,7 +249,8 @@ class DatasetPutSerializer(serializers.ModelSerializer):
     changed_by = serializers.SlugRelatedField(slug_field='username',
                                               queryset=User.objects.all())
     country = serializers.SlugRelatedField(slug_field='iso2',
-                                           queryset=Country.objects.all())
+                                           queryset=Country.objects.all(
+                                           ).order_by('name'))
     url = serializers.SlugRelatedField(slug_field='url',
                                        queryset=Url.objects.all(), many=True)
     tag = serializers.SlugRelatedField(slug_field='name',
