@@ -22,7 +22,7 @@ from .serializers import (
     ProfileDatasetListSerializer, ProfileDatasetCreateSerializer,
     DatasetListSerializer, DatasetPutSerializer)
 from .models import (Region, Country, OptIn, Dataset, KeyDataset,
-                     KeyCategory, KeyPeril)
+                     KeyCategory, KeyTag)
 from .mailer import mailer
 from ordd_api import __VERSION__, MAIL_SUBJECT_PREFIX
 from ordd.settings import ORDD_ADMIN_MAIL
@@ -126,7 +126,7 @@ class CountryListView(generics.ListAPIView):
 
 class KeyPerilListView(generics.ListAPIView):
     """This class handles the GET and POSt requests of our rest api."""
-    queryset = KeyPeril.objects.all().order_by('name')
+    queryset = KeyTag.objects.filter(group__name='hazard').order_by('name')
     serializer_class = KeyPerilSerializer
 
 
@@ -820,7 +820,8 @@ class Score(object):
                               "score": cls.score_fmt(score)})
 
         perils_counters = ret['perils_counters']
-        for i, peril in enumerate(KeyPeril.objects.all().order_by('name')):
+        for i, peril in enumerate(KeyTag.objects.filter(
+                group__name='hazard').order_by('name')):
             perils_counters.append({'name': peril.name, 'count': i})
 
         return ret
@@ -903,7 +904,8 @@ class Score(object):
                 ret_score.append(row)
 
         perils_counters = ret['perils_counters']
-        for i, peril in enumerate(KeyPeril.objects.all().order_by('name')):
+        for i, peril in enumerate(KeyTag.objects.filter(
+                group__name='hazard').order_by('name')):
             perils_counters.append({'name': peril.name, 'count': i})
 
         return ret

@@ -27,22 +27,22 @@ class Command(BaseCommand):
             help='reload tables if already exists', required=False)
 
     def handle(self, *args, **options):
-        try:
-            # load perils
-            with (codecs.open(options['filein'][0], 'rb',
-                  encoding='utf-8')) as csvfile:
-                if options['reload']:
-                    KeyPeril.objects.all().delete()
+        # try:
+        #     # load perils
+        #     with (codecs.open(options['filein'][0], 'rb',
+        #           encoding='utf-8')) as csvfile:
+        #         if options['reload']:
+        #             KeyPeril.objects.all().delete()
 
-                perils = csv.reader(csvfile)
-                for peril_in in perils:
-                    peril = KeyPeril(name=peril_in[0])
-                    peril.save()
+        #         perils = csv.reader(csvfile)
+        #         for peril_in in perils:
+        #             peril = KeyPeril(name=peril_in[0])
+        #             peril.save()
 
-        except Exception as e:
-            print(e)
-            raise CommandError('Failed to import Key Datasets during peril'
-                               ' import phase.')
+        # except Exception as e:
+        #     print(e)
+        #     raise CommandError('Failed to import Key Datasets during peril'
+        #                        ' import phase.')
 
         try:
             # load categories
@@ -210,9 +210,10 @@ class Command(BaseCommand):
                         else:
                             continue
 
-                        peril = KeyPeril.objects.filter(name=app)
+                        peril = KeyTag.objects.filter(name=app,
+                                                      group__name="hazard")
                         if len(peril) != 1:
-                            raise ValueError('Peril: [%s] not match 1'
+                            raise ValueError('Tag: [%s] does not match single'
                                              ' peril item' % app)
 
                         keydata.applicability.add(peril[0])

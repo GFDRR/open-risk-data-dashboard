@@ -4,7 +4,7 @@ from django.core.management.base import BaseCommand, CommandError
 from urllib import request
 import json
 import codecs
-from ordd_api.models import Country, KeyPeril
+from ordd_api.models import Country, KeyTag
 
 REPORT_URL = "http://thinkhazard.org/en/report/%s.json"
 
@@ -66,7 +66,8 @@ class Command(BaseCommand):
         try:
             th_data = []
 
-            peril_instances = KeyPeril.objects.all()
+            peril_instances = KeyTag.objects.filter(
+                group__name='hazard').order_by('name')
             peril = {}
             for peril_instance in peril_instances:
                 peril[peril_instance.name] = peril_instance
