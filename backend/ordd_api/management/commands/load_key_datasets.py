@@ -3,7 +3,7 @@ from django.core.management.base import BaseCommand, CommandError
 import csv
 import codecs
 import warnings
-from ordd_api.models import (KeyCategory, KeyPeril, KeyTag,
+from ordd_api.models import (KeyCategory, KeyTag,
                              KeyTagGroup, KeyDatasetName,
                              KeyLevel, KeyDataset)
 
