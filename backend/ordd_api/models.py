@@ -88,8 +88,8 @@ class KeyCategory(models.Model):
 
 
 class KeyDatasetNameManager(models.Manager):
-    def get_by_natural_key(self, name):
-        return self.get(name=name)
+    def get_by_natural_key(self, name, category):
+        return self.get(name=name, category=category)
 
 
 class KeyDatasetName(models.Model):
@@ -104,7 +104,7 @@ class KeyDatasetName(models.Model):
         )
 
     def natural_key(self):
-        return [self.name]
+        return [self.name, self.category]
 
     def __str__(self):
         return ("%s - %s" % (self.category, self.name) if self.category
