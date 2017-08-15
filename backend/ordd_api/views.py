@@ -788,6 +788,13 @@ class Score(object):
 
         world_score_tree = cls.dataset_loadtree(request, queryset)
         datasets_count = queryset.count()
+        fullscores_count = queryset.filter(
+            is_existing=True, is_digital_form=True,
+            is_avail_online=True, is_avail_online_meta=True,
+            is_bulk_avail=True, is_machine_read=True,
+            is_pub_available=True, is_avail_for_free=True,
+            is_open_licence=True, is_prov_timely=True).count()
+
         countries_count = len(world_score_tree)
 
         categories = KeyCategory.objects.all().order_by('id')
@@ -805,6 +812,7 @@ class Score(object):
 
         ret = {'scores': [],
                'datasets_count': datasets_count,
+               'fullscores_count': fullscores_count,
                'countries_count': countries_count,
                'categories_counters': categories_counters,
                'perils_counters': []}
@@ -864,6 +872,12 @@ class Score(object):
                                  th_applicability)
 
         datasets_count = queryset.count()
+        fullscores_count = queryset.filter(
+            is_existing=True, is_digital_form=True,
+            is_avail_online=True, is_avail_online_meta=True,
+            is_bulk_avail=True, is_machine_read=True,
+            is_pub_available=True, is_avail_for_free=True,
+            is_open_licence=True, is_prov_timely=True).count()
         country_score = cls.country(country_score_tree, country)
 
         interesting_fields = [
@@ -886,6 +900,7 @@ class Score(object):
         ret = {'score': cls.score_fmt(country_score),
                'scores': [["kd_code", "kd_description", "score"]],
                'datasets_count': datasets_count,
+               'fullscores_count': fullscores_count,
                'categories_counters': categories_counters,
                'perils_counters': []}
         ret_score = ret['scores']
