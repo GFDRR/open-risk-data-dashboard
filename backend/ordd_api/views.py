@@ -822,7 +822,10 @@ class Score(object):
         perils_counters = ret['perils_counters']
         for i, peril in enumerate(KeyTag.objects.filter(
                 group__name='hazard').order_by('name')):
-            perils_counters.append({'name': peril.name, 'count': i})
+            superset = (queryset.filter(keydataset__applicability=peril) |
+                        queryset.filter(tag=peril))
+            perils_counters.append({'name': peril.name, 'count':
+                                    superset.distinct().count()})
 
         return ret
 
@@ -906,7 +909,10 @@ class Score(object):
         perils_counters = ret['perils_counters']
         for i, peril in enumerate(KeyTag.objects.filter(
                 group__name='hazard').order_by('name')):
-            perils_counters.append({'name': peril.name, 'count': i})
+            superset = (queryset.filter(keydataset__applicability=peril) |
+                        queryset.filter(tag=peril))
+            perils_counters.append({'name': peril.name, 'count':
+                                    superset.distinct().count()})
 
         return ret
 
