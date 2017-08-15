@@ -126,7 +126,7 @@ class CountryListView(generics.ListAPIView):
 
 class KeyPerilListView(generics.ListAPIView):
     """This class handles the GET and POSt requests of our rest api."""
-    queryset = KeyTag.objects.filter(group__name='hazard').order_by('name')
+    queryset = KeyTag.objects.filter(is_peril=True).order_by('name')
     serializer_class = KeyPerilSerializer
 
 
@@ -829,7 +829,7 @@ class Score(object):
 
         perils_counters = ret['perils_counters']
         for peril in KeyTag.objects.filter(
-                group__name='hazard').order_by('name'):
+                is_peril=True).order_by('name'):
             superset = (queryset.filter(keydataset__applicability=peril) |
                         queryset.filter(tag=peril))
             perils_counters.append({'name': peril.name, 'count':
@@ -923,7 +923,7 @@ class Score(object):
 
         perils_counters = ret['perils_counters']
         for peril in KeyTag.objects.filter(
-                group__name='hazard').order_by('name'):
+                is_peril=True).order_by('name'):
             superset = (queryset.filter(keydataset__applicability=peril) |
                         queryset.filter(tag=peril))
             perils_counters.append({'name': peril.name, 'count':
