@@ -24,7 +24,7 @@ from .serializers import (
 from .models import (Region, Country, OptIn, Dataset, KeyDataset,
                      KeyCategory, KeyTag)
 from .mailer import mailer
-from ordd_api import __VERSION__, MAIL_SUBJECT_PREFIX
+from ordd_api import __version__, MAIL_SUBJECT_PREFIX
 from ordd.settings import ORDD_ADMIN_MAIL
 
 
@@ -32,7 +32,7 @@ class VersionGet(APIView):
     """This class handles the GET requests of our rest api."""
 
     def get(self, request):
-        return Response(__VERSION__)
+        return Response(__version__)
 
 
 class ProfileDetails(generics.RetrieveUpdateAPIView):
