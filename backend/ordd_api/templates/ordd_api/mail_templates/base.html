@@ -1,24 +1,10 @@
-<html>
-  <head>
-    <title>{{ title }}</title>
-    <style>
-      table.table {
-      border-collapse: collapse;
-      }
-      .table th, .table td {
-      border: 1px solid gray;
-      padding: 8px;
-      vertical-align: top;
-      }
-      .table table td {
-      border: 0px;
-      }
-      </style>
-  </head>
-  
-<body>
-<img src="cid:img1.png">
-{% block content %}{% endblock content %}
-<img src="cid:img2.png">
-</body>
-</html>
+{% extends "ordd_api/mail_templates/staminal.html" %}
+{% block content %}
+<table role="presentation" aria-hidden="true" cellspacing="0" cellpadding="0" border="0" width="100%">
+  <tr>
+    <td style="padding: 40px; font-family: 'Abel', sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
+      {{ content|safe }}
+    </td>
+  </tr>
+</table>
+{% endblock content %}
