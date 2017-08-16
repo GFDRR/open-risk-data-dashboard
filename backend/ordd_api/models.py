@@ -59,7 +59,7 @@ class Country(models.Model):
     iso2 = models.CharField(max_length=2, blank=False, unique=True)
     name = models.CharField(max_length=64, blank=False, unique=True)
     region = models.ForeignKey(Region)
-    thinkhazard_appl = models.ManyToManyField("ordd_api.KeyPeril")
+    thinkhazard_appl = models.ManyToManyField("ordd_api.KeyTag")
 
     def __str__(self):
         return self.name
@@ -87,9 +87,26 @@ class KeyCategory(models.Model):
         return self.name
 
 
-class KeyDatasetNameManager(models.Manager):
+class KeyPerilObsoleteManager(models.Manager):
     def get_by_natural_key(self, name):
         return self.get(name=name)
+
+
+class KeyPerilObsolete(models.Model):
+    objects = KeyPerilObsoleteManager()
+
+    name = models.CharField(max_length=32, blank=False, unique=True)
+
+    def natural_key(self):
+        return [self.name]
+
+    def __str__(self):
+        return self.name
+
+
+class KeyDatasetNameManager(models.Manager):
+    def get_by_natural_key(self, name, category):
+        return self.get(name=name, category=category)
 
 
 class KeyDatasetName(models.Model):
@@ -104,7 +121,7 @@ class KeyDatasetName(models.Model):
         )
 
     def natural_key(self):
-        return [self.name]
+        return [self.name, self.category]
 
     def __str__(self):
         return ("%s - %s" % (self.category, self.name) if self.category
@@ -139,6 +156,7 @@ class KeyTag(models.Model):
     group = models.ForeignKey(KeyTagGroup, related_name='tags',
                               on_delete=models.CASCADE)
     name = models.CharField(max_length=32, blank=False)
+    is_peril = models.BooleanField(default=False)
 
     class Meta:
         unique_together = (
@@ -146,7 +164,7 @@ class KeyTag(models.Model):
         )
 
     def natural_key(self):
-        return [self.name]
+        return [self.name, self.group.name]
 
     def __str__(self):
         return "%s - %s" % (self.group, self.name)
@@ -159,23 +177,6 @@ class KeyLevelManager(models.Manager):
 
 class KeyLevel(models.Model):
     objects = KeyLevelManager()
-
-    name = models.CharField(max_length=32, blank=False, unique=True)
-
-    def natural_key(self):
-        return [self.name]
-
-    def __str__(self):
-        return self.name
-
-
-class KeyPerilManager(models.Manager):
-    def get_by_natural_key(self, name):
-        return self.get(name=name)
-
-
-class KeyPeril(models.Model):
-    objects = KeyPerilManager()
 
     name = models.CharField(max_length=32, blank=False, unique=True)
 
@@ -200,7 +201,7 @@ class KeyDataset(models.Model):
     dataset = models.ForeignKey(KeyDatasetName)
     tag_available = models.ForeignKey(KeyTagGroup, null=True, blank=True)
     description = models.CharField(max_length=256, blank=False, unique=True)
-    applicability = models.ManyToManyField('ordd_api.KeyPeril')
+    applicability = models.ManyToManyField('ordd_api.KeyTag')
     level = models.ForeignKey(KeyLevel)
 
     resolution = models.CharField(max_length=32, blank=True)

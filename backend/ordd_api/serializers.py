@@ -7,7 +7,7 @@ from django.db import transaction
 from django.db import IntegrityError
 from rest_framework import serializers
 from rest_framework.serializers import ValidationError
-from .models import (Region, Country, KeyPeril, Profile, OptIn, Dataset, Url,
+from .models import (Region, Country, KeyTag, Profile, OptIn, Dataset, Url,
                      KeyTag)
 from ordd_api import MAIL_SUBJECT_PREFIX
 
@@ -35,7 +35,7 @@ class CountrySerializer(serializers.ModelSerializer):
 class KeyPerilSerializer(serializers.ModelSerializer):
     """Serializer of perils"""
     class Meta:
-        model = KeyPeril
+        model = KeyTag
         fields = ('name',)
 
 
