@@ -233,11 +233,11 @@ class ProfileDatasetListCreateView(generics.ListCreateAPIView):
             ORDD_ADMIN_MAIL, subject,
             {"title": subject,
              "owner": post_field.changed_by.username,
-             "table_title": "Created Dataset",
+             "table_title": "Created dataset:",
              "rows": rows},
             {"title": subject,
              "owner": post_field.changed_by.username,
-             "table_title": "Created Dataset",
+             "table_title": "Created dataset:",
              "rows": rows},
             'create_by_owner')
 
@@ -399,11 +399,11 @@ class ProfileDatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
             ORDD_ADMIN_MAIL, subject,
             {"title": subject,
              "owner": instance.changed_by.username,
-             "table_title": "Deleted Dataset",
+             "table_title": "Deleted dataset:",
              "rows": rows},
             {"title": subject,
              "owner": instance.changed_by.username,
-             "table_title": "Deleted Dataset",
+             "table_title": "Deleted dataset:",
              "rows": rows},
             'delete_by_owner')
         instance.delete()
@@ -580,11 +580,11 @@ class DatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
             instance.owner.email, subject,
             {"title": subject,
              "reviewer": self.request.user.username,
-             "table_title": "Deleted Dataset",
+             "table_title": "Deleted dataset:",
              "rows": rows},
             {"title": subject,
              "reviewer": self.request.user.username,
-             "table_title": "Deleted Dataset",
+             "table_title": "Deleted dataset:",
              "rows": rows},
             'delete_by_reviewer')
         instance.delete()

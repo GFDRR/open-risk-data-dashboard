@@ -1,9 +1,9 @@
 {% extends "ordd_api/mail_templates/base.html" %}
 {% block content %}
 {% block cont_header %}
-<p>User &quot;{{ owner }}&quot; created a new dataset.</p>
+<h3>User &quot;{{ owner }}&quot; created a new dataset.</h3>
 {% endblock %}
-<h2>{{ table_title }}</h2>
+<h4>{{ table_title }}</h4>
 <table class="table"><tr><th>Field Name</th><th>Value</th></tr>
   {% for r in rows %}
   {% if r.is_list is True %}

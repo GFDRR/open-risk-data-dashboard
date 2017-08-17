@@ -7,6 +7,13 @@ from ordd.settings import ORDD_ADMIN_MAIL
 from django.template import TemplateDoesNotExist
 
 
+def mailer_attach_image(msg, filename, imgname):
+    with open(filename, 'rb') as fp:
+        msg_img = MIMEImage(fp.read())
+        msg_img.add_header('Content-ID', '<{}>'.format(imgname))
+        msg.attach(msg_img)
+
+
 def mailer(address, subject, content_txt, content_html, template):
     # You probably want all the following code in a function or method.
     # You also need to set subject, sender and to_mail yourself.
@@ -26,12 +33,11 @@ def mailer(address, subject, content_txt, content_html, template):
 
     msg.mixed_subtype = 'related'
 
-    for f in ['img1.png', 'img2.png']:
-        fp = open(os.path.join(os.path.dirname(__file__), 'templates',
-                               'ordd_api', 'mail_templates', f), 'rb')
-        msg_img = MIMEImage(fp.read())
-        fp.close()
-        msg_img.add_header('Content-ID', '<{}>'.format(f))
-        msg.attach(msg_img)
+    # This is the code needed to add images as part of a multi-part email
+    #
+    # for f in ['img1.png', 'img2.png']:
+    #     mailer_attach_image(msg, os.path.join(
+    #         os.path.dirname(__file__), 'templates',
+    #         'ordd_api', 'mail_templates', f), f)
 
     msg.send()

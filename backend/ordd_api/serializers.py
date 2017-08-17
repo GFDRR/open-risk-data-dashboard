@@ -151,19 +151,13 @@ class RegistrationSerializer(serializers.ModelSerializer):
                              % (self.context['request'].get_host(),
                                 user.username,
                                 optin.key))
-                content_txt = ('''To complete the registration to Open Risk Data Dashboard site
-open this link in your favorite browser: %s .
-
-If you didn't subscribe to this site, please ignore this message.'''
-                               % (reply_url, ))
-                content_html = ('''<div>To complete the registration to Open Risk Data Dashboard site<br>
-click here <a href="%s">%s</a><br>
-or open the link in your favorite browser.<br><br>
-If you didn't subscribe to this site, please ignore this message.</div>'''
-                                % (reply_url, reply_url))
                 mailer(user.email, subject,
-                       {"title": subject, "content": content_txt},
-                       {"title": subject, "content": content_html},
+                       {"title": subject,
+                        "subject_prefix": MAIL_SUBJECT_PREFIX,
+                        "reply_url": reply_url},
+                       {"title": subject,
+                        "subject_prefix": MAIL_SUBJECT_PREFIX,
+                        "reply_url": reply_url},
                        'registration_confirm')
         except IntegrityError:
             raise ValidationError({

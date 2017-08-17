@@ -1,7 +1,7 @@
 {% extends "ordd_api/mail_templates/base.html" %}
 {% block content %}
 {% block cont_header %}
-<p>User &quot;{{ changed_by }}&quot; reviewed your dataset.</p>
+<h3>User &quot;{{ changed_by }}&quot; reviewed your dataset.</h3>
 
 {% if is_reviewed == True %}
 <p>It passed the review phase.</p>
@@ -9,7 +9,7 @@
 <p>It is still in review phase.</p>
 {% endif %}
 {% endblock %}
-<h2>Dataset With Changes</h2>
+<h4>Dataset with changes:</h4>
 <table class="table"><tr><th>Field Name</th><th>Current</th><th>Previous</th></tr>
   {% for r in rows %}
   {% if r.is_list is True %}
