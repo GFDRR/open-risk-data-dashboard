@@ -931,12 +931,12 @@ class Score(object):
             perils_counters.append({'name': peril.name, 'count':
                                     superset.distinct().count()})
 
-        dsname_list = [x['keydataset__dataset']
-                       for x in queryset.values(
-                               'keydataset__dataset').distinct()]
+        dsname_set = {x[0]
+                       for x in queryset.values_list(
+                               'keydataset__dataset').distinct()}
 
         for dsname in KeyDatasetName.objects.all().exclude(
-                pk__in=dsname_list).order_by('category', 'name'):
+                pk__in=dsname_set).order_by('category', 'name'):
             ret_missing_datasets.append(
                 {"id": dsname.pk, "name": dsname.name,
                  "category": dsname.category})
