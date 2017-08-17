@@ -16,16 +16,11 @@ class KeyCategorySerializer(serializers.ModelSerializer):
         fields = ('id', 'name')
 
 
-class KeyDatasetSerializer(serializers.ModelSerializer):
-    name = serializers.SerializerMethodField('name_str')
-
-    # We want the str representation of the object, not just the name field
-    def name_str(self, obj):
-        return str(obj)
+class KeyDatasetNameSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = KeyDatasetName
-        fields = ('id', 'name')
+        fields = ('id', 'name', 'category')
 
 
 class KeyTagField(serializers.RelatedField):
@@ -78,7 +73,7 @@ class KeyDataset2on4Serializer(serializers.ModelSerializer):
         read_only=True, slug_field='name')
     category = serializers.SlugRelatedField(
         read_only=True, slug_field='name')
-    dataset = KeyDatasetSerializer()
+    dataset = KeyDatasetNameSerializer()
 
     class Meta:
         model = KeyDataset
@@ -88,6 +83,8 @@ class KeyDataset2on4Serializer(serializers.ModelSerializer):
 class KeyDataset3on4Serializer(serializers.ModelSerializer):
     """Partial serializer of key datasets filtered by level, category,
        and dataset -> code, description"""
+
+    dataset = KeyDatasetNameSerializer()
 
     class Meta:
         model = KeyDataset
@@ -112,7 +109,7 @@ class KeyDataset4on4Serializer(serializers.ModelSerializer):
         read_only=True, slug_field='name')
     category = serializers.SlugRelatedField(
         read_only=True, slug_field='name')
-    dataset = serializers.StringRelatedField()
+    dataset = KeyDatasetNameSerializer()
     tag_available = KeyTagGroupSerializer()
     applicability = serializers.SlugRelatedField(
         read_only=True, many=True, slug_field='name')

@@ -1,3 +1,19 @@
+Version 0.20.0
+  * Add 'missing_dataset' field to per-Country view with the list
+    of dataset names not represented by current country datasets
+
+Version 0.19.0
+  * Update notification template with the final version from CIMA
+
+Version 0.18.1
+  * Set 'perils_counters' scoring view field with real values
+  * Add 'fullscores_count' attribute to 'scoring/' and 'scoring/XX'
+    views
+
+Version 0.18.0
+  * Add 'categories_counters', 'perils_counters' (a mockup),
+    'countries_count' and 'dataset_count' indexes to scoring views
+
 Version 0.17.1
 
   * import of ThinkHazard! countries applicability
