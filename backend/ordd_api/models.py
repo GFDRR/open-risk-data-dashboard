@@ -87,23 +87,6 @@ class KeyCategory(models.Model):
         return self.name
 
 
-class KeyPerilObsoleteManager(models.Manager):
-    def get_by_natural_key(self, name):
-        return self.get(name=name)
-
-
-class KeyPerilObsolete(models.Model):
-    objects = KeyPerilObsoleteManager()
-
-    name = models.CharField(max_length=32, blank=False, unique=True)
-
-    def natural_key(self):
-        return [self.name]
-
-    def __str__(self):
-        return self.name
-
-
 class KeyDatasetNameManager(models.Manager):
     def get_by_natural_key(self, name, category):
         return self.get(name=name, category=category)
@@ -327,3 +310,22 @@ class Dataset(models.Model):
         "in the comments field.")
     is_prov_timely_last = models.TextField(blank=True, null=False)
     tag = models.ManyToManyField(KeyTag, blank=True)
+
+
+#  Don't remove 'KeyPeril' model (now 'KeyPerilObsolete') allow
+#  backward migrations.
+class KeyPerilObsoleteManager(models.Manager):
+    def get_by_natural_key(self, name):
+        return self.get(name=name)
+
+
+class KeyPerilObsolete(models.Model):
+    objects = KeyPerilObsoleteManager()
+
+    name = models.CharField(max_length=32, blank=False, unique=True)
+
+    def natural_key(self):
+        return [self.name]
+
+    def __str__(self):
+        return self.name
