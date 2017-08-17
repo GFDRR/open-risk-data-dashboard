@@ -22,7 +22,7 @@ from .serializers import (
     ProfileDatasetListSerializer, ProfileDatasetCreateSerializer,
     DatasetListSerializer, DatasetPutSerializer)
 from .models import (Region, Country, OptIn, Dataset, KeyDataset,
-                     KeyCategory, KeyTag)
+                     KeyDatasetName, KeyCategory, KeyTag)
 from .mailer import mailer
 from ordd_api import __version__, MAIL_SUBJECT_PREFIX
 from ordd.settings import ORDD_ADMIN_MAIL
@@ -902,8 +902,10 @@ class Score(object):
                'datasets_count': datasets_count,
                'fullscores_count': fullscores_count,
                'categories_counters': categories_counters,
-               'perils_counters': []}
+               'perils_counters': [],
+               'missing_datasets': []}
         ret_score = ret['scores']
+        ret_missing_datasets = ret['missing_datasets']
 
         for int_field in interesting_fields:
             ret_score[0].append(Dataset._meta.get_field(
@@ -928,6 +930,16 @@ class Score(object):
                         queryset.filter(tag=peril))
             perils_counters.append({'name': peril.name, 'count':
                                     superset.distinct().count()})
+
+        dsname_list = [x['keydataset__dataset']
+                       for x in queryset.values(
+                               'keydataset__dataset').distinct()]
+
+        for dsname in KeyDatasetName.objects.all().exclude(
+                pk__in=dsname_list).order_by('category', 'name'):
+            ret_missing_datasets.append(
+                {"id": dsname.pk, "name": dsname.name,
+                 "category": dsname.category})
 
         return ret
 
