@@ -39,9 +39,10 @@ class KeyTagSerializer(serializers.ModelSerializer):
         fields = ('group', 'name')
 
 
-class KeyTagGroupSerializer(serializers.ModelSerializer):
+class KeyTagByGroupSerializer(serializers.ModelSerializer):
     group = serializers.CharField(source='name')
-    tags = KeyTagField(many=True, read_only=True)
+    tags = serializers.SlugRelatedField(read_only=True, many=True,
+                                        slug_field='name')
 
     class Meta:
         model = KeyTagGroup
@@ -113,7 +114,7 @@ class KeyDataset4on4Serializer(serializers.ModelSerializer):
     category = serializers.SlugRelatedField(
         read_only=True, slug_field='name')
     dataset = serializers.StringRelatedField()
-    tag_available = KeyTagGroupSerializer()
+    tag_available = KeyTagByGroupSerializer()
     applicability = serializers.SlugRelatedField(
         read_only=True, many=True, slug_field='name')
 
