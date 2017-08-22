@@ -129,8 +129,8 @@ class KeyTagGroup(models.Model):
 
 
 class KeyTagManager(models.Manager):
-    def get_by_natural_key(self, name):
-        return self.get(name=name)
+    def get_by_natural_key(self, name, group):
+        return self.get(name=name, group__name=group)
 
 
 class KeyTag(models.Model):

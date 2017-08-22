@@ -98,9 +98,8 @@ def designals():
                 'receiv_call': receiv_call,
                 })
 
-            signaltype.disconnect(receiver=receiv_call,
-                                  sender=sender_ista, weak=is_weak,
-                                  dispatch_uid=uid)
+            signaltype.disconnect(receiver=receiv_call, sender=sender_ista,
+                                  weak=is_weak, dispatch_uid=uid)
     from pprint import pprint
     pprint(signals_store)
 
@@ -112,8 +111,6 @@ def resignals():
         signals = signals_store[signalname]
         signaltype = getattr(models.signals, signalname)
         for signal in signals:
-            signaltype.connect(signal['receiv_call'],
-                               sender=signal['sender_ista'],
-                               weak=signal['is_weak'],
-                               dispatch_uid=signal['uid'])
-
+            signaltype.connect(
+                signal['receiv_call'], sender=signal['sender_ista'],
+                weak=signal['is_weak'], dispatch_uid=signal['uid'])
