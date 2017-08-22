@@ -250,10 +250,9 @@ class ProfileDatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
         try:
             if self.request.method == 'PUT':
                 return DatasetPutSerializer
-            elif self.request.method != 'GET':
-                return ProfileDatasetCreateSerializer
         except:
             pass
+
         return ProfileDatasetListSerializer
 
     def get_queryset(self):
