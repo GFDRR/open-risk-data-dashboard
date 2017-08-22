@@ -29,11 +29,13 @@ from pprint import pprint
 
 # setup_environ(settings)
 
-signalnames=['pre_save', 'post_save', 'pre_delete', 'post_delete', 'm2m_changed']
-# 'class_prepared', 'post_init', , 'post_syncdb', 'pre_init']
+signalnames = ['pre_save', 'post_save', 'pre_delete', 'post_delete',
+               'm2m_changed']
 signals_store = {}
 
 id_none = id(None)
+
+
 def id_to_obj(id_):
     if id_ == id_none:
         return None
@@ -71,7 +73,7 @@ def designals():
             lookup = signal[0]
 
             if isinstance(lookup[0], tuple):
-                receiv_ista = id_to_obj(lookup[0][0])
+                # receiv_ista = id_to_obj(lookup[0][0])
                 receiv_call = id_to_obj(lookup[0][1])
             else:
                 # - case id(function) or uid
@@ -85,13 +87,13 @@ def designals():
                 sender_ista = id_to_obj(lookup[1][1])
             else:
                 sender_ista = id_to_obj(lookup[1])
-            
+
             # second tuple element
             if (isinstance(signal[1], weakref.ReferenceType)):
-#               or isinstance(signal[1], saferef.BoundMethodWeakref)):
+                # or isinstance(signal[1], saferef.BoundMethodWeakref)):
                 is_weak = True
                 receiv_call = signal[1]()
-            else:      
+            else:
                 is_weak = False
                 receiv_call = signal[1]
 
@@ -100,10 +102,12 @@ def designals():
                 'sender_ista': sender_ista, 'sender_call': sender_call,
                 'receiv_call': receiv_call,
                 })
-            
-            signaltype.disconnect(receiver=receiv_call, sender=sender_ista, weak=is_weak, dispatch_uid=uid)
+
+            signaltype.disconnect(receiver=receiv_call, sender=sender_ista,
+                                  weak=is_weak, dispatch_uid=uid)
     from pprint import pprint
     pprint(signals_store)
+
 
 def resignals():
     global signals_store
@@ -112,9 +116,10 @@ def resignals():
         signals = signals_store[signalname]
         signaltype = getattr(models.signals, signalname)
         for signal in signals:
-            signaltype.connect(signal['receiv_call'], sender=signal['sender_ista'],
-                               weak=signal['is_weak'], dispatch_uid=signal['uid'])
+            signaltype.connect(
+                signal['receiv_call'], sender=signal['sender_ista'],
+                weak=signal['is_weak'], dispatch_uid=signal['uid'])
 
 
-        
-    
+
+
