@@ -8,6 +8,7 @@ from rest_framework import generics, permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import NotFound
+from rest_framework.serializers import ValidationError
 from collections import OrderedDict
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -26,6 +27,16 @@ from .models import (Region, Country, OptIn, Dataset, KeyDataset,
 from .mailer import mailer
 from ordd_api import __version__, MAIL_SUBJECT_PREFIX
 from ordd.settings import ORDD_ADMIN_MAIL
+
+
+def check_tags_consistency(serializer):
+    for tag in serializer.validated_data['tag']:
+        if (tag.group !=
+                serializer.validated_data['keydataset'].tag_available):
+            raise ValidationError(
+                {"detail": "Tag '%s' not allowed for KeyDataset '%s'" %
+                 (tag.name, serializer.validated_data[
+                     'keydataset'].description)})
 
 
 class VersionGet(APIView):
@@ -179,6 +190,9 @@ class ProfileDatasetListCreateView(generics.ListCreateAPIView):
                                               'keydataset__code')
 
     def perform_create(self, serializer):
+        # check concordance between tags and keydataset.tag_available
+        check_tags_consistency(serializer)
+
         post_field = serializer.save(owner=self.request.user,
                                      changed_by=self.request.user)
         post = DatasetPutSerializer(post_field)
@@ -274,6 +288,9 @@ class ProfileDatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
         # update fields
         serializer.validated_data['changed_by'] = self.request.user
         serializer.validated_data['is_reviewed'] = False
+
+        # check concordance between tags and keydataset.tag_available
+        check_tags_consistency(serializer)
 
         # save and get update version of the record
         post_field = serializer.save(owner=self.request.user,
@@ -463,6 +480,9 @@ class DatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
                 serializer.validated_data['is_reviewed'] is True):
             serializer.validated_data['review_date'] = datetime.now(
                 tz=pytz.utc).replace(microsecond=0)
+
+        # check concordance between tags and keydataset.tag_available
+        check_tags_consistency(serializer)
 
         # save and get update version of the record
         post_field = serializer.save()
