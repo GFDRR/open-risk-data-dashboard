@@ -476,7 +476,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         var objHazard = [
             {code:"RF", desc:"River flooding",icon:"icon-river_flood"},
             {code:"EQ", desc:"Earthquake",icon:"icon-earthquake"},
-            {code:"VO", desc:"Vulcano",icon:"icon-volcano"},
+            {code:"VO", desc:"Volcano",icon:"icon-volcano"},
             {code:"CY", desc:"Cyclone",icon:"icon-cyclone"},
             {code:"CF", desc:"Coastal flooding",icon:"icon-coastal_flood"},
             {code:"WS", desc:"Water scarcity",icon:"icon-water_scarcity"},
@@ -492,7 +492,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         var objHazard = [
             {code:"RF", desc:"River flooding",icon:"icon-river_flood"},
             {code:"EQ", desc:"Earthquake",icon:"icon-earthquake"},
-            {code:"VO", desc:"Vulcano",icon:"icon-volcano"},
+            {code:"VO", desc:"Volcano",icon:"icon-volcano"},
             {code:"CY", desc:"Cyclone",icon:"icon-cyclone"},
             {code:"CF", desc:"Coastal flooding",icon:"icon-coastal_flood"},
             {code:"WS", desc:"Water scarcity",icon:"icon-water_scarcity"},
@@ -729,7 +729,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         var obj =
             [
                 {
-                    "category": {id: 1, name: "Basic Data"}
+                    "category": {id: 1, name: "Base data"}
                 },
                 {
                     "category": {id: 2, name: "Hazard"}
@@ -753,7 +753,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         var obj =
             [
                 {
-                    name: "Basic Data", icon: "icon-base_data"
+                    name: "Base data", icon: "icon-base_data"
                 },
                 {
                     name: "Hazard", icon: "icon-hazard_info"

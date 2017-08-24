@@ -33,7 +33,7 @@
                     <ul class="nav navbar-nav flex-container flex-row">
                         <!--<li ng-if="bHome"><a href="" ng-click="changeview('index.html', '0')"><i class="fa fa-home" aria-hidden="true"></i></a></li>-->
 
-                        <li><a href="" ng-click="changeview('contribute.html', '1')">Submit new Dataset</a></li>
+                        <li><a href="" ng-click="changeview('contribute.html', '1')">Submit new dataset</a></li>
                         <li><a href="" ng-click="changeview('methodology.html', '2')">Methodology</a></li>
                         <!--<li><a href="" ng-click="changeview('browse-data.html', '3')">Countries</a></li>-->
                         <li><a href="" ng-click="changeview('about.html', '9')">About</a></li>
@@ -42,7 +42,7 @@
                             Contextual Help
                         </a>
                         </li>
-                        <li>
+                        <li ng-if="bLogin">
                             <a href="" ng-click="showFeed()" alt="Feedback">
                                 <!--ng-if="bLogin"-->
                                 <!--<i class="fa fa-commenting-o" aria-hidden="true" data-toggle="tooltip" title="Feedback"></i>-->
