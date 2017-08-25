@@ -1,4 +1,4 @@
-ID,Dataset,Tags,Description,Comments,Format,Resolution,River Flooding,Coastal Flooding,Tsunami,Cyclone,Earthquake,Vulcano,Landslide,Water scarcity,International,National,Local
+ID,Dataset,Tags,Description,Comments,Format,Resolution,River Flooding,Coastal Flooding,Tsunami,Cyclone,Earthquake,Volcano,Landslide,Water scarcity,International,National,Local
 BA_1A,Digital Elevation Model,hazard,"Digital Elevation Model describing the bare surface of the earth, with a resolution between 1 and 10 meters, as provided by national geodata authority",for example LiDAR data,raster (.tif),1-10m,1,1,1,1,1,1,1,1,,2,
 BA_1B,Digital Elevation Model,hazard,"Digital Elevation Model describing the bare surface of the earth, with a resolution between 0.1 and 1 meters, as provided by national geodata authority",for example LiDAR data,raster (.tif),0.1-1m,1,1,1,1,1,1,1,1,,,3
 BA_2A,Background map,hazard,"Aerial Imagery as a base layer for analysis and mapping, with a resolution between 1 and 10 meter, as provided from national geodata authorities",,raster (.tif),1-10m,1,1,1,1,1,1,1,1,,2,
