@@ -10,15 +10,21 @@ def forwards_func(apps, schema_editor):
     # if we directly import it, it'll be the wrong version
     KeyCategory = apps.get_model("ordd_api", "KeyCategory")
     db_alias = schema_editor.connection.alias
-    category = KeyCategory.objects.using(db_alias).get(code='BA')
-    category.name = 'Base Data'
-    category.save()
-
+    try:
+        category = KeyCategory.objects.using(db_alias).get(code='BA')
+        category.name = 'Base Data'
+        category.save()
+    except Exception:
+        pass
+    
     KeyTag = apps.get_model("ordd_api", "KeyTag")
     db_alias = schema_editor.connection.alias
-    tag = KeyTag.objects.using(db_alias).get(name='Vulcano')
-    tag.name = 'Volcano'
-    tag.save()
+    try:
+        tag = KeyTag.objects.using(db_alias).get(name='Vulcano')
+        tag.name = 'Volcano'
+        tag.save()
+    except Exception:
+        pass
 
 
 def backwards_func(apps, schema_editor):
@@ -26,15 +32,21 @@ def backwards_func(apps, schema_editor):
     # if we directly import it, it'll be the wrong version
     KeyCategory = apps.get_model("ordd_api", "KeyCategory")
     db_alias = schema_editor.connection.alias
-    category = KeyCategory.objects.using(db_alias).get(code='BA')
-    category.name = 'Basic Data'
-    category.save()
+    try:
+        category = KeyCategory.objects.using(db_alias).get(code='BA')
+        category.name = 'Basic Data'
+        category.save()
+    except Exception:
+        pass
 
     KeyTag = apps.get_model("ordd_api", "KeyTag")
     db_alias = schema_editor.connection.alias
-    tag = KeyTag.objects.using(db_alias).get(name='Volcano')
-    tag.name = 'Vulcano'
-    tag.save()
+    try:
+        tag = KeyTag.objects.using(db_alias).get(name='Volcano')
+        tag.name = 'Vulcano'
+        tag.save()
+    except Exception:
+        pass
 
 
 class Migration(migrations.Migration):
