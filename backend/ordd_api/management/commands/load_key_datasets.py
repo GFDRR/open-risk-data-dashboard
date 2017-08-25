@@ -19,9 +19,9 @@ class Command(BaseCommand):
 
     def add_arguments(self, parser):
         parser.add_argument(
-            '--filein', nargs=4, type=str, required=True,
-            help=('path of peril csv file, weighted category csv file,'
-                  ' tags csv file, weighted key datasets csv file'))
+            '--filein', nargs=3, type=str, required=True,
+            help=('weighted category csv file, tags csv file,'
+                  ' weighted key datasets csv file'))
         parser.add_argument(
             '--reload', action='store_true',
             help='reload tables if already exists', required=False)
@@ -29,7 +29,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         try:
             # load categories
-            with (codecs.open(options['filein'][1], 'rb',
+            with (codecs.open(options['filein'][0], 'rb',
                   encoding='utf-8')) as csvfile:
                 if options['reload']:
                     KeyCategory.objects.all().delete()
@@ -47,7 +47,7 @@ class Command(BaseCommand):
                                ' import phase.')
         try:
             # load tags
-            with (codecs.open(options['filein'][2], 'rb',
+            with (codecs.open(options['filein'][1], 'rb',
                   encoding='utf-8')) as csvfile:
                 if options['reload']:
                     KeyTag.objects.all().delete()
@@ -58,7 +58,12 @@ class Command(BaseCommand):
                     tag_group = KeyTagGroup.objects.get_or_create(
                         name=tag_in[0])
                     tag_group = tag_group[0]
-                    tag = KeyTag(group=tag_group, name=tag_in[1])
+                    if tag_in[0] == 'hazard':
+                        is_peril = True
+                    else:
+                        is_peril = False
+                    tag = KeyTag(group=tag_group, name=tag_in[1],
+                                 is_peril=is_peril)
                     tag.save()
 
         except Exception as e:
@@ -68,7 +73,7 @@ class Command(BaseCommand):
 
         kd_row = -1
         try:
-            with (codecs.open(options['filein'][3], 'rb',
+            with (codecs.open(options['filein'][2], 'rb',
                   encoding='utf-8')) as csvfile:
                 keydatasets = csv.reader(csvfile)
 
