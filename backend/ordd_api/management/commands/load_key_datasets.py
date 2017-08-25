@@ -208,9 +208,9 @@ class Command(BaseCommand):
 
         except Exception as e:
             print(e)
-            raise CommandError('Import Category and SubCategory failed at'
+            raise CommandError('Import KeyTag and KeyTagGroup failed at'
                                ' row %d.' % kd_row)
 
-        self.stdout.write(self.style.SUCCESS('Successfully imported Peril,'
+        self.stdout.write(self.style.SUCCESS('Successfully imported '
                                              ' Category, KeyDataset and all'
                                              ' related tables.'))
