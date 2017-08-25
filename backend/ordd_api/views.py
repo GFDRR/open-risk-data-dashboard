@@ -28,6 +28,14 @@ from .mailer import mailer
 from ordd_api import __version__, MAIL_SUBJECT_PREFIX
 from ordd.settings import ORDD_ADMIN_MAIL
 
+fullscore_filterargs = {
+    'is_existing': True, 'is_digital_form': True,
+    'is_avail_online': True, 'is_avail_online_meta': True,
+    'is_bulk_avail': True, 'is_machine_read': True,
+    'is_pub_available': True, 'is_avail_for_free': True,
+    'is_open_licence': True, 'is_prov_timely': True
+}
+
 
 def check_tags_consistency(serializer):
     for tag in serializer.validated_data['tag']:
@@ -808,11 +816,7 @@ class Score(object):
         world_score_tree = cls.dataset_loadtree(request, queryset)
         datasets_count = queryset.count()
         fullscores_queryset = queryset.filter(
-            is_existing=True, is_digital_form=True,
-            is_avail_online=True, is_avail_online_meta=True,
-            is_bulk_avail=True, is_machine_read=True,
-            is_pub_available=True, is_avail_for_free=True,
-            is_open_licence=True, is_prov_timely=True)
+            **fullscore_filterargs)
         world_fullscore_tree = cls.dataset_loadtree(
             request, fullscores_queryset)
         fullscores_count = fullscores_queryset.count()
@@ -864,11 +868,7 @@ class Score(object):
                         queryset.filter(tag=peril))
             peril_queryset = superset.distinct()
             fullscore_queryset = peril_queryset.filter(
-                is_existing=True, is_digital_form=True,
-                is_avail_online=True, is_avail_online_meta=True,
-                is_bulk_avail=True, is_machine_read=True,
-                is_pub_available=True, is_avail_for_free=True,
-                is_open_licence=True, is_prov_timely=True)
+                **fullscore_filterargs)
             count = peril_queryset.count()
             fullcount = fullscore_queryset.count()
             perils_counters.append({'name': peril.name,
@@ -913,11 +913,7 @@ class Score(object):
                                  th_applicability)
         country_fullscore_tree = OrderedDict()
         fullscore_queryset = queryset.filter(
-                is_existing=True, is_digital_form=True,
-                is_avail_online=True, is_avail_online_meta=True,
-                is_bulk_avail=True, is_machine_read=True,
-                is_pub_available=True, is_avail_for_free=True,
-                is_open_licence=True, is_prov_timely=True)
+                **fullscore_filterargs)
         for dataset in fullscore_queryset:
             cls.country_loadtree(request, country_fullscore_tree, dataset,
                                  th_applicability)
@@ -985,11 +981,7 @@ class Score(object):
                         queryset.filter(tag=peril))
             peril_queryset = superset.distinct()
             fullscore_queryset = peril_queryset.filter(
-                is_existing=True, is_digital_form=True,
-                is_avail_online=True, is_avail_online_meta=True,
-                is_bulk_avail=True, is_machine_read=True,
-                is_pub_available=True, is_avail_for_free=True,
-                is_open_licence=True, is_prov_timely=True)
+                **fullscore_filterargs)
             count = peril_queryset.count()
             fullcount = fullscore_queryset.count()
             perils_counters.append({'name': peril.name,
