@@ -10,7 +10,7 @@ from ordd_api.models import (KeyCategory, KeyTag,
 KeyDataset_in = namedtuple('KeyDataset_in', 'category id hazard_category'
                            ' dataset tag description comment format resolution'
                            ' RiverFlooding CoastalFlooding Tsunami Cyclone'
-                           ' Earthquake Vulcano Landslide WaterScarcity'
+                           ' Earthquake Volcano Landslide WaterScarcity'
                            ' international national local weight')
 
 
@@ -116,7 +116,7 @@ class Command(BaseCommand):
                         comment=kd_in[4], format=kd_in[5], resolution=kd_in[6],
                         RiverFlooding=kd_in[7], CoastalFlooding=kd_in[8],
                         Tsunami=kd_in[9], Cyclone=kd_in[10],
-                        Earthquake=kd_in[11], Vulcano=kd_in[12],
+                        Earthquake=kd_in[11], Volcano=kd_in[12],
                         Landslide=kd_in[13], WaterScarcity=kd_in[14],
                         international=kd_in[15], national=kd_in[16],
                         local=kd_in[17], weight=kd_in[18])
@@ -182,7 +182,7 @@ class Command(BaseCommand):
 
                     for app in ['River flooding', 'Coastal flooding',
                                 'Tsunami', 'Cyclone', 'Earthquake',
-                                'Vulcano', 'Landslide', 'Water scarcity']:
+                                'Volcano', 'Landslide', 'Water scarcity']:
                         cur_value = getattr(keyobj_in,
                                             app.title().replace(' ', ''),
                                             None)

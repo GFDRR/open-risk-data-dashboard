@@ -28,7 +28,7 @@ class Command(BaseCommand):
             "EQ": "Earthquake",
             "LS": "Landslide",
             "TS": "Tsunami",
-            "VA": "Vulcano",
+            "VA": "Volcano",
             "CY": "Cyclone",
             "DG":  "Water scarcity",
             "EH": None,
