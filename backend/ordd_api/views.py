@@ -974,6 +974,8 @@ class Score(object):
 
                 ret_score.append(row)
 
+        th_notable = country.thinkhazard_appl.all()
+
         perils_counters = ret['perils_counters']
         for peril in KeyTag.objects.filter(
                 is_peril=True).order_by('name'):
@@ -984,9 +986,16 @@ class Score(object):
                 **fullscore_filterargs)
             count = peril_queryset.count()
             fullcount = fullscore_queryset.count()
+
+            if peril in th_notable:
+                notable = True
+            else:
+                notable = False
+
             perils_counters.append({'name': peril.name,
                                     'count': count,
-                                    'fullcount': fullcount})
+                                    'fullcount': fullcount,
+                                    'notable': notable})
 
         dsname_set = {x[0] for x in queryset.values_list(
             'keydataset__dataset').distinct()}
