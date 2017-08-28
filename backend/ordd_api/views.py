@@ -28,6 +28,14 @@ from .mailer import mailer
 from ordd_api import __version__, MAIL_SUBJECT_PREFIX
 from ordd.settings import ORDD_ADMIN_MAIL
 
+fullscore_filterargs = {
+    'is_existing': True, 'is_digital_form': True,
+    'is_avail_online': True, 'is_avail_online_meta': True,
+    'is_bulk_avail': True, 'is_machine_read': True,
+    'is_pub_available': True, 'is_avail_for_free': True,
+    'is_open_licence': True, 'is_prov_timely': True
+}
+
 
 def check_tags_consistency(serializer):
     for tag in serializer.validated_data['tag']:
@@ -807,12 +815,11 @@ class Score(object):
 
         world_score_tree = cls.dataset_loadtree(request, queryset)
         datasets_count = queryset.count()
-        fullscores_count = queryset.filter(
-            is_existing=True, is_digital_form=True,
-            is_avail_online=True, is_avail_online_meta=True,
-            is_bulk_avail=True, is_machine_read=True,
-            is_pub_available=True, is_avail_for_free=True,
-            is_open_licence=True, is_prov_timely=True).count()
+        fullscores_queryset = queryset.filter(
+            **fullscore_filterargs)
+        world_fullscore_tree = cls.dataset_loadtree(
+            request, fullscores_queryset)
+        fullscores_count = fullscores_queryset.count()
 
         countries_count = len(world_score_tree)
 
@@ -821,13 +828,21 @@ class Score(object):
         cat_cou = {}
         for cat in categories:
             cat_cou = 0
-
-            for _, country_score in world_score_tree.items():
+            cat_full_cou = 0
+            for key, country_score in world_score_tree.items():
                 if cat.code in country_score:
                     category_score = country_score[cat.code]
                     cat_cou += category_score['counter']
+                    try:
+                        country_fullscore = world_fullscore_tree[key]
+                        category_fullscore = country_fullscore[cat.code]
+                        cat_full_cou += category_fullscore['counter']
+                    except Exception:
+                        pass
+
             categories_counters.append({'category': cat.name,
-                                        'count': cat_cou})
+                                        'count': cat_cou,
+                                        'fullcount': cat_full_cou})
 
         ret = {'scores': [],
                'datasets_count': datasets_count,
@@ -851,8 +866,15 @@ class Score(object):
                 is_peril=True).order_by('name'):
             superset = (queryset.filter(keydataset__applicability=peril) |
                         queryset.filter(tag=peril))
-            perils_counters.append({'name': peril.name, 'count':
-                                    superset.distinct().count()})
+            peril_queryset = superset.distinct()
+            fullscore_queryset = peril_queryset.filter(
+                **fullscore_filterargs)
+            count = peril_queryset.count()
+            fullcount = fullscore_queryset.count()
+            perils_counters.append({'name': peril.name,
+                                    'count': count,
+                                    'fullcount': fullcount
+                                    })
 
         return ret
 
@@ -889,14 +911,16 @@ class Score(object):
         for dataset in queryset:
             cls.country_loadtree(request, country_score_tree, dataset,
                                  th_applicability)
+        country_fullscore_tree = OrderedDict()
+        fullscore_queryset = queryset.filter(
+                **fullscore_filterargs)
+        for dataset in fullscore_queryset:
+            cls.country_loadtree(request, country_fullscore_tree, dataset,
+                                 th_applicability)
+
 
         datasets_count = queryset.count()
-        fullscores_count = queryset.filter(
-            is_existing=True, is_digital_form=True,
-            is_avail_online=True, is_avail_online_meta=True,
-            is_bulk_avail=True, is_machine_read=True,
-            is_pub_available=True, is_avail_for_free=True,
-            is_open_licence=True, is_prov_timely=True).count()
+        fullscores_count = fullscore_queryset.count()
         country_score = cls.country(country_score_tree, country)
 
         interesting_fields = [
@@ -910,11 +934,19 @@ class Score(object):
         cat_cou = {}
         for cat in categories:
             cat_cou = 0
+            cat_full_cou = 0
             if cat.code in country_score_tree:
                 category_score_tree = country_score_tree[cat.code]
                 cat_cou += category_score_tree['counter']
+                try:
+                    category_fullscore_tree = country_fullscore_tree[cat.code]
+                    cat_full_cou += category_fullscore_tree['counter']
+                except Exception:
+                    pass
+
             categories_counters.append({'category': cat.name,
-                                        'count': cat_cou})
+                                        'count': cat_cou,
+                                        'fullcount': cat_full_cou})
 
         ret = {'score': cls.score_fmt(country_score),
                'scores': [["kd_code", "kd_description", "score"]],
@@ -947,12 +979,17 @@ class Score(object):
                 is_peril=True).order_by('name'):
             superset = (queryset.filter(keydataset__applicability=peril) |
                         queryset.filter(tag=peril))
-            perils_counters.append({'name': peril.name, 'count':
-                                    superset.distinct().count()})
+            peril_queryset = superset.distinct()
+            fullscore_queryset = peril_queryset.filter(
+                **fullscore_filterargs)
+            count = peril_queryset.count()
+            fullcount = fullscore_queryset.count()
+            perils_counters.append({'name': peril.name,
+                                    'count': count,
+                                    'fullcount': fullcount})
 
-        dsname_set = {x[0]
-                       for x in queryset.values_list(
-                               'keydataset__dataset').distinct()}
+        dsname_set = {x[0] for x in queryset.values_list(
+            'keydataset__dataset').distinct()}
 
         for dsname in KeyDatasetName.objects.all().exclude(
                 pk__in=dsname_set).order_by('category', 'name'):
