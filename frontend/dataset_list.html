@@ -187,14 +187,14 @@
                     <td title="'#'"><h5>{{$index + 1}}</h5></td>
                     <td title="'Category'" filter="{ 'keydataset.category': 'text'}" sortable="'keydataset.category'">
                         <h5>{{ds.keydataset.category}}</h5></td>
-                    <td title="'Dataset'" filter="{ 'keydataset.dataset': 'text'}" sortable="'keydataset.dataset'">
+                    <td title="'Dataset'" filter="{ 'keydataset.dataset.name': 'text'}" sortable="'keydataset.dataset.name'">
                         <h5>{{ds.keydataset.dataset.name}}</h5></td>
                     <td title="'Level'" filter="{ 'keydataset.level': 'text'}" sortable="'keydataset.level'">
                         <h5>{{ds.keydataset.level}}</h5></td>
                     <td title="'Tags'">
                         <span ng-repeat="tag in ds.tag"><small>{{tag}}<span ng-if="!$last">,</span></small> </span>
                     </td>
-                    <td title="'Insert Date'" filter="{ create_time: 'number'}" sortable="'create_time'">
+                    <td title="'Insert Date'" sortable="'create_time'">
                         <h5 class="text-center">{{ds.create_time | date: 'dd/MM/yyyy'}}</h5>
                     </td>
                     <td title="'Questions'">

@@ -497,9 +497,14 @@ section#counter-stats {
 input.dataset_form_select_style,
 input.form-control,
 textarea.form-control {
-    padding:10px; background: rgba(255,255,255,0.5);
+    padding:10px; background: rgba(0,0,0,0.1);
     border:none;
     /*margin-top:1em;*/
+}
+
+.table>thead:first-child>tr:first-child>th
+{
+    text-align: left;
 }
 
 small.label {
