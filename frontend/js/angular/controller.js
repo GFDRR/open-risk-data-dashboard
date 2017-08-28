@@ -95,6 +95,11 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
             // Error
         });
 
+        $scope.calcPerc = function(nrItem, totItem){
+
+            return ((nrItem / totItem) * 100).toFixed(0);
+        }
+
     }
 
     // ************************************** //
@@ -403,9 +408,22 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                     function(data)
                     {
                         $scope.datasetDescription = data;
+                        console.log(data);
+
+                        //Set National description like default selection
+                        var nationalDesc = $filter('filter')($scope.datasetDescription, function(item){
+                            return item.level == "National";
+                        });
+
+                        if (nationalDesc.length > 0){
+                            // Find National description
+                            $scope.objDataset.keydataset.description = nationalDesc[0].description.code;
+                            getAvailableTags();
+                        } else {
+                            $scope.objDataset.keydataset.description = '0';
+                        }
 
                         $scope.objDataset.keydataset.level = '0';
-                        $scope.objDataset.keydataset.description = '0';
 
                         // Get Dataset scale available
                         RodiSrv.getLevelList(
@@ -454,26 +472,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
         }
 
-        $scope.changeLevelSelection = function(idLevel)
-        {
-            // get the dataset obj
-            RodiSrv.getDescription(idLevel, $scope.objDataset.keydataset.category, $scope.objDataset.keydataset.dataset,
-                function(data)
-                {
-                    $scope.datasetDescription = data;
-
-                    $scope.objDataset.keydataset.description = '0';
-                },
-                function(data)
-                {
-                    $scope.datasetDescription = [];
-                })
-
-                $scope.datasetTags = [];
-                $scope.selectedTags = [];
-                $scope.sTagsMsg = "** Select a dataset description **";
-        }
-
         $scope.changeDescription = function(idDesc)
         {
             if(idDesc !== '0')
@@ -498,46 +496,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 $scope.datasetScaleId = objLevel[0].level.id + "";
                 $scope.objDataset.keydataset.level = $scope.datasetScaleId;
 
-                RodiSrv.getKeydatasetId($scope.datasetScaleId, $scope.dataCategoryId,
-                    $scope.objDataset.keydataset.dataset, $scope.objDataset.keydataset.description,
-                    function(data)
-                    {
-
-                        // Success
-                        if(data[0].tag_available)
-                        {
-                            $scope.datasetTags = data[0].tag_available.tags;
-                            $scope.selectedTags = data[0].applicability;
-                            $scope.sTagsMsg = "";
-
-                            if(data[0].tag_available.group == 'hazard')
-                            {
-                                //$scope.sTagsInfo = "Please select the Hazard for which the dataset is relevant/used. A predefined suggestion is provided.";
-                                $scope.sTagsInfo = "Please select which elements are included the dataset.";
-;                            }
-
-                            if(data[0].tag_available.group == 'building')
-                            {
-                                $scope.sTagsInfo = "Please select which elements are included the dataset.";
-                            };
-
-                            if(data[0].tag_available.group == 'facilities')
-                            {
-                                $scope.sTagsInfo = "Please select which elements are included the dataset.";
-                            };
-
-                        } else
-                        {
-                            $scope.datasetTags=[];
-                            $scope.selectedTags = [];
-                            $scope.sTagsMsg = "** No elements available **";
-                            $scope.sTagsInfo="";
-                        }
-
-                    }, function(data){
-                        // Error
-                    }
-                );
+                // *********************************
+                getAvailableTags();
 
             } else
             {
@@ -928,6 +888,50 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
             }
         }
 
+        function getAvailableTags()
+        {
+            RodiSrv.getKeydatasetId($scope.datasetScaleId, $scope.dataCategoryId,
+                $scope.objDataset.keydataset.dataset, $scope.objDataset.keydataset.description,
+                function(data)
+                {
+
+                    // Success
+                    if(data[0].tag_available)
+                    {
+                        $scope.datasetTags = data[0].tag_available.tags;
+                        $scope.selectedTags = data[0].applicability;
+                        $scope.sTagsMsg = "";
+
+                        if(data[0].tag_available.group == 'hazard')
+                        {
+                            //$scope.sTagsInfo = "Please select the Hazard for which the dataset is relevant/used. A predefined suggestion is provided.";
+                            $scope.sTagsInfo = "Please select which elements are included the dataset.";
+                            ;                            }
+
+                        if(data[0].tag_available.group == 'building')
+                        {
+                            $scope.sTagsInfo = "Please select which elements are included the dataset.";
+                        };
+
+                        if(data[0].tag_available.group == 'facilities')
+                        {
+                            $scope.sTagsInfo = "Please select which elements are included the dataset.";
+                        };
+
+                    } else
+                    {
+                        $scope.datasetTags=[];
+                        $scope.selectedTags = [];
+                        $scope.sTagsMsg = "** No elements available **";
+                        $scope.sTagsInfo="";
+                    }
+
+                }, function(data){
+                    // Error
+                }
+            );
+        }
+
     }
 
     // ************************************** //
@@ -977,15 +981,62 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 function(data)
                 {
                     // Success
-
-                    console.log(data);
-
                     $scope.datasetList = data;
 
                     $scope.tableParams = new NgTableParams({}, { dataset: $scope.datasetList});
 
                 }, function(data)
                 {
+                    // Error API
+                    console.log(data);
+                });
+
+            // Load the country statistics
+            RodiSrv.getCountryStatistics($scope.idCountry, $scope.aCategory, $scope.aApplicability,
+                function(data){
+                    $scope.score = data.score;
+                    $scope.perils_counters = angular.copy(data.perils_counters);
+                    $scope.categories_counters = angular.copy(data.categories_counters);
+
+                    $scope.getApplicabilityNumber = function(applicability){
+
+                        var itemFound = [];
+
+                        itemFound = $filter('filter')($scope.perils_counters, function(item)
+                        {
+                            return item.name == applicability;
+                        });
+
+                        if (itemFound.length > 0)
+                        {
+                            // Item found
+                            if(itemFound[0].notable)
+                            {
+                                return itemFound[0].count;
+                            } else {
+                                   return "n.a.";
+                                }
+                        }
+                    };
+
+                    $scope.getCategoryNumber = function(category){
+
+                        var itemFound = [];
+
+                        itemFound = $filter('filter')($scope.categories_counters, function(item)
+                        {
+                            return item.category == category;
+                        });
+
+                        if (itemFound.length > 0)
+                        {
+                            // Item found
+                            return itemFound[0].count;
+                        } else {return 0}
+                    };
+
+                    console.log(data);
+                }, function(data){
                     // Error API
                     console.log(data);
                 })

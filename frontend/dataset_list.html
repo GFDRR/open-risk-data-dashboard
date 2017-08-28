@@ -114,94 +114,124 @@
                     <br /><br />
                 </div>
             </div>
+
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="" id="menu-hazard">
                     <ul class="nav navbar-nav text-center">
                         <li ng-style="filterCategoryCssStyle(hc.category.name)"  ng-class="filterCategoryCssClass(hc.category.name)" ng-repeat="hc in HazardCategory">
-                            <a href="" ng-click="setFilterCategoryDatasetList(hc.category.name)" >
+                            <a href="" ng-click="setFilterCategoryDatasetList(hc.category.name)" ng-if="getCategoryNumber(hc.category.name) !== 0">
                                 <i class="{{getHCIcon(hc.category.id)}} fa-2x"></i>
                                 <span>{{hc.category.name}}</span>
+                                <div class="rodi_counter_number">{{getCategoryNumber(hc.category.name)}}</div>
+                            </a>
+                            <a href="" ng-if="getCategoryNumber(hc.category.name) == 0">
+                                <i class="{{getHCIcon(hc.category.id)}} fa-2x" style="color:#e0e0e0; border-color:#e0e0e0;"></i>
+                                <span>{{hc.category.name}}</span>
+                                <div class="rodi_counter_number_disable">0</div>
                             </a>
                         </li>
                         <div class="menu_sep"></div>
 
                         <li ng-style="filterApplicabilityCssStyle(h.desc)" ng-class="filterApplicabilityCssClass(h.desc)" ng-repeat="h in arrayHazardList">
-                            <a href="" ng-click="setFilterApplicabilityDatasetList(h.desc)" >
+                            <a href="" ng-click="setFilterApplicabilityDatasetList(h.desc)" ng-if="getApplicabilityNumber(h.desc) !== 'n.a.'">
                                 <i class="{{h.icon}} fa-2x"></i>
                                 <span>{{h.desc}}</span>
+                                <div class="rodi_counter_number">{{getApplicabilityNumber(h.desc)}}</div>
+                            </a>
+                            <a href="" ng-if="getApplicabilityNumber(h.desc) == 'n.a.'" style="color:#e0e0e0 !important;">
+                                <i class="{{h.icon}} fa-2x" style="color:#e0e0e0; border-color:#e0e0e0;"></i>
+                                <span>{{h.desc}}</span>
+                                <div class="rodi_counter_number_disable">na</div>
                             </a>
                         </li>
                     </ul>
                 </div>
             </div>
-                <!--<h2>{{objCountry[0].name}} - {{HazardCategory[0].category.name}}</h2>-->
 
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div style="padding:20px; font-size:20px;">
                     <br />
-                    Datasets found: {{datasetList.length}}
-                    <br /><br />
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 stats small">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    Total score: {{score}}%
+                                    <div class="progress">
+                                        <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{score}}"
+                                             aria-valuemin="0" aria-valuemax="100" style="width:{{score}}%">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 stats small">
+
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    Datasets<br />
+                                    <span class="counting">{{datasetList.length}}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+
         </div>
 
-	<div class="jumbotron dataset">
-		<!--<div class="container">-->
+        <div class="jumbotron dataset">
 
-            <!--<div class="row">-->
-                <!--<div class="hidden-xs col-sm-1 col-md-1 col-lg-1"></div>-->
-                <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">-->
-                    <table ng-table="tableParams" class="table table-hover dataset text-left" show-filter="true">
+            <table ng-table="tableParams" class="table table-hover dataset text-left" show-filter="true">
 
-                        <tr ng-repeat="ds in $data">
-                            <td title="'#'"><h5>{{$index + 1}}</h5></td>
-                            <td title="'Dataset'" filter="{ 'keydataset.dataset': 'text'}" sortable="'keydataset.dataset'">
-                                <h5>{{ds.keydataset.dataset.name}}</h5></td>
-                            <td title="'Insert Date'" filter="{ create_time: 'number'}" sortable="'create_time'">
-                                <h5 class="text-center">{{ds.create_time | date: 'dd/MM/yyyy'}}</h5>
-                            </td>
-                            <td title="'Questions'">
-                                <div class="flex-container dataset_value">
-                                    <i class="fa fa-check-circle-o" aria-hidden="{{ds.is_existing}}" data-toggle="tooltip" title="{{questions[0].desc}}"></i>
-                                    <i class="fa fa-desktop" aria-hidden="{{ds.is_digital_form}}" data-toggle="tooltip" title="{{questions[1].desc}}"></i>
-                                    <i class="fa fa-cloud" aria-hidden="{{ds.is_avail_online}}" data-toggle="tooltip" title="{{questions[2].desc}}"></i>
-                                    <i class="fa fa-tag" aria-hidden="{{ds.is_avail_online_meta}}" data-toggle="tooltip" title="{{questions[3].desc}}"></i>
-                                    <i class="fa fa-copy" aria-hidden="{{ds.is_bulk_avail}}" data-toggle="tooltip" title="{{questions[4].desc}}"></i>
-                                    <i class="fa fa-keyboard-o" aria-hidden="{{ds.is_machine_read}}" data-toggle="tooltip" title="{{questions[5].desc}}"></i>
-                                    <i class="fa fa-eye" aria-hidden="{{ds.is_pub_available}}" data-toggle="tooltip" title="{{questions[6].desc}}"></i>
-                                    <i class="fa fa-dollar" aria-hidden="{{ds.is_avail_for_free}}" data-toggle="tooltip" title="{{questions[7].desc}}"></i>
-                                    <i class="fa fa-unlock-alt" aria-hidden="{{ds.is_open_licence}}" data-toggle="tooltip" title="{{questions[8].desc}}"></i>
-                                    <i class="fa fa-clock-o" aria-hidden="{{ds.is_prov_timely}}" data-toggle="tooltip" title="{{questions[9].desc}}"></i>
-                                </div>
-                            </td>
-                            <td title="'Year'" filter="{ create_time: 'number'}" sortable="'create_time'" class="text-center">
-                                <h5>{{ds.create_time | date: 'yyyy'}}</h5>
-                            </td>
-                            <td  sortable="'is_reviewed'" title="'Review'" class="text-center status">
-                                <div class="flex-container flex-row">
-                                    <i class="fa fa-2x fa-check-circle-o ok" aria-hidden="true" ng-if="ds.is_reviewed" ></i>
-                                    <i class="fa fa-2x fa-clock-o rev" aria-hidden="true" ng-if="!ds.is_reviewed" ></i>
-                                    <!--<i class="fa fa-2x fa-clock-o" aria-hidden="true" ng-if="!ds.is_reviewed" style="color:#eea236; color:rgba(51, 122, 183, 0.7);"></i>-->
-                                    <a class="" href="" title="details" ng-click="changepage('dataset_details.html?keyds=' + ds.id)">
-                                        <i class="fa fa-2x fa-search"></i>
-                                    </a>
-                                </div>
-                            </td>
+                <tr ng-repeat="ds in $data">
+                    <td title="'#'"><h5>{{$index + 1}}</h5></td>
+                    <td title="'Category'" filter="{ 'keydataset.category': 'text'}" sortable="'keydataset.category'">
+                        <h5>{{ds.keydataset.category}}</h5></td>
+                    <td title="'Dataset'" filter="{ 'keydataset.dataset': 'text'}" sortable="'keydataset.dataset'">
+                        <h5>{{ds.keydataset.dataset.name}}</h5></td>
+                    <td title="'Level'" filter="{ 'keydataset.level': 'text'}" sortable="'keydataset.level'">
+                        <h5>{{ds.keydataset.level}}</h5></td>
+                    <td title="'Tags'">
+                        <span ng-repeat="tag in ds.tag"><small>{{tag}}<span ng-if="!$last">,</span></small> </span>
+                    </td>
+                    <td title="'Insert Date'" filter="{ create_time: 'number'}" sortable="'create_time'">
+                        <h5 class="text-center">{{ds.create_time | date: 'dd/MM/yyyy'}}</h5>
+                    </td>
+                    <td title="'Questions'">
+                        <div class="flex-container dataset_value">
+                            <i class="fa fa-check-circle-o" aria-hidden="{{ds.is_existing}}" data-toggle="tooltip" title="{{questions[0].desc}}"></i>
+                            <i class="fa fa-desktop" aria-hidden="{{ds.is_digital_form}}" data-toggle="tooltip" title="{{questions[1].desc}}"></i>
+                            <i class="fa fa-cloud" aria-hidden="{{ds.is_avail_online}}" data-toggle="tooltip" title="{{questions[2].desc}}"></i>
+                            <i class="fa fa-tag" aria-hidden="{{ds.is_avail_online_meta}}" data-toggle="tooltip" title="{{questions[3].desc}}"></i>
+                            <i class="fa fa-copy" aria-hidden="{{ds.is_bulk_avail}}" data-toggle="tooltip" title="{{questions[4].desc}}"></i>
+                            <i class="fa fa-keyboard-o" aria-hidden="{{ds.is_machine_read}}" data-toggle="tooltip" title="{{questions[5].desc}}"></i>
+                            <i class="fa fa-eye" aria-hidden="{{ds.is_pub_available}}" data-toggle="tooltip" title="{{questions[6].desc}}"></i>
+                            <i class="fa fa-dollar" aria-hidden="{{ds.is_avail_for_free}}" data-toggle="tooltip" title="{{questions[7].desc}}"></i>
+                            <i class="fa fa-unlock-alt" aria-hidden="{{ds.is_open_licence}}" data-toggle="tooltip" title="{{questions[8].desc}}"></i>
+                            <i class="fa fa-clock-o" aria-hidden="{{ds.is_prov_timely}}" data-toggle="tooltip" title="{{questions[9].desc}}"></i>
+                        </div>
+                    </td>
+                    <!--<td title="'Year'" filter="{ create_time: 'number'}" sortable="'create_time'" class="text-center">
+                        <h5>{{ds.create_time | date: 'yyyy'}}</h5>
+                    </td>-->
+                    <td  sortable="'is_reviewed'" title="'Review'" class="text-center status">
+                        <div class="flex-container flex-row">
+                            <i class="fa fa-2x fa-check-circle-o ok" aria-hidden="true" ng-if="ds.is_reviewed" ></i>
+                            <i class="fa fa-2x fa-clock-o rev" aria-hidden="true" ng-if="!ds.is_reviewed" ></i>
+                            <!--<i class="fa fa-2x fa-clock-o" aria-hidden="true" ng-if="!ds.is_reviewed" style="color:#eea236; color:rgba(51, 122, 183, 0.7);"></i>-->
+                            <a class="" href="" title="details" ng-click="changepage('dataset_details.html?keyds=' + ds.id)">
+                                <i class="fa fa-2x fa-search"></i>
+                            </a>
+                        </div>
+                    </td>
 
-                        </tr>
-                    </table>
+                </tr>
+            </table>
 
-                    <div class="rodi_loading" ng-if="bLoading"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i> Loading data ...</div>
-                    <div ng-if="bNoDataset" class="text-center"><br /><h3>No dataset found</h3></div>
+            <div class="rodi_loading" ng-if="bLoading"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i> Loading data ...</div>
+            <div ng-if="bNoDataset" class="text-center"><br /><h3>No dataset found</h3></div>
 
-                <!--</div>-->
-                <!--<div class="hidden-xs col-sm-1 col-md-1 col-lg-1"></div>-->
-            <!--</div>-->
-
-		<!--</div>-->
-	</div>
-
-
+        </div>
 
     </div>
 

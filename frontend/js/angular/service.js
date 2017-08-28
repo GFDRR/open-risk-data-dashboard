@@ -729,7 +729,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         var obj =
             [
                 {
-                    "category": {id: 1, name: "Base data"}
+                    "category": {id: 1, name: "Base Data"}
                 },
                 {
                     "category": {id: 2, name: "Hazard"}
@@ -1391,13 +1391,30 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 
     }
 
-    this.getcOUNTRYStatistics = function(idCountry, onSuccess, onError)
+    this.getCountryStatistics = function(idCountry, aCategory, aApplicability, onSuccess, onError)
     {
-        // Return statistics for home page
+        // Return statistics for country page
+
+        var sCategoryFilter = "";
+        var sApplFilter = "";
+
+        if(aCategory.length > 0)
+        {
+            aCategory.forEach(function(item) {
+                sCategoryFilter = sCategoryFilter + "&category=" + $filter('lowercase')(item);
+            });
+        };
+
+        if(aApplicability.length > 0)
+        {
+            aApplicability.forEach(function(item) {
+                sApplFilter = sApplFilter + "&applicability=" + $filter('lowercase')(item);
+            });
+        };
 
         var req = {
             method: 'GET',
-            url: baseAPIurl + 'scoring/' + idCountry,
+            url: baseAPIurl + 'scoring/' + idCountry + '?' + sCategoryFilter + sApplFilter,
             // url: 'https://dev.riskopendata.org/api-dev2/scoring/' + idCountry,
             headers: {
                 // 'Authorization': 'Token ' + token

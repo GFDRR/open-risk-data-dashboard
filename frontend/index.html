@@ -33,9 +33,6 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-
-
-
     <link href="bower_components/animate.css/animate.min.css" rel="stylesheet">
 
     <!-- RODI APP -->
@@ -143,7 +140,7 @@
                                                 <td class="col-md-2"></td>
                                                 <td class="col-md-1"><i class="fa {{dataCategoryIcon(dataclass.category)}}" aria-hidden="true"></i></td>
                                                 <td class="col-md-4"><span class="counting">{{dataclass.category}}</span></td>
-                                                <td class="col-md-3">(XX% open)</td>
+                                                <td class="col-md-3">({{calcPerc(dataclass.fullcount, dataclass.count)}}% open)</td>
                                             </tr>
 
                                         </table>
@@ -161,7 +158,7 @@
                                                 <td class="col-md-2">applicable for</td>
                                                 <td class="col-md-1"><i class="fa {{getPelirsIcons(peril.name)}}" aria-hidden="true"></i></td>
                                                 <td class="col-md-4"><span class="counting">{{peril.name}}</span></td>
-                                                <td class="col-md-3">(XX% open)</td>
+                                                <td class="col-md-3">({{calcPerc(peril.fullcount, peril.count)}}% open)</td>
                                             </tr>
 
                                         </table>
