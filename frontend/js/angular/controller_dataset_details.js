@@ -440,6 +440,21 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
         $scope.bEdit = false;
     }
 
+    $scope.formatLink = function(link){
+        var shortLink = "";
+
+        if (link.length > 70)
+        {
+          shortLink = link.substr(0, 70);
+          shortLink = shortLink + ' [...]';
+        } else {
+                shortLink = link;
+        }
+
+        return shortLink;
+
+    }
+
     function initDataset ()
     {
         // Get dataset info from profile API
@@ -449,6 +464,8 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                 // Load the dataset information
                 $scope.objDataset = dataDS;
                 $scope.objDatasetView = angular.copy(dataDS);
+
+                console.log(dataDS);
 
                 // Check if user logged in can edit dataset, LOAD DATASET PROFILE API
                 if($scope.objDataset.owner == $scope.userinfo.username || $scope.userinfo.groups[0] == 'reviewer' || $scope.userinfo.groups[0] == 'admin')
@@ -531,7 +548,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                                 var aDataset = $filter('filter')($scope.datasetCategoryAll,
                                     function(e)
                                     {
-                                        return e.dataset.name == $scope.objDataset.keydataset.dataset;
+                                        return e.dataset.name == $scope.objDataset.keydataset.dataset.name;
                                     }
                                 );
 

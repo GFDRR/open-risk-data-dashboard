@@ -147,15 +147,15 @@
                             <div class="row">
                             <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
                             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 flex-container col">
-                                <h1>Section A - Dataset classification</h1>
+                                <h1><!--Section A - -->Dataset classification</h1>
                                 <hr />
 
                                 <div class="row">
                                     <div>
-                                        <span class="rodi_dataset_label_code">A1.</span>
+                                        <!--<span class="rodi_dataset_label_code">A1.</span>-->
                                         <span class="rodi_dataset_label">Country</span>
                                     </div>
-                                    <span class="">Please select the Country the Dataset refers to</span>
+                                    <span class="">Please select the country the dataset refers to.</span>
                                     <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
                                     <!--<br />-->
                                     <div class="dataset_form_select_style">
@@ -169,10 +169,10 @@
                                 <div class="row">
                                     <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
                                     <div>
-                                        <span class="rodi_dataset_label_code">A2.</span>
+                                        <!--<span class="rodi_dataset_label_code">A2.</span>-->
                                         <span class="rodi_dataset_label">Dataset</span>
                                     </div>
-                                    <span>Specify the nature of the dataset, you can filter the list of key datasets per data category</span>
+                                    <span>Please select the dataset you want to submit. You can filter the list of datasets per category.</span>
                                     <!--<br />-->
                                     <!--edited by dario-->
 
@@ -242,7 +242,7 @@
                                 <div class="row">
                                     <div>
                                         <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
-                                        <span class="rodi_dataset_label_code">A3.</span>
+                                        <!--<span class="rodi_dataset_label_code">A3.</span>-->
                                         <span class="rodi_dataset_label">Datasets elements</span>
                                     </div>
                                     <span class="text-muted"><u>{{sTagsMsg}}</u></span>
@@ -268,13 +268,13 @@
                                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
                                 <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                                     <span class="pull-right rodi_question_help"><a href="http://census.okfn.org/en/latest/survey-flow/" target="_blank"><i class="fa fa-book fa-2x" aria-hidden="true" title="Survey Flow"></i></a></span>
-                                    <h1>Section B - Questions</h1>
-                                    <span>The following questions will determine the openness and accessibility of the dataset you are entering</span>
+                                    <h1><!--Section B --->Questions</h1>
+                                    <span>The following questions will help to determine the openness of the dataset.</span>
                                     <hr />
-
+                                    <!-- Question #1 -->
                                     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                                         <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-check-circle-o" ></i></span>
-                                        <span class="rodi_dataset_label_code">B1. </span>
+                                        <!--<span class="rodi_dataset_label_code">B1. </span>-->
                                         <span class="rodi_dataset_label">{{getQuestionCode('is_existing')}}</span>
                                         <span class="text-muted"><a href="" ng-click="questionHelp(0)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
                                     </div>
@@ -293,23 +293,23 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                        <input type="text" class="form-control dataset_form_select_style" ng-model="objDataset.is_existing_txt" placeholder="Name of the agency or organization that collects the data">
+                                        <input type="text" class="form-control dataset_form_select_style" ng-model="objDataset.is_existing_txt" placeholder="If yes, name of the agency of organization that collects the data">
                                     </div>
 
                                 </div>
                                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
                             </div>
 
-                            <!-- Question #1 -->
-                            <div class="row vertical-align">
+
+                            <!--<div class="row vertical-align">
                                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-center">
-                                    <!--<a href="" ng-click="questionHelp(0)"><i class="fa fa-question-circle" aria-hidden="true"></i></a> B1 more info-->
+
                                 </div>
                                 <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
 
                                 </div>
                                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
-                            </div>
+                            </div>-->
 
                             <!-- Question #2 -->
                             <div class="row ">
@@ -319,7 +319,7 @@
                                 <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                                     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                                         <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-desktop" ></i></span>
-                                        <span class="rodi_dataset_label_code">B2.</span>
+                                        <!--<span class="rodi_dataset_label_code">B2.</span>-->
                                         <span class="rodi_dataset_label">{{getQuestionCode('is_digital_form')}}</span>
                                         <span class="text-muted"><a href="" ng-click="questionHelp(1)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
                                     </div>
@@ -341,6 +341,36 @@
                                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
                             </div>
 
+                            <!-- Question #7 (moved befor question 3) -->
+                            <div class="row ">
+                                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-center">
+                                    <!--<a href="" ng-click="questionHelp(6)"><i class="fa fa-question-circle" aria-hidden="true"></i></a> B7 more info-->
+                                </div>
+                                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
+                                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                                        <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-eye" ></i></span>
+                                        <!--<span class="rodi_dataset_label_code">B7.</span>-->
+                                        <span class="rodi_dataset_label">{{getQuestionCode('is_pub_available')}}</span>
+                                        <span class="text-muted"><a href="" ng-click="questionHelp(6)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
+                                    </div>
+                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                            <div class="rodi_btn_yes_no" ng-class="{'rodi_btn_yes_bg_green': objDataset.is_pub_available == true}" ng-click="saveSelection('is_pub_available', true)">
+                                                <span class="hidden-xs hidden-sm">YES</span>
+                                                <span class="visible-xs visible-sm">Y</span>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                                            <div class="rodi_btn_yes_no" ng-class="{'rodi_btn_yes_bg_red': objDataset.is_pub_available == false && objDataset.is_pub_available !== ''}" ng-click="saveSelection('is_pub_available', false)">
+                                                <span class="hidden-xs hidden-sm">NO</span>
+                                                <span class="visible-xs visible-sm">N</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
+                            </div>
+
                             <!-- Question #3 -->
                             <div class="row ">
                                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-center">
@@ -349,7 +379,7 @@
                                 <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                                     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                                         <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-cloud" ></i></span>
-                                        <span class="rodi_dataset_label_code">B3.</span>
+                                        <!--<span class="rodi_dataset_label_code">B3.</span>-->
                                         <span class="rodi_dataset_label">{{getQuestionCode('is_avail_online')}}</span>
                                         <span class="text-muted"><a href="" ng-click="questionHelp(2)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
 
@@ -375,10 +405,10 @@
                                             <span class="input-group-btn ">
                                                 <button class="btn btn-info" type="button" ng-click="addLink(newLink)">
                                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                                    Add Link for B3
+                                                    Add Link
                                                 </button>
                                             </span>
-                                            <input type="text" class="form-control " placeholder="Add new link" ng-model="newLink">
+                                            <input type="text" class="form-control " placeholder="If yes, add url(s) where to find the data" ng-model="newLink">
                                         </div><!-- /input-group -->
                                         <br />
                                     </div>
@@ -405,7 +435,7 @@
                                 <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                                     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                                         <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-tag" ></i></span>
-                                        <span class="rodi_dataset_label_code">B4.</span>
+                                        <!--<span class="rodi_dataset_label_code">B4.</span>-->
                                         <span class="rodi_dataset_label">{{getQuestionCode('is_avail_online_meta')}}</span>
                                         <span class="text-muted"><a href="" ng-click="questionHelp(3)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
                                     </div>
@@ -431,15 +461,15 @@
                                             <span class="input-group-btn ">
                                                 <button class="btn btn-info" type="button" ng-click="addLink(newMeta)">
                                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-                                                    Add Link for B4
+                                                    Add Link
                                                 </button>
                                             </span>
-                                            <input type="text" class="form-control " placeholder="Add new link" ng-model="newMeta">
+                                            <input type="text" class="form-control " placeholder="If yes, add url(s) where to find the metadata" ng-model="newMeta">
                                         </div><!-- /input-group -->
                                         <br />
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                        <strong>> Link list for B3 and B4</strong>
+                                        <strong>> Link list for data & metadata</strong>
                                         <ul class="rodi_ul">
                                             <li ng-repeat="link in selectedLink">
                                                 - {{link}}
@@ -463,7 +493,7 @@
                                 <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                                     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                                         <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-copy" ></i></span>
-                                        <span class="rodi_dataset_label_code">B5.</span>
+                                        <!--<span class="rodi_dataset_label_code">B5.</span>-->
                                         <span class="rodi_dataset_label">{{getQuestionCode('is_bulk_avail')}}</span>
                                         <span class="text-muted"><a href="" ng-click="questionHelp(4)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
                                     </div>
@@ -493,7 +523,7 @@
                                 <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                                     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                                         <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-keyboard-o" ></i></span>
-                                        <span class="rodi_dataset_label_code">B6.</span>
+                                        <!--<span class="rodi_dataset_label_code">B6.</span>-->
                                         <span class="rodi_dataset_label">{{getQuestionCode('is_machine_read')}}</span>
                                         <span class="text-muted"><a href="" ng-click="questionHelp(5)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
                                     </div>
@@ -513,37 +543,7 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                        <input type="text" class="form-control dataset_form_select_style" ng-model="objDataset.is_machine_read_txt" placeholder="In which formats? (excel, json, shape)">
-                                    </div>
-                                </div>
-                                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
-                            </div>
-
-                            <!-- Question #7 -->
-                            <div class="row ">
-                                <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2 text-center">
-                                    <!--<a href="" ng-click="questionHelp(6)"><i class="fa fa-question-circle" aria-hidden="true"></i></a> B7 more info-->
-                                </div>
-                                <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                                        <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-eye" ></i></span>
-                                        <span class="rodi_dataset_label_code">B7.</span>
-                                        <span class="rodi_dataset_label">{{getQuestionCode('is_pub_available')}}</span>
-                                        <span class="text-muted"><a href="" ng-click="questionHelp(6)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
-                                    </div>
-                                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                            <div class="rodi_btn_yes_no" ng-class="{'rodi_btn_yes_bg_green': objDataset.is_pub_available == true}" ng-click="saveSelection('is_pub_available', true)">
-                                                <span class="hidden-xs hidden-sm">YES</span>
-                                                <span class="visible-xs visible-sm">Y</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
-                                            <div class="rodi_btn_yes_no" ng-class="{'rodi_btn_yes_bg_red': objDataset.is_pub_available == false && objDataset.is_pub_available !== ''}" ng-click="saveSelection('is_pub_available', false)">
-                                                <span class="hidden-xs hidden-sm">NO</span>
-                                                <span class="visible-xs visible-sm">N</span>
-                                            </div>
-                                        </div>
+                                        <input type="text" class="form-control dataset_form_select_style" ng-model="objDataset.is_machine_read_txt" placeholder="Format(s) the data is available in (json, csv, xls, shp, etc.)">
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
@@ -555,7 +555,7 @@
                                 <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                                     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                                         <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-dollar" ></i></span>
-                                        <span class="rodi_dataset_label_code">B8.</span>
+                                        <!--<span class="rodi_dataset_label_code">B8.</span>-->
                                         <span class="rodi_dataset_label">{{getQuestionCode('is_avail_for_free')}}</span>
                                         <span class="text-muted"><a href="" ng-click="questionHelp(7)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
                                     </div>
@@ -584,7 +584,7 @@
                                 <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                                     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                                         <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-unlock-alt" ></i></span>
-                                        <span class="rodi_dataset_label_code">B9.</span>
+                                        <!--<span class="rodi_dataset_label_code">B9.</span>-->
                                         <span class="rodi_dataset_label">{{getQuestionCode('is_open_licence')}}</span>
                                         <span class="text-muted"><a href="" ng-click="questionHelp(8)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
                                     </div>
@@ -604,7 +604,7 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                        <input type="text" class="form-control dataset_form_select_style" ng-model="objDataset.is_open_licence_txt" placeholder="URL or name of the license">
+                                        <input type="text" class="form-control dataset_form_select_style" ng-model="objDataset.is_open_licence_txt" placeholder="Url or name of the license">
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
@@ -616,7 +616,7 @@
                                 <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                                     <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                                         <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-clock-o" ></i></span>
-                                        <span class="rodi_dataset_label_code">B10.</span>
+                                        <!--<span class="rodi_dataset_label_code">B10.</span>-->
                                         <span class="rodi_dataset_label">{{getQuestionCode('is_prov_timely')}}</span>
                                         <span class="text-muted"><a href="" ng-click="questionHelp(9)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
                                     </div>
@@ -636,53 +636,20 @@
                                         </div>
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                        <input type="date" id="" class="form-control dataset_form_select_style" ng-model="objDataset.is_prov_timely_last" placeholder="Date of last update">
+                                        <!--<input type="date" id="" class="form-control dataset_form_select_style" ng-model="objDataset.is_prov_timely_last" placeholder="Date of last update">-->
+                                        <input id="" class="form-control dataset_form_select_style" ng-model="objDataset.is_prov_timely_last" placeholder="Date of last update (dd/mm/yyyy)">
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
                             </div>
                         </div>
 
-                        <!--<div class="rodi_section_01">-->
-                            <!--<div class="row">-->
-                                <!--<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>-->
-                                <!--<div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">-->
-                                    <!--<h1>Section C - Dataset metadata link</h1>-->
-                                    <!--<hr />-->
-                                    <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">-->
-                                        <!--<div class="input-group">-->
-                                            <!--<span class="input-group-btn ">-->
-                                                <!--<button class="btn btn-info" type="button" ng-click="addLink(newLink)">-->
-                                                    <!--<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>-->
-                                                    <!--Add Link-->
-                                                <!--</button>-->
-                                            <!--</span>-->
-                                            <!--<input type="text" class="form-control " placeholder="Add new link" ng-model="newLink">-->
-                                        <!--</div>&lt;!&ndash; /input-group &ndash;&gt;-->
-                                        <!--<br />-->
-                                    <!--</div>-->
-                                    <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">-->
-                                        <!--<ul class="rodi_ul">-->
-                                            <!--<li ng-repeat="link in selectedLink">-->
-                                                <!-- - {{link}}-->
-                                                <!--<div class="pull-right">-->
-                                                    <!--<a href="" ng-click="deleteLink(link)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>&nbsp;&nbsp;-->
-                                                <!--</div>-->
-                                            <!--</li>-->
-                                        <!--</ul>-->
-                                    <!--</div>-->
-
-                                <!--</div>-->
-                                <!--<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>-->
-                            <!--</div>-->
-                        <!--</div>-->
-
                         <div class="rodi_section_02">
                             <div class="row">
                                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
                                 <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                                    <h1>Section D - Any other comments?</h1>
-                                    <span>Please use this free text box to add anything relevant to the dataset description tat can help practitioners and risk analysts in understanding the potential and the limitations of these data.</span>
+                                    <h1><!--Section D --->Other comments?</h1>
+                                    <span>Please use the text box below to add any other info that might help assess the openness and ease of the use of the data, in particular in the context of disaster and risk activities.</span>
                                     <hr />
                                     <textarea class="form-control " rows="3" placeholder="Notes" ng-model="objDataset.notes"></textarea>
                                 </div>
@@ -690,186 +657,10 @@
                             </div>
                         </div>
 
-                        <!--<div class="row">-->
-                        <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">-->
-                        <!--<h1>A - Dataset classification</h1>-->
-                        <!--<br />-->
-                        <!--<table class="table table-responsive table-striped table-bordered table-hover">-->
-                        <!--<thead>-->
-                        <!--<th style="width:20%;">#Category</th>-->
-                        <!--<th>#Answer</th>-->
-                        <!--</thead>-->
-                        <!--<tbody>-->
-                        <!--<tr>-->
-                        <!--<td>-->
-                        <!--<i class="fa fa-check contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.country != '&#45;&#45;'"></i>-->
-                        <!--<i class="fa fa-clock-o contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.country == '&#45;&#45;'"></i>-->
-                        <!--Country-->
-                        <!--</td>-->
-                        <!--<td>-->
-                        <!--<select class="form-control" ng-model="objDataset.country">-->
-                        <!--<option value="&#45;&#45;" selected>&#45;&#45; Select &#45;&#45;</option>-->
-                        <!--<option ng-repeat="country in countryList | orderBy: 'name'" value="{{country.iso2}}">{{country.name}}</option>-->
-                        <!--</select>-->
-                        <!--</td>-->
-                        <!--</tr>-->
-                        <!--<tr>-->
-                        <!--<td>-->
-                        <!--<i class="fa fa-check contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.keydataset.scale != '&#45;&#45;'"></i>-->
-                        <!--<i class="fa fa-clock-o contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.keydataset.scale == '&#45;&#45;'"></i>-->
-                        <!--Scale-->
-                        <!--</td>-->
-                        <!--<td>-->
-                        <!--<select class="form-control" ng-model="objDataset.keydataset.scale" ng-change="setDataCategory(objDataset.keydataset.scale)">-->
-                        <!--<option value="&#45;&#45;" selected>&#45;&#45; Select &#45;&#45;</option>-->
-                        <!--<option ng-repeat="scale in datasetScale | orderBy: 'name'" value="{{scale.scale.id}}">{{scale.scale.name}}</option>-->
-                        <!--</select>-->
-                        <!--</td>-->
-                        <!--</tr>-->
-                        <!--&lt;!&ndash;<tr>-->
-                        <!--<td>-->
-                        <!--<i class="fa fa-check contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.keydataset.category != '&#45;&#45;'"></i>-->
-                        <!--<i class="fa fa-clock-o contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.keydataset.category == '&#45;&#45;'"></i>-->
-                        <!--Data category-->
-                        <!--</td>-->
-                        <!--<td>-->
-                        <!--<select class="form-control" ng-model="objDataset.keydataset.category" ng-change="setDatasetCategory(objDataset.keydataset.scale, objDataset.keydataset.category)">-->
-                        <!--<option value="&#45;&#45;" selected>&#45;&#45; Select &#45;&#45;</option>-->
-                        <!--<option ng-repeat="dsCat in dataCategory" value="{{dsCat.category.id}}">{{dsCat.category.name}}</option>-->
-                        <!--</select>-->
-                        <!--</td>-->
-                        <!--</tr>&ndash;&gt;-->
-                        <!--<tr>-->
-                        <!--<td>-->
-                        <!--<i class="fa fa-check contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.keydataset.dataset != '&#45;&#45;'"></i>-->
-                        <!--<i class="fa fa-clock-o contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.keydataset.dataset == '&#45;&#45;'"></i>-->
-                        <!--Dataset category-->
-                        <!--<br />-->
-                        <!--<span class="text-muted">Filter by:</span>-->
-                        <!--<select ng-model="objDataset.keydataset.category" ng-change="setDatasetCategory(objDataset.keydataset.scale, objDataset.keydataset.category)">-->
-                        <!--<option value="&#45;&#45;" selected>&#45;&#45; Select &#45;&#45;</option>-->
-                        <!--<option ng-repeat="dsCat in dataCategory" value="{{dsCat.category.id}}">{{dsCat.category.name}}</option>-->
-                        <!--</select>-->
-                        <!--</td>-->
-                        <!--<td>-->
-                        <!--<select class="form-control" ng-model="objDataset.keydataset.dataset" ng-change="setDatasetDesc(objDataset.keydataset.scale, objDataset.keydataset.category,objDataset.keydataset.dataset)">-->
-                        <!--<option value="&#45;&#45;" selected>&#45;&#45; Select &#45;&#45;</option>-->
-                        <!--<option ng-repeat="dsname in datasetCategory" value="{{dsname.dataset.id}}">{{dsname.dataset.name}}</option>-->
-                        <!--</select>-->
-                        <!--</td>-->
-                        <!--</tr>-->
-                        <!--<tr>-->
-                        <!--<td>-->
-                        <!--<i class="fa fa-check contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="objDataset.keydataset.description != '&#45;&#45;'"></i>-->
-                        <!--<i class="fa fa-clock-o contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="objDataset.keydataset.description == '&#45;&#45;'"></i>-->
-                        <!--Dataset description-->
-                        <!--</td>-->
-                        <!--<td>-->
-                        <!--<select class="form-control" ng-model="objDataset.keydataset.description" ng-disabled="objDataset.keydataset.dataset == '&#45;&#45;'">-->
-                        <!--<option value="&#45;&#45;" selected>&#45;&#45; Select &#45;&#45;</option>-->
-                        <!--<option ng-repeat="ds_desc in datasetDescription" value="{{ds_desc.description.id}}">{{ds_desc.description.name}}</option>-->
-                        <!--</select>-->
-                        <!--</td>-->
-                        <!--</tr>-->
-                        <!--<tr>-->
-                        <!--<td>-->
-                        <!--<i class="fa fa-check contribute_field_validator animated fadeIn" aria-hidden="true"></i>-->
-                        <!--Dataset TAGS <small>(optional)</small>-->
-                        <!--</td>-->
-                        <!--<td>-->
-                        <!--<span class="rodi_cb_space" ng-repeat="tag in datasetTags">-->
-                        <!--<input type="checkbox" ng-model="selectedTags" ng-change="setTags($index)"> {{tag}}-->
-                        <!--</span>-->
-                        <!--<br /><br />-->
-                        <!--<div class="input-group">-->
-                        <!--<span class="input-group-btn">-->
-                        <!--<button class="btn btn-info" type="button" ng-click="addTag(newTag)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add tag</button>-->
-                        <!--</span>-->
-                        <!--<input type="text" class="form-control" placeholder="Add new tag" ng-model="newTag">-->
-                        <!--</div>&lt;!&ndash; /input-group &ndash;&gt;-->
-                        <!--</td>-->
-                        <!--</tr>-->
-                        <!--</tbody>-->
-                        <!--</table>-->
-                        <!--</div>-->
-                        <!--</div>-->
-
-                        <!--<div class="row">-->
-                        <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >-->
-                        <!--<h1>B - Questions</h1>-->
-                        <!--<table class="table table-responsive table-striped table-bordered table-hover">-->
-                        <!--<thead>-->
-                        <!--<th>#Questions</th>-->
-                        <!--<th>#Answer</th>-->
-                        <!--</thead>-->
-                        <!--<tbody>-->
-                        <!--<tr ng-repeat="quest in questions">-->
-                        <!--<td>-->
-                        <!--<i class="fa fa-check contribute_field_validator animated fadeIn" aria-hidden="true" ng-if="questioncode"></i>-->
-                        <!--<i class="fa fa-clock-o contribute_field_validator_wait animated fadeIn" aria-hidden="true" ng-if="!questioncode"></i>-->
-                        <!--{{quest.desc}} (*)-->
-                        <!--</td>-->
-                        <!--<td>-->
-                        <!--<input type="radio" value="yes" ng-model="questioncode" ng-click="saveSelection(quest.code, 'true')"> <span class="rodi_cb_space">Yes</span>-->
-                        <!--<input type="radio" value="no" ng-model="questioncode" ng-click="saveSelection(quest.code, 'false')"> <span class="rodi_cb_space">No</span>-->
-                        <!--&nbsp;&nbsp;-->
-                        <!--<a href="" ng-click="questionHelp($index)"><i class="fa fa-question-circle" aria-hidden="true"></i></a>-->
-                        <!--<div ng-if="quest.altTXT">-->
-                        <!--<br />-->
-                        <!--<input type="text" ng-model="" class="form-control" placeholder="{{quest.altDesc}}" value="">-->
-                        <!--</div>-->
-                        <!--</td>-->
-                        <!--</tr>-->
-                        <!--</tbody>-->
-                        <!--</table>-->
-                        <!--</div>-->
-                        <!--</div>-->
-
-                        <!--<div class="row">-->
-                        <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >-->
-                        <!--<h1>C - Metadata</h1>-->
-                        <!--<table class="table table-responsive table-striped table-bordered table-hover">-->
-                        <!--<thead>-->
-                        <!--<th>#Info</th>-->
-                        <!--<th>#Link</th>-->
-                        <!--</thead>-->
-                        <!--<tbody>-->
-                        <!--<tr>-->
-                        <!--<td>-->
-                        <!--<i class="fa fa-check contribute_field_validator animated fadeIn" aria-hidden="true"></i>-->
-                        <!--Link of dataset data or metadata <small>(optional)</small>-->
-                        <!--</td>-->
-                        <!--<td>-->
-                        <!--<div class="input-group">-->
-                        <!--<span class="input-group-btn">-->
-                        <!--<button class="btn btn-info" type="button" ng-click="addLink(newLink)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add Link</button>-->
-                        <!--</span>-->
-                        <!--<input type="text" class="form-control" placeholder="Add new link" ng-model="newLink">-->
-                        <!--</div>-->
-                        <!--<br />-->
-                        <!--<ul>-->
-                        <!--<li ng-repeat="link in selectedLink">{{link}} <a href="" ng-click="deleteLink(link)"><i class="fa fa-trash-o" aria-hidden="true"></i></a></li>-->
-                        <!--</ul>-->
-                        <!--</td>-->
-                        <!--</tr>-->
-                        <!--<tr>-->
-                        <!--<td>-->
-                        <!--<i class="fa fa-check contribute_field_validator animated fadeIn" aria-hidden="true"></i>-->
-                        <!--Notes-->
-                        <!--</td>-->
-                        <!--<td><input type="text" class="form-control" placeholder="Notes" ng-model="objDataset.notes"></td>-->
-                        <!--</tr>-->
-                        <!--</tbody>-->
-                        <!--</table>-->
-                        <!--<br />-->
-
-                        <!--</div>-->
-                        <!--</div>-->
-
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
                                 <br /><br />
-                                <input type="button" class="btn btn-lg btn-success" value="Insert dataset" ng-click="saveDataset()">
+                                <input type="button" class="btn btn-lg btn-success" value="Submit dataset" ng-click="saveDataset()">
                             </div>
                         </div>
 
@@ -898,7 +689,7 @@
                                     <tr ng-repeat="mydataset in myDatasetList">
                                         <td>{{$index + 1}}</td>
                                         <td>{{mydataset.country}}</td>
-                                        <td>{{mydataset.keydataset.dataset}}</td>
+                                        <td>{{mydataset.keydataset.dataset.name}}</td>
                                         <td>{{mydataset.keydataset.category}}</td>
                                         <!--<td><a href="" ng-click="changepage('dataset_details.html?keyds=' + mydataset.id + '&ml=true') ">{{mydataset.keydataset.level}}</a></td>-->
                                         <td>{{mydataset.create_time | date: 'dd/MM/yyyy'}}</td>
@@ -964,7 +755,7 @@
                                         <td>{{$index + 1}}</td>
                                         <td>{{dsToReview.owner}}</td>
                                         <td>{{dsToReview.country}}</td>
-                                        <td>{{dsToReview.keydataset.dataset}}</td>
+                                        <td>{{dsToReview.keydataset.dataset.name}}</td>
                                         <td>{{dsToReview.keydataset.category}}</td>
                                         <!--<td><a href="" ng-click="changepage('dataset_details.html?keyds=' + mydataset.id + '&ml=true') ">{{mydataset.keydataset.level}}</a></td>-->
                                         <td>{{dsToReview.create_time | date: 'dd/MM/yyyy'}}</td>
