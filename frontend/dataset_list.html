@@ -151,12 +151,12 @@
             <!--<div class="row">-->
                 <!--<div class="hidden-xs col-sm-1 col-md-1 col-lg-1"></div>-->
                 <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">-->
-                    <table ng-table="tableParams" class="table  table-hover dataset text-left" show-filter="true">
+                    <table ng-table="tableParams" class="table table-hover dataset text-left" show-filter="true">
 
                         <tr ng-repeat="ds in $data">
                             <td title="'#'"><h5>{{$index + 1}}</h5></td>
                             <td title="'Dataset'" filter="{ 'keydataset.dataset': 'text'}" sortable="'keydataset.dataset'">
-                                <h5>{{ds.keydataset.dataset}}</h5></td>
+                                <h5>{{ds.keydataset.dataset.name}}</h5></td>
                             <td title="'Insert Date'" filter="{ create_time: 'number'}" sortable="'create_time'">
                                 <h5 class="text-center">{{ds.create_time | date: 'dd/MM/yyyy'}}</h5>
                             </td>

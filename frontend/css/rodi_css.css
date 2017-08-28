@@ -431,11 +431,11 @@ section#counter-stats {
 .stats {
     text-align: center;
     font-size: 35px;
-    font-weight: 700;
+    /*font-weight: 700;*/
     /*font-family: 'Montserrat', sans-serif;*/
 }
-.stats.small {font-size:20px;  }
-.stats.small .fa {font-size: 40px;}
+.stats.small {font-size:25px;  }
+.stats.small .fa {font-size: 30px;}
 .stats.small td {vertical-align: middle;}
 .stats .fa {
     color: #00C1FF;
@@ -443,7 +443,9 @@ section#counter-stats {
 }
 .stats.small td {padding:6px 0;}
 .stats.small.cut .fa {font-size:30px;  }
-.stats.small.cut td {padding:0;}
+.stats.small.cut td {/*padding:0;*/}
+
+.stats .counting{font-size: 30px; font-weight: 600;}
 
 /*/ end count stats /*/
 
@@ -487,7 +489,8 @@ section#counter-stats {
 .dataset_form_select_style { margin:1em;}
 .rodi_dataset_label_code{ padding-right:1em;}
 .dataset_form_select_style select {
-    width: 100%;
+    /*width: 100%;*/
+    min-width:100%;
     border: 2px solid #555;
     border-radius: 5px;
 }

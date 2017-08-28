@@ -753,7 +753,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         var obj =
             [
                 {
-                    name: "Base data", icon: "icon-base_data"
+                    name: "Base Data", icon: "icon-base_data"
                 },
                 {
                     name: "Hazard", icon: "icon-hazard_info"
@@ -837,9 +837,9 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
                 {code: "is_avail_online_meta", desc:"Is the metadata available online?", altTXT:"", altDesc:""},
                 {code: "is_bulk_avail", desc:"Available in bulk?", altTXT:"", altDesc:""},
                 {code: "is_machine_read", desc:"Is the data machine- readable?", altTXT:"is_machine_read_txt", altDesc:"machine alternative text"},
-                {code: "is_pub_available", desc:"Publicly available?", altTXT:"", altDesc:""},
+                {code: "is_pub_available", desc:"Is the data publicly available?", altTXT:"", altDesc:""},
                 {code: "is_avail_for_free", desc:"Is the data available for free?", altTXT:"", altDesc:""},
-                {code: "is_open_licence", desc:"Openly licensed?", altTXT:"is_open_licence_txt", altDesc:"license alternative text"},
+                {code: "is_open_licence", desc:"Is the data openly licensed?", altTXT:"is_open_licence_txt", altDesc:"license alternative text"},
                 {code: "is_prov_timely", desc:"Is the data provided on a timely and up to date basis?", altTXT:"", altDesc:""}
         ]
     };
@@ -857,9 +857,9 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
             {code: "is_avail_online_meta", desc:"Is the metadata available online?", altTXT:"", altDesc:""},
             {code: "is_bulk_avail", desc:"Available in bulk?", altTXT:"", altDesc:""},
             {code: "is_machine_read", desc:"Is the data machine- readable?", altTXT:"is_machine_read_txt", altDesc:"machine alternative text"},
-            {code: "is_pub_available", desc:"Publicly available?", altTXT:"", altDesc:""},
+            {code: "is_pub_available", desc:"Is the data publicly available?", altTXT:"", altDesc:""},
             {code: "is_avail_for_free", desc:"Is the data available for free?", altTXT:"", altDesc:""},
-            {code: "is_open_licence", desc:"Openly licensed?", altTXT:"is_open_licence_txt", altDesc:"license alternative text"},
+            {code: "is_open_licence", desc:"Is the data openly licensed?", altTXT:"is_open_licence_txt", altDesc:"license alternative text"},
             {code: "is_prov_timely", desc:"Is the data provided on a timely and up to date basis?", altTXT:"", altDesc:""}
         ];
 
@@ -1339,7 +1339,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         if(strpath.indexOf('methodology.html') != -1){return "2"};
         // if(strpath.indexOf('browse-data.html') != -1){return "3"};
         if(strpath.indexOf('register.html') != -1){return "4"};
-        // if(strpath.indexOf('country-details.html') != -1){return "5"};
+        if(strpath.indexOf('countries.html') != -1){return "5"};
         if(strpath.indexOf('dataset_details.html') != -1){return "6"};
         // if(strpath.indexOf('news-details.html') != -1){return "7"};
         if(strpath.indexOf('confirm_registration.html') != -1){return "8"};
