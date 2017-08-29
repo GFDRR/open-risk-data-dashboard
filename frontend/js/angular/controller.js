@@ -984,6 +984,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                     // Success
                     $scope.datasetList = data;
 
+                    console.log(data);
+
                     $scope.tableParams = new NgTableParams({}, { dataset: $scope.datasetList});
 
                 }, function(data)
@@ -1036,7 +1038,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                         } else {return 0}
                     };
 
-                    console.log(data);
                 }, function(data){
                     // Error API
                     console.log(data);
@@ -1134,6 +1135,21 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 return {"background-color" : 'white' } ;
             }else return "";
         };
+
+        $scope.formatStringLenght = function(desc){
+            var shortLink = "";
+
+            if (desc.length > 70)
+            {
+                shortLink = desc.substr(0, 70);
+                shortLink = shortLink + ' ...';
+            } else {
+                shortLink = desc;
+            }
+
+            return shortLink;
+
+        }
 
 
 

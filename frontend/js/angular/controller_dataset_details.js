@@ -276,6 +276,8 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
             // Update dataset info
             var aErrorsValidation = [];
 
+            clearNoAvailableTagsInSelected();
+
             // Set tags and links
             $scope.objDataset.tag = $scope.selectedTags;
             $scope.objDataset.url = $scope.selectedLink;
@@ -465,8 +467,6 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                 $scope.objDataset = dataDS;
                 $scope.objDatasetView = angular.copy(dataDS);
 
-                console.log(dataDS);
-
                 // Check if user logged in can edit dataset, LOAD DATASET PROFILE API
                 if($scope.objDataset.owner == $scope.userinfo.username || $scope.userinfo.groups[0] == 'reviewer' || $scope.userinfo.groups[0] == 'admin')
                 {
@@ -633,6 +633,19 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                 vex.dialog.alert("Error load dataset information");
             }
         );
+    }
+
+    function clearNoAvailableTagsInSelected()
+    {
+        // Delete the tags in selected array if these are not in allowed Tags
+        angular.forEach($scope.selectedTags, function(item) {
+            console.log(item);
+            if($scope.datasetTags.indexOf(item) == -1)
+            {
+                $scope.selectedTags.splice($scope.selectedTags.indexOf(item), 1);
+            };
+
+        });
     }
 
 } ]);

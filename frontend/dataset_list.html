@@ -186,19 +186,53 @@
                 <tr ng-repeat="ds in $data">
                     <td title="'#'"><h5>{{$index + 1}}</h5></td>
                     <td title="'Category'" filter="{ 'keydataset.category': 'text'}" sortable="'keydataset.category'">
-                        <h5>{{ds.keydataset.category}}</h5></td>
-                    <td title="'Dataset'" filter="{ 'keydataset.dataset.name': 'text'}" sortable="'keydataset.dataset.name'">
-                        <h5>{{ds.keydataset.dataset.name}}</h5></td>
-                    <td title="'Level'" filter="{ 'keydataset.level': 'text'}" sortable="'keydataset.level'">
-                        <h5>{{ds.keydataset.level}}</h5></td>
-                    <td title="'Tags'">
-                        <span ng-repeat="tag in ds.tag"><small>{{tag}}<span ng-if="!$last">,</span></small> </span>
+                        <h5>{{ds.keydataset.category}}</h5>
+                        <small>{{ds.keydataset.level}}</small>
                     </td>
+                    <td title="'Dataset'" filter="{ 'keydataset.dataset.name': 'text'}" sortable="'keydataset.dataset.name'">
+                        <h5>{{ds.keydataset.dataset.name}}</h5>
+                        {{formatStringLenght(ds.keydataset.description)}}<br /> <small><a href="" data-toggle="modal" data-target="#moreinfoModal{{$index}}">more info</a></small>
+                        <br /><br />
+                        Tags: <span ng-repeat="tag in ds.tag"><small>{{tag}}<span ng-if="!$last">,</span></small> </span>
+                        <br />
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="moreinfoModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="moreinfoModal{{$index}}label" aria-hidden="true">
+                            <div class="modal-dialog modal-lg" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="moreinfoModal{{$index}}label">{{ds.keydataset.category}} - {{ds.keydataset.dataset.name}} ({{ds.keydataset.level}})</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <strong>Description</strong>
+                                        <br />
+                                        {{ds.keydataset.description}}
+                                        <br /><br />
+                                        <strong>Notes</strong>
+                                        <br />
+                                        {{ds.notes}}
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </td>
+                    <!--<td title="'Level'" filter="{ 'keydataset.level': 'text'}" sortable="'keydataset.level'">
+                        <h5>{{ds.keydataset.level}}</h5></td>-->
+                    <!--<td title="'Tags'">
+                        <span ng-repeat="tag in ds.tag"><small>{{tag}}<span ng-if="!$last">,</span></small> </span>
+                    </td>-->
                     <td title="'Insert Date'" sortable="'create_time'">
                         <h5 class="text-center">{{ds.create_time | date: 'dd/MM/yyyy'}}</h5>
                     </td>
                     <td title="'Questions'">
-                        <div class="flex-container dataset_value">
+                        <div class=" dataset_value">
                             <i class="fa fa-check-circle-o" aria-hidden="{{ds.is_existing}}" data-toggle="tooltip" title="{{questions[0].desc}}"></i>
                             <i class="fa fa-desktop" aria-hidden="{{ds.is_digital_form}}" data-toggle="tooltip" title="{{questions[1].desc}}"></i>
                             <i class="fa fa-cloud" aria-hidden="{{ds.is_avail_online}}" data-toggle="tooltip" title="{{questions[2].desc}}"></i>
