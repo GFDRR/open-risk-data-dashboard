@@ -502,11 +502,6 @@ textarea.form-control {
     /*margin-top:1em;*/
 }
 
-.table>thead:first-child>tr:first-child>th
-{
-    text-align: left;
-}
-
 small.label {
     color:inherit;
     position: absolute;

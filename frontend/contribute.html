@@ -901,7 +901,23 @@
         <div ng-if="!bLogin">
             <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">-->
             <hr />
-            <div class="jumbotron"  >
+            <div class="jumbotron" ng-if="tabpar == '3'">
+                <div class="container">
+                    <h1 class="text-center">Please login</h1>
+                    <br><br>
+                    <h2 class="text-center">to complite your profile!</h2>
+                    <br><br><br><br>
+                    <div class="text-center">
+                        <button class="btn btn-primary btn-lg" type="button" ng-click="loginform()">
+                                <span class="rodi_big_text">
+                                    <i class="fa icon-login fa-2x"></i>
+                                    LOGIN NOW
+                                </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="jumbotron" ng-if="tabpar !== '3'">
                 <div class="container">
                     <h1 class="text-center">If you want to submit new dataset to Open Data for Resilience Index</h1>
                     <br><br>

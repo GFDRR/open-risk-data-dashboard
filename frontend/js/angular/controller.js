@@ -300,6 +300,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
         if($scope.tabpar)
         {
             $scope.tab = $scope.tabpar;
+
         } else {$scope.tab = 0;}
 
         // Dataset classification set
