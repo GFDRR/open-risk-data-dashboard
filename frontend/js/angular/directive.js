@@ -104,14 +104,14 @@ RodiApp.directive('region', ['$compile', '$window', function ($compile, $window)
     }
 }]);
 
-RodiApp.directive('hazardmenu',function(){
-    return {
-        transclude: true,
-        restrict: 'E',
-        controller: "RodiCtrl",
-        templateUrl: 'views/hazard_menu.html'
-    }
-});
+// RodiApp.directive('hazardmenu',function(){
+//     return {
+//         transclude: true,
+//         restrict: 'E',
+//         controller: "RodiCtrl",
+//         templateUrl: 'views/hazard_menu.html'
+//     }
+// });
 
 RodiApp.directive('mainmenu',function(){
     return {
@@ -122,20 +122,20 @@ RodiApp.directive('mainmenu',function(){
     }
 });
 
-RodiApp.directive('browsedata',function(){
-    return {
-        transclude: true,
-        restrict: 'E',
-        controller: "RodiCtrl",
-        templateUrl: 'views/browse_data.html'
-    }
-});
+// RodiApp.directive('browsedata',function(){
+//     return {
+//         transclude: true,
+//         restrict: 'E',
+//         controller: "RodiCtrl",
+//         templateUrl: 'views/browse_data.html'
+//     }
+// });
 
 RodiApp.directive('rodifooter',function(){
     return {
         transclude: true,
         restrict: 'E',
-        controller: "RodiCtrl",
+        controller: "RodiCtrlMainMenu",
         templateUrl: 'views/footer.html'
     }
 });
@@ -149,12 +149,12 @@ RodiApp.directive('loginform',function(){
     }
 });
 
-RodiApp.directive('helpfeedbackbox',function(){
-    return {
-        transclude: true,
-        restrict: 'E',
-        controller: "RodiCtrlMainMenu",
-        templateUrl: 'views/help_feedback_view.html'
-    }
-});
+// RodiApp.directive('helpfeedbackbox',function(){
+//     return {
+//         transclude: true,
+//         restrict: 'E',
+//         controller: "RodiCtrlMainMenu",
+//         templateUrl: 'views/help_feedback_view.html'
+//     }
+// });
 

@@ -984,8 +984,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                     // Success
                     $scope.datasetList = data;
 
-                    console.log(data);
-
                     $scope.tableParams = new NgTableParams({}, { dataset: $scope.datasetList});
 
                 }, function(data)
