@@ -14,30 +14,32 @@ def mailer_attach_image(msg, filename, imgname):
         msg.attach(msg_img)
 
 
-def mailer(address, subject, content_txt, content_html, template):
+def mailer(address, subject, content_html, content_txt, template):
     # You probably want all the following code in a function or method.
     # You also need to set subject, sender and to_mail yourself.
     html_content = render_to_string('ordd_api/mail_templates/%s.html'
                                     % template, content_html)
-    try:
-        text_content = render_to_string('ordd_api/mail_templates/%s.txt'
-                                        % template, content_txt)
-    except TemplateDoesNotExist:
-        text_content = html_content
+    if content_txt:
+        try:
+            text_content = render_to_string('ordd_api/mail_templates/%s.txt'
+                                            % template, content_txt)
+        except TemplateDoesNotExist:
+            text_content = html_content
 
     msg = EmailMultiAlternatives(subject, html_content,
                                  ORDD_ADMIN_MAIL, [address])
-
     msg.content_subtype = "html"
-    msg.attach_alternative(text_content, "text/plain")
+
+    if content_txt:
+        msg.attach_alternative(text_content, "text/plain")
 
     msg.mixed_subtype = 'related'
 
     # This is the code needed to add images as part of a multi-part email
-    #
-    # for f in ['img1.png', 'img2.png']:
-    #     mailer_attach_image(msg, os.path.join(
-    #         os.path.dirname(__file__), 'templates',
-    #         'ordd_api', 'mail_templates', f), f)
+
+    for f in ['riskopendataindex.gif', 'world-bg.gif', 'gfdrr.gif']:
+        mailer_attach_image(msg, os.path.join(
+            os.path.dirname(__file__), 'templates',
+            'ordd_api', 'mail_templates', 'img', f), f)
 
     msg.send()

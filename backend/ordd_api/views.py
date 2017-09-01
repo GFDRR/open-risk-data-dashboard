@@ -125,8 +125,16 @@ class RegistrationView(generics.CreateAPIView, generics.RetrieveAPIView):
 
         user.is_active = True
         user.save()
-
         optin.delete()
+
+        subject = ("%s: new user '%s' has activated his or her account" % (
+            MAIL_SUBJECT_PREFIX, user.username))
+        content = ("""New user '%s' has activated his or her account.<br>
+EMail address: '%s'.<br>""" % (user.username, user.email))
+        mailer(ORDD_ADMIN_MAIL, subject,
+               {"title": subject,
+                "content": content},
+               None, 'base')
 
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -163,6 +171,18 @@ class UserCreateView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         serializer.save()
+
+    def perform_destroy(self, instance):
+        subject = ("%s: user '%s' has been deleted" % (
+            MAIL_SUBJECT_PREFIX, instance.username))
+        content = ("""User '%s' has been deleted by an administrator.<br>"""
+                   % instance.username)
+        mailer(ORDD_ADMIN_MAIL, subject,
+               {"title": subject,
+                "content": content},
+               None, 'base')
+
+        instance.delete()
 
 
 class UserDetailsView(generics.RetrieveUpdateDestroyAPIView):
@@ -251,17 +271,12 @@ class ProfileDatasetListCreateView(generics.ListCreateAPIView):
                  post_field._meta.get_field(field).verbose_name,
                  "post": post_value})
 
-        mailer(
-            ORDD_ADMIN_MAIL, subject,
-            {"title": subject,
-             "owner": post_field.changed_by.username,
-             "table_title": "Created dataset:",
-             "rows": rows},
-            {"title": subject,
-             "owner": post_field.changed_by.username,
-             "table_title": "Created dataset:",
-             "rows": rows},
-            'create_by_owner')
+        mailer(ORDD_ADMIN_MAIL, subject,
+               {"title": subject,
+                "owner": post_field.changed_by.username,
+                "table_title": "Created dataset:",
+                "rows": rows},
+               None, 'create_by_owner')
 
 
 class ProfileDatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
@@ -358,17 +373,12 @@ class ProfileDatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
                  "pre": pre_value if pre_value != post_value else None})
 
         if (rows):
-            mailer(
-                ORDD_ADMIN_MAIL, subject,
-                {"title": subject,
-                 "changed_by": self.request.user.username,
-                 "is_reviewed": post['is_reviewed'].value,
-                 "rows": rows},
-                {"title": subject,
-                 "changed_by": self.request.user.username,
-                 "is_reviewed": post['is_reviewed'].value,
-                 "rows": rows},
-                'update_by_owner')
+            mailer(ORDD_ADMIN_MAIL, subject,
+                   {"title": subject,
+                    "changed_by": self.request.user.username,
+                    "is_reviewed": post['is_reviewed'].value,
+                    "rows": rows},
+                   None, 'update_by_owner')
 
     def perform_destroy(self, instance):
         post = DatasetPutSerializer(instance)
@@ -419,17 +429,12 @@ class ProfileDatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
                  instance._meta.get_field(field).verbose_name,
                  "post": post_value})
 
-        mailer(
-            ORDD_ADMIN_MAIL, subject,
-            {"title": subject,
-             "owner": instance.changed_by.username,
-             "table_title": "Deleted dataset:",
-             "rows": rows},
-            {"title": subject,
-             "owner": instance.changed_by.username,
-             "table_title": "Deleted dataset:",
-             "rows": rows},
-            'delete_by_owner')
+        mailer(ORDD_ADMIN_MAIL, subject,
+               {"title": subject,
+                "owner": instance.changed_by.username,
+                "table_title": "Deleted dataset:",
+                "rows": rows},
+               None, 'delete_by_owner')
         instance.delete()
 
 
@@ -544,15 +549,12 @@ class DatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
                  "pre": pre_value if pre_value != post_value else None})
 
         if (rows):
-            mailer(
-                post_field.owner.email, subject,
-                {"title": subject,
-                 "changed_by": post_field.changed_by.username,
-                 "is_reviewed": post['is_reviewed'].value, "rows": rows},
-                {"title": subject,
-                 "changed_by": post_field.changed_by.username,
-                 "is_reviewed": post['is_reviewed'].value, "rows": rows},
-                'update_by_reviewer')
+            mailer(post_field.owner.email, subject,
+                   {"title": subject,
+                    "changed_by": post_field.changed_by.username,
+                    "is_reviewed": post['is_reviewed'].value,
+                    "rows": rows},
+                   None, 'update_by_reviewer')
 
     def perform_destroy(self, instance):
         post = DatasetPutSerializer(instance)
@@ -603,17 +605,12 @@ class DatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
                  instance._meta.get_field(field).verbose_name,
                  "post": post_value})
 
-        mailer(
-            instance.owner.email, subject,
-            {"title": subject,
-             "reviewer": self.request.user.username,
-             "table_title": "Deleted dataset:",
-             "rows": rows},
-            {"title": subject,
-             "reviewer": self.request.user.username,
-             "table_title": "Deleted dataset:",
-             "rows": rows},
-            'delete_by_reviewer')
+        mailer(instance.owner.email, subject,
+               {"title": subject,
+                "reviewer": self.request.user.username,
+                "table_title": "Deleted dataset:",
+                "rows": rows},
+               None, 'delete_by_reviewer')
         instance.delete()
 
 
