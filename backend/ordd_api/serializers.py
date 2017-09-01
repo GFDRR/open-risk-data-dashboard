@@ -251,3 +251,11 @@ class DatasetPutSerializer(serializers.ModelSerializer):
         model = Dataset
         fields = '__all__'
         read_only_fields = ('changed_by', 'create_time', 'modify_time')
+
+
+class ProfileCommentSendSerializer(serializers.Serializer):
+    """
+Serializer for user comments
+"""
+    comment = serializers.CharField(required=True, max_length=10240)
+    page = serializers.URLField(required=True, max_length=1024)

@@ -19,7 +19,7 @@ from django.http import Http404
 from .serializers import (
     RegionSerializer, CountrySerializer, KeyPerilSerializer,
     ProfileSerializer, UserSerializer, RegistrationSerializer,
-    ChangePasswordSerializer,
+    ChangePasswordSerializer, ProfileCommentSendSerializer,
     ProfileDatasetListSerializer, ProfileDatasetCreateSerializer,
     DatasetListSerializer, DatasetPutSerializer)
 from .models import (Region, Country, OptIn, Dataset, KeyDataset,
@@ -191,6 +191,49 @@ class UserDetailsView(generics.RetrieveUpdateDestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = (permissions.IsAdminUser,)
+
+
+def compose_name(first_name, last_name, title, institution):
+    human_name = ""
+    if last_name:
+        if title:
+            human_name = title
+        if first_name:
+            human_name += "%s%s" % ((" " if human_name else ""), first_name)
+        human_name += " %s" % last_name
+        if institution:
+            human_name = "%s (%s)" % (human_name, institution)
+
+    return human_name
+
+
+class ProfileCommentSendView(APIView):
+    """This class provide send comment feature sending an email"""
+
+    serializer_class = ProfileCommentSendSerializer
+    permission_classes = (permissions.IsAuthenticated, )
+
+    def post(self, request):
+        instance = ProfileCommentSendSerializer(data=request.data)
+        instance.is_valid(raise_exception=True)
+
+        human_name = compose_name(request.user.first_name,
+                                  request.user.last_name,
+                                  request.user.profile.title,
+                                  request.user.profile.institution)
+
+        subject = ("%s: comment from user '%s'" % (
+            MAIL_SUBJECT_PREFIX,
+            request.user.username))
+
+        mailer(ORDD_ADMIN_MAIL, subject,
+               {"title": subject,
+                "human_name": human_name,
+                "comment": instance.validated_data['comment'],
+                "page": instance.validated_data['page']},
+               None, 'comment', from_addr=request.user.email)
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class IsOwner(permissions.BasePermission):

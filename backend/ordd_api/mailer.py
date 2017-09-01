@@ -14,7 +14,8 @@ def mailer_attach_image(msg, filename, imgname):
         msg.attach(msg_img)
 
 
-def mailer(address, subject, content_html, content_txt, template):
+def mailer(address, subject, content_html, content_txt, template,
+           from_addr=None):
     # You probably want all the following code in a function or method.
     # You also need to set subject, sender and to_mail yourself.
     html_content = render_to_string('ordd_api/mail_templates/%s.html'
@@ -26,8 +27,10 @@ def mailer(address, subject, content_html, content_txt, template):
         except TemplateDoesNotExist:
             text_content = html_content
 
+    if from_addr is None:
+        from_addr = ORDD_ADMIN_MAIL
     msg = EmailMultiAlternatives(subject, html_content,
-                                 ORDD_ADMIN_MAIL, [address])
+                                 from_addr, [address])
     msg.content_subtype = "html"
 
     if content_txt:
