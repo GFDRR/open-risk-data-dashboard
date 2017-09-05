@@ -7,8 +7,7 @@ from django.db import transaction
 from django.db import IntegrityError
 from rest_framework import serializers
 from rest_framework.serializers import ValidationError
-from .models import (Region, Country, KeyTag, Profile, OptIn, Dataset, Url,
-                     KeyTag)
+from .models import (Region, Country, KeyTag, Profile, OptIn, Dataset, Url)
 from ordd_api import MAIL_SUBJECT_PREFIX
 
 from .keydatasets_serializers import KeyDataset4on4Serializer
@@ -155,10 +154,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
                        {"title": subject,
                         "subject_prefix": MAIL_SUBJECT_PREFIX,
                         "reply_url": reply_url},
-                       {"title": subject,
-                        "subject_prefix": MAIL_SUBJECT_PREFIX,
-                        "reply_url": reply_url},
-                       'registration_confirm')
+                       None, 'registration_confirm')
         except IntegrityError:
             raise ValidationError({
                 'ret': 'Some DB error occurred.'
@@ -255,3 +251,11 @@ class DatasetPutSerializer(serializers.ModelSerializer):
         model = Dataset
         fields = '__all__'
         read_only_fields = ('changed_by', 'create_time', 'modify_time')
+
+
+class ProfileCommentSendSerializer(serializers.Serializer):
+    """
+Serializer for user comments
+"""
+    comment = serializers.CharField(required=True, max_length=10240)
+    page = serializers.URLField(required=True, max_length=1024)

@@ -235,14 +235,15 @@ class Dataset(models.Model):
     create_time = models.DateTimeField(auto_now_add=True)
     modify_time = models.DateTimeField(auto_now=True)
     changed_by = models.ForeignKey('auth.User', blank=True, null=True)
-    notes = models.TextField(blank=True, null=False)
+    notes = models.TextField("Notes about dataset", blank=True, null=False)
     url = models.ManyToManyField(Url, blank=True)
     is_existing = models.BooleanField(
         "Does the data exist?",
         help_text="Does the data exist at all? The data can be in any form "
         "(paper or digital, offline or online etc). If it is not, then "
         "all the other questions are not answered.")
-    is_existing_txt = models.TextField(blank=True, null=False)
+    is_existing_txt = models.TextField("Comments on 'Does the data exist?'",
+                                       blank=True, null=False)
     is_digital_form = models.BooleanField(
         "Is data in digital form?", help_text="This question addresses "
         "whether the data is in digital form (stored on computers or "
@@ -277,7 +278,8 @@ class Dataset(models.Model):
         "readable formats for geographic data may be different than for "
         "tabular data. In general, HTML and PDF are not machine-readable."
     )
-    is_machine_read_txt = models.TextField(blank=True, null=False)
+    is_machine_read_txt = models.TextField(
+        "Comments on 'is the data machine-readable?'", blank=True, null=False)
     is_pub_available = models.BooleanField(
         "Publicly available?", help_text="This question addresses whether "
         "the data is \"public\". This does not require it to be "
@@ -300,7 +302,8 @@ class Dataset(models.Model):
         "there is no licence, the data is not openly licensed). Open licences "
         "which meet the requirements of the Open Definition are listed at "
         "http://opendefinition.org/licenses/.")
-    is_open_licence_txt = models.TextField(blank=True, null=False)
+    is_open_licence_txt = models.TextField("Comments on: 'Openly licensed?'",
+                                           blank=True, null=False)
     is_prov_timely = models.BooleanField(
         "Is the data provided on a timely and up to date basis?",
         help_text="This question addresses whether the data is up to date and "
