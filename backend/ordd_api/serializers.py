@@ -9,6 +9,7 @@ from rest_framework import serializers
 from rest_framework.serializers import ValidationError
 from .models import (Region, Country, KeyTag, Profile, OptIn, Dataset, Url)
 from ordd_api import MAIL_SUBJECT_PREFIX
+from ordd.settings import EMAIL_CONFIRM_PROTO
 
 from .keydatasets_serializers import KeyDataset4on4Serializer
 from .mailer import mailer
@@ -145,9 +146,10 @@ class RegistrationSerializer(serializers.ModelSerializer):
                            % (MAIL_SUBJECT_PREFIX, user.username))
                 # use 'http' because where 'https' is required an automatic
                 # redirect is triggered
-                reply_url = ("http://%s/confirm_registration.html"
+                reply_url = ("%s://%s/confirm_registration.html"
                              "?username=%s&key=%s"
-                             % (self.context['request'].get_host(),
+                             % (EMAIL_CONFIRM_PROTO,
+                                self.context['request'].get_host(),
                                 user.username,
                                 optin.key))
                 mailer(user.email, subject,
