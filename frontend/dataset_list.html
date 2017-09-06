@@ -119,16 +119,17 @@
                 <div class="" id="menu-hazard">
                     <ul class="nav navbar-nav text-center">
                         <li ng-style="filterCategoryCssStyle(hc.category.name)"  ng-class="filterCategoryCssClass(hc.category.name)" ng-repeat="hc in HazardCategory">
-                            <a href="" ng-click="setFilterCategoryDatasetList(hc.category.name)" ng-if="getCategoryNumber(hc.category.name) !== 0">
+                            <!--<a href="" ng-click="setFilterCategoryDatasetList(hc.category.name)" ng-if="getCategoryNumber(hc.category.name) !== 0">-->
+                            <a href="" ng-click="setFilterCategoryDatasetList(hc.category.name)">
                                 <i class="{{getHCIcon(hc.category.id)}} fa-2x"></i>
                                 <span>{{hc.category.name}}</span>
                                 <div class="rodi_counter_number">{{getCategoryNumber(hc.category.name)}}</div>
                             </a>
-                            <a href="" ng-if="getCategoryNumber(hc.category.name) == 0">
+                            <!--<a href="" ng-if="getCategoryNumber(hc.category.name) == 0">
                                 <i class="{{getHCIcon(hc.category.id)}} fa-2x" style="color:#e0e0e0; border-color:#e0e0e0;"></i>
                                 <span>{{hc.category.name}}</span>
                                 <div class="rodi_counter_number_disable">0</div>
-                            </a>
+                            </a>-->
                         </li>
                         <div class="menu_sep"></div>
 
@@ -152,7 +153,7 @@
                 <div style="padding:20px; font-size:20px;">
                     <br />
                     <div class="row">
-                        <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 stats small">
+                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 stats small">
                             <div class="panel panel-default">
                                 <div class="panel-body">
                                     Total score: {{score}}%
@@ -164,12 +165,20 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 stats small">
+                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 stats small">
 
-                            <div class="panel panel-default">
-                                <div class="panel-body">
-                                    Datasets<br />
+                            <div class="panel panel-default rodi_pointer" ng-click="setView('i')">
+                                <div class="panel-body" ng-class="{'rodi_panel_active': bViewIstances}">
+                                    Dataset instances<br />
                                     <span class="counting">{{datasetList.length}}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 stats small" ng-click="setView('m')">
+                            <div class="panel panel-default rodi_pointer">
+                                <div class="panel-body" ng-class="{'rodi_panel_active': bViewMissing}">
+                                    Missing Datasets<br />
+                                    <span class="counting">{{missingDatasets.length}}</span>
                                 </div>
                             </div>
                         </div>
@@ -180,87 +189,141 @@
         </div>
 
         <div class="jumbotron dataset">
+            <!-- Dataset istances -->
+            <div ng-show="bViewIstances">
+                <table ng-table="tableParams" class="table table-hover dataset text-left" show-filter="true">
 
-            <table ng-table="tableParams" class="table table-hover dataset text-left" show-filter="true">
+                    <tr ng-repeat="ds in $data">
+                        <td title="'#'"><h5>{{$index + 1}}</h5></td>
+                        <td title="'Category'" filter="{ 'keydataset.category': 'text'}" sortable="'keydataset.category'">
+                            <h5>{{ds.keydataset.category}}</h5>
+                            <small>{{ds.keydataset.level}}</small>
+                        </td>
+                        <td title="'Dataset'" filter="{ 'keydataset.dataset.name': 'text'}" sortable="'keydataset.dataset.name'">
+                            <h5>{{ds.keydataset.dataset.name}}</h5>
+                            {{formatStringLenght(ds.keydataset.description)}}<br /> <small><a href="" data-toggle="modal" data-target="#moreinfoModal{{$index}}">more info</a></small>
+                            <br /><br />
+                            Tags: <span ng-repeat="tag in ds.tag"><small>{{tag}}<span ng-if="!$last">,</span></small> </span>
+                            <br />
 
-                <tr ng-repeat="ds in $data">
-                    <td title="'#'"><h5>{{$index + 1}}</h5></td>
-                    <td title="'Category'" filter="{ 'keydataset.category': 'text'}" sortable="'keydataset.category'">
-                        <h5>{{ds.keydataset.category}}</h5>
-                        <small>{{ds.keydataset.level}}</small>
-                    </td>
-                    <td title="'Dataset'" filter="{ 'keydataset.dataset.name': 'text'}" sortable="'keydataset.dataset.name'">
-                        <h5>{{ds.keydataset.dataset.name}}</h5>
-                        {{formatStringLenght(ds.keydataset.description)}}<br /> <small><a href="" data-toggle="modal" data-target="#moreinfoModal{{$index}}">more info</a></small>
-                        <br /><br />
-                        Tags: <span ng-repeat="tag in ds.tag"><small>{{tag}}<span ng-if="!$last">,</span></small> </span>
-                        <br />
-
-                        <!-- Modal -->
-                        <div class="modal fade" id="moreinfoModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="moreinfoModal{{$index}}label" aria-hidden="true">
-                            <div class="modal-dialog modal-lg" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title" id="moreinfoModal{{$index}}label">{{ds.keydataset.category}} - {{ds.keydataset.dataset.name}} ({{ds.keydataset.level}})</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <strong>Description</strong>
-                                        <br />
-                                        {{ds.keydataset.description}}
-                                        <br /><br />
-                                        <strong>Notes</strong>
-                                        <br />
-                                        {{ds.notes}}
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                            <!-- Modal -->
+                            <div class="modal fade" id="moreinfoModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="moreinfoModal{{$index}}label" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="moreinfoModal{{$index}}label">{{ds.keydataset.category}} - {{ds.keydataset.dataset.name}} ({{ds.keydataset.level}})</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <strong>Description</strong>
+                                            <br />
+                                            {{ds.keydataset.description}}
+                                            <br /><br />
+                                            <strong>Notes</strong>
+                                            <br />
+                                            {{ds.notes}}
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
 
-                    </td>
-                    <!--<td title="'Level'" filter="{ 'keydataset.level': 'text'}" sortable="'keydataset.level'">
-                        <h5>{{ds.keydataset.level}}</h5></td>-->
-                    <!--<td title="'Tags'">
-                        <span ng-repeat="tag in ds.tag"><small>{{tag}}<span ng-if="!$last">,</span></small> </span>
-                    </td>-->
-                    <td title="'Insert Date'" sortable="'create_time'">
-                        <h5 class="text-center">{{ds.create_time | date: 'dd/MM/yyyy'}}</h5>
-                    </td>
-                    <td title="'Questions'">
-                        <div class=" dataset_value">
-                            <i class="fa fa-check-circle-o" aria-hidden="{{ds.is_existing}}" data-toggle="tooltip" title="{{questions[0].desc}}"></i>
-                            <i class="fa fa-desktop" aria-hidden="{{ds.is_digital_form}}" data-toggle="tooltip" title="{{questions[1].desc}}"></i>
-                            <i class="fa fa-cloud" aria-hidden="{{ds.is_avail_online}}" data-toggle="tooltip" title="{{questions[2].desc}}"></i>
-                            <i class="fa fa-tag" aria-hidden="{{ds.is_avail_online_meta}}" data-toggle="tooltip" title="{{questions[3].desc}}"></i>
-                            <i class="fa fa-copy" aria-hidden="{{ds.is_bulk_avail}}" data-toggle="tooltip" title="{{questions[4].desc}}"></i>
-                            <i class="fa fa-keyboard-o" aria-hidden="{{ds.is_machine_read}}" data-toggle="tooltip" title="{{questions[5].desc}}"></i>
-                            <i class="fa fa-eye" aria-hidden="{{ds.is_pub_available}}" data-toggle="tooltip" title="{{questions[6].desc}}"></i>
-                            <i class="fa fa-dollar" aria-hidden="{{ds.is_avail_for_free}}" data-toggle="tooltip" title="{{questions[7].desc}}"></i>
-                            <i class="fa fa-unlock-alt" aria-hidden="{{ds.is_open_licence}}" data-toggle="tooltip" title="{{questions[8].desc}}"></i>
-                            <i class="fa fa-clock-o" aria-hidden="{{ds.is_prov_timely}}" data-toggle="tooltip" title="{{questions[9].desc}}"></i>
-                        </div>
-                    </td>
-                    <!--<td title="'Year'" filter="{ create_time: 'number'}" sortable="'create_time'" class="text-center">
-                        <h5>{{ds.create_time | date: 'yyyy'}}</h5>
-                    </td>-->
-                    <td  sortable="'is_reviewed'" title="'Review'" class="text-center status">
-                        <div class="flex-container flex-row">
-                            <i class="fa fa-2x fa-check-circle-o ok" aria-hidden="true" ng-if="ds.is_reviewed" ></i>
-                            <i class="fa fa-2x fa-clock-o rev" aria-hidden="true" ng-if="!ds.is_reviewed" ></i>
-                            <!--<i class="fa fa-2x fa-clock-o" aria-hidden="true" ng-if="!ds.is_reviewed" style="color:#eea236; color:rgba(51, 122, 183, 0.7);"></i>-->
-                            <a class="" href="" title="details" ng-click="changepage('dataset_details.html?keyds=' + ds.id)">
-                                <i class="fa fa-2x fa-search"></i>
-                            </a>
-                        </div>
-                    </td>
+                        </td>
+                        <!--<td title="'Level'" filter="{ 'keydataset.level': 'text'}" sortable="'keydataset.level'">
+                            <h5>{{ds.keydataset.level}}</h5></td>-->
+                        <!--<td title="'Tags'">
+                            <span ng-repeat="tag in ds.tag"><small>{{tag}}<span ng-if="!$last">,</span></small> </span>
+                        </td>-->
+                        <td title="'Insert Date'" sortable="'create_time'">
+                            <h5 class="text-center">{{ds.create_time | date: 'dd/MM/yyyy'}}</h5>
+                        </td>
+                        <td title="'Questions'">
+                            <div class=" dataset_value">
+                                <i class="fa fa-check-circle-o" aria-hidden="{{ds.is_existing}}" data-toggle="tooltip" title="{{questions[0].desc}}"></i>
+                                <i class="fa fa-desktop" aria-hidden="{{ds.is_digital_form}}" data-toggle="tooltip" title="{{questions[1].desc}}"></i>
+                                <i class="fa fa-cloud" aria-hidden="{{ds.is_avail_online}}" data-toggle="tooltip" title="{{questions[2].desc}}"></i>
+                                <i class="fa fa-tag" aria-hidden="{{ds.is_avail_online_meta}}" data-toggle="tooltip" title="{{questions[3].desc}}"></i>
+                                <i class="fa fa-copy" aria-hidden="{{ds.is_bulk_avail}}" data-toggle="tooltip" title="{{questions[4].desc}}"></i>
+                                <i class="fa fa-keyboard-o" aria-hidden="{{ds.is_machine_read}}" data-toggle="tooltip" title="{{questions[5].desc}}"></i>
+                                <i class="fa fa-eye" aria-hidden="{{ds.is_pub_available}}" data-toggle="tooltip" title="{{questions[6].desc}}"></i>
+                                <i class="fa fa-dollar" aria-hidden="{{ds.is_avail_for_free}}" data-toggle="tooltip" title="{{questions[7].desc}}"></i>
+                                <i class="fa fa-unlock-alt" aria-hidden="{{ds.is_open_licence}}" data-toggle="tooltip" title="{{questions[8].desc}}"></i>
+                                <i class="fa fa-clock-o" aria-hidden="{{ds.is_prov_timely}}" data-toggle="tooltip" title="{{questions[9].desc}}"></i>
+                            </div>
+                        </td>
+                        <!--<td title="'Year'" filter="{ create_time: 'number'}" sortable="'create_time'" class="text-center">
+                            <h5>{{ds.create_time | date: 'yyyy'}}</h5>
+                        </td>-->
+                        <td  sortable="'is_reviewed'" title="'Review'" class="text-center status">
+                            <div class="flex-container flex-row">
+                                <i class="fa fa-2x fa-check-circle-o ok" aria-hidden="true" ng-if="ds.is_reviewed" ></i>
+                                <i class="fa fa-2x fa-clock-o rev" aria-hidden="true" ng-if="!ds.is_reviewed" ></i>
+                                <!--<i class="fa fa-2x fa-clock-o" aria-hidden="true" ng-if="!ds.is_reviewed" style="color:#eea236; color:rgba(51, 122, 183, 0.7);"></i>-->
+                                <a class="" href="" title="details" ng-click="changepage('dataset_details.html?keyds=' + ds.id)">
+                                    <i class="fa fa-2x fa-search"></i>
+                                </a>
+                            </div>
+                        </td>
 
-                </tr>
-            </table>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- Missing datasets -->
+            <div ng-show="bViewMissing">
+                <table ng-table="tableParamsMissing" class="table table-hover dataset text-left" show-filter="true" >
+                    <tr ng-repeat="ds in $data" class="rodi_pointer" ng-click="changepage('contribute.html?ctr=' + idCountry + '&ds=' + ds.name)">
+                        <td title="'#'"><h5>{{$index + 1}}</h5></td>
+                        <td title="'Category'" filter="{ 'category': 'text'}" sortable="'category'">
+                            <h5>{{ds.category}}</h5>
+                        </td>
+                        <td title="'Dataset'" filter="{ 'name': 'text'}" sortable="'name'">
+                            <h5>{{ds.name}}</h5>
+                            <!-- Modal -->
+                        </td>
+                        <!--<td title="'Level'" filter="{ 'keydataset.level': 'text'}" sortable="'keydataset.level'">
+                            <h5>{{ds.keydataset.level}}</h5></td>-->
+                        <!--<td title="'Tags'">
+                            <span ng-repeat="tag in ds.tag"><small>{{tag}}<span ng-if="!$last">,</span></small> </span>
+                        </td>-->
+                        <td title="'Insert Date'">
+                            <h5 class="text-center">--/--/----</h5>
+                        </td>
+                        <td title="'Questions'">
+                            <div class=" dataset_value">
+                                <i class="fa fa-check-circle-o missing_data" aria-hidden="false" data-toggle="tooltip" title="{{questions[0].desc}}"></i>
+                                <i class="fa fa-desktop missing_data" aria-hidden="false" data-toggle="tooltip" title="{{questions[1].desc}}"></i>
+                                <i class="fa fa-cloud missing_data" aria-hidden="false" data-toggle="tooltip" title="{{questions[2].desc}}"></i>
+                                <i class="fa fa-tag missing_data" aria-hidden="false" data-toggle="tooltip" title="{{questions[3].desc}}"></i>
+                                <i class="fa fa-copy missing_data" aria-hidden="false" data-toggle="tooltip" title="{{questions[4].desc}}"></i>
+                                <i class="fa fa-keyboard-o missing_data" aria-hidden="false" data-toggle="tooltip" title="{{questions[5].desc}}"></i>
+                                <i class="fa fa-eye missing_data" aria-hidden="false" data-toggle="tooltip" title="{{questions[6].desc}}"></i>
+                                <i class="fa fa-dollar missing_data" aria-hidden="false" data-toggle="tooltip" title="{{questions[7].desc}}"></i>
+                                <i class="fa fa-unlock-alt missing_data" aria-hidden="false" data-toggle="tooltip" title="{{questions[8].desc}}"></i>
+                                <i class="fa fa-clock-o missing_data" aria-hidden="false" data-toggle="tooltip" title="{{questions[9].desc}}"></i>
+                            </div>
+                        </td>
+                        <!--<td title="'Year'" filter="{ create_time: 'number'}" sortable="'create_time'" class="text-center">
+                            <h5>{{ds.create_time | date: 'yyyy'}}</h5>
+                        </td>-->
+                        <td  sortable="'is_reviewed'" title="'Review'" class="text-center status">
+                            <div class="flex-container flex-row">
+                                <i class="fa fa-2x fa-clock-o rev missing_data" aria-hidden="true"></i>
+                                <!--<i class="fa fa-2x fa-clock-o" aria-hidden="true" ng-if="!ds.is_reviewed" style="color:#eea236; color:rgba(51, 122, 183, 0.7);"></i>-->
+                                <a class="" href="" title="details">
+                                    <i class="fa fa-2x fa-search missing_data"></i>
+                                </a>
+                            </div>
+                        </td>
+
+                    </tr>
+                </table>
+            </div>
+
 
             <div class="rodi_loading" ng-if="bLoading"><i class="fa fa-spinner fa-spin fa-3x fa-fw"></i> Loading data ...</div>
             <div ng-if="bNoDataset" class="text-center"><br /><h3>No dataset found</h3></div>

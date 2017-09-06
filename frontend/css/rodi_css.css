@@ -1751,6 +1751,21 @@ responsive
     border-radius: 100%;
 }
 
+.missing_data
+{
+    background-color: #c0c0c0 !important;
+}
+
+.rodi_pointer
+{
+    cursor: pointer;
+}
+
+.rodi_panel_active
+{
+    border-bottom: solid 2px green;
+}
+
 
 
 
