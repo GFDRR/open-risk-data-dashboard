@@ -926,6 +926,10 @@ class Score(object):
             raise Http404()
         queryset = Dataset.objects.filter(
             country__iso2=country_id).order_by('keydataset__pk')
+
+        dsname_set = {x[0] for x in queryset.values_list(
+            'keydataset__dataset').distinct()}
+
         applicability = request.query_params.getlist('applicability')
         category = request.query_params.getlist('category')
         if applicability:
@@ -1036,9 +1040,6 @@ class Score(object):
                                     'count': count,
                                     'fullcount': fullcount,
                                     'notable': notable})
-
-        dsname_set = {x[0] for x in queryset.values_list(
-            'keydataset__dataset').distinct()}
 
         for dsname in KeyDatasetName.objects.all().exclude(
                 pk__in=dsname_set).order_by('category', 'name'):
