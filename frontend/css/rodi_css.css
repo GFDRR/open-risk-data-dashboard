@@ -132,7 +132,7 @@ section + section
 .rodi_big_text_page
 {
     font-size:23px;
-    line-height: 30px;
+    line-height: 38px;
 }
 
 .rodi_big_text i {color:white;}
@@ -517,7 +517,7 @@ small.label {
 
 .rodi_dataset_label
 {
-    font-size:30px;
+    font-size:26px;
     color:#000000;
 }
 
@@ -732,7 +732,7 @@ Footer
 }
 
 
-.rodi_footer #menu-website a {    color:#329ad1;}
+.rodi_footer #menu-website a {    /*color:#329ad1;*/ color:#ee3036;}
 .rodi_footer #menu-website li:last-child {display:none;}
 
 /* ************************************ */
@@ -1723,7 +1723,7 @@ responsive
 {
     position: absolute;
     top:0;
-    right:0;
+    /*right:0;*/
     padding:3px;
     height:25px;
     width:25px;
@@ -1733,13 +1733,14 @@ responsive
     -webkit-border-radius: 100%;
     -moz-border-radius: 100%;
     border-radius: 100%;
+    margin-left:2em;
 }
 
 .rodi_counter_number_disable
 {
     position: absolute;
     top:0;
-    right:0;
+    /*right:0;*/
     padding:3px;
     height:25px;
     width:25px;
@@ -1749,6 +1750,7 @@ responsive
     -webkit-border-radius: 100%;
     -moz-border-radius: 100%;
     border-radius: 100%;
+    margin-left:2em;
 }
 
 .missing_data

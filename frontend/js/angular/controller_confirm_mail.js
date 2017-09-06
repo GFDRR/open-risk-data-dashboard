@@ -2,7 +2,7 @@
  * Created by Manuel on 20/06/2017.
  */
 
-RodiApp.controller('RodiCtrlConfirmMail', ['$scope', 'RodiSrv', '$location', function ($scope, RodiSrv, $location) {
+RodiApp.controller('RodiCtrlConfirmMail', ['$scope', 'RodiSrv', '$location', '$window', function ($scope, RodiSrv, $location, $window) {
 
     // ************************************** //
     // ********** INIT CONFIRM ************** //
@@ -10,24 +10,26 @@ RodiApp.controller('RodiCtrlConfirmMail', ['$scope', 'RodiSrv', '$location', fun
 
     RodiSrv.checkAPIversion(function(data){}, function(data){});
 
-    if ($location.path().indexOf('confirm_registration.html') !== -1)
+    $scope.usernamepar = $location.search().username;
+    $scope.keypar = $location.search().key;
+    $scope.bRegConfirm = true;
+    $scope.errormsg = "";
+
+    RodiSrv.sendConfirmRegistration($scope.usernamepar, $scope.keypar,
+        function(data)
+        {
+            // Success
+            $scope.bRegConfirm = true;
+
+        }, function(data){
+            // Error
+            $scope.bRegConfirm = false;
+            $scope.errormsg = data.detail;
+    });
+
+    $scope.changepage = function(page)
     {
-        $scope.usernamepar = $location.search().username;
-        $scope.keypar = $location.search().key;
-        $scope.bRegConfirm = true;
-        $scope.errormsg = "";
-
-        RodiSrv.sendConfirmRegistration($scope.usernamepar, $scope.keypar,
-            function(data)
-            {
-                // Success
-                $scope.bRegConfirm = true;
-
-            }, function(data){
-                // Error
-                $scope.bRegConfirm = false;
-                $scope.errormsg = data.detail;
-            })
+        $window.location.href = baseUrl + page;
     }
 
 } ]);

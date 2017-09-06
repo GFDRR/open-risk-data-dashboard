@@ -347,7 +347,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 $scope.datasetCategoryAll = angular.copy(data);
 
                 // Check dataset parameter
-                if($scope.datasetpar !== '')
+                if($scope.datasetpar)
                 {
                     var aItem = [];
                     aItem = $filter('filter')($scope.datasetCategory, function(item)
@@ -478,7 +478,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 $scope.countryList = data;
 
                 // Check country parameters
-                if($scope.countrypar !== '')
+                if($scope.countrypar)
                 {
                     $scope.objDataset.country = $scope.countrypar;
                 };
@@ -640,7 +640,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                     function(data)
                     {
                         $scope.datasetDescription = data;
-                        console.log(data);
 
                         //Set National description like default selection
                         var nationalDesc = $filter('filter')($scope.datasetDescription, function(item){
