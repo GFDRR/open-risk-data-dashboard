@@ -926,6 +926,7 @@ class Score(object):
             raise Http404()
         queryset = Dataset.objects.filter(
             country__iso2=country_id).order_by('keydataset__pk')
+        kqueryset = KeyDataset.objects.all().order_by('pk')
 
         dsname_set = {x[0] for x in queryset.values_list(
             'keydataset__dataset').distinct()}
@@ -934,18 +935,26 @@ class Score(object):
         category = request.query_params.getlist('category')
         if applicability:
             q = Q()
+            kq = Q()
             for v in applicability:
                 # FIXME currently in tag we may have extra applicabilities
                 # when category (tag group) is 'hazard'
                 q = q | (Q(keydataset__applicability__name__iexact=v) |
                          Q(tag__name__iexact=v))
+                kq = kq | Q(applicability__name__iexact=v)
+
             queryset = queryset.filter(q).distinct()
+            kqueryset = kqueryset.filter(kq).distinct()
 
         if category:
             q = Q()
+            kq = Q()
             for v in category:
                 q = q | Q(keydataset__category__name__iexact=v)
+                kq = kq | Q(category__name__iexact=v)
+
             queryset = queryset.filter(q).distinct()
+            kqueryset = kqueryset.filter(kq).distinct()
 
         th_applicability = set()
         for appl in country.thinkhazard_appl.all():
@@ -961,7 +970,6 @@ class Score(object):
         for dataset in fullscore_queryset:
             cls.country_loadtree(request, country_fullscore_tree, dataset,
                                  th_applicability)
-
 
         datasets_count = queryset.count()
         fullscores_count = fullscore_queryset.count()
@@ -1041,7 +1049,13 @@ class Score(object):
                                     'fullcount': fullcount,
                                     'notable': notable})
 
-        for dsname in KeyDatasetName.objects.all().exclude(
+        if applicability or category:
+            kdn = KeyDatasetName.objects.filter(
+                keydatasets__in=kqueryset).distinct()
+        else:
+            kdn = KeyDatasetName.objects.all()
+
+        for dsname in kdn.exclude(
                 pk__in=dsname_set).order_by('category', 'name'):
             ret_missing_datasets.append(
                 {"id": dsname.pk, "name": dsname.name,
