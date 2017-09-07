@@ -1349,20 +1349,27 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         return "0";
     }
 
-    this.sendFeedback = function(obj)
+    this.sendFeedback = function(obj, token, onSuccess, onError)
     {
-        /*
-        send user feedback (only registred user)
-        obj =
-        {
-            userid: "user name",
-            page: "ex: index.html",
-            text: "message of feedback",
-            data: "01/06/2017"
+
+        // send user feedback (only registred user)
+        var req = {
+            method: 'PUT',
+            url: baseAPIurl + '/profile/comment/send',
+            headers: {
+                'Authorization': 'Token ' + token
+            },
+            data: {
+                "comment": obj.comment,
+                "page": obj.page
+            }
         }
-         */
-        console.log(obj);
-        return true;
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
     }
 
     // ************************************** //

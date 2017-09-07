@@ -93,8 +93,6 @@ RodiApp.directive('region', ['$compile', '$window', function ($compile, $window)
                     }
                 }
 
-
-
                 element.removeAttr("region");
                 $compile(element)(scope);
 
