@@ -56,8 +56,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
         {
             //Success API
 
-            console.log(data);
-
             // Finding country score for MAP
             // var arrayStates = [];
             // var dataTemp = [];

@@ -1354,7 +1354,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 
         // send user feedback (only registred user)
         var req = {
-            method: 'PUT',
+            method: 'POST',
             url: baseAPIurl + '/profile/comment/send',
             headers: {
                 'Authorization': 'Token ' + token

@@ -11,7 +11,7 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
     $scope.indexPage = "0"; // page 0 -> index (utilizzato per i contenuti contestuali)
     $scope.showHelpIndex = "";
     $scope.bShowFeedback = false;
-    $scope.feedbackMessage = {userid:"", page:"", text:"", data:""};
+    $scope.feedbackMessage = {page:"", comment:""};
     $scope.bLogin = false;
     $scope.tokenid = $cookieStore.get('rodi_token');
 
@@ -170,17 +170,22 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
     $scope.sendFeed = function ()
     {
 
-        $scope.feedbackMessage.userid = "cima";
-        $scope.feedbackMessage.page = $location.path();
-        $scope.feedbackMessage.data = new Date();
+        $scope.feedbackMessage.page = "https:/" + $location.url();
 
-        var bSave = RodiSrv.sendFeedback($scope.feedbackMessage);
+        console.log($scope.feedbackMessage);
 
-        if (bSave)
-        {
-            vex.dialog.alert('Feedback sent correctly!');
-            $scope.bShowFeedback = false;
-        }
+        RodiSrv.sendFeedback($scope.feedbackMessage, $scope.tokenid,
+            function(data){
+                // Success
+                vex.dialog.alert('Feedback sent correctly!');
+                $scope.bShowFeedback = false;
+
+            }, function(data){
+                // Error
+                vex.dialog.alert('Error, feedback not sent!');
+                $scope.bShowFeedback = false;
+            });
+
     }
 
     // ************************************** //
