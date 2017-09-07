@@ -193,16 +193,19 @@ class UserDetailsView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = (permissions.IsAdminUser,)
 
 
-def compose_name(first_name, last_name, title, institution):
+def compose_name(user):
     human_name = ""
-    if last_name:
-        if title:
-            human_name = title
-        if first_name:
-            human_name += "%s%s" % ((" " if human_name else ""), first_name)
-        human_name += " %s" % last_name
-        if institution:
-            human_name = "%s (%s)" % (human_name, institution)
+    if user.last_name:
+        if user.profile.title:
+            human_name = user.title
+        if user.first_name:
+            human_name += "%s%s" % ((" " if human_name else ""),
+                                    user.first_name)
+        human_name += " %s" % user.last_name
+        if user.profile.institution:
+            human_name = "%s (%s)" % (human_name, user.profile.institution)
+    else:
+        human_name = "user with login-name '%s'" % user.username
 
     return human_name
 
@@ -217,10 +220,7 @@ class ProfileCommentSendView(APIView):
         instance = ProfileCommentSendSerializer(data=request.data)
         instance.is_valid(raise_exception=True)
 
-        human_name = compose_name(request.user.first_name,
-                                  request.user.last_name,
-                                  request.user.profile.title,
-                                  request.user.profile.institution)
+        human_name = compose_name(request.user)
 
         subject = ("%s: comment from user '%s'" % (
             MAIL_SUBJECT_PREFIX,
