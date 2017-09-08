@@ -870,6 +870,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
                         $scope.datasetReviewList = $filter('filter')(data, {'is_reviewed': false});
 
+                        $scope.tableParamsReview = new NgTableParams({}, { dataset: $scope.datasetReviewList});
+
                         if ($scope.datasetReviewList.length > 0)
                         {
                             $scope.iNrDatasetToReview = $scope.datasetReviewList.length;
@@ -905,6 +907,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                             $scope.iNrMyDataset = data.length;
                             $scope.myDatasetList = data;
                             $scope.bDatasetProfile = true;
+
+                            $scope.tableParams = new NgTableParams({}, { dataset: $scope.myDatasetList});
 
                         } else {$scope.bDatasetProfile = false;}
                     }, function(data){
@@ -1170,22 +1174,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
             }else return "";
         };
 
-        $scope.formatStringLenght = function(desc){
-            var shortLink = "";
-
-            if (desc.length > 70)
-            {
-                shortLink = desc.substr(0, 70);
-                shortLink = shortLink + ' ...';
-            } else {
-                shortLink = desc;
-            }
-
-            return shortLink;
-
-        }
-
-
         $scope.setView = function(type)
         {
             if(type == 'i')
@@ -1349,6 +1337,27 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
             //     Error
             //     TODO: error message
         // });
+
+    }
+
+
+    // ************************************** //
+    // ******** COMMON FUNCTIONS ************ //
+    // ************************************** //
+
+
+    $scope.formatStringLenght = function(desc){
+        var shortLink = "";
+
+        if (desc.length > 70)
+        {
+            shortLink = desc.substr(0, 70);
+            shortLink = shortLink + ' ...';
+        } else {
+            shortLink = desc;
+        }
+
+        return shortLink;
 
     }
 
