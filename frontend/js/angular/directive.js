@@ -44,7 +44,7 @@ RodiApp.directive('region', ['$compile', '$window', function ($compile, $window)
                 scope.showPopup = function ($event) {
 
                     scope.objRodiVariable.popupX = $event.originalEvent.clientX;
-                    scope.objRodiVariable.popupY = $event.originalEvent.clientY - 60;
+                    scope.objRodiVariable.popupY = $event.originalEvent.clientY - 20;
 
                     scope.objRodiVariable.bPopupCountry = true;
                     scope.objRodiVariable.countryID = scope.elementId;
@@ -86,7 +86,8 @@ RodiApp.directive('region', ['$compile', '$window', function ($compile, $window)
                                 element.removeAttr("style");
 
                                 // Replace new style elements
-                                element.attr("style", "fill:rgb(" + parseInt((1 - (counrtyScore / 100)) * 255)  + "," + parseInt((1-(counrtyScore / 100)) * 255) + ",255); fill-rule:evenodd;");
+                                // element.attr("style", "fill:rgb(255, " + parseInt((1 - (counrtyScore / 100)) * 128)  + "," + parseInt((1-(counrtyScore / 100)) * 1) + "); fill-rule:evenodd;");
+                                element.attr("style", "fill:rgb(255,128,0); fill-opacity:" + (parseFloat(counrtyScore / 100) + parseFloat(0.2 * 1)) + "; fill-rule:evenodd;");
 
                             }
                         }

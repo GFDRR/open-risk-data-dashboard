@@ -51,6 +51,12 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
             return RodiSrv.getQuestions_code(questionCode);
         }
 
+        // Get dataset icon
+        $scope.getQuestionIcon = function(questionCode)
+        {
+            return RodiSrv.getQuestions_icon(questionCode);
+        }
+
         initDataset ()
 
         $scope.changeDataRiskSelection = function(idCategory)

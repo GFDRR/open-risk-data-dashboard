@@ -947,9 +947,6 @@ Menu nav e hazart transform/transitions
 
 }
 
-
-
-
 /*
 ==============================================================================
 
@@ -1642,6 +1639,7 @@ review mode
 .viewer .flex-container {
     align-items: center;
     justify-content: flex-start;
+    margin-bottom:5px;
     /*text-align: left;*/
 }
 .rodi_dataset_question {}
