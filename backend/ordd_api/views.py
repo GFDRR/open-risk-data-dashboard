@@ -1,8 +1,10 @@
 # views.py
-from datetime import datetime
+from datetime import datetime, timedelta
+
 import pytz
 import json
 from django.db.models import Sum
+from django.utils import timezone
 from rest_framework.renderers import JSONRenderer
 from rest_framework import generics, permissions, status
 from rest_framework.views import APIView
@@ -19,14 +21,16 @@ from django.http import Http404
 from .serializers import (
     RegionSerializer, CountrySerializer, KeyPerilSerializer,
     ProfileSerializer, UserSerializer, RegistrationSerializer,
-    ChangePasswordSerializer, ProfileCommentSendSerializer,
+    ChangePasswordSerializer, ResetPasswordSerializer,
+    ProfileCommentSendSerializer,
     ProfileDatasetListSerializer, ProfileDatasetCreateSerializer,
     DatasetListSerializer, DatasetPutSerializer)
 from .models import (Region, Country, OptIn, Dataset, KeyDataset,
-                     KeyDatasetName, KeyCategory, KeyTag)
+                     KeyDatasetName, KeyCategory, KeyTag,
+                     my_random_key)
 from .mailer import mailer
 from ordd_api import __version__, MAIL_SUBJECT_PREFIX
-from ordd.settings import ORDD_ADMIN_MAIL
+from ordd.settings import (ORDD_ADMIN_MAIL, EMAIL_CONFIRM_PROTO)
 
 fullscore_filterargs = {
     'is_existing': True, 'is_digital_form': True,
@@ -89,6 +93,68 @@ class ProfilePasswordUpdate(APIView):
             return Response(status=status.HTTP_204_NO_CONTENT)
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class ProfilePasswordReset(APIView):
+    """
+    An endpoint for reset password.
+    """
+    serializer_class = ResetPasswordSerializer
+
+    def post(self, request):
+        instance = ResetPasswordSerializer(data=request.data)
+
+        if not instance.is_valid():
+            return Response(instance.errors, status=status.
+                            HTTP_400_BAD_REQUEST)
+
+        try:
+            user = User.objects.get(
+                username=instance.validated_data['username'])
+        except:
+            return Response(instance.errors,
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        # insert_time
+        optin = OptIn.objects.filter(user=user)
+
+        if len(optin) > 0:
+            if len(optin) == 1:
+                optin = optin[0]
+                if optin.insert_time + timedelta(minutes=15) >= timezone.now():
+                    return Response({"detail": "last request not yet expired"},
+                                    status=status.HTTP_400_BAD_REQUEST)
+
+                else:
+                    optin.key = my_random_key()
+                    optin.insert_time = datetime.now()
+            else:
+                # inconsistente case: reset optin table
+                if len(optin) > 0:
+                    optin.delete()
+                optin = OptIn(user=user)
+        else:
+            optin = OptIn(user=user)
+        optin.save()
+
+        subject = ("%s: password reset for user '%s'" % (
+            MAIL_SUBJECT_PREFIX, user.username))
+
+        reply_url = ("%s://%s/password_reset.html"
+                     "?username=%s&key=%s"
+                     % (EMAIL_CONFIRM_PROTO,
+                        request.get_host(),
+                        user.username,
+                        optin.key))
+
+        mailer(user.email, subject,
+               {"title": subject,
+                "subject_prefix": MAIL_SUBJECT_PREFIX,
+                "username": user.username,
+                "reply_url": reply_url},
+               None, 'password_reset')
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class RegistrationView(generics.CreateAPIView, generics.RetrieveAPIView):

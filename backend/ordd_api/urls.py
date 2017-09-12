@@ -6,8 +6,8 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from rest_framework.authtoken.views import obtain_auth_token
 from .views import (
     RegionListView, CountryListView, KeyPerilListView,
-    ProfileDetails, ProfilePasswordUpdate, ProfileCommentSendView,
-    UserCreateView, UserDetailsView,
+    ProfileDetails, ProfilePasswordUpdate, ProfilePasswordReset,
+    ProfileCommentSendView, UserCreateView, UserDetailsView,
     RegistrationView, ProfileDatasetListCreateView, ProfileDatasetDetailsView,
     DatasetListView, DatasetDetailsView, VersionGet,
     ScoringWorldGet, ScoringCountryDetailsGet, ScoringWorldCategoriesGet)
@@ -31,6 +31,8 @@ urlpatterns = [
     url(r'^profile$', ProfileDetails.as_view(), name="profile_details"),
     url(r'^profile/password$', ProfilePasswordUpdate.as_view(),
         name="profile_password_update"),
+    url(r'^profile/password/reset$', ProfilePasswordReset.as_view(),
+        name="profile_password_reset"),
     url(r'^profile/dataset/$', ProfileDatasetListCreateView.as_view(),
         name="profile_dataset_listcreate"),
     url(r'^profile/dataset/(?P<pk>[0-9]+)$',

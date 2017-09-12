@@ -88,6 +88,13 @@ class ChangePasswordSerializer(serializers.Serializer):
         return value
 
 
+class ResetPasswordSerializer(serializers.Serializer):
+    """
+    Serializer for password reset endpoint.
+    """
+    username = serializers.CharField(required=True)
+
+
 class UserSerializer(serializers.ModelSerializer):
     # A field from the user's profile:
     title = serializers.CharField(source='profile.title', allow_blank=True)
