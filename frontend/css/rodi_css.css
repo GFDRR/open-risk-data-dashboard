@@ -486,7 +486,14 @@ section#counter-stats {
     background-color: transparent;
     font-weight: 500;
 }
-.dataset_form_select_style { margin:1em;}
+.dataset_form_select_style
+{
+    /*margin:1em;*/
+    margin-top: 1em;
+    margin-right:1em;
+    margin-bottom:1em;
+    margin-left:0.5em;
+}
 .rodi_dataset_label_code{ padding-right:1em;}
 .dataset_form_select_style select {
     /*width: 100%;*/
@@ -640,7 +647,7 @@ small.label {
     border-radius: 5px;
     font-size:25px;
     color:#a0a0a0;
-    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .rodi_description_box_item:hover

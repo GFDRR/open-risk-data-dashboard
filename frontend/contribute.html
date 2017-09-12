@@ -151,8 +151,10 @@
                             <div class="row">
                             <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
                             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 flex-container col">
-                                <h1><!--Section A - -->Dataset classification</h1>
-                                <hr />
+                                <div class="row">
+                                    <h1><!--Section A - -->Dataset classification</h1>
+                                    <hr />
+                                </div>
 
                                 <div class="row">
                                     <div>
@@ -178,10 +180,10 @@
                                     </div>
                                     <span>Please select the dataset you want to submit. You can filter the list of datasets per category.</span>
 
-                                    <div class="dataset_form_select_style">
+                                    <div class="dataset_form_select_style" style="margin-left: 0em;">
                                         <!--<small class="text-muted label">Filter by:</small>-->
-                                        <span style="padding-left: 5px;" ng-repeat="dsCat in dataCategory" >
-                                            <input style="margin-left: 15px;" type="button" class="btn btn-lg " ng-class="dataRiskSelectionClass(dsCat.category.id)" value="{{dsCat.category.name}}" ng-click="changeDataRiskSelection(dsCat.category.id)">
+                                        <span style="padding-right: 5px;"ng-repeat="dsCat in dataCategory" >
+                                            <input type="button" class="btn btn-lg " ng-class="dataRiskSelectionClass(dsCat.category.id)" value="{{dsCat.category.name}}" ng-click="changeDataRiskSelection(dsCat.category.id)">
                                         </span>
 
                                     </div>
@@ -196,11 +198,16 @@
                                 </div>
 
                                 <div class="row">
-                                    <ul class="rodi_ul_datasetDesc" style="list-style: none;">
-                                        <li ng-repeat="ds_desc in datasetDescription | orderBy: 'description.name'" class="rodi_description_box_item" ng-click="changeDescription(ds_desc.description.code)" ng-class="{'selected': ds_desc.description.code == objDataset.keydataset.description}">
-                                            <!--{{ds_desc.description.code}}<br />--> {{ds_desc.description.name}} {{}}
-                                        </li>
-                                    </ul>
+
+                                    <span ng-repeat="ds_desc in datasetDescription | orderBy: 'description.name'" class="rodi_description_box_item" ng-click="changeDescription(ds_desc.description.code)" ng-class="{'selected': ds_desc.description.code == objDataset.keydataset.description}">
+                                        {{ds_desc.description.name}}
+                                    </span>
+
+                                    <!--<ul class="rodi_ul_datasetDesc">-->
+                                        <!--<li ng-repeat="ds_desc in datasetDescription | orderBy: 'description.name'" class="rodi_description_box_item" ng-click="changeDescription(ds_desc.description.code)" ng-class="{'selected': ds_desc.description.code == objDataset.keydataset.description}">-->
+                                            <!--{{ds_desc.description.name}} {{}}-->
+                                        <!--</li>-->
+                                    <!--</ul>-->
                                 </div>
                                 <div class="row">
                                     <div>
