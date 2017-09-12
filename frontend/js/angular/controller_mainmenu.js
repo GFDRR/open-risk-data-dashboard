@@ -13,7 +13,8 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
     $scope.bShowFeedback = false;
     $scope.feedbackMessage = {page:"", comment:""};
     $scope.bLogin = false;
-    $scope.tokenid = $cookieStore.get('rodi_token');
+    // $scope.tokenid = $cookieStore.get('rodi_token');
+    $scope.tokenid = localStorage.getItem('rodi_token');
 
     if ($location.path().indexOf('index.html') !== -1){
         $scope.bHome = false;
@@ -24,7 +25,7 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
         $scope.indexPage = RodiSrv.setPageIndex($location.path());
     }
 
-    if($scope.tokenid){$scope.bLogin = true; $scope.userinfo = $cookieStore.get('rodi_user');} else {$scope.bLogin = false; $scope.userinfo = RodiSrv.getUserStructureEmpty();}
+    if($scope.tokenid){$scope.bLogin = true; $scope.userinfo = JSON.parse(localStorage.getItem('rodi_user'));} else {$scope.bLogin = false; $scope.userinfo = RodiSrv.getUserStructureEmpty();}
 
     $scope.changeview = function(page, index)
     {
@@ -48,8 +49,10 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
     $scope.logout = function()
     {
         $scope.bLogin = false;
-        $cookieStore.remove('rodi_token');
-        $cookieStore.remove('rodi_user');
+        localStorage.removeItem('rodi_token');
+        localStorage.removeItem('rodi_user');
+
+
     }
 
     $scope.closeloginform = function()
@@ -66,7 +69,7 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
                 function(data){
                     // Success API
 
-                    if (data.statusText == 'OK')
+                    if (data.statusText == 'OK' || data.statusText == 'HTTP/2.0 200')
                     {
                         var token = data.data.token;
 
@@ -74,17 +77,19 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
                             function(data){
                                 //Success
 
-                                $cookieStore.put('rodi_token', token);
+                                localStorage.setItem('rodi_token', token);
+
                                 $scope.formloginCss = "display_none";
                                 $scope.bLogin = true;
 
                                 $scope.userinfo = {pk:data.pk, username:data.username, first_name:data.first_name, last_name:data.last_name, email:data.email, groups:data.groups, title:data.title, institution:data.institution};
-                                $cookieStore.put('rodi_user', $scope.userinfo);
+                                localStorage.setItem('rodi_user', JSON.stringify($scope.userinfo));
+
 
                             }, function(data){
                                 // Error
-                                $cookieStore.remove('rodi_token');
-                                $cookieStore.remove('rodi_user');
+                                localStorage.removeItem('rodi_token');
+                                localStorage.removeItem('rodi_user');
 
                                 vex.dialog.alert('Login error: unable to retrieve your information');
                                 $scope.userinfo = RodiSrv.getUserStructureEmpty();

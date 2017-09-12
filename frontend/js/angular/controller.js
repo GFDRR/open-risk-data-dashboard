@@ -13,8 +13,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
     // Check server CALL
 
     $scope.bLogin = false;
-    $scope.tokenid = $cookieStore.get('rodi_token');
-    $scope.userinfo = $cookieStore.get('rodi_user');
+    $scope.tokenid = localStorage.getItem('rodi_token');
+    $scope.userinfo = JSON.parse(localStorage.getItem('rodi_user'));
 
     if(!$scope.userinfo)
     {
@@ -47,6 +47,13 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
     if ($location.path().indexOf('index') !== -1 || $location.path() == baseUrl.replace("http:/", "") || $location.path() == baseUrl.replace("https:/", ""))
     {
 
+        $scope.labels = ["Download Sales", "In-Store Sales", "Mail-Order Sales"];
+        $scope.data = [300, 500, 100];
+
+        $scope.onClick = function(points, evt)
+        {
+            console.log(evt);
+        }
 
         // ************************************** //
         // ******* STATISTICS & MAP DATA ******** //
@@ -707,8 +714,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
         $scope.$watch('bLogin', function() {
 
             if ($scope.bLogin){
-                $scope.tokenid = $cookieStore.get('rodi_token');
-                $scope.userinfo = $cookieStore.get('rodi_user');
+                $scope.tokenid = localStorage.getItem('rodi_token');
+                $scope.userinfo = JSON.parse(localStorage.getItem('rodi_user'));
             }
 
             // ************************************** //

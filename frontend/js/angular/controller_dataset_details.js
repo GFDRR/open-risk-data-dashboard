@@ -12,8 +12,10 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
     RodiSrv.checkAPIversion(function(data){}, function(data){});
 
     $scope.bLogin = false;
-    $scope.tokenid = $cookieStore.get('rodi_token');
-    $scope.userinfo = $cookieStore.get('rodi_user');
+    // $scope.tokenid = $cookieStore.get('rodi_token');
+    $scope.tokenid = localStorage.getItem('rodi_token');
+    // $scope.userinfo = $cookieStore.get('rodi_user');
+    $scope.userinfo = JSON.parse(localStorage.getItem('rodi_user'));
 
     if($scope.tokenid) {$scope.bLogin = true; } else {$scope.bLogin = false;}
 
