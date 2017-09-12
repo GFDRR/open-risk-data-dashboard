@@ -18,6 +18,10 @@
     <!-- Angular components -->
     <script src="bower_components/angular/angular.min.js"></script>
 
+    <!-- Chart libraries-->
+    <script src="bower_components/chart.js/dist/Chart.min.js"></script>
+    <script src="bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
+
     <link href="js/vendor/ng-table/ng-table.min.css" rel="stylesheet">
     <script src="js/vendor/ng-table/ng-table.min.js"></script>
 
@@ -104,6 +108,10 @@
                                         <span class="counting" data-count="{{totalDataset}}">{{totalDataset}}</span> datasets submitted covering <span class="counting" data-count="{{countryWithData}}">{{countryWithData}}</span> countries
                                     </div>
                                 </div>
+
+                                <!--<canvas id="pie" class="chart chart-pie" chart-click="onClick"
+                                        chart-data="data" chart-labels="labels" chart-options="options">
+                                </canvas>-->
                             </div>
 
                             <!--<div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 stats">

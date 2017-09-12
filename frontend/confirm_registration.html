@@ -18,6 +18,10 @@
     <!-- Angular components -->
     <script src="bower_components/angular/angular.min.js"></script>
 
+    <!-- Chart libraries-->
+    <script src="bower_components/chart.js/dist/Chart.min.js"></script>
+    <script src="bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
+
     <link href="js/vendor/ng-table/ng-table.min.css" rel="stylesheet">
     <script src="js/vendor/ng-table/ng-table.min.js"></script>
 
@@ -102,13 +106,13 @@
             <br />
             <div style="max-width: 80%; margin:auto;">
                 <div class="alert alert-success text-center" ng-if="bRegConfirm">
-                    <h2>Registration complete correctly!</h2>
+                    <h2>Thanks you can now complete your profile or submit a dataset</h2>
                     <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.-->
                     <br><br>
                     <a href="" ng-click="changepage('contribute.html?tab=3')" class="btn btn-info">COMPLETE YOUR PROFILE</a>
                 </div>
                 <div class="alert alert-danger text-center" ng-if="!bRegConfirm">
-                    <h2>Registration confirm error!</h2>
+                    <h2>Registration confirmation error!</h2>
                     {{errormsg}}
                     <br /><br />
                 </div>

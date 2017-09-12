@@ -215,7 +215,7 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
                 RodiSrv.sendRegisterRequest($scope.usr, function (data){
                     // Success
 
-                    vex.dialog.alert('Successfully sent request');
+                    vex.dialog.alert('Registration confirmation sent to ' + $scope.usr.email + '. Please check your mailbox.');
                     $scope.usr = {
                         username: "",
                         password: "",
