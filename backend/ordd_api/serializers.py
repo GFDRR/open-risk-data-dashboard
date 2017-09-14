@@ -2,6 +2,7 @@
 
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.password_validation import validate_password
+from django.utils.http import urlencode
 import django.core.exceptions
 from django.db import transaction
 from django.db import IntegrityError
@@ -88,11 +89,21 @@ class ChangePasswordSerializer(serializers.Serializer):
         return value
 
 
-class ResetPasswordSerializer(serializers.Serializer):
+class ResetPasswordReqSerializer(serializers.Serializer):
     """
-    Serializer for password reset endpoint.
+    Serializer for password reset request.
     """
     username = serializers.CharField(required=True)
+
+
+class ResetPasswordSerializer(serializers.Serializer):
+    """
+    Serializer for password update after a password request reset confirmation.
+    """
+    username = serializers.CharField(required=True, write_only=True)
+    key = serializers.CharField(required=True, write_only=True)
+    new_password = serializers.CharField(required=True, write_only=True)
+    new_password_again = serializers.CharField(required=True, write_only=True)
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -154,11 +165,12 @@ class RegistrationSerializer(serializers.ModelSerializer):
                 # use 'http' because where 'https' is required an automatic
                 # redirect is triggered
                 reply_url = ("%s://%s/confirm_registration.html"
-                             "?username=%s&key=%s"
+                             "?%s&%s"
                              % (EMAIL_CONFIRM_PROTO,
                                 self.context['request'].get_host(),
-                                user.username,
-                                optin.key))
+                                urlencode({'username': user.username}),
+                                urlencode({'key': optin.key}),
+                                ))
                 mailer(user.email, subject,
                        {"title": subject,
                         "subject_prefix": MAIL_SUBJECT_PREFIX,
