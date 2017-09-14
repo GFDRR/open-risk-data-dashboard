@@ -1,2 +1,2 @@
-__version__ = "0.24.3"
+__version__ = "0.25.0"
 MAIL_SUBJECT_PREFIX = "Open Data for Resilience Index"
