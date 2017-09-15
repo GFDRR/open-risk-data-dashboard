@@ -146,7 +146,8 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         return objNews;
     };
 
-    this.getKeyDatasetTag = function (onSuccess, onError) {
+    this.getKeyDatasetTag = function (onSuccess, onError)
+    {
         $http({
             method: 'GET',
             url: baseAPIurl + 'keydataset/tag/'
@@ -235,57 +236,6 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
             // Error todo
         });
 
-
-        /*
-            Return Matrix Strucutre (page countries)
-            Array of Object
-
-            h0X -> Category of Dataset (Hazard Info, Exposure, etc..)
-
-        */
-        var dataTemp = [];
-
-        dataTemp = [
-            {
-                "code":"IT",
-                "name": "Italy",
-
-                "dataValue":
-                    {
-                        "1": 0.1,
-                        "2": 0.2,
-                        "3": 0.3,
-                        "4": 0.4,
-                        "5": 0.5
-                    }
-            },
-            {
-                "code":"AR",
-                "name": "Argentina",
-                "dataValue":
-                    {
-                        "1": 0.1,
-                        "2": 0.2,
-                        "3": 0.3,
-                        "4": 0.4,
-                        "5": 0.5
-                    }
-            },
-            {
-                "code":"AU",
-                "name": "Australia",
-                "dataValue":
-                    {
-                        "1": 0.1,
-                        "2": 0.2,
-                        "3": 0.3,
-                        "4": 0.4,
-                        "5": 0.5
-                    }
-            }
-        ];
-
-        //return dataTemp;
     }
 
     this.getCountryDetails = function(idcountry)
@@ -446,8 +396,9 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
             return "background-color:rgba(211,211,211,0.4)";
         } else {
             numberFloat = numberFloat / 100;
-            // return "background-color: rgb(255," + parseInt((1 - numberFloat) * 255) + "," + parseInt((1 - numberFloat) * 255) + ");"
-            return "background-color: rgba(0,0,255, " + numberFloat + ");"
+            return "background-color: rgba(255,128,0, " + numberFloat + ");"
+            // return "background-color: rgb(255, " + parseInt((1 - (numberFloat)) * 128)  + "," + parseInt((1-(numberFloat)) * 1) + ");";
+
         }
     }
 
@@ -866,6 +817,31 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         var aQuestion = $filter('filter')(objQuestions, {"code": questionCode});
 
         return aQuestion[0].desc;
+
+    };
+
+    this.getQuestions_icon = function(questionCode)
+    {
+        /*
+         Return question icon
+         */
+
+        var objQuestions = [
+            {code: "is_existing", icon:"fa fa-check-circle-o"},
+            {code: "is_digital_form", icon:"fa fa-desktop"},
+            {code: "is_avail_online", icon:"fa fa-cloud"},
+            {code: "is_avail_online_meta", icon:"fa fa-tag"},
+            {code: "is_bulk_avail", icon:"fa fa-copy"},
+            {code: "is_machine_read", icon:"fa fa-keyboard-o"},
+            {code: "is_pub_available", icon:"fa fa-eye"},
+            {code: "is_avail_for_free", icon:"fa fa-dollar"},
+            {code: "is_open_licence", icon:"fa fa-unlock-alt"},
+            {code: "is_prov_timely", icon:"fa fa-clock-o"}
+        ];
+
+        var aQuestion = $filter('filter')(objQuestions, {"code": questionCode});
+
+        return aQuestion[0].icon;
 
     };
 

@@ -242,7 +242,7 @@
                         <!--<td title="'Tags'">
                             <span ng-repeat="tag in ds.tag"><small>{{tag}}<span ng-if="!$last">,</span></small> </span>
                         </td>-->
-                        <td title="'Insert Date'" sortable="'create_time'">
+                        <td title="'Submission Date'" sortable="'create_time'">
                             <h5 class="text-center">{{ds.create_time | date: 'dd/MM/yyyy'}}</h5>
                         </td>
                         <td title="'Questions'">
@@ -282,7 +282,7 @@
                 <table ng-table="tableParamsMissing" class="table table-hover dataset text-left" show-filter="true" >
                     <tr ng-repeat="ds in $data" class="rodi_pointer" ng-click="changepage('contribute.html?ctr=' + idCountry + '&ds=' + ds.name)">
                         <td title="'#'"><h5>{{$index + 1}}</h5></td>
-                        <td title="'Category'" filter="{ 'category': 'text'}" sortable="'category'">
+                        <td title="'Peril'" filter="{ 'category': 'text'}" sortable="'category'">
                             <h5>{{ds.category}}</h5>
                         </td>
                         <td title="'Dataset'" filter="{ 'name': 'text'}" sortable="'name'">
@@ -294,7 +294,7 @@
                         <!--<td title="'Tags'">
                             <span ng-repeat="tag in ds.tag"><small>{{tag}}<span ng-if="!$last">,</span></small> </span>
                         </td>-->
-                        <td title="'Insert Date'">
+                        <td title="'Submission Date'">
                             <h5 class="text-center">--/--/----</h5>
                         </td>
                         <td title="'Questions'">
@@ -314,7 +314,7 @@
                         <!--<td title="'Year'" filter="{ create_time: 'number'}" sortable="'create_time'" class="text-center">
                             <h5>{{ds.create_time | date: 'yyyy'}}</h5>
                         </td>-->
-                        <td  sortable="'is_reviewed'" title="'Review'" class="text-center status">
+                        <td  sortable="'is_reviewed'" title="'Status'" class="text-center status">
                             <div class="flex-container flex-row">
                                 <i class="fa fa-2x fa-clock-o rev missing_data" aria-hidden="true"></i>
                                 <!--<i class="fa fa-2x fa-clock-o" aria-hidden="true" ng-if="!ds.is_reviewed" style="color:#eea236; color:rgba(51, 122, 183, 0.7);"></i>-->
