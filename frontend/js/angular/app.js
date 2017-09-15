@@ -2,7 +2,7 @@
  * Created by Manuel on 15/05/2017.
  */
 
-var RodiApp = angular.module('RodiApp', ['ngCookies', 'ngTable', 'chart.js']);
+var RodiApp = angular.module('RodiApp', ['ngCookies', 'ngTable']);
 
 var baseUrl = 'http://localhost:63342/RODI/frontend/';
 // Da modificare quando è online

@@ -340,6 +340,12 @@ section + section
     overflow: auto;
 }
 
+.contextual_content p
+{
+    color:#232323;
+    font-weight: 600;
+}
+
 .register_txt_box
 {
     width:100%;
@@ -1641,7 +1647,7 @@ review mode
 */
 
 
-.viewer [class*="rodi_dataset_label"] {font-size:1.5em; min-width: 60px;}
+.viewer [class*="rodi_dataset_label"] {font-size:1.5em; /*min-width: 60px;*/}
 .viewer .flex-container .rodi_cb_space {/* padding:1px 2px; */margin:2px;height:inherit;align-items: center;}
 .viewer .flex-container {
     align-items: center;
@@ -1771,6 +1777,29 @@ responsive
 .rodi_panel_active
 {
     border-bottom: solid 2px #00b3ee;
+}
+
+.highcharts-yaxis-grid .highcharts-grid-line {
+    display: none;
+}
+
+.progress
+{
+    height:45px;
+}
+
+.progress-orange
+{
+    background-color: #FF8000;
+    height:40px;
+}
+
+.ng-table th.filter .input-filter::before
+{
+    content: "Read this -";
+    background-color: yellow;
+    color: red;
+    font-weight: bold;
 }
 
 
