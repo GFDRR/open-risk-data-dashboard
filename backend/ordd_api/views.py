@@ -1,32 +1,39 @@
 # views.py
-from datetime import datetime
+from datetime import datetime, timedelta
+
 import pytz
 import json
+import django.core.exceptions
 from django.db.models import Sum
+from django.utils import timezone
 from rest_framework.renderers import JSONRenderer
 from rest_framework import generics, permissions, status
+from rest_framework.generics import GenericAPIView
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import NotFound
 from rest_framework.serializers import ValidationError
 from collections import OrderedDict
 from django.core.exceptions import ObjectDoesNotExist
-
+from django.utils.http import urlencode
 from django.db.models import Q
 from django.contrib.auth.models import User
+from django.contrib.auth.password_validation import validate_password
 from django.http import Http404
 
 from .serializers import (
     RegionSerializer, CountrySerializer, KeyPerilSerializer,
     ProfileSerializer, UserSerializer, RegistrationSerializer,
-    ChangePasswordSerializer, ProfileCommentSendSerializer,
+    ChangePasswordSerializer, ResetPasswordReqSerializer,
+    ResetPasswordSerializer, ProfileCommentSendSerializer,
     ProfileDatasetListSerializer, ProfileDatasetCreateSerializer,
     DatasetListSerializer, DatasetPutSerializer)
 from .models import (Region, Country, OptIn, Dataset, KeyDataset,
-                     KeyDatasetName, KeyCategory, KeyTag)
+                     KeyDatasetName, KeyCategory, KeyTag,
+                     my_random_key)
 from .mailer import mailer
 from ordd_api import __version__, MAIL_SUBJECT_PREFIX
-from ordd.settings import ORDD_ADMIN_MAIL
+from ordd.settings import (ORDD_ADMIN_MAIL, EMAIL_CONFIRM_PROTO)
 
 fullscore_filterargs = {
     'is_existing': True, 'is_digital_form': True,
@@ -75,20 +82,106 @@ class ProfilePasswordUpdate(APIView):
 
     def put(self, request, *args, **kwargs):
         self.object = self.get_object()
-        serializer = ChangePasswordSerializer(data=request.data)
+        instance = ChangePasswordSerializer(data=request.data)
 
-        if serializer.is_valid():
-            # Check old password
-            old_password = serializer.data.get("old_password")
-            if not self.object.check_password(old_password):
-                return Response({"old_password": ["Wrong password."]},
-                                status=status.HTTP_400_BAD_REQUEST)
-            # set_password also hashes the password that the user will get
-            self.object.set_password(serializer.data.get("new_password"))
-            self.object.save()
-            return Response(status=status.HTTP_204_NO_CONTENT)
+        instance.is_valid(raise_exception=True)
+        vdata = instance.validated_data
+        # Check old password
+        old_password = vdata.get("old_password")
+        if not self.object.check_password(old_password):
+            return Response({"old_password": ["Wrong password."]},
+                            status=status.HTTP_400_BAD_REQUEST)
+        # set_password also hashes the password that the user will get
+        self.object.set_password(vdata.get("new_password"))
+        self.object.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class ProfilePasswordReset(GenericAPIView):
+    """
+    An endpoint for reset password.
+    """
+
+    def get_serializer_class(self):
+        if self.request.method == "PUT":
+            return ResetPasswordSerializer
+        else:
+            return ResetPasswordReqSerializer
+
+    def post(self, request):
+        instance = ResetPasswordReqSerializer(data=request.data)
+
+        instance.is_valid(raise_exception=True)
+
+        vdata = instance.validated_data
+
+        user = User.objects.get(username=vdata['username'])
+
+        # insert_time
+        optin = OptIn.objects.filter(user=user)
+
+        if len(optin) > 0:
+            if len(optin) == 1:
+                optin = optin[0]
+                if optin.insert_time + timedelta(minutes=15) >= timezone.now():
+                    return Response({"detail": "last request not yet expired"},
+                                    status=status.HTTP_400_BAD_REQUEST)
+                else:
+                    optin.key = my_random_key()
+                    optin.insert_time = datetime.now()
+            else:
+                # inconsistente case: reset optin table
+                if len(optin) > 0:
+                    optin.delete()
+                optin = OptIn(user=user)
+        else:
+            optin = OptIn(user=user)
+        optin.save()
+
+        subject = ("%s: password reset for user '%s'" % (
+            MAIL_SUBJECT_PREFIX, user.username))
+
+        reply_url = ("%s://%s/password_reset.html?%s&%s"
+                     % (EMAIL_CONFIRM_PROTO,
+                        request.get_host(),
+                        urlencode({'username': user.username}),
+                        urlencode({'key': optin.key}),
+                        ))
+
+        mailer(user.email, subject,
+               {"title": subject,
+                "subject_prefix": MAIL_SUBJECT_PREFIX,
+                "username": user.username,
+                "reply_url": reply_url},
+               None, 'password_reset')
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    def put(self, request):
+        instance = ResetPasswordSerializer(data=request.data)
+        instance.is_valid(raise_exception=True)
+
+        vdata = instance.validated_data
+        if vdata.get('new_password') != vdata.get('new_password_again'):
+            return Response({"detail": "password fields are not the same"},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            validate_password(vdata.get('new_password'))
+        except django.core.exceptions.ValidationError as exc:
+            raise ValidationError({"detail": exc})
+
+        try:
+            user = User.objects.get(username=vdata.get('username'))
+            optin = OptIn.objects.get(user=user, key=vdata.get('key'))
+            user.set_password(vdata.get("new_password"))
+            user.save()
+            optin.delete()
+        except:
+            return Response({"detail": "password update failed"},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 class RegistrationView(generics.CreateAPIView, generics.RetrieveAPIView):
