@@ -1304,6 +1304,47 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 
     }
 
+    this.resetPassword = function(usr, onSuccess, onError) {
+        console.log(usr);
+        var req = {
+            method: 'POST',
+            url: baseAPIurl + 'profile/password/reset',
+            headers: {},
+            data:
+                {
+                    'username': usr
+                }
+        }
+
+        $http(req).then(function (data) {
+            if (onSuccess) onSuccess(data.data);
+        }, function (data) {
+            if (onError) onError(data.data);
+        });
+    }
+
+    this.setNewPasswordTwice = function(usr, key, npass, npassagain, onSuccess, onError) {
+        console.log(usr);
+        var req = {
+            method: 'PUT',
+            url: baseAPIurl + 'profile/password/reset',
+            headers: {},
+            data:
+                {
+                    'username': usr,
+                    'key': key,
+                    'new_password': npass,
+                    'new_password_again': npassagain
+                }
+        }
+
+        $http(req).then(function (data) {
+            if (onSuccess) onSuccess(data.data);
+        }, function (data) {
+            if (onError) onError(data.data);
+        });
+    }
+
     // ************************************** //
     // *************** UTILITY ***************** //
     // ************************************** //

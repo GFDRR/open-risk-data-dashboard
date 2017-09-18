@@ -6,22 +6,27 @@
             <i class="fa fa-2x fa-times" aria-hidden="true"></i>
         </a>
     <!--</div>-->
-    <h3>SIGN IN</h3>
+    <h3 ng-if="!bResetPassword">SIGN IN</h3>
+    <h3 ng-if="bResetPassword">RESET PASSWORD</h3>
     <br /><br />
     <div class="form">
         <input type="text" placeholder="user name" class="form-control" ng-model="usr_name">
         <i class="fa fa-2x icon-login"></i>
     </div>
     <br />
-    <div class="form">
+    <div class="form" ng-show="!bResetPassword">
         <input type="password" placeholder="password" class="form-control" ng-model="usr_psw">
         <i class="fa fa-2x icon-register"></i>
     </div>
+    <div class="form text-center"><input type="button" class="btn btn-custom btn-lg" value="RESET PASSWORD" ng-click="resetPassword()" ng-if="bResetPassword" /></div>
     <br /><br />
-    <div class="form text-center"><input type="button" class="btn btn-custom btn-lg" value="LOGIN" ng-click="loginUser()" /></div>
+    <div class="form text-center"><input type="button" class="btn btn-custom btn-lg" value="LOGIN" ng-click="loginUser()" ng-if="!bResetPassword" /></div>
+
     <br /><br />
     <div class="text-center">
-        <!--<a href="">Forgot password?</a>--> &nbsp;&nbsp;&nbsp;<a href="" ng-click="changeview('register.html', '4')">Create an account</a>
+        <a href="" ng-click="setForgotPassword(true)" ng-if="!bResetPassword">Forgot password?</a> &nbsp;
+        <a href="" ng-click="setForgotPassword(false)" ng-if="bResetPassword">Login form</a> &nbsp;
+        &nbsp;&nbsp;<a href="" ng-click="changeview('register.html', '4')">Create an account</a>
     </div>
 
 

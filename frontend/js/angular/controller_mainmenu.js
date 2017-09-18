@@ -13,6 +13,7 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
     $scope.bShowFeedback = false;
     $scope.feedbackMessage = {page:"", comment:""};
     $scope.bLogin = false;
+    $scope.bResetPassword = false;
     // $scope.tokenid = $cookieStore.get('rodi_token');
     $scope.tokenid = localStorage.getItem('rodi_token');
 
@@ -62,7 +63,6 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
 
     $scope.loginUser = function()
     {
-
         if($scope.usr_name != '' && $scope.usr_psw != '')
         {
             RodiSrv.checkLogin($scope.usr_name, $scope.usr_psw,
@@ -113,6 +113,26 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
 
     }
 
+    $scope.setForgotPassword = function(status)
+    {
+        $scope.bResetPassword = status;
+    }
+
+    $scope.resetPassword = function()
+    {
+
+        RodiSrv.resetPassword($scope.usr_name,
+            function(data){
+                // Success API
+
+                vex.dialog.alert("Richiesta inviata con successo, riceverai all'indirizzo e-mail abbinato al tuo username tutte le indicazioni per impostare una nuova password.");
+                $scope.bResetPassword = false;
+
+            }, function(data){
+                // Error API
+                vex.dialog.alert('User name not valid or request already sent.');
+            });
+    }
 
     // ************************************** //
     // ******** SEARCH SUGGESTIONS ********** //

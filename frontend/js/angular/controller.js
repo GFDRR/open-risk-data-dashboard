@@ -692,7 +692,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                     }
 
                     $scope.aCountryList[countrycode].data = obj;
-                    $scope.aCountryList[countrycode].score = countryscore;
+                    $scope.aCountryList[countrycode].score = countryscore * 1;
                     dataTemp[countrycode] = {score: countryscore};
 
                 });
@@ -709,8 +709,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
                 }
 
-
-
                 for(var country in $scope.aCountryList){
 
                     if(angular.isUndefined($scope.aCountryList[country].data))
@@ -725,6 +723,12 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 //end filling
 
                 $scope.arrayData = dataTemp;
+
+                $scope.arrListCountry = Object.keys($scope.aCountryList).map(function(key) {
+                    return $scope.aCountryList[key];
+                });
+
+                $scope.arrListCountry = $filter('orderBy')($scope.arrListCountry, '-score');
 
                 $scope.getCountryScore = function(code)
                 {

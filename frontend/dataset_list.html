@@ -196,15 +196,17 @@
         <div class="jumbotron dataset">
             <!-- Dataset istances -->
             <div ng-show="bViewIstances">
-                <table ng-table="tableParams" class="table table-hover dataset text-left" show-filter="true">
+                <table ng-table="tableParams" class="table table-hover dataset text-left" show-filter="false">
 
                     <tr ng-repeat="ds in $data">
                         <td title="'#'"><h5>{{$index + 1}}</h5></td>
-                        <td title="'Category'" filter="{ 'keydataset.category': 'text'}" sortable="'keydataset.category'">
+                        <!--<td title="'Category'" filter="{ 'keydataset.category': 'text'}" sortable="'keydataset.category'">-->
+                        <td title="'Category'" sortable="'keydataset.category'">
                             <h5>{{ds.keydataset.category}}</h5>
                             <small>{{ds.keydataset.level}}</small>
                         </td>
-                        <td title="'Dataset'" filter="{ 'keydataset.dataset.name': 'text'}" sortable="'keydataset.dataset.name'">
+                        <!--<td title="'Dataset'" filter="{ 'keydataset.dataset.name': 'text'}" sortable="'keydataset.dataset.name'">-->
+                        <td title="'Dataset'" sortable="'keydataset.dataset.name'">
                             <h5>{{ds.keydataset.dataset.name}}</h5>
                             {{formatStringLenght(ds.keydataset.description)}}<br /> <small><a href="" data-toggle="modal" data-target="#moreinfoModal{{$index}}">more info</a></small>
                             <br /><br />

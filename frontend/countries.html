@@ -140,42 +140,53 @@
                 <div class="tab-content">
                     <div class="tab-pane fade" id="tab1">
                         <!--<browsedata></browsedata>-->
-                        <div class="jumbotron">
+                        <!--<div class="jumbotron">-->
                             <!-- Country Matrix -->
                             <div class="container">
                                 <div class="row">
 
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
-
+                                        <br />
                                         <!-- row: country | column data type | click details dataset -->
-
-                                        <table class="table table-condensed table-responsive data">
-
+                                        <table class="table table-condensed table-striped table-responsive data">
                                             <thead>
-                                            <th>&nbsp;</th> <!-- cella vuota -->
-                                            <th class="text-center row_icon" ng-repeat="hc in HazardCategory">
-                                                <i class="{{getHCIcon(hc.category.id)}}"></i><br /><span>{{hc.category.name}}</span>
-                                            </th>
+                                                <th></th>
+                                                <th style="width:19%;">&nbsp;</th> <!-- cella vuota -->
+                                                <th>&nbsp;</th> <!-- cella vuota -->
+                                                <th class="text-center row_icon" style="width:150px;" ng-repeat="hc in HazardCategory">
+                                                    <!--<i class="{{getHCIcon(hc.category.id)}}"></i><br />--><span style="color:#232323;">{{hc.category.name}}</span>
+                                                </th>
                                             </thead>
 
-                                            <tbody>
 
-                                            <tr ng-repeat="(key, row) in aCountryList">
+                                            <tbody>
+                                            <tr><td colspan="7"></td></tr>
+                                            <!--<tr ng-repeat="(key, row) in aCountryList">-->
+                                            <tr ng-repeat="country in arrListCountry">
+                                                <td>{{$index + 1}}.</td>
+                                                <td style="width:19%;">
+                                                    <strong>
+                                                        <a href="" ng-click="changepage('dataset_list.html?idcountry=' + country.iso2 + '&idcategory=0')">{{country.name}}</a>
+                                                    </strong>
+                                                </td>
+
                                                 <td class="">
                                                     <strong>
-                                                        <small>{{getCountryScore(row.iso2)}} %</small>
-                                                        <a href="" ng-click="changepage('dataset_list.html?idcountry=' + row.iso2 + '&idcategory=0')">{{row.name}}</a>
+                                                        <small><span style="min-width:150px;">{{country.score}} %</span>&nbsp;&nbsp;&nbsp;&nbsp;</small>
                                                     </strong>
-
-                                                    <progress value="{{getCountryScore(row.iso2)}}" max="100"></progress>
+                                                    <progress value="{{country.score}}" max="100"></progress>
                                                 </td>
-                                                <td class="text-center" ng-repeat="(key, value) in row.data">
+                                                <td class="text-center" style="width:150px;" ng-repeat="(key, value) in country.data">
                                                     <!-- click verso dataset list with filters country & category -->
-                                                    <a href="" ng-if="value.value !== '-1.0'" ng-click="changepage('dataset_list.html?idcountry=' + row.iso2 + '&idcategory=' + value.id)" alt="Profile: {{row.name}}"><div class="matrix_cell" style="{{colorCell(value.value)}}"></div></a>
+                                                    <a href="" ng-if="value.value !== '-1.0'" ng-click="changepage('dataset_list.html?idcountry=' + country.iso2 + '&idcategory=' + (value.id - 1))" alt="Profile: {{country.name}}">
+                                                        <div class="matrix_cell" style="{{colorCell(value.value)}}">
+                                                            <span ng-show="(value.value*1) >= 0">{{value.value}}</span>
+                                                            <span ng-show="(value.value*1) < 0">0.00</span>
+                                                        </div>
+                                                    </a>
 
                                                     <!-- click verso contribute page -->
-                                                    <a href="" ng-if="value.value == '-1.0'" ng-click="changepage('contribute.html')" alt="Profile: {{row.name}}"><div class="matrix_cell" style="{{colorCell(value.value)}}"></div></a>
+                                                    <a href="" ng-if="value.value == '-1.0'" ng-click="changepage('contribute.html')" alt="Profile: {{country.name}}"><div class="matrix_cell" style="{{colorCell(value.value)}}"></div></a>
                                                 </td>
                                             </tr>
 
@@ -186,7 +197,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        <!--</div>-->
 
                     </div>
                     <div class="active tab-pane fade in" id="tab2">

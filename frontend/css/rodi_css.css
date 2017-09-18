@@ -960,6 +960,15 @@ Menu nav e hazart transform/transitions
 
 }
 
+.matrix_cell span
+{
+    font-size: 10px;
+    position: relative;
+    left: 0;
+    top: 48%;
+    color: #232323;
+}
+
 /*
 ==============================================================================
 
@@ -1137,10 +1146,10 @@ Tables
     vertical-align: middle;
 }
 .data.table>tbody>tr>td:first-child {
-    text-align:right;
+    /*text-align:right;*/
     max-width: 12vw;
     vertical-align: middle;
-    line-height: 0;
+    /*line-height: 0;*/
 
 }
 
@@ -1163,9 +1172,10 @@ Tables
 
 
 .table.data strong {
-    top: 1.7em;
+    /*top: 1.7em;*/
     right: 4%;
     position: relative;
+    left:0%;
     /*font-size: 1.4em;*/
     /*font-weight: bolder;*/
     /*font-family: monospace;*/
@@ -1201,7 +1211,7 @@ Tables
 */
 
 .jumbotron .table.data th,
-.jumbotron .table.dataset th {    padding:2em;}
+.jumbotron .table.dataset th {    padding:1em;}
 .jumbotron .table.dataset th {   font-size:1.2em;}
 .jumbotron .table.data td,
 .jumbotron .table.dataset td {    padding:1em ;}
