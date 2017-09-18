@@ -9,7 +9,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
     // *************** INIT ***************** //
     // ************************************** //
 
-    RodiSrv.checkAPIversion(function(data){}, function(data){});
+    RodiSrv.checkAPIversion(function(data){console.log(data);}, function(data){});
 
     // Check server CALL
 
@@ -723,6 +723,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 //end filling
 
                 $scope.arrayData = dataTemp;
+
+                console.log($scope.aCountryList);
 
                 $scope.arrListCountry = Object.keys($scope.aCountryList).map(function(key) {
                     return $scope.aCountryList[key];

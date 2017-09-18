@@ -130,6 +130,7 @@
         <!-- TAB NAVIGATION -->
         <div class="row" style="">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
                 <ul class="nav nav-tabs" role="tablist">
                     <li class="active"><a href="#tab2" role="tab" data-toggle="tab">View Map</a></li>
                     <li ><a href="#tab1" role="tab" data-toggle="tab">View Table</a></li>
@@ -142,20 +143,63 @@
                         <!--<browsedata></browsedata>-->
                         <!--<div class="jumbotron">-->
                             <!-- Country Matrix -->
-                            <div class="container">
+                            <!--<div class="container">-->
                                 <div class="row">
 
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                         <br />
                                         <!-- row: country | column data type | click details dataset -->
-                                        <table class="table table-condensed table-striped table-responsive data">
+                                        <table class="table table-condensed table-striped table-responsive data hidden-xs">
                                             <thead>
-                                                <th></th>
-                                                <th style="width:19%;">&nbsp;</th> <!-- cella vuota -->
-                                                <th>&nbsp;</th> <!-- cella vuota -->
+                                                <th class="row_icon" style="width:25px;"><span>#</span><br /><br /></th>
+                                                <th class="row_icon" style="width:19%;"><span>COUNTRY</span><br /><br /></th> <!-- cella vuota -->
+                                                <th class="row_icon"><span>SCORE</span><br /><br /></th> <!-- cella vuota -->
                                                 <th class="text-center row_icon" style="width:150px;" ng-repeat="hc in HazardCategory">
-                                                    <!--<i class="{{getHCIcon(hc.category.id)}}"></i><br />--><span style="color:#232323;">{{hc.category.name}}</span>
+                                                    <!--<i class="{{getHCIcon(hc.category.id)}}"></i><br />--><span>{{hc.category.name}}</span><br /><br />
                                                 </th>
+                                            </thead>
+
+
+                                            <tbody>
+                                            <tr><td colspan="7"></td></tr>
+                                            <!--<tr ng-repeat="(key, row) in aCountryList">-->
+                                            <tr ng-repeat="country in arrListCountry">
+                                                <td style="width:25px;">{{$index + 1}}.</td>
+                                                <td style="width:19%;">
+                                                    <strong>
+                                                        <a href="" ng-click="changepage('dataset_list.html?idcountry=' + country.iso2 + '&idcategory=0')">{{country.name}}</a>
+                                                    </strong>
+                                                </td>
+
+                                                <td class="">
+                                                    <strong>
+                                                        <small><span style="min-width:150px;">{{country.score}} %</span>&nbsp;&nbsp;&nbsp;&nbsp;</small>
+                                                    </strong>
+                                                    <progress value="{{country.score}}" max="100"></progress>
+                                                </td>
+                                                <td class="text-center" style="width:150px;" ng-repeat="(key, value) in country.data">
+                                                    <!-- click verso dataset list with filters country & category -->
+                                                    <a href="" ng-if="value.value !== '-1.0'" ng-click="changepage('dataset_list.html?idcountry=' + country.iso2 + '&idcategory=' + (value.id - 1))" alt="Profile: {{country.name}}">
+                                                        <div class="matrix_cell" style="{{colorCell(value.value)}}">
+                                                            <span ng-show="(value.value*1) >= 0">{{value.value}}</span>
+                                                            <span ng-show="(value.value*1) < 0"></span>
+                                                        </div>
+                                                    </a>
+
+                                                    <!-- click verso contribute page -->
+                                                    <a href="" ng-if="value.value == '-1.0'" ng-click="changepage('contribute.html')" alt="Profile: {{country.name}}"><div class="matrix_cell" style="{{colorCell(value.value)}}"></div></a>
+                                                </td>
+                                            </tr>
+
+                                            </tbody>
+
+                                        </table>
+
+                                        <table class="table table-condensed table-striped table-responsive data visible-xs">
+                                            <thead>
+                                            <th></th>
+                                            <th>&nbsp;</th> <!-- cella vuota -->
+                                            <th>&nbsp;</th> <!-- cella vuota -->
                                             </thead>
 
 
@@ -176,18 +220,6 @@
                                                     </strong>
                                                     <progress value="{{country.score}}" max="100"></progress>
                                                 </td>
-                                                <td class="text-center" style="width:150px;" ng-repeat="(key, value) in country.data">
-                                                    <!-- click verso dataset list with filters country & category -->
-                                                    <a href="" ng-if="value.value !== '-1.0'" ng-click="changepage('dataset_list.html?idcountry=' + country.iso2 + '&idcategory=' + (value.id - 1))" alt="Profile: {{country.name}}">
-                                                        <div class="matrix_cell" style="{{colorCell(value.value)}}">
-                                                            <span ng-show="(value.value*1) >= 0">{{value.value}}</span>
-                                                            <span ng-show="(value.value*1) < 0">0.00</span>
-                                                        </div>
-                                                    </a>
-
-                                                    <!-- click verso contribute page -->
-                                                    <a href="" ng-if="value.value == '-1.0'" ng-click="changepage('contribute.html')" alt="Profile: {{country.name}}"><div class="matrix_cell" style="{{colorCell(value.value)}}"></div></a>
-                                                </td>
                                             </tr>
 
                                             </tbody>
@@ -196,20 +228,27 @@
 
                                     </div>
                                 </div>
-                            </div>
+                            <!--</div>-->
                         <!--</div>-->
 
                     </div>
                     <div class="active tab-pane fade in" id="tab2">
-                        <div class="row">
 
+                        <div class="position_map_legend">
+                            <div class="legend_gradient"></div>
+                            <div class="pull-right legend_gradient_txt"><span>0%</span></div>
+                            <div class="pull-left legend_gradient_txt"><span>100%</span></div>
+                        </div>
+
+                        <div class="row">
                             <div class="map_place">
                                 <div svg-map></div>
 
-                                <div class="popup_country_data {{popupClass}}" ng-style="{'top':objRodiVariable.popupY, 'left': objRodiVariable.popupX}" ng-if="objRodiVariable.bPopupCountry">
+                                <!--<div class="popup_country_data {{popupClass}}" ng-style="{'top':objRodiVariable.popupY, 'left': objRodiVariable.popupX}" ng-if="objRodiVariable.bPopupCountry">-->
+                                <div class="popup_country_data {{popupClass}}" ng-if="objRodiVariable.bPopupCountry">
                                     <strong>Country code:</strong> {{objRodiVariable.countryID}}<br />
                                     <strong>Country description:</strong> {{objRodiVariable.countryDesc}}<br />
-                                    <strong>Country score: {{objRodiVariable.valueData}}</strong>
+                                    <strong>Country score: {{objRodiVariable.valueData}} %</strong>
                                 </div>
                             </div>
                         </div>

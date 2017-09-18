@@ -26,29 +26,21 @@ RodiApp.controller('RodiCtrlResetPassword', ['$scope', 'RodiSrv', '$location', '
                 function(data)
                 {
                     // Success
-                    console.log(data);
-                    vex.dialog.alert('Password resettata con successo.');
+                    vex.dialog.alert('New password successfully set.');
 
                 }, function(data)
                 {
                     // Error
-                    console.log(data);
                     vex.dialog.alert(data.detail);
                 }
             );
         } else
             {
                 //Error
-                vex.dialog.alert('Password and password confirmation must be equal and not empty');
+                vex.dialog.alert('The Password and the Password confirmation fields are mandatory and must have the same value.');
             }
 
-
     }
-
-
-
-    console.log($scope.usernamepar);
-    console.log($scope.keypar);
 
     $scope.changepage = function(page)
     {

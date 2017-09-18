@@ -1140,7 +1140,7 @@ Tables
 
 .data.table>tbody>tr>td {
     /*     max-height: 10px!important; */
-    line-height:1;
+    /*line-height:1;*/
     margin:0;
     padding:0;
     vertical-align: middle;

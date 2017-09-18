@@ -125,7 +125,7 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
             function(data){
                 // Success API
 
-                vex.dialog.alert("Richiesta inviata con successo, riceverai all'indirizzo e-mail abbinato al tuo username tutte le indicazioni per impostare una nuova password.");
+                vex.dialog.alert("Request correctly sent, you will receive a message at the email address connected to your user name with instructions on how to reset your password.");
                 $scope.bResetPassword = false;
 
             }, function(data){
