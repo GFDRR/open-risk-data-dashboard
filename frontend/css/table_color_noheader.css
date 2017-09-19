@@ -1,0 +1,15 @@
+tbody {
+  display:inherit;
+  height:auto;
+  overflow:auto;
+}
+thead, tbody tr {
+  display:inherit;
+  width:100%;
+  table-layout:inherit;
+}
+thead {
+  width: 100%;
+}
+
+
