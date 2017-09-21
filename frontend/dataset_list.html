@@ -211,10 +211,12 @@
                             <h5>{{ds.keydataset.dataset.name}}</h5>
                             {{formatStringLenght(ds.keydataset.description)}}<br /> <small><a href="" data-toggle="modal" data-target="#moreinfoModal{{$index}}">more info</a></small>
                             <br /><br />
+                            Agency: <span>{{ds.is_existing_txt}}</span>
+                            <br />
                             Tags: <span ng-repeat="tag in ds.tag"><small>{{tag}}<span ng-if="!$last">,</span></small> </span>
                             <br />
 
-                            <!-- Modal -->
+                            <!-- Modal Description -->
                             <div class="modal fade" id="moreinfoModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="moreinfoModal{{$index}}label" aria-hidden="true">
                                 <div class="modal-dialog modal-lg" role="document">
                                     <div class="modal-content">
@@ -274,6 +276,33 @@
                                 <a class="" href="" title="details" ng-click="changepage('dataset_details.html?keyds=' + ds.id)">
                                     <i class="fa fa-2x fa-search"></i>
                                 </a>
+                                <a href="" ng-if="ds.url.length > 0" data-toggle="modal" data-target="#linkdataModal{{$index}}">download</a>
+                            </div>
+
+                            <!-- Modal Link download DATA & METADATA -->
+                            <div class="modal fade" id="linkdataModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="linkdataModal{{$index}}label" aria-hidden="true">
+                                <div class="modal-dialog modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="linkdataModal{{$index}}label">{{ds.keydataset.category}} - {{ds.keydataset.dataset.name}} ({{ds.keydataset.level}})</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body text-left">
+                                            <strong>Donwload link</strong>
+                                            <br /><br />
+                                            <ul class="text-left">
+                                                <li ng-repeat="link in ds.url">
+                                                    <a href="{{link}}" target="_blank">{{link}}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </td>
 

@@ -1464,7 +1464,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
         RodiSrv.getCountryList(function(data)
         {
             // Success
-
             $scope.countryList = data;
             $scope.objCountry = $filter('filter')($scope.countryList, {iso2: $scope.idCountry});
 
@@ -1490,6 +1489,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 {
                     // Success
                     $scope.datasetList = data;
+
+                    console.log(data);
 
                     $scope.tableParams = new NgTableParams({}, { dataset: $scope.datasetList});
 
