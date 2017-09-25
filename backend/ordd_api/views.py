@@ -21,13 +21,15 @@ from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from django.http import Http404
 
+from rest_framework_csv import renderers as csv_rend
+
 from .serializers import (
     RegionSerializer, CountrySerializer, KeyPerilSerializer,
     ProfileSerializer, UserSerializer, RegistrationSerializer,
     ChangePasswordSerializer, ResetPasswordReqSerializer,
     ResetPasswordSerializer, ProfileCommentSendSerializer,
     ProfileDatasetListSerializer, ProfileDatasetCreateSerializer,
-    DatasetListSerializer, DatasetPutSerializer)
+    DatasetListSerializer, DatasetPutSerializer, DatasetsDumpSerializer)
 from .models import (Region, Country, OptIn, Dataset, KeyDataset,
                      KeyDatasetName, KeyCategory, KeyTag,
                      my_random_key)
@@ -797,6 +799,35 @@ class DatasetListView(generics.ListAPIView):
         queryset = queryset.filter(q)
 
         return queryset.distinct()
+
+
+class DatasetsDumpRenderer(csv_rend.CSVRenderer):
+    writer_opts = {'delimiter': ';'}
+    header = [
+        'owner', 'country', 'keydataset', 'is_reviewed', 'review_date',
+        'create_time', 'modify_time', 'changed_by', 'notes', 'url',
+        'is_existing', 'is_existing_txt', 'is_digital_form', 'is_avail_online',
+        'is_avail_online_meta', 'is_bulk_avail', 'is_machine_read',
+        'is_machine_read_txt', 'is_pub_available', 'is_avail_for_free',
+        'is_open_licence', 'is_open_licence_txt', 'is_prov_timely',
+        'is_prov_timely_last', 'tag',
+    ]
+
+
+class DatasetsDumpView(generics.ListAPIView):
+    """This view return a downloadable csv with all the datasets with urls and
+ tags serialized"""
+    queryset = Dataset.objects.all()
+    serializer_class = DatasetsDumpSerializer
+    permission_classes = (permissions.IsAuthenticated, )
+    renderer_classes = (DatasetsDumpRenderer, )
+
+    def finalize_response(self, request, response, *args, **kwargs):
+        response = super().finalize_response(
+            request, response, *args, **kwargs)
+        response['Content-Disposition'] = ("attachment; "
+                                           "filename=odri_datasets.csv")
+        return response
 
 
 class Score(object):

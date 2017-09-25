@@ -2,7 +2,7 @@
 
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.password_validation import validate_password
-from django.utils.http import urlencode
+from django.utils.http import (urlencode, quote as http_quote)
 import django.core.exceptions
 from django.db import transaction
 from django.db import IntegrityError
@@ -280,3 +280,47 @@ Serializer for user comments
 """
     comment = serializers.CharField(required=True, max_length=10240)
     page = serializers.URLField(required=True, max_length=1024)
+
+
+class DatasetsDumpSerializer(serializers.ModelSerializer):
+    owner = serializers.SlugRelatedField(
+        slug_field='username', read_only=True)
+    changed_by = serializers.SlugRelatedField(
+        slug_field='username', read_only=True)
+    tag = serializers.SlugRelatedField(
+        slug_field='name', read_only=True, many=True)
+    url = serializers.SlugRelatedField(
+        slug_field='url', read_only=True, many=True)
+
+    class Meta:
+        model = Dataset
+        fields = (
+            'owner', 'country', 'keydataset', 'is_reviewed', 'review_date',
+            'create_time', 'modify_time', 'changed_by', 'notes', 'url',
+            'is_existing', 'is_existing_txt', 'is_digital_form',
+            'is_avail_online',
+            'is_avail_online_meta', 'is_bulk_avail', 'is_machine_read',
+            'is_machine_read_txt', 'is_pub_available', 'is_avail_for_free',
+            'is_open_licence', 'is_open_licence_txt', 'is_prov_timely',
+            'is_prov_timely_last', 'tag',
+            )
+
+    def to_representation(self, obj):
+        repres = super(DatasetsDumpSerializer, self).to_representation(obj)
+        tag_flat = ""
+        for tag in repres['tag']:
+            if tag_flat == "":
+                tag_flat = tag
+            else:
+                tag_flat += "|" + tag
+        repres['tag'] = tag_flat
+
+        url_flat = ""
+        for url in repres['url']:
+            if url_flat == "":
+                url_flat = http_quote(url)
+            else:
+                url_flat += "|" + http_quote(url)
+        repres['url'] = url_flat
+
+        return repres
