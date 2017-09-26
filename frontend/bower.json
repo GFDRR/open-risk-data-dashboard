@@ -15,9 +15,10 @@
     "angular": "^1.6.4",
     "bootstrap": "^3.3.7",
     "font-awesome": "fontawesome#^4.7.0",
-    "animate.css": "^3.5.2"
+    "animate.css": "^3.5.2",
+    "flex": "^0.1.1"
   },
-  "main": "frontend/bower_components",
+  "main": "bower_components",
   "keywords": [
     "rodi",
     "opendata"

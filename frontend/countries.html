@@ -151,11 +151,17 @@
                                         <!-- row: country | column data type | click details dataset -->
                                         <table class="table table-condensed table-striped table-responsive data hidden-xs">
                                             <thead>
-                                                <th class="row_icon" style="width:25px;"><span>#</span><br /><br /></th>
-                                                <th class="row_icon" style="width:19%;"><span>COUNTRY</span><br /><br /></th> <!-- cella vuota -->
-                                                <th class="row_icon"><span>SCORE</span><br /><br /></th> <!-- cella vuota -->
-                                                <th class="text-center row_icon" style="width:150px;" ng-repeat="hc in HazardCategory">
-                                                    <!--<i class="{{getHCIcon(hc.category.id)}}"></i><br />--><span>{{hc.category.name}}</span><br /><br />
+                                                <th class="row_icon minimal " >
+                                                    <span>#</span>
+                                                </th>
+                                                <th class="row_icon country" >
+                                                    <span>COUNTRY</span>
+                                                </th> <!-- cella vuota -->
+                                                <th class="row_icon">
+                                                    <span>SCORE</span>
+                                                </th> <!-- cella vuota -->
+                                                <th class="text-center row_icon flat" ng-repeat="hc in HazardCategory">
+                                                    <span>{{hc.category.name}}</span>
                                                 </th>
                                             </thead>
 
@@ -164,8 +170,8 @@
                                             <tr><td colspan="7"></td></tr>
                                             <!--<tr ng-repeat="(key, row) in aCountryList">-->
                                             <tr ng-repeat="country in arrListCountry">
-                                                <td style="width:25px;">{{$index + 1}}.</td>
-                                                <td style="width:19%;">
+                                                <td class="minimal">{{$index + 1}}.</td>
+                                                <td class="country truncate" >
                                                     <strong>
                                                         <a href="" ng-click="changepage('dataset_list.html?idcountry=' + country.iso2 + '&idcategory=0')">{{country.name}}</a>
                                                     </strong>

@@ -15,7 +15,6 @@
     <!-- jQuery library -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
 
-
     <!-- Angular components -->
     <script src="bower_components/angular/angular.min.js"></script>
 
@@ -43,7 +42,6 @@
     <![endif]-->
 
     <link href="bower_components/animate.css/animate.min.css" rel="stylesheet">
-    <link href="bower_components/Flex/dist/flex.min.css" rel="stylesheet">
 
     <!-- RODI APP -->
     <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
@@ -57,8 +55,6 @@
     <!-- RODI css -->
     <link href="css/rodi_css.css" rel="stylesheet">
     <link href="css/style_map.css" rel="stylesheet">
-    <link href="css/land.css" rel="stylesheet">
-
 
     <!-- Guida: https://medium.com/@tweededbadger/tutorial-dynamic-data-driven-svg-map-with-angularjs-b112fdec421d -->
     <!--<script src="js/change_svg.js"></script>-->
@@ -66,7 +62,7 @@
 </head>
 <body ng-app="RodiApp" ng-controller="RodiCtrl">
 
-    <div class="container-fluid land">
+    <div class="container-fluid">
 
         <!-- Section HEADER - INIZIO -->
         <section id="rodi_header">
@@ -95,120 +91,99 @@
                 </div>
             </div>
 
-
-        </section>
-        <!-- Section HEADER - FINE -->
-
-        <!--Home-->
-
-        <section id="one" class="section ">
-            <!--<div class="">-->
-                <div class="fbg grid wrap inline align-center justify-center">
-                    <div class="span-3">
-                        <div class="stat">
-                            <div class="stat-group">
-                                <div class="per">50</div>
-                                <svg class="svg"></svg>
-                            </div>
-                            <h1 >Dataset submitted</h1>
-                        </div>
-
-
-
-                    </div>
-                    <div class="span-3">
-                        <div class="stat">
-
-                            <div class="stat-group">
-                                <div class="per">75</div>
-                                <svg class="svg"></svg>
-
-                            </div>
-                            <h1>Dataset submitted</h1>
-                        </div>
-
-                    </div>
-                    <div class="span-3">
-                        <div class="stat">
-                            <div class="stat-group">
-                                <div class="per">100</div>
-                                <svg class="svg"></svg>
-                            </div>
-                            <h1>Dataset submitted</h1>
-                        </div>
-                    </div>
-
-
-                </div>
-            <!--</div>-->
-        </section>
-        <section class="ico" id="menu-hazard">
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <ul class="nav navbar-nav text-center">
-                        <li >
-                            <a href="" class="animated fadeInUp delay-001">
-                                <i class="ico-coastal_flooding fa-2x"></i>
-                                <span>Coastal flooding</span>
-                            </a>
-                        </li>
-                        <li >
-                            <a href="" class="animated fadeInUp delay-002">
-                                <i class="ico-cyclone fa-2x"></i>
-                                <span>Cyclone</span>
-                            </a>
-                        </li>
-                        <li >
-                            <a href="" class="animated fadeInUp delay-003">
-                                <i class="ico-earthquake fa-2x"></i>
-                                <span>Eartquake</span>
-                            </a>
-                        </li>
-                        <li >
-                            <a href="" class="animated fadeInUp delay-004">
-                                <i class="ico-landslide fa-2x"></i>
-                                <span>Landslide</span>
-                            </a>
-                        </li>
-                        <li >
-                            <a href="" class="animated fadeInUp delay-005">
-                                <i class="ico-river_flooding fa-2x"></i>
-                                <span>River Flooding</span>
-                            </a>
-                        </li>
-                        <li >
-                            <a href="" class="animated fadeInUp delay-006">
-                                <i class="ico-tsunami fa-2x"></i>
-                                <span>Tsunami</span>
-                            </a>
-                        </li>
-                        <li >
-                            <a href="" class="animated fadeInUp delay-007">
-                                <i class="ico-volcano fa-2x"></i>
-                                <span>Volcano</span>
-                            </a>
-                        </li>
-                        <li >
-                            <a href="" class="animated fadeInUp delay-008">
-                                <i class="ico-water_scarcity  fa-2x"></i>
-                                <span>Water Scarcity </span>
-                            </a>
-                        </li>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                    <br />
+                    <h2 class="page_title_small">Tracking and improving the state of Open Data for Resilience worldwide</h2>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                    <!-- start count stats -->
+                    <section id="counter-stats" class="wow fadeInRight" data-wow-duration="1.4s">
+                        <div class="container">
+                            <div class="row">
 
-                    </ul>
+                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 stats">
+                                    <div class="panel panel-success">
+                                        <div class="panel-body" style="cursor: pointer;" ng-click="changeview('countries.html', '5')">
+                                            <span class="counting" data-count="{{totalDataset}}">{{totalDataset}}</span> datasets submitted covering <span class="counting" data-count="{{countryWithData}}">{{countryWithData}}</span> countries
+                                            <br /><br />
+                                            <div class="progress">
+                                                <div class="progress-bar progress-bar-striped progress-orange" role="progressbar" aria-valuenow="{{progressCountryVal}}" aria-valuemin="0" aria-valuemax="190" title="countries" data-content="content here" data-placement="bottom" data-toggle="popover" data-original-title="Countries" style="width: {{progressCountryVal + '%'}}"></div>
+                                            </div>
+                                            <div class="pull-left"><span>0</span></div>
+                                            <div class="pull-right"><span>195</span></div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="row stats">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <h3>Datasets distribution</h3>
+                                        <br />
+                                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                            <div id="datasetCategories"></div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                            <div id="opendataIndex"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row stats">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <h3>Datasets applicable for hazard</h3>
+                                        <br />
+                                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                            <div id="perilCategories"></div>
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                            <div id="perilOpendataIndex"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div id="container"></div>
+
+                            <!-- end row -->
+                        </div>
+                        <!-- end container -->
+                    </section>
+                    <!-- end cont stats -->
                 </div>
             </div>
 
+            <!--<div class="row">
+                <div class="container">
+                    <div class="wrap">
+                        <div class="expand active">
+                            <h2>Disclaimer</h2>
+                            <br><br>
+                            <p class="text-justify">
+                                The Global Facility for Disaster Reduction and Recovery (GFDRR) works closely with UN agencies, client governments, World Bank regional offices, and other partners and focuses on five pillars of action to further the Disaster Risk Management (DRM) agenda: Risk Identification, Risk Reduction, Preparedness, Financial Protection and Resilient Recovery.
+                                GFDRR hosts the GFDRR Innovation Lab. The Innovation Lab strategy is to build partnerships and communities that utilize open data and open source technology to assist decision-making. Often, engagement in DRM projects across the globe is hindered by a lack of awareness of what data already exist, where to find it, and whether it is openly accessible.
+                                This dashboard has the objective of providing an overview on the openness and accessibility of risk data worldwide with the aim of:
+                            </p>
+                            <ul>
+                                <li>advocating for data openness and accessibility</li>
+                                <li>highlighting gaps to direct investment in new risk information</li>
+                                <li>facilitate the trading and access to risk related data.</li>
+                            </ul>
+                            <button  type="button" class="btn btn-custom" ng-click="changeview('about.html', '0')">More...</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>-->
+
         </section>
-        <section id="two" class="section grid align-center justify-center wrap">
-
-
-
-                    <h1 class="page_title_small">Tracking and improving the state of Open Data <br> for Resilience worldwide</h1>
-
-
-        </section>
-
+        <!-- Section HEADER - FINE -->
 
         <!-- Section PARTNER - INIZIO -->
         <section id="news">
@@ -280,9 +255,6 @@
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <!--wow for animate.css-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/0.1.12/wow.min.js"></script>
-    <!--snap-->
-    <script src="js/stats.js"></script>
-    <script src="http://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.1.0/snap.svg-min.js"></script>
 
     <script>
         // number count for stats, using jQuery animate

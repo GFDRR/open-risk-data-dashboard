@@ -1,0 +1,234 @@
+@import 'table_color';
+
+
+
+html {
+  color:#eee;
+  font-size: 70px;
+  font-family:courier;
+}
+/* fix the body to be full screen */
+body {
+  height:100%; /* top and bottom fixed to 0 would accomplish the samething, BUT since height percentage is dependent on the parent elements height, I'm using height:100% here to cascade down in order to allow the section and section:before to be designated as height:100%. */
+  margin:0;
+  position:absolute; // body just be absolute to expand height and width
+  width:100%;
+}
+.container-fluid.land {
+  padding-left:0;
+  padding-right:0;
+}
+.fbg {
+  //&:before,
+  //&:after{
+  //  content: '';
+    background-image: url('../img/michael-fertig-2429.jpg');
+    background-attachment: fixed;
+    background-position: 50% top;
+    background-size: cover;
+    object-fit: cover;
+    //animation: smallmove 50s linear infinite;
+    //position: absolute;
+    //display: block;
+  //}
+  width: 100%;
+  height: 100%;
+
+
+}
+
+.fbg_front {
+  position:absolute;
+  margin:auto;
+  width:100%;
+  left:0;
+  /*   display:block; */
+  top:33%;
+
+}
+
+@keyframes smallmove {
+0% {
+  -webkit-transform: scale(1);
+  -moz-transform: scale(1);
+  -ms-transform: scale(1);
+  -o-transform: scale(1);
+  transform: scale(1);}
+100% {
+  -webkit-transform: scale(1.2);
+  -moz-transform: scale(1.2);
+  -ms-transform: scale(1.2);
+  -o-transform: scale(1.2);
+  transform: scale(1.2);}
+}
+
+.section {
+  height:calc(100% - 75px);
+  height:calc(100vh - 75px);
+  position:relative;
+  text-align:center;
+  width:100%;
+
+  &:before {
+   /* content:'';
+    display: inline-block;
+    height:100%;
+    width:0px;*/
+    vertical-align: middle;
+  }
+}
+section+section {padding:0;}
+/* Use "background-color" and not just "background" else your other backgound attribute such as "size", "position", and "attachment" will be reset to default.*/
+#one {
+  //background-color:RebeccaPurple;
+  overflow: hidden;
+}
+#two {background-color:#353442;}
+#three {background-color:SkyBlue;}
+#four {background-color:MediumSeaGreen;}
+#five {background-color:Tomato;}
+
+
+//.bigger {padding:100px 50px; }
+.page_title_small { white-space: normal; line-height: 2; font-size:3em; color: lighten($complementary,30%);}
+
+
+.block {border: 1px solid $complementary;}
+
+
+
+
+//stats
+.stat {
+  &-group {
+    $stat-w-h: 300px;
+    position: relative;
+    display: inline-block;
+    height: $stat-w-h;
+    width: $stat-w-h;
+
+    .per {
+      position: absolute;
+      height: 0;
+      line-height: 0;
+      width: 100%;
+      top: 50%;
+      font-size: 3em;
+      text-align: center;
+      color: $white;
+      opacity: 0.8
+    }
+    svg {
+      height: 300px;
+    }
+    svg path {
+      stroke: $complementary;
+      stroke: $primary;
+    }
+  }
+  h1 {
+    color: rgba($white,0.9);
+    font-size: 3em;
+  }
+}
+
+//.stat {transform: scale(1);}
+.stat:hover,
+.stat:focus {
+  transform: scale(1.2);
+}
+.stat,
+.stat:hover,
+.stat:focus {
+  -webkit-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+/*
+.stat:hover,
+.stat:focus {
+  .per {
+    filter: blur(1px);
+    -webkit-transform: blur 1s ease ;
+    -moz-transform: blur 1s ease ;
+    -ms-transform: blur 1s ease ;
+    -o-transform: blur 1s ease ;
+    transform: blur 1s ease ;
+  }
+}
+*/
+
+#menu-hazard .nav>li>a {
+  pointer-events: none;
+  &:hover {
+    transform: inherit;
+    color: inherit;
+    background: inherit;
+  }
+}
+.rerun {
+  position: absolute;
+  top: 0;
+  right: 0;
+  text-decoration: none;
+  padding: 1em;
+  background-color: $gradient_2;
+  color: $white;
+  border-radius: 0 0 0 .5em;
+  transition: background-color 500ms;
+  &:hover {
+    background-color: $complementary;
+  }
+}
+
+
+
+
+/* section.ico {position:absolute;} */
+#menu-hazard {
+  background:none;
+  margin-top:-13em; padding:3em;
+  span {display:none;}
+  li {    transform:scale(2.5);}
+  .nav>li>a>i {
+    background:none;
+    color:rgba($white,0.5);
+    border-color:$progress-color;
+    border-width:0px;
+  }
+}
+
+
+
+
+section#two {  max-height: 50vh;}
+section#news {
+  padding-top: 10em;
+  padding-bottom: 5em;
+}
+
+svg {filter:blur(px)}
+
+
+//       Ritardo animazioni
+
+
+.delay {
+  $time:0.2s;
+  &-001 {animation-delay:$time;}
+  &-002 {animation-delay:2*$time;}
+  &-003 {animation-delay:3*$time;}
+  &-004 {animation-delay:4*$time;}
+  &-005 {animation-delay:5*$time;}
+  &-006 {animation-delay:6*$time;}
+  &-007 {animation-delay:7*$time;}
+  &-008 {animation-delay:8*$time;}
+  &-009 {animation-delay:9*$time;}
+  &-010 {animation-delay:10*$time;}
+  &-011 {animation-delay:11*$time;}
+  &-012 {animation-delay:12*$time;}
+  &-100 {animation-delay:100*$time;}
+  &-120 {animation-delay:120*$time;}
+  &-150 {animation-delay:150*$time;}
+
+}
+

@@ -1533,8 +1533,8 @@ fieldset[disabled] .btn-custom.active {
     animation: all 0.3s ease;
 }
 
-#header .img-responsive {
-    max-height: 120px;
+.img-responsive {
+    max-width: 200px;
     padding: 1em;
 }
 

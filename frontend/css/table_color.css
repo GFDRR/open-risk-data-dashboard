@@ -43,57 +43,68 @@ progress {
     background: rgba(255, 255, 255, 0.5); }
 
 .table.dataset .status .fa {
-  background: rgba(50, 154, 209, 0.8); }
+  background: rgba(255, 128, 0, 0.8); }
   .table.dataset .status .fa.ok {
     background: rgba(0, 128, 0, 0.8); }
   .table.dataset .status .fa.rev {
     background: rgba(255, 0, 0, 0.8); }
 
 tbody {
-  display:block;
-  height:600px;
-  overflow:auto;
-}
+  display: block;
+  height: 600px;
+  overflow: auto; }
+
 thead, tbody tr {
-  display:table;
-  width:100%;
-  table-layout:fixed;
-}
+  display: table;
+  width: 100%;
+  table-layout: fixed; }
+
 thead {
-  width: calc( 100% - 1em )
-}
+  width: calc( 100% - 1em ); }
+
+td.minimal, th.minimal,
+.data.table > tbody > tr > td.minimal {
+  width: 2%; }
+td.country, th.country,
+.data.table > tbody > tr > td.country {
+  max-width: 100px;
+  text-align: left; }
+
+th {
+  white-space: pre; }
+  th.flat {
+    max-widdth: 100px; }
+
+.truncate {
+  overflow: hidden;
+  text-overflow: ellipsis; }
 
 /* legend for map */
+.position_map_legend {
+  position: absolute;
+  top: 50px;
+  right: 50px; }
 
-.position_map_legend
-{
-  position:absolute;
-  top:50px;
-  right:50px;
-}
-
-.legend_gradient
-{
-  width:250px;
-  height:20px;
+.legend_gradient {
+  width: 250px;
+  height: 20px;
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ff8000+0,ffffff+100 */
-  background: #ff8000; /* Old browsers */
-  background: -moz-linear-gradient(left, #ff8000 0%, #ffffff 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(left, #ff8000 0%,#ffffff 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to right, #ff8000 0%,#ffffff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff8000', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
-}
+  background: #FF8000;
+  /* Old browsers */
+  background: -moz-linear-gradient(left, #FF8000 0%, white 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(left, #FF8000 0%, white 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right, #FF8000 0%, white 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff8000', endColorstr='#ffffff',GradientType=1 );
+  /* IE6-9 */ }
 
-.legend_gradient_txt
-{
-  font-size:20px;
-  font-weight: 700;
-}
+.legend_gradient_txt {
+  font-size: 20px;
+  font-weight: 700; }
 
-.table-striped>tbody>tr:nth-of-type(odd)
-{
-  background-color:#f0f0f0;
-}
+.table-striped > tbody > tr:nth-of-type(odd) {
+  background-color: #f0f0f0; }
 
-
-
+/*# sourceMappingURL=table_color.css.map */
