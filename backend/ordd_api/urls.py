@@ -9,7 +9,7 @@ from .views import (
     ProfileDetails, ProfilePasswordUpdate, ProfilePasswordReset,
     ProfileCommentSendView, UserCreateView, UserDetailsView,
     RegistrationView, ProfileDatasetListCreateView, ProfileDatasetDetailsView,
-    DatasetListView, DatasetDetailsView, VersionGet,
+    DatasetListView, DatasetDetailsView, DatasetsDumpView, VersionGet,
     ScoringWorldGet, ScoringCountryDetailsGet, ScoringWorldCategoriesGet)
 
 from .keydatasets_views import (
@@ -43,6 +43,7 @@ urlpatterns = [
     url(r'^dataset/(?P<pk>[0-9]+)$',
         DatasetDetailsView.as_view(), name="dataset_details"),
 
+    url(r'^datasets_dump$', DatasetsDumpView.as_view(), name="datasets_dump"),
 
     url(r'^user/$', UserCreateView.as_view(), name="user_create"),
     url(r'^user/(?P<pk>[0-9]+)$',
