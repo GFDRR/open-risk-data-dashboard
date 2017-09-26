@@ -1,0 +1,135 @@
+$progress-color: #FF8000;
+$progress-bck: lightgrey;
+$progress-txt: #333;
+$white: white;
+//$cell-def: lightgrey;
+$gradient_1: #E0F7FA;
+$gradient_2: #dedede;
+$green: green;
+$red: red;
+$primary: #EE3036;
+$complementary: #007899;
+
+
+
+/*
+
+==============================================================================
+
+Color set matrix cell
+
+==============================================================================
+
+*/
+progress {
+  border: 3px solid rgba($white, .3);
+  background-color: $progress-bck;
+  &::-webkit-progress-bar {    background-color: $progress-bck;}
+  &::-webkit-progress-value {    background-color: $progress-color;}
+  &::-moz-progress-bar {    background-color: $progress-color;}
+}
+
+.matrix_cell {
+  background-color:rgba($progress-bck,.4);
+  border: 2px solid $progress-bck;
+}
+
+.matrix_cell:hover,
+.matrix_cell:focus,
+.data strong:hover ~ progress {    border-color: $progress-color;}
+
+
+.data td strong {
+  &:hover a,
+  &:focus a {    color:rgba($progress-txt, .75);   }
+}
+
+.table.data strong {
+  small, a {color: $progress-txt;}
+}
+
+.jumbotron {
+  background: -webkit-linear-gradient(left, $gradient_1, $gradient_2);
+  background: linear-gradient(to right, $gradient_1, $gradient_2);
+  .table.data,
+  .table.dataset {
+    tr {border: 1px solid rgba($progress_bck, .6);    }
+    th {background: rgba($white, .5);}
+  }
+}
+
+
+.table.dataset .status .fa {
+  background: rgba($progress-color, .8);
+  &.ok {background: rgba($green, .8);}
+  &.rev {background: rgba($red, .8);}
+}
+
+tbody {
+  display:block;
+  height:600px;
+  overflow:auto;
+}
+thead, tbody tr {
+  display:table;
+  width:100%;
+  table-layout:fixed;
+}
+thead {
+  width: calc( 100% - 1em )
+}
+
+td, th,
+.data.table>tbody>tr>td {
+  &.minimal {width:2%;}
+  &.country {
+    max-width: 100px;
+    text-align: left;
+  }
+}
+th {
+  white-space: pre;
+  &.flat {max-widdth:100px;}
+}
+
+.truncate {
+  //white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* legend for map */
+
+.position_map_legend
+{
+  position:absolute;
+  top:50px;
+  right:50px;
+}
+
+.legend_gradient
+{
+  width:250px;
+  height:20px;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ff8000+0,ffffff+100 */
+  background: $progress-color; /* Old browsers */
+  background: -moz-linear-gradient(left, $progress-color 0%, $white 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(left, $progress-color 0%,$white 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to right, $progress-color 0%,$white 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff8000', endColorstr='#ffffff',GradientType=1 ); /* IE6-9 */
+}
+
+.legend_gradient_txt
+{
+  font-size:20px;
+  font-weight: 700;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd)
+{
+  background-color:#f0f0f0;
+}
+
+
+
+
