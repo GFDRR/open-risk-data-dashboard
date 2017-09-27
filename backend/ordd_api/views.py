@@ -292,7 +292,7 @@ def compose_name(user):
     human_name = ""
     if user.last_name:
         if user.profile.title:
-            human_name = user.title
+            human_name = user.profile.title
         if user.first_name:
             human_name += "%s%s" % ((" " if human_name else ""),
                                     user.first_name)
