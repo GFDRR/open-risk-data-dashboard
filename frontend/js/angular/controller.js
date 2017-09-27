@@ -16,6 +16,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
     $scope.bLogin = false;
     $scope.tokenid = localStorage.getItem('rodi_token');
     $scope.userinfo = JSON.parse(localStorage.getItem('rodi_user'));
+    $scope.baseURL = baseAPIurl;
 
     if(!$scope.userinfo)
     {
@@ -45,7 +46,49 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
     // ************************************** //
     // ************ HOME PAGE *************** //
     // ************************************** //
+
     if ($location.path().indexOf('index') !== -1 || $location.path() == baseUrl.replace("http:/", "") || $location.path() == baseUrl.replace("https:/", ""))
+    {
+
+        RodiSrv.getHomeStatistics(function(data)
+        {
+            // Statistics index
+
+            $scope.countryWithData = data.countries_count;
+            $scope.totalDataset = data.datasets_count;
+            $scope.categoryCounters = data.categories_counters;
+            console.log($scope.totalDataset);
+
+            // Calc % open datatsets
+            $scope.iOpenIndex = 0;
+            var iTotalDatasets = 0;
+            aTotDataset = angular.copy($scope.categoryCounters);
+
+            //
+            angular.forEach(aTotDataset, function(item)
+            {
+                iTotalDatasets = (iTotalDatasets * 1) + (item.count * 1);
+                $scope.iOpenIndex = $scope.iOpenIndex + (item.fullcount * 1);
+
+            });
+
+            $scope.iOpenIndex = (($scope.iOpenIndex / iTotalDatasets) * 100).toFixed(1) * 1;
+
+            console.log($scope.iOpenIndex);
+
+
+        }, function(data)
+        {
+            // Error
+        });
+
+    }
+
+    // ************************************** //
+    // *********** STATS PAGE *************** //
+    // ************************************** //
+
+    if ($location.path().indexOf('stats.html') !== -1)
     {
 
         var sLabel = "";

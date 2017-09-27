@@ -34,6 +34,8 @@
                         <!--<li ng-if="bHome"><a href="" ng-click="changeview('index.html', '0')"><i class="fa fa-home" aria-hidden="true"></i></a></li>-->
 
                         <li><a href="" ng-click="changeview('contribute.html', '1')">Submit new dataset</a></li>
+                        <!--<li ng-if="bLogin"><a href="{{baseURL}}datasets_dump" target="_blank">Download</a></li>-->
+                        <li ng-if="bLogin"><a href="" ng-click="downloadCSV()">Download</a></li>
                         <li><a href="" ng-click="changeview('countries.html', '5')">Countries</a></li>
                         <li><a href="" ng-click="changeview('methodology.html', '2')">Methodology</a></li>
                         <!--<li><a href="" ng-click="changeview('browse-data.html', '3')">Countries</a></li>-->

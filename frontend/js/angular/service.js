@@ -1389,6 +1389,24 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         });
     }
 
+    this.getCSVFile = function(token, onSuccess, onError)
+    {
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'datasets_dump',
+            headers: {
+                'Authorization': 'Token ' + token
+            },
+            data: { }
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+    }
+
     // ************************************** //
     // ************ STATISTICS ************** //
     // ************************************** //
@@ -1453,6 +1471,5 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         });
 
     }
-
 
 }]);
