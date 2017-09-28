@@ -86,34 +86,50 @@ progress {
   background: red;
   color: white; }
 
-tbody {
+table tbody {
   display: block;
   height: 600px;
   overflow: auto; }
-
-thead, tbody tr {
+table thead, table tbody tr {
   display: table;
   width: 100%;
   table-layout: fixed; }
 
-thead {
-  width: calc( 100% - 1em ); }
-
-td.minimal, th.minimal,
-.data.table > tbody > tr > td.minimal {
-  width: 2%; }
-td.country, th.country,
-.data.table > tbody > tr > td.country {
+#tab1 td.country,
+#tab1 th.country,
+.data.table > td.country {
   max-width: 100px; }
+#tab1 td:first-child,
+#tab1 th:first-child,
+.data.table > td:first-child {
+  width: 30px; }
+#tab1 td:nth-child(2),
+#tab1 th:nth-child(2),
+.data.table > td:nth-child(2) {
+  min-width: 100px; }
+#tab1 td:nth-child(3),
+#tab1 th:nth-child(3),
+.data.table > td:nth-child(3) {
+  min-width: 200px; }
 
 .country {
   text-align: left; }
 
-th {
+#tab1 th {
   white-space: pre; }
-  th.flat {
+  #tab1 th:nth-child(3) {
+    text-align: center; }
+  #tab1 th.flat {
     max-width: 100px; }
 
+@media screen and (max-width: 768px) {
+  progress {
+    height: 1em !important; }
+
+  #tab1 .data.table > th, #tab1 .data.table > td {
+    width: auto; }
+    #tab1 .data.table > th:nth-child(2), #tab1 .data.table > td:nth-child(2) {
+      max-width: 200px !important; } }
 .truncate {
   overflow: hidden;
   text-overflow: ellipsis; }

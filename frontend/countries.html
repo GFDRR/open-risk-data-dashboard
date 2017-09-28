@@ -151,24 +151,25 @@
                                         <!-- row: country | column data type | click details dataset -->
                                         <table class="table table-condensed table-striped table-responsive data hidden-xs">
                                             <thead>
-                                                <th class="row_icon minimal " >
-                                                    <span>#</span>
-                                                </th>
-                                                <th class="row_icon country" >
-                                                    <span>COUNTRY</span>
-                                                </th> <!-- cella vuota -->
-                                                <th class="row_icon">
-                                                    <span>SCORE</span>
-                                                </th> <!-- cella vuota -->
-                                                <th class="text-center row_icon flat" ng-repeat="hc in HazardCategory">
-                                                    <span>{{hc.category.name}}</span>
-                                                </th>
+                                                <tr>
+                                                    <th class="row_icon " >
+                                                        <h4>#</h4>
+                                                    </th>
+                                                    <th class="row_icon country" >
+                                                        <h4>COUNTRY</h4>
+                                                    </th> <!-- cella vuota -->
+                                                    <th class="row_icon">
+                                                        <h4>SCORE</h4>
+                                                    </th> <!-- cella vuota -->
+                                                    <th class="text-center row_icon flat" ng-repeat="hc in HazardCategory">
+                                                        <h4>{{hc.category.name}}</h4>
+                                                    </th>
+                                                </tr>
                                             </thead>
 
 
                                             <tbody>
-                                            <tr><td colspan="7"></td></tr>
-                                            <!--<tr ng-repeat="(key, row) in aCountryList">-->
+
                                             <tr ng-repeat="country in arrListCountry">
                                                 <td class="minimal">{{$index + 1}}.</td>
                                                 <td class="country truncate" >
@@ -179,11 +180,11 @@
 
                                                 <td class="">
                                                     <strong>
-                                                        <small><span style="min-width:150px;">{{country.score}} %</span>&nbsp;&nbsp;&nbsp;&nbsp;</small>
+                                                        <small><span >{{country.score}} %</span>&nbsp;&nbsp;&nbsp;&nbsp;</small>
                                                     </strong>
                                                     <progress value="{{country.score}}" max="100"></progress>
                                                 </td>
-                                                <td class="text-center" style="width:150px;" ng-repeat="(key, value) in country.data">
+                                                <td class="text-center" style="" ng-repeat="(key, value) in country.data">
                                                     <!-- click verso dataset list with filters country & category -->
                                                     <a href="" ng-if="value.value !== '-1.0'" ng-click="changepage('dataset_list.html?idcountry=' + country.iso2 + '&idcategory=' + (value.id - 1))" alt="Profile: {{country.name}}">
                                                         <div class="matrix_cell" style="{{colorCell(value.value)}}">
@@ -203,30 +204,40 @@
 
                                         <table class="table table-condensed table-striped table-responsive data visible-xs">
                                             <thead>
-                                            <th></th>
-                                            <th>&nbsp;</th> <!-- cella vuota -->
-                                            <th>&nbsp;</th> <!-- cella vuota -->
+                                            <tr>
+                                                <th class="row_icon " >
+                                                    <h4>#</h4>
+                                                </th>
+                                                <th class="row_icon" >
+                                                    <h4>COUNTRY</h4>
+                                                </th> <!-- cella vuota -->
+                                                <th class="row_icon">
+                                                    <h4>SCORE</h4>
+                                                </th> <!-- cella vuota -->
+                                            </tr>
                                             </thead>
 
 
                                             <tbody>
-                                            <tr><td colspan="7"></td></tr>
-                                            <!--<tr ng-repeat="(key, row) in aCountryList">-->
-                                            <tr ng-repeat="country in arrListCountry">
-                                                <td>{{$index + 1}}.</td>
-                                                <td style="width:19%;">
-                                                    <strong>
-                                                        <a href="" ng-click="changepage('dataset_list.html?idcountry=' + country.iso2 + '&idcategory=0')">{{country.name}}</a>
-                                                    </strong>
-                                                </td>
+                                                <!--<tr><td colspan="7"></td></tr>-->
+                                                <!--<tr ng-repeat="(key, row) in aCountryList">-->
+                                                <tr ng-repeat="country in arrListCountry">
+                                                    <td>{{$index + 1}}.</td>
+                                                    <td style="">
+                                                        <strong>
+                                                            <a href="" ng-click="changepage('dataset_list.html?idcountry=' + country.iso2 + '&idcategory=0')">{{country.name}}</a>
+                                                        </strong>
+                                                    </td>
 
-                                                <td class="">
-                                                    <strong>
-                                                        <small><span style="min-width:150px;">{{country.score}} %</span>&nbsp;&nbsp;&nbsp;&nbsp;</small>
-                                                    </strong>
-                                                    <progress value="{{country.score}}" max="100"></progress>
-                                                </td>
-                                            </tr>
+                                                    <td class="">
+                                                        <strong>
+                                                            <small>
+                                                                <span style="">{{country.score}} %</span>
+                                                            </small>
+                                                        </strong>
+                                                        <progress value="{{country.score}}" max="100"></progress>
+                                                    </td>
+                                                </tr>
 
                                             </tbody>
 
