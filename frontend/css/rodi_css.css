@@ -1833,6 +1833,11 @@ responsive
     background-color: #FF8000;
 }
 
+.table>thead:first-child>tr:first-child>th
+{
+    text-align: left;
+}
+
 
 
 
