@@ -57,7 +57,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
             $scope.countryWithData = data.countries_count;
             $scope.totalDataset = data.datasets_count;
             $scope.categoryCounters = data.categories_counters;
-            console.log($scope.totalDataset);
 
             // Calc % open datatsets
             $scope.iOpenIndex = 0;
