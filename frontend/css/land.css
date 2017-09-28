@@ -67,8 +67,7 @@ progress {
 .status a {
   color: #FF8000; }
   .status a.download {
-    color: rgba(0, 128, 0, 0.8);
-    display: none; }
+    color: rgba(0, 128, 0, 0.8); }
   .status a .badge .ok {
     color: rgba(0, 128, 0, 0.8); }
   .status a .badge .rev {
@@ -84,8 +83,18 @@ progress {
 
 .rodi_panel_active {
   background: red;
-  color: white; }
+  color: white;
+  transform: scale(1.05, 1.2); }
 
+/*
+.panel-default {
+
+  border-color: $red;
+  border-width: 2px;
+
+}
+
+*/
 table tbody {
   display: block;
   height: 600px;
@@ -167,7 +176,8 @@ body {
   /* top and bottom fixed to 0 would accomplish the samething, BUT since height percentage is dependent on the parent elements height, I'm using height:100% here to cascade down in order to allow the section and section:before to be designated as height:100%. */
   margin: 0;
   position: absolute;
-  width: 100%; }
+  width: 100%;
+  overflow-x: hidden; }
 
 .container-fluid.land {
   padding-left: 0;

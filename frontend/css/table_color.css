@@ -67,8 +67,7 @@ progress {
 .status a {
   color: #FF8000; }
   .status a.download {
-    color: rgba(0, 128, 0, 0.8);
-    display: none; }
+    color: rgba(0, 128, 0, 0.8); }
   .status a .badge .ok {
     color: rgba(0, 128, 0, 0.8); }
   .status a .badge .rev {
@@ -84,8 +83,18 @@ progress {
 
 .rodi_panel_active {
   background: red;
-  color: white; }
+  color: white;
+  transform: scale(1.05, 1.2); }
 
+/*
+.panel-default {
+
+  border-color: $red;
+  border-width: 2px;
+
+}
+
+*/
 table tbody {
   display: block;
   height: 600px;
