@@ -1199,9 +1199,9 @@ Tables
 
 .badge {
     background: none;
-    margin-top: -2.4em;
-    margin-left: -3.5em;
-    position: absolute;
+    margin-top: 2.5em;
+    margin-left: -6em;
+    /*position: absolute;*/
     transform: scale(0.8);
 }
 
