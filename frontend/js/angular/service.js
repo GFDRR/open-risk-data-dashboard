@@ -1362,6 +1362,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         if(strpath.indexOf('confirm_registration.html') != -1){return "8"};
         if(strpath.indexOf('about.html') != -1){return "9"};
         if(strpath.indexOf('dataset_list.html') != -1){return "10"};
+        if(strpath.indexOf('stats.html') != -1){return "11"};
 
         return "0";
     }

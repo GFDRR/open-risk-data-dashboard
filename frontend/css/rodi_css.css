@@ -1571,6 +1571,16 @@ hr {
 
 }
 
+.hr_grey {
+    border-bottom:1px solid #ddd;
+    width:100%;
+    /*position: absolute;*/
+    /*margin-bottom: 1em;*/
+    /*left:0;*/
+    /*right:0;*/
+
+}
+
 
 /*
 ==============================================================================

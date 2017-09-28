@@ -268,7 +268,7 @@
                         <!--<td title="'Year'" filter="{ create_time: 'number'}" sortable="'create_time'" class="text-center">
                             <h5>{{ds.create_time | date: 'yyyy'}}</h5>
                         </td>-->
-                        <td  sortable="'is_reviewed'" title="'Review'" class="text-center status">
+                        <td  sortable="'is_reviewed'" title="'Command'" class="text-center status">
                             <div class="flex-container flex-row">
 
                                 <!--<i class="fa fa-2x fa-clock-o" aria-hidden="true" ng-if="!ds.is_reviewed" style="color:#eea236; color:rgba(51, 122, 183, 0.7);"></i>-->
@@ -287,7 +287,7 @@
                                     </div>
 
                                 </a>
-                                <a class="download" href="" ng-if="ds.url.length > 0" data-toggle="modal" data-target="#linkdataModal{{$index}}">
+                                <a class="download" title="Download link" href="" ng-if="ds.url.length > 0" data-toggle="modal" data-target="#linkdataModal{{$index}}">
                                      <span class="fa-stack fa-lg fa-2x">
                                       <i class="fa fa-circle fa-stack-2x"></i>
                                       <i class="fa fa-download fa-stack-1x fa-inverse"></i>

@@ -37,6 +37,7 @@
                         <!--<li ng-if="bLogin"><a href="{{baseURL}}datasets_dump" target="_blank">Download</a></li>-->
                         <li ng-if="bLogin"><a href="" ng-click="downloadCSV()">Download</a></li>
                         <li><a href="" ng-click="changeview('countries.html', '5')">Countries</a></li>
+                        <li><a href="" ng-click="changeview('stats.html', '11')">Statistics</a></li>
                         <li><a href="" ng-click="changeview('methodology.html', '2')">Methodology</a></li>
                         <!--<li><a href="" ng-click="changeview('browse-data.html', '3')">Countries</a></li>-->
                         <li><a href="" ng-click="changeview('about.html', '9')">About</a></li>
@@ -148,6 +149,12 @@
                                     For a complete description of the methodology behind the
                                     index consult the Final Report (<a href="" style="display:inline; padding:0px" ng-click="changeview('methodology.html', '2')">Methodology</a>).
                                 </p>
+                            </div>
+
+                            <div class="contextual_content  animated fadeIn" ng-if="showHelpIndex == '11'" ng-cloak>
+                                <div class="text-right"><a href="" ng-click="hideHelp()">CLOSE</a></div>
+                                <h3>Contextual help - Statistics page</h3>
+                                <p></p>
                             </div>
 
                             <!-- ***** FEEDBACK SESISONE ***** -->

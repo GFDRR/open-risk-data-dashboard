@@ -93,8 +93,8 @@
 
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                    <br />
-                    <h2 class="page_title_small">Tracking and improving the state of Open Data for Resilience worldwide</h2>
+                    <br /><br />
+                    <h2 class="page_title_small">Statistics</h2>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
                     <!-- start count stats -->
@@ -106,12 +106,12 @@
                                     <div class="panel panel-success">
                                         <div class="panel-body" style="cursor: pointer;" ng-click="changeview('countries.html', '5')">
                                             <span class="counting" data-count="{{totalDataset}}">{{totalDataset}}</span> datasets submitted covering <span class="counting" data-count="{{countryWithData}}">{{countryWithData}}</span> countries
-                                            <br /><br />
-                                            <div class="progress">
+                                            <!--<br /><br />-->
+                                            <!--<div class="progress">
                                                 <div class="progress-bar progress-bar-striped progress-orange" role="progressbar" aria-valuenow="{{progressCountryVal}}" aria-valuemin="0" aria-valuemax="190" title="countries" data-content="content here" data-placement="bottom" data-toggle="popover" data-original-title="Countries" style="width: {{progressCountryVal + '%'}}"></div>
                                             </div>
                                             <div class="pull-left"><span>0</span></div>
-                                            <div class="pull-right"><span>195</span></div>
+                                            <div class="pull-right"><span>195</span></div>-->
                                         </div>
                                     </div>
 
@@ -123,7 +123,7 @@
                                 <div class="panel panel-default">
                                     <div class="panel-body">
                                         <h3>Datasets distribution</h3>
-                                        <br />
+                                        <hr class="hr_grey" />
                                         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                             <div id="datasetCategories"></div>
                                         </div>
@@ -138,7 +138,7 @@
                                 <div class="panel panel-default">
                                     <div class="panel-body">
                                         <h3>Datasets applicable for hazard</h3>
-                                        <br />
+                                        <hr class="hr_grey" />
                                         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                                             <div id="perilCategories"></div>
                                         </div>
