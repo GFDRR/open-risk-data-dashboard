@@ -1,9 +1,10 @@
 /*font icon*/
-@import url('style.css');
+@import 'style.css';
 /*font set google*/
 @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Roboto+Condensed:300,400,700');
 
-@import url('table_color.css');
+/*@import 'color_table.css';*/
+@import 'table_color.css';
 
 @font-face {
     font-family: 'Bariol Bold';
@@ -932,8 +933,8 @@ Menu nav e hazart transform/transitions
 .search .form-control:focus,
 .search .form-control:hover,
 .invert:hover, .invert:focus,
-.table.dataset td.status a i:hover,
-.table.dataset td.status a i:focus{ transform:scale(1.1); transition:all 0.3s ease;}
+.table.dataset td.status a:hover,
+.table.dataset td.status a:focus{ transform:scale(1.1); transition:all 0.3s ease;}
 
 .nav>li,
 .nav>li>a,
@@ -948,8 +949,8 @@ Menu nav e hazart transform/transitions
 .data td strong a:hover,
 .data td strong a:focus,
 .data strong:hover +  progress,
-.table.dataset td.status a i:hover,
-.table.dataset td.status a i:focus,
+.table.dataset td.status a:hover,
+.table.dataset td.status a:focus,
 .jumbotron.dataset
 {transition:all 0.25s ease;}
 
@@ -1185,15 +1186,23 @@ Tables
 
 }
 .table.data strong small {margin-left: 2em;}
-.table.dataset td.status .fa {
-    width: 2em;
-    height: 2em;
-    color: white;
-    padding: 0;
-    line-height: 2;
+.table.dataset .status a  {
+    /*width: 2em;*/
+    /*height: 2em;*/
+    /*color: white;*/
+    /*padding: 0;*/
+    /*line-height: 2;*/
     text-align: center;
-    margin: 0 1em;
-    border-radius:50%;
+    /*margin: 0 1em;*/
+    /*border-radius:50%;*/
+}
+
+.badge {
+    background: none;
+    margin-top: -2.4em;
+    margin-left: -3.5em;
+    position: absolute;
+    transform: scale(0.8);
 }
 
 .jumbotron {
@@ -1784,10 +1793,7 @@ responsive
     cursor: pointer;
 }
 
-.rodi_panel_active
-{
-    border-bottom: solid 2px #00b3ee;
-}
+/*.rodi_panel_active{    border-bottom: solid 2px #00b3ee;}*/
 
 .highcharts-yaxis-grid .highcharts-grid-line {
     display: none;

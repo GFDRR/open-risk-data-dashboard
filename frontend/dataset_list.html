@@ -173,18 +173,18 @@
                         </div>
                         <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 stats small">
 
-                            <div class="panel panel-default rodi_pointer" ng-click="setView('i')">
-                                <div class="panel-body" ng-class="{'rodi_panel_active': bViewIstances}">
+                            <div class="panel panel-default rodi_pointer " ng-click="setView('i')" ng-class="{'rodi_panel_active animated pulse delay-010': bViewIstances}">
+                                <div class="panel-body" >
                                     Dataset instances<br />
-                                    <span class="counting">{{datasetList.length}}</span>
+                                    <h1 class="counting">{{datasetList.length}}</h1>
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 stats small" ng-click="setView('m')">
-                            <div class="panel panel-default rodi_pointer">
-                                <div class="panel-body" ng-class="{'rodi_panel_active': bViewMissing}">
+                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 stats small" >
+                            <div class="panel panel-default rodi_pointer " ng-click="setView('m')" ng-class="{'rodi_panel_active': bViewMissing}">
+                                <div class="panel-body" >
                                     Missing Datasets<br />
-                                    <span class="counting">{{missingDatasets.length}}</span>
+                                    <h1 class="counting">{{missingDatasets.length}}</h1>
                                 </div>
                             </div>
                         </div>
@@ -270,13 +270,30 @@
                         </td>-->
                         <td  sortable="'is_reviewed'" title="'Review'" class="text-center status">
                             <div class="flex-container flex-row">
-                                <i class="fa fa-2x fa-check-circle-o ok" aria-hidden="true" ng-if="ds.is_reviewed" ></i>
-                                <i class="fa fa-2x fa-clock-o rev" aria-hidden="true" ng-if="!ds.is_reviewed" ></i>
+
                                 <!--<i class="fa fa-2x fa-clock-o" aria-hidden="true" ng-if="!ds.is_reviewed" style="color:#eea236; color:rgba(51, 122, 183, 0.7);"></i>-->
                                 <a class="" href="" title="details" ng-click="changepage('dataset_details.html?keyds=' + ds.id)">
-                                    <i class="fa fa-2x fa-search"></i>
+                                    <span class="fa-stack fa-lg fa-2x">
+                                      <i class="fa fa-circle fa-stack-2x"></i>
+                                      <i class="fa fa-search fa-stack-1x fa-inverse"></i>
+                                    </span>
+
+                                    <div class="badge">
+                                         <span class="fa-stack fa-lg ">
+                                             <i class="fa fa-circle fa-stack-2x"></i>
+                                             <i class="ok fa fa-check-circle-o fa-stack-1x fa-inverse" aria-hidden="true" ng-if="ds.is_reviewed" ></i>
+                                             <i class="rev fa fa-clock-o fa-stack-1x fa-inverse" aria-hidden="true" ng-if="!ds.is_reviewed" ></i>
+                                        </span>
+                                    </div>
+
                                 </a>
-                                <a href="" ng-if="ds.url.length > 0" data-toggle="modal" data-target="#linkdataModal{{$index}}">download</a>
+                                <a class="download" href="" ng-if="ds.url.length > 0" data-toggle="modal" data-target="#linkdataModal{{$index}}">
+                                     <span class="fa-stack fa-lg fa-2x">
+                                      <i class="fa fa-circle fa-stack-2x"></i>
+                                      <i class="fa fa-download fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    <!--<i class="fa fa-download fa-2x"></i>-->
+                                </a>
                             </div>
 
                             <!-- Modal Link download DATA & METADATA -->
