@@ -30,13 +30,13 @@
     <!-- CSS Reset -->
     <style>
 
-            @font-face {
+           /* @font-face {
                 font-family: 'Abel';
                 font-style: normal;
                 font-weight: 400;
                 src: local('Abel Regular'), local('Abel-Regular'), url(https://fonts.gstatic.com/s/abel/v7/brdGGFwqYJxjg2CD1E9o7g.woff2) format('woff2');
                 unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215;
-            }
+            }*/
 
 
 
@@ -136,17 +136,6 @@
             }
         }
 
-        table.table {
-            border-collapse: collapse;
-        }
-        .table th, .table td {
-            border: 1px solid gray;
-            padding: 8px;
-            vertical-align: top;
-        }
-        .table table td {
-            border: 0px;
-        }
     </style>
 
     <!-- Progressive Enhancements -->
@@ -214,11 +203,11 @@
                 <td style="padding: 20px 0; text-align: center">
 <!--                     <img src="http://placehold.it/200x50" aria-hidden="true" width="200" height="50" alt="alt_text" border="0" style="height: auto; background: #dddddd; font-family: 'Abel', sans-serif; font-size: 15px; line-height: 20px; color: #555555;"> -->
 <!-- todo inserire path assoluto su server -->
-                    <img src="cid:riskopendataindex.gif" aria-hidden="true" width="200" height="50" alt="riskopendataindex.gif" border="0" style="height: auto;  font-family: 'Abel', sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
+                    <img src="cid:rodi_logo_new.png"  aria-hidden="true" width="200" height="50" alt="rodi_logo_new.png" border="0" style="height: auto;  font-family: 'Abel', sans-serif; font-size: 15px; line-height: 20px; color: #555555;"/>
                 </td>
             </tr>
-        </table>
-        <!-- Email Header : END -->
+
+                      <!-- Email Header : END -->
 
         <!-- Email Body : BEGIN -->
         <table role="presentation" aria-hidden="true" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width: 600px;">
@@ -227,34 +216,25 @@
             <tr>
                 <td bgcolor="#ffffff">
 <!-- todo inserire path assoluto su server -->
-<!--                     <img src="http://placehold.it/1200x600" aria-hidden="true" width="600" height="" alt="alt_text" border="0" align="center" style="width: 100%; max-width: 600px; height: auto; background: #dddddd; font-family: 'Abel', sans-serif; font-size: 15px; line-height: 20px; color: #555555;" class="g-img"> -->
-                    <img src="cid:world-bg.gif" aria-hidden="true" width="600" height="" alt="world-bg" border="0" align="center" style="width: 100%; max-width: 600px; height: auto; background: #ffffff; font-family: 'Abel', sans-serif; font-size: 15px; line-height: 20px; color: #555555;" class="g-img">
-                </td>
+
+
+                    <img src="cid:email_bck.png" aria-hidden="true" width="600" height="" alt="email_bck.png" border="0" align="center" style="width: 100%; max-width: 600px; height: auto; background: #ffffff; font-family: 'Abel', sans-serif; font-size: 15px; line-height: 20px; color: #555555;" class="g-img"/></td>
             </tr>
             <!-- Hero Image, Flush : END -->
 
             <!-- 1 Column Text + Button : BEGIN -->
             <tr>
-                <td bgcolor="#ffffff">
-                  {% block content %}{% endblock content %}
+              <td bgcolor="#ffffff">
+                {% block content %}{% endblock content %}
                 </td>
             </tr>
             <!-- 1 Column Text + Button : END -->
-
         </table>
         <!-- Email Body : END -->
 
         <!-- Email Footer : BEGIN -->
         <table role="presentation" aria-hidden="true" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width: 680px;">
-            <tr>
-                <td style="padding: 40px 10px;width: 100%;font-size: 12px; font-family: 'Abel', sans-serif; line-height:18px; text-align: center; color: #888888;" class="x-gmail-data-detectors">
-                    <webversion style="color:#cccccc; text-decoration:underline; font-weight: bold;">View as a Web Page</webversion>
-                   <!-- <br><br>
-                    <a href="http://www.cimafoundation.org" target="_blank">cimafoundation.org</a><br>123 Fake Street, SpringField, OR, 97477 US<br>(123) 456-7890
-                    <br><br>
-                    <unsubscribe style="color:#888888; text-decoration:underline;">unsubscribe</unsubscribe>-->
-                </td>
-            </tr>
+
         </table>
         <!-- Email Footer : END -->
 
@@ -277,14 +257,15 @@
                     <![endif]-->
                     <table role="presentation" aria-hidden="true" cellspacing="0" cellpadding="0" border="0" width="100%">
                         <tr>
-                            <td style="padding: 40px; text-align: left; font-family: 'Abel', sans-serif; font-size: 15px; line-height: 20px; color: #ffffff;">
-                                <h3 style="margin: 0; display:flex; justify-content: flex-start; align-items: center;"> An initiative of <img class="flex-item" src="cid:gfdrr.gif" style="height:64px;margin-left:10px;" alt="" />
+                            <td style="padding: 40px; text-align: center; font-family: 'Abel', sans-serif; font-size: 15px; line-height: 20px; color: #ffffff;">
+                                <h3 style="margin: 0; display:flex; justify-content: center; align-items: center; text-align: center"> An initiative of
+                                    <img src="cid:gfdrr.gif" img class="flex-item" style="height:64px;margin-left:10px;" alt="" />
                             </h3>
                             </td>
 
 
                         </tr>
-                        <tr >
+                        <!--<tr >
                             <td>
                                 <hr style="border:none;border-bottom:1px solid #888; width:100%;position: absolute; margin: 0; left:0;">
                                 <div style="display: flex; justify-content: flex-start; align-content: center; color:#ffffff;">
@@ -294,7 +275,7 @@
                                     <a href="" class="footer_link text-muted flex-item" style="color:#ffffff; padding: 5px;">Term of use</a>
                                 </div>
                             </td>
-                        </tr>
+                        </tr>-->
 
                     </table>
                     <!--[if mso]>

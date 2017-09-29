@@ -40,7 +40,7 @@ def mailer(address, subject, content_html, content_txt, template,
 
     # This is the code needed to add images as part of a multi-part email
 
-    for f in ['riskopendataindex.gif', 'world-bg.gif', 'gfdrr.gif']:
+    for f in ['rodi_logo_new.png', 'email_bck.png', 'gfdrr.gif']:
         mailer_attach_image(msg, os.path.join(
             os.path.dirname(__file__), 'templates',
             'ordd_api', 'mail_templates', 'img', f), f)
