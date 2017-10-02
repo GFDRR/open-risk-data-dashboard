@@ -35,7 +35,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
                     console.log('Warning: API version not compatible!');
                 } else if(aVersion[1] * 1 > appAPIVersion[1] * 1)
                     {
-                        console.log('Warning: API version not compatible!');
+                        console.log('Warning: API version not compatible! Version: ' + data.data);
                     } else
                         {
                             console.log('API version ' + data.data);
