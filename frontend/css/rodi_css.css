@@ -756,6 +756,19 @@ Footer
 .rodi_footer #menu-website a {    /*color:#329ad1;*/ color:#ee3036;}
 .rodi_footer #menu-website li:last-child {display:none;}
 
+.footer_txt
+{
+    font-size:15px;
+    color:#ffffff;
+}
+
+.footer_menu, .footer_menu a, .footer_menu a:hover
+{
+    font-size:16px;
+    color:#f0f0f0;
+    margin-right:20px;
+}
+
 /* ************************************ */
 /*     SEARCH BOX STYLE - START         */
 /* ************************************ */
@@ -1610,7 +1623,7 @@ hr {
 
 .flex-row .flex-item {padding:2px 5px;}
 .footer_down .flex-row .flex-item {font-size:1.3em;}
-.rodi_footer #menu-website .flex-container.flex-row {    flex-direction: column;}
+/*.rodi_footer #menu-website .flex-container.flex-row {    flex-direction: column;}*/
 .rodi_footer .login_form_box {display:none;}
 
 .left {align-items: flex-start!important;}
