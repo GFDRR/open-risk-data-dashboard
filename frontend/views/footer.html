@@ -3,10 +3,35 @@
 <div class="rodi_footer">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                <a href="https://www.riskopendata.org/"><img src="img/template/rodi_logo_new_footer.png" alt="Open Data for Resilience Initiative" style="max-width: 60%;" /></a>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                <span class="footer_txt">An initiative of</span>
+                <a href="https://www.gfdrr.org/" target="_blank"><img src="img/partner/gfdrr.png" alt="Global Facility for Disaster Reduction and Recovery" style="max-width: 18%;" /></a>
+                <br /><br />
+                <div class="footer_menu">
+                    <a href="" ng-click="changeview('contribute.html', '1')">Submit new dataset</a>
+                    <a href="" ng-click="downloadCSV()" ng-if="bLogin">Download</a>
+                    <a href="" ng-click="changeview('countries.html', '5')">Countries</a>
+                    <a href="" ng-click="changeview('stats.html', '11')">Statistics</a>
+                    <a href="" ng-click="changeview('methodology.html', '2')">Methodology</a>
+                    <a href="" ng-click="changeview('about.html', '9')">About</a>
+                </div>
+                <br /><br />
+                <div class="footer_separator"></div>
                 <br />
-                <a href="https://www.gfdrr.org/" target="_blank"><img src="img/partner/gfdrr.png" alt="Global Facility for Disaster Reduction and Recovery" style="max-width: 60%;" /></a>
+                <div class="text-center">
+                    <span class="text-muted">© 2017 - Copyright Open Data for Resilience Index</span> -
+                    <a href="" ng-click="changeview('privacy.html', '0')" class="footer_link text-muted flex-item">Privacy Policy</a>
+                    <!--<a href="" class="footer_link text-muted flex-item">Cookies Policy</a>-->
+                    <!--<a href="" class="footer_link text-muted flex-item">Term of use</a>-->
+                </div>
+
+            </div>
+
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <!--<a href="https://www.riskopendata.org/"><img src="img/template/rodi_logo_new_footer.png" alt="Open Data for Resilience Initiative" style="max-width: 60%;" /></a>-->
+                <!--<br />-->
+                <!--<a href="https://www.gfdrr.org/" target="_blank"><img src="img/partner/gfdrr.png" alt="Global Facility for Disaster Reduction and Recovery" style="max-width: 60%;" /></a>-->
                 <!--<div class="container">-->
                     <!--<div class="flex-container flex-row">-->
 
@@ -40,18 +65,12 @@
                         <a href="#" class="navbar-link">Link</a>
                     </h3>
                     -->
-                <mainmenu ></mainmenu>
+
             </div>
         </div>
         <div class="row">
             <div class="footer_down">
-                <div class="footer_separator"></div>
-                <div class="flex-container flex-row">
-                    <span class="text-muted flex-item">© 2017 - Copyright Open Data for Resilience Initiative</span>
-                    <a href="" class="footer_link text-muted flex-item">Privacy Policy</a>
-                    <a href="" class="footer_link text-muted flex-item">Cookies Policy</a>
-                    <a href="" class="footer_link text-muted flex-item">Term of use</a>
-                </div>
+
 
             </div>
         </div>
