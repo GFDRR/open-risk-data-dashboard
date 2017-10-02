@@ -200,7 +200,7 @@
                 <table ng-table="tableParams" class="table table-hover dataset text-left" show-filter="false">
 
                     <tr ng-repeat="ds in $data">
-                        <td title="'#'"><h5>{{$index + 1}}</h5></td>
+                        <!--<td title="'#'"><h5>{{$index + 1}}</h5></td>-->
                         <!--<td title="'Category'" filter="{ 'keydataset.category': 'text'}" sortable="'keydataset.category'">-->
                         <td title="'Category'" sortable="'keydataset.category'">
                             <h5>{{ds.keydataset.category}}</h5>
@@ -272,7 +272,7 @@
                             <div class="flex-container flex-row">
 
                                 <!--<i class="fa fa-2x fa-clock-o" aria-hidden="true" ng-if="!ds.is_reviewed" style="color:#eea236; color:rgba(51, 122, 183, 0.7);"></i>-->
-                                <a class="" href="" title="details" ng-click="changepage('dataset_details.html?keyds=' + ds.id)">
+                                <a class="" href="" title="details" style="margin-right:10px;" ng-click="changepage('dataset_details.html?keyds=' + ds.id)">
                                     <span class="fa-stack fa-lg fa-2x">
                                       <i class="fa fa-circle fa-stack-2x"></i>
                                       <i class="fa fa-search fa-stack-1x fa-inverse"></i>
@@ -287,6 +287,7 @@
                                     </div>
 
                                 </a>
+
                                 <a class="download" title="Download link" href="" ng-if="ds.url.length > 0" data-toggle="modal" data-target="#linkdataModal{{$index}}">
                                      <span class="fa-stack fa-lg fa-2x">
                                       <i class="fa fa-circle fa-stack-2x"></i>
@@ -331,7 +332,7 @@
             <div ng-show="bViewMissing">
                 <table ng-table="tableParamsMissing" class="table table-hover dataset text-left" show-filter="true" >
                     <tr ng-repeat="ds in $data" class="rodi_pointer" ng-click="changepage('contribute.html?ctr=' + idCountry + '&ds=' + ds.name)">
-                        <td title="'#'"><h5>{{$index + 1}}</h5></td>
+                        <!--<td title="'#'"><h5>{{$index + 1}}</h5></td>-->
                         <td title="'Peril'" sortable="'category'">
                             <h5>{{ds.category}}</h5>
                         </td>
@@ -359,18 +360,6 @@
                                 <i class="fa fa-dollar missing_data" aria-hidden="false" data-toggle="tooltip" title="{{questions[7].desc}}"></i>
                                 <i class="fa fa-unlock-alt missing_data" aria-hidden="false" data-toggle="tooltip" title="{{questions[8].desc}}"></i>
                                 <i class="fa fa-clock-o missing_data" aria-hidden="false" data-toggle="tooltip" title="{{questions[9].desc}}"></i>
-                            </div>
-                        </td>
-                        <!--<td title="'Year'" filter="{ create_time: 'number'}" sortable="'create_time'" class="text-center">
-                            <h5>{{ds.create_time | date: 'yyyy'}}</h5>
-                        </td>-->
-                        <td  sortable="'is_reviewed'" title="'Status'" class="text-center status">
-                            <div class="flex-container flex-row">
-                                <i class="fa fa-2x fa-clock-o rev missing_data" aria-hidden="true"></i>
-                                <!--<i class="fa fa-2x fa-clock-o" aria-hidden="true" ng-if="!ds.is_reviewed" style="color:#eea236; color:rgba(51, 122, 183, 0.7);"></i>-->
-                                <a class="" href="" title="details">
-                                    <i class="fa fa-2x fa-search missing_data"></i>
-                                </a>
                             </div>
                         </td>
 

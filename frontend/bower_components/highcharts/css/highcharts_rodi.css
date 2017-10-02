@@ -15,7 +15,8 @@
   z-index: 0;
   /* #1072 */
   -webkit-tap-highlight-color: transparent;
-  font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;
+  /*font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;*/
+  font-family: 'Variable', "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
 }
 
@@ -256,7 +257,7 @@ g.highcharts-series,
 }
 
 .highcharts-data-label {
-  font-size: 0.9em;
+  font-size: 1em;
   font-weight: bold;
 }
 
