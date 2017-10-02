@@ -173,7 +173,6 @@ html {
 /* fix the body to be full screen */
 body {
   height: 100%;
-  /* top and bottom fixed to 0 would accomplish the samething, BUT since height percentage is dependent on the parent elements height, I'm using height:100% here to cascade down in order to allow the section and section:before to be designated as height:100%. */
   margin: 0;
   position: absolute;
   width: 100%;
@@ -222,10 +221,6 @@ body {
   text-align: center;
   width: 100%; }
   .section:before {
-    /* content:'';
-     display: inline-block;
-     height:100%;
-     width:0px;*/
     vertical-align: middle; }
 
 section + section {
@@ -278,24 +273,6 @@ section + section {
     background-color: #007899; }
 
 /* section.ico {position:absolute;} */
-#menu-hazard {
-  background: none;
-  margin-top: -13em;
-  padding: 3em; }
-  #menu-hazard span {
-    display: none; }
-  #menu-hazard li {
-    transform: scale(2.5); }
-  #menu-hazard .nav > li > a > i {
-    background: none;
-    color: rgba(255, 255, 255, 0.5);
-    border-color: #FF8000;
-    border-width: 0; }
-
-section#two {
-  max-height: 50vh;
-  padding: 100px; }
-
 section#news {
   padding-top: 10em;
   padding-bottom: 5em; }
@@ -331,11 +308,6 @@ section#news {
 .delay-150 {
   animation-delay: 30s; }
 
-/* SVG */
-/*
-text,
-.stat {  font-size: 4em;}
-*/
 circle {
   fill: none;
   stroke-width: 2; }
@@ -347,33 +319,57 @@ circle {
     transform: rotate(-90deg);
     transform-origin: center; }
 
-.stat {
-  /*
-  
-    &:first-child circle:last-of-type {  stroke:$red; transition: stroke 5s ease 1s; }
-    &:nth-child(2) circle:last-of-type { stroke:$progress-color; transition: stroke 5s ease 2s;}
-    &:nth-child(3) circle:last-of-type { stroke:$progress-color; transition: stroke 5s ease 4s;}*/ }
-
 /* Layout  GRID*/
 .grid_wrap {
   display: grid;
-  grid-gap: 5em;
-  grid-template-columns: repeat(3, 200px);
-  grid-template-rows: 100vh;
+  grid-template-rows: 20vh calc(60vh - 82px) 20vh;
+  grid-template-areas: "top " "center" "bottom";
   justify-content: center;
   align-items: center; }
-  @media screen and (max-width: 768px) {
-    .grid_wrap {
-      grid-template-columns: 200px;
-      grid-template-rows: repeat(3, 1fr); } }
+  .grid_wrap .wrap_top {
+    grid-area: top;
+    font-size: 75%; }
+  .grid_wrap .wrap_center {
+    grid-area: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center; }
+    @media screen and (max-width: 768px) {
+      .grid_wrap .wrap_center {
+        flex-direction: column; } }
+  .grid_wrap .wrap_bottom {
+    grid-area: bottom;
+    grid-gap: 5em; }
+    .grid_wrap .wrap_bottom #menu-hazard {
+      background: none; }
+      .grid_wrap .wrap_bottom #menu-hazard ul {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap; }
+        @media screen and (max-width: 768px) {
+          .grid_wrap .wrap_bottom #menu-hazard ul {
+            flex-wrap: wrap; } }
+      .grid_wrap .wrap_bottom #menu-hazard span {
+        display: none; }
+      .grid_wrap .wrap_bottom #menu-hazard .nav > li {
+        padding: 1em; }
+        .grid_wrap .wrap_bottom #menu-hazard .nav > li > a {
+          font-size: 2.5em;
+          justify-content: center; }
+          .grid_wrap .wrap_bottom #menu-hazard .nav > li > a > i {
+            background: none;
+            color: rgba(255, 255, 255, 0.9);
+            border-color: #FF8000;
+            border-width: 0; }
 
+.stat svg {
+  margin-bottom: 2em; }
 .stat h1, .stat text {
   color: rgba(255, 255, 255, 0.9);
   fill: white; }
 .stat text {
   font-size: 50px; }
-.stat h1 {
-  padding-top: 2em; }
 
 .stat:hover,
 .stat:focus {
@@ -384,19 +380,5 @@ circle {
 .stat:focus {
   -webkit-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
   transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55); }
-
-/*
-.stat:hover,
-.stat:focus {
-  .per {
-    filter: blur(1px);
-    -webkit-transform: blur 1s ease ;
-    -moz-transform: blur 1s ease ;
-    -ms-transform: blur 1s ease ;
-    -o-transform: blur 1s ease ;
-    transform: blur 1s ease ;
-  }
-}
-*/
 
 /*# sourceMappingURL=land.css.map */
