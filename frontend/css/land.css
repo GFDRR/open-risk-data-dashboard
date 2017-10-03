@@ -322,7 +322,7 @@ circle {
 /* Layout  GRID*/
 .grid_wrap {
   display: grid;
-  grid-template-rows: 20vh calc(60vh - 82px) 5em calc(20vh - 5em);
+  grid-template-rows: 20vh calc(60vh - 82px) 5em 20vh;
   grid-template-areas: "top " "center" "under" "bottom";
   justify-content: center;
   align-items: center; }
@@ -332,24 +332,28 @@ circle {
   .grid_wrap .wrap_under {
     grid-area: under; }
     .grid_wrap .wrap_under .btn-custom {
-      font-size: 2em;
+      font-size: 1.6em;
       color: white;
       background: #007899;
       padding: 25px 2em;
-      margin-top: -2em; }
+      margin-top: -3em; }
   .grid_wrap .wrap_under, .grid_wrap .wrap_center {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
     align-items: center; }
   .grid_wrap .wrap_center {
-    grid-area: center; }
+    grid-area: center;
+    padding: 10em; }
+    .grid_wrap .wrap_center .stat {
+      padding: 5em; }
     @media screen and (max-width: 768px) {
       .grid_wrap .wrap_center {
         flex-direction: column; } }
   .grid_wrap .wrap_bottom {
     grid-area: bottom;
-    grid-gap: 5em; }
+    grid-gap: 5em;
+    margin-top: -5em; }
     .grid_wrap .wrap_bottom #menu-hazard {
       background: none; }
       .grid_wrap .wrap_bottom #menu-hazard ul {
@@ -362,7 +366,7 @@ circle {
       .grid_wrap .wrap_bottom #menu-hazard span {
         display: none; }
       .grid_wrap .wrap_bottom #menu-hazard .nav > li {
-        padding: 1em; }
+        flex-grow: 0; }
         .grid_wrap .wrap_bottom #menu-hazard .nav > li > a {
           font-size: 2.5em;
           justify-content: center; }
