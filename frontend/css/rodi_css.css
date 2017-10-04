@@ -1852,6 +1852,7 @@ responsive
 {
     background-color: #FF8000;
 }
+/*
 
 .table>thead:first-child>tr:first-child>th
 {
@@ -1860,6 +1861,20 @@ responsive
 
 
 
+*/
 
+.table.dataset th,
+.table.dataset td {width:auto;}
 
+.table.dataset th:nth-child(2),
+.table.dataset td:nth-child(2){ width:33%;}
 
+.ng-table.table.dataset th:nth-child(2),
+.ng-table.table.dataset.missing th:nth-child(3),
+.ng-table.table.dataset.missing td:nth-child(3) {text-align:left;}
+
+.table.dataset th:nth-child(4),
+.table.dataset td:nth-child(4){ width:25%; min-width:250px;}
+
+.ng-table.table.dataset.missing th:nth-child(4),
+.ng-table.table.dataset.missing td:nth-child(4) {width:33%; min-width: 300px;}

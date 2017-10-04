@@ -163,6 +163,7 @@ table thead, table tbody tr {
 
 .table-striped > tbody > tr:nth-of-type(odd) {
   background-color: #E0F7FA;
-  color: white; }
+  /*color: white; */
+}
 
 /*# sourceMappingURL=table_color.css.map */

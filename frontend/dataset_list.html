@@ -159,7 +159,7 @@
                 <div style="padding:20px; font-size:20px;" class="panel_dataset">
                     <br />
                     <div class="row">
-                        <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 stats small">
+                        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 stats small">
                             <div class="panel panel-default">
                                 <div class="panel-body">
                                     Total score: {{score}}%
@@ -171,7 +171,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3  stats small">
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3  stats small">
 
                             <div class="panel panel-default rodi_pointer " ng-click="setView('i')" ng-class="{'rodi_panel_active animated pulse delay-010': bViewIstances}">
                                 <div class="panel-body" >
@@ -180,8 +180,8 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 stats small" >
-                            <div class="panel panel-default rodi_pointer " ng-click="setView('m')" ng-class="{'rodi_panel_active ': bViewMissing}">
+                        <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 stats small" >
+                            <div class="panel panel-default rodi_pointer " ng-click="setView('m')" ng-class="{'rodi_panel_active animated pulse delay-020 ': bViewMissing}">
                                 <div class="panel-body" >
                                     Missing Datasets<br />
                                     <h1 class="counting">{{missingDatasets.length}}</h1>
@@ -268,8 +268,8 @@
                         <!--<td title="'Year'" filter="{ create_time: 'number'}" sortable="'create_time'" class="text-center">
                             <h5>{{ds.create_time | date: 'yyyy'}}</h5>
                         </td>-->
-                        <td  sortable="'is_reviewed'" title="'Command'" class="text-center status">
-                            <div class="flex-container flex-row">
+                        <td  sortable="'is_reviewed'" title="'Details'" class="text-center status">
+                            <div class="">
 
                                 <!--<i class="fa fa-2x fa-clock-o" aria-hidden="true" ng-if="!ds.is_reviewed" style="color:#eea236; color:rgba(51, 122, 183, 0.7);"></i>-->
                                 <a class="" href="" title="details" style="margin-right:10px;" ng-click="changepage('dataset_details.html?keyds=' + ds.id)">
@@ -288,6 +288,20 @@
 
                                 </a>
 
+                                <!--<a class="download" title="Download link" href="" ng-if="ds.url.length > 0" data-toggle="modal" data-target="#linkdataModal{{$index}}">
+                                     <span class="fa-stack fa-lg fa-2x">
+                                      <i class="fa fa-circle fa-stack-2x"></i>
+                                      <i class="fa fa-download fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    &lt;!&ndash;<i class="fa fa-download fa-2x"></i>&ndash;&gt;
+                                </a>-->
+                            </div>
+
+
+                        </td>
+                        <td title="'Download'" class="text-center status" sortable="'download'" >
+                            <div class="">
+
                                 <a class="download" title="Download link" href="" ng-if="ds.url.length > 0" data-toggle="modal" data-target="#linkdataModal{{$index}}">
                                      <span class="fa-stack fa-lg fa-2x">
                                       <i class="fa fa-circle fa-stack-2x"></i>
@@ -295,29 +309,29 @@
                                     </span>
                                     <!--<i class="fa fa-download fa-2x"></i>-->
                                 </a>
-                            </div>
 
-                            <!-- Modal Link download DATA & METADATA -->
-                            <div class="modal fade" id="linkdataModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="linkdataModal{{$index}}label" aria-hidden="true">
-                                <div class="modal-dialog modal-lg" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h5 class="modal-title" id="linkdataModal{{$index}}label">{{ds.keydataset.category}} - {{ds.keydataset.dataset.name}} ({{ds.keydataset.level}})</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                        </div>
-                                        <div class="modal-body text-left">
-                                            <strong>Donwload link</strong>
-                                            <br /><br />
-                                            <ul class="text-left">
-                                                <li ng-repeat="link in ds.url">
-                                                    <a href="{{link}}" target="_blank">{{link}}</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                                <!-- Modal Link download DATA & METADATA -->
+                                <div class="modal fade" id="linkdataModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="linkdataModal{{$index}}label" aria-hidden="true">
+                                    <div class="modal-dialog modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="linkdataModal{{$index}}label">{{ds.keydataset.category}} - {{ds.keydataset.dataset.name}} ({{ds.keydataset.level}})</h5>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body text-left">
+                                                <strong>Donwload link</strong>
+                                                <br /><br />
+                                                <ul class="text-left">
+                                                    <li ng-repeat="link in ds.url">
+                                                        <a href="{{link}}" target="_blank">{{link}}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -330,7 +344,7 @@
 
             <!-- Missing datasets -->
             <div ng-show="bViewMissing">
-                <table ng-table="tableParamsMissing" class="table table-hover dataset text-left" show-filter="true" >
+                <table ng-table="tableParamsMissing" class="table table-hover dataset missing text-left" show-filter="true" >
                     <tr ng-repeat="ds in $data" class="rodi_pointer" ng-click="changepage('contribute.html?ctr=' + idCountry + '&ds=' + ds.name)">
                         <!--<td title="'#'"><h5>{{$index + 1}}</h5></td>-->
                         <td title="'Peril'" sortable="'category'">
@@ -346,7 +360,7 @@
                             <span ng-repeat="tag in ds.tag"><small>{{tag}}<span ng-if="!$last">,</span></small> </span>
                         </td>-->
                         <td title="'Submission Date'">
-                            <h5 class="text-center">--/--/----</h5>
+                            <h5 class="">--/--/----</h5>
                         </td>
                         <td title="'Questions'">
                             <div class=" dataset_value">

@@ -322,21 +322,13 @@ circle {
 /* Layout  GRID*/
 .grid_wrap {
   display: grid;
-  grid-template-rows: 20vh calc(60vh - 82px) 5em 20vh;
-  grid-template-areas: "top " "center" "under" "bottom";
+  grid-template-rows: 20vh calc(60vh - 82px) 20vh;
+  grid-template-areas: "top " "center" "bottom";
   justify-content: center;
   align-items: center; }
   .grid_wrap .wrap_top {
     grid-area: top;
     font-size: 75%; }
-  .grid_wrap .wrap_under {
-    grid-area: under; }
-    .grid_wrap .wrap_under .btn-custom {
-      font-size: 1.6em;
-      color: white;
-      background: #007899;
-      padding: 25px 2em;
-      margin-top: -3em; }
   .grid_wrap .wrap_under, .grid_wrap .wrap_center {
     display: flex;
     flex-direction: row;
@@ -375,6 +367,25 @@ circle {
             color: rgba(255, 255, 255, 0.9);
             border-color: #FF8000;
             border-width: 0; }
+
+.wrap_under .btn-custom {
+  font-size: 1.6em;
+  color: white;
+  background: #007899;
+  padding: 25px 2em;
+  margin-top: -3em;
+  position: absolute;
+  left: 20px;
+  right: 20px;
+  white-space: pre-wrap; }
+  @media screen and (max-width: 768px) {
+    .wrap_under .btn-custom {
+      margin-top: 1em;
+      position: relative;
+      width: 100%;
+      text-align: center;
+      right: inherit;
+      left: inherit; } }
 
 .stat svg {
   margin-bottom: 2em; }
