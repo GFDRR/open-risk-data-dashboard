@@ -463,7 +463,9 @@ section#counter-stats {
 
 /*/ end count stats /*/
 
-
+#counter-stats .stats {
+    padding: 0!important;
+}
 
 
 /*
