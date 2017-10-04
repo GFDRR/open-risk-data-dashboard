@@ -1878,5 +1878,11 @@ responsive
 .table.dataset th:nth-child(4),
 .table.dataset td:nth-child(4){ width:25%; min-width:250px;}
 
+.ng-table.table.dataset.missing th:nth-child(1),
+.ng-table.table.dataset.missing td:nth-child(1),
+.ng-table.table.dataset.missing th:nth-child(2),
+.ng-table.table.dataset.missing td:nth-child(2),
+.ng-table.table.dataset.missing th:nth-child(3),
+.ng-table.table.dataset.missing td:nth-child(3){width:20%; min-width: 200px;}
 .ng-table.table.dataset.missing th:nth-child(4),
 .ng-table.table.dataset.missing td:nth-child(4) {width:33%; min-width: 300px;}
