@@ -149,9 +149,9 @@ python3 manage.py migrate ordd_api 0012_optin_insert_time
 
 echo "from django.contrib.auth.models import Group ; gr = Group(name='admin'); gr.save(); gr = Group(name='reviewer'); gr.save();" | python3 manage.py shell
 
-echo "from django.contrib.auth.models import User, Group ; us = User.objects.create_superuser(username='admin', password='$ORDD_ADMIN_PASSWORD', email='admin@openquake.org'); g = Group.objects.get(name='admin'); g.user_set.add(us);" | python3 manage.py shell
+echo "from django.utils import timezone; from django.contrib.auth.models import User, Group ; us = User.objects.create_superuser(username='admin', password='$ORDD_ADMIN_PASSWORD', last_login=timezone.now(), email='admin@openquake.org'); g = Group.objects.get(name='admin'); g.user_set.add(us);" | python3 manage.py shell
 
-echo "from django.contrib.auth.models import User, Group ; us = User.objects.create_user(username='admin_user', password='$ORDD_ADMIN_PASSWORD', email='admin_user@openquake.org', first_name='Ängstrom', last_name='Fiordsson', is_staff=True); g = Group.objects.get(name='admin'); g.user_set.add(us); us.profile.title = 'Dr'; us.profile.institution = 'CIMA Foundation'; us.profile.save()" | python3 manage.py shell
+echo "from django.utils import timezone; from django.contrib.auth.models import User, Group ; us = User.objects.create_user(username='admin_user', password='$ORDD_ADMIN_PASSWORD', last_login=timezone.now(), email='admin_user@openquake.org', first_name='Ängstrom', last_name='Fiordsson', is_staff=True); g = Group.objects.get(name='admin'); g.user_set.add(us); us.profile.title = 'Dr'; us.profile.institution = 'CIMA Foundation'; us.profile.save()" | python3 manage.py shell
 
 echo "from django.contrib.auth.models import User, Group ; us = User.objects.create_user(username='reviewer_user', password='$ORDD_ADMIN_PASSWORD', first_name='Rosalinde', last_name='Flashâk'); us.save(); g = Group.objects.get(name='reviewer'); g.user_set.add(us); us.profile.title = 'Drs'; us.profile.institution = 'GEM Foundation'; us.profile.save()" | python3 manage.py shell
 
