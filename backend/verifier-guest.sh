@@ -145,7 +145,7 @@ python3 manage.py makemigrations api_exp01
 python3 manage.py makemigrations ordd_api
 
 # NOTE: we stop to optin_insert_time to be able to load v8 dataset, than we migrate the rest
-python3 manage.py migrate ordd_api 0012_optin_insert_time.py
+python3 manage.py migrate ordd_api 0012_optin_insert_time
 
 echo "from django.contrib.auth.models import Group ; gr = Group(name='admin'); gr.save(); gr = Group(name='reviewer'); gr.save();" | python3 manage.py shell
 
