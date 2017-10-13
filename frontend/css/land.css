@@ -188,7 +188,7 @@ body {
   background-position: 50% top;
   background-size: cover;
   object-fit: cover;
-  animation: smallmove 60s linear infinite alternate;
+  /*animation: smallmove 60s linear infinite alternate;*/
   position: absolute;
   z-index: -1;
   overflow: hidden;
@@ -252,8 +252,8 @@ section + section {
 .page_title {
   white-space: normal;
   line-height: 2;
-  font-size: 3.5em;
-  color: #33d3ff;
+  font-size: 4em;
+  color: white;
   letter-spacing: 5px; }
 
 .block {
@@ -400,8 +400,8 @@ circle {
   color: rgba(255, 255, 255, 0.9);
   fill: white; }
 .stat text {
-  font-size: 50px; }
-
+  font-size: 3em; }
+/*
 .stat:hover,
 .stat:focus,
 .wrap_under .btn:hover,
@@ -422,5 +422,6 @@ circle {
 .wrap_under .btn:focus {
   -webkit-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
   transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55); }
+  */
 
 /*# sourceMappingURL=land.css.map */
