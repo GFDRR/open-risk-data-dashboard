@@ -61,7 +61,7 @@ if [ -n "$VIRTUAL_ENV" ]; then
     echo "Virtualenv already set to [$VIRTUAL_ENV], deactivate an run again."
     exit 2
 fi
-    
+
 
 #
 #  MAIN
@@ -143,6 +143,15 @@ done
 
 python3 manage.py makemigrations api_exp01
 python3 manage.py makemigrations ordd_api
+
+# migrate all apps except ordd_api
+grep -v 'ordd_api' settings.py > settings_except.py
+cp settings.py settings_all.py
+cp settings_except.py settings.py
+rm settings_except.py
+python3 manage.py migrate
+cp settings_all.py settings.py
+rm settings_all.py
 
 # NOTE: we stop to optin_insert_time to be able to load v8 dataset, than we migrate the rest
 python3 manage.py migrate ordd_api 0012_optin_insert_time
