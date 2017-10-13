@@ -242,6 +242,11 @@ def forwards_func(apps, schema_editor):
 
     db_alias = schema_editor.connection.alias
 
+    # check for contentless database
+    kd_check = KeyDataset.objects.using(db_alias).all()
+    if kd_check.count() == 0:
+        return
+    
     klevel_loc = KeyLevel.objects.using(db_alias).get(name='Local')
     klevel_nat = KeyLevel.objects.using(db_alias).get(name='National')
     klevel_int = KeyLevel.objects.using(db_alias).get(name='International')
@@ -432,6 +437,11 @@ def backwards_func(apps, schema_editor):
 
     db_alias = schema_editor.connection.alias
 
+    # check for contentless database
+    kd_check = KeyDataset.objects.using(db_alias).all()
+    if kd_check.count() == 0:
+        return
+    
     # NEW DATASETNAMES
     call_command('loaddata', 'v9_keydatasetnames_pre_kdname-change.json',
                  commit=False,
