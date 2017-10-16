@@ -819,7 +819,6 @@ class DatasetsDumpView(generics.ListAPIView):
  tags serialized"""
     queryset = Dataset.objects.all()
     serializer_class = DatasetsDumpSerializer
-    permission_classes = (permissions.IsAuthenticated, )
     renderer_classes = (DatasetsDumpRenderer, )
 
     def finalize_response(self, request, response, *args, **kwargs):
