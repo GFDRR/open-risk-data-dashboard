@@ -12,7 +12,8 @@ mv_keydatasets = {"HA_9A": "BA_5", "HA_9B": "BA_6",
                   "HA_14A": "HA_23A", "HA_14B": "HA_23B",
                   "EX_7": "RI_2"}
 
-rm_keydatasets = ["HA_19", "HA_20", "HA_22", "EX_8A", "EX_8B", "EX_7"]
+rm_keydatasets = ["HA_9A", "HA_9B", "HA_14A", "HA_14B", "HA_19",
+                  "HA_20", "HA_22", "EX_8A", "EX_8B", "EX_7"]
 
 new_keydatasetnames = {
     'BA_1A': 'Digital Elevation Model',
