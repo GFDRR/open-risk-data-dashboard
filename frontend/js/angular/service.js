@@ -1396,7 +1396,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
             method: 'GET',
             url: baseAPIurl + 'datasets_dump',
             headers: {
-                'Authorization': 'Token ' + token
+                // 'Authorization': 'Token ' + token
             },
             data: { }
         }

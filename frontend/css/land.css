@@ -249,6 +249,13 @@ section + section {
   color: #33d3ff;
   letter-spacing: 5px; }
 
+.page_title {
+  white-space: normal;
+  line-height: 2;
+  font-size: 3.5em;
+  color: #33d3ff;
+  letter-spacing: 5px; }
+
 .block {
   border: 1px solid #007899; }
 
@@ -356,11 +363,11 @@ circle {
           .grid_wrap .wrap_bottom #menu-hazard ul {
             flex-wrap: wrap; } }
       .grid_wrap .wrap_bottom #menu-hazard span {
-        display: none; }
+        /*display: none;*/ }
       .grid_wrap .wrap_bottom #menu-hazard .nav > li {
         flex-grow: 0; }
         .grid_wrap .wrap_bottom #menu-hazard .nav > li > a {
-          font-size: 2.5em;
+          font-size: 2em;
           justify-content: center; }
           .grid_wrap .wrap_bottom #menu-hazard .nav > li > a > i {
             background: none;
@@ -389,7 +396,7 @@ circle {
 
 .stat svg {
   margin-bottom: 2em; }
-.stat h1, .stat text {
+.stat h1, .stat h2, .stat h3, .stat text {
   color: rgba(255, 255, 255, 0.9);
   fill: white; }
 .stat text {
