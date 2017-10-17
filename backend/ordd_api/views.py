@@ -35,7 +35,7 @@ from .models import (Region, Country, OptIn, Dataset, KeyDataset,
                      my_random_key, Profile)
 from .mailer import mailer
 from ordd_api import __version__, MAIL_SUBJECT_PREFIX
-from ordd.settings import (ORDD_ADMIN_MAIL, EMAIL_CONFIRM_PROTO)
+from ordd.settings import EMAIL_CONFIRM_PROTO
 
 fullscore_filterargs = {
     'is_existing': True, 'is_digital_form': True,
