@@ -184,7 +184,7 @@ class KeyDataset(models.Model):
     category = models.ForeignKey(KeyCategory)
     dataset = models.ForeignKey(KeyDatasetName, related_name='keydatasets')
     tag_available = models.ForeignKey(KeyTagGroup, null=True, blank=True)
-    description = models.CharField(max_length=256, blank=False, unique=True)
+    description = models.CharField(max_length=1024, blank=False, unique=True)
     applicability = models.ManyToManyField('ordd_api.KeyTag')
     level = models.ForeignKey(KeyLevel)
 
