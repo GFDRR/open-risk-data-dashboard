@@ -12,4 +12,15 @@ thead {
   width: 100%;
 }
 
+.rodi_pointer,
+.rodi_panel_active {
+  -webkit-transform: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  -moz-transform: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  -ms-transform: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  -o-transform: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transform: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55); }
 
+.rodi_panel_active {
+  background: red;
+  color: white;
+  transform: scale(1.05, 1.2); }

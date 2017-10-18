@@ -32,10 +32,10 @@ from .serializers import (
     DatasetListSerializer, DatasetPutSerializer, DatasetsDumpSerializer)
 from .models import (Region, Country, OptIn, Dataset, KeyDataset,
                      KeyDatasetName, KeyCategory, KeyTag,
-                     my_random_key)
+                     my_random_key, Profile)
 from .mailer import mailer
 from ordd_api import __version__, MAIL_SUBJECT_PREFIX
-from ordd.settings import (ORDD_ADMIN_MAIL, EMAIL_CONFIRM_PROTO)
+from ordd.settings import EMAIL_CONFIRM_PROTO
 
 fullscore_filterargs = {
     'is_existing': True, 'is_digital_form': True,
@@ -226,10 +226,11 @@ class RegistrationView(generics.CreateAPIView, generics.RetrieveAPIView):
             MAIL_SUBJECT_PREFIX, user.username))
         content = ("""New user '%s' has activated his or her account.<br>
 EMail address: '%s'.<br>""" % (user.username, user.email))
-        mailer(ORDD_ADMIN_MAIL, subject,
-               {"title": subject,
-                "content": content},
-               None, 'base')
+        for admin in Profile.objects.filter(user__groups__name='admin'):
+            mailer(admin.user.email, subject,
+                   {"title": subject,
+                    "content": content},
+                   None, 'base')
 
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -272,10 +273,11 @@ class UserCreateView(generics.ListCreateAPIView):
             MAIL_SUBJECT_PREFIX, instance.username))
         content = ("""User '%s' has been deleted by an administrator.<br>"""
                    % instance.username)
-        mailer(ORDD_ADMIN_MAIL, subject,
-               {"title": subject,
-                "content": content},
-               None, 'base')
+        for admin in Profile.objects.filter(user__groups__name='admin'):
+            mailer(admin.user.email, subject,
+                   {"title": subject,
+                    "content": content},
+                   None, 'base')
 
         instance.delete()
 
@@ -321,12 +323,13 @@ class ProfileCommentSendView(APIView):
             MAIL_SUBJECT_PREFIX,
             request.user.username))
 
-        mailer(ORDD_ADMIN_MAIL, subject,
-               {"title": subject,
-                "human_name": human_name,
-                "comment": instance.validated_data['comment'],
-                "page": instance.validated_data['page']},
-               None, 'comment', from_addr=request.user.email)
+        for reviewer in Profile.objects.filter(user__groups__name='reviewer'):
+            mailer(reviewer.user.email, subject,
+                   {"title": subject,
+                    "human_name": human_name,
+                    "comment": instance.validated_data['comment'],
+                    "page": instance.validated_data['page']},
+                   None, 'comment', from_addr=request.user.email)
 
         return Response(status=status.HTTP_204_NO_CONTENT)
 
@@ -409,12 +412,13 @@ class ProfileDatasetListCreateView(generics.ListCreateAPIView):
                  post_field._meta.get_field(field).verbose_name,
                  "post": post_value})
 
-        mailer(ORDD_ADMIN_MAIL, subject,
-               {"title": subject,
-                "owner": post_field.changed_by.username,
-                "table_title": "Created dataset:",
-                "rows": rows},
-               None, 'create_by_owner')
+        for reviewer in Profile.objects.filter(user__groups__name='reviewer'):
+            mailer(reviewer.user.email, subject,
+                   {"title": subject,
+                    "owner": post_field.changed_by.username,
+                    "table_title": "Created dataset:",
+                    "rows": rows},
+                   None, 'create_by_owner')
 
 
 class ProfileDatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
@@ -511,12 +515,14 @@ class ProfileDatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
                  "pre": pre_value if pre_value != post_value else None})
 
         if (rows):
-            mailer(ORDD_ADMIN_MAIL, subject,
-                   {"title": subject,
-                    "changed_by": self.request.user.username,
-                    "is_reviewed": post['is_reviewed'].value,
-                    "rows": rows},
-                   None, 'update_by_owner')
+            for reviewer in Profile.objects.filter(
+                    user__groups__name='reviewer'):
+                mailer(reviewer.user.email, subject,
+                       {"title": subject,
+                        "changed_by": self.request.user.username,
+                        "is_reviewed": post['is_reviewed'].value,
+                        "rows": rows},
+                       None, 'update_by_owner')
 
     def perform_destroy(self, instance):
         post = DatasetPutSerializer(instance)
@@ -567,12 +573,13 @@ class ProfileDatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
                  instance._meta.get_field(field).verbose_name,
                  "post": post_value})
 
-        mailer(ORDD_ADMIN_MAIL, subject,
-               {"title": subject,
-                "owner": instance.changed_by.username,
-                "table_title": "Deleted dataset:",
-                "rows": rows},
-               None, 'delete_by_owner')
+        for reviewer in Profile.objects.filter(user__groups__name='reviewer'):
+            mailer(reviewer.user.email, subject,
+                   {"title": subject,
+                    "owner": instance.changed_by.username,
+                    "table_title": "Deleted dataset:",
+                    "rows": rows},
+                   None, 'delete_by_owner')
         instance.delete()
 
 
@@ -819,7 +826,6 @@ class DatasetsDumpView(generics.ListAPIView):
  tags serialized"""
     queryset = Dataset.objects.all()
     serializer_class = DatasetsDumpSerializer
-    permission_classes = (permissions.IsAuthenticated, )
     renderer_classes = (DatasetsDumpRenderer, )
 
     def finalize_response(self, request, response, *args, **kwargs):

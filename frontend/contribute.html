@@ -67,6 +67,17 @@
         })
     </script>
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-80600133-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-80600133-2');
+    </script>
+
+
 </head>
 <body ng-app="RodiApp" ng-controller="RodiCtrl">
 
@@ -1084,7 +1095,7 @@
             </div>
             <div class="jumbotron" ng-if="tabpar !== '3'">
                 <div class="container">
-                    <h1 class="text-center">If you want to submit new dataset to Open Data for Resilience Index</h1>
+                    <h2 class="text-center">If you want to submit new dataset to Open Data for Resilience Index</h2>
                     <br><br>
                     <h2 class="text-center">you must register or login!</h2>
                     <br><br><br><br>

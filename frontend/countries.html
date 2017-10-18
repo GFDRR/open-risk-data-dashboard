@@ -53,11 +53,24 @@
     <!--<script>try{Typekit.load({ async: true });}catch(e){}</script>-->
 
     <!-- RODI css -->
+        <link href="css/table_color.css" rel="stylesheet">
     <link href="css/rodi_css.css" rel="stylesheet">
     <link href="css/style_map.css" rel="stylesheet">
 
     <!-- Guida: https://medium.com/@tweededbadger/tutorial-dynamic-data-driven-svg-map-with-angularjs-b112fdec421d -->
     <!--<script src="js/change_svg.js"></script>-->
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-80600133-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-80600133-2');
+    </script>
+
+
 </head>
 <body ng-app="RodiApp" ng-controller="RodiCtrl">
 
@@ -93,13 +106,12 @@
 
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                <br />
                 <h2 class="page_title_small">Countries</h2>
+                <div style="height:10px;"></div>
             </div>
         </div>
 
         <div class="row" id="top-menu">
-            <br />
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <!--<hazardmenu></hazardmenu>-->
                 <div class="collapse navbar-collapse" id="menu-hazard">
@@ -132,8 +144,8 @@
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
                 <ul class="nav nav-tabs" role="tablist">
-                    <li class="active"><a href="#tab1" role="tab" data-toggle="tab">View Table</a></li>
-                    <li><a href="#tab2" role="tab" data-toggle="tab">View Map</a></li>
+                    <li class="active"><a href="#tab1" role="tab" data-toggle="tab" style="font-size:12px;">View Table</a></li>
+                    <li><a href="#tab2" role="tab" data-toggle="tab" style="font-size:12px;">View Map</a></li>
                     <!--<li><a href="#tab3" role="tab" data-toggle="tab"></a></li>-->
                 </ul>
                 <!-- TAB CONTENT -->

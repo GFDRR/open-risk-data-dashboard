@@ -59,6 +59,16 @@
     <link href="css/style_map.css" rel="stylesheet">
     <link href="css/land.css" rel="stylesheet">
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-80600133-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-80600133-2');
+    </script>
+
 
     <!-- Guida: https://medium.com/@tweededbadger/tutorial-dynamic-data-driven-svg-map-with-angularjs-b112fdec421d -->
     <!--<script src="js/change_svg.js"></script>-->
@@ -103,12 +113,11 @@
 
         <section id="one" class="section ">
 
-
-                <div class=" grid_wrap  ">
+                <div class="grid_wrap  ">
                     <img class="fbg" src="img/michael-fertig-2429.jpg" alt="">
                     <div class="wrap_top">
                         <!--<h1 class="page_title_small">Tracking and improving the state of Open Data <br> for Resilience worldwide</h1>-->
-                        <h1 class="page_title_small">Tracking open disaster risk data worldwide</h1>
+                        <h1 class="page_title">Tracking open disaster risk data worldwide</h1>
                     </div>
                     <div class="wrap_center">
                         <div class="stat">
@@ -147,49 +156,49 @@
                                     <ul class="nav navbar-nav text-center">
                                         <li >
                                             <a href="" class="animated fadeInUp delay-001">
-                                                <i class="ico-coastal_flooding fa-2x"></i>
+                                                <i class="ico-coastal_flooding"></i>
                                                 <span>Coastal flooding</span>
                                             </a>
                                         </li>
                                         <li >
                                             <a href="" class="animated fadeInUp delay-002">
-                                                <i class="ico-cyclone fa-2x"></i>
+                                                <i class="ico-cyclone"></i>
                                                 <span>Cyclone</span>
                                             </a>
                                         </li>
                                         <li >
                                             <a href="" class="animated fadeInUp delay-003">
-                                                <i class="ico-earthquake fa-2x"></i>
-                                                <span>Eartquake</span>
+                                                <i class="ico-earthquake"></i>
+                                                <span>Earthquake</span>
                                             </a>
                                         </li>
                                         <li >
                                             <a href="" class="animated fadeInUp delay-004">
-                                                <i class="ico-landslide fa-2x"></i>
+                                                <i class="ico-landslide"></i>
                                                 <span>Landslide</span>
                                             </a>
                                         </li>
                                         <li >
                                             <a href="" class="animated fadeInUp delay-005">
-                                                <i class="ico-river_flooding fa-2x"></i>
+                                                <i class="ico-river_flooding"></i>
                                                 <span>River Flooding</span>
                                             </a>
                                         </li>
                                         <li >
                                             <a href="" class="animated fadeInUp delay-006">
-                                                <i class="ico-tsunami fa-2x"></i>
+                                                <i class="ico-tsunami"></i>
                                                 <span>Tsunami</span>
                                             </a>
                                         </li>
                                         <li >
                                             <a href="" class="animated fadeInUp delay-007">
-                                                <i class="ico-volcano fa-2x"></i>
+                                                <i class="ico-volcano"></i>
                                                 <span>Volcano</span>
                                             </a>
                                         </li>
                                         <li >
                                             <a href="" class="animated fadeInUp delay-008">
-                                                <i class="ico-water_scarcity  fa-2x"></i>
+                                                <i class="ico-water_scarcity "></i>
                                                 <span>Water Scarcity </span>
                                             </a>
                                         </li>
@@ -200,9 +209,7 @@
 
                         </section>
                     </div>
-
-
-
+                </div>
         </section>
 
 
@@ -210,13 +217,13 @@
         <section id="news" class="wrap_under ">
             <div class="container">
                 <div class="row">
-                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                         <a href="#" class="btn btn-custom btn-lg" ng-click="changeview('contribute.html', '1')">Submit a dataset </a>
                     </div>
-                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    <!--<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
                         <a href="#" class="btn btn-custom btn-lg" ng-click="changeview('stats.html', '5')">Statistics</a>
-                    </div>
-                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                    </div>-->
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                         <a href="#" class="btn btn-custom btn-lg" ng-click="changeview('countries.html', '5')">Explore countries</a>
                     </div>
                 </div>

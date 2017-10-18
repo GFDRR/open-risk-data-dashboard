@@ -4,7 +4,7 @@
 @import url('https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300|Roboto+Condensed:300,400,700');
 
 /*@import 'color_table.css';*/
-@import 'table_color.css';
+/*@import 'table_color.css';*/
 
 @font-face {
     font-family: 'Bariol Bold';
@@ -884,7 +884,7 @@ mainmenu .navbar {
     border-radius:50%;
     border: 2px solid red;
     border-color: #EE3036;
-    font-size: 2.5em;
+    font-size: 2em;
     padding: 10px;
 
 }
@@ -939,9 +939,6 @@ Menu nav e hazart transform/transitions
 
 ==============================================================================
 */
-
-
-
 
 .nav>li>a:focus,
 .nav>li>a:hover,
@@ -1150,17 +1147,6 @@ Tables
 ===============================================================================================
 */
 
-.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th
-{
-    border-top:0px;
-}
-
-.table > thead > tr > th {
-    border-bottom: 0px;
-}
-
-
-
 .data.table>tbody>tr>td {
     /*     max-height: 10px!important; */
     /*line-height:1;*/
@@ -1245,7 +1231,7 @@ Tables
 .jumbotron .table.dataset th {    padding:1em;}
 .jumbotron .table.dataset th {   font-size:1.2em;}
 .jumbotron .table.data td,
-.jumbotron .table.dataset td {    padding:1em ;}
+.jumbotron .table.dataset td {    padding:1em; min-width:89px;}
 
 /*.jumbotron .table.data td .matrix_cell {background: rgba(255,255,255,0.2)!important;}*/
 
@@ -1327,7 +1313,7 @@ Skills
 progress {
     /*background-color: #f3f3f3;*/
     /*border: 0;*/
-    height: 3em;
+    height: 2em;
     width: 100%;
 
 }
@@ -1886,3 +1872,10 @@ responsive
 .ng-table.table.dataset.missing td:nth-child(3){width:20%; min-width: 200px;}
 .ng-table.table.dataset.missing th:nth-child(4),
 .ng-table.table.dataset.missing td:nth-child(4) {width:33%; min-width: 300px;}
+
+
+/* Personalizzazioni table header */
+#tab1 th
+{
+    white-space: normal;
+}
