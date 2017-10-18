@@ -56,6 +56,17 @@
     <!-- RODI css -->
     <link href="css/rodi_css.css" rel="stylesheet">
 
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-80600133-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-80600133-2');
+    </script>
+
+
 </head>
 <body ng-app="RodiApp" ng-controller="RodiCtrl">
 
@@ -189,7 +200,7 @@
 
             <p>For a better understanding of those categories and why there are key to disaster risk management see the diagram below.</p>
 
-            <p><img style="width:100%;" src="img/risk_components.png"/></p>
+            <div><img src="img/risk_components.png" style="max-width:100%;" /></div>
 
             <p><blockquote>Source: Understanding Risk in an Evolving World, GFDRR</blockquote></p>
 

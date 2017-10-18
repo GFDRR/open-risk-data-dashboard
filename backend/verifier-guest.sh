@@ -61,7 +61,7 @@ if [ -n "$VIRTUAL_ENV" ]; then
     echo "Virtualenv already set to [$VIRTUAL_ENV], deactivate an run again."
     exit 2
 fi
-    
+
 
 #
 #  MAIN
@@ -143,7 +143,14 @@ done
 
 python3 manage.py makemigrations api_exp01
 python3 manage.py makemigrations ordd_api
-python3 manage.py migrate
+
+# migrate all apps except ordd_api
+for app in $(python ./manage.py showmigrations -p | grep '^\[ \]' | grep -v ordd_api | cut -c 6-  | sed 's/\..*//g' | uniq); do
+    python3 manage.py migrate $app
+done
+
+# NOTE: we stop to optin_insert_time to be able to load v8 dataset, than we migrate the rest
+python3 manage.py migrate ordd_api 0012_optin_insert_time
 
 echo "from django.contrib.auth.models import Group ; gr = Group(name='admin'); gr.save(); gr = Group(name='reviewer'); gr.save();" | python3 manage.py shell
 
@@ -159,6 +166,7 @@ python3 manage.py load_countries --filein contents/countries/ordd_countries_list
 python3 manage.py load_key_datasets --reload --filein contents/key_datasets/kd-categories.csv contents/key_datasets/kd-tags.csv contents/key_datasets/kd-datasets.csv
 python3 manage.py load_thinkhazard --datapath ./contents/thinkhazard/cache
 
+python3 manage.py migrate ordd_api
 # Populate DB section: END
 
 cd $HOME
