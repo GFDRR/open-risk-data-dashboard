@@ -188,7 +188,6 @@ body {
   background-position: 50% top;
   background-size: cover;
   object-fit: cover;
-  animation: smallmove 60s linear infinite alternate;
   position: absolute;
   z-index: -1;
   overflow: hidden;
@@ -356,7 +355,9 @@ circle {
           .grid_wrap .wrap_bottom #menu-hazard ul {
             flex-wrap: wrap; } }
       .grid_wrap .wrap_bottom #menu-hazard span {
-        display: none; }
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 15px;
+        white-space: pre-wrap; }
       .grid_wrap .wrap_bottom #menu-hazard .nav > li {
         flex-grow: 0; }
         .grid_wrap .wrap_bottom #menu-hazard .nav > li > a {
@@ -389,7 +390,7 @@ circle {
 
 .stat svg {
   margin-bottom: 2em; }
-.stat h1, .stat text {
+.stat h1, .stat h2, .stat h3, .stat text {
   color: rgba(255, 255, 255, 0.9);
   fill: white; }
 .stat text {
