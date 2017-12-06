@@ -1,3 +1,4 @@
+//@import 'color_table';
 @import 'table_color';
 
 
@@ -9,11 +10,15 @@ html {
 }
 /* fix the body to be full screen */
 body {
-  height:100%; /* top and bottom fixed to 0 would accomplish the samething, BUT since height percentage is dependent on the parent elements height, I'm using height:100% here to cascade down in order to allow the section and section:before to be designated as height:100%. */
+  height:100%;
+
   margin:0;
   position:absolute; // body just be absolute to expand height and width
   width:100%;
+  overflow-x: hidden;
 }
+
+
 .container-fluid.land {
   padding-left:0;
   padding-right:0;
@@ -27,13 +32,13 @@ body {
     background-position: 50% top;
     background-size: cover;
     object-fit: cover;
-    //animation: smallmove 50s linear infinite;
-    //position: absolute;
+    //animation:smallmove 60s linear infinite alternate;
+    position: absolute;
+  z-index: -1;
     //display: block;
-  //}
+overflow: hidden;
   width: 100%;
   height: 100%;
-
 
 }
 
@@ -63,17 +68,13 @@ body {
 }
 
 .section {
-  height:calc(100% - 75px);
-  height:calc(100vh - 75px);
+
   position:relative;
   text-align:center;
   width:100%;
 
   &:before {
-   /* content:'';
-    display: inline-block;
-    height:100%;
-    width:0px;*/
+
     vertical-align: middle;
   }
 }
@@ -90,7 +91,9 @@ section+section {padding:0;}
 
 
 //.bigger {padding:100px 50px; }
-.page_title_small { white-space: normal; line-height: 2; font-size:3em; color: lighten($complementary,30%);}
+.page_title_small { white-space: normal; line-height: 2; font-size:3em; color: lighten($complementary,30%);
+ letter-spacing: 5px;
+}
 
 
 .block {border: 1px solid $complementary;}
@@ -98,64 +101,7 @@ section+section {padding:0;}
 
 
 
-//stats
-.stat {
-  &-group {
-    $stat-w-h: 300px;
-    position: relative;
-    display: inline-block;
-    height: $stat-w-h;
-    width: $stat-w-h;
 
-    .per {
-      position: absolute;
-      height: 0;
-      line-height: 0;
-      width: 100%;
-      top: 50%;
-      font-size: 3em;
-      text-align: center;
-      color: $white;
-      opacity: 0.8
-    }
-    svg {
-      height: 300px;
-    }
-    svg path {
-      stroke: $complementary;
-      stroke: $primary;
-    }
-  }
-  h1 {
-    color: rgba($white,0.9);
-    font-size: 3em;
-  }
-}
-
-//.stat {transform: scale(1);}
-.stat:hover,
-.stat:focus {
-  transform: scale(1.2);
-}
-.stat,
-.stat:hover,
-.stat:focus {
-  -webkit-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
-  transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
-}
-/*
-.stat:hover,
-.stat:focus {
-  .per {
-    filter: blur(1px);
-    -webkit-transform: blur 1s ease ;
-    -moz-transform: blur 1s ease ;
-    -ms-transform: blur 1s ease ;
-    -o-transform: blur 1s ease ;
-    transform: blur 1s ease ;
-  }
-}
-*/
 
 #menu-hazard .nav>li>a {
   pointer-events: none;
@@ -184,29 +130,16 @@ section+section {padding:0;}
 
 
 /* section.ico {position:absolute;} */
-#menu-hazard {
-  background:none;
-  margin-top:-13em; padding:3em;
-  span {display:none;}
-  li {    transform:scale(2.5);}
-  .nav>li>a>i {
-    background:none;
-    color:rgba($white,0.5);
-    border-color:$progress-color;
-    border-width:0px;
-  }
-}
 
 
 
 
-section#two {  max-height: 50vh;}
+//section#two {  max-height: 50vh; padding: 100px;}
 section#news {
   padding-top: 10em;
   padding-bottom: 5em;
 }
 
-svg {filter:blur(px)}
 
 
 //       Ritardo animazioni
@@ -232,3 +165,163 @@ svg {filter:blur(px)}
 
 }
 
+
+circle {
+  fill: none;
+  stroke-width: $stroke;
+  &:first-of-type {
+    stroke: rgba($white,0.6);
+    fill:rgba($white,0.1);
+    //filter:blur(10px);
+    }
+  &:last-of-type {
+    stroke: rgba($complementary, 0.3);
+    //stroke-dasharray: 1000;
+    //stroke-dashoffset: 1000;
+    transform: rotate(-90deg);
+    transform-origin: center;
+  }
+}
+
+
+
+
+
+  /* Layout  GRID*/
+.grid_wrap {
+  display: grid;
+  //grid-gap: 5em;
+  //grid-template-rows: repeat(3, 33%);
+  grid-template-rows: 20vh calc(60vh - 82px)  20vh;
+  //grid-template-columns: repeat(3, 200px);
+  grid-template-areas:
+    "top "
+    "center"
+    //"under"
+    "bottom";
+  justify-content:center;
+  align-items: center;
+
+  .wrap_top {
+    grid-area: top;
+    font-size: 75%;
+  }
+
+
+  .wrap_under, .wrap_center {
+    display: flex;
+    flex-direction: row;
+    justify-content:space-around;
+    align-items: center;
+  }
+  .wrap_center {
+    grid-area: center;
+    padding:10em;
+    .stat {padding:5em;}
+    @media screen and (max-width: 768px) {
+      flex-direction: column;
+    }
+  }
+
+  .wrap_bottom {
+    grid-area: bottom;
+    grid-gap:5em;
+    margin-top: -5em;
+    #menu-hazard {
+      ul {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        @media screen and (max-width: 768px) {
+          flex-wrap: wrap;
+
+        }
+      }
+      background:none;
+      span {
+        //display:none;
+        color: rgba($white, 0.9);
+        font-size: 15px;
+        white-space: pre-wrap;
+      }
+      .nav>li {
+        //padding:1em;
+        flex-grow:0;
+        &>a {
+          font-size:2.5em;
+          justify-content: center;
+          &>i {
+            background: none;
+            color: rgba($white, 0.9);
+            border-color: $progress-color;
+            border-width: 0;
+          }
+        }
+      }
+    }
+
+  }
+  @media screen and (max-width: 768px) {
+    //grid-template-columns: 200px;
+    //grid-template-rows: repeat(3, 1fr);
+  }
+}
+
+
+.wrap_under {
+  //grid-area: under;
+  .btn-custom {
+    font-size: 1.6em;
+    color:$white;
+    background: $complementary;
+    padding:25px 2em;
+    margin-top: -3em;
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    white-space: pre-wrap;
+    @media screen and (max-width: 768px) {
+      margin-top: 1em;
+
+      position: relative;
+      width:100%;
+      text-align:center;
+      right: inherit;
+      left:inherit;
+
+    }
+  }
+}
+
+//stats
+.stat {
+
+svg {margin-bottom: 2em;}
+  h1, h2, h3, text {    color: rgba($white,0.9); fill:$white;  }
+  text {font-size: 50px;}
+  h1 {  }
+}
+
+
+.stat:hover,
+.stat:focus,
+.wrap_under .btn:hover,
+.wrap_under .btn:focus {
+  transform: scale(1.2);
+}
+
+.wrap_under .btn:hover,
+.wrap_under .btn:focus {
+  background: $white;
+  color:$complementary;
+  opacity: 0.8;
+}
+.stat,
+.stat:hover,
+.stat:focus,
+.wrap_under .btn,
+.wrap_under .btn:hover,
+.wrap_under .btn:focus {
+  -webkit-transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  transition: all 600ms cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
