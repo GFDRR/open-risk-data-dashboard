@@ -355,6 +355,7 @@ class ProfileDatasetListCreateView(generics.ListCreateAPIView):
 
     def get_queryset(self):
         return Dataset.objects.filter(
+            keydataset__level__name='National',
             owner=self.request.user).order_by('country__name',
                                               'keydataset__code')
 
@@ -436,6 +437,7 @@ class ProfileDatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return Dataset.objects.filter(
+            keydataset__level__name='National',
             owner=self.request.user)
 
     def perform_update(self, serializer):
@@ -448,6 +450,7 @@ class ProfileDatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
 
         # comodity keydataset is retrieved in a custom way
         pre_keydataset = KeyDataset.objects.get(
+            level__name='National',
             code=pre['keydataset'].value).__str__()
 
         # update fields
@@ -609,7 +612,7 @@ class DatasetDetailsViewPerms(permissions.BasePermission):
 class DatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
     """This class handles the GET requests of our rest api."""
     permission_classes = (DatasetDetailsViewPerms, )
-    queryset = Dataset.objects.all()
+    queryset = Dataset.objects.filter(keydataset__level__name='National')
     serializer_class = DatasetListSerializer
 
     def get_serializer_class(self):
@@ -763,8 +766,9 @@ class DatasetListView(generics.ListAPIView):
     serializer_class = DatasetListSerializer
 
     def get_queryset(self):
-        queryset = Dataset.objects.all().order_by('country__name',
-                                                  'keydataset__code')
+        queryset = Dataset.objects.filter(
+            keydataset__level__name='National').order_by('country__name',
+                                                         'keydataset__code')
         kd = self.request.query_params.getlist('kd')
         country = self.request.query_params.getlist('country')
         category = self.request.query_params.getlist('category')
@@ -824,7 +828,7 @@ class DatasetsDumpRenderer(csv_rend.CSVRenderer):
 class DatasetsDumpView(generics.ListAPIView):
     """This view return a downloadable csv with all the datasets with urls and
  tags serialized"""
-    queryset = Dataset.objects.all()
+    queryset = Dataset.objects.filter(keydataset__level__name='National')
     serializer_class = DatasetsDumpSerializer
     renderer_classes = (DatasetsDumpRenderer, )
 
@@ -883,7 +887,8 @@ class Score(object):
 
         category_score_tree = country_score_tree[category.code]
 
-        for keydataset in KeyDataset.objects.filter(category=category):
+        for keydataset in KeyDataset.objects.filter(
+                level__name='National', category=category):
             if keydataset.code not in category_score_tree['score']:
                 continue
             keydataset_score = category_score_tree['score'][keydataset.code][
@@ -962,7 +967,7 @@ class Score(object):
 
     @classmethod
     def all_countries(cls, request):
-        queryset = Dataset.objects.all()
+        queryset = Dataset.objects.filter(keydataset__level__name='National')
         applicability = request.query_params.getlist('applicability')
         category = request.query_params.getlist('category')
         if applicability:
@@ -1055,8 +1060,10 @@ class Score(object):
         except ObjectDoesNotExist:
             raise Http404()
         queryset = Dataset.objects.filter(
+            keydataset__level__name='National',
             country__iso2=country_id).order_by('keydataset__pk')
-        kqueryset = KeyDataset.objects.all().order_by('pk')
+        kqueryset = KeyDataset.objects.filter(
+            keydataset__level__name='National').order_by('pk')
 
         applicability = request.query_params.getlist('applicability')
         category = request.query_params.getlist('category')
@@ -1195,7 +1202,7 @@ class Score(object):
 
     @classmethod
     def all_countries_categories(cls, request):
-        queryset = Dataset.objects.all()
+        queryset = Dataset.objects.filter(keydataset__level__name='National')
         applicability = request.query_params.getlist('applicability')
         if applicability:
             q = Q()
