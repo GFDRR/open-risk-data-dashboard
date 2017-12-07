@@ -165,7 +165,8 @@ class RegistrationSerializer(serializers.ModelSerializer):
                 user.save()
                 optin = OptIn(user=user)
                 optin.save()
-                Profile.objects.update_or_create(user=user, defaults=profile_data)
+                Profile.objects.update_or_create(user=user,
+                                                 defaults=profile_data)
 
                 subject = ('%s: registration for user %s'
                            % (MAIL_SUBJECT_PREFIX, user.username))
