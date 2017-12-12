@@ -193,7 +193,7 @@
                                                     <strong>
                                                         <small><span >{{country.score}} %</span>&nbsp;&nbsp;&nbsp;&nbsp;</small>
                                                     </strong>
-                                                    <progress value="{{country.score}}" max="100"></progress>
+                                                    <progress ng-attr-value="{{country.score}}" value="{{country.score}}" max="100"></progress>
                                                 </td>
                                                 <td class="text-center" style="" ng-repeat="(key, value) in country.data">
                                                     <!-- click verso dataset list with filters country & category -->

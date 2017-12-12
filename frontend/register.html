@@ -137,6 +137,21 @@
                         <label>Password  (*)</label>
                         <input type="password" name="usrpsw" placeholder="Password" class="form-control" ng-model="usr.password">
                         <br />
+                        <label>Confirm password  (*)</label>
+                        <input type="password" name="usrconfpsw" placeholder="Confirm Password" class="form-control" ng-model="usr.confirm_password">
+                        <br />
+                        <label>Title (*)</label>
+                        <input type="text" name="usrtitle" placeholder="Title" class="form-control" ng-model="usr.title">
+                        <br />
+                        <label>First Name (*)</label>
+                        <input type="text" name="usrfirstname" placeholder="First Name" class="form-control" ng-model="usr.first_name">
+                        <br />
+                        <label>Last Name (*)</label>
+                        <input type="text" name="usrlastname" placeholder="Last Name" class="form-control" ng-model="usr.last_name">
+                        <br />
+                        <label>Institution (*)</label>
+                        <input type="text" name="usrinst" placeholder="Institution" class="form-control" ng-model="usr.institution">
+                        <br />
                         <label>E-mail  (*)</label>
                         <span class="register_error" ng-show="registrationForm.usremail.$error.pattern">
                             invalid email!
