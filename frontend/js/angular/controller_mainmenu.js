@@ -243,37 +243,48 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
     {
         $scope.usr = {
             username: "",
+            institution: "",
+            first_name: "",
+            last_name: "",
+            title: "",
             password: "",
+            confirm_password: "",
             email: ""
         };
         $scope.checkMail = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
 
         $scope.sendRequestRegister = function()
         {
-            if($scope.usr.username != '' && $scope.usr.password != '' && $scope.usr.email != '')
+            if($scope.usr.username != '' && $scope.usr.password != '' && $scope.usr.email != '' && $scope.usr.title != '' && $scope.usr.first_name != '' && $scope.usr.last_name != '')
             {
                 // send request via API
 
-                RodiSrv.sendRegisterRequest($scope.usr, function (data){
-                    // Success
+                if ($scope.usr.password == $scope.usr.confirm_password)
+                {
+                    RodiSrv.sendRegisterRequest($scope.usr, function (data){
+                        // Success
 
-                    vex.dialog.alert('Registration confirmation sent to ' + $scope.usr.email + '. Please check your mailbox.');
-                    $scope.usr = {
-                        username: "",
-                        password: "",
-                        email: ""
-                    };
+                        vex.dialog.alert('Registration confirmation sent to ' + $scope.usr.email + '. Please check your mailbox.');
+                        $scope.usr = {
+                            username: "",
+                            password: "",
+                            email: ""
+                        };
 
-                }, function(data){
-                    // Error
+                    }, function(data){
+                        // Error
 
-                    var sMsg = "";
-                    angular.forEach(data, function(value, key) {
-                        sMsg += key.replace("_"," ") + ': ' + value + '<br /> ';
+                        var sMsg = "";
+                        angular.forEach(data, function(value, key) {
+                            sMsg += key.replace("_"," ") + ': ' + value + '<br /> ';
 
-                    });
-                    vex.dialog.alert(sMsg);
-                })
+                        });
+                        vex.dialog.alert(sMsg);
+                    })
+                } else {
+                    // Password e confirm password not match
+                    vex.dialog.alert('Password and confirm password must be the same!');
+                }
 
             } else
             {

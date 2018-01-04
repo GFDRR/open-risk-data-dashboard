@@ -138,10 +138,14 @@ class UserSerializer(serializers.ModelSerializer):
 
 class RegistrationSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(required=True)
+    title = serializers.CharField(source='profile.title', allow_blank=True)
+    institution = serializers.CharField(source='profile.institution',
+                                        allow_blank=True)
 
     class Meta:
         model = User
-        fields = ('username', 'password', 'is_active', 'email')
+        fields = ('username', 'password', 'is_active', 'email',
+                  'first_name', 'last_name', 'groups', 'title', 'institution')
         extra_kwargs = {'password': {'write_only': True},
                         'is_active': {'write_only': True},
                         'email': {'write_only': True}}
@@ -149,6 +153,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         try:
             with transaction.atomic():
+                profile_data = validated_data.pop('profile', None)
                 user = super().create(validated_data)
                 try:
                     validate_password(validated_data['password'])
@@ -160,6 +165,9 @@ class RegistrationSerializer(serializers.ModelSerializer):
                 user.save()
                 optin = OptIn(user=user)
                 optin.save()
+                Profile.objects.update_or_create(user=user,
+                                                 defaults=profile_data)
+
                 subject = ('%s: registration for user %s'
                            % (MAIL_SUBJECT_PREFIX, user.username))
                 # use 'http' because where 'https' is required an automatic

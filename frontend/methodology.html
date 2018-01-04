@@ -14,6 +14,7 @@
 
     <!-- jQuery library -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
+    <!--<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>-->
 
     <!-- Angular components -->
     <script src="bower_components/angular/angular.min.js"></script>
@@ -49,6 +50,9 @@
     <script src="js/angular/directive.js" type="text/javascript"></script>
     <!-- RODI APP -->
 
+    <!-- Scroll JS -->
+    <script src="js/scroll.js" type="text/javascript"></script>
+
     <!--ADOBE typekit-->
     <!--<script src="https://use.typekit.net/yxp8fxq.js"></script>-->
     <!--<script>try{Typekit.load({ async: true });}catch(e){}</script>-->
@@ -75,7 +79,7 @@
     <!-- Section HEADER - INIZIO -->
     <section id="rodi_header">
 
-        <div class="row  ">
+        <div class="row ">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                     <a href="" ng-click="changeview('index.html', '0')" data-toggle="tooltip" title="Home">
@@ -103,7 +107,24 @@
         <div class="row" id="top-menu">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <!--<hazardmenu></hazardmenu>-->
-                <h1 class="page_title ">METHODOLOGY</h1>
+                <h1 class="page_title " id="startReading">METHODOLOGY</h1>
+
+                <div>
+                    <div class="row">
+                        <div class="hidden-xs col-sm-1 col-md-1 col-lg-1"></div>
+                        <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 rodi_methodology_submenu">
+                            <a href="#scope">Scope and use cases</a>
+                            <a href="#assumptions">Assumptions</a>
+                            <a href="#datasets">Datasets</a>
+                            <a href="#criteria">Openness criteria</a>
+                            <a href="#scoring">Scoring methodology</a>
+                            <a href="#collection">Data collection process</a>
+                            <a href="#similar">Similar Projects</a>
+                        </div>
+                        <div class="hidden-xs col-sm-1 col-md-1 col-lg-1"></div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </section>
@@ -136,8 +157,9 @@
             <p>Information available on the Open Data for Resilience Index is collected thanks to a crowdsourced-based effort. Contributors and users may be DRM specialists or any producer or user of disaster risk data. This includes organizations and individuals such as civil protection and emergency departments, geospatial and environment agencies, all other public entities, utilities, academia, media as well as open data and right to information advocates. </p>
 
             <p>The success of the Open Data for Resilience Index depends mainly on its contributors community and the way it engages with them. </p>
+            <br />
 
-            <h2>Scope and use cases</h2>
+            <h2 id="scope">Scope and use cases</h2>
 
             <p>The Open Data for Resilience Index can be useful in many different contexts. Below are some examples of use cases:</p>
 
@@ -155,8 +177,12 @@
             <li>Which principles of Open Data for Resilience are the most difficult to implement?</li>
             <li>Which Governments perform better regarding disaster risk data and why? Is there any correlation with the level of hazards?</li>
             </ul>
+            <br />
+            <div class="text-center">
+                <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
+            </div>
 
-            <h2>Assumptions</h2>
+            <h2 id="assumptions">Assumptions</h2>
 
             <p>The Open Data for Resilience Index has been developed with the following assumptions in mind:</p>
 
@@ -165,8 +191,12 @@
             <p>There are countless datasets that may be used to perform DRM activities. However, only a few of them are critical, and if missing, may hinder or even prevent effective DRM. Those data are referred to as key risk datasets, and this project is about identifying, defining and assessing their openness across different places.</p>
 
             <p>Different datasets could match in part or completely with a specific key risk dataset description for a given territory. For instance you could have two different aerial imageries of your country provided by two different organizations. This is reflected in the Index where users can submit more than one dataset for a given key dataset description and a given country, each of them being assessed independently.</p>
+            <br />
+            <div class="text-center">
+                <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
+            </div>
 
-            <h2>Datasets</h2>
+            <h2 id="datasets">Datasets</h2>
 
             <p>The initial selection process of key disaster risk datasets was based on a consultation of DRM specialists, working on different types of hazards, and a review of disaster risk data projects, inventories and standards.</p>
 
@@ -202,7 +232,7 @@
 
             <div><img src="img/risk_components.png" style="max-width:100%;" /></div>
 
-            <p><blockquote>Source: Understanding Risk in an Evolving World, GFDRR</blockquote></p>
+            <p><blockquote>Source: Open Data for Resilience Initiative Field Guide, GFDRR</blockquote></p>
 
             <p>Below is the full list of datasets currently available in the Open Data for Resilience Index.</p>
 
@@ -236,6 +266,11 @@
                 <td>Base data</td>
                </tr>
                <tr>
+                <th>Bathymetry</th>
+                <td >Bathymetry map describing the terrain that lies underwater, or the depth of water relative to sea level, with a resolution of at least 10 meters.</td>
+                <td >Base data</td>
+               </tr> 
+               <tr>
                 <th>Watershed boundaries</th>
                 <td>Shapes of watershed boundaries for the characterization of river basins for the whole territory. Watershed boundaries are topographic divides and delineate areas where surface-water runoff drains into a common surface-water body.</td>
                 <td>Hazard</td>
@@ -264,11 +299,6 @@
                 <th>Hydrological gauge data</th>
                 <td>Historical water levels and river discharges from gauge stations on major river branches. Daily records and annual maxima.</td>
                 <td>Hazard</td>
-               </tr>
-               <tr>
-                <th>Bathymetry</th>
-                <td >Bathymetry map describing the terrain that lies underwater, or the depth of water relative to sea level, with a resolution of at least 10 meters.</td>
-                <td >Base data</td>
                </tr>
                <tr>
                 <th>Nearshore tsunami wave height</th>
@@ -392,8 +422,12 @@
                </tr>
                 </tbody>
               </table>
+            <br />
+            <div class="text-center">
+                <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
+            </div>
             
-            <h2>Openness criteria</h2>
+            <h2 id="criteria">Openness criteria</h2>
             <p>The Open Data for Resilience Index uses a set of 10 questions to assess the openness of a given dataset. Those criteria are similar to other open data assessment frameworks, such as the <a href="http://index.okfn.org" target="_blank">Open Data Index</a> and the <a href="http://opendatabarometer.org/">Open Data Barometer </a>and in line with the OpenDRI principles.</p>
 
             <p>Below is the list of questions used to assess the openness of a dataset.</p>
@@ -409,14 +443,23 @@
             <li>Is the data openly licensed?</li>
             <li>Is the data provided on a timely and up to date basis?</li>
             </ul>
+            <br />
+            <div class="text-center">
+                <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
+            </div>
             
-            <h1>Scoring methodology</h1>
+            <h2 id="scoring">Scoring methodology</h2>
             <p>A percentage of openness is provided for each dataset submitted. A dataset is considered fully open (100%) when all questions have been answered YES.</p>
 
             <p>Aggregated scores are also provided for type of hazards, risk data categories (Base data, Hazard, Exposure, Vulnerability and Risk) and countries.</p>
 
             <p>For countries scoring, only the hazards for which the level is at least assessed as medium or higher on <u>ThinkHazard!</u> are taken into account. This means all data related to hazards with a low or very low level are not considered for assessing a country since the incentive to invest in such data is negligible. ThinkHazard! is a tool from GFDDR which highlights the likelihood of different natural hazards affecting project areas (very low, low, medium and high) based on published hazard data, provided by a range of private, academic and public organizations.</p>
-            <h2>Data collection process</h2>
+            <br />
+            <div class="text-center">
+                <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
+            </div>
+
+            <h2 id="collection">Data collection process</h2>
 
             <p><strong>Submission</strong></p>
             <p>Anyone registered on the website index.opendri.org can contribute to the Open Data for Resilience Index which follows a crowdsourced data collection process.</p>
@@ -429,7 +472,13 @@
             <p><strong>Update</strong></p>
 
             <p>[Need to define this]</p>
-            <h2>Similar projects</h2>
+
+            <br />
+            <div class="text-center">
+                <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
+            </div>
+
+            <h2 id="similar">Similar projects</h2>
 
             <p>The Open Data for Resilience Index of GFDRR is inspired by the Open Data Index of Open Knowledge and the Open Data Barometer of the Web Foundation. It applies the idea of tracking and assessing open data to the DRM sector.</p>
 
@@ -438,6 +487,10 @@
             <p>The number of submissions per dataset. In the Open Data for Resilience Index, it is possible to submit and approve more than one dataset for a given key dataset description and a given country. Each of those submissions are independently reviewed.</p>
 
             <p>The data collection phase. Whereas the Open Data Index and the Open Data Barometer are conducted on a yearly basis, the data collection phase for the Open Data for Resilience Index is conducted on a continuous and ongoing basis.</p>
+
+            <div class="text-center">
+                <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
+            </div>
         </div>
         <div class="hidden-xs col-sm-1 col-md-1 col-lg-1"></div>
     </div>

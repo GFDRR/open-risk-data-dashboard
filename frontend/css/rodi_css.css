@@ -1270,6 +1270,14 @@ Tables
     }
 }
 
+@media screen and (min-width:1024px)
+{
+    .rodi_logo_gfdr
+    {
+        max-height:94px;
+    }
+}
+
 
 
 /*
@@ -1878,4 +1886,16 @@ responsive
 #tab1 th
 {
     white-space: normal;
+}
+
+.rodi_methodology_submenu
+{
+    margin-top:20px;
+    text-align: center;
+}
+
+.rodi_methodology_submenu a
+{
+    padding:10px;
+    font-size:15px;
 }

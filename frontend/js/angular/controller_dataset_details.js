@@ -69,7 +69,19 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                 function(data)
                 {
                     // Set Dataset selection
-                    $scope.datasetCategory = data;
+                    //$scope.datasetCategory = data; -> Original without NATIONAL Filter
+
+                    /*****************************************/
+                    /******** FILTER ONLY NATIONAL ***********/
+                    /*****************************************/
+
+                    $scope.datasetCategory = $filter('filter')(data, function(item){
+                        return item.level == 'National';
+                    });
+
+                    /*****************************************/
+                    /******** FILTER ONLY NATIONAL ***********/
+                    /*****************************************/
 
                     $scope.objDataset.keydataset.dataset = '0';
                     $scope.objDataset.keydataset.level = '0';
@@ -91,6 +103,9 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
 
         $scope.changeDatasetSelection = function(idDataset)
         {
+
+            $scope.datasetDescription = [];
+
             if(idDataset !== '0')
             {
                 // Dataset selected
@@ -117,7 +132,20 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                 RodiSrv.getDescription(0, $scope.dataCategoryId, idDataset,
                     function(data)
                     {
-                        $scope.datasetDescription = data;
+                        // $scope.datasetDescription = data; -> Original without National Filter
+
+                        /*****************************************/
+                        /******** FILTER ONLY NATIONAL ***********/
+                        /*****************************************/
+
+                        $scope.datasetDescription = $filter('filter')(data, function(item){
+                            return item.level == "National";
+                        });
+
+                        /*****************************************/
+                        /******** FILTER ONLY NATIONAL ***********/
+                        /*****************************************/
+
 
                         $scope.objDataset.keydataset.level = '0';
                         $scope.objDataset.keydataset.description = '0';
@@ -549,8 +577,22 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                         RodiSrv.getDatasetCategoryList(0,0,
                             function(data)
                             {
-                                $scope.datasetCategory = data;
+                                // $scope.datasetCategory = data; -> Original without filter on National Level
+                                // $scope.datasetCategoryAll = angular.copy(data); -> Original without filter on National Level
+
+                                /*****************************************/
+                                /******** FILTER ONLY NATIONAL ***********/
+                                /*****************************************/
+
+                                $scope.datasetCategory = $filter('filter')(data, function(item){
+                                    return item.level == 'National';
+                                });
+
                                 $scope.datasetCategoryAll = angular.copy(data);
+
+                                /*****************************************/
+                                /******** FILTER ONLY NATIONAL ***********/
+                                /*****************************************/
 
                                 // Get dataset category ID
                                 var aDataset = $filter('filter')($scope.datasetCategoryAll,
@@ -571,7 +613,19 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                                 RodiSrv.getDescription(0, $scope.dataCategoryId, $scope.datasetCategoryId,
                                     function(data)
                                     {
-                                        $scope.datasetDescription = data;
+                                        // $scope.datasetDescription = data; -> Original without National Filter
+
+                                        /*****************************************/
+                                        /******** FILTER ONLY NATIONAL ***********/
+                                        /*****************************************/
+
+                                        $scope.datasetDescription = $filter('filter')(data, function(item){
+                                            return item.level == "National";
+                                        });
+
+                                        /*****************************************/
+                                        /******** FILTER ONLY NATIONAL ***********/
+                                        /*****************************************/
 
                                         //Get description ID
                                         var aDesc = $filter('filter')(data,

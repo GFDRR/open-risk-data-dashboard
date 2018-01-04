@@ -644,7 +644,7 @@
                                 <table ng-table="tableParams" class="table table-hover dataset text-left" show-filter="false">
 
                                     <tr ng-repeat="ds in $data">
-                                        <td title="'#'"><h5>{{$index + 1}}</h5></td>
+                                        <!--<td title="'#'"><h5>{{$index + 1}}</h5></td>-->
                                         <!--<td title="'Category'" filter="{ 'keydataset.category': 'text'}" sortable="'keydataset.category'">-->
                                         <td title="'Category'" sortable="'keydataset.category'">
                                             <h5>{{ds.keydataset.category}}</h5>
@@ -712,11 +712,11 @@
                                         <!--<td title="'Year'" filter="{ create_time: 'number'}" sortable="'create_time'" class="text-center">
                                             <h5>{{ds.create_time | date: 'yyyy'}}</h5>
                                         </td>-->
-                                        <td  sortable="'is_reviewed'" title="'Command'" class="text-center status">
-                                            <div class="flex-container flex-row">
+                                        <td  sortable="'is_reviewed'" title="'Details'" class="text-center status">
+                                            <div class="">
 
                                                 <!--<i class="fa fa-2x fa-clock-o" aria-hidden="true" ng-if="!ds.is_reviewed" style="color:#eea236; color:rgba(51, 122, 183, 0.7);"></i>-->
-                                                <a class="" href="" title="details" ng-click="changepage('dataset_details.html?keyds=' + ds.id +'&ml=true')">
+                                                <a class="" href="" title="details" style="margin-right:10px;" ng-click="changepage('dataset_details.html?keyds=' + ds.id)">
                                     <span class="fa-stack fa-lg fa-2x">
                                       <i class="fa fa-circle fa-stack-2x"></i>
                                       <i class="fa fa-search fa-stack-1x fa-inverse"></i>
@@ -731,36 +731,51 @@
                                                     </div>
 
                                                 </a>
-                                                <a class="download" title="Download link" href="" ng-if="ds.url.length > 0" data-toggle="modal" data-target="#linkdataModal{{$index}}">
-                                     <span class="fa-stack fa-lg fa-2x">
-                                      <i class="fa fa-circle fa-stack-2x"></i>
-                                      <i class="fa fa-download fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                                    <!--<i class="fa fa-download fa-2x"></i>-->
-                                                </a>
+
+                                                <!--<a class="download" title="Download link" href="" ng-if="ds.url.length > 0" data-toggle="modal" data-target="#linkdataModal{{$index}}">
+                                                     <span class="fa-stack fa-lg fa-2x">
+                                                      <i class="fa fa-circle fa-stack-2x"></i>
+                                                      <i class="fa fa-download fa-stack-1x fa-inverse"></i>
+                                                    </span>
+                                                    &lt;!&ndash;<i class="fa fa-download fa-2x"></i>&ndash;&gt;
+                                                </a>-->
                                             </div>
 
-                                            <!-- Modal Link download DATA & METADATA -->
-                                            <div class="modal fade" id="linkdataModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="linkdataModal{{$index}}label" aria-hidden="true">
-                                                <div class="modal-dialog modal-lg" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="linkdataModal{{$index}}label">{{ds.keydataset.category}} - {{ds.keydataset.dataset.name}} ({{ds.keydataset.level}})</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body text-left">
-                                                            <strong>Donwload link</strong>
-                                                            <br /><br />
-                                                            <ul class="text-left">
-                                                                <li ng-repeat="link in ds.url">
-                                                                    <a href="{{link}}" target="_blank">{{link}}</a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+
+                                        </td>
+                                        <td title="'Download'" class="text-center status" sortable="'download'" >
+                                            <div class="">
+
+                                                <a class="download" title="Download link" href="" ng-if="ds.url.length > 0" data-toggle="modal" data-target="#linkdataModal{{$index}}">
+                                                     <span class="fa-stack fa-lg fa-2x">
+                                                      <i class="fa fa-circle fa-stack-2x"></i>
+                                                      <i class="fa fa-download fa-stack-1x fa-inverse"></i>
+                                                    </span>
+                                                    <!--<i class="fa fa-download fa-2x"></i>-->
+                                                </a>
+
+                                                <!-- Modal Link download DATA & METADATA -->
+                                                <div class="modal fade" id="linkdataModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="linkdataModal{{$index}}label" aria-hidden="true">
+                                                    <div class="modal-dialog modal-lg" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="linkdataModal{{$index}}label">{{ds.keydataset.category}} - {{ds.keydataset.dataset.name}} ({{ds.keydataset.level}})</h5>
+                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+                                                            <div class="modal-body text-left">
+                                                                <strong>Donwload link</strong>
+                                                                <br /><br />
+                                                                <ul class="text-left">
+                                                                    <li ng-repeat="link in ds.url">
+                                                                        <a href="{{link}}" target="_blank">{{link}}</a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -935,7 +950,7 @@
                                 <div class="alert alert-info">User name: {{userinfo.username}}- access level: <span class="text-uppercase">{{userinfo.groups[0]}}</span></div>
                                 <form name="registrationForm">
                                     <label>Title</label>
-                                    <input type="text" name="usrtitle" placeholder="es: Drs" class="form-control" ng-model="userinfo.title">
+                                    <input type="text" name="usrtitle" placeholder="Ex: Dr" class="form-control" ng-model="userinfo.title">
                                     <br />
                                     <label>First name (*)</label>
                                     <input type="text" name="usrname" placeholder="Name" class="form-control" ng-model="userinfo.first_name">

@@ -165,6 +165,12 @@ table thead, table tbody tr {
   background-color: #E0F7FA;
   color: white; }
 
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th {
+  border-top: 0px; }
+
+.table > thead > tr > th {
+  border-bottom: 0px; }
+
 html {
   color: #eee;
   font-size: 70px;
@@ -188,7 +194,6 @@ body {
   background-position: 50% top;
   background-size: cover;
   object-fit: cover;
-  /*animation: smallmove 60s linear infinite alternate;*/
   position: absolute;
   z-index: -1;
   overflow: hidden;
@@ -246,13 +251,6 @@ section + section {
   white-space: normal;
   line-height: 2;
   font-size: 3em;
-  color: #33d3ff;
-  letter-spacing: 5px; }
-
-.page_title {
-  white-space: normal;
-  line-height: 2;
-  font-size: 4em;
   color: white;
   letter-spacing: 5px; }
 
@@ -345,7 +343,8 @@ circle {
     grid-area: center;
     padding: 10em; }
     .grid_wrap .wrap_center .stat {
-      padding: 5em; }
+      padding: 5em;
+      max-width: 300px; }
     @media screen and (max-width: 768px) {
       .grid_wrap .wrap_center {
         flex-direction: column; } }
@@ -363,11 +362,13 @@ circle {
           .grid_wrap .wrap_bottom #menu-hazard ul {
             flex-wrap: wrap; } }
       .grid_wrap .wrap_bottom #menu-hazard span {
-        /*display: none;*/ }
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 15px;
+        white-space: pre-wrap; }
       .grid_wrap .wrap_bottom #menu-hazard .nav > li {
         flex-grow: 0; }
         .grid_wrap .wrap_bottom #menu-hazard .nav > li > a {
-          font-size: 2em;
+          font-size: 2.5em;
           justify-content: center; }
           .grid_wrap .wrap_bottom #menu-hazard .nav > li > a > i {
             background: none;
