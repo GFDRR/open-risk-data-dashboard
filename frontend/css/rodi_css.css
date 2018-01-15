@@ -67,7 +67,14 @@
     font-style: normal;
 }
 
-
+/* Font UNIT-REGULAR */
+@font-face {
+    font-family: 'unit-regular';
+    src: url('fonts/unit-regular.eot');
+    src: local('☺'), url('fonts/unit-regular.woff') format('woff'), url('fonts/unit-regular.ttf') format('truetype'), url('fonts/unit-regular.svg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
 
 
 
@@ -79,18 +86,18 @@
 body, html, input, p, textarea {
     /*font-family: 'Roboto 'Condensed, sans-serif;*/
     /*font-family: 'Bariol Regular', "Helvetica Neue", Helvetica, Arial, sans-serif;*/
-    font-family: 'Variable', "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: 'unit-regular', Helvetica, Arial, sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
     /*font-family: 'Open Sans Condensed', sans-serif;*/
     /*font-family: 'Roboto Condensed', sans-serif;*/
     /*font-family: 'Bariol Bold', "Helvetica Neue", Helvetica, Arial, sans-serif;*/
-    font-family: 'Variable-Black', "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /*font-family: 'Variable-Black', "Helvetica Neue", Helvetica, Arial, sans-serif;*/
 }
 
 a, b, strong, span {
-    font-family: 'Variable-Black', "Helvetica Neue", Helvetica, Arial, sans-serif;
+    /*font-family: 'Variable-Black', "Helvetica Neue", Helvetica, Arial, sans-serif;*/
 }
 
 
@@ -1916,6 +1923,11 @@ responsive
     font-weight: 700;
 }
 
+.odfri_black_blue
+{
+    color:#007899 !important;
+}
+
 .odfri_home_icon_border
 {
     border:solid 0px #000000 !important;
@@ -1973,4 +1985,15 @@ responsive
 {
     color:#000000;
 }
+
+.odfri_btn-custom
+{
+    width:100%;
+    font-size: 1.6em;
+    color: white;
+    background: #007899;
+    padding: 25px 2em;
+    white-space: pre-wrap;
+}
+
 
