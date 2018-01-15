@@ -1728,7 +1728,8 @@ responsive
 @media screen and (max-width: 768px) {
     #menu-website .nav.flex-row,
     #menu-hazard .nav {flex-direction: column; overflow: hidden;padding: 1em; }
-    #menu-hazard .nav>li>a span { margin-top: 0;}
+    #menu-hazard .nav>li>a span { margin-top: 0;
+        font-size: 10px;}
     /*#menu-hazard .nav>li>a:hover,*/
     #menu-hazard .nav>li>a:focus {transform: scale(1.1) translateX(20px);}
     a.invert {line-height: 2;}
@@ -1899,3 +1900,77 @@ responsive
     padding:10px;
     font-size:15px;
 }
+
+/*********************************************************/
+/********* NEW VERSION - 15/01/2018 **********************/
+/*********************************************************/
+
+.odfri_space
+{
+    margin-top:50px;
+}
+
+.odfri_home_black_color
+{
+    color:#000000 !important;
+    font-weight: 700;
+}
+
+.odfri_home_icon_border
+{
+    border:solid 0px #000000 !important;
+    background: transparent !important;
+}
+
+.odfri_box_home_page
+{
+    width: 100%;
+    min-height:55vh;
+    padding-bottom: 30px;
+    background-image: url('../img/bg_home_page.jpg');
+    background-repeat: no-repeat;
+    background-position: top left;
+    background-size: cover;
+}
+
+.odfri_home_title
+{
+    text-align: center;
+    margin-top: 10px;
+}
+
+.odfri_home_title span
+{
+    color:#007899;
+}
+
+.odfri_box_counter
+{
+    position: relative;
+    display: inline-block;
+    width:85px;
+    height:85px;
+    margin:auto;
+    border:solid 1px #000000;
+    padding:5px;
+    padding-top: 18px;
+    background-color: rgba(0,0,0,.4);
+    -webkit-border-radius: 100%;
+    -moz-border-radius: 100%;
+    border-radius: 100%;
+    color:#ffffff;
+}
+
+.odfri_box_counter span
+{
+    font-size: 20px;
+    margin-top: 10px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.odfri_box_counter_description
+{
+    color:#000000;
+}
+
