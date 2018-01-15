@@ -1213,7 +1213,13 @@ class Score(object):
                          Q(tag__name__iexact=v))
             queryset = queryset.filter(q).distinct()
 
-        categories = KeyCategory.objects.all().order_by('id')
+        category = request.query_params.getlist('category')
+        if category:
+            categories = []
+            for v in category:
+                categories.append(KeyCategory.objects.filter(name__iexact=v)[0])
+        else:
+            categories = KeyCategory.objects.all().order_by('id')
 
         world_score_tree = cls.dataset_loadtree(request, queryset)
 
