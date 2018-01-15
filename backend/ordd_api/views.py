@@ -1063,7 +1063,7 @@ class Score(object):
             keydataset__level__name='National',
             country__iso2=country_id).order_by('keydataset__pk')
         kqueryset = KeyDataset.objects.filter(
-            keydataset__level__name='National').order_by('pk')
+            level__name='National').order_by('pk')
 
         applicability = request.query_params.getlist('applicability')
         category = request.query_params.getlist('category')
