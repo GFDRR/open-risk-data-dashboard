@@ -1063,7 +1063,7 @@ class Score(object):
             keydataset__level__name='National',
             country__iso2=country_id).order_by('keydataset__pk')
         kqueryset = KeyDataset.objects.filter(
-            keydataset__level__name='National').order_by('pk')
+            level__name='National').order_by('pk')
 
         applicability = request.query_params.getlist('applicability')
         category = request.query_params.getlist('category')
@@ -1213,7 +1213,13 @@ class Score(object):
                          Q(tag__name__iexact=v))
             queryset = queryset.filter(q).distinct()
 
-        categories = KeyCategory.objects.all().order_by('id')
+        category = request.query_params.getlist('category')
+        if category:
+            categories = []
+            for v in category:
+                categories.append(KeyCategory.objects.filter(name__iexact=v)[0])
+        else:
+            categories = KeyCategory.objects.all().order_by('id')
 
         world_score_tree = cls.dataset_loadtree(request, queryset)
 
