@@ -1914,7 +1914,15 @@ responsive
 
 .odfri_space
 {
-    margin-top:50px;
+    margin-top:30px;
+}
+
+.odfri_div_separator
+{
+    width: 100%;
+    border-top: solid 1px #c0c0c0;
+    height: 30px;
+    margin-top: 20px;
 }
 
 .odfri_home_black_color
@@ -1926,6 +1934,11 @@ responsive
 .odfri_black_blue
 {
     color:#007899 !important;
+}
+
+.odfri_title_red
+{
+    color:rgb(238,48,54);
 }
 
 .odfri_home_icon_border
@@ -1996,4 +2009,22 @@ responsive
     white-space: pre-wrap;
 }
 
+.odfri_content_small
+{
+    width:80%;
+    margin:auto;
+}
+
+.odfri_cb_space
+
+{
+    padding: 10px;
+    min-width:100%;
+    color:#ffffff;
+    text-align: center;
+    font-size: 17px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
 
