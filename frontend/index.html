@@ -121,21 +121,21 @@
             <div class="row text-center odfri_home_black_color">
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     <div class="odfri_box_counter">
-                        <span>{{totalDataset}}</span>
+                        <span ng-cloak>{{totalDataset}}</span>
                         <span ng-if="!totalDataset"><img src="img/template/loading.gif" alt="" style="max-width:30px;" /></span>
                     </div>
                     <h3 class="odfri_box_counter_description">Datasets<br /> submitted</h3>
                 </div>
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     <div class="odfri_box_counter">
-                        <span>{{countryWithData}}</span>
+                        <span ng-cloak>{{countryWithData}}</span>
                         <span ng-if="!countryWithData"><img src="img/template/loading.gif" alt="" style="max-width:30px;" /></span>
                     </div>
                     <h3 class="odfri_box_counter_description">Countries<br /> covered</h3>
                 </div>
                 <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     <div class="odfri_box_counter">
-                        <span><img src="img/template/loading.gif" alt="" ng-if="!iOpenIndex" style="max-width:30px;" />{{iOpenIndex}}%</span>
+                        <span ng-cloak><img src="img/template/loading.gif" alt="" ng-if="!iOpenIndex" style="max-width:30px;" />{{iOpenIndex}}%</span>
                     </div>
                     <h3 class="odfri_box_counter_description">Datasets<br /> open</h3>
                 </div>
