@@ -189,7 +189,7 @@ body {
   padding-right: 0; }
 
 .fbg {
-  background-image: url("../img/michael-fertig-2429.jpg");
+  background-image: url("https://images.unsplash.com/photo-1494476540399-b048080ab96b");
   background-attachment: fixed;
   background-position: 50% top;
   background-size: cover;
@@ -251,7 +251,7 @@ section + section {
   white-space: normal;
   line-height: 2;
   font-size: 3em;
-  color: white;
+  color: #1a1a1a;
   letter-spacing: 5px; }
 
 .block {
@@ -279,7 +279,7 @@ section + section {
 
 /* section.ico {position:absolute;} */
 section#news {
-  padding-top: 10em;
+  padding-top: 8em;
   padding-bottom: 5em; }
 
 .delay-001 {
@@ -317,8 +317,8 @@ circle {
   fill: none;
   stroke-width: 2; }
   circle:first-of-type {
-    stroke: rgba(255, 255, 255, 0.6);
-    fill: rgba(255, 255, 255, 0.1); }
+    stroke: rgba(60, 60, 60, 0.6);
+    fill: rgba(60, 60, 60, 0.1); }
   circle:last-of-type {
     stroke: rgba(0, 120, 153, 0.3);
     transform: rotate(-90deg);
@@ -327,13 +327,12 @@ circle {
 /* Layout  GRID*/
 .grid_wrap {
   display: grid;
-  grid-template-rows: 20vh calc(60vh - 82px) 20vh;
+  grid-template-rows: 20vh calc(60vh - 220px) 20vh;
   grid-template-areas: "top " "center" "bottom";
   justify-content: center;
   align-items: center; }
   .grid_wrap .wrap_top {
-    grid-area: top;
-    font-size: 75%; }
+    grid-area: top; }
   .grid_wrap .wrap_under, .grid_wrap .wrap_center {
     display: flex;
     flex-direction: row;
@@ -362,18 +361,14 @@ circle {
           .grid_wrap .wrap_bottom #menu-hazard ul {
             flex-wrap: wrap; } }
       .grid_wrap .wrap_bottom #menu-hazard span {
-        color: rgba(255, 255, 255, 0.9);
-        font-size: 15px;
+        color: rgba(26, 26, 26,0.9);
         white-space: pre-wrap; }
-      .grid_wrap .wrap_bottom #menu-hazard .nav > li {
-        flex-grow: 0; }
         .grid_wrap .wrap_bottom #menu-hazard .nav > li > a {
           font-size: 2.5em;
           justify-content: center; }
           .grid_wrap .wrap_bottom #menu-hazard .nav > li > a > i {
             background: none;
-            color: rgba(255, 255, 255, 0.9);
-            border-color: #FF8000;
+            color: rgba(26, 26, 26,0.9);
             border-width: 0; }
 
 .wrap_under .btn-custom {
@@ -398,8 +393,8 @@ circle {
 .stat svg {
   margin-bottom: 2em; }
 .stat h1, .stat h2, .stat h3, .stat text {
-  color: rgba(255, 255, 255, 0.9);
-  fill: white; }
+  color: rgba(26, 26, 26,0.9);
+  fill: #1a1a1a; }
 .stat text {
   font-size: 3em; }
 /*
