@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta content="Open Data for Resilience Index " name="description" />
+    <meta content="" name="author" />
+
+    <base href="{{$locationProvider.$get}}" />
+
+    <title>Open Data for Resilience Index</title>
+    <link rel=icon href=img/template/favicon.png type="image/png">
+    <link rel=icon href=img/template/favicon.ico type="image/vnd.microsoft.icon">
+
+    <!-- jQuery library -->
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+
+
+    <!-- Angular components -->
+    <script src="bower_components/angular/angular.min.js"></script>
+
+    <!-- Chart libraries-->
+    <link href="bower_components/highcharts/css/highcharts_rodi.css" rel="stylesheet">
+    <script src="bower_components/highcharts/js/highcharts.js"></script>
+    <!--<script src="bower_components/highcharts/js/highcharts-3d.js"></script>-->
+    <script src="bower_components/highcharts/js/modules/exporting.js"></script>
+    <script src="bower_components/highcharts/js/highcharts-more.js"></script>
+    <script src="bower_components/highcharts/js/modules/solid-gauge.js"></script>
+
+    <link href="js/vendor/ng-table/ng-table.min.css" rel="stylesheet">
+    <script src="js/vendor/ng-table/ng-table.min.js"></script>
+
+    <!-- bootstrap Framework -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- font awesome-->
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <link href="bower_components/animate.css/animate.min.css" rel="stylesheet">
+    <!--<link href="bower_components/flex/dist/flex.css" rel="stylesheet">-->
+
+    <!-- RODI APP -->
+    <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
+    <script src="js/angular/app.js"></script>
+    <script src="js/angular/service.js" type="text/javascript"></script>
+    <script src="js/angular/controller.js" type="text/javascript"></script>
+    <script src="js/angular/controller_mainmenu.js" type="text/javascript"></script>
+    <script src="js/angular/directive.js" type="text/javascript"></script>
+    <!-- RODI APP -->
+
+    <!-- RODI css -->
+    <link href="css/rodi_css.css" rel="stylesheet">
+    <link href="css/style_map.css" rel="stylesheet">
+    <link href="css/land.css" rel="stylesheet">
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-80600133-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+
+        gtag('config', 'UA-80600133-2');
+    </script>
+
+
+    <!-- Guida: https://medium.com/@tweededbadger/tutorial-dynamic-data-driven-svg-map-with-angularjs-b112fdec421d -->
+    <!--<script src="js/change_svg.js"></script>-->
+
+</head>
+<body ng-app="RodiApp" ng-controller="RodiCtrl">
+
+    <div class="container-fluid land">
+
+        <!-- Section HEADER - INIZIO -->
+        <section id="rodi_header">
+
+            <div class="row  ">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                        <img src="img/template/rodi_logo_new_beta.png" alt="Open Data for Resilience Initiative" class="img-responsive pull-left" />
+                    </div>
+                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
+
+                        <mainmenu ></mainmenu>
+                        <button type="button" class="navbar-toggle navbar-toggle-left-black " data-toggle="collapse" data-target="#menu-hazard" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar icon-bar-white"></span>
+                            <span class="icon-bar icon-bar-white"></span>
+                            <span class="icon-bar icon-bar-white"></span>
+                        </button>
+                        <button type="button" class="navbar-toggle navbar-toggle-right-black " data-toggle="collapse" data-target="#menu-website" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar icon-bar-white"></span>
+                            <span class="icon-bar icon-bar-white"></span>
+                            <span class="icon-bar icon-bar-white"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+        <!-- Section HEADER - FINE -->
+
+        <!--Home-->
+
+        <section id="one" class="section ">
+
+                <div class="grid_wrap  ">
+                    <img class="fbg" src="img/michael-fertig-2429.jpg" alt="">
+                    <div class="wrap_top">
+                        <!--<h1 class="page_title_small">Tracking and improving the state of Open Data <br> for Resilience worldwide</h1>-->
+                        <h1 class="page_title_small">Tracking open disaster risk data worldwide</h1>
+                    </div>
+                    <div class="wrap_center">
+                        <div class="stat">
+                            <svg preserveAspectRatio="xMinYMin" viewBox="0 0 252 252">
+                                <text x="50%" y="50%" text-anchor="middle" alignment-baseline="middle">{{totalDataset}}</text>
+                                <circle cx="50%" cy="50%" r="124"></circle>
+                                <circle cx="50%" cy="50%" r="124" style=""></circle>
+                            </svg>
+                            <h3>Datasets <br>submitted</h3>
+                        </div>
+                        <div class="stat">
+                            <svg preserveAspectRatio="xMinYMin" viewBox="0 0 252 252">
+                                <text x="50%" y="50%" text-anchor="middle" alignment-baseline="middle">{{countryWithData}}</text>
+                                <circle cx="50%" cy="50%" r="124"></circle>
+                                <circle cx="50%" cy="50%" r="124" style=""></circle>
+                            </svg>
+                            <h3>Countries <br>covered</h3>
+                        </div>
+                        <div class="stat">
+                            <svg preserveAspectRatio="xMinYMin" viewBox="0 0 252 252">
+                                <text x="50%" y="50%" text-anchor="middle" alignment-baseline="middle">{{iOpenIndex}}%</text>
+                                <circle cx="50%" cy="50%" r="124"></circle>
+                                <circle cx="50%" cy="50%" r="124" style=""></circle>
+                            </svg>
+                            <h3>Datasets <br>open</h3>
+                        </div>
+                    </div>
+                  <!--  <div class="wrap_under">
+                        <a href="#" class="btn btn-custom btn-lg" ng-click="changeview('contribute.html', '1')">Submit a dataset </a>
+                        <a href="#" class="btn btn-custom btn-lg" ng-click="changeview('countries.html', '5')">Explore countries</a>
+                    </div>-->
+                    <div class="wrap_bottom">
+                        <section class="ico" id="menu-hazard">
+                            <!--<div class="row">-->
+                                <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">-->
+                                    <ul class="nav navbar-nav text-center">
+                                        <li >
+                                            <a href="" class="animated fadeInUp delay-001">
+                                                <i class="ico-coastal_flooding"></i>
+                                                <span>Coastal flooding</span>
+                                            </a>
+                                        </li>
+                                        <li >
+                                            <a href="" class="animated fadeInUp delay-002">
+                                                <i class="ico-cyclone"></i>
+                                                <span>Cyclone</span>
+                                            </a>
+                                        </li>
+                                        <li >
+                                            <a href="" class="animated fadeInUp delay-003">
+                                                <i class="ico-earthquake"></i>
+                                                <span>Earthquake</span>
+                                            </a>
+                                        </li>
+                                        <li >
+                                            <a href="" class="animated fadeInUp delay-004">
+                                                <i class="ico-landslide"></i>
+                                                <span>Landslide</span>
+                                            </a>
+                                        </li>
+                                        <li >
+                                            <a href="" class="animated fadeInUp delay-005">
+                                                <i class="ico-river_flooding"></i>
+                                                <span>River Flooding</span>
+                                            </a>
+                                        </li>
+                                        <li >
+                                            <a href="" class="animated fadeInUp delay-006">
+                                                <i class="ico-tsunami"></i>
+                                                <span>Tsunami</span>
+                                            </a>
+                                        </li>
+                                        <li >
+                                            <a href="" class="animated fadeInUp delay-007">
+                                                <i class="ico-volcano"></i>
+                                                <span>Volcano</span>
+                                            </a>
+                                        </li>
+                                        <li >
+                                            <a href="" class="animated fadeInUp delay-008">
+                                                <i class="ico-water_scarcity "></i>
+                                                <span>Water Scarcity </span>
+                                            </a>
+                                        </li>
+
+                                    </ul>
+                                <!--</div>-->
+                            <!--</div>-->
+
+                        </section>
+                    </div>
+                </div>
+        </section>
+
+
+        <!-- Section PARTNER - INIZIO -->
+        <section id="news" class="wrap_under ">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <a href="#" class="btn btn-custom btn-lg" ng-click="changeview('contribute.html', '1')">Submit a dataset </a>
+                    </div>
+                    <!--<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                        <a href="#" class="btn btn-custom btn-lg" ng-click="changeview('stats.html', '5')">Statistics</a>
+                    </div>-->
+                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                        <a href="#" class="btn btn-custom btn-lg" ng-click="changeview('countries.html', '5')">Explore countries</a>
+                    </div>
+                </div>
+            </div>
+
+
+        </section>
+        <!-- Section NWEWS - FINE -->
+
+    </div>
+
+    <!-- Section FOOTER - INIZIO -->
+    <rodifooter></rodifooter>
+    <!-- Section FOOTER - FINE -->
+
+    <!--start modal intro-->
+    <!-- Button trigger modal -->
+    <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">-->
+    <!--Launch demo modal-->
+    <!--</button>-->
+
+
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+
+    <script>
+        $('.expand').on('click',function(e){
+            e.preventDefault();
+            $(this).toggleClass('active');
+        });
+    </script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!--wow for animate.css-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/0.1.12/wow.min.js"></script>
+    <!--snap-->
+    <!--<script src="js/stats.js"></script>-->
+    <!--<script src="http://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.1.0/snap.svg-min.js"></script>-->
+
+    <script>
+        // number count for stats, using jQuery animate
+
+        $('.counting').each(function() {
+            setTimeout(function(){
+
+                var $this = $(this),
+                    countTo = $this.attr('data-count');
+
+                $({ countNum: $this.text()}).animate({
+                        countNum: countTo
+                    },
+
+                    {
+                        duration: 5000,
+                        easing:'linear',
+                        step: function() {
+                            $this.text(Math.floor(this.countNum));
+                        },
+                        complete: function() {
+                            $this.text(this.countNum);
+    //                        alert('finished');
+                        }
+
+                    });
+            }, 500);
+
+        });
+    </script>
+    <script>
+        $(function() {
+            $('progress').each(function() {
+                var max = $(this).val();
+                $(this).val(0).animate({ value: max }, { duration: 2000, easing: 'easeOutCirc' });
+            });
+        });
+    </script>
+
+</body>
+</html>

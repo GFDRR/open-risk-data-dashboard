@@ -17,7 +17,6 @@
     <!-- jQuery library -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
 
-
     <!-- Angular components -->
     <script src="bower_components/angular/angular.min.js"></script>
 
@@ -45,7 +44,6 @@
     <![endif]-->
 
     <link href="bower_components/animate.css/animate.min.css" rel="stylesheet">
-    <!--<link href="bower_components/flex/dist/flex.css" rel="stylesheet">-->
 
     <!-- RODI APP -->
     <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
@@ -71,235 +69,183 @@
         gtag('config', 'UA-80600133-2');
     </script>
 
-
-    <!-- Guida: https://medium.com/@tweededbadger/tutorial-dynamic-data-driven-svg-map-with-angularjs-b112fdec421d -->
-    <!--<script src="js/change_svg.js"></script>-->
-
 </head>
 <body ng-app="RodiApp" ng-controller="RodiCtrl">
 
-    <div class="container-fluid land">
+<div class="container-fluid">
+    <!-- Section HEADER - INIZIO -->
+    <section id="rodi_header">
 
-        <!-- Section HEADER - INIZIO -->
-        <section id="rodi_header">
+        <div class="row  ">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                    <img src="img/template/rodi_logo_new_beta.png" alt="Open Data for Resilience Initiative" class="img-responsive pull-left" />
+                </div>
+                <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
 
-            <div class="row  ">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
-                        <img src="img/template/rodi_logo_new_beta.png" alt="Open Data for Resilience Initiative" class="img-responsive pull-left" />
-                    </div>
-                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
-
-                        <mainmenu ></mainmenu>
-                        <button type="button" class="navbar-toggle navbar-toggle-left-black " data-toggle="collapse" data-target="#menu-hazard" aria-expanded="false">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar icon-bar-white"></span>
-                            <span class="icon-bar icon-bar-white"></span>
-                            <span class="icon-bar icon-bar-white"></span>
-                        </button>
-                        <button type="button" class="navbar-toggle navbar-toggle-right-black " data-toggle="collapse" data-target="#menu-website" aria-expanded="false">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar icon-bar-white"></span>
-                            <span class="icon-bar icon-bar-white"></span>
-                            <span class="icon-bar icon-bar-white"></span>
-                        </button>
-                    </div>
+                    <mainmenu ></mainmenu>
+                    <!--<button type="button" class="navbar-toggle navbar-toggle-left-black " data-toggle="collapse" data-target="#menu-hazard" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar icon-bar-white"></span>
+                        <span class="icon-bar icon-bar-white"></span>
+                        <span class="icon-bar icon-bar-white"></span>
+                    </button>-->
+                    <button type="button" class="navbar-toggle navbar-toggle-right-black " data-toggle="collapse" data-target="#menu-website" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar icon-bar-white"></span>
+                        <span class="icon-bar icon-bar-white"></span>
+                        <span class="icon-bar icon-bar-white"></span>
+                    </button>
                 </div>
             </div>
+        </div>
 
 
-        </section>
-        <!-- Section HEADER - FINE -->
+    </section>
+    <!-- Section HEADER - FINE -->
+</div>
 
-        <!--Home-->
+<!-- Section image counters and buttons -->
+<section id="rodi_main">
+    <div class="odfri_box_home_page">
 
-        <section id="one" class="section ">
+<!-- vertical space-->        
+<div class="odfri_space"></div>
+<div class="odfri_space"></div>
 
-                <div class="grid_wrap  ">
-                    <img class="fbg" alt="">
-                    <div class="wrap_top">
-                        <!--<h1 class="page_title_small">Tracking and improving the state of Open Data <br> for Resilience worldwide</h1>-->
-                        <h1 class="page_title_small">Tracking together <a href="http://google.com">open data</a> for <a>disaster and risk</a href="http://google.com"> worldwide</h1>
+        <div class="row">  
+            <div class="col odfri_home_title">
+                <h1>TRACKING <a href="" ng-click="changeview('methodology.html#criteria', '2')"><span>OPEN DATA</span></a> FOR <a href="" ng-click="changeview('methodology.html#datasets', '2')"><span>DISASTER RISK MANAGEMENT</span></a></h1>
+                <span>The most comprehensive state of open data for reducing vulnerability and building resilience to natural hazards</span>  
+            </div>       
+        </div>
+<div class="odfri_space"></div>
+        <div class="container-fluid">
+            <div class="row text-center odfri_home_black_color">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                </div>    
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <div class="odfri_box_counter">
+                        <span ng-cloak>{{totalDataset}}</span>
+                        <span ng-if="!totalDataset"><img src="img/template/loading.gif" alt="" style="max-width:30px;" /></span>
+                                        <h3 class="odfri_box_counter_description">datasets</h3>
                     </div>
-                    <div class="wrap_center">
-                        <div class="stat">
-                            <svg preserveAspectRatio="xMinYMin" viewBox="0 0 252 252">
-                                <text x="50%" y="50%" text-anchor="middle" alignment-baseline="middle">{{totalDataset}}</text>
-                                <circle cx="50%" cy="50%" r="124"></circle>
-                                <circle cx="50%" cy="50%" r="124" style=""></circle>
-                            </svg>
-                            <h3>Datasets <br>submitted</h3>
-                        </div>
-                        <div class="stat">
-                            <svg preserveAspectRatio="xMinYMin" viewBox="0 0 252 252">
-                                <text x="50%" y="50%" text-anchor="middle" alignment-baseline="middle">{{countryWithData}}</text>
-                                <circle cx="50%" cy="50%" r="124"></circle>
-                                <circle cx="50%" cy="50%" r="124" style=""></circle>
-                            </svg>
-                            <h3>Countries <br>covered</h3>
-                        </div>
-                        <div class="stat">
-                            <svg preserveAspectRatio="xMinYMin" viewBox="0 0 252 252">
-                                <text x="50%" y="50%" text-anchor="middle" alignment-baseline="middle">{{iOpenIndex}}%</text>
-                                <circle cx="50%" cy="50%" r="124"></circle>
-                                <circle cx="50%" cy="50%" r="124" style=""></circle>
-                            </svg>
-                            <h3>Datasets <br>open</h3>
-                        </div>
-                    </div>
-                  <!--  <div class="wrap_under">
-                        <a href="#" class="btn btn-custom btn-lg" ng-click="changeview('contribute.html', '1')">Submit a dataset </a>
-                        <a href="#" class="btn btn-custom btn-lg" ng-click="changeview('countries.html', '5')">Explore countries</a>
-                    </div>-->
-                    <div class="wrap_bottom">
-                        <section class="ico" id="menu-hazard">
-                            <!--<div class="row">-->
-                                <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">-->
-                                    <ul class="nav navbar-nav text-center">
-                                        <li >
-                                            <a href="" class="animated fadeInUp delay-001">
-                                                <i class="ico-coastal_flooding"></i>
-                                                <span>Coastal flooding</span>
-                                            </a>
-                                        </li>
-                                        <li >
-                                            <a href="" class="animated fadeInUp delay-002">
-                                                <i class="ico-cyclone"></i>
-                                                <span>Cyclone</span>
-                                            </a>
-                                        </li>
-                                        <li >
-                                            <a href="" class="animated fadeInUp delay-003">
-                                                <i class="ico-earthquake"></i>
-                                                <span>Earthquake</span>
-                                            </a>
-                                        </li>
-                                        <li >
-                                            <a href="" class="animated fadeInUp delay-004">
-                                                <i class="ico-landslide"></i>
-                                                <span>Landslide</span>
-                                            </a>
-                                        </li>
-                                        <li >
-                                            <a href="" class="animated fadeInUp delay-005">
-                                                <i class="ico-river_flooding"></i>
-                                                <span>River Flooding</span>
-                                            </a>
-                                        </li>
-                                        <li >
-                                            <a href="" class="animated fadeInUp delay-006">
-                                                <i class="ico-tsunami"></i>
-                                                <span>Tsunami</span>
-                                            </a>
-                                        </li>
-                                        <li >
-                                            <a href="" class="animated fadeInUp delay-007">
-                                                <i class="ico-volcano"></i>
-                                                <span>Volcano</span>
-                                            </a>
-                                        </li>
-                                        <li >
-                                            <a href="" class="animated fadeInUp delay-008">
-                                                <i class="ico-water_scarcity "></i>
-                                                <span>Water Scarcity </span>
-                                            </a>
-                                        </li>
 
-                                    </ul>
-                                <!--</div>-->
-                            <!--</div>-->
-
-                        </section>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <div class="odfri_box_counter">
+                        <span ng-cloak><img src="img/template/loading.gif" alt="" ng-if="!iOpenIndex" style="max-width:30px;" />{{iOpenIndex}}%</span>
+                                            <h3 class="odfri_box_counter_description">open data</h3>
                     </div>
                 </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <div class="odfri_box_counter">
+                        <span ng-cloak>{{countryWithData}}</span>
+                        <span ng-if="!countryWithData"><img src="img/template/loading.gif" alt="" style="max-width:30px;" /></span>
+                                            <h3 class="odfri_box_counter_description">countries</h3>
+                    </div>
+
+                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                </div>    
+            </div>
+        </div>
+<!-- vertical space-->        
+<div class="odfri_space"></div>
+
+
+        <!-- Hazard mobile version 
+        <div class="row visible-xs visible-sm text-center">
+            <div class="col-xs-3 col-sm-3"><i class="ico-coastal_flooding odfri_home_black_color odfri_home_icon_border"></i></div>
+            <div class="col-xs-3 col-sm-3"><i class="ico-cyclone odfri_home_black_color odfri_home_icon_border"></i></div>
+            <div class="col-xs-3 col-sm-3"><i class="ico-earthquake odfri_home_black_color odfri_home_icon_border"></i></div>
+            <div class="col-xs-3 col-sm-3"><i class="ico-landslide odfri_home_black_color odfri_home_icon_border"></i></div>
+            <div class="col-xs-3 col-sm-3"><i class="ico-river_flooding odfri_home_black_color odfri_home_icon_border"></i></div>
+            <div class="col-xs-3 col-sm-3"><i class="ico-tsunami odfri_home_black_color odfri_home_icon_border"></i></div>
+            <div class="col-xs-3 col-sm-3"><i class="ico-volcano odfri_home_black_color odfri_home_icon_border"></i></div>
+            <div class="col-xs-3 col-sm-3"><i class="ico-water_scarcity odfri_home_black_color odfri_home_icon_border"></i></div>
+        </div>
+-->
+        <!-- Hazard desktop version 
+        <section class="ico" id="menu-hazard">
+            <ul class="nav navbar-nav text-center hidden-xs hidden-sm">
+                <li >
+                    <a href="" class="animated fadeInUp delay-001">
+                        <i class="ico-coastal_flooding odfri_home_black_color odfri_home_icon_border"></i>
+                        <span class="odfri_home_black_color">Coastal flooding</span>
+                    </a>
+                </li>
+                <li >
+                    <a href="" class="animated fadeInUp delay-002">
+                        <i class="ico-cyclone odfri_home_black_color odfri_home_icon_border"></i>
+                        <span class="odfri_home_black_color">Cyclone</span>
+                    </a>
+                </li>
+                <li >
+                    <a href="" class="animated fadeInUp delay-003">
+                        <i class="ico-earthquake odfri_home_black_color odfri_home_icon_border"></i>
+                        <span class="odfri_home_black_color">Earthquake</span>
+                    </a>
+                </li>
+                <li >
+                    <a href="" class="animated fadeInUp delay-004">
+                        <i class="ico-landslide odfri_home_black_color odfri_home_icon_border"></i>
+                        <span class="odfri_home_black_color">Landslide</span>
+                    </a>
+                </li>
+                <li >
+                    <a href="" class="animated fadeInUp delay-005">
+                        <i class="ico-river_flooding odfri_home_black_color odfri_home_icon_border"></i>
+                        <span class="odfri_home_black_color">River Flooding</span>
+                    </a>
+                </li>
+                <li >
+                    <a href="" class="animated fadeInUp delay-006">
+                        <i class="ico-tsunami odfri_home_black_color odfri_home_icon_border"></i>
+                        <span class="odfri_home_black_color">Tsunami</span>
+                    </a>
+                </li>
+                <li >
+                    <a href="" class="animated fadeInUp delay-007">
+                        <i class="ico-volcano odfri_home_black_color odfri_home_icon_border"></i>
+                        <span class="odfri_home_black_color">Volcano</span>
+                    </a>
+                </li>
+                <li >
+                    <a href="" class="animated fadeInUp delay-008">
+                        <i class="ico-water_scarcity odfri_home_black_color odfri_home_icon_border"></i>
+                        <span class="odfri_home_black_color">Water Scarcity </span>
+                    </a>
+                </li>
+
+            </ul>
         </section>
+-->
+<div class="odfri_space"></div>
+    <!-- Call to action--> 
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center">
+                    <a href="#" class="btn odfri_btn-custom btn-lg" ng-click="changeview('contribute.html', '1')">Submit a dataset </a>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center">
+                    <a href="#" class="btn odfri_btn-custom btn-lg" ng-click="changeview('countries.html', '5')">Explore countries</a>
 
-
-        <!-- Section PARTNER - INIZIO -->
-        <section id="news" class="wrap_under ">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <a href="#" class="btn btn-custom btn-lg" ng-click="changeview('contribute.html', '1')">Submit a dataset </a>
-                    </div>
-                    <!--<div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
-                        <a href="#" class="btn btn-custom btn-lg" ng-click="changeview('stats.html', '5')">Statistics</a>
-                    </div>-->
-                    <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                        <a href="#" class="btn btn-custom btn-lg" ng-click="changeview('countries.html', '5')">Explore countries</a>
-                    </div>
                 </div>
             </div>
-
-
-        </section>
-        <!-- Section NWEWS - FINE -->
-
+        </div>
+<!-- vertical space-->        
+<div class="odfri_space"></div>
+<div class="odfri_space"></div>
     </div>
+</section>
 
-    <!-- Section FOOTER - INIZIO -->
-    <rodifooter></rodifooter>
-    <!-- Section FOOTER - FINE -->
-
-    <!--start modal intro-->
-    <!-- Button trigger modal -->
-    <!--<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">-->
-    <!--Launch demo modal-->
-    <!--</button>-->
+<!-- Section FOOTER - INIZIO -->
+<rodifooter></rodifooter>
+<!-- Section FOOTER - FINE -->
 
 
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-
-    <script>
-        $('.expand').on('click',function(e){
-            e.preventDefault();
-            $(this).toggleClass('active');
-        });
-    </script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!--wow for animate.css-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/wow/0.1.12/wow.min.js"></script>
-    <!--snap-->
-    <!--<script src="js/stats.js"></script>-->
-    <!--<script src="http://cdnjs.cloudflare.com/ajax/libs/snap.svg/0.1.0/snap.svg-min.js"></script>-->
-
-    <script>
-        // number count for stats, using jQuery animate
-
-        $('.counting').each(function() {
-            setTimeout(function(){
-
-                var $this = $(this),
-                    countTo = $this.attr('data-count');
-
-                $({ countNum: $this.text()}).animate({
-                        countNum: countTo
-                    },
-
-                    {
-                        duration: 5000,
-                        easing:'linear',
-                        step: function() {
-                            $this.text(Math.floor(this.countNum));
-                        },
-                        complete: function() {
-                            $this.text(this.countNum);
-    //                        alert('finished');
-                        }
-
-                    });
-            }, 500);
-
-        });
-    </script>
-    <script>
-        $(function() {
-            $('progress').each(function() {
-                var max = $(this).val();
-                $(this).val(0).animate({ value: max }, { duration: 2000, easing: 'easeOutCirc' });
-            });
-        });
-    </script>
+<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 </body>
 </html>
