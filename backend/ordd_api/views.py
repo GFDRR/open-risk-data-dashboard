@@ -888,8 +888,7 @@ class Score(object):
         return country_score
 
     @classmethod
-    def country_loadtree(cls, request, country_score_tree, dataset,
-                         th_applicability):
+    def country_loadtree(cls, request, country_score_tree, dataset):
         category_id = dataset.keydataset.category.code
         keydataset_id = dataset.keydataset.code
 
@@ -914,9 +913,6 @@ class Score(object):
         world_score_tree = OrderedDict()
         for dataset in queryset:
             country_id = dataset.country.iso2
-            th_applicability = set()
-            for appl in dataset.country.thinkhazard_appl.all():
-                th_applicability.add(appl.name)
 
             # category_id = dataset.keydataset.category.code
             # keydataset_id = dataset.keydataset.code
@@ -924,8 +920,7 @@ class Score(object):
                 world_score_tree[country_id] = OrderedDict()
             country_score_tree = world_score_tree[country_id]
 
-            cls.country_loadtree(request, country_score_tree, dataset,
-                                 th_applicability)
+            cls.country_loadtree(request, country_score_tree, dataset)
 
         return world_score_tree
 
@@ -1060,14 +1055,12 @@ class Score(object):
 
         country_score_tree = OrderedDict()
         for dataset in queryset:
-            cls.country_loadtree(request, country_score_tree, dataset,
-                                 th_applicability)
+            cls.country_loadtree(request, country_score_tree, dataset)
         country_fullscore_tree = OrderedDict()
         fullscore_queryset = queryset.filter(
                 **fullscore_filterargs)
         for dataset in fullscore_queryset:
-            cls.country_loadtree(request, country_fullscore_tree, dataset,
-                                 th_applicability)
+            cls.country_loadtree(request, country_fullscore_tree, dataset)
 
         datasets_count = queryset.count()
         fullscores_count = fullscore_queryset.count()
@@ -1181,7 +1174,8 @@ class Score(object):
         if category:
             categories = []
             for v in category:
-                categories.append(KeyCategory.objects.filter(name__iexact=v)[0])
+                categories.append(KeyCategory.objects.filter(
+                    name__iexact=v)[0])
         else:
             categories = KeyCategory.objects.all().order_by('id')
 
