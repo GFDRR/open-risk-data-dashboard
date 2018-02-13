@@ -222,7 +222,7 @@ class ProfileDatasetListSerializer(serializers.ModelSerializer):
         model = Dataset
         fields = '__all__'
         read_only_fields = ('owner', 'changed_by', 'create_time',
-                            'modify_time', 'is_reviewed')
+                            'modify_time', 'is_reviewed', 'score')
 
 
 class ProfileDatasetCreateSerializer(serializers.ModelSerializer):
@@ -238,7 +238,7 @@ class ProfileDatasetCreateSerializer(serializers.ModelSerializer):
         model = Dataset
         fields = '__all__'
         read_only_fields = ('owner', 'changed_by', 'create_time',
-                            'modify_time', 'is_reviewed')
+                            'modify_time', 'is_reviewed', 'score')
 
 
 class DatasetListSerializer(serializers.ModelSerializer):
@@ -259,7 +259,8 @@ class DatasetListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dataset
         fields = '__all__'
-        read_only_fields = ('changed_by', 'create_time', 'modify_time')
+        read_only_fields = ('changed_by', 'create_time', 'modify_time',
+                            'score')
 
 
 class DatasetPutSerializer(serializers.ModelSerializer):
@@ -279,7 +280,8 @@ class DatasetPutSerializer(serializers.ModelSerializer):
     class Meta:
         model = Dataset
         fields = '__all__'
-        read_only_fields = ('changed_by', 'create_time', 'modify_time')
+        read_only_fields = ('changed_by', 'create_time', 'modify_time',
+                            'score')
 
 
 class ProfileCommentSendSerializer(serializers.Serializer):
@@ -310,7 +312,7 @@ class DatasetsDumpSerializer(serializers.ModelSerializer):
             'is_avail_online_meta', 'is_bulk_avail', 'is_machine_read',
             'is_machine_read_txt', 'is_pub_available', 'is_avail_for_free',
             'is_open_licence', 'is_open_licence_txt', 'is_prov_timely',
-            'is_prov_timely_last', 'tag',
+            'is_prov_timely_last', 'tag', 'score'
             )
 
     def to_representation(self, obj):

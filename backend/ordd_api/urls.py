@@ -10,7 +10,8 @@ from .views import (
     ProfileCommentSendView, UserCreateView, UserDetailsView,
     RegistrationView, ProfileDatasetListCreateView, ProfileDatasetDetailsView,
     DatasetListView, DatasetDetailsView, DatasetsDumpView, VersionGet,
-    ScoringWorldGet, ScoringCountryDetailsGet, ScoringWorldCategoriesGet)
+    ScoringWorldGet, ScoringCountryDetailsGet, ScoringWorldCategoriesGet,
+    ScoringUpdate)
 
 from .keydatasets_views import (
     KeyDataset0on4ListView, KeyDataset1on4ListView, KeyDataset2on4ListView,
@@ -27,6 +28,8 @@ urlpatterns = [
     url(r'^scoring/(?P<country_id>[A-Z0-9][A-Z0-9])$',
         ScoringCountryDetailsGet.as_view(), name="scoring_country"),
     url(r'^scoring/$', ScoringWorldGet.as_view(), name="scoring_world"),
+    url(r'^scoring_update$', ScoringUpdate.as_view(),
+        name="scoring_recalculate"),
     url(r'^version$', VersionGet.as_view(), name="version"),
     url(r'^profile$', ProfileDetails.as_view(), name="profile_details"),
     url(r'^profile/password$', ProfilePasswordUpdate.as_view(),

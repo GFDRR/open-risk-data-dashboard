@@ -846,42 +846,6 @@ class Score(object):
         return "%.1f" % (score * 100.0)
 
     @classmethod
-    def dataset(cls, request, dataset, th_applicability):
-        score = 0.0
-
-        if dataset.is_existing:
-            score += 0.05
-        if dataset.is_digital_form:
-            score += 0.05
-        if dataset.is_avail_online:
-            score += 0.05
-        if dataset.is_avail_online_meta:
-            score += 0.05
-        if dataset.is_bulk_avail:
-            score += 0.10
-        if dataset.is_machine_read:
-            score += 0.15
-        if dataset.is_pub_available:
-            score += 0.05
-        if dataset.is_avail_for_free:
-            score += 0.15
-        if dataset.is_open_licence:
-            score += 0.30
-        if dataset.is_prov_timely:
-            score += 0.05
-
-        appl = set()
-        for kd_appl in dataset.keydataset.applicability.all():
-            appl.add(kd_appl.name)
-
-        for ds_appl in dataset.tag.all():
-            appl.add(ds_appl.name)
-
-        score *= len(appl & th_applicability) / len(th_applicability)
-
-        return score
-
-    @classmethod
     def category(cls, category, country_score_tree):
         category_score = 0
 
@@ -938,7 +902,7 @@ class Score(object):
             category_score_tree['score'][keydataset_id] = {
                 "dataset": None, 'value': -1}
         keydataset_score_tree = category_score_tree['score'][keydataset_id]
-        score = cls.dataset(request, dataset, th_applicability)
+        score = dataset.score
 
         if keydataset_score_tree['value'] < score:
             keydataset_score_tree['value'] = score
@@ -1275,3 +1239,14 @@ class ScoringWorldCategoriesGet(APIView):
     def get(self, request):
         ret = Score.all_countries_categories(request)
         return Response(ret)
+
+
+class ScoringUpdate(APIView):
+    """This class allow to recalculate scores for each dataset,
+    handles the GET requests."""
+    permission_classes = (permissions.IsAdminUser,)
+
+    def get(self, request):
+        for dataset in Dataset.objects.all():
+            dataset.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)
