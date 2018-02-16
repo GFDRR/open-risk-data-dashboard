@@ -135,6 +135,8 @@ section + section
 .rodi_big_text_page
 {
     font-size:17px;
+    padding-right: 15%;
+    padding-left:15%;
 }
 
 .rodi_big_text i {color:white;}
@@ -811,7 +813,7 @@ Navbar
 [class^="ico-"], [class*=" ico-"],
 .nav>li>a {color: #ee3036;}
 
-.nav li a {
+.nav li a, .nav li p {
     display: flex;
     flex-direction: column;
     justify-content:center;
@@ -874,7 +876,7 @@ mainmenu .navbar {
 .nav-tabs>li.active>a:hover,
 .nav-tabs>li.active>a:focus {background: rgba(173, 216, 230, 0.5);}
 
-#menu-hazard {font-size: 2em;}
+/*#menu-hazard {font-size: 2em;}*/
 #menu-hazard .nav {display: flex; flex-wrap: nowrap; justify-content: center; width: 100%;}
 
 #menu-hazard .nav>li.search {flex-grow:3;}
@@ -882,7 +884,7 @@ mainmenu .navbar {
 
 
 
-#menu-hazard .nav>li>a i {
+#menu-hazard .nav>li>a i, #menu-hazard .nav>li>p i {
     border-radius:50%;
     border: 2px solid red;
     border-color: #EE3036;
@@ -1616,7 +1618,7 @@ hr {
     align-items: center;
 }
 
-.flex-row {flex-direction: row; align-items: center;}
+.flex-row {flex-direction: row; align-items: center; margin: 0px;}
 .flex-col{flex-direction: column;}
 
 .flex-row .flex-item {padding:2px 5px;}
@@ -1766,8 +1768,18 @@ responsive
     .navbar-form {margin-top:-8em;}
     #menu-hazard .nav li { max-width:inherit;}
 
+}
 
+.unscroll{
+         /*     width:100%;
+    position: fixed;
+background-color: white;
+    z-index: 100;*/
+    padding-bottom:24px;
+}
 
+.scroll{
+    /*padding-top:163px;*/
 }
 
 @media screen and (max-width:480px) {
@@ -2029,3 +2041,4 @@ responsive
     border-radius: 5px;
 }
 
+.logout{padding-left: 1em;}

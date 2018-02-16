@@ -1,0 +1,25 @@
+Group,Tags
+facilities,Roads
+facilities,Railways
+facilities,Power
+facilities,Water
+facilities,Telecommunication
+facilities,Bridges
+facilities,Airports
+facilities,Harbors
+facilities,Power
+facilities,Education
+facilities,Health
+building,Count
+building,Replacement value
+building,Height
+building,Material
+building,Roof type
+hazard,Coastal flooding
+hazard,Cyclone
+hazard,Earthquake
+hazard,Landslide
+hazard,River flooding
+hazard,Tsunami
+hazard,Volcano
+hazard,Water scarcity

@@ -59,6 +59,13 @@
     <link href="css/style_map.css" rel="stylesheet">
     <link href="css/land.css" rel="stylesheet">
 
+    <!-- Tooltip init -->
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>    
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-80600133-2"></script>
     <script>
@@ -115,8 +122,8 @@
 
         <div class="row">  
             <div class="col odfri_home_title">
-                <h1>TRACKING <a href="" ng-click="changeview('methodology.html#criteria', '2')"><span>OPEN DATA</span></a> FOR <a href="" ng-click="changeview('methodology.html#datasets', '2')"><span>DISASTER RISK MANAGEMENT</span></a></h1>
-                <span>The most comprehensive state of open data for reducing vulnerability and building resilience to natural hazards</span>  
+                <h1>TRACKING <a href="" ng-click="changeview('methodology.html', '1')">OPEN DATA</a> FOR <a href="" ng-click="changeview('methodology.html', '2')">DISASTER RISK MANAGEMENT</a></h1>
+                <span>A collaborative and global assessment of open data for reducing vulnerability and building resilience to natural hazards</span>  
             </div>       
         </div>
 <div class="odfri_space"></div>
