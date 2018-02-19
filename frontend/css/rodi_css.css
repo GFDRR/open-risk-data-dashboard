@@ -86,13 +86,14 @@
 body, html, input, p, textarea {
     /*font-family: 'Roboto 'Condensed, sans-serif;*/
     /*font-family: 'Bariol Regular', "Helvetica Neue", Helvetica, Arial, sans-serif;*/
-    font-family: 'unit-regular', Helvetica, Arial, sans-serif;
+    /*font-family: 'Bariol Regular', "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
     /*font-family: 'Open Sans Condensed', sans-serif;*/
     /*font-family: 'Roboto Condensed', sans-serif;*/
-    /*font-family: 'Bariol Bold', "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+    font-family: 'Bariol Bold', "Helvetica Neue", Helvetica, Arial, sans-serif;
     /*font-family: 'Variable-Black', "Helvetica Neue", Helvetica, Arial, sans-serif;*/
 }
 
@@ -118,11 +119,6 @@ section + section
     color: #c0c0c0;
 }
 
-.m_b_20
-{
-    margin-bottom: 20px;
-}
-
 .rodi_txt_big
 {
     font-size: 25px;
@@ -136,11 +132,11 @@ section + section
 
 }
 
-
 .rodi_big_text_page
 {
-    font-size:23px;
-    line-height: 38px;
+    font-size:17px;
+    padding-right: 15%;
+    padding-left:15%;
 }
 
 .rodi_big_text i {color:white;}
@@ -703,7 +699,6 @@ Footer
     width:100%;
     /*background-color: #122b40;*/
     background-color: #111111;
-    margin-top: 30px;
     padding-top: 30px;
     padding-bottom:30px;
     min-height: 270px;
@@ -806,7 +801,7 @@ Navbar
 
 .navbar-nav span {
     color:#a0a0a0;
-    font-size:11px;
+    font-size:14px;
     text-transform: uppercase;
     margin-top: 1em;
 }
@@ -818,7 +813,7 @@ Navbar
 [class^="ico-"], [class*=" ico-"],
 .nav>li>a {color: #ee3036;}
 
-.nav li a {
+.nav li a, .nav li p {
     display: flex;
     flex-direction: column;
     justify-content:center;
@@ -880,6 +875,8 @@ mainmenu .navbar {
 }
 .nav-tabs>li.active>a:hover,
 .nav-tabs>li.active>a:focus {background: rgba(173, 216, 230, 0.5);}
+
+/*#menu-hazard {font-size: 2em;}*/
 #menu-hazard .nav {display: flex; flex-wrap: nowrap; justify-content: center; width: 100%;}
 
 #menu-hazard .nav>li.search {flex-grow:3;}
@@ -887,7 +884,7 @@ mainmenu .navbar {
 
 
 
-#menu-hazard .nav>li>a i {
+#menu-hazard .nav>li>a i, #menu-hazard .nav>li>p i {
     border-radius:50%;
     border: 2px solid red;
     border-color: #EE3036;
@@ -1621,7 +1618,7 @@ hr {
     align-items: center;
 }
 
-.flex-row {flex-direction: row; align-items: center;}
+.flex-row {flex-direction: row; align-items: center; margin: 0px;}
 .flex-col{flex-direction: column;}
 
 .flex-row .flex-item {padding:2px 5px;}
@@ -1771,8 +1768,18 @@ responsive
     .navbar-form {margin-top:-8em;}
     #menu-hazard .nav li { max-width:inherit;}
 
+}
 
+.unscroll{
+         /*     width:100%;
+    position: fixed;
+background-color: white;
+    z-index: 100;*/
+    padding-bottom:24px;
+}
 
+.scroll{
+    /*padding-top:163px;*/
 }
 
 @media screen and (max-width:480px) {
@@ -1914,7 +1921,7 @@ responsive
 
 .odfri_space
 {
-    margin-top:30px;
+    padding-top: 8vh;
 }
 
 .odfri_div_separator
@@ -1927,7 +1934,7 @@ responsive
 
 .odfri_home_black_color
 {
-    color:#000000 !important;
+    color:#333 !important;
     font-weight: 700;
 }
 
@@ -1955,53 +1962,54 @@ responsive
 .odfri_box_home_page
 {
     width: 100%;
-    min-height:55vh;
-    padding-bottom: 30px;
+   /* min-height: 90vh;*/
     background-image: url('../img/bg_home_page.jpg');
     background-repeat: no-repeat;
-    background-position: top left;
+    background-position: left bottom;
     background-size: cover;
 }
 
 .odfri_home_title
 {
     text-align: center;
-    margin-top: 10px;
+    font-size: 24px;
 }
 
-.odfri_home_title span
+.odfri_home_title h1
 {
-    color:#007899;
+    font-size: 50px;
 }
 
-.odfri_box_counter
+.odfri_home_title a 
 {
+    color: #333; 
+    text-decoration: underline;
+}
+
+.odfri_box_counter {
     position: relative;
     display: inline-block;
-    width:85px;
-    height:85px;
-    margin:auto;
-    border:solid 1px #000000;
-    padding:5px;
-    padding-top: 18px;
-    background-color: rgba(0,0,0,.4);
+    width: 150px;
+    height: 150px;
+    margin: auto;
+    background-color: rgba(51, 51, 51,0.6);
     -webkit-border-radius: 100%;
     -moz-border-radius: 100%;
     border-radius: 100%;
-    color:#ffffff;
+    color: #ffffff;
 }
 
 .odfri_box_counter span
 {
-    font-size: 20px;
-    margin-top: 10px;
+    padding-top: 25px;
+    font-size: 36px;
     display: inline-block;
-    vertical-align: middle;
 }
 
 .odfri_box_counter_description
 {
-    color:#000000;
+    margin-top:0px;
+    color:#fff;
 }
 
 .odfri_btn-custom
@@ -2033,3 +2041,4 @@ responsive
     border-radius: 5px;
 }
 
+.logout{padding-left: 1em;}
