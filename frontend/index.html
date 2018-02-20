@@ -59,6 +59,13 @@
     <link href="css/style_map.css" rel="stylesheet">
     <link href="css/land.css" rel="stylesheet">
 
+    <!-- Tooltip init -->
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>    
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-80600133-2"></script>
     <script>
@@ -103,47 +110,57 @@
 
     </section>
     <!-- Section HEADER - FINE -->
-
-    <div class="m_b_20"></div>
-
 </div>
 
 <!-- Section image counters and buttons -->
 <section id="rodi_main">
     <div class="odfri_box_home_page">
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 odfri_home_title">
-                <h1>TRACKING TOGHETHER <a href="" ng-click="changeview('methodology.html#criteria', '2')"><span>OPEN DATA</span></a> FOR <a href="" ng-click="changeview('methodology.html#datasets', '2')"><span>DISASTER AND RISK</span></a></h1>
-            </div>
+
+<!-- vertical space-->        
+<div class="odfri_space"></div>
+<div class="odfri_space"></div>
+
+        <div class="row">  
+            <div class="col odfri_home_title">
+                <h1>TRACKING <a href="" ng-click="changeview('methodology.html', '1')">OPEN DATA</a> FOR <a href="" ng-click="changeview('methodology.html', '2')">DISASTER RISK MANAGEMENT</a></h1>
+                <span>A collaborative and global assessment of open data for reducing vulnerability and building resilience to natural hazards</span>  
+            </div>       
         </div>
-        <div class="odfri_space"></div>
+<div class="odfri_space"></div>
         <div class="container-fluid">
             <div class="row text-center odfri_home_black_color">
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                </div>    
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                     <div class="odfri_box_counter">
                         <span ng-cloak>{{totalDataset}}</span>
                         <span ng-if="!totalDataset"><img src="img/template/loading.gif" alt="" style="max-width:30px;" /></span>
+                                        <h3 class="odfri_box_counter_description">datasets</h3>
                     </div>
-                    <h3 class="odfri_box_counter_description">Datasets<br /> submitted</h3>
+
                 </div>
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                    <div class="odfri_box_counter">
+                        <span ng-cloak><img src="img/template/loading.gif" alt="" ng-if="!iOpenIndex" style="max-width:30px;" />{{iOpenIndex}}%</span>
+                                            <h3 class="odfri_box_counter_description">open data</h3>
+                    </div>
+                </div>
+                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
                     <div class="odfri_box_counter">
                         <span ng-cloak>{{countryWithData}}</span>
                         <span ng-if="!countryWithData"><img src="img/template/loading.gif" alt="" style="max-width:30px;" /></span>
+                                            <h3 class="odfri_box_counter_description">countries</h3>
                     </div>
-                    <h3 class="odfri_box_counter_description">Countries<br /> covered</h3>
+
                 </div>
-                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                    <div class="odfri_box_counter">
-                        <span ng-cloak><img src="img/template/loading.gif" alt="" ng-if="!iOpenIndex" style="max-width:30px;" />{{iOpenIndex}}%</span>
-                    </div>
-                    <h3 class="odfri_box_counter_description">Datasets<br /> open</h3>
-                </div>
+                <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
+                </div>    
             </div>
         </div>
-        <div class="odfri_space"></div>
+<!-- vertical space-->        
 
-        <!-- Hazard mobile version -->
+
+        <!-- Hazard mobile version 
         <div class="row visible-xs visible-sm text-center">
             <div class="col-xs-3 col-sm-3"><i class="ico-coastal_flooding odfri_home_black_color odfri_home_icon_border"></i></div>
             <div class="col-xs-3 col-sm-3"><i class="ico-cyclone odfri_home_black_color odfri_home_icon_border"></i></div>
@@ -154,8 +171,8 @@
             <div class="col-xs-3 col-sm-3"><i class="ico-volcano odfri_home_black_color odfri_home_icon_border"></i></div>
             <div class="col-xs-3 col-sm-3"><i class="ico-water_scarcity odfri_home_black_color odfri_home_icon_border"></i></div>
         </div>
-
-        <!-- Hazard desktop version -->
+-->
+        <!-- Hazard desktop version 
         <section class="ico" id="menu-hazard">
             <ul class="nav navbar-nav text-center hidden-xs hidden-sm">
                 <li >
@@ -208,28 +225,27 @@
                 </li>
 
             </ul>
-
         </section>
-    </div>
-</section>
+-->
+<div class="odfri_space"></div>
+    <!-- Call to action--> 
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center">
+                    <a href="#" class="btn odfri_btn-custom btn-lg" ng-click="changeview('contribute.html', '1')">Submit a dataset </a>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center">
+                    <a href="#" class="btn odfri_btn-custom btn-lg" ng-click="changeview('countries.html', '5')">Explore countries</a>
 
-<!-- Call to action -->
-<section id="rodi_calltoaction">
-    <div class="container">
-        <div class="odfri_space"></div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center">
-                <a href="#" class="btn odfri_btn-custom btn-lg" ng-click="changeview('contribute.html', '1')">Submit a dataset </a>
-                <div class="odfri_space"></div>
-            </div>
-            <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center">
-                <a href="#" class="btn odfri_btn-custom btn-lg" ng-click="changeview('countries.html', '5')">Explore countries</a>
-                <div class="odfri_space"></div>
+                </div>
             </div>
         </div>
+<!-- vertical space-->        
+<div class="odfri_space"></div>
+<div class="odfri_space"></div>
+<div class="odfri_space"></div>
     </div>
 </section>
-
 
 <!-- Section FOOTER - INIZIO -->
 <rodifooter></rodifooter>

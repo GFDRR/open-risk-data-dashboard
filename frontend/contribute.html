@@ -10,7 +10,7 @@
 
     <base href="{{$locationProvider.$get}}" />
 
-    <title>Open Data for Resilience Index - Submit new dataset</title>
+    <title>Open Data for Resilience Index - Submit a dataset</title>
 
     <!-- jQuery library -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -114,7 +114,7 @@
         <div class="row" id="top-menu">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <!--<hazardmenu></hazardmenu>-->
-                <h1 class="page_title ">SUBMIT NEW DATASET</h1>
+                <h1 class="page_title ">SUBMIT A DATASET</h1>
             </div>
         </div>
     </section>
@@ -247,7 +247,6 @@
                             <div class="row">
                                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
                                 <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                                    <span class="pull-right rodi_question_help"><a href="http://census.okfn.org/en/latest/survey-flow/" target="_blank"><i class="fa fa-book fa-2x" aria-hidden="true" title="Survey Flow"></i></a></span>
                                     <h1><!--Section B --->Questions</h1>
                                     <span>The following questions will help to determine the openness of the dataset.</span>
                                     <hr />
@@ -697,7 +696,7 @@
                                             <h5>{{ds.create_time | date: 'dd/MM/yyyy'}}</h5>
                                         </td>
                                         <td title="'Questions'">
-                                            <div class=" dataset_value">
+                                            <div class="dataset_value">
                                                 <i class="fa fa-check-circle-o" aria-hidden="{{ds.is_existing}}" data-toggle="tooltip" title="{{questions[0].desc}}"></i>
                                                 <i class="fa fa-desktop" aria-hidden="{{ds.is_digital_form}}" data-toggle="tooltip" title="{{questions[1].desc}}"></i>
                                                 <i class="fa fa-cloud" aria-hidden="{{ds.is_avail_online}}" data-toggle="tooltip" title="{{questions[2].desc}}"></i>
@@ -1094,15 +1093,13 @@
             <hr />
             <div class="jumbotron" ng-if="tabpar == '3'">
                 <div class="container">
-                    <h1 class="text-center">Please login</h1>
-                    <br><br>
-                    <h2 class="text-center">to complite your profile!</h2>
+                    <p class="text-center">Please login to complete your profile</p>
                     <br><br><br><br>
                     <div class="text-center">
                         <button class="btn btn-primary btn-lg" type="button" ng-click="loginform()">
                                 <span class="rodi_big_text">
                                     <i class="fa icon-login fa-2x"></i>
-                                    LOGIN NOW
+                                    LOGIN
                                 </span>
                         </button>
                     </div>
@@ -1110,22 +1107,20 @@
             </div>
             <div class="jumbotron" ng-if="tabpar !== '3'">
                 <div class="container">
-                    <h2 class="text-center">If you want to submit new dataset to Open Data for Resilience Index</h2>
-                    <br><br>
-                    <h2 class="text-center">you must register or login!</h2>
+                    <p class="text-center">Please login or register to submit a dataset.</p>
                     <br><br><br><br>
                     <div class="text-center">
-                        <button class="btn btn-lg btn-custom " type="button" ng-click="changepage('register.html')">
-                                <span class="rodi_big_text">
-                                    <i class="fa icon-register fa-2x"></i>
-                                    REGISTER NOW
-                                </span>
-                        </button>
                         <!--<span class="rodi_big_text">|</span>-->
                         <button class="btn btn-primary btn-lg" type="button" ng-click="loginform()">
                                 <span class="rodi_big_text">
                                     <i class="fa icon-login fa-2x"></i>
-                                    LOGIN NOW
+                                    LOGIN
+                                </span>
+                        </button>
+                        <button class="btn btn-lg btn-custom " type="button" ng-click="changepage('register.html')">
+                                <span class="rodi_big_text">
+                                    <i class="fa icon-register fa-2x"></i>
+                                    REGISTER
                                 </span>
                         </button>
                     </div>

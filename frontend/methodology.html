@@ -10,7 +10,7 @@
 
     <base href="{{$LocationProvider.$get}}" />
 
-    <title>Open Data for Resilience Index - Documentation page</title>
+    <title>Open Data for Resilience Index - Documentation</title>
 
     <!-- jQuery library -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -50,8 +50,8 @@
     <script src="js/angular/directive.js" type="text/javascript"></script>
     <!-- RODI APP -->
 
-    <!-- Scroll JS -->
-    <script src="js/scroll.js" type="text/javascript"></script>
+    <!-- Scroll JS 
+    <script src="js/scroll.js" type="text/javascript"></script>-->
 
     <!--ADOBE typekit-->
     <!--<script src="https://use.typekit.net/yxp8fxq.js"></script>-->
@@ -59,6 +59,13 @@
 
     <!-- RODI css -->
     <link href="css/rodi_css.css" rel="stylesheet">
+
+    <!-- Tooltip init -->
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-80600133-2"></script>
@@ -75,11 +82,11 @@
 <body ng-app="RodiApp" ng-controller="RodiCtrl">
 
 
-<div class="container-fluid">
+<div class="container-fluid" id="startReading">
     <!-- Section HEADER - INIZIO -->
-    <section id="rodi_header">
+    <section class="unscroll" id="rodi_header">
 
-        <div class="row ">
+        <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                     <a href="" ng-click="changeview('index.html', '0')" data-toggle="tooltip" title="Home">
@@ -107,19 +114,21 @@
         <div class="row" id="top-menu">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <!--<hazardmenu></hazardmenu>-->
-                <h1 class="page_title " id="startReading">DOCUMENTATION</h1>
+                <h1 class="page_title">DOCUMENTATION</h1>
 
                 <div>
                     <div class="row">
                         <div class="hidden-xs col-sm-1 col-md-1 col-lg-1"></div>
                         <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 rodi_methodology_submenu">
-                            <a href="#scope">Scope and use cases</a>
-                            <a href="#assumptions">Assumptions</a>
+                            <a href="#introduction">Introduction</a>
+                            <a href="#hazards">Hazards</a>
+                            <a href="#categories">Categories</a>
                             <a href="#datasets">Datasets</a>
-                            <a href="#criteria">Openness criteria</a>
-                            <a href="#scoring">Scoring methodology</a>
-                            <a href="#collection">Data collection process</a>
-                            <a href="#similar">Similar Projects</a>
+                            <a href="#opendata">Open data criteria</a>
+                            <a href="#scoring">Country score</a>
+                            <a href="#submit">Dataset submission</a>
+                            <a href="#usecases">Use cases</a>
+                            <a href="#assumptions">Assumptions</a>
                         </div>
                         <div class="hidden-xs col-sm-1 col-md-1 col-lg-1"></div>
                     </div>
@@ -134,14 +143,46 @@
 
 
     <!-- Country Matrix -->
-    <div class="row">
+    <div class="row scroll">
         <div class="hidden-xs col-sm-1 col-md-1 col-lg-1"></div>
         <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-justify rodi_big_text_page">
-            </br>
-            </br>
-            <p>This page explains the methodology and rationale behind the Open Data for Resilience Index.</p>
-            </br>
+            <h2 id="introduction">Introduction</h2>
 
+            <p>The <strong>Open Data for Resilience Index</strong> is a tool to identify, assess and compare, for any country, the availability and ease-of-use of 36 datasets that are considered to be key for disaster risk management.</p> 
+
+            <p>Anyone can submit a dataset. The result is a crowdsourced-database providing the state of open data for disaster risk management. The website stores metadata only, not the data itself.</p>
+
+            <h3>What is disaster risk management?</h3>
+            <p><strong>Disaster risk management</strong> (DRM) includes all activities or actions for reducing vulnerability and building resilience to natural hazards.</p>
+
+            <h3>What is open data?</h3>
+            <p><strong>Open data</strong> is digital data that is made available with the technical and legal characteristics necessary for it to be freely used, reused, and redistributed by anyone, anytime, anywhere.</p>
+
+            <h3>Why the Open Data for Resilience Index?</h3>
+            <p>As access to information is becoming more and more critical to disaster risk management, there is a need to assess the state of open data in the sector, enable users to inventory and search for open data in an easier way, and enable Governments and data producers to see where they stand.</p>            
+
+            <p>For more information about why an how open data is applied to disaster risk management, visit <a href="https://opendri.org" target="_blank">Open Data for Resilience Initiative</a>.</p>
+            <div class="text-center">
+                <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
+            </div>
+            <h2 id="hazards">Hazards</h2>
+
+            <p>The Open Data for Resilience Index currently covers the following hazards: </br><strong>River flooding</strong>, <strong>Earthquake</strong>, <strong>Volcano</strong>, <strong>Cyclone</strong>, <strong>Coastal flooding</strong>, <strong>Water scarcity</strong>, <strong>Landslide</strong>, <strong>Tsunami</strong>.</p>
+            <div class="text-center">
+                <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
+            </div>
+            <h2 id="categories">Categories</h2>
+                    
+            <p>The datasets are classified into five different categories that are relevant to disaster risk management: </br><strong>Base data</strong>, <strong>Hazard</strong>, <strong>Exposure</strong>, <strong>Vulnerability</strong>, <strong>Risk</strong>.</p>
+
+            <p>Those categories haven been defined by taking into account the different components for assessing risk.</p>
+
+            <div><img src="img/risk_components.png" style="max-width:100%;" /></div>
+            <p><blockquote>Source: Open Data for Resilience Initiative Field Guide, GFDRR</blockquote></p>
+            <div class="text-center">
+                <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
+            </div>
+            <!--   
             <p>The Open Data for Resilience Index is an online tool to track and assess the openness of key data related to disaster risk management (DRM) across the world.</p>
 
             <p>It follows the <a href="https://opendri.org/about/" target="_blank">principles</a> of the Open Data for Resilience Initiative stating that disaster risk data should be:
@@ -158,10 +199,314 @@
 
             <p>The success of the Open Data for Resilience Index depends mainly on its contributors community and the way it engages with them. </p>
             <br />
+        -->
+            <h2 id="datasets">Datasets</h2>
+            <p>You will find below the full list of datasets together with their description.</p>
 
-            <h2 id="scope">Scope and use cases</h2>
+            <h3 id="base-data">Category: Base data</h3>
+            <p>Key datasets necessary to conduct DRM activities, such as topographic and administrative maps of the territory.</p>
+            <br/>
+            <table class="table">
+            <thead>
+               <tr>
+                <th>Dataset</th>
+                <th>Description</th>
+                <th>Example</th>    
+                </tr>
+            </thead>
+            <tbody class="table.tbody">   
+                <tr>
+                <th>Digital elevation model</th>
+                <td>Digital elevation model (DEM) describing the terrain's surface with a horizontal resolution of at least 100 meters (1:1000) and covering all flood-prone areas. The Digital elevation model may include a digital surface model (DSM) of surface elevation including objects (e.g., buildings and trees) and a Digital terrain model (DTM) of the bare ground surface.</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Aerial imagery</th>
+                <td>Aerial imagery, such as vertical view or orthophoto, covering the whole territory, with a resolution of at least 10 meters (1:100).</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Administrative boundaries</th>
+                <td>Map of official boundaries of the country and its administrative units such as states, regions, or districts.</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Topographic map</th>
+                <td>A topographic map with a resolution of 1 kilometer (1:100000) or better scale with names of main geographical places (toponyms), including cities and villages.</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Bathymetry</th>
+                <td>Bathymetry map describing the terrain that lies underwater, or the depth of water relative to sea level, with a resolution of at least 10 meters (1:100).</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+            </tbody>
+              </table> 
+            <br />
 
-            <p>The Open Data for Resilience Index can be useful in many different contexts. Below are some examples of use cases:</p>
+            <h3 id="base-data">Category: Exposure</h3>
+            <p>Exposure describes the situation of people (e.g., how many), infrastructure and housing (e.g., where do they live and work), production capacities and other tangible human assets located in hazard-prone areas. It includes data on population and assets.</p>
+            <br/>
+            <table class="table">
+            <thead>
+               <tr>
+                <th>Dataset</th>
+                <th>Description</th>
+                <th>Example</th> 
+                </tr>
+            </thead>
+            <tbody class="table.tbody">
+                <th>Land Cover</th>
+                <td>Map of land cover (physical material at the surface of the earth such as grass, asphalt, trees, water) for the whole territory. Land cover may also include types of land use such as urban or agriculture. The resolution must be at least 1 kilometer (1:100000).</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Population</th>
+                <td>Map of population distribution, usually from census data, disaggregated at the lowest administrative level (district, zipcode, block, etc.). The resolution must be at least 1 kilometer (1:100000).</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Economic activities</th>
+                <td>Statistics of economic activities for the country at the most detailed level, and including at least the Gross Domestic Product (GDP) per economic sector.</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Company register</th>
+                <td>List of registered companies for the country including their addresses and economic sector.</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Buildings</th>
+                <td>Map showing number and characteristics of buildings, including the type of use (residential, commercial, industrial), either at the most detailed administrative unit (district, block, etc.) or, if possible, on a per-building basis.</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Agricultural production</th>
+                <td>Map of the average annual agricultural production per acre of land, where possible subdivided per type of crop or cattle, either per smallest administrative unit or per square km.</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Critical infrastructure</th>
+                <td>Map of lifeline infrastructures such as utilities that provide essential services to the people. Critical infrastructures include roads, railways, power, water, and telecommunication networks and assets as well as bridges, airports, harbors, education and health facilities.</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Watershed boundaries</th>
+                <td>Map of watershed boundaries for the characterization of river basins for the whole territory. Watershed boundaries are topographic divides and delineate areas where surface-water runoff drains into a common surface-water body.</td>
+            <td><a href="">Place_holder</a></td>
+                </tr>
+            </tbody>
+              </table> 
+            <br />
+            <h3 id="base-data">Category: Hazard</h3>
+            <p>Data related to a type of hazard, including any historical (observed) information or model related to the description and intensity of a hazard event. Hazards currently include coastal flooding, cyclone, earthquake, landslide, tsunami, volcano and water scarcity.</p>
+            <br/>
+            <table class="table">
+            <thead>
+               <tr>
+                <th>Dataset</th>
+                <th>Description</th>
+                <th>Example</th> 
+                </tr>
+            </thead>
+            <tbody class="table.tbody">                
+                <th>Water bodies</th>
+                <td>Map of main water bodies (river network, lakes, coastline).</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Soil type</th>
+                <td>Map of geological characterization of the soil type, with a resolution of at least 1 kilometer (1:100000).</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Flood hazard maps</th>
+                <td>Flood hazard maps at any available resolution for benchmarking of the flood model. A flood hazard map describes the geographical areas that are prone to flooding for a given return period (typically between 2 and 1000 years). Additional value is provided by maps that indicate water depth and flood duration.</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Meteorological gauge data</th>
+                <td>Historical gauge data of rainfall, temperature, and wind. Several stations across the area of interest and daily records. Sub-daily records are needed for flash flood modeling. Wind data can also be used in coastal flooding as well as volcano related computations.</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Hydrological gauge data</th>
+                <td>Historical water levels and river discharges from gauge stations on major river branches. Daily records and annual maxima.</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Nearshore tsunami wave height</th>
+                <td>Tsunami wave heights at nearshore locations for a range of return periods between 2 and 1000 years.</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Storm surge gauge data</th>
+                <td>Historical sea level data from coastal gauge stations. Hourly records and/or daily maxima.</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Flood protection measures</th>
+                <td>Map of all major flood defense structures (levees, flood walls, dams, diversions, etc.) reflecting the most recent flood mitigation constructions.</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Cyclone wind speed statistics</th>
+                <td>Maximum wind speed (open water wind) for a range of return periods, typically between 2 and 1000 years.</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Active seismic fault</th>
+                <td>Map of active faults An active fault is a fault that is likely to become the source of another earthquake sometime in the future.</th>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Seismic hazard curves</th>
+                <td>Seismic hazard curves expressing the probability of exceeding a number of intensity measure levels within a time period (e.g.,annually or in 50 years). Typically these curves are calculated considering soil type equal to rock (Vs30 = 760 m/s), and various intensity measure types (Peak Ground Acceleration or Spectral Acceleration at different periods of vibration - 0.3s and 1.0 s).</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Seismic hazard model</th>
+                <td>A probabilistic seismic hazard model describing the seismogenic sources in the country and the ground motion prediction equations that should be used. This model can be used to compute seismic hazard curves and maps.</th>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Site conditions map</th>
+                <td>A map describing the soil conditions that can be used to calculate seismic hazard at the surface. These maps are typically part of microzonation studies, but for seismic hazard calculations in large regions geology maps can also be used.</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Volcanoes</th>
+                <td>Basic geographic and geologic information for volcanoes located in the country including name, position, summit elevation, and volcano type.</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Historical records of hazard events</th>
+                <td>Historical records of significant natural hazard events in the country including the type, intensity, footprint, description, and date of the hazard events. Historical records may refer to only one or more hazard types.</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+            </tbody>
+              </table>
+            <br />
+            <h3 id="base-data">Category: Vulnerability</h3>
+            <p>Data models describing the susceptibility of an individual, a community, assets or systems to be impacted by a hazard.</p>
+            <br/>
+            <table class="table">
+            <thead>
+               <tr>
+                <th>Dataset</th>
+                <th>Description</th>
+                <th>Example</th> 
+                </tr>
+            </thead>
+            <tbody class="table.tbody"> 
+                <th>Vulnerability curves for aggregated assets</th>
+                <td>Functions for calculating the economic damage on all assets in a certain area from the hazard level (e.g., flood depth or earthquake intensity.</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Vulnerability curves per land cover type</th>
+                <td>Functions for calculating the economic damage from hazard level (e.g., flood depth or earthquake intensity) and type of land cover.</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Vulnerability curves for critical infrastructure</th>
+                <td>Functions for calculating the damage to critical infrastructures from hazard level (e.g., flood depth or earthquake intensity.</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Vulnerability curves for population</th>
+                <td>Functions for calculating the number of people affected and fatalities from hazard level (e.g., flood depth or earthquake intensity) and population density.</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Vulnerability curves for economic activities</th>
+                <td>Functions for calculating the economic damage from hazard level (e.g., flood depth or earthquake intensity) and information about economic activities (e.g., GDP per economic sector).</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Vulnerability curves for buildings</th>
+                <td>Functions for calculating the economic damage on buildings from hazard level (e.g., flood depth or earthquake intensity) and building type.</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Vulnerability curves for agricultural activities</th>
+                <td>Functions for calculating the economic damage on agriculture from hazard level (e.g., flood depth or earthquake intensity) and agriculture production.</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+            </tbody>
+              </table> 
+            <br />
+            <h3 id="base-data">Category: Risk</h3>
+            <p>It includes indicators from existing impact assessments (single event) or risk assessments (multiple events). It is derived from combining base data, exposure hazard and vulnerability data.</p>
+            <br/>
+            <table class="table">
+            <thead>
+               <tr>
+                <th>Dataset</th>
+                <th>Description</th>
+                <th>Example</th> 
+                </tr>
+            </thead>
+            <tbody class="table.tbody"> 
+                <th>Risk indicators from previous studies</th>
+                <td>Results from previous risk assessments for comparison. These may consist of: Risk maps (gridded or aggregated per administrative unit). Risk level may indicate AAL, losses from a single event or losses for a given return period; Tabulated risk per a given area, for example, Loss Exceedance Curve, Event Loss Tables, Year Loss Tables or historical loss data; Exposed assets for a given event (historical or associated with a return period).</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                </tbody>
+              </table> 
+            <br />
+            <div class="text-center">
+                <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
+            </div>
+            
+            <h2 id="opendata">Open data criteria</h2>
+            <p>The Open Data for Resilience Index uses a set of 10 criteria formulated as questions, weighted in percentage, to assess to what extent a given dataset is open.</p>
+
+            <ul><li>Does the data exist? +5% if yes</li>
+            <li>Is the data available in digital form? +5%</li>
+            <li>Is the data publicly available? +5%</li>
+            <li>Is the data available online? +5%</li>
+            <li>Is the metadata available online? +5%</li>
+            <li>Is the data available in bulk? +10%</li>
+            <li>Is the data machine-readable? + 15%</li>
+            <li>Is the data available for free? + 5%</li>
+            <li>Is the data openly licensed? + 15%</li>
+            <li>Is the data provided in a timely and up to date basis? + 5%</li></ul>
+
+            <p>A dataset is considered fully open when all questions have been answered YES (100%). When a dataset does not exist or has not been submitted, the score is 0.</p>
+            <div class="text-center">
+                <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
+            </div>
+            
+            <h2 id="scoring">Country score</h2>
+            <p>The country score is the average of all datasets scores for a given country. It is expressed as a percentage.</p>
+
+            <p>For the country score, only the hazards for which the level is assessed as medium or higher on <a href="http://www.thinkhazard.org" target="_blank">ThinkHazard!</a> are taken into account. This means that data related only to hazards with a low or very low level are not considered for assessing a country since the incentive to invest in such data is negligible. For instance, data related to tsunami will not be considered when scoring a landlocked country.</p> 
+
+            <p>ThinkHazard! is a tool from GFDRR which highlights the likelihood of different natural hazards affecting project areas (very low, low, medium and high) based on published hazard data, provided by a range of private, academic and public organizations.</p>
+
+            <p>It is possible to submit more than one dataset per dataset's description for a given country. However, for scoring purposes, only the dataset with the highest score is retained for country score.<p>
+
+            <p>Lastly, it is possible to filter scores and compare countries by type of hazards and/or categories of data. For instance, by selecting earthquake, only datasets relevant to this hazard will be taken into account in the final score.<p>
+            <br />
+            <div class="text-center">
+                <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
+            </div>
+
+            <h2 id="submit">Datasets submission</h2>
+
+            <p><strong>Submission</strong></p>
+            <p>Anyone registered on the website can contribute to the Open Data for Resilience Index by submitting a dataset.</p>
+
+            <p><strong>Validation</strong></p>
+            <p>Each dataset submitted is then reviewed by at least one member of the team of reviewers made of OpenDRI staff and disaster risk management specialists. The dataset submission is either marked as approved or rejected. The reviewer can also edit the data submission and correct or add additional information. Once submitted and while being reviewed, a dataset remains visible online to the public.</p>
+            <div class="text-center">
+                <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
+            </div>
+            
+            <h2 id="usecases">Use cases</h2>
+
+            <p>The Open Data for Resilience Index can be useful in many different contexts. Below are some Example of use cases:</p>
 
             <ul>
             <li>A DRM specialist wants to conduct a disaster risk data inventory in a given country and assess the availability and ease of use for each dataset;</li>
@@ -177,11 +522,9 @@
             <li>Which principles of Open Data for Resilience are the most difficult to implement?</li>
             <li>Which Governments perform better regarding disaster risk data and why? Is there any correlation with the level of hazards?</li>
             </ul>
-            <br />
             <div class="text-center">
                 <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
             </div>
-
             <h2 id="assumptions">Assumptions</h2>
 
             <p>The Open Data for Resilience Index has been developed with the following assumptions in mind:</p>
@@ -191,306 +534,10 @@
             <p>There are countless datasets that may be used to perform DRM activities. However, only a few of them are critical, and if missing, may hinder or even prevent effective DRM. Those data are referred to as key risk datasets, and this project is about identifying, defining and assessing their openness across different places.</p>
 
             <p>Different datasets could match in part or completely with a specific key risk dataset description for a given territory. For instance you could have two different aerial imageries of your country provided by two different organizations. This is reflected in the Index where users can submit more than one dataset for a given key dataset description and a given country, each of them being assessed independently.</p>
-            <br />
             <div class="text-center">
                 <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
             </div>
 
-            <h2 id="datasets">Datasets</h2>
-
-            <p>The initial selection process of key disaster risk datasets was based on a consultation of DRM specialists, working on different types of hazards, and a review of disaster risk data projects, inventories and standards.</p>
-
-            <p>The Open Data for Resilience Index identified a set of 36 datasets considered to be key for DRM activities involving at least one of the following hazards: </p>
-
-            <ul><li>Coastal flooding</li>
-            <li>Cyclone</li>
-            <li>Earthquake</li>
-            <li>Landslide</li>
-            <li>River flooding</li>
-            <li>Tsunami</li>
-            <li>Volcano</li>
-            <li>Water scarcity </li>
-            </ul>
-
-            <p>Furthermore, the Open Data for Resilience Index distinguishes between five different categories of disaster risk data:</p>
-
-            <ul>
-
-            <li>Base data: key datasets necessary to conduct DRM activities, such as topographic and administrative maps of the territory.</li>
-
-            <li>Exposure data: includes data on population and assets. Exposure describes the situation of people (e.g. how many), infrastructure and housing (e.g. where located), production capacities and other tangible human assets located in hazard-prone areas.</li>
-
-            <li>Hazard data: Data related to a type of hazard,  including any historical (observed) information or model related to the description and intensity of a hazard event. Hazards currently include coastal flooding, cyclone, earthquake, landslide, tsunami, volcano and water scarcity.</li>
-
-            <li>Vulnerability data: this data describes the susceptibility of an individual, a community, assets or systems to be impacted by a hazard.</li>
-
-            <li>Risk data: This data is derived from combining base data, exposure hazard and vulnerability data. It includes indicators from existing impact assessments (single event) or risk assessments (multiple events).</li>
-
-            </ul>
-
-            <p>For a better understanding of those categories and why there are key to disaster risk management see the diagram below.</p>
-
-            <div><img src="img/risk_components.png" style="max-width:100%;" /></div>
-
-            <p><blockquote>Source: Open Data for Resilience Initiative Field Guide, GFDRR</blockquote></p>
-
-            <p>Below is the full list of datasets currently available in the Open Data for Resilience Index.</p>
-
-            <table class="table">
-            <thead>
-               <tr>
-                <th>Dataset</td>
-                <th>Description</td>
-                <th>Category</td>
-               </tr>
-            </thead>
-            <tbody class="table.tbody">   
-               <tr>
-                <th>Digital elevation model</th>
-                <td>Digital elevation model (DEM) describing the terrain's surface with a horizontal resolution of at least 100 meters and covering all flood prone areas. The Digital elevation model includes a digital surface model (DSM) of surface elevation including objects (e.g. buildings and trees) and a Digital terrain model (DTM) of the bare ground surface.</td>
-                <td>Base data</td>
-               </tr>
-               <tr>
-                <th>Aerial imagery</th>
-                <td>Aerial imagery, such as vertical view or orthophoto, covering the whole territory, with a resolution of at least 10 meters.</td>
-                <td>Base data</td>
-               </tr>
-               <tr>
-                <th>Administrative boundaries</th>
-                <td>Shapes of official boundaries of the country and its administrative units such as states, regions, or districts.</td>
-                <td>Base data</td>
-               </tr>
-               <tr>
-                <th>Topographic map</th>
-                <td>Topographic map at 1:100,000 or better scale with names of main geographical places (toponyms), including cities and villages.</td>
-                <td>Base data</td>
-               </tr>
-               <tr>
-                <th>Bathymetry</th>
-                <td >Bathymetry map describing the terrain that lies underwater, or the depth of water relative to sea level, with a resolution of at least 10 meters.</td>
-                <td >Base data</td>
-               </tr> 
-               <tr>
-                <th>Watershed boundaries</th>
-                <td>Shapes of watershed boundaries for the characterization of river basins for the whole territory. Watershed boundaries are topographic divides and delineate areas where surface-water runoff drains into a common surface-water body.</td>
-                <td>Hazard</td>
-               </tr>
-               <tr>
-                <th>Water bodies</th>
-                <td>Shapes of main water bodies (river network, lakes, coastline)</td>
-                <td>Hazard</td>
-               </tr>
-               <tr>
-                <th>Soil type</th>
-                <td>Map of geological characterization of the soil type, with resolution of at least 1 km</td>
-                <td>Hazard</td>
-               </tr>
-               <tr>
-                <th>Flood hazard maps</th>
-                <td>Flood hazard maps at any available resolution for benchmarking of the flood model. A flood hazard map describes the geographical areas that are prone to flooding for a given return period (typically between 2 and 1000 years). Additional value is provided by maps that indicate water depth and flood duration.</td>
-                <td>Hazard</td>
-               </tr>
-               <tr>
-                <th>Meteorological gauge data</th>
-                <td>Historical gauge data of rainfall, temperature and wind. Several stations across the area of interest and daily records. Sub-daily records are needed for flash flood modelling. Wind data can be used also in coastal flooding as well as volcano related computations.</td>
-                <td>Hazard</td>
-               </tr>
-               <tr>
-                <th>Hydrological gauge data</th>
-                <td>Historical water levels and river discharges from gauge stations on major river branches. Daily records and annual maxima.</td>
-                <td>Hazard</td>
-               </tr>
-               <tr>
-                <th>Nearshore tsunami wave height</th>
-                <td>Tsunami wave heights at nearshore locations for a range of return periods between 2 and 1000 years.</td>
-                <td>Hazard</td>
-               </tr>
-               <tr>
-                <th>Storm surge gauge data</th>
-                <td>Historical sea level data from coastal gauge stations. Hourly records and/or daily maxima.</td>
-                <td>Hazard</td>
-               </tr>
-               <tr>
-                <th>Flood protection measures</th>
-                <td>Shapes of all major flood defense structures (levees, flood walls, dams, diversions, etc) reflecting the most recent flood mitigation constructions</td>
-                <td>Hazard</td>
-               </tr>
-               <tr>
-                <th>Cyclone wind speed statistics</th>
-                <td>Maximum wind speed (open water wind) for a range of return periods, typically between 2 and 1000 years</td>
-                <td>Hazard</td>
-               </tr>
-               <tr>
-                <th>Active seismic fault</th>
-                <td></td>
-                <td>Hazard</td>
-               </tr>
-               <tr>
-                <th>Seismic hazard curves</th>
-                <td>Seismic hazard curves expressing the probablity of exceeding a number of intensity measure levels within a time period (e.g. annually or in 50 years). Typically these curves are calculated considering soil type equal to rock (Vs30 = 760 m/s), and various intensity measure types (Peak Ground Acceleration or Spectral Aceleration at different periods of vibration - 0.3s and 1.0 s).</td>
-                <td>Hazard</td>
-               </tr>
-               <tr>
-                <th>Seismic hazard model</th>
-                <td>A probabilistic seismic hazard model describing the seismogenic sources in the country and the ground motion prediction equations that should be used. This model can be used to compute seismic hazard curves and maps.</td>
-                <td>Hazard</td>
-               </tr>
-               <tr>
-                <th>Site conditions map</th>
-                <td>A map describing the soil conditions that can be used to calculate seismic hazard at the surface. These maps are typically part of microzonation studies, but for seismic hazard calculations in large regions geology maps can also be used.</td>
-                <td>Hazard</td>
-               </tr>
-               <tr>
-                <th>Volcanoes</th>
-                <td>Basic geographic and geologic information for volcanoes located in the country including name, position, summit elevation, and volcano type.</td>
-                <td>Hazard</td>
-               </tr>
-               <tr>
-                <th>Hazard scenarios</th>
-                <td>Historical records of significant natural hazard events in the country including the type, intensity, footprint, description and date of the hazard events. Historical records may refer to only one or more hazard types. Data may also contain non observed but plausible scenarios of hazard events.</td>
-                <td>Hazard</td>
-               </tr>
-               <tr>
-                <th>Land Cover</th>
-                <td>Map of land cover (physical material at the surface of the earth such as grass, asphalt, trees, water) for the whole territory. Land cover may also include types of land use such as urban or agriculture. Resolution must be at least 1 km.</td>
-                <td>Exposure</td>
-               </tr>
-               <tr>
-                <th>Population</th>
-                <td>Map of population distribution, usually from census data, disagregated at the lowest administrative level (district, zipcode, block, etc.). Resolution must be at least 1 km.</td>
-                <td>Exposure</td>
-               </tr>
-               <tr>
-                <th>Economic activities</th>
-                <td>Statistics of economic activities for the country at the most detailed level,and including at least the Gross Domestic Product (GDP) per economic sector.</td>
-                <td>Exposure</td>
-               </tr>
-               <tr>
-                <th>Buildings</th>
-                <td>Map showing number and characteristics of buildings, including type of use (residential, commercial, industrial), either at the most detailed administrative unit (district, block, etc.) or, if possible, on a per-building basis.</td>
-                <td>Exposure</td>
-               </tr>
-               <tr>
-                <th>Agricultural production</th>
-                <td>Map of the average annual agricultural production per acre of land, where possible subdivided per type of crop or cattle, either per smallest administrative unit or per square km.</td>
-                <td>Exposure</td>
-               </tr>
-               <tr>
-                <th>Critical infrastructure</th>
-                <td>Shapes of lifeline infrastructures such as utilities that provide essential services to the people. Crititical infrastructures include roads, railways, power, water, and telecommunication networks and assets as well as bridges, airports, harbors, education and health facilities.</td>
-                <td>Exposure</td>
-               </tr>
-               <tr>
-                <th>Vulnerability curves for aggregated assets at administrative unit level</th>
-                <td>Functions for calculating the economic damage on all assets in a certain area from the hazard level (e.g. flood depth or earthquake intensity)</td>
-                <td>Vulnerability</td>
-               </tr>
-               <tr>
-                <th>Vulnerability curves per land cover type</th>
-                <td>Functions for calculating the economic damage from hazard level (e.g. flood depth or earthquake intensity) and type of land cover</td>
-                <td>Vulnerability</td>
-               </tr>
-               <tr>
-                <th>Vulnerability curves for critical infrastructure</th>
-                <td>Functions for calculating the damage on critical infrastructure from hazard level (e.g. flood depth or earthquake intensity)</td>
-                <td>Vulnerability</td>
-               </tr>
-               <tr>
-                <th>Vulnerability curves for population</th>
-                <td>Functions for calculating the number of people affected and fatalities from hazard level (e.g. flood depth or earthquake intensity) and population density</td>
-                <td>Vulnerability</td>
-               </tr>
-               <tr>
-                <th>Vulnerability curves for economic activities</th>
-                <td>Functions for calculating the economic damage from hazard level (e.g. flood depth or earthquake intensity) and information about economic activities (e.g. GPD per economic sector)</td>
-                <td>Vulnerability</td>
-               </tr>
-               <tr>
-                <th>Vulnerability curves for buildings</th>
-                <td>Functions for calculating the economic damage on buildings from hazard level (e.g. flood depth or earthquake intensity) and building type</td>
-                <td>Vulnerability</td>
-               </tr>
-               <tr>
-                <th>Vulnerability curves for agricultural activities</th>
-                <td>Functions for calculating the economic damage on agriculture from hazard level (e.g. flood depth or earthquake intensity) and agriculture production</td>
-                <td>Vulnerability</td>
-               </tr>
-               <tr>
-                <th>Risk indicators from previous studies</th>
-                <td>Results from previous risk assessments for comparison. These may consist of: i)Risk maps (gridded or aggregated per administrative unit). Risk level may indicate losses from a single event or losses for a given return period. ii)Tabulated risk per a given area, for example Loss Exceedance Curve, Event Loss Tables, Year Loss Tables or historical loss data. iii) Exposed assets for a given event (historical or associated with a return period).</td>
-                <td>Risk</td>
-               </tr>
-                </tbody>
-              </table>
-            <br />
-            <div class="text-center">
-                <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
-            </div>
-            
-            <h2 id="criteria">Openness criteria</h2>
-            <p>The Open Data for Resilience Index uses a set of 10 questions to assess the openness of a given dataset. Those criteria are similar to other open data assessment frameworks, such as the <a href="http://index.okfn.org" target="_blank">Open Data Index</a> and the <a href="http://opendatabarometer.org/">Open Data Barometer </a>and in line with the OpenDRI principles.</p>
-
-            <p>Below is the list of questions used to assess the openness of a dataset.</p>
-
-            <ul><li>Does the data exist?</li>
-            <li>Is the data available in digital form?</li>
-            <li>Is the data publicly available?</li>
-            <li>Is the data available online?</li>
-            <li>Is the metadata available online?</li>
-            <li>Is the data available in bulk?</li>
-            <li>Is the data machine-readable?</li>
-            <li>Is the data available for free?</li>
-            <li>Is the data openly licensed?</li>
-            <li>Is the data provided on a timely and up to date basis?</li>
-            </ul>
-            <br />
-            <div class="text-center">
-                <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
-            </div>
-            
-            <h2 id="scoring">Scoring methodology</h2>
-            <p>A percentage of openness is provided for each dataset submitted. A dataset is considered fully open (100%) when all questions have been answered YES.</p>
-
-            <p>Aggregated scores are also provided for type of hazards, risk data categories (Base data, Hazard, Exposure, Vulnerability and Risk) and countries.</p>
-
-            <p>For countries scoring, only the hazards for which the level is at least assessed as medium or higher on <u>ThinkHazard!</u> are taken into account. This means all data related to hazards with a low or very low level are not considered for assessing a country since the incentive to invest in such data is negligible. ThinkHazard! is a tool from GFDDR which highlights the likelihood of different natural hazards affecting project areas (very low, low, medium and high) based on published hazard data, provided by a range of private, academic and public organizations.</p>
-            <br />
-            <div class="text-center">
-                <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
-            </div>
-
-            <h2 id="collection">Data collection process</h2>
-
-            <p><strong>Submission</strong></p>
-            <p>Anyone registered on the website index.opendri.org can contribute to the Open Data for Resilience Index which follows a crowdsourced data collection process.</p>
-
-            <p><strong>Validation</strong></p>
-            <p>Each dataset submitted is then reviewed by at least one member of the team of reviewers made of OpenDRI staff and DRM specialists. The dataset submission is either marked as approved or rejected. The reviewer can also edit the data submission and correct or add additional information. Once submitted and while being reviewed, a dataset remains visible online to the public. </p>
-
-            <p>If you want to become a reviewer, please send an email to [contact email to be defined]</p>
-
-            <p><strong>Update</strong></p>
-
-            <p>[Need to define this]</p>
-
-            <br />
-            <div class="text-center">
-                <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
-            </div>
-
-            <h2 id="similar">Similar projects</h2>
-
-            <p>The Open Data for Resilience Index of GFDRR is inspired by the Open Data Index of Open Knowledge and the Open Data Barometer of the Web Foundation. It applies the idea of tracking and assessing open data to the DRM sector.</p>
-
-            <p>The main differences with the Open Data Index and Open Data Barometer are:</p>
-
-            <p>The number of submissions per dataset. In the Open Data for Resilience Index, it is possible to submit and approve more than one dataset for a given key dataset description and a given country. Each of those submissions are independently reviewed.</p>
-
-            <p>The data collection phase. Whereas the Open Data Index and the Open Data Barometer are conducted on a yearly basis, the data collection phase for the Open Data for Resilience Index is conducted on a continuous and ongoing basis.</p>
-
-            <div class="text-center">
-                <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
-            </div>
         </div>
         <div class="hidden-xs col-sm-1 col-md-1 col-lg-1"></div>
     </div>

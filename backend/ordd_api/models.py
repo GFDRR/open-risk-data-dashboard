@@ -241,7 +241,7 @@ class Dataset(models.Model):
     url = models.ManyToManyField(Url, blank=True)
     is_existing = models.BooleanField(
         "Does the data exist?",
-        help_text="Does the data exist at all? The data can be in any form "
+        help_text="Is the data collected at all? The data can be in any form "
         "(paper or digital, offline or online etc). If it is not, then "
         "all the other questions are not answered.")
     is_existing_txt = models.TextField("Comments on 'Does the data exist?'",
@@ -249,7 +249,7 @@ class Dataset(models.Model):
     is_digital_form = models.BooleanField(
         "Is data in digital form?", help_text="This question addresses "
         "whether the data is in digital form (stored on computers or "
-        "digital storage) or if it only in e.g. paper form.")
+        "digital storage) or if it only in paper form.")
     is_avail_online = models.BooleanField(
         "Is available Online?", help_text="This question addresses whether "
         "the data is available online from an official source. In the cases "
@@ -261,7 +261,7 @@ class Dataset(models.Model):
         "source. In the cases that this is answered with a 'yes', then the "
         "link is put in a URL field.")
     is_bulk_avail = models.BooleanField(
-        "Available in bulk?", help_text="Data is available in bulk if the "
+        "Is the data available in bulk?", help_text="Data is available in bulk if the "
         "whole dataset can be downloaded or accessed easily. Conversely it "
         "is considered non-bulk if the citizens are limited to just getting "
         "parts of the dataset (for example, if restricted to querying a web "
@@ -286,7 +286,7 @@ class Dataset(models.Model):
         "Publicly available?", help_text="This question addresses whether "
         "the data is \"public\". This does not require it to be "
         "freely available, but does require that someone outside of "
-        "the government can access it in some form (examples include if "
+        "the organization can access it in some form (examples include if "
         "the data is available for purchase, if it exists as a PDF on a "
         "website that you can access, if you can get it in paper form - "
         "then it is public). If a freedom of information request or "
