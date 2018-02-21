@@ -46,7 +46,9 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
                 hiddenElement.href = 'data:attachment/csv,' + encodeURI(data);
                 hiddenElement.target = '_blank';
                 hiddenElement.download = 'open_data_for_resilience_index.csv';
+                document.body.appendChild(hiddenElement);
                 hiddenElement.click();
+                document.body.removeChild(hiddenElement);
 
             }, function(data)
             {

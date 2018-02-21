@@ -1,0 +1,71 @@
+
+/*********************************************************/
+/********* BOOTSTRAP PERSONALIZATIONS ********************/
+/*********************************************************/
+
+.table>thead>tr>th {
+    border-bottom: 0px;
+    font-size:18px;
+    padding-top:10px;
+    padding-bottom:10px;
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: rgba(0,120,153,.1);
+}
+
+.table>tbody>tr>td
+{
+    border-top: 0px;
+    font-size:16px;
+    font-weight: 600;
+    display: table-cell;
+    vertical-align: middle
+}
+
+.table-hover > tbody > tr:hover {
+    background-color: rgba(0,120,153,.3);
+}
+
+.ng-table th
+{
+    text-align: left;
+}
+
+.table_modal_txt
+{
+    font-weight: normal;
+    font-size:15px;
+}
+
+/*tbody {*/
+    /*display:block;*/
+    /*height:50vh;*/
+    /*overflow:auto;*/
+/*}*/
+/**/
+/*thead, tbody tr {*/
+    /*display:table;*/
+    /*width:100%;*/
+    /*table-layout:fixed;*/
+/*}*/
+/*thead {*/
+    /*width: calc( 100% - 1em )*/
+/*}*/
+
+
+.progress {
+    height: auto;
+    background-color: rgba(0,120,153,.5);
+    margin-bottom: 0px;
+}
+
+.progress-bar
+{
+    padding:10px;
+    background-color: #007899;
+    text-align: center;
+    font-size:18px;
+}

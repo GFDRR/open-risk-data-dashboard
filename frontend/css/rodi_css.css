@@ -485,7 +485,7 @@ section#counter-stats {
 .dataset_value i {
     color: white;
     padding: 10px;
-    margin:2px;
+    /*margin:2px;*/
     font-size: 1.1em;
     min-width: 40px;
     max-width: 40px;
@@ -801,7 +801,7 @@ Navbar
 
 .navbar-nav span {
     color:#a0a0a0;
-    font-size:14px;
+    font-size:10px;
     text-transform: uppercase;
     margin-top: 1em;
 }
@@ -1656,6 +1656,11 @@ hr {
     margin:5px 2em;
 }
 
+.menu_sep_countries
+{
+    border-right: solid 3px red;
+}
+
 .white {    background:  url('../img/separator_white.svg') center no-repeat;}
 .blu {    background:  url('../img/separator_blu.svg') center no-repeat;}
 
@@ -1861,8 +1866,15 @@ background-color: white;
 
 .modal-header
 {
-    background-color: #FF8000;
+    background-color: #007899;
+    color:#ffffff;
 }
+
+.modal-header h4
+{
+    font-size: 25px;
+}
+
 /*
 
 .table>thead:first-child>tr:first-child>th
@@ -1922,6 +1934,16 @@ background-color: white;
 .odfri_space
 {
     padding-top: 8vh;
+}
+
+.odfri_txt_space
+{
+    padding-top:25px;
+}
+
+.odfri_big_lik
+{
+    font-size:20px;
 }
 
 .odfri_div_separator
