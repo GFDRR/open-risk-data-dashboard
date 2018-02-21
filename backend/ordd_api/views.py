@@ -993,7 +993,19 @@ class Score(object):
                 score = cls.country(world_score_tree[country.iso2], country)
 
             ret_score.append({"country": country.iso2,
-                              "score": cls.score_fmt(score)})
+                              "score": float(cls.score_fmt(score)),
+                              "rank": 0})
+        ret_score_ord = ret_score[:]
+        ret_score_ord = sorted(ret_score_ord, key=lambda k: k['score'],
+                               reverse=True)
+        old_pos = 0
+        old_score = 100000
+        for el in ret_score_ord:
+            if el['score'] < old_score:
+                old_pos += 1
+                old_score = el['score']
+            el['rank'] = old_pos
+        ret['scores'] = ret_score_ord
 
         perils_counters = ret['perils_counters']
         for peril in KeyTag.objects.filter(
