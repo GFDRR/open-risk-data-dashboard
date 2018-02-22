@@ -126,9 +126,9 @@
                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 menu_sep_countries">
                     <div class="row" >
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                            <ul class="nav navbar-nav text-center" data-toggle="tooltip" data-placement="bottom" title="Filter datasets from this category only">
+                            <ul class="nav navbar-nav text-center" data-toggle="tooltip" data-placement="bottom">
                                 <li ng-repeat="hc in HazardCategory">
-                                    <a href="" ng-class="filterCategoryCssClass(hc.category.name)">
+                                    <a href="" ng-class="filterCategoryCssClass(hc.category.name)" title="Filter datasets from this category only">
                                         <i class="{{getHCIcon(hc.category.id)}} fa-2x"></i>
                                         <span>{{hc.category.name}}</span>
                                     </a>
@@ -140,9 +140,9 @@
                 <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                     <div class="row" >
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                            <ul class="nav navbar-nav text-center" data-toggle="tooltip" data-placement="bottom" title="Filter datasets applicable to this hazard only">
+                            <ul class="nav navbar-nav text-center" data-toggle="tooltip" data-placement="bottom" >
                                 <li ng-repeat="appli in applicability">
-                                    <a href="" ng-click="setUnSetFilter(appli.title)" ng-class="filterApplicabilityClass(appli.title)">
+                                    <a href="" ng-click="setUnSetFilter(appli.title)" ng-class="filterApplicabilityClass(appli.title)" title="Filter datasets applicable to this hazard only">
                                         <i class="{{appli.icon}} fa-2x"></i>
                                         <span>{{appli.title}}</span>
                                     </a>
@@ -160,7 +160,7 @@
         <div class="odfri_txt_space"></div>
         <div class="row text-center">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <span class="rodi_txt_big">Number of datasets considered: <strong><span class="odfri_black_blue">#TODO</span></strong></span>
+                <span class="rodi_txt_big">Number of datasets considered: <strong><span class="odfri_black_blue">#TODO</span></strong>&nbsp;&nbsp;<a href="#" ng-click="changeview('methodology.html#scoring')" class="small">more on scoring</a></span>
             </div>
         </div>
 
@@ -174,15 +174,15 @@
                         <tr>
                             <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1">Rank</th>
                             <th class="col-xs-3 col-sm-3 col-md-3 col-lg-3">Country</th>
-                            <th class="col-xs-3 col-sm-3 col-md-3 col-lg-3">Score <a href="" ng-click="changeview('methodology.html#scoring', '2')" class="small">more info on scoring</a></th>
-                            <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center">Datasets<br /> submitted</th>
-                            <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center">Fully open</th>
+                            <th class="col-xs-3 col-sm-3 col-md-3 col-lg-3">Score</th>
+                            <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center">Datasets</th>
+                            <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center">Open</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr ng-click="changepage('dataset_list.html?idcountry=MW&idcategory=0')">
                             <td>1</td>
-                            <td><a href="" ng-click="changepage('dataset_list.html?idcountry=MW&idcategory=0')"><span class="text-muted">Malawi</span></a></td>
+                            <td><span class="text-muted">Malawi</span></td>
                             <td class="text-center">
                                 <div class="progress">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
@@ -195,7 +195,7 @@
                         </tr>
                         <tr ng-click="changepage('dataset_list.html?idcountry=MW&idcategory=0')">
                             <td>1</td>
-                            <td><a href="" ng-click="changepage('dataset_list.html?idcountry=MW&idcategory=0')"><span class="text-muted">Malawi</span></a></td>
+                            <td><span class="text-muted">Malawi</span></td>
                             <td class="text-center">
                                 <div class="progress">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
@@ -208,7 +208,7 @@
                         </tr>
                         <tr>
                             <td>1</td>
-                            <td><a href=""><span class="text-muted">Malawi</span></a></td>
+                            <td><span class="text-muted">Malawi</span></td>
                             <td class="text-center">
                                 <div class="progress">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
@@ -221,7 +221,7 @@
                         </tr>
                         <tr>
                             <td>1</td>
-                            <td><a href=""><span class="text-muted">Malawi</span></a></td>
+                            <td><span class="text-muted">Malawi</span></td>
                             <td class="text-center">
                                 <div class="progress">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
@@ -234,7 +234,7 @@
                         </tr>
                         <tr>
                             <td>1</td>
-                            <td><a href=""><span class="text-muted">Malawi</span></a></td>
+                            <td><span class="text-muted">Malawi</span></td>
                             <td class="text-center">
                                 <div class="progress">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
@@ -247,7 +247,7 @@
                         </tr>
                         <tr>
                             <td>1</td>
-                            <td><a href=""><span class="text-muted">Malawi</span></a></td>
+                            <td><span class="text-muted">Malawi</span></td>
                             <td class="text-center">
                                 <div class="progress">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
@@ -260,7 +260,7 @@
                         </tr>
                         <tr>
                             <td>1</td>
-                            <td><a href=""><span class="text-muted">Malawi</span></a></td>
+                            <td><span class="text-muted">Malawi</span></td>
                             <td class="text-center">
                                 <div class="progress">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
@@ -273,7 +273,7 @@
                         </tr>
                         <tr>
                             <td>1</td>
-                            <td><a href=""><span class="text-muted">Malawi</span></a></td>
+                            <td><span class="text-muted">Malawi</span></td>
                             <td class="text-center">
                                 <div class="progress">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
@@ -286,7 +286,7 @@
                         </tr>
                         <tr>
                             <td>1</td>
-                            <td><a href=""><span class="text-muted">Malawi</span></a></td>
+                            <td><span class="text-muted">Malawi</span></td>
                             <td class="text-center">
                                 <div class="progress">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
@@ -299,7 +299,7 @@
                         </tr>
                         <tr>
                             <td>1</td>
-                            <td><a href=""><span class="text-muted">Malawi</span></a></td>
+                            <td><span class="text-muted">Malawi</span></td>
                             <td class="text-center">
                                 <div class="progress">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
@@ -312,7 +312,7 @@
                         </tr>
                         <tr>
                             <td>1</td>
-                            <td><a href=""><span class="text-muted">Malawi</span></a></td>
+                            <td><span class="text-muted">Malawi</span></td>
                             <td class="text-center">
                                 <div class="progress">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
@@ -325,7 +325,7 @@
                         </tr>
                         <tr>
                             <td>1</td>
-                            <td><a href=""><span class="text-muted">Malawi</span></a></td>
+                            <td><span class="text-muted">Malawi</span></td>
                             <td class="text-center">
                                 <div class="progress">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
@@ -338,7 +338,7 @@
                         </tr>
                         <tr>
                             <td>1</td>
-                            <td><a href=""><span class="text-muted">Malawi</span></a></td>
+                            <td><span class="text-muted">Malawi</span></td>
                             <td class="text-center">
                                 <div class="progress">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
@@ -351,7 +351,7 @@
                         </tr>
                         <tr>
                             <td>1</td>
-                            <td><a href=""><span class="text-muted">Nepal</span></a></td>
+                            <td><span class="text-muted">Nepal</span></td>
                             <td class="text-center">
                                 <div class="progress">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width: 30%;">
@@ -364,7 +364,7 @@
                         </tr>
                         <tr>
                             <td>1</td>
-                            <td><a href=""><span class="text-muted">Saint Helena, Ascension and Tristan da Cunha</span></a></td>
+                            <td><span class="text-muted">Saint Helena, Ascension and Tristan da Cunha</span></td>
                             <td>
                                 <div class="progress">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100" style="width: 15%;">
