@@ -865,11 +865,6 @@ class Score(object):
 
     @classmethod
     def country(cls, country_score_tree, country):
-
-        th_applicability = set()
-        for appl in country.thinkhazard_appl.all():
-            th_applicability.add(appl.name)
-
         category_weights_sum = KeyCategory.objects.aggregate(
             Sum('weight'))
         category_weights_sum = float(category_weights_sum['weight__sum'])
@@ -1068,10 +1063,6 @@ class Score(object):
 
             queryset = queryset.filter(q).distinct()
             kqueryset = kqueryset.filter(kq).distinct()
-
-        th_applicability = set()
-        for appl in country.thinkhazard_appl.all():
-            th_applicability.add(appl.name)
 
         country_score_tree = OrderedDict()
         for dataset in queryset:
