@@ -1220,6 +1220,143 @@ class Score(object):
 
         return ret
 
+    @classmethod
+    def dsnames_country_loadtree(cls, request, country_score_tree, dataset):
+        category_id = dataset.keydataset.category.code
+        keydataset_id = dataset.keydataset.code
+
+        if category_id not in country_score_tree:
+            country_score_tree[category_id] = OrderedDict(
+                [('score', OrderedDict()), ('counter', 0)])
+        category_score_tree = country_score_tree[category_id]
+        category_score_tree['counter'] += 1
+        if keydataset_id not in category_score_tree['score']:
+            category_score_tree['score'][keydataset_id] = {
+                "dataset": None, 'value': -1}
+        keydataset_score_tree = category_score_tree['score'][keydataset_id]
+        score = dataset.score
+
+        if keydataset_score_tree['value'] < score:
+            keydataset_score_tree['value'] = score
+            keydataset_score_tree['dataset'] = dataset
+
+    @classmethod
+    def dsnames_dataset_loadtree(cls, request, queryset):
+        # preloaded tree with data from datasets to avoid bad performances
+        world_score_tree = OrderedDict()
+        for dataset in queryset:
+            country_id = dataset.country.iso2
+
+            # category_id = dataset.keydataset.category.code
+            # keydataset_id = dataset.keydataset.code
+            if country_id not in world_score_tree:
+                world_score_tree[country_id] = OrderedDict()
+            country_score_tree = world_score_tree[country_id]
+
+            cls.dsnames_country_loadtree(request, country_score_tree, dataset)
+
+        return world_score_tree
+
+    @classmethod
+    def all_countries_dsnames(cls, request):
+        queryset = Dataset.objects.filter(keydataset__level__name='National')
+        applicability = request.query_params.getlist('applicability')
+        category = request.query_params.getlist('category')
+        if applicability:
+            q = Q()
+            for v in applicability:
+                # FIXME currently in tag we may have extra applicabilities
+                # when category (tag group) is 'hazard'
+                q = q | (Q(keydataset__applicability__name__iexact=v) |
+                         Q(tag__name__iexact=v))
+            queryset = queryset.filter(q).distinct()
+
+        if category:
+            q = Q()
+            for v in category:
+                q = q | Q(keydataset__category__name__iexact=v)
+            queryset = queryset.filter(q).distinct()
+
+        # check-point to investigate correctness of query filtering
+        # print("Number of item: %d" % queryset.count())
+
+        world_score_tree = cls.dsnames_dataset_loadtree(request, queryset)
+        datasets_count = queryset.count()
+        fullscores_queryset = queryset.filter(
+            **fullscore_filterargs)
+        world_fullscore_tree = cls.dataset_loadtree(
+            request, fullscores_queryset)
+        fullscores_count = fullscores_queryset.count()
+
+        countries_count = len(world_score_tree)
+
+        categories = KeyCategory.objects.all().order_by('id')
+        categories_counters = []
+        cat_cou = {}
+        for cat in categories:
+            cat_cou = 0
+            cat_full_cou = 0
+            for key, country_score in world_score_tree.items():
+                if cat.code in country_score:
+                    category_score = country_score[cat.code]
+                    cat_cou += category_score['counter']
+                    try:
+                        country_fullscore = world_fullscore_tree[key]
+                        category_fullscore = country_fullscore[cat.code]
+                        cat_full_cou += category_fullscore['counter']
+                    except Exception:
+                        pass
+
+            categories_counters.append({'category': cat.name,
+                                        'count': cat_cou,
+                                        'fullcount': cat_full_cou})
+
+        ret = {'scores': [],
+               'datasets_count': datasets_count,
+               'fullscores_count': fullscores_count,
+               'countries_count': countries_count,
+               'categories_counters': categories_counters,
+               'perils_counters': []}
+        ret_score = ret['scores']
+
+        for country in Country.objects.all().order_by('name'):
+            if country.iso2 not in world_score_tree:
+                continue
+            else:
+                score = cls.country(world_score_tree[country.iso2], country)
+
+            ret_score.append({"country": country.iso2,
+                              "score": float(cls.score_fmt(score)),
+                              "rank": 0})
+        ret_score_ord = ret_score[:]
+        ret_score_ord = sorted(ret_score_ord, key=lambda k: k['score'],
+                               reverse=True)
+        old_pos = 0
+        old_score = 100000
+        for el in ret_score_ord:
+            if el['score'] < old_score:
+                old_pos += 1
+                old_score = el['score']
+            el['rank'] = old_pos
+        ret['scores'] = ret_score_ord
+
+        perils_counters = ret['perils_counters']
+        for peril in KeyTag.objects.filter(
+                is_peril=True).order_by('name'):
+            superset = (queryset.filter(keydataset__applicability=peril) |
+                        queryset.filter(tag=peril))
+            peril_queryset = superset.distinct()
+            fullscore_queryset = peril_queryset.filter(
+                **fullscore_filterargs)
+            count = peril_queryset.count()
+            fullcount = fullscore_queryset.count()
+            perils_counters.append({'name': peril.name,
+                                    'count': count,
+                                    'fullcount': fullcount
+                                    })
+
+        return ret
+
 
 class ScoringWorldGet(APIView):
     """This view return the list of country with dataset instances and
@@ -1244,6 +1381,15 @@ class ScoringWorldCategoriesGet(APIView):
 
     def get(self, request):
         ret = Score.all_countries_categories(request)
+        return Response(ret)
+
+
+class ScoringWorldDSNamesGet(APIView):
+    """This view return the list of country with dataset instances and
+ their scores"""
+
+    def get(self, request):
+        ret = Score.all_countries_dsnames(request)
         return Response(ret)
 
 
