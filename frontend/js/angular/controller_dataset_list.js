@@ -35,7 +35,7 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
     $scope.aCategory = [];
     $scope.aApplicability = [];
     $scope.missingDatasets = [];
-    $scope.bViewIstances = true;
+    $scope.bViewIstances = false;
     $scope.bViewMissing = false;
 
     $scope.questions = RodiSrv.getQuestions();
@@ -49,8 +49,6 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
         // Success
         $scope.countryList = data;
         $scope.objCountry = $filter('filter')($scope.countryList, {iso2: $scope.idCountry});
-
-        console.log(data);
 
     }, function(data)
     {
@@ -178,7 +176,10 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
         if (index >-1){
             $scope.aApplicability.splice(index,1);
             $scope.loadDatasetList();
+
         }else {
+            $scope.aCategory = [];
+            $scope.aApplicability = [];
             $scope.aApplicability.push(filter);
             $scope.loadDatasetList();
         }
@@ -208,6 +209,8 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
             $scope.aCategory.splice(index,1);
             $scope.loadDatasetList();
         }else {
+            $scope.aCategory = [];
+            $scope.aApplicability = [];
             $scope.aCategory.push(filter);
             $scope.loadDatasetList();
         }
@@ -257,6 +260,22 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
             shortLink = shortLink + ' ...';
         } else {
             shortLink = desc;
+        }
+
+        return shortLink;
+
+    }
+
+    $scope.formatLink = function(link){
+        var shortLink = "";
+        console.log(link);
+
+        if (link.length > 70)
+        {
+            shortLink = link.substr(0, 70);
+            shortLink = shortLink + ' [...]';
+        } else {
+            shortLink = link;
         }
 
         return shortLink;

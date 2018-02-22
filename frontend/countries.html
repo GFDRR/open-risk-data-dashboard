@@ -23,6 +23,9 @@
 
     <!-- bootstrap Framework -->
     <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/npm.js"></script>
     <!-- font awesome-->
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
 
@@ -56,6 +59,28 @@
         gtag('js', new Date());
 
         gtag('config', 'UA-80600133-2');
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#tabCountries').DataTable(
+                {
+                    ordering: true,
+                    paging: false,
+                    searching: false,
+                    info: false
+                }
+            );
+        });
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/css/dataTables.bootstrap.min.css" rel="stylesheet"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/dataTables.bootstrap.min.js"></script>
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
     </script>
 
 </head>
@@ -92,7 +117,7 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
                     <div style="height:20px;"></div>
-                    <h2 class="page_title_small">Countries</h2>
+                    <h1 class="page_title">Explore countries</h1>
                     <div style="height:20px;"></div>
                 </div>
             </div>
@@ -100,8 +125,8 @@
             <div class="row" id="menu-hazard">
                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 menu_sep_countries">
                     <div class="row" >
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <ul class="nav navbar-nav text-center">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                            <ul class="nav navbar-nav text-center" data-toggle="tooltip" data-placement="bottom" title="Filter datasets from this category only">
                                 <li ng-repeat="hc in HazardCategory">
                                     <a href="" ng-class="filterCategoryCssClass(hc.category.name)">
                                         <i class="{{getHCIcon(hc.category.id)}} fa-2x"></i>
@@ -114,9 +139,9 @@
                 </div>
                 <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                     <div class="row" >
-                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                            <ul class="nav navbar-nav text-center">
-                                <li  ng-repeat="appli in applicability" >
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                            <ul class="nav navbar-nav text-center" data-toggle="tooltip" data-placement="bottom" title="Filter datasets applicable to this hazard only">
+                                <li ng-repeat="appli in applicability">
                                     <a href="" ng-click="setUnSetFilter(appli.title)" ng-class="filterApplicabilityClass(appli.title)">
                                         <i class="{{appli.icon}} fa-2x"></i>
                                         <span>{{appli.title}}</span>
@@ -136,8 +161,6 @@
         <div class="row text-center">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <span class="rodi_txt_big">Number of datasets considered: <strong><span class="odfri_black_blue">#TODO</span></strong></span>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="" ng-click="changeview('methodology.html#scoring', '2')" class="odfri_big_lik">more info on scoring</a>
             </div>
         </div>
 
@@ -146,20 +169,20 @@
         <div class="row">
             <div class="hidden-xs col-sm-1 col-md-1 col-lg-1"></div>
             <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
-                <table class="table table-responsive table-striped table-hover">
+                <table id="tabCountries" class="table table-responsive table-striped table-hover">
                     <thead>
                         <tr>
                             <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1">Rank</th>
-                            <th class="col-xs-4 col-sm-4 col-md-4 col-lg-4">Country</th>
-                            <th class="col-xs-3 col-sm-3 col-md-3 col-lg-3">Score</th>
+                            <th class="col-xs-3 col-sm-3 col-md-3 col-lg-3">Country</th>
+                            <th class="col-xs-3 col-sm-3 col-md-3 col-lg-3">Score <a href="" ng-click="changeview('methodology.html#scoring', '2')" class="small">more info on scoring</a></th>
                             <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center">Datasets<br /> submitted</th>
-                            <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center">Fully<br /> open</th>
+                            <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center">Fully open</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
+                        <tr ng-click="changepage('dataset_list.html?idcountry=MW&idcategory=0')">
                             <td>1</td>
-                            <td><a href="" ng-click="changepage('dataset_list_NEW.html?idcountry=MW&idcategory=0')"><span class="text-muted">Malawi</span></a></td>
+                            <td><a href="" ng-click="changepage('dataset_list.html?idcountry=MW&idcategory=0')"><span class="text-muted">Malawi</span></a></td>
                             <td class="text-center">
                                 <div class="progress">
                                     <div class="progress-bar" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
@@ -170,7 +193,7 @@
                             <td class="text-center">4</td>
                             <td class="text-center">5</td>
                         </tr>
-                        <tr>
+                        <tr ng-click="changepage('dataset_list.html?idcountry=MW&idcategory=0')">
                             <td>1</td>
                             <td><a href="" ng-click="changepage('dataset_list.html?idcountry=MW&idcategory=0')"><span class="text-muted">Malawi</span></a></td>
                             <td class="text-center">
@@ -358,10 +381,16 @@
             </div>
             <div class="hidden-xs col-sm-1 col-md-1 col-lg-1"></div>
         </div>
+        <br /><br />
     </div>
 
 
+    <section>
+        <div class="footer">
+            <rodifooter></rodifooter>
+        </div>
 
+    </section>
 
 
 </body>

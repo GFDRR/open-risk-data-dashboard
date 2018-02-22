@@ -513,7 +513,7 @@ section#counter-stats {
     margin-bottom:1em;
     margin-left:0.5em;
 }
-.rodi_dataset_label_code{ padding-right:1em;}
+.rodi_dataset_label_code{ padding-right:0.2em;}
 .dataset_form_select_style select {
     /*width: 100%;*/
     min-width:100%;
@@ -541,9 +541,14 @@ small.label {
     color:#a0a0a0;
 }
 
+.rodi_dataset_label_code_white
+{
+    color:#f0f0f0;
+}
+
 .rodi_dataset_label
 {
-    font-size:26px;
+    font-size:20px;
     color:#000000;
 }
 
@@ -1711,6 +1716,10 @@ review mode
 }
 .rodi_dataset_question {}
 .rodi_dataset_question i {background: #eee;border:1px solid #ccc; text-align: center; padding:10px; min-width: 55px;}
+
+.rodi_dataset_question_green i {background: green;border:1px solid #00b200;}
+.rodi_dataset_question_red i {background: red;border:1px solid #b00000;}
+
 .rodi_dataset_label.flex-item {flex-grow: 2;}
 .flex-container.tag {flex-wrap:wrap; justify-content: space-around;}
 .viewer [class*="rodi_btn_"] {/* padding:0; */margin-left: 1em;}
@@ -1952,6 +1961,16 @@ background-color: white;
     border-top: solid 1px #c0c0c0;
     height: 30px;
     margin-top: 20px;
+}
+
+.odfri_link_filter
+{
+    text-decoration: none;
+}
+
+a.active
+{
+    border-bottom:solid 3px #007899;
 }
 
 .odfri_home_black_color

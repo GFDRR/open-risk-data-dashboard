@@ -766,8 +766,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
                 $scope.arrayData = dataTemp;
 
-                console.log($scope.aCountryList);
-
                 $scope.arrListCountry = Object.keys($scope.aCountryList).map(function(key) {
                     return $scope.aCountryList[key];
                 });
