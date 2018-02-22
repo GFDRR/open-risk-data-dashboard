@@ -897,7 +897,7 @@ class Score(object):
                 [('score', OrderedDict()), ('counter', 0)])
         category_score_tree = country_score_tree[category_id]
         category_score_tree['counter'] += 1
-        if keydataset_id not in category_score_tree:
+        if keydataset_id not in category_score_tree['score']:
             category_score_tree['score'][keydataset_id] = {
                 "dataset": None, 'value': -1}
         keydataset_score_tree = category_score_tree['score'][keydataset_id]
