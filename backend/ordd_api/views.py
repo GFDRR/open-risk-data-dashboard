@@ -1062,7 +1062,7 @@ class Score(object):
                'datasets_count': datasets_count,
                'fullscores_count': fullscores_count,
                'countries_count': countries_count,
-               'perils_counters': []}
+               }
         ret_score = ret['scores']
 
         for country in Country.objects.all().order_by('name'):
@@ -1085,21 +1085,6 @@ class Score(object):
                 old_score = el['score']
             el['rank'] = old_pos
         ret['scores'] = ret_score_ord
-
-        perils_counters = ret['perils_counters']
-        for peril in KeyTag.objects.filter(
-                is_peril=True).order_by('name'):
-            superset = (queryset.filter(keydataset__applicability=peril) |
-                        queryset.filter(tag=peril))
-            peril_queryset = superset.distinct()
-            fullscore_queryset = peril_queryset.filter(
-                **fullscore_filterargs)
-            count = peril_queryset.count()
-            fullcount = fullscore_queryset.count()
-            perils_counters.append({'name': peril.name,
-                                    'count': count,
-                                    'fullcount': fullcount
-                                    })
 
         return ret
 
