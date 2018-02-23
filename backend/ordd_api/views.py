@@ -868,6 +868,24 @@ class Score(object):
         return category_score
 
     @classmethod
+    def category_scoring(cls, category, country_score_tree):
+        category_score = 0
+
+        category_score_tree = country_score_tree['category'][category.code]
+
+        for keydataset in KeyDataset.objects.filter(
+                level__name='National', category=category):
+            if keydataset.code not in category_score_tree['score']:
+                continue
+            keydataset_score = category_score_tree['score'][keydataset.code][
+                'value']
+
+            if category_score < keydataset_score:
+                category_score = keydataset_score
+
+        return category_score
+
+    @classmethod
     def country(cls, country_score_tree, country):
         category_weights_sum = KeyCategory.objects.aggregate(
             Sum('weight'))
@@ -883,6 +901,25 @@ class Score(object):
             country_score += float(category_score * category.weight)
 
         country_score /= category_weights_sum
+
+        return country_score
+
+    @classmethod
+    def country_scoring(cls, country_score_tree, country):
+        category_weights_sum = KeyCategory.objects.aggregate(
+            Sum('weight'))
+        category_weights_sum = float(category_weights_sum['weight__sum'])
+
+        country_score = 0
+        for category in KeyCategory.objects.all().order_by('id'):
+            if category.code not in country_score_tree['category']:
+                continue
+            category_score = cls.category_scoring(category, country_score_tree)
+            # OLD METHOD
+            # category_score /= keydataset_weights_sum
+            country_score += float(category_score * category.weight)
+
+        country_score /= float(category_weights_sum)
 
         return country_score
 
@@ -907,6 +944,36 @@ class Score(object):
             keydataset_score_tree['dataset'] = dataset
 
     @classmethod
+    def country_scoring_loadtree(cls, request, country_score_tree, dataset):
+        """
+        country['category'][category]['score'][keydataset]{dataset, value}
+        country['category'][category]['count']
+        country['datasets_count']
+        country['fullscores_count']
+        """
+        category_id = dataset.keydataset.category.code
+        keydataset_id = dataset.keydataset.code
+
+        if category_id not in country_score_tree['category']:
+            country_score_tree['category'][category_id] = OrderedDict(
+                [('score', OrderedDict()), ('counter', 0)])
+        category_score_tree = country_score_tree['category'][category_id]
+        category_score_tree['counter'] += 1
+        if keydataset_id not in category_score_tree['score']:
+            category_score_tree['score'][keydataset_id] = {
+                'dataset': None, 'value': -1}
+        keydataset_score_tree = category_score_tree['score'][keydataset_id]
+        score = dataset.score_th_norm
+
+        if keydataset_score_tree['value'] < score:
+            keydataset_score_tree['value'] = score
+            keydataset_score_tree['dataset'] = dataset
+
+        country_score_tree['datasets_count'] += 1
+        if dataset.score > 0.999999:
+            country_score_tree['fullscores_count'] += 1
+
+    @classmethod
     def dataset_loadtree(cls, request, queryset):
         """
     world_score_tree = [(<iso2_country>: country_score_tree), ...]
@@ -928,6 +995,31 @@ class Score(object):
             country_score_tree = world_score_tree[country_id]
 
             cls.country_loadtree(request, country_score_tree, dataset)
+
+        return world_score_tree
+
+    @classmethod
+    def country_scoring_dataset_loadtree(cls, request, queryset):
+        """
+    world_score_tree = [(<iso2_country>: country_score_tree), ...]
+    country_score_tree = [(<category_id>: category_score_tree), ...]
+    category_score_tree = [('score', [(<keydataset_id>:
+                                      keydataset_score_tree), ('counter', 0)]
+    keydataset_score_tree = {'dataset': None, 'value': -1}
+        """
+
+        # preloaded tree with data from datasets to avoid bad performances
+        world_score_tree = OrderedDict()
+        for dataset in queryset:
+            country_id = dataset.country.iso2
+
+            if country_id not in world_score_tree:
+                world_score_tree[country_id] = OrderedDict(
+                    [('category', OrderedDict()),
+                     ('datasets_count', 0), ('fullscores_count', 0)])
+            country_score_tree = world_score_tree[country_id]
+
+            cls.country_scoring_loadtree(request, country_score_tree, dataset)
 
         return world_score_tree
 
@@ -1054,7 +1146,8 @@ class Score(object):
         # check-point to investigate correctness of query filtering
         # print("Number of item: %d" % queryset.count())
 
-        world_score_tree = cls.dataset_loadtree(request, queryset)
+        world_score_tree = cls.country_scoring_dataset_loadtree(
+            request, queryset)
         datasets_count = queryset.count()
         fullscores_queryset = queryset.filter(
             **fullscore_filterargs)
@@ -1062,22 +1155,27 @@ class Score(object):
 
         countries_count = len(world_score_tree)
 
-        ret = {'scores': [],
+        ret = {'countries': [],
                'datasets_count': datasets_count,
                'fullscores_count': fullscores_count,
                'countries_count': countries_count,
                }
-        ret_score = ret['scores']
+        ret_score = []
 
         for country in Country.objects.all().order_by('name'):
             if country.iso2 not in world_score_tree:
                 continue
-            else:
-                score = cls.country(world_score_tree[country.iso2], country)
 
-            ret_score.append({"country": country.iso2,
-                              "score": float(cls.score_fmt(score)),
-                              "rank": 0})
+            country_score_tree = world_score_tree[country.iso2]
+            score = cls.country_scoring(country_score_tree, country)
+
+            ret_score.append(
+                {'country': country.iso2,
+                 'score': float(cls.score_fmt(score)),
+                 'rank': 0,
+                 'datasets_count': country_score_tree['datasets_count'],
+                 'fullscores_count': country_score_tree['fullscores_count'],
+                 })
         ret_score_ord = ret_score[:]
         ret_score_ord = sorted(ret_score_ord, key=lambda k: k['score'],
                                reverse=True)
@@ -1088,7 +1186,7 @@ class Score(object):
                 old_pos += 1
                 old_score = el['score']
             el['rank'] = old_pos
-        ret['scores'] = ret_score_ord
+        ret['countries'] = ret_score_ord
 
         return ret
 
