@@ -10,7 +10,7 @@ from .views import (
     ProfileCommentSendView, UserCreateView, UserDetailsView,
     RegistrationView, ProfileDatasetListCreateView, ProfileDatasetDetailsView,
     DatasetListView, DatasetDetailsView, DatasetsDumpView, VersionGet,
-    CountryScoringWorldGet,
+    CountryScoringWorldGet, CountryScoringCountryDetailsGet,
     ScoringWorldGet, ScoringCountryDetailsGet, ScoringWorldCategoriesGet,
     ScoringWorldDSNamesGet, ScoringUpdate)
 
@@ -31,6 +31,9 @@ urlpatterns = [
     url(r'^scoring/(?P<country_id>[A-Z0-9][A-Z0-9])$',
         ScoringCountryDetailsGet.as_view(), name="scoring_country"),
     url(r'^scoring/$', ScoringWorldGet.as_view(), name="scoring_world"),
+    url(r'^country_scoring/(?P<country_id>[A-Z0-9][A-Z0-9])$',
+        CountryScoringCountryDetailsGet.as_view(),
+        name="scoring_country"),
     url(r'^country_scoring/$', CountryScoringWorldGet.as_view(),
         name="country_scoring_world"),
     url(r'^scoring_update$', ScoringUpdate.as_view(),

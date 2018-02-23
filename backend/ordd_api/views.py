@@ -1332,6 +1332,147 @@ class Score(object):
         return ret
 
     @classmethod
+    def country_scoring_details(cls, request, country_id):
+        try:
+            country = Country.objects.get(iso2=country_id)
+        except ObjectDoesNotExist:
+            raise Http404()
+        queryset = Dataset.objects.filter(
+            keydataset__level__name='National',
+            country__iso2=country_id).order_by('keydataset__pk')
+        kqueryset = KeyDataset.objects.filter(
+            level__name='National').order_by('pk')
+
+        applicability = request.query_params.getlist('applicability')
+        category = request.query_params.getlist('category')
+        if applicability:
+            q = Q()
+            kq = Q()
+            for v in applicability:
+                # FIXME currently in tag we may have extra applicabilities
+                # when category (tag group) is 'hazard'
+                q = q | (Q(keydataset__applicability__name__iexact=v) |
+                         Q(tag__name__iexact=v))
+                kq = kq | Q(applicability__name__iexact=v)
+
+            queryset = queryset.filter(q).distinct()
+            kqueryset = kqueryset.filter(kq).distinct()
+
+        if category:
+            q = Q()
+            kq = Q()
+            for v in category:
+                q = q | Q(keydataset__category__name__iexact=v)
+                kq = kq | Q(category__name__iexact=v)
+
+            queryset = queryset.filter(q).distinct()
+            kqueryset = kqueryset.filter(kq).distinct()
+
+        country_score_tree = OrderedDict()
+        for dataset in queryset:
+            cls.country_loadtree(request, country_score_tree, dataset)
+        country_fullscore_tree = OrderedDict()
+        fullscore_queryset = queryset.filter(
+                **fullscore_filterargs)
+        for dataset in fullscore_queryset:
+            cls.country_loadtree(request, country_fullscore_tree, dataset)
+
+        datasets_count = queryset.count()
+        fullscores_count = fullscore_queryset.count()
+        country_score = cls.country(country_score_tree, country)
+
+        interesting_fields = [
+            'is_existing', 'is_digital_form', 'is_avail_online',
+            'is_avail_online_meta', 'is_bulk_avail', 'is_machine_read',
+            'is_pub_available', 'is_avail_for_free', 'is_open_licence',
+            'is_prov_timely']
+
+        categories = KeyCategory.objects.all().order_by('id')
+        categories_counters = []
+        cat_cou = {}
+        for cat in categories:
+            cat_cou = 0
+            cat_full_cou = 0
+            if cat.code in country_score_tree:
+                category_score_tree = country_score_tree[cat.code]
+                cat_cou += category_score_tree['counter']
+                try:
+                    category_fullscore_tree = country_fullscore_tree[cat.code]
+                    cat_full_cou += category_fullscore_tree['counter']
+                except Exception:
+                    pass
+
+            categories_counters.append({'category': cat.name,
+                                        'count': cat_cou,
+                                        'fullcount': cat_full_cou})
+
+        ret = {'score': cls.score_fmt(country_score),
+               'scores': [["kd_code", "kd_description", "score"]],
+               'datasets_count': datasets_count,
+               'fullscores_count': fullscores_count,
+               'categories_counters': categories_counters,
+               'perils_counters': [],
+               'missing_datasets': []}
+        ret_score = ret['scores']
+        ret_missing_datasets = ret['missing_datasets']
+
+        for int_field in interesting_fields:
+            ret_score[0].append(Dataset._meta.get_field(
+                int_field).verbose_name)
+
+        for _, category_score_tree in country_score_tree.items():
+            for _, keydataset_score_tree in category_score_tree['score'
+                                                                ].items():
+                dataset = keydataset_score_tree['dataset']
+                value = cls.score_fmt(keydataset_score_tree['value'])
+                row = [dataset.keydataset.code, dataset.keydataset.description,
+                       value]
+                for int_field in interesting_fields:
+                    row.append(getattr(dataset, int_field))
+
+                ret_score.append(row)
+
+        th_notable = country.thinkhazard_appl.all()
+
+        perils_counters = ret['perils_counters']
+        for peril in KeyTag.objects.filter(
+                is_peril=True).order_by('name'):
+            superset = (queryset.filter(keydataset__applicability=peril) |
+                        queryset.filter(tag=peril))
+            peril_queryset = superset.distinct()
+            fullscore_queryset = peril_queryset.filter(
+                **fullscore_filterargs)
+            count = peril_queryset.count()
+            fullcount = fullscore_queryset.count()
+
+            if peril in th_notable:
+                notable = True
+            else:
+                notable = False
+
+            perils_counters.append({'name': peril.name,
+                                    'count': count,
+                                    'fullcount': fullcount,
+                                    'notable': notable})
+
+        dsname_set = {x[0] for x in queryset.values_list(
+            'keydataset__dataset').distinct()}
+
+        if applicability or category:
+            kdn = KeyDatasetName.objects.filter(
+                keydatasets__in=kqueryset).distinct()
+        else:
+            kdn = KeyDatasetName.objects.all()
+
+        for dsname in kdn.exclude(
+                pk__in=dsname_set).order_by('category', 'name'):
+            ret_missing_datasets.append(
+                {"id": dsname.pk, "name": dsname.name,
+                 "category": dsname.category})
+
+        return ret
+
+    @classmethod
     def all_countries_categories(cls, request):
         queryset = Dataset.objects.filter(keydataset__level__name='National')
         applicability = request.query_params.getlist('applicability')
@@ -1546,6 +1687,15 @@ class CountryScoringWorldGet(APIView):
 
     def get(self, request):
         ret = Score.all_country_scoring(request)
+        return Response(ret)
+
+
+class CountryScoringCountryDetailsGet(APIView):
+    """This view return the list best datasets for each keydataset for a specific
+country with related scores"""
+
+    def get(self, request, country_id):
+        ret = Score.country_scoring_details(request, country_id)
         return Response(ret)
 
 
