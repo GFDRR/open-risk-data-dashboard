@@ -1054,38 +1054,14 @@ class Score(object):
         datasets_count = queryset.count()
         fullscores_queryset = queryset.filter(
             **fullscore_filterargs)
-        world_fullscore_tree = cls.dataset_loadtree(
-            request, fullscores_queryset)
         fullscores_count = fullscores_queryset.count()
 
         countries_count = len(world_score_tree)
-
-        categories = KeyCategory.objects.all().order_by('id')
-        categories_counters = []
-        cat_cou = {}
-        for cat in categories:
-            cat_cou = 0
-            cat_full_cou = 0
-            for key, country_score in world_score_tree.items():
-                if cat.code in country_score:
-                    category_score = country_score[cat.code]
-                    cat_cou += category_score['counter']
-                    try:
-                        country_fullscore = world_fullscore_tree[key]
-                        category_fullscore = country_fullscore[cat.code]
-                        cat_full_cou += category_fullscore['counter']
-                    except Exception:
-                        pass
-
-            categories_counters.append({'category': cat.name,
-                                        'count': cat_cou,
-                                        'fullcount': cat_full_cou})
 
         ret = {'scores': [],
                'datasets_count': datasets_count,
                'fullscores_count': fullscores_count,
                'countries_count': countries_count,
-               'categories_counters': categories_counters,
                'perils_counters': []}
         ret_score = ret['scores']
 
