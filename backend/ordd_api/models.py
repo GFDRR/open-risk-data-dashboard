@@ -316,6 +316,7 @@ class Dataset(models.Model):
     is_prov_timely_last = models.TextField(blank=True, null=False)
     tag = models.ManyToManyField(KeyTag, blank=True)
     score = models.FloatField(blank=False, null=False, default=0.0)
+    score_th_norm = models.FloatField(blank=False, null=False, default=0.0)
 
     @classmethod
     def gem_score_calculate(cls, inst):
@@ -353,13 +354,14 @@ class Dataset(models.Model):
         for th_appl in inst.country.thinkhazard_appl.all():
             th_applicability.add(th_appl.name)
 
-        score *= (float(len(appl & th_applicability)) /
-                  float(len(th_applicability)))
+        score_th_norm = score * (
+            float(len(appl & th_applicability)) /
+            float(len(th_applicability)))
 
-        return score
+        return score, score_th_norm
 
     def save(self, *args, **kwargs):
-        self.score = self.gem_score_calculate(self)
+        self.score, self.score_th_norm = self.gem_score_calculate(self)
         super().save(*args, **kwargs)
 
 

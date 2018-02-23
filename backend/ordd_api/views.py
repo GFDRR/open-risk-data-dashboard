@@ -37,12 +37,16 @@ from .mailer import mailer
 from ordd_api import __version__, MAIL_SUBJECT_PREFIX
 from ordd.settings import EMAIL_CONFIRM_PROTO
 
-fullscore_filterargs = {
+fullscore_filterargs_old = {
     'is_existing': True, 'is_digital_form': True,
     'is_avail_online': True, 'is_avail_online_meta': True,
     'is_bulk_avail': True, 'is_machine_read': True,
     'is_pub_available': True, 'is_avail_for_free': True,
     'is_open_licence': True, 'is_prov_timely': True
+}
+
+fullscore_filterargs = {
+    'score__range': (0.999999, 1.000001)
 }
 
 
@@ -896,7 +900,7 @@ class Score(object):
             category_score_tree['score'][keydataset_id] = {
                 'dataset': None, 'value': -1}
         keydataset_score_tree = category_score_tree['score'][keydataset_id]
-        score = dataset.score
+        score = dataset.score_th_norm
 
         if keydataset_score_tree['value'] < score:
             keydataset_score_tree['value'] = score
@@ -1296,7 +1300,7 @@ class Score(object):
             category_score_tree['score'][keydataset_id] = {
                 "dataset": None, 'value': -1}
         keydataset_score_tree = category_score_tree['score'][keydataset_id]
-        score = dataset.score
+        score = dataset.score_th_norm
 
         if keydataset_score_tree['value'] < score:
             keydataset_score_tree['value'] = score
