@@ -863,19 +863,22 @@ class Score(object):
             if country.iso2 not in world_score_tree:
                 continue
 
+            country_score_tree = world_score_tree[country.iso2]
             # to be back-compatible with old /scoring/ view
-            if ('category' in world_score_tree[country.iso2]):
-                score = cls.country(
-                    world_score_tree[country.iso2]['category'],
-                    country)
+            if ('category' in country_score_tree):
+                category_score_tree = country_score_tree['category']
             else:
-                score = cls.country(
-                    world_score_tree[country.iso2],
-                    country)
+                category_score_tree = country_score_tree
 
-            ret_score.append({"country": country.iso2,
-                              "score": score,
-                              "rank": 0})
+            score = cls.country(category_score_tree, country)
+
+            ret_score.append(
+                {"country": country.iso2,
+                 "score": score,
+                 "datasets_count": country_score_tree['datasets_count'],
+                 "fullscores_count":
+                     country_score_tree['fullscores_count'],
+                 "rank": 0})
         ret_score_ord = ret_score[:]
         ret_score_ord = sorted(ret_score_ord, key=lambda k: k['score'],
                                reverse=True)
