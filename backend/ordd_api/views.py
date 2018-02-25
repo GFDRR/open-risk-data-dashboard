@@ -1143,13 +1143,16 @@ class Score(object):
                'countries_count': countries_count,
                'categories_counters': categories_counters,
                'perils_counters': []}
+        ret_score = ret['scores']
 
-        ret_score_ord = cls.calculate_ranking(world_score_tree)
+        for country in Country.objects.all().order_by('name'):
+            if country.iso2 not in world_score_tree:
+                continue
 
-        for el in ret_score_ord:
-            el['score'] = cls.score_fmt(el['score'])
+            score = cls.country(world_score_tree[country.iso2], country)
 
-        ret['scores'] = ret_score_ord
+            ret_score.append({"country": country.iso2,
+                              "score": cls.score_fmt(score)})
 
         perils_counters = ret['perils_counters']
         for peril in KeyTag.objects.filter(
