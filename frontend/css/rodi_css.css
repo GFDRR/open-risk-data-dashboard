@@ -494,6 +494,7 @@ section#counter-stats {
 .dataset_value p {margin:0;}
 .dataset_value i[aria-hidden~=false] {background: #EE3036;}
 .dataset_value i[aria-hidden~=true] {background: green;}
+.dataset_value i[aria-hidden~=na] {background: #c0c0c0;}
 
 
 .dataset_form_select_style select
@@ -2082,3 +2083,17 @@ a.active
 }
 
 .logout{padding-left: 1em;}
+
+.odfri_box_dataset_list_details
+{
+    position:fixed;
+    top:5%;
+    bottom:5%;
+    left:5%;
+    right:5%;
+    padding: 30px;
+    overflow: auto;
+    background-color: rgba(255,255,255,.9);
+    border:solid 1px #c0c0c0;
+    z-index: 100;
+}
