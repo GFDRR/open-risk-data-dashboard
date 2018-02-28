@@ -23,6 +23,34 @@ def forwards_func(apps, schema_editor):
 
     db_alias = schema_editor.connection.alias
 
+    kd = []
+    kd_code = []
+    kt = []
+
+    with open('contents/key_datasets/resilience-index-'
+              'datasets-list-v10 - Datasets.csv', 'r') as kdfile,\
+        open('contents/key_datasets/resilience-index-'
+             'datasets-list-v10 - Tags.csv', 'r') as ktfile:
+        kdcsv = csv.reader(kdfile, delimiter=',')
+        ktcsv = csv.reader(ktfile, delimiter=',')
+
+        for row in kdcsv:
+            if len(row) == 0:
+                continue
+            kd.append(row)
+            kd_code.append(row[0])
+        kd = kd[1:]
+        kd_code = kd_code[1:]
+
+        for row in ktcsv:
+            if len(row) == 0:
+                continue
+            kt.append(row)
+        kt = kt[1:]
+
+
+
+
 
 def forwards_func_old(apps, schema_editor):
     # We get the model from the versioned app registry;
