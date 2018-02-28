@@ -75,21 +75,32 @@ def forwards_func(apps, schema_editor):
         print("\n\n")
         print("keydatasets")
 
+        national_level = KeyLevel.objects.using(db_alias).get(name='National')
+
         print("\nKEYDATASETS: check keydataset not yet inserted")
         objs = KeyDataset.objects.using(db_alias).all()
         for keydataset in kd:
             for obj in objs:
                 kd_cur = obj.code
                 if kd_cur == keydataset[0]:
+                    dsname = KeyDatasetName.objects.using(db_alias).get(
+                        name=keydataset[2])
+                    category = KeyCategory.objects.using(db_alias).get(
+                        name=keydataset[1])
                     if obj.level_id != 2:
                         print("  WRONG LEVEL_ID: code: [%s]  level: %d"
                               % (kd_cur, obj.level_id))
+                    obj.level = national_level
+                    obj.description = keydataset[4]
+                    obj.dataset = dsname
+                    obj.category = category
+                    obj.save()
                     break
             else:
                 print('  Keydataset "%s" not already present in dataset.'
                       % keydataset[0])
         print("  Done")
-
+        raise ValueError("just to avoid commit of transaction")
         # Tags
 
         print("\nTAGS: check tags not yet inserted")
