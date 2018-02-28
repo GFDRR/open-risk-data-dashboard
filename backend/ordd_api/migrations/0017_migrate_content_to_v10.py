@@ -44,7 +44,14 @@ def forwards_func(apps, schema_editor):
     item.name = 'Historical records of hazard events'
     item.save()
 
-    
+    #    KeyDatasetName simple capitalization
+    items = KeyDatasetName.objects.using(db_alias).all()
+    for item in items:
+        item.name = item.name.capitalize()
+        item.save()
+
+    return
+
     kd = []
     kd_code = []
     kt = []
