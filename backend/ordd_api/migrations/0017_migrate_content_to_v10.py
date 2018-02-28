@@ -23,6 +23,14 @@ def forwards_func(apps, schema_editor):
 
     db_alias = schema_editor.connection.alias
 
+    #  Rename entries
+    #
+    item = KeyCategory.objects.using(db_alias).get(name='Base Data')
+    item.name = 'Base data'
+    item.save()
+
+
+    
     kd = []
     kd_code = []
     kt = []
@@ -47,6 +55,9 @@ def forwards_func(apps, schema_editor):
                 continue
             kt.append(row)
         kt = kt[1:]
+
+
+
 
 
 
@@ -252,7 +263,19 @@ def forwards_func_old(apps, schema_editor):
 
 
 def backwards_func(apps, schema_editor):
-    pass
+    KeyDataset = apps.get_model("ordd_api", "KeyDataset")
+    KeyCategory = apps.get_model("ordd_api", "KeyCategory")
+    KeyDatasetName = apps.get_model("ordd_api", "KeyDatasetName")
+    KeyTagGroup = apps.get_model("ordd_api", "KeyTagGroup")
+    KeyTag = apps.get_model("ordd_api", "KeyTag")
+    KeyLevel = apps.get_model("ordd_api", "KeyLevel")
+    Dataset = apps.get_model("ordd_api", "Dataset")
+
+    db_alias = schema_editor.connection.alias
+
+    item = KeyCategory.objects.using(db_alias).get(name='Base data')
+    item.name = 'Base Data'
+    item.save()
 
 
 class Migration(migrations.Migration):
