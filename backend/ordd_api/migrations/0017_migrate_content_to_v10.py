@@ -25,10 +25,24 @@ def forwards_func(apps, schema_editor):
 
     #  Rename entries
     #
+    #    KeyCategory
     item = KeyCategory.objects.using(db_alias).get(name='Base Data')
     item.name = 'Base data'
     item.save()
 
+    #    KeyTag
+    item = KeyTag.objects.using(db_alias).get(name='Road infrastructure')
+    item.name = 'Roads'
+    item.save()
+
+    item = KeyTag.objects.using(db_alias).get(name='Harbours')
+    item.name = 'Harbors'
+    item.save()
+
+    #    KeyDatasetName
+    item = KeyDatasetName.objects.using(db_alias).get(name='Hazard Scenarios')
+    item.name = 'Historical records of hazard events'
+    item.save()
 
     
     kd = []
@@ -273,6 +287,22 @@ def backwards_func(apps, schema_editor):
 
     db_alias = schema_editor.connection.alias
 
+    #    KeyDatasetName
+    item = KeyDatasetName.objects.using(db_alias).get(
+        name='Historical records of hazard events')
+    item.name = 'Hazard Scenarios'
+    item.save()
+
+    #    KeyTag
+    item = KeyTag.objects.using(db_alias).get(name='Harbors')
+    item.name = 'Harbours'
+    item.save()
+
+    item = KeyTag.objects.using(db_alias).get(name='Roads')
+    item.name = 'Road infrastructure'
+    item.save()
+
+    #    KeyCategory
     item = KeyCategory.objects.using(db_alias).get(name='Base data')
     item.name = 'Base Data'
     item.save()
