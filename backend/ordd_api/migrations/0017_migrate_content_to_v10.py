@@ -44,13 +44,17 @@ def forwards_func(apps, schema_editor):
     item.name = 'Historical records of hazard events'
     item.save()
 
+    #    KeyDatasetName
+    item = KeyDatasetName.objects.using(db_alias).get(
+        name='List Type Of Volcanoes')
+    item.name = 'Volcanoes'
+    item.save()
+
     #    KeyDatasetName simple capitalization
     items = KeyDatasetName.objects.using(db_alias).all()
     for item in items:
         item.name = item.name.capitalize()
         item.save()
-
-    return
 
     kd = []
     kd_code = []
@@ -76,6 +80,17 @@ def forwards_func(apps, schema_editor):
                 continue
             kt.append(row)
         kt = kt[1:]
+
+        #
+        #  INSERT MISSING DATASETNAME
+        #
+        for keydataset in kd:
+            datasetname = keydataset[2]
+            print(datasetname)
+            item = KeyDatasetName.objects.using(db_alias).get(name=datasetname)
+        raise ValueError("Just to avoid reload")
+
+
 
         # keydataset
 
@@ -176,6 +191,12 @@ def backwards_func(apps, schema_editor):
     Dataset = apps.get_model("ordd_api", "Dataset")
 
     db_alias = schema_editor.connection.alias
+
+    #    KeyDatasetName
+    item = KeyDatasetName.objects.using(db_alias).get(
+        name='Volcanoes')
+    item.name = 'List Type Of Volcanoes'
+    item.save()
 
     #    KeyDatasetName
     item = KeyDatasetName.objects.using(db_alias).get(
