@@ -108,7 +108,7 @@ def forwards_func(apps, schema_editor):
         print("  CHECK MISSING CATEGORY")
         for keydataset in kd:
             category = keydataset[1]
-            print(category)
+            print("  check [%s]" % category)
             item = KeyCategory.objects.using(db_alias).get(
                 name=category)
 
@@ -118,7 +118,7 @@ def forwards_func(apps, schema_editor):
         print("  CHECK MISSING TAGGROUPS")
         for keydataset in kd:
             taggroup = keydataset[3]
-            print(taggroup)
+            print("  check [%s]" % taggroup)
             if taggroup == "":
                 continue
             # try:
