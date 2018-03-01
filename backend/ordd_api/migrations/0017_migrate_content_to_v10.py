@@ -177,17 +177,17 @@ def backwards_func(apps, schema_editor):
 
     db_alias = schema_editor.connection.alias
 
-    #    KeyDatasetName simple return to titlezation
-    items = KeyDatasetName.objects.using(db_alias).all()
-    for item in items:
-        item.name = item.name.title()
-        item.save()
-
     #    KeyDatasetName
     item = KeyDatasetName.objects.using(db_alias).get(
         name='Historical records of hazard events')
     item.name = 'Hazard Scenarios'
     item.save()
+
+    #    KeyDatasetName simple return to titlezation
+    items = KeyDatasetName.objects.using(db_alias).all()
+    for item in items:
+        item.name = item.name.title()
+        item.save()
 
     #    KeyTag
     item = KeyTag.objects.using(db_alias).get(name='Harbors')
