@@ -98,9 +98,9 @@
             <div class="row" id="top-menu">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-                    <h1 class="page_title ">{{countryDesc}} - {{objDatasetView.keydataset.category}}</h1>
+                    <h1 class="page_title ">{{countryDesc}} - {{objDatasetView.keydataset.dataset.name}}</h1>
                     <br />
-                    <div class="rodi_txt_big text-center">
+                    <div class="rodi_big_text_page text-center">
                         <a href="" class="btn btn-md btn-primary" ng-click="setEditForm()" ng-if="bReviewer && !bEdit"><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" title="Edit dataset"></i> Edit dataset</a>
                         <a href="" class="btn btn-md btn-info" ng-click="changepage('contribute.html?tab=1')" ng-if="bMylist && !bEdit"><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to my dataset list"></i> Back to my dataset list</a>
                         <a href="" class="btn btn-md btn-info" ng-click="changepage('contribute.html?tab=2')" ng-if="bReviewlist && !bEdit"><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to review list"></i> Back to review list</a>
@@ -118,16 +118,19 @@
 
                 <!-- Dataset main details -->
                 <div class="row" id="dataset">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 rodi_big_text_page">
                         <div class="odfri_content_small">
                             <hr>
-                            <span class="rodi_txt_big"><span class="odfri_dataset_label">Country:</span> {{countryDesc}}</span>
-                            <br /><br />
-                            <span class="rodi_txt_big"><span class="odfri_dataset_label">Dataset:</span> {{objDatasetView.keydataset.category}} - {{objDatasetView.keydataset.dataset.name}}</span>
-                            <br /><br />
-                            <span class="rodi_txt_big"><span class="odfri_dataset_label">Description:</span> {{objDatasetView.keydataset.description}}</span>
-                            <br /><br />
-                            <span class="rodi_txt_big"><span class="odfri_dataset_label">Elements:</span> <span ng-repeat="tag in selectedTags">{{tag}}; </span></span>
+                            <h3 class="odfri_title_red">Dataset</h3>
+                            <span><span class="odfri_dataset_label">Country:</span> {{countryDesc}}</span>
+                            <br />                          
+                            <span><span class="odfri_dataset_label">Dataset:</span> {{objDatasetView.keydataset.dataset.name}}</span>
+                            <br />
+                            <span><span class="odfri_dataset_label">Category:</span> {{objDatasetView.keydataset.category}}</span>
+                            <br />                             
+                            <span><span class="odfri_dataset_label">Description:</span> {{objDatasetView.keydataset.description}}</span>
+                            <br />
+                            <span><span class="odfri_dataset_label">Elements:</span> <span ng-repeat="tag in selectedTags">{{tag}}; </span></span>
                             <div class="odfri_div_separator"></div>
                         </div>
                     </div>
@@ -135,130 +138,111 @@
 
                 <!-- Open Data Criteria -->
                 <div class="row" id="criteria">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 rodi_big_text_page">
                         <div class="odfri_content_small">
                             <h3 class="odfri_title_red">Open Data Criteria</h3>
                             <br />
 
-                            <!-- Question 1 -->
+                            <!-- Question 1 - 2 -->
                             <div class="row">
-                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                                    <span class="rodi_dataset_label_code rodi_dataset_question"><i class="{{getQuestionIcon('is_existing')}}" ></i></span>
-                                    <span class="rodi_dataset_label flex-item">{{getQuestionCode('is_existing')}}</span>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <span class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_red" ng-if=" objDataset.is_existing == false && objDataset.is_existing !== ''"><i class="{{getQuestionIcon('is_existing')}}" ></i></span>
+                                    <span class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_green" ng-if="objDataset.is_existing == true"><i class="{{getQuestionIcon('is_existing')}}" ></i></span>
+                                    <span class="flex-item">{{getQuestionCode('is_existing')}}</span>
+                                    <span class="flex-item" ng-if="objDataset.is_existing == true"><strong>&nbsp;Yes</strong></span>
+                                    <span class="flex-item" ng-if=" objDataset.is_existing == false && objDataset.is_existing !== ''"><strong>&nbsp;No</strong></span>
                                 </div>
-                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-right">
-                                    <div class="odfri_cb_space rodi_btn_yes_bg_green" ng-if="objDataset.is_existing == true">YES</div>
-                                    <div class="odfri_cb_space rodi_btn_yes_bg_red" ng-if=" objDataset.is_existing == false && objDataset.is_existing !== ''">NO</div>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <span class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_red" ng-if="objDataset.is_digital_form == false && objDataset.is_digital_form !== ''"><i class="{{getQuestionIcon('is_digital_form')}}" ></i></span>
+                                    <span class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_green" ng-if="objDataset.is_digital_form == true"><i class="{{getQuestionIcon('is_digital_form')}}" ></i></span>
+                                    <span class="flex-item">{{getQuestionCode('is_digital_form')}}</span>
+                                    <span class="flex-item" ng-if="objDataset.is_digital_form == true"><strong>&nbsp;Yes</strong></span>
+                                    <span class="flex-item" ng-if="objDataset.is_digital_form == false && objDataset.is_digital_form !== ''"><strong>&nbsp;No</strong></span>
                                 </div>
                             </div>
                             <br />
-                            <!-- Question 2 -->
+
+                            <!-- Question 3 - 4 -->
                             <div class="row">
-                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                                    <span class="rodi_dataset_label_code rodi_dataset_question"><i class="{{getQuestionIcon('is_digital_form')}}" ></i></span>
-                                    <span class="rodi_dataset_label flex-item">{{getQuestionCode('is_digital_form')}}</span>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <span class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_red" ng-if="objDataset.is_pub_available == false && objDataset.is_pub_available !== ''"><i class="{{getQuestionIcon('is_pub_available')}}" ></i></span>
+                                    <span class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_green" ng-if="objDataset.is_pub_available == true"><i class="{{getQuestionIcon('is_pub_available')}}" ></i></span>
+                                    <span class="flex-item">{{getQuestionCode('is_pub_available')}}</span>
+                                    <span class="flex-item" ng-if="objDataset.is_pub_available == true">&nbsp;<strong>&nbsp;Yes</strong></span>
+                                    <span class="flex-item" ng-if="objDataset.is_pub_available == false && objDataset.is_pub_available !== ''"><strong>&nbsp;No</strong></span>
                                 </div>
-                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-right">
-                                    <div class="odfri_cb_space rodi_btn_yes_bg_green" ng-if="objDataset.is_digital_form == true">YES</div>
-                                    <div class="odfri_cb_space rodi_btn_yes_bg_red" ng-if=" objDataset.is_digital_form == false && objDataset.is_digital_form !== ''">NO</div>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <span class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_red" ng-if="objDataset.is_avail_online == false && objDataset.is_avail_online !== ''"><i class="{{getQuestionIcon('is_avail_online')}}" ></i></span>
+                                    <span class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_green" ng-if="objDataset.is_avail_online == true"><i class="{{getQuestionIcon('is_avail_online')}}" ></i></span>
+                                    <span class="flex-item">{{getQuestionCode('is_avail_online')}}</span>
+                                    <span class="flex-item" ng-if="objDataset.is_avail_online == true"><strong>&nbsp;Yes</strong></span>
+                                    <span class="flex-item" ng-if="objDataset.is_avail_online == false && objDataset.is_avail_online !== ''"><strong>&nbsp;No</strong></span>
                                 </div>
                             </div>
                             <br />
-                            <!-- Question 3 -->
+
+                            <!-- Question 5 - 6 -->
                             <div class="row">
-                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                                    <span class="rodi_dataset_label_code rodi_dataset_question"><i class="{{getQuestionIcon('is_pub_available')}}" ></i></span>
-                                    <span class="rodi_dataset_label flex-item">{{getQuestionCode('is_pub_available')}}</span>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <span class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_red" ng-if="objDataset.is_avail_online_meta == false && objDataset.is_avail_online_meta !== ''"><i class="{{getQuestionIcon('is_avail_online_meta')}}" ></i></span>
+                                    <span class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_green" ng-if="objDataset.is_avail_online_meta == true"><i class="{{getQuestionIcon('is_avail_online_meta')}}" ></i></span>
+                                    <span class="flex-item">{{getQuestionCode('is_avail_online_meta')}}</span>
+                                    <span class="flex-item" ng-if="objDataset.is_avail_online_meta == true"><strong>&nbsp;Yes</strong></span>
+                                    <span class="flex-item" ng-if="objDataset.is_avail_online_meta == false && objDataset.is_avail_online_meta !== ''"><strong>&nbsp;No</strong></span>
                                 </div>
-                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-right">
-                                    <div class="odfri_cb_space rodi_btn_yes_bg_green" ng-if="objDataset.is_pub_available == true">YES</div>
-                                    <div class="odfri_cb_space rodi_btn_yes_bg_red" ng-if=" objDataset.is_pub_available == false && objDataset.is_pub_available !== ''">NO</div>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <span class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_red" ng-if="objDataset.is_bulk_avail == false && objDataset.is_bulk_avail !== ''"><i class="{{getQuestionIcon('is_bulk_avail')}}" ></i></span>
+                                    <span class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_green" ng-if="objDataset.is_bulk_avail == true"><i class="{{getQuestionIcon('is_bulk_avail')}}" ></i></span>
+                                    <span class="flex-item">{{getQuestionCode('is_bulk_avail')}}</span>
+                                    <span class="flex-item" ng-if="objDataset.is_bulk_avail == true"><strong>&nbsp;Yes</strong></span>
+                                    <span class="flex-item" ng-if="objDataset.is_bulk_avail == false && objDataset.is_bulk_avail !== ''"><strong>&nbsp;No</strong></span>
                                 </div>
                             </div>
                             <br />
-                            <!-- Question 4 -->
+
+                            <!-- Question 7 - 8 -->
                             <div class="row">
-                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                                    <span class="rodi_dataset_label_code rodi_dataset_question"><i class="{{getQuestionIcon('is_avail_online')}}" ></i></span>
-                                    <span class="rodi_dataset_label flex-item">{{getQuestionCode('is_avail_online')}}</span>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <span class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_red" ng-if="objDataset.is_machine_read == false && objDataset.is_machine_read !== ''"><i class="{{getQuestionIcon('is_machine_read')}}" ></i></span>
+                                    <span class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_green" ng-if="objDataset.is_machine_read == true"><i class="{{getQuestionIcon('is_machine_read')}}" ></i></span>
+                                    <span class="flex-item">{{getQuestionCode('is_machine_read')}}</span>
+                                    <span class="flex-item" ng-if="objDataset.is_machine_read == true"><strong>&nbsp;Yes</strong></span>
+                                    <span class="flex-item" ng-if="objDataset.is_machine_read == false && objDataset.is_machine_read !== ''"><strong>&nbsp;No</strong></span>
                                 </div>
-                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-right">
-                                    <div class="odfri_cb_space rodi_btn_yes_bg_green" ng-if="objDataset.is_avail_online == true">YES</div>
-                                    <div class="odfri_cb_space rodi_btn_yes_bg_red" ng-if=" objDataset.is_avail_online == false && objDataset.is_avail_online !== ''">NO</div>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <span class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_red" ng-if="objDataset.is_avail_for_free  == false && objDataset.is_avail_for_free  !== ''"><i class="{{getQuestionIcon('is_avail_for_free')}}" ></i></span>
+                                    <span class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_green" ng-if="objDataset.is_avail_for_free  == true"><i class="{{getQuestionIcon('is_avail_for_free')}}" ></i></span>
+                                    <span class="flex-item">{{getQuestionCode('is_avail_for_free')}}</span>
+                                    <span class="flex-item" ng-if="objDataset.is_avail_for_free  == true"><strong>&nbsp;Yes</strong></span>
+                                    <span class="flex-item" ng-if="objDataset.is_avail_for_free  == false && objDataset.is_avail_for_free  !== ''"><strong>&nbsp;No</strong></span>
                                 </div>
                             </div>
                             <br />
-                            <!-- Question 5 -->
+
+                            <!-- Question 9 - 10 -->
                             <div class="row">
-                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                                    <span class="rodi_dataset_label_code rodi_dataset_question"><i class="{{getQuestionIcon('is_avail_online_meta')}}" ></i></span>
-                                    <span class="rodi_dataset_label flex-item">{{getQuestionCode('is_avail_online_meta')}}</span>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <span class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_red" ng-if="objDataset.is_open_licence  == false && objDataset.is_open_licence  !== ''"><i class="{{getQuestionIcon('is_open_licence')}}" ></i></span>
+                                    <span class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_green" ng-if="objDataset.is_open_licence  == true"><i class="{{getQuestionIcon('is_open_licence')}}" ></i></span>
+                                    <span class="flex-item">{{getQuestionCode('is_open_licence')}}</span>
+                                    <span class="flex-item" ng-if="objDataset.is_open_licence  == true"><strong>&nbsp;Yes</strong></span>
+                                    <span class="flex-item" ng-if="objDataset.is_open_licence  == false && objDataset.is_open_licence  !== ''"><strong>&nbsp;No</strong></span>
                                 </div>
-                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-right">
-                                    <div class="odfri_cb_space rodi_btn_yes_bg_green" ng-if="objDataset.is_avail_online_meta == true">YES</div>
-                                    <div class="odfri_cb_space rodi_btn_yes_bg_red" ng-if=" objDataset.is_avail_online_meta == false && objDataset.is_avail_online_meta !== ''">NO</div>
+                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                                    <div class="row">
+                                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+                                            <span class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_red" ng-if="objDataset.is_prov_timely  == false && objDataset.is_prov_timely  !== ''"><i class="{{getQuestionIcon('is_prov_timely')}}" ></i></span>
+                                            <span class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_green" ng-if="objDataset.is_prov_timely  == true"><i class="{{getQuestionIcon('is_prov_timely')}}" ></i></span>
+                                        </div>
+                                        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 text-justify" style="position: absolute; left: 65px;">
+                                            <span class="flex-item">{{getQuestionCode('is_prov_timely')}}</span>
+                                            <span class="flex-item" ng-if="objDataset.is_prov_timely  == true"><strong>&nbsp;Yes</strong></span>
+                                            <span class="flex-item" ng-if="objDataset.is_prov_timely  == false && objDataset.is_prov_timely  !== ''"><strong>&nbsp;No</strong></span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <br />
-                            <!-- Question 6 -->
-                            <div class="row">
-                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                                    <span class="rodi_dataset_label_code rodi_dataset_question"><i class="{{getQuestionIcon('is_bulk_avail')}}" ></i></span>
-                                    <span class="rodi_dataset_label flex-item">{{getQuestionCode('is_bulk_avail')}}</span>
-                                </div>
-                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-right">
-                                    <div class="odfri_cb_space rodi_btn_yes_bg_green" ng-if="objDataset.is_bulk_avail == true">YES</div>
-                                    <div class="odfri_cb_space rodi_btn_yes_bg_red" ng-if=" objDataset.is_bulk_avail == false && objDataset.is_bulk_avail !== ''">NO</div>
-                                </div>
-                            </div>
-                            <br />
-                            <!-- Question 7 -->
-                            <div class="row">
-                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                                    <span class="rodi_dataset_label_code rodi_dataset_question"><i class="{{getQuestionIcon('is_machine_read')}}" ></i></span>
-                                    <span class="rodi_dataset_label flex-item">{{getQuestionCode('is_machine_read')}}</span>
-                                </div>
-                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-right">
-                                    <div class="odfri_cb_space rodi_btn_yes_bg_green" ng-if="objDataset.is_machine_read == true">YES</div>
-                                    <div class="odfri_cb_space rodi_btn_yes_bg_red" ng-if=" objDataset.is_machine_read == false && objDataset.is_machine_read !== ''">NO</div>
-                                </div>
-                            </div>
-                            <br />
-                            <!-- Question 8 -->
-                            <div class="row">
-                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                                    <span class="rodi_dataset_label_code rodi_dataset_question"><i class="{{getQuestionIcon('is_avail_for_free')}}" ></i></span>
-                                    <span class="rodi_dataset_label flex-item">{{getQuestionCode('is_avail_for_free')}}</span>
-                                </div>
-                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-right">
-                                    <div class="odfri_cb_space rodi_btn_yes_bg_green" ng-if="objDataset.is_avail_for_free  == true">YES</div>
-                                    <div class="odfri_cb_space rodi_btn_yes_bg_red" ng-if=" objDataset.is_avail_for_free  == false && objDataset.is_avail_for_free  !== ''">NO</div>
-                                </div>
-                            </div>
-                            <br />
-                            <!-- Question 9 -->
-                            <div class="row">
-                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                                    <span class="rodi_dataset_label_code rodi_dataset_question"><i class="{{getQuestionIcon('is_open_licence')}}" ></i></span>
-                                    <span class="rodi_dataset_label flex-item">{{getQuestionCode('is_open_licence')}}</span>
-                                </div>
-                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-right">
-                                    <div class="odfri_cb_space rodi_btn_yes_bg_green" ng-if="objDataset.is_open_licence  == true">YES</div>
-                                    <div class="odfri_cb_space rodi_btn_yes_bg_red" ng-if=" objDataset.is_open_licence  == false && objDataset.is_open_licence  !== ''">NO</div>
-                                </div>
-                            </div>
-                            <br />
-                            <!-- Question 10 -->
-                            <div class="row">
-                                <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
-                                    <span class="rodi_dataset_label_code rodi_dataset_question"><i class="{{getQuestionIcon('is_prov_timely')}}" ></i></span>
-                                    <span class="rodi_dataset_label flex-item">{{getQuestionCode('is_prov_timely')}}</span>
-                                </div>
-                                <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-right">
-                                    <div class="odfri_cb_space rodi_btn_yes_bg_green" ng-if="objDataset.is_prov_timely  == true">YES</div>
-                                    <div class="odfri_cb_space rodi_btn_yes_bg_red" ng-if=" objDataset.is_prov_timely  == false && objDataset.is_prov_timely  !== ''">NO</div>
-                                </div>
-                            </div>
 
                             <div class="odfri_div_separator"></div>
                         </div>
@@ -267,27 +251,26 @@
 
                 <!-- Metadata -->
                 <div class="row" id="metadata">
-                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 rodi_big_text_page">
                         <div class="odfri_content_small">
                             <h3 class="odfri_title_red">Metadata</h3>
+                            <span><span class="odfri_dataset_label">Agency or organization:</span> {{objDatasetView.is_existing_txt}}</span>
                             <br />
-                            <span class="rodi_txt_big"><span class="odfri_dataset_label">Agency or Organization:</span> {{objDatasetView.is_existing_txt}}</span>
-                            <br /><br />
-                            <span class="rodi_txt_big"><span class="odfri_dataset_label">Available formats:</span> {{objDatasetView.is_machine_read_txt}}</span>
-                            <br /><br />
-                            <span class="rodi_txt_big"><span class="odfri_dataset_label">License:</span> {{objDatasetView.is_open_licence_txt}}</span>
-                            <br /><br />
-                            <span class="rodi_txt_big"><span class="odfri_dataset_label">Date of last update:</span> {{objDatasetView.is_prov_timely_last}}</span>
-                            <br /><br />
-                            <span class="rodi_txt_big"><span class="odfri_dataset_label">Access to dataset and metadata:</span> <br />
+                            <span><span class="odfri_dataset_label">Available formats:</span> {{objDatasetView.is_machine_read_txt}}</span>
+                            <br />
+                            <span><span class="odfri_dataset_label">License:</span> {{objDatasetView.is_open_licence_txt}}</span>
+                            <br />
+                            <span><span class="odfri_dataset_label">Date of last update:</span> {{objDatasetView.is_prov_timely_last}}</span>
+                            <br /> <br />
+                            <span><span class="odfri_dataset_label">Additional information:</span><br /> {{objDataset.notes}}</span>
+                            <br /> <br />
+                            <span><span class="odfri_dataset_label">Links to data and metadata:</span> 
                                 <div class="rodi_ul">
                                     <a href="{{link}}" target="_blank" ng-repeat="link in selectedLink">
                                         - {{formatLink(link)}}<br />
                                     </a>
                                 </div>
-                            </span>
-                            <br /><br />
-                            <span class="rodi_txt_big"><span class="odfri_dataset_label">Other info:</span><br /> {{objDataset.notes}}</span>
+                            </span><br/>
 
                         </div>
                     </div>
@@ -312,7 +295,7 @@
                             <div class="row">
                                 <div>
                                     <!--<span class="rodi_dataset_label_code">A1.</span>-->
-                                    <span class="rodi_dataset_label">Country</span>
+                                    <span class="">Country</span>
                                 </div>
                                 <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
                                 <!--<br />-->
@@ -328,7 +311,7 @@
                                 <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
                                 <div>
                                     <!--<span class="rodi_dataset_label_code">A2.</span>-->
-                                    <span class="rodi_dataset_label">Dataset</span>
+                                    <span class="">Dataset</span>
                                 </div>
                                 <!--<br />-->
                                 <div class="dataset_form_select_style" style="margin-left: 0em;">
@@ -359,7 +342,7 @@
                                 <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
                                 <!--<div>-->
                                 <!--<span class="rodi_dataset_label_code">A3.</span>-->
-                                <!--<span class="rodi_dataset_label">Dataset description</span>-->
+                                <!--<span class="">Dataset description</span>-->
                                 <!--</div>-->
                                 <!--&lt;!&ndash;<br />&ndash;&gt;-->
                                 <!--<div class="dataset_form_select_style">-->
@@ -393,11 +376,11 @@
                                 <div>
                                     <!--<div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">-->
                                     <!--<span class="rodi_dataset_label_code">A3.</span>-->
-                                    <span class="rodi_dataset_label">Datasets elements</span>
+                                    <span class="">Datasets elements</span>
                                 </div>
                                 <div class="flex-container">
                                     <div ng-model="selectedTags" class="rodi_cb_space" ng-repeat="tag in datasetTags" ng-click="setTags(tag)" ng-class="{active:selectedTags.indexOf(tag) !== -1}">
-                                        <i class="fa fa-check" aria-hidden="true" ng-if="selectedTags.indexOf(tag) !== -1"></i> <span >{{tag}}</span>
+                                        <i class="fa fa-check" aria-hidden="true" ng-if="selectedTags.indexOf(tag) !== -1"></i> <span>{{tag}}</span>
                                         <!--<input type="checkbox" class="form-control" ng-model="selectedTags" > -->
                                     </div>
                                     <div>
@@ -424,7 +407,7 @@
                             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                                 <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-check-circle-o" ></i></span>
                                 <!--<span class="rodi_dataset_label_code">B1.</i></span>-->
-                                <span class="rodi_dataset_label">{{getQuestionCode('is_existing')}}</span>
+                                <span class="">{{getQuestionCode('is_existing')}}</span>
                                 <span class="text-muted"><a href="" ng-click="questionHelp(0)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
                             </div>
                             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
@@ -458,7 +441,7 @@
                             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                                 <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-desktop" ></i></span>
                                 <!--<span class="rodi_dataset_label_code">B2.</span>-->
-                                <span class="rodi_dataset_label">{{getQuestionCode('is_digital_form')}}</span>
+                                <span class="">{{getQuestionCode('is_digital_form')}}</span>
                                 <span class="text-muted"><a href="" ng-click="questionHelp(1)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
                             </div>
                             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
@@ -488,7 +471,7 @@
                             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                                 <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-eye" ></i></span>
                                 <!--<span class="rodi_dataset_label_code">B7.</span>-->
-                                <span class="rodi_dataset_label">{{getQuestionCode('is_pub_available')}}</span>
+                                <span class="">{{getQuestionCode('is_pub_available')}}</span>
                                 <span class="text-muted"><a href="" ng-click="questionHelp(6)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
                             </div>
                             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
@@ -518,7 +501,7 @@
                             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                                 <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-cloud" ></i></span>
                                 <!--<span class="rodi_dataset_label_code">B3.</span>-->
-                                <span class="rodi_dataset_label">{{getQuestionCode('is_avail_online')}}</span>
+                                <span class="">{{getQuestionCode('is_avail_online')}}</span>
                                 <span class="text-muted"><a href="" ng-click="questionHelp(2)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
 
                             </div>
@@ -555,7 +538,7 @@
                                     <li ng-repeat="link in selectedLink">
                                         - {{link}}
                                         <div class="pull-right">
-                                            <a href="" ng-click="deleteLink(link)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>&nbsp;&nbsp;
+                                            <a href="" ng-click="deleteLink(link)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>&nbsp;
                                         </div>
                                     </li>
                                 </ul>-->
@@ -576,7 +559,7 @@
                             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                                 <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-tag" ></i></span>
                                 <!--<span class="rodi_dataset_label_code">B4.</span>-->
-                                <span class="rodi_dataset_label">{{getQuestionCode('is_avail_online_meta')}}</span>
+                                <span class="">{{getQuestionCode('is_avail_online_meta')}}</span>
                                 <span class="text-muted"><a href="" ng-click="questionHelp(3)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
                             </div>
                             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
@@ -608,12 +591,12 @@
                                 <br />
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <strong>> Link list for data & metadata</strong>
+                                <strong>Links to data and metadata</strong>
                                 <ul class="rodi_ul">
                                     <li ng-repeat="link in selectedLink">
                                         - {{link}}
                                         <div class="pull-right">
-                                            <a href="" ng-click="deleteLink(link)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>&nbsp;&nbsp;
+                                            <a href="" ng-click="deleteLink(link)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>&nbsp;
                                         </div>
                                     </li>
                                 </ul>
@@ -634,7 +617,7 @@
                             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                                 <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-copy" ></i></span>
                                 <!--<span class="rodi_dataset_label_code">B5.</span>-->
-                                <span class="rodi_dataset_label">{{getQuestionCode('is_bulk_avail')}}</span>
+                                <span class="">{{getQuestionCode('is_bulk_avail')}}</span>
                                 <span class="text-muted"><a href="" ng-click="questionHelp(4)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
                             </div>
                             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
@@ -664,7 +647,7 @@
                             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                                 <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-keyboard-o" ></i></span>
                                 <!--<span class="rodi_dataset_label_code">B6.</span>-->
-                                <span class="rodi_dataset_label">{{getQuestionCode('is_machine_read')}}</span>
+                                <span class="">{{getQuestionCode('is_machine_read')}}</span>
                                 <span class="text-muted"><a href="" ng-click="questionHelp(5)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
                             </div>
 
@@ -696,7 +679,7 @@
                             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                                 <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-dollar" ></i></span>
                                 <!--<span class="rodi_dataset_label_code">B8.</span>-->
-                                <span class="rodi_dataset_label">{{getQuestionCode('is_avail_for_free')}}</span>
+                                <span class="">{{getQuestionCode('is_avail_for_free')}}</span>
                                 <span class="text-muted"><a href="" ng-click="questionHelp(7)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
                             </div>
 
@@ -725,7 +708,7 @@
                             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                                 <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-unlock-alt" ></i></span>
                                 <!--<span class="rodi_dataset_label_code">B9.</span>-->
-                                <span class="rodi_dataset_label">{{getQuestionCode('is_open_licence')}}</span>
+                                <span class="">{{getQuestionCode('is_open_licence')}}</span>
                                 <span class="text-muted"><a href="" ng-click="questionHelp(8)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
                             </div>
 
@@ -757,7 +740,7 @@
                             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                                 <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-clock-o" ></i></span>
                                 <!--<span class="rodi_dataset_label_code">B10.</span>-->
-                                <span class="rodi_dataset_label">{{getQuestionCode('is_prov_timely')}}</span>
+                                <span class="">{{getQuestionCode('is_prov_timely')}}</span>
                                 <span class="text-muted"><a href="" ng-click="questionHelp(9)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
                             </div>
 
@@ -800,7 +783,7 @@
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                     <!-- Command button end page -->
-                    <div class="rodi_txt_big text-center">
+                    <div class="rodi_big_text_page text-center">
                         <br /><br />
                         <a href="" class="btn btn-md btn-primary" ng-click="setEditForm()" ng-if="bReviewer && !bEdit"><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" title="Edit dataset"></i> Edit dataset</a>
                         <a href="" class="btn btn-md btn-info" ng-click="changepage('contribute.html?tab=1')" ng-if="bMylist && !bEdit"><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to my dataset list"></i> Back to my dataset list</a>
@@ -820,7 +803,7 @@
                     <div class="hidden-xs col-sm-1 col-md-1 col-lg-1"></div>
                     <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 rodi_methodology_submenu">
                         <a href="#dataset">Dataset</a>
-                        <a href="#criteria">Open Data Criteria</a>
+                        <a href="#criteria">Open data Criteria</a>
                         <a href="#metadata">Metadata</a>
                     </div>
                     <div class="hidden-xs col-sm-1 col-md-1 col-lg-1"></div>

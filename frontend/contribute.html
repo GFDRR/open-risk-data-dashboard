@@ -163,7 +163,7 @@
                             <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
                             <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 flex-container col">
                                 <div class="row">
-                                    <h1><!--Section A - -->Dataset classification</h1>
+                                    <h1><!--Section A - -->Dataset</h1>
                                     <hr />
                                 </div>
 
@@ -247,7 +247,7 @@
                             <div class="row">
                                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
                                 <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                                    <h1><!--Section B --->Questions</h1>
+                                    <h1><!--Section B --->Open data criteria</h1>
                                     <span>The following questions will help to determine the openness of the dataset.</span>
                                     <hr />
                                     <!-- Question #1 -->
@@ -616,8 +616,8 @@
                             <div class="row">
                                 <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2"></div>
                                 <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-                                    <h1><!--Section D --->Other comments?</h1>
-                                    <span>Please use the text box below to add any other info that might help assess the openness and ease of the use of the data, in particular in the context of disaster and risk activities.</span>
+                                    <h1><!--Section D --->Additional information</h1>
+                                    <span>Please use the text box below to add any useful information with regard to access and use of the dataset, as well as title of the dataset, if any.</span>
                                     <hr />
                                     <textarea class="form-control " rows="3" placeholder="Notes" ng-model="objDataset.notes"></textarea>
                                 </div>
@@ -695,7 +695,7 @@
                                         <td title="'Submission Date'" sortable="'create_time'">
                                             <h5>{{ds.create_time | date: 'dd/MM/yyyy'}}</h5>
                                         </td>
-                                        <td title="'Questions'">
+                                        <td title="'Open data criteria'">
                                             <div class="dataset_value">
                                                 <i class="fa fa-check-circle-o" aria-hidden="{{ds.is_existing}}" data-toggle="tooltip" title="{{questions[0].desc}}"></i>
                                                 <i class="fa fa-desktop" aria-hidden="{{ds.is_digital_form}}" data-toggle="tooltip" title="{{questions[1].desc}}"></i>
@@ -853,7 +853,7 @@
                                         <td title="'Insert Date'" sortable="'create_time'">
                                             <h5 class="text-center">{{ds.create_time | date: 'dd/MM/yyyy'}}</h5>
                                         </td>
-                                        <td title="'Questions'">
+                                        <td title="'Open data criteria'">
                                             <div class=" dataset_value">
                                                 <i class="fa fa-check-circle-o" aria-hidden="{{ds.is_existing}}" data-toggle="tooltip" title="{{questions[0].desc}}"></i>
                                                 <i class="fa fa-desktop" aria-hidden="{{ds.is_digital_form}}" data-toggle="tooltip" title="{{questions[1].desc}}"></i>

@@ -247,11 +247,11 @@ class Dataset(models.Model):
     is_existing_txt = models.TextField("Comments on 'Does the data exist?'",
                                        blank=True, null=False)
     is_digital_form = models.BooleanField(
-        "Is data in digital form?", help_text="This question addresses "
+        "Is the data available in digital form?", help_text="This question addresses "
         "whether the data is in digital form (stored on computers or "
         "digital storage) or if it only in paper form.")
     is_avail_online = models.BooleanField(
-        "Is available Online?", help_text="This question addresses whether "
+        "Is the data available online?", help_text="This question addresses whether "
         "the data is available online from an official source. In the cases "
         "that this is answered with a 'yes', then the link is put "
         "in a URL field.")
@@ -283,7 +283,7 @@ class Dataset(models.Model):
     is_machine_read_txt = models.TextField(
         "Comments on 'is the data machine-readable?'", blank=True, null=False)
     is_pub_available = models.BooleanField(
-        "Publicly available?", help_text="This question addresses whether "
+        "Is the data publicly available?", help_text="This question addresses whether "
         "the data is \"public\". This does not require it to be "
         "freely available, but does require that someone outside of "
         "the organization can access it in some form (examples include if "
@@ -296,7 +296,7 @@ class Dataset(models.Model):
         "whether the data is available for free or if there is a charge. "
         "If there is a charge, then that is stated in the comments section.")
     is_open_licence = models.BooleanField(
-        "Openly licensed?", help_text="This question addresses whether the "
+        "Is the data openly licensed?", help_text="This question addresses whether the "
         "dataset is open as per http://opendefinition.org. It needs to state "
         "the terms of use or license that allow anyone to freely use, reuse "
         "or redistribute the data (subject at most to attribution or share "

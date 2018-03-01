@@ -480,6 +480,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
 
     $scope.formatLink = function(link){
         var shortLink = "";
+        console.log(link);
 
         if (link.length > 70)
         {
