@@ -87,7 +87,11 @@ def forwards_func(apps, schema_editor):
         for keydataset in kd:
             datasetname = keydataset[2]
             print(datasetname)
-            item = KeyDatasetName.objects.using(db_alias).get(name=datasetname)
+            try:
+                item = KeyDatasetName.objects.using(db_alias).get(
+                    name=datasetname)
+            except KeyDatasetName.DoesNotExist:
+                print("NON ESISTE")
         raise ValueError("Just to avoid reload")
 
 
