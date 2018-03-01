@@ -196,7 +196,7 @@ def forwards_func(apps, schema_editor):
                 if tag_cur[0] == tag[0] and tag_cur[1] == tag[1]:
                     break
             else:
-                print("  Tag [%s,%s] not found, try to delete it",
+                print("  Tag [%s,%s] not found, try to delete it" %
                       (tag_cur[0], tag_cur[1]))
 
                 country_len = len(obj.country_set.all())
@@ -210,9 +210,8 @@ def forwards_func(apps, schema_editor):
                         % (country_len, dataset_len, keydataset_len))
                 obj.delete()
 
-
-
-
+        print("DELETE KEYDATASETNAMES")
+        KeyDatasetName.objects.exclude(keydatasets__in=kd_code).delete()
 
         raise ValueError("Just to avoid reload")
         # keydataset
