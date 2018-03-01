@@ -895,7 +895,12 @@ class Score(object):
             for item in ret_score_ord:
                 if item['country'] == country_in:
                     return item
-            return None
+            return {"country": country_in,
+                    "score": -1,
+                    "datasets_count": 0,
+                    "fullscores_count": 0,
+                    "rank": -1
+                    }
 
         return ret_score_ord
 
