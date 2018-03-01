@@ -178,16 +178,37 @@ def forwards_func(apps, schema_editor):
                 KeyTag.objects.using(db_alias).create(group=group, name=tag[1])
         print("  Done")
 
+        #
+        #
+        #    DELETE OBSOLETE OBJECTS
+        #
+        #
 
+        #
+        #  DELETE KEYDATASETS (AND RELATED DATASETS)
+        print("DELETE KEYDATASETS (AND RELATED DATASETS)")
+        KeyDataset.objects.using(db_alias).exclude(code__in=kd_code).delete()
 
+        print("DELETE KEYTAGS")
+        for obj in KeyTag.objects.using(db_alias).all():
+            for tag in kt:
+                tag_cur = [obj.group.name, obj.name]
+                if tag_cur[0] == tag[0] and tag_cur[1] == tag[1]:
+                    break
+            else:
+                print("  Tag [%s,%s] not found, try to delete it",
+                      (tag_cur[0], tag_cur[1]))
 
-
-
-
-
-
-
-
+                country_len = len(obj.country_set.all())
+                dataset_len = len(obj.dataset_set.all())
+                keydataset_len = len(obj.keydataset_set.all())
+                if (country_len > 0 or
+                        dataset_len > 0 or
+                        keydataset_len > 0):
+                    raise ValueError(
+                        "There are M2M references to it (%d, %d, %d)"
+                        % (country_len, dataset_len, keydataset_len))
+                obj.delete()
 
 
 
