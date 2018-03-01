@@ -84,6 +84,7 @@ def forwards_func(apps, schema_editor):
         #
         #  INSERT MISSING DATASETNAME
         #
+        print("  INSERT MISSING DATASETNAME")
         for keydataset in kd:
             datasetname = keydataset[2]
             print(datasetname)
@@ -98,16 +99,17 @@ def forwards_func(apps, schema_editor):
         #
         #  CHECK MISSING CATEGORY
         #
+        print("  CHECK MISSING CATEGORY")
         for keydataset in kd:
             category = keydataset[1]
             print(category)
             item = KeyCategory.objects.using(db_alias).get(
                 name=category)
 
-
         #
         #  CHECK MISSING TAGGROUPS
         #
+        print("  CHECK MISSING TAGGROUPS")
         for keydataset in kd:
             taggroup = keydataset[3]
             print(taggroup)
@@ -121,8 +123,41 @@ def forwards_func(apps, schema_editor):
             #     new_item = KeyTagGroup(name=taggroup)
             #     new_item.save()
 
-        raise ValueError("Just to avoid reload")
 
+        # ID,Category,Dataset,Tags,Description,Level
+        #
+        #  CHECK MISSING KEYDATASET AND UPDATE THE OLD
+        #
+        print("  CHECK MISSING KEYDATASET AND UPDATE THE OLD")
+        for keydataset in kd:
+            code_in = keydataset[0]
+            category_in = keydataset[1]
+            datasetname_in = keydataset[2]
+            taggroup_in = keydataset[3]
+            description_in = keydataset[4]
+            level_in = keydataset[5]
+
+            keydataset_cur = KeyDataset.objects.using(db_alias).get(
+                code=code_in)
+            category_cur = KeyCategory.objects.using(db_alias).get(
+                name=category_in)
+            datasetname_cur = KeyDatasetName.objects.using(db_alias).get(
+                name=datasetname_in)
+            if taggroup_in != '':
+                taggroup_cur = KeyTagGroup.objects.using(db_alias).get(
+                    name=taggroup_in)
+            else:
+                taggroup_cur = None
+            level_cur = KeyLevel.objects.using(db_alias).get(
+                    name=level_in)
+            keydataset_cur.category = category_cur
+            keydataset_cur.datasetname = datasetname_cur
+            keydataset_cur.taggroup = taggroup_cur
+            keydataset_cur.description = description_in
+            keydataset_cur.level = level_cur
+            keydataset_cur.save()
+
+        raise ValueError("Just to avoid reload")
         # keydataset
 
         print("\n\n")
