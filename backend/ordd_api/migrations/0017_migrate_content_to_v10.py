@@ -91,7 +91,8 @@ def forwards_func(apps, schema_editor):
                 item = KeyDatasetName.objects.using(db_alias).get(
                     name=datasetname)
             except KeyDatasetName.DoesNotExist:
-                print("NON ESISTE")
+                new_item = KeyDatasetName(name=datasetname)
+                new_item.save()
         raise ValueError("Just to avoid reload")
 
 
