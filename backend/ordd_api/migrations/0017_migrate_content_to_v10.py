@@ -82,6 +82,12 @@ def forwards_func(apps, schema_editor):
         kt = kt[1:]
 
         #
+        #
+        #     CHECKING AND INSERTING
+        #
+        #
+
+        #
         #  INSERT MISSING DATASETNAME
         #
         print("  INSERT MISSING DATASETNAME")
@@ -93,8 +99,8 @@ def forwards_func(apps, schema_editor):
                     name=datasetname)
             except KeyDatasetName.DoesNotExist:
                 print("DatasetName [%s] is missing, create it" % datasetname)
-                new_item = KeyDatasetName(name=datasetname)
-                new_item.save()
+                KeyDatasetName.objects.using(
+                    db_alias).create(name=datasetname)
 
         #
         #  CHECK MISSING CATEGORY
@@ -123,13 +129,12 @@ def forwards_func(apps, schema_editor):
             #     new_item = KeyTagGroup(name=taggroup)
             #     new_item.save()
 
-
-        # ID,Category,Dataset,Tags,Description,Level
         #
         #  CHECK MISSING KEYDATASET AND UPDATE THE OLD
         #
         print("  CHECK MISSING KEYDATASET AND UPDATE THE OLD")
         for keydataset in kd:
+            #  ID,Category,Dataset,Tags,Description,Level
             code_in = keydataset[0]
             category_in = keydataset[1]
             datasetname_in = keydataset[2]
@@ -156,6 +161,37 @@ def forwards_func(apps, schema_editor):
             keydataset_cur.description = description_in
             keydataset_cur.level = level_cur
             keydataset_cur.save()
+
+        #
+        #  INSERT MISSING TAGS
+        #
+        print("  TAGS: check tags not yet inserted")
+        objs = KeyTag.objects.using(db_alias).all()
+        for tag in kt:
+            for obj in objs:
+                tag_cur = [obj.group.name, obj.name]
+                if tag_cur[0] == tag[0] and tag_cur[1] == tag[1]:
+                    break
+            else:
+                print("  TAG [%s,%s] not found, create it" % (tag[0], tag[1]))
+                group = KeyTagGroup.objects.using(db_alias).get(name=tag[0])
+                KeyTag.objects.using(db_alias).create(group=group, name=tag[1])
+        print("  Done")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         raise ValueError("Just to avoid reload")
         # keydataset
