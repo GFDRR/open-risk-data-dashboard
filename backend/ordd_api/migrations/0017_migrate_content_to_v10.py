@@ -103,8 +103,25 @@ def forwards_func(apps, schema_editor):
             print(category)
             item = KeyCategory.objects.using(db_alias).get(
                 name=category)
-        raise ValueError("Just to avoid reload")
 
+
+        #
+        #  CHECK MISSING TAGGROUPS
+        #
+        for keydataset in kd:
+            taggroup = keydataset[3]
+            print(taggroup)
+            if taggroup == "":
+                continue
+            # try:
+            item = KeyTagGroup.objects.using(db_alias).get(
+                name=taggroup)
+            # except KeyTagGroup.DoesNotExist:
+            #     print("TagGroup [%s] is missing, create it" % taggroup)
+            #     new_item = KeyTagGroup(name=taggroup)
+            #     new_item.save()
+
+        raise ValueError("Just to avoid reload")
 
         # keydataset
 
