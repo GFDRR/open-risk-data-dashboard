@@ -1604,117 +1604,6 @@ class Score(object):
             keydataset_score_tree['value'] = score
             keydataset_score_tree['dataset'] = dataset
 
-    @classmethod
-    def dsnames_dataset_loadtree(cls, request, queryset):
-        # preloaded tree with data from datasets to avoid bad performances
-        world_score_tree = OrderedDict()
-        for dataset in queryset:
-            country_id = dataset.country.iso2
-
-            # category_id = dataset.keydataset.category.code
-            # keydataset_id = dataset.keydataset.code
-            if country_id not in world_score_tree:
-                world_score_tree[country_id] = OrderedDict(
-                    [('category', OrderedDict())])
-            country_score_tree = world_score_tree[country_id]
-
-            cls.dsnames_country_loadtree(request, country_score_tree, dataset)
-
-        return world_score_tree
-
-    @classmethod
-    def all_countries_dsnames(cls, request):
-        """
-    world_score_tree = [(<iso2_country>: country_score_tree), ...]
-    country_score_tree = [('category': [(<category_id>: category_score_tree),
-                                        ...])]
-    category_score_tree = [('score', [(<keydataset_id>:
-                                      keydataset_score_tree), ('counter', 0)]
-    keydataset_score_tree = {'dataset': None, 'value': -1}
-        """
-        queryset = Dataset.objects.filter(keydataset__level__name='National')
-        applicability = request.query_params.getlist('applicability')
-        category = request.query_params.getlist('category')
-        if applicability:
-            q = Q()
-            for v in applicability:
-                # FIXME currently in tag we may have extra applicabilities
-                # when category (tag group) is 'hazard'
-                q = q | (Q(keydataset__applicability__name__iexact=v) |
-                         Q(tag__name__iexact=v))
-            queryset = queryset.filter(q).distinct()
-
-        if category:
-            q = Q()
-            for v in category:
-                q = q | Q(keydataset__category__name__iexact=v)
-            queryset = queryset.filter(q).distinct()
-
-        # check-point to investigate correctness of query filtering
-        # print("Number of item: %d" % queryset.count())
-
-        world_score_tree = cls.dsnames_dataset_loadtree(request, queryset)
-        datasets_count = queryset.count()
-        fullscores_queryset = queryset.filter(
-            **fullscore_filterargs)
-        world_fullscore_tree = cls.dataset_loadtree(
-            request, fullscores_queryset)
-        fullscores_count = fullscores_queryset.count()
-
-        countries_count = len(world_score_tree)
-
-        categories = KeyCategory.objects.all().order_by('id')
-        categories_counters = []
-        cat_cou = {}
-        for cat in categories:
-            cat_cou = 0
-            cat_full_cou = 0
-            for key, country_score in world_score_tree.items():
-                if cat.code in country_score['category']:
-                    category_score = country_score['category'][cat.code]
-                    cat_cou += category_score['counter']
-                    try:
-                        country_fullscore = world_fullscore_tree[key]
-                        category_fullscore = country_fullscore[cat.code]
-                        cat_full_cou += category_fullscore['counter']
-                    except Exception:
-                        pass
-
-            categories_counters.append({'category': cat.name,
-                                        'count': cat_cou,
-                                        'fullcount': cat_full_cou})
-
-        ret = {'scores': [],
-               'datasets_count': datasets_count,
-               'fullscores_count': fullscores_count,
-               'countries_count': countries_count,
-               'categories_counters': categories_counters,
-               'perils_counters': []}
-
-        ret_score_ord = cls.calculate_ranking(world_score_tree)
-
-        for el in ret_score_ord:
-            el['score'] = cls.score_fmt(el['score'])
-
-        ret['scores'] = ret_score_ord
-
-        perils_counters = ret['perils_counters']
-        for peril in KeyTag.objects.filter(
-                is_peril=True).order_by('name'):
-            superset = (queryset.filter(keydataset__applicability=peril) |
-                        queryset.filter(tag=peril))
-            peril_queryset = superset.distinct()
-            fullscore_queryset = peril_queryset.filter(
-                **fullscore_filterargs)
-            count = peril_queryset.count()
-            fullcount = fullscore_queryset.count()
-            perils_counters.append({'name': peril.name,
-                                    'count': count,
-                                    'fullcount': fullcount
-                                    })
-
-        return ret
-
 
 class ScoringWorldGet(APIView):
     """This view return the list of country with dataset instances and
@@ -1760,13 +1649,6 @@ class ScoringWorldCategoriesGet(APIView):
         return Response(ret)
 
 
-class ScoringWorldDSNamesGet(APIView):
-    """This view return the list of country with dataset instances and
- their scores"""
-
-    def get(self, request):
-        ret = Score.all_countries_dsnames(request)
-        return Response(ret)
 
 
 class ScoringUpdate(APIView):
