@@ -164,203 +164,6 @@ def forwards_func(apps, schema_editor):
 
 
 
-def forwards_func_old(apps, schema_editor):
-    # We get the model from the versioned app registry;
-    # if we directly import it, it'll be the wrong version
-    KeyDataset = apps.get_model("ordd_api", "KeyDataset")
-    KeyCategory = apps.get_model("ordd_api", "KeyCategory")
-    KeyDatasetName = apps.get_model("ordd_api", "KeyDatasetName")
-    KeyTagGroup = apps.get_model("ordd_api", "KeyTagGroup")
-    KeyTag = apps.get_model("ordd_api", "KeyTag")
-    KeyLevel = apps.get_model("ordd_api", "KeyLevel")
-    Dataset = apps.get_model("ordd_api", "Dataset")
-
-    db_alias = schema_editor.connection.alias
-
-    # check for contentless database
-    kd_check = KeyDataset.objects.using(db_alias).all()
-    if kd_check.count() == 0:
-        return
-    
-    klevel_loc = KeyLevel.objects.using(db_alias).get(name='Local')
-    klevel_nat = KeyLevel.objects.using(db_alias).get(name='National')
-    klevel_int = KeyLevel.objects.using(db_alias).get(name='International')
-
-    ktaggrp_ha = KeyTagGroup.objects.using(db_alias).get(name='hazard')
-
-    kcat_ba = KeyCategory.objects.using(db_alias).get(code='BA')
-    kcat_ha = KeyCategory.objects.using(db_alias).get(code='HA')
-    kcat_ri = KeyCategory.objects.using(db_alias).get(code='RI')
-    kcat_ex = KeyCategory.objects.using(db_alias).get(code='EX')
-
-    # NEW TIME REFERENCE TAG GROUP
-    ktaggrp_timeref = KeyTagGroup.objects.using(db_alias).create(
-        name='time reference')
-
-    KeyTag.objects.using(db_alias).create(
-        name='Present', group=ktaggrp_timeref, is_peril=False)
-
-    KeyTag.objects.using(db_alias).create(
-        name='Future projection', group=ktaggrp_timeref,
-        is_peril=False)
-
-    # NEW BA_5
-    kdname = KeyDatasetName.objects.using(db_alias).get(name='Bathymetry')
-    kd = KeyDataset.objects.using(db_alias).create(
-        code='BA_5', category=kcat_ba, dataset=kdname,
-        tag_available=ktaggrp_ha,
-        description="Bathymetry map describing the terrain that lies"
-        " underwater, or the depth of water relative to sea level, with"
-        " a resolution of at least 10 meters.",
-        level=klevel_nat, format="raster (.tif)", comment="", weight=10)
-
-    kd.applicability.add(KeyTag.objects.using(db_alias).get(name='Coastal '
-                                                            'flooding'),
-                         KeyTag.objects.using(db_alias).get(name='Tsunami'))
-
-    # NEW BA_6
-    kd = KeyDataset.objects.using(db_alias).create(
-        code='BA_6', category=kcat_ba, dataset=kdname,
-        tag_available=ktaggrp_ha,
-        description="Bathymetry map describing the terrain that lies"
-        " underwater, or the depth of water relative to sea level, with"
-        " a resolution of 100 meters or higher.",
-        level=klevel_nat, format="raster (.tif)", comment="", weight=10)
-
-    kd.applicability.add(KeyTag.objects.using(db_alias).get(name='Coastal '
-                                                            'flooding'),
-                         KeyTag.objects.using(db_alias).get(name='Tsunami'))
-
-    # NEW HA_23A
-    kdname_scen = KeyDatasetName.objects.using(db_alias).create(
-        name="Hazard scenarios")
-
-    kd = KeyDataset.objects.using(db_alias).create(
-        code='HA_23A', category=kcat_ha, dataset=kdname_scen,
-        tag_available=ktaggrp_ha,
-        description="Historical records of significant natural hazard"
-        " events in the country including the type, intensity, footprint,"
-        " description and date of the hazard events. Historical records"
-        " may refer to only one or more hazard types. Data may also contain"
-        " non observed but plausible scenarios of hazard events.",
-        level=klevel_nat, comment="", weight=10)
-
-    # NEW HA_23B
-    kdname_rec = KeyDatasetName.objects.using(db_alias).get(
-        name="Historical records")
-
-    kd = KeyDataset.objects.using(db_alias).create(
-        code='HA_23B', category=kcat_ha, dataset=kdname_rec,
-        tag_available=ktaggrp_ha,
-        description="Historical records of all natural hazard events in the"
-        " country including at least the type, intensity, description, date"
-        " and location of the hazard events. Historical records may refer"
-        " to only one or more hazard types.",
-        level=klevel_loc, comment="", weight=10)
-
-    # NEW RI_2
-    kdname = KeyDatasetName.objects.using(db_alias).get(
-        name="records of previous natural disasters")
-
-    kd = KeyDataset.objects.using(db_alias).create(
-        code='RI_2', category=kcat_ri, dataset=kdname,
-        tag_available=ktaggrp_ha,
-        description="Information about affected exposure during"
-        " previous hazard.",
-        level=klevel_nat, comment="", weight=10)
-
-    # NEW EX_3D
-    kdname = KeyDatasetName.objects.using(db_alias).create(
-        name='Company register')
-
-    kd = KeyDataset.objects.using(db_alias).create(
-        code='EX_3D', category=kcat_ex, dataset=kdname,
-        tag_available=ktaggrp_timeref,
-        description="List of registered companies for the country"
-        " including their addresses and economic sector.",
-        level=klevel_nat, comment="", weight=10)
-
-    kd.applicability.add(*list(KeyTag.objects.using(
-        db_alias).filter(is_peril=True)))
-
-    # MOVE DATASETS BETWEEN KEYDATASETS
-    for kd_code, kd_code_new in mv_keydatasets.items():
-        print(kd_code)
-        kd = KeyDataset.objects.using(db_alias).get(code=kd_code)
-        kd_new = KeyDataset.objects.using(db_alias).get(
-            code=kd_code_new)
-
-        datasets = Dataset.objects.using(db_alias).filter(
-            keydataset=kd)
-        for ds in datasets:
-            print(ds)
-            ds.keydataset = kd_new
-            ds.save()
-
-    # REMOVE OBSOLETE KEYDATASETS
-    kds = KeyDataset.objects.using(db_alias).filter(code__in=rm_keydatasets)
-
-    print("RM COUNT: %d" % kds.count())
-    data = serializers.serialize("json", kds, indent=4)
-    out = open("v9_keydatasets_deleted.json", "w")
-    out.write(data)
-    out.close()
-
-    kds.delete()
-
-    # NEW DATASETNAMES
-    # save previous KeyDatasetName and keydataset
-    kds = KeyDataset.objects.using(db_alias).all()
-
-    data = serializers.serialize("json", kds, indent=4)
-    out = open("v9_keydatasets_pre_kdname-change.json", "w")
-    out.write(data)
-    out.close()
-
-    kdsname = KeyDatasetName.objects.using(db_alias).all()
-    data = serializers.serialize("json", kdsname, indent=4)
-    out = open("v9_keydatasetnames_pre_kdname-change.json", "w")
-    out.write(data)
-    out.close()
-
-    # CHANGE DATASETNAMES IN KEYDATASETS
-    new_names = []
-    # update keydataset with new keydatasetnames and create them if needed
-    for code, name in new_keydatasetnames.items():
-        kd = KeyDataset.objects.using(db_alias).get(code=code)
-        try:
-            kdname = KeyDatasetName.objects.using(db_alias).get(
-                name__iexact=name)
-            kdname.name = name
-            kdname.category = None
-            kdname.save()
-            print("[%s:%s] already found" % (kdname.name, kdname.category))
-        except:
-            kdname = KeyDatasetName.objects.using(db_alias).create(
-                name=name, category=None)
-            kdname.save()
-            print("[%s:%s] not found, create" % (kdname.name, kdname.category))
-            new_names.append([kdname.name, kdname.category])
-
-        kd.dataset = kdname
-        kd.save()
-
-    with open("new_keydatasetnames.json", "w") as f:
-        json.dump(new_names, f)
-
-    # delete keydatasetname without any keydataset reference
-    kdnames = KeyDatasetName.objects.using(db_alias).filter(keydatasets=None)
-    kdnames.delete()
-
-    kdnames = KeyDatasetName.objects.using(db_alias).exclude(category=None)
-    for kdname in kdnames:
-        kdname.category = None
-        kdname.save()
-
-    for code, desc in new_keydataset_descr.items():
-        kd = KeyDataset.objects.using(db_alias).get(code=code)
-        kd.description = desc.strip()
-        kd.save()
 
 
 def backwards_func(apps, schema_editor):
@@ -373,6 +176,12 @@ def backwards_func(apps, schema_editor):
     Dataset = apps.get_model("ordd_api", "Dataset")
 
     db_alias = schema_editor.connection.alias
+
+    #    KeyDatasetName simple return to titlezation
+    items = KeyDatasetName.objects.using(db_alias).all()
+    for item in items:
+        item.name = item.name.title()
+        item.save()
 
     #    KeyDatasetName
     item = KeyDatasetName.objects.using(db_alias).get(
@@ -404,3 +213,4 @@ class Migration(migrations.Migration):
     operations = [
         migrations.RunPython(forwards_func, backwards_func),
     ]
+
