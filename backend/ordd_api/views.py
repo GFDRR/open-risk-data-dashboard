@@ -1604,6 +1604,18 @@ class Score(object):
             keydataset_score_tree['value'] = score
             keydataset_score_tree['dataset'] = dataset
 
+    @classmethod
+    def world_statistics(cls, request):
+        countries = len(Dataset.objects.all().values('country').distinct())
+        datasets_count = len(Dataset.objects.all())
+        fullscores_count = len(Dataset.objects.filter(
+            score__range=(0.999999, 1.000001)))
+        ret = {
+            'countries': countries,
+            'datasets_count': datasets_count,
+            'fullscores_count': fullscores_count
+            }
+        return ret
 
 class ScoringWorldGet(APIView):
     """This view return the list of country with dataset instances and
@@ -1649,6 +1661,12 @@ class ScoringWorldCategoriesGet(APIView):
         return Response(ret)
 
 
+class WorldStatisticsGet(APIView):
+    """This view return the list of countries with score for each category"""
+
+    def get(self, request):
+        ret = Score.world_statistics(request)
+        return Response(ret)
 
 
 class ScoringUpdate(APIView):

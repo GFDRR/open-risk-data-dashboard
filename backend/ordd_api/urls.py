@@ -11,6 +11,7 @@ from .views import (
     RegistrationView, ProfileDatasetListCreateView, ProfileDatasetDetailsView,
     DatasetListView, DatasetDetailsView, DatasetsDumpView, VersionGet,
     CountryScoringWorldGet, CountryScoringCountryDetailsGet,
+    WorldStatisticsGet,
     ScoringWorldGet, ScoringCountryDetailsGet, ScoringWorldCategoriesGet,
     ScoringUpdate)
 
@@ -24,6 +25,7 @@ from .keydatasets_views import (
 # app_name="ordd_api"
 
 urlpatterns = [
+    url(r'^stats$', WorldStatisticsGet.as_view(), name='world_statistics'),
     url(r'^scoring_category/$', ScoringWorldCategoriesGet.as_view(),
         name='scoring_category'),
     url(r'^scoring/(?P<country_id>[A-Z0-9][A-Z0-9])$',
