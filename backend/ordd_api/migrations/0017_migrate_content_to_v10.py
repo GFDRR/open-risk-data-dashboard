@@ -91,10 +91,19 @@ def forwards_func(apps, schema_editor):
                 item = KeyDatasetName.objects.using(db_alias).get(
                     name=datasetname)
             except KeyDatasetName.DoesNotExist:
+                print("DatasetName [%s] is missing, create it" % datasetname)
                 new_item = KeyDatasetName(name=datasetname)
                 new_item.save()
-        raise ValueError("Just to avoid reload")
 
+        #
+        #  CHECK MISSING CATEGORY
+        #
+        for keydataset in kd:
+            category = keydataset[1]
+            print(category)
+            item = KeyCategory.objects.using(db_alias).get(
+                name=category)
+        raise ValueError("Just to avoid reload")
 
 
         # keydataset
