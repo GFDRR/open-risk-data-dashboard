@@ -238,7 +238,8 @@
                         </div>
                     </td>
                     <td class="text-center">
-                        <a class="" href="" title="details" style="margin-right:10px;" ng-click="setPopupDetails(item)"><i class="fa fa-search fa-2x" aria-hidden="true"></i></a>
+                        <a class="" href="" title="details" style="margin-right:10px;" ng-if="item.score > 0" ng-click="changepage('dataset_details.html?keyds=' + item.istance_id)"><i class="fa fa-search fa-2x" aria-hidden="true"></i></a>
+                        <a class="" href="" title="details" style="margin-right:10px;" ng-if="item.score <= 0" ng-click="changepage('contribute.html?ctr=' + idCountry + '&ds=' + item.name)"><i class="fa fa-search fa-2x" aria-hidden="true"></i></a>
                     </td>
                     <!--<td class="text-center">-->
                         <!--<a class="download" title="Download link" href="" ng-if="ds.url.length > 0" data-toggle="modal" data-target="#linkdataModal{{$index}}">-->
@@ -291,7 +292,7 @@
         }
     </style>
 
-    <!-- popup list of datasets submitted -->
+    <!-- popup list of datasets submitted *** NOT USED-->
     <div class="odfri_box_dataset_list_details animated fadeIn" style="" ng-if="bPopUpDetails">
         <div class="pull-right"><a href="" ng-click="setPopupDetails()"><i class="fa fa-times" aria-hidden="true"></i> CLOSE</a></div>
         <br />

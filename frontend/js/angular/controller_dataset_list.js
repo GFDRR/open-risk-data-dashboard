@@ -122,6 +122,7 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
             function(data)
             {
                 // Success
+                console.log(data);
                 $scope.countryRank = data.rank;
                 $scope.score = data.score;
                 $scope.countryDatasets = data.datasets_count;
@@ -142,6 +143,7 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
                             category:  data.scores[i][2],
                             description: "",
                             score:  data.scores[i][4] * 1,
+                            istance_id: data.scores[i][3],
                             quest1:  "na",
                             quest2:  "na",
                             quest3:  "na",
@@ -160,6 +162,7 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
                             category:  data.scores[i][2],
                             description: "",
                             score:  data.scores[i][4] * 1,
+                            istance_id: data.scores[i][3],
                             quest1:  data.scores[i][5],
                             quest2:  data.scores[i][6],
                             quest3:  data.scores[i][7],
@@ -352,6 +355,7 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
     };
 
     $scope.setPopupDetails = function(dataset){
+
         $scope.bPopUpDetails = !$scope.bPopUpDetails;
 
         // Load dataset list

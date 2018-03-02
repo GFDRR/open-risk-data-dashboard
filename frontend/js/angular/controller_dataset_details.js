@@ -38,6 +38,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
     $scope.bEdit = false;
     $scope.objDataset = {};
     $scope.objDatasetView = {};
+    $scope.istanceList = [];
 
     // Check the dataset pk
     if ($scope.idDataset != null)
@@ -480,7 +481,6 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
 
     $scope.formatLink = function(link){
         var shortLink = "";
-        console.log(link);
 
         if (link.length > 70)
         {
@@ -504,8 +504,6 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                 $scope.objDataset = dataDS;
                 $scope.objDatasetView = angular.copy(dataDS);
 
-                console.log($scope.objDatasetView);
-
                 // Check if user logged in can edit dataset, LOAD DATASET PROFILE API
                 if($scope.objDataset.owner == $scope.userinfo.username || $scope.userinfo.groups[0] == 'reviewer' || $scope.userinfo.groups[0] == 'admin')
                 {
@@ -517,6 +515,54 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                 {
                     // Standard user, load dataset from DATASET API
                     $scope.bReviewer = false;
+                }
+
+                // *******************************************
+                // *******************************************
+                RodiSrv.getDatasetlistFiltered($scope.objDataset.country, [], [], function(data)
+                {
+                    // Success
+                    $scope.istanceList = data;
+                    console.log(data);
+
+                    $scope.istanceList = $filter('filter')($scope.istanceList, function(item){
+                        return item.keydataset.dataset.id == $scope.objDataset.keydataset.dataset.id && item.id !== $scope.objDataset.id;
+                    });
+
+                }, function(data)
+                {
+                    // Error API
+                    console.log(data);
+                });
+
+                $scope.formatStringLenght = function(desc){
+                    var shortLink = "";
+
+                    if (desc.length > 70)
+                    {
+                        shortLink = desc.substr(0, 70);
+                        shortLink = shortLink + ' ...';
+                    } else {
+                        shortLink = desc;
+                    }
+
+                    return shortLink;
+
+                }
+
+                $scope.formatLink = function(link){
+                    var shortLink = "";
+
+                    if (link.length > 70)
+                    {
+                        shortLink = link.substr(0, 70);
+                        shortLink = shortLink + ' [...]';
+                    } else {
+                        shortLink = link;
+                    }
+
+                    return shortLink;
+
                 }
 
                 // Dataset classification set
@@ -698,6 +744,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                 vex.dialog.alert("Error load dataset information");
             }
         );
+
     }
 
     function clearNoAvailableTagsInSelected()

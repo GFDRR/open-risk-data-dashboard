@@ -1488,6 +1488,27 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         });
     }
 
+    this.updateScoring = function(token, onSuccess, onError)
+    {
+        // Update scoring manually
+
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'scoring_update',
+            headers: {
+                'Authorization': 'Token ' + token
+            },
+            data: {}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data);
+        }, function(data){
+            if(onError)onError(data);
+        });
+
+    }
+
     // ************************************** //
     // ************ STATISTICS ************** //
     // ************************************** //
@@ -1549,6 +1570,28 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
             if(onSuccess) onSuccess(data.data);
         }, function(data){
             if(onError)onError(data.data);
+        });
+
+    }
+
+    this.getHomeIndicators = function(onSuccess, onError)
+    {
+        // Return indicators for homepage
+
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'stats',
+            // url: 'https://dev.riskopendata.org/api-dev2/scoring/',
+            headers: {
+                // 'Authorization': 'Token ' + token
+            },
+            data: {}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data);
+        }, function(data){
+            if(onError)onError(data);
         });
 
     }
