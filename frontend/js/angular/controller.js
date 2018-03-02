@@ -762,17 +762,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                             }
                         };
 
-                        angular.element(document).ready(function () {
-                            jQuery('#tabCountries').DataTable(
-                                {
-                                    ordering: true,
-                                    paging: false,
-                                    searching: false,
-                                    info: false
-                                }
-                            );
-                        });
-
                         $scope.getCountryName = function(country)
                         {
                             var aCountry = $filter('filter')($scope.allCountries, function(item){
@@ -786,6 +775,17 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                         }
 
                         $scope.bLoadingTabel = false;
+
+                        // angular.element(document).ready(function () {
+                        //     jQuery('#tabCountries').DataTable(
+                        //         {
+                        //             ordering: true,
+                        //             paging: false,
+                        //             searching: false,
+                        //             info: false
+                        //         }
+                        //     );
+                        // });
 
                     }, function (data) {
                         // Error
