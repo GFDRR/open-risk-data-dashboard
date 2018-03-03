@@ -4,17 +4,22 @@ from __future__ import unicode_literals
 
 from django.db import migrations
 from django.core.management import call_command
+import django.conf as conf
 import os
 import subprocess
 
 
 def forwards_func(apps, schema_editor):
-    name = os.path.join(os.path.dirname(__file__), 'load_content_script.py')
+    database_name = conf.settings.DATABASES['default']['NAME']
+    print("\n%s DBNAME [%s]\n" % (
+        __file__, database_name))
+    name = os.path.join(os.path.dirname(__file__), '..',
+                        'helpers', 'load_content_script.py')
+    os.environ.update({'ORDD_OVERRIDE_DBNAME': database_name})
     sub = subprocess.run(['python3', name])
     if sub.returncode != 0:
         raise ValueError('load_content_script.py return [%d]' % sub.returncode)
 
-    call_command('', verbosity=0, interactive=False)
     call_command('load_countries', '--filein',
                  'contents/countries/ordd_countries_list_iso3166.csv',
                  verbosity=0, interactive=False)

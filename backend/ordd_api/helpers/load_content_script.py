@@ -1,8 +1,14 @@
 #!/usr/bin/env python
-from django.contrib.auth.models import User, Group
 import os
+import django
+django.setup()
+from django.contrib.auth.models import User, Group
+import django.conf as conf
+
 
 def main():
+    print("\n%s DBNAME [%s]\n" % (
+        __file__, conf.settings.DATABASES['default']['NAME']))
     ORDD_ADMIN_PASSWORD = os.environ.get('ORDD_ADMIN_PASSWORD')
     gr_adm = Group(name='admin')
     gr_adm.save()

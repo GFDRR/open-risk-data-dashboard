@@ -144,12 +144,10 @@ done
 python3 manage.py makemigrations api_exp01
 python3 manage.py makemigrations ordd_api
 
-# migrate all apps except ordd_api
-for app in $(python ./manage.py showmigrations -p | grep '^\[ \]' | grep -v ordd_api | cut -c 6-  | sed 's/\..*//g' | uniq); do
-    python3 manage.py migrate $app
-done
+# set PYTHONPATH required by external script called by migration 0012b
+export PYTHONPATH=$PWD
 
-python3 manage.py migrate ordd_api
+python3 manage.py migrate
 # Populate DB section: END
 
 cd $HOME
