@@ -1229,17 +1229,17 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                         if(data[0].tag_available.group == 'hazard')
                         {
                             //$scope.sTagsInfo = "Please select the Hazard for which the dataset is relevant/used. A predefined suggestion is provided.";
-                            $scope.sTagsInfo = "Please select which elements are included the dataset.";
+                            $scope.sTagsInfo = "Please indicate wheter the dataset was collected for or refer to specific hazards.";
                             ;                            }
 
                         if(data[0].tag_available.group == 'building')
                         {
-                            $scope.sTagsInfo = "Please select which elements are included the dataset.";
+                            $scope.sTagsInfo = "Please select which building's data are included in the dataset.";
                         };
 
                         if(data[0].tag_available.group == 'facilities')
                         {
-                            $scope.sTagsInfo = "Please select which elements are included the dataset.";
+                            $scope.sTagsInfo = "Please select which facilities are included in the dataset.";
                         };
 
                     } else
