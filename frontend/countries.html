@@ -104,9 +104,7 @@
 
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                    <div style="height:20px;"></div>
                     <h1 class="page_title">Explore countries</h1>
-                    <div style="height:20px;"></div>
                 </div>
             </div>
 
@@ -114,9 +112,9 @@
                 <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 menu_sep_countries">
                     <div class="row" >
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                            <ul class="nav navbar-nav text-center" data-toggle="tooltip" data-placement="top" title="Filter datasets from this category only">
+                            <ul class="nav navbar-nav text-center">
                                 <li ng-repeat="hc in HazardCategory">
-                                    <a href="" ng-click="setUnSetFilterCategory(hc.category.name)" ng-class="filterCategoryClass(hc.category.name)">
+                                    <a href="" ng-click="setUnSetFilterCategory(hc.category.name)" ng-class="filterCategoryClass(hc.category.name)" title="Filter datasets from this category only">
                                         <i class="{{getHCIcon(hc.category.id)}} fa-2x"></i>
                                         <span>{{hc.category.name}}</span>
                                     </a>
@@ -128,9 +126,9 @@
                 <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
                     <div class="row" >
                         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                            <ul class="nav navbar-nav text-center" data-toggle="tooltip" data-placement="top" title="Filter datasets applicable to this hazard only">
+                            <ul class="nav navbar-nav text-center">
                                 <li ng-repeat="appli in applicability">
-                                    <a href="" ng-click="setUnSetFilter(appli.title)" ng-class="filterApplicabilityClass(appli.title)">
+                                    <a href="" ng-click="setUnSetFilter(appli.title)" ng-class="filterApplicabilityClass(appli.title)"  title="Filter datasets applicable to this hazard only">
                                         <i class="{{appli.icon}} fa-2x"></i>
                                         <span>{{appli.title}}</span>
                                     </a>

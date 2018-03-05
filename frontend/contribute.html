@@ -205,12 +205,11 @@
                                             <option value="0" selected>-- Select dataset --</option>
                                             <option ng-repeat="dsname in datasetCategory | orderBy: 'dataset.name'" value="{{dsname.dataset.id}}">{{dsname.dataset.name}}</option>
                                         </select>
-
                                     </div><!--<br />-->
                                 </div>
 
                                 <div class="row">
-
+                                    <span class="rodi_dataset_label">Description</span>
                                     <span ng-repeat="ds_desc in datasetDescription | orderBy: 'description.name'" class="rodi_description_box_item" ng-click="changeDescription(ds_desc.description.code)" ng-class="{'selected': ds_desc.description.code == objDataset.keydataset.description}">
                                         {{ds_desc.description.name}}
                                     </span>
