@@ -872,12 +872,20 @@ class Score(object):
 
             score = cls.country(category_score_tree, country)
 
+            datasets_count_ds = 0
+            fullscores_count_ds = 0
+            if 'dsname' in country_score_tree:
+                dsname_score_tree = country_score_tree['dsname']
+                datasets_count_ds = len(dsname_score_tree)
+                for _, ds in dsname_score_tree.items():
+                    if ds['value'] > 0.999999:
+                        fullscores_count_ds += 1
+
             ret_score.append(
                 {"country": country.iso2,
                  "score": score,
-                 "datasets_count": country_score_tree['datasets_count'],
-                 "fullscores_count":
-                     country_score_tree['fullscores_count'],
+                 "datasets_count": datasets_count_ds,
+                 "fullscores_count": fullscores_count_ds,
                  "rank": 0})
         ret_score_ord = ret_score[:]
         ret_score_ord = sorted(ret_score_ord, key=lambda k: k['score'],
@@ -1435,9 +1443,18 @@ class Score(object):
         for dataset in fullscore_queryset:
             cls.country_scoring_loadtree(request, country_fullscore_tree,
                                          dataset)
-
         datasets_count = queryset.count()
         fullscores_count = fullscore_queryset.count()
+
+        datasets_count_ds = 0
+        fullscores_count_ds = 0
+        if 'dsname' in country_score_tree:
+            dsname_score_tree = country_score_tree['dsname']
+            datasets_count_ds = len(dsname_score_tree)
+            for _, ds in dsname_score_tree.items():
+                if ds['value'] > 0.999999:
+                    fullscores_count_ds += 1
+
         country_score = cls.country_scoring(country_score_tree, country)
 
         interesting_fields = [
@@ -1470,8 +1487,8 @@ class Score(object):
         ret = {'rank': rank['rank'],
                'score': cls.score_fmt(country_score),
                'scores': [["id", "name", "category", "instance_id", "score"]],
-               'datasets_count': datasets_count,
-               'fullscores_count': fullscores_count,
+               'datasets_count': datasets_count_ds,
+               'fullscores_count': fullscores_count_ds,
                'categories_counters': categories_counters,
                'perils_counters': []}
         ret_score = ret['scores']
@@ -1514,10 +1531,10 @@ class Score(object):
             superset = (queryset.filter(keydataset__applicability=peril) |
                         queryset.filter(tag=peril))
             peril_queryset = superset.distinct()
-            fullscore_queryset = peril_queryset.filter(
+            peril_fullscore_queryset = peril_queryset.filter(
                 **fullscore_filterargs)
             count = peril_queryset.count()
-            fullcount = fullscore_queryset.count()
+            fullcount = peril_fullscore_queryset.count()
 
             if peril in th_notable:
                 notable = True
