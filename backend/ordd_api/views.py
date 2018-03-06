@@ -1188,6 +1188,25 @@ class Score(object):
         return ret
 
     @classmethod
+    def keydataset_count(cls, applicability, category):
+        queryset = KeyDataset.objects.all()
+        if applicability:
+            q = Q()
+            for v in applicability:
+                # FIXME currently in tag we may have extra applicabilities
+                # when category (tag group) is 'hazard'
+                q = q | Q(applicability__name__iexact=v)
+            queryset = queryset.filter(q).distinct()
+
+        if category:
+            q = Q()
+            for v in category:
+                q = q | Q(category__name__iexact=v)
+            queryset = queryset.filter(q).distinct()
+
+        return len(queryset)
+
+    @classmethod
     def all_country_scoring(cls, request):
         queryset = Dataset.objects.filter(keydataset__level__name='National')
         applicability = request.query_params.getlist('applicability')
@@ -1224,6 +1243,7 @@ class Score(object):
                'datasets_count': datasets_count,
                'fullscores_count': fullscores_count,
                'countries_count': countries_count,
+               'keydatasets_count': cls.keydataset_count(applicability, category)
                }
 
         ret['countries'] = cls.calculate_ranking(world_score_tree, queryset)
@@ -1490,7 +1510,9 @@ class Score(object):
                'datasets_count': datasets_count_ds,
                'fullscores_count': fullscores_count_ds,
                'categories_counters': categories_counters,
-               'perils_counters': []}
+               'perils_counters': [],
+               'keydatasets_count': cls.keydataset_count(applicability, category),
+        }
         ret_score = ret['scores']
 
         for int_field in interesting_fields:
