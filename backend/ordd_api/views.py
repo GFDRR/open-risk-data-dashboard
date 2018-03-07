@@ -859,7 +859,8 @@ class Score(object):
 
     @classmethod
     def extract_ds_counters(cls, queryset):
-        queryset_ds = queryset.values('keydataset__dataset').annotate(Max('score'))
+        queryset_ds = queryset.values(
+            'keydataset__dataset').annotate(Max('score'))
         datasets_count_ds = len(queryset_ds)
         fullqueryset_ds = queryset_ds.filter(score__range=(0.999999, 1.000001))
         fullscores_count_ds = len(fullqueryset_ds)
@@ -882,7 +883,7 @@ class Score(object):
             score = cls.country(category_score_tree, country)
 
             datasets_count_ds, fullscores_count_ds = cls.extract_ds_counters(
-                queryset.filter(country__iso2=country.id))
+                queryset.filter(country__iso2=country.iso2))
 
             ret_score.append(
                 {"country": country.iso2,
