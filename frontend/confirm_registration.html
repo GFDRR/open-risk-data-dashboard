@@ -10,7 +10,7 @@
 
     <base href="{{$LocationProvider.$get}}" />
 
-    <title>Open Data for Resilience Index - About the project</title>
+    <title>Open Data for Resilience Index - Confirm registration</title>
 
     <!-- jQuery library -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -117,13 +117,12 @@
             <br />
             <div style="max-width: 80%; margin:auto;">
                 <div class="alert alert-success text-center" ng-if="bRegConfirm">
-                    <h2>Thanks, you can now submit a dataset.</h2>
-                    <!--Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.-->
+                    <h3>Thanks, you can now <a href="" ng-click="changepage('contribute.html')">submit a dataset</a>.</h3>
                     <br><br>
                     <!--<a href="" ng-click="changepage('contribute.html?tab=3')" class="btn btn-info">COMPLETE YOUR PROFILE</a>-->
                 </div>
                 <div class="alert alert-danger text-center" ng-if="!bRegConfirm">
-                    <h2>Registration confirmation error!</h2>
+                    <h3>Registration confirmation error!</h3>
                     {{errormsg}}
                     <br /><br />
                 </div>

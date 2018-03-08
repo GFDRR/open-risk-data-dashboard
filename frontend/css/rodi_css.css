@@ -485,7 +485,7 @@ section#counter-stats {
 .dataset_value i {
     color: white;
     padding: 10px;
-    margin:2px;
+    /*margin:2px;*/
     font-size: 1.1em;
     min-width: 40px;
     max-width: 40px;
@@ -494,6 +494,7 @@ section#counter-stats {
 .dataset_value p {margin:0;}
 .dataset_value i[aria-hidden~=false] {background: #EE3036;}
 .dataset_value i[aria-hidden~=true] {background: green;}
+.dataset_value i[aria-hidden~=na] {background: #c0c0c0;}
 
 
 .dataset_form_select_style select
@@ -513,7 +514,7 @@ section#counter-stats {
     margin-bottom:1em;
     margin-left:0.5em;
 }
-.rodi_dataset_label_code{ padding-right:1em;}
+.rodi_dataset_label_code{ padding-right:0.2em;}
 .dataset_form_select_style select {
     /*width: 100%;*/
     min-width:100%;
@@ -541,9 +542,14 @@ small.label {
     color:#a0a0a0;
 }
 
+.rodi_dataset_label_code_white
+{
+    color:#f0f0f0;
+}
+
 .rodi_dataset_label
 {
-    font-size:26px;
+    font-size:20px;
     color:#000000;
 }
 
@@ -801,7 +807,7 @@ Navbar
 
 .navbar-nav span {
     color:#a0a0a0;
-    font-size:14px;
+    font-size:10px;
     text-transform: uppercase;
     margin-top: 1em;
 }
@@ -1656,6 +1662,11 @@ hr {
     margin:5px 2em;
 }
 
+.menu_sep_countries
+{
+    border-right: solid 3px red;
+}
+
 .white {    background:  url('../img/separator_white.svg') center no-repeat;}
 .blu {    background:  url('../img/separator_blu.svg') center no-repeat;}
 
@@ -1706,6 +1717,10 @@ review mode
 }
 .rodi_dataset_question {}
 .rodi_dataset_question i {background: #eee;border:1px solid #ccc; text-align: center; padding:10px; min-width: 55px;}
+
+.rodi_dataset_question_green i {background: green;border:1px solid #00b200;}
+.rodi_dataset_question_red i {background: red;border:1px solid #b00000;}
+
 .rodi_dataset_label.flex-item {flex-grow: 2;}
 .flex-container.tag {flex-wrap:wrap; justify-content: space-around;}
 .viewer [class*="rodi_btn_"] {/* padding:0; */margin-left: 1em;}
@@ -1861,8 +1876,15 @@ background-color: white;
 
 .modal-header
 {
-    background-color: #FF8000;
+    background-color: #007899;
+    color:#ffffff;
 }
+
+.modal-header h4
+{
+    font-size: 25px;
+}
+
 /*
 
 .table>thead:first-child>tr:first-child>th
@@ -1924,12 +1946,31 @@ background-color: white;
     padding-top: 8vh;
 }
 
+.odfri_txt_space
+{
+    padding-top:25px;
+}
+
+.odfri_big_lik
+{
+    font-size:20px;
+}
+
 .odfri_div_separator
 {
     width: 100%;
     border-top: solid 1px #c0c0c0;
-    height: 30px;
     margin-top: 20px;
+}
+
+.odfri_link_filter
+{
+    text-decoration: none;
+}
+
+a.active
+{
+    border-bottom:solid 3px #007899;
 }
 
 .odfri_home_black_color
@@ -2042,3 +2083,17 @@ background-color: white;
 }
 
 .logout{padding-left: 1em;}
+
+.odfri_box_dataset_list_details
+{
+    position:fixed;
+    top:5%;
+    bottom:5%;
+    left:5%;
+    right:5%;
+    padding: 30px;
+    overflow: auto;
+    background-color: rgba(255,255,255,1);
+    border:solid 1px #c0c0c0;
+    z-index: 100;
+}

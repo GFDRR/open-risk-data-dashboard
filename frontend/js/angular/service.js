@@ -1341,6 +1341,90 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         });
     }
 
+
+    // ************************************** //
+    // ******* NEW API - 26/02/2018 ********* //
+    // ************************************** //
+
+    // Return the rank of countries (Explore Countries page)
+    this.getCountriesScoring = function(category, filters, onSuccess, onError)
+    {
+
+        var ApplicabilityFilers = "";
+        var CategoryFilters = "";
+
+        if(category.length> 0){
+            CategoryFilters = '?category='
+            category.forEach(function (item) {
+                CategoryFilters = CategoryFilters + item;
+            })
+        }else{
+            var CategoryFilters = ''
+        }
+
+        if(filters.length> 0){
+            ApplicabilityFilers = '?applicability='
+            filters.forEach(function (item) {
+                ApplicabilityFilers = ApplicabilityFilers + item;
+            })
+        }else{
+            var ApplicabilityFilers = ''
+        }
+
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'country_scoring/' + CategoryFilters + ApplicabilityFilers,
+            headers: { },
+            data: { }
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+    }
+
+    // Return the rank of countries (Explore Countries page)
+    this.getCountryScoring = function(countryID, category, filters, onSuccess, onError)
+    {
+
+        var ApplicabilityFilers = "";
+        var CategoryFilters = "";
+
+        if(category.length> 0){
+            CategoryFilters = '?category='
+            category.forEach(function (item) {
+                CategoryFilters = CategoryFilters + item;
+            })
+        }else{
+            var CategoryFilters = ''
+        }
+
+        if(filters.length> 0){
+            ApplicabilityFilers = '?applicability='
+            filters.forEach(function (item) {
+                ApplicabilityFilers = ApplicabilityFilers + item;
+            })
+        }else{
+            var ApplicabilityFilers = ''
+        }
+
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'country_scoring/' + countryID + CategoryFilters + ApplicabilityFilers,
+            headers: { },
+            data: { }
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data.data);
+        }, function(data){
+            if(onError)onError(data.data);
+        });
+    }
+
+
     // ************************************** //
     // *************** UTILITY ***************** //
     // ************************************** //

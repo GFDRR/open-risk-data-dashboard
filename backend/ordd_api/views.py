@@ -204,7 +204,7 @@ class RegistrationView(generics.CreateAPIView, generics.RetrieveAPIView):
         # - return success
         # in the other cases return a generic error for security reason
 
-        detail = "user not exists, is already activated or passed key is wrong"
+        detail = "User does not exist, has already been activated or key is wrong"
         user = User.objects.filter(username=request.GET['username'])
 
         if len(user) != 1:
