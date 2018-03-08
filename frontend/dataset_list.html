@@ -110,7 +110,7 @@
         <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 menu_sep_countries">
             <div class="row" >
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                    <ul class="nav navbar-nav text-center" data-toggle="tooltip" data-placement="bottom">
+                    <ul class="nav navbar-nav text-center">
                         <li ng-repeat="hc in HazardCategory" ng-class="filterCategoryCssClass(hc.category.name)">
                             <a href="" ng-class="filterCategoryCssClass(hc.category.name)" ng-click="setFilterCategoryDatasetList(hc.category.name)" title="Filter datasets from this category only">
                                 <i class="{{getHCIcon(hc.category.id)}} fa-2x"></i>
@@ -124,7 +124,7 @@
         <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
             <div class="row" >
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                    <ul class="nav navbar-nav text-center" data-toggle="tooltip" data-placement="bottom">
+                    <ul class="nav navbar-nav text-center">
                         <li ng-style="filterApplicabilityCssStyle(h.desc)" ng-class="filterApplicabilityCssClass(h.desc)"  ng-repeat="h in arrayHazardList" >
                             <a href="" ng-click="setFilterApplicabilityDatasetList(h.desc)" ng-if="getApplicabilityNumber(h.desc) !== 'n.a.'" title="Filter datasets applicable to this hazard only">
                                 <i class="{{h.icon}} fa-2x"></i>
@@ -141,31 +141,37 @@
         </div>
     </div>
 
-    <div class="odfri_space"></div>
+    <div class="odfri_txt_space"></div>
 
     <div class="odfri_content_small">
         <div class="row">
-            <div class="col-xs-3 col-sm-3 col-md-2 col-lg-2"><span class="rodi_txt_big">Rank: </span></div>
-            <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4"> <span class="rodi_txt_big"><strong>{{countryRank}}</strong></span></div>
-            <div class="col-xs-3 col-sm-3 col-md-2 col-lg-2"><span class="rodi_txt_big">Score: <!--<span class="odfri_black_blue">{{score}}%</span>--></span></div>
-            <div class="col-xs-3 col-sm-3 col-md-4 col-lg-4">
-                <div class="progress">
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <span class="rodi_txt_big">Rank:
+            <span class="odfri_black_blue"><strong>{{countryRank}}</strong></span></span>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <span class="rodi_txt_big" style="float:left">Score:&nbsp;</span>
+                <div class="progress" >
                     <div class="progress-bar" role="progressbar" aria-valuenow="{{score}}" aria-valuemin="0" aria-valuemax="100" style="width:{{score}}%;">
                         {{score}}%
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="odfri_txt_space"></div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <span class="rodi_txt_big">Number of datasets: <strong><span class="odfri_black_blue">{{countryDatasets}}</span></strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Open<a href="" ng-click="changepage('methodology.html#opendata')" class="small">(?)</a>: <span class="odfri_black_blue">{{countryOpenDatasets}}</span></span>
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+            <span class="rodi_txt_big">Datasets: <span class="odfri_black_blue"><strong>{{countryDatasets}}</strong></span></span>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2"> 
+            <span class="rodi_txt_big">Open: <span class="odfri_black_blue"><strong>{{countryOpenDatasets}}</strong></span></span>
             </div>
         </div>
         <div class="odfri_txt_space"></div>
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <span class="rodi_txt_big">Show: <a href="" ng-click="setFilterMode('submitted')" ng-class="{active: filterMode == 'submitted'}">data submitted</a>, <a href="" ng-class="{active: filterMode == 'notsubmitted'}" ng-click="setFilterMode('notsubmitted')">not submitted</a>, <a href="" ng-class="{active: filterMode == 'all'}" ng-click="setFilterMode('all')">all</a></span>
+
             </div>
         </div>
 
@@ -175,6 +181,9 @@
     <div class="row">
         <div class="hidden-xs col-sm-1 col-md-1 col-lg-1"></div>
         <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+        <span style="font-size: 16px;">Show: <a style="text-decoration: none;" href="" ng-click="setFilterMode('submitted')" ng-class="{active: filterMode == 'submitted'}">data submitted</a>, <a style="text-decoration: none;" href="" ng-class="{active: filterMode == 'notsubmitted'}" ng-click="setFilterMode('notsubmitted')">not submitted</a>, <a style="text-decoration: none;" href="" ng-class="{active: filterMode == 'all'}" ng-click="setFilterMode('all')">all</a></span>
+        <br/>
+        
             <table ng-table="tableParams" class="table table-responsive table-striped table-hover">
                 <thead>
                 <tr>
@@ -238,7 +247,8 @@
                         </div>
                     </td>
                     <td class="text-center">
-                        <a class="" href="" title="details" style="margin-right:10px;" ng-click="setPopupDetails(item)"><i class="fa fa-search fa-2x" aria-hidden="true"></i></a>
+                        <a class="" href="" title="details" style="margin-right:10px;" ng-if="item.score > 0" ng-click="changepage('dataset_details.html?keyds=' + item.istance_id)"><i class="fa fa-search fa-2x" aria-hidden="true"></i></a>
+                        <a class="" href="" title="details" style="margin-right:10px;" ng-if="item.score <= 0" ng-click="changepage('contribute.html?ctr=' + idCountry + '&ds=' + item.name)"><i class="fa fa-search fa-2x" aria-hidden="true"></i></a>
                     </td>
                     <!--<td class="text-center">-->
                         <!--<a class="download" title="Download link" href="" ng-if="ds.url.length > 0" data-toggle="modal" data-target="#linkdataModal{{$index}}">-->
@@ -290,109 +300,6 @@
             z-index:0;
         }
     </style>
-
-    <!-- popup list of datasets submitted -->
-    <div class="odfri_box_dataset_list_details animated fadeIn" style="" ng-if="bPopUpDetails">
-        <div class="pull-right"><a href="" ng-click="setPopupDetails()"><i class="fa fa-times" aria-hidden="true"></i> CLOSE</a></div>
-        <br />
-        <hr />
-
-        <table class="table table-responsive table-striped table-hover">
-            <thead>
-            <tr>
-                <th class="col-xs-4 col-sm-4 col-md-4 col-lg-4">Dataset</th>
-                <th class="col-xs-6 col-sm-6 col-md-6 col-lg-6">Open data criteria</th>
-                <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center">See details</th>
-                <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center">Data access</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr ng-repeat="istance in istanceList | orderBy: '-score * 1'">
-                <td>
-                    {{istance.keydataset.dataset.name}}<br />
-                    <span class="small text-muted">{{formatStringLenght(istance.keydataset.description)}}</span><br />
-                    <small><a href="" data-toggle="modal" data-target="#moreinfoModal{{$index}}">more info</a></small>
-
-                    <!-- Modal Description -->
-                    <div class="modal fade" id="moreinfoModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="moreinfoModal{{$index}}label" aria-hidden="true">
-                        <div class="modal-dialog modal-lg" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title" id="moreinfoModal{{$index}}label">{{istance.keydataset.category}} - {{istance.keydataset.dataset.name}} ({{istance.keydataset.level}})</h4>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                            <div class="modal-body">
-                                <strong>Description</strong>
-                                <br />
-                                <span class="table_modal_txt">
-                                {{istance.keydataset.description}}
-                                </span>
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </td>
-                <td>
-                    <div class="dataset_value">
-                        <i class="fa fa-check-circle-o" aria-hidden="{{istance.is_existing}}" data-toggle="tooltip" title="{{questions[0].desc}}"></i>
-                        <i class="fa fa-desktop" aria-hidden="{{istance.is_digital_form}}" data-toggle="tooltip" title="{{questions[1].desc}}"></i>
-                        <i class="fa fa-cloud" aria-hidden="{{istance.is_avail_online}}" data-toggle="tooltip" title="{{questions[2].desc}}"></i>
-                        <i class="fa fa-tag" aria-hidden="{{istance.is_avail_online_meta}}" data-toggle="tooltip" title="{{questions[3].desc}}"></i>
-                        <i class="fa fa-copy" aria-hidden="{{istance.is_bulk_avail}}" data-toggle="tooltip" title="{{questions[4].desc}}"></i>
-                        <i class="fa fa-keyboard-o" aria-hidden="{{istance.is_machine_read}}" data-toggle="tooltip" title="{{questions[5].desc}}"></i>
-                        <i class="fa fa-eye" aria-hidden="{{istance.is_pub_available}}" data-toggle="tooltip" title="{{questions[6].desc}}"></i>
-                        <i class="fa fa-dollar" aria-hidden="{{istance.is_avail_for_free}}" data-toggle="tooltip" title="{{questions[7].desc}}"></i>
-                        <i class="fa fa-unlock-alt" aria-hidden="{{istance.is_open_licence}}" data-toggle="tooltip" title="{{questions[8].desc}}"></i>
-                        <i class="fa fa-clock-o" aria-hidden="{{istance.is_prov_timely}}" data-toggle="tooltip" title="{{questions[9].desc}}"></i>
-                    </div>
-                </td>
-                <td class="text-center">
-                    <a class="" href="" title="details" style="margin-right:10px;" ng-click="changepage('dataset_details.html?keyds=' + istance.id)"><i class="fa fa-search fa-2x" aria-hidden="true"></i></a>
-                </td>
-                <td class="text-center">
-                    <a class="download" title="Download link" href="" ng-if="istance.url.length > 0" data-toggle="modal" data-target="#linkdataModal{{$index}}">
-                        <i class="fa fa-download fa-2x" aria-hidden="true"></i>
-                    </a>
-                    <!-- Modal Link download DATA & METADATA -->
-                    <div class="modal fade text-left" id="linkdataModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="linkdataModal{{$index}}label" aria-hidden="true">
-                        <div class="modal-dialog modal-lg" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h4 class="modal-title" id="linkdataModal{{$index}}label">{{istance.keydataset.category}} - {{istance.keydataset.dataset.name}} ({{istance.keydataset.level}})</h4>
-                                    <!--Access the data-->
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body text-left">
-                                    <strong>Donwload link</strong>
-                                    <br /><br />
-                                    <ul class="text-left">
-                                        <li ng-repeat="link in istance.url">
-                                            <a href="{{link}}" target="_blank">{{formatLink(link)}}</a>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-
-            </tbody>
-        </table>
-
-    </div>
-
 </div>
 
 

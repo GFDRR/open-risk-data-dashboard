@@ -164,35 +164,35 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
     // ******** SEARCH SUGGESTIONS ********** //
     // ************************************** //
 
-    $scope.searchValue = "";
+    // $scope.searchValue = "";
 
-    RodiSrv.getCountryList(
-        function(data){
+    // RodiSrv.getCountryList(
+    //     function(data){
             // Success
 
-            $scope.countrySuggestion = data;
-
-            $scope.searchSubmit = function()
-            {
-                if ($scope.searchValue !== ''){
-                    var codeCountry = $filter('filter')($scope.countrySuggestion, {name: $scope.searchValue});
-
-                    if(codeCountry.length > 0)
-                    {
-                        $window.location.href = baseUrl + 'country-details.html?idcountry='+ codeCountry[0].iso2;
-                    } else
-                    { vex.dialog.alert('Attention: No data details available'); }
-                } else
-                {
-                    vex.dialog.alert('Attention: Type a country name');
-                }
-
-            };
-
-        }, function(data){
+            // $scope.countrySuggestion = data;
+            //
+            // $scope.searchSubmit = function()
+            // {
+            //     if ($scope.searchValue !== ''){
+            //         var codeCountry = $filter('filter')($scope.countrySuggestion, {name: $scope.searchValue});
+            //
+            //         if(codeCountry.length > 0)
+            //         {
+            //             $window.location.href = baseUrl + 'country-details.html?idcountry='+ codeCountry[0].iso2;
+            //         } else
+            //         { vex.dialog.alert('Attention: No data details available'); }
+            //     } else
+            //     {
+            //         vex.dialog.alert('Attention: Type a country name');
+            //     }
+            //
+            // };
+        //
+        // }, function(data){
             // Error
             // TODO: set e message error
-    });
+    // });
 
     // ************************************** //
     // ********** HELP & FEEDBACK *********** //

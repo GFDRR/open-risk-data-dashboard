@@ -502,7 +502,6 @@ section#counter-stats {
     border:0px;
     padding:10px;
     font-size:25px;
-    color:#a0a0a0;
     background-color: transparent;
     font-weight: 500;
 }
@@ -511,7 +510,6 @@ section#counter-stats {
     /*margin:1em;*/
     margin-top: 1em;
     margin-right:1em;
-    margin-bottom:1em;
     margin-left:0.5em;
 }
 .rodi_dataset_label_code{ padding-right:0.2em;}
@@ -666,16 +664,15 @@ small.label {
 .rodi_description_box_item
 {
     padding:10px;
-    border:solid 1px #c0c0c0;
+
     webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
     font-size:25px;
-    color:#a0a0a0;
     margin-bottom: 20px;
 }
 
-.rodi_description_box_item:hover
+/*.rodi_description_box_item:hover
 {
     color:#ffffff;
     background-color: #232323;
@@ -687,6 +684,7 @@ small.label {
     background-color: green;
     color:#ffffff;
 }
+*/
 
 .rodi_question_help
 {

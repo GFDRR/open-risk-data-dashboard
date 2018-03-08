@@ -782,7 +782,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
                 {code: "is_digital_form", desc:"Is data in digital form?", altTXT:"", altDesc:""},
                 {code: "is_avail_online", desc:"Is the data available online?", altTXT:"", altDesc:""},
                 {code: "is_avail_online_meta", desc:"Is the metadata available online?", altTXT:"", altDesc:""},
-                {code: "is_bulk_avail", desc:"Available in bulk?", altTXT:"", altDesc:""},
+                {code: "is_bulk_avail", desc:"Is the data available in bulk?", altTXT:"", altDesc:""},
                 {code: "is_machine_read", desc:"Is the data machine- readable?", altTXT:"is_machine_read_txt", altDesc:"machine alternative text"},
                 {code: "is_pub_available", desc:"Is the data publicly available?", altTXT:"", altDesc:""},
                 {code: "is_avail_for_free", desc:"Is the data available for free?", altTXT:"", altDesc:""},
@@ -802,7 +802,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
             {code: "is_digital_form", desc:"Is data in digital form?", altTXT:"", altDesc:""},
             {code: "is_avail_online", desc:"Is the data available online?", altTXT:"", altDesc:""},
             {code: "is_avail_online_meta", desc:"Is the metadata available online?", altTXT:"", altDesc:""},
-            {code: "is_bulk_avail", desc:"Available in bulk?", altTXT:"", altDesc:""},
+            {code: "is_bulk_avail", desc:"Is the data available in bulk?", altTXT:"", altDesc:""},
             {code: "is_machine_read", desc:"Is the data machine- readable?", altTXT:"is_machine_read_txt", altDesc:"machine alternative text"},
             {code: "is_pub_available", desc:"Is the data publicly available?", altTXT:"", altDesc:""},
             {code: "is_avail_for_free", desc:"Is the data available for free?", altTXT:"", altDesc:""},
@@ -1488,6 +1488,27 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         });
     }
 
+    this.updateScoring = function(token, onSuccess, onError)
+    {
+        // Update scoring manually
+
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'scoring_update',
+            headers: {
+                'Authorization': 'Token ' + token
+            },
+            data: {}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data);
+        }, function(data){
+            if(onError)onError(data);
+        });
+
+    }
+
     // ************************************** //
     // ************ STATISTICS ************** //
     // ************************************** //
@@ -1549,6 +1570,28 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
             if(onSuccess) onSuccess(data.data);
         }, function(data){
             if(onError)onError(data.data);
+        });
+
+    }
+
+    this.getHomeIndicators = function(onSuccess, onError)
+    {
+        // Return indicators for homepage
+
+        var req = {
+            method: 'GET',
+            url: baseAPIurl + 'stats',
+            // url: 'https://dev.riskopendata.org/api-dev2/scoring/',
+            headers: {
+                // 'Authorization': 'Token ' + token
+            },
+            data: {}
+        }
+
+        $http(req).then(function(data){
+            if(onSuccess) onSuccess(data);
+        }, function(data){
+            if(onError)onError(data);
         });
 
     }
