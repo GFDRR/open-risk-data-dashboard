@@ -50,36 +50,50 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
     if ($location.path().indexOf('index') !== -1 || $location.path() == baseUrl.replace("http:/", "") || $location.path() == baseUrl.replace("https:/", ""))
     {
 
-        RodiSrv.getHomeStatistics(function(data)
+        RodiSrv.getHomeIndicators(function(data)
         {
-            // Statistics index
+            //Success API
 
-            $scope.countryWithData = data.countries_count;
-            $scope.totalDataset = data.datasets_count;
-            $scope.categoryCounters = data.categories_counters;
+            $scope.countryWithData = data.data.countries;
+            $scope.totalDataset = data.data.datasets_count;
+            $scope.iOpenIndex = data.data.fullscores_count * 1;
 
-            // Calc % open datatsets
-            $scope.iOpenIndex = 0;
-            var iTotalDatasets = 0;
-            aTotDataset = angular.copy($scope.categoryCounters);
-
-            //
-            angular.forEach(aTotDataset, function(item)
-            {
-                iTotalDatasets = (iTotalDatasets * 1) + (item.count * 1);
-                $scope.iOpenIndex = $scope.iOpenIndex + (item.fullcount * 1);
-
-            });
-
-            $scope.iOpenIndex = (($scope.iOpenIndex / iTotalDatasets) * 100).toFixed(1) * 1;
-
-            console.log($scope.iOpenIndex);
+            $scope.iOpenIndex = (($scope.iOpenIndex / $scope.totalDataset * 1) * 100).toFixed(1) * 1;
 
 
         }, function(data)
         {
             // Error
         });
+
+        // RodiSrv.getHomeStatistics(function(data)
+        // {
+            // Statistics index
+
+            // $scope.countryWithData = data.countries_count;
+            // $scope.totalDataset = data.datasets_count;
+            // $scope.categoryCounters = data.categories_counters;
+
+            // Calc % open datatsets
+            // $scope.iOpenIndex = 0;
+            // var iTotalDatasets = 0;
+            // aTotDataset = angular.copy($scope.categoryCounters);
+
+            //
+            // angular.forEach(aTotDataset, function(item)
+            // {
+            //     iTotalDatasets = (iTotalDatasets * 1) + (item.count * 1);
+            //     $scope.iOpenIndex = $scope.iOpenIndex + (item.fullcount * 1);
+            //
+            // });
+            //
+            // $scope.iOpenIndex = (($scope.iOpenIndex / iTotalDatasets) * 100).toFixed(1) * 1;
+        //
+        //
+        // }, function(data)
+        // {
+            Error
+        // });
 
     }
 
@@ -112,6 +126,9 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
         // ************************************** //
         // ******* STATISTICS & MAP DATA ******** //
         // ************************************** //
+
+        // GET HOME INDICATORS
+        // getHomeIndicators
 
         RodiSrv.getHomeStatistics(function(data)
         {
@@ -712,7 +729,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
                     RodiSrv.getCountriesScoring($scope.filteredCategory, $scope.filteredApplicability, function (data) {
 
-                        $scope.datasetConsidered = data.datasets_count;
+                        $scope.datasetConsidered = data.keydatasets_count;
 
                         $scope.countriesList = data.countries;
 
@@ -743,7 +760,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                                 });
 
                             }
-                        }
+                        };
 
                         $scope.getCountryName = function(country)
                         {
@@ -758,6 +775,17 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                         }
 
                         $scope.bLoadingTabel = false;
+
+                        // angular.element(document).ready(function () {
+                        //     jQuery('#tabCountries').DataTable(
+                        //         {
+                        //             ordering: true,
+                        //             paging: false,
+                        //             searching: false,
+                        //             info: false
+                        //         }
+                        //     );
+                        // });
 
                     }, function (data) {
                         // Error
@@ -855,6 +883,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 // Error
                 // TODO: set e message error
                 $scope.allCountries = [];
+
                 console.log(data);
             });
         }
@@ -908,6 +937,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
         $scope.selectedTags = [];
         $scope.sTagsMsg = "** Select a dataset description **";
         $scope.sTagsInfo = "";
+        $scope.bLoadingUpdateScoring = false;
 
         $scope.objDataset = RodiSrv.getDatasetEmptyStructure();
 
@@ -935,8 +965,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 /*****************************************/
                 /******** FILTER ONLY NATIONAL ***********/
                 /*****************************************/
-
-                console.log(data);
 
                 $scope.datasetCategory = $filter('filter')(data, function(item){
                     return item.level == 'National';
@@ -1201,17 +1229,17 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                         if(data[0].tag_available.group == 'hazard')
                         {
                             //$scope.sTagsInfo = "Please select the Hazard for which the dataset is relevant/used. A predefined suggestion is provided.";
-                            $scope.sTagsInfo = "Please select which elements are included the dataset.";
+                            $scope.sTagsInfo = "Please indicate wheter the dataset was collected for or refer to specific hazards.";
                             ;                            }
 
                         if(data[0].tag_available.group == 'building')
                         {
-                            $scope.sTagsInfo = "Please select which elements are included the dataset.";
+                            $scope.sTagsInfo = "Please select which building's data are included in the dataset.";
                         };
 
                         if(data[0].tag_available.group == 'facilities')
                         {
-                            $scope.sTagsInfo = "Please select which elements are included the dataset.";
+                            $scope.sTagsInfo = "Please select which facilities are included in the dataset.";
                         };
 
                     } else
@@ -1334,6 +1362,31 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 $scope.selectedTags = [];
                 $scope.sTagsMsg = "** Select a dataset description **";
             }
+        }
+
+        $scope.updateScoringMan = function()
+        {
+            // Update scoring manually
+
+            console.log('enter');
+            $scope.bLoadingUpdateScoring = true;
+
+            RodiSrv.updateScoring($scope.tokenid,
+                function(data)
+                {
+                    // Success
+                    console.log(data);
+
+                    $scope.bLoadingUpdateScoring = false;
+                    vex.dialog.alert("Scoring updated correctly");
+
+                }, function(data)
+                {
+                    // Error
+                    console.log(data);
+                    vex.dialog.alert("Error: " + data.data);
+                })
+
         }
 
         // ************************************** //
