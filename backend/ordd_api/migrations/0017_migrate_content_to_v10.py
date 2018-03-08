@@ -124,10 +124,6 @@ def forwards_func(apps, schema_editor):
             # try:
             item = KeyTagGroup.objects.using(db_alias).get(
                 name=taggroup)
-            # except KeyTagGroup.DoesNotExist:
-            #     print("TagGroup [%s] is missing, create it" % taggroup)
-            #     new_item = KeyTagGroup(name=taggroup)
-            #     new_item.save()
 
         #
         #  CHECK MISSING KEYDATASET AND UPDATE THE OLD
