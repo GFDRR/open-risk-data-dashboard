@@ -142,6 +142,7 @@
                     <li role="presentation" ng-class="{active:tab==3}"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">My Profile</a></li>
                     <!--<li role="presentation" ng-class="{active:tab==4}"><a href="#feedback" aria-controls="profile" role="tab" data-toggle="tab" ng-if="userinfo.groups[0] == 'admin'">Feedback</a></li>-->
                     <li role="presentation" ng-class="{active:tab==5}"><a href="#users" aria-controls="profile" role="tab" data-toggle="tab" ng-if="userinfo.groups[0] == 'admin'">Registered users</a></li>
+                    <li role="presentation" ng-class="{active:tab==6}"><a href="#update" aria-controls="profile" role="tab" data-toggle="tab" ng-if="userinfo.groups[0] == 'admin'">Scoring Update</a></li>
                 </ul>
 
                 <!-- Tab panes -->
@@ -204,12 +205,11 @@
                                             <option value="0" selected>-- Select dataset --</option>
                                             <option ng-repeat="dsname in datasetCategory | orderBy: 'dataset.name'" value="{{dsname.dataset.id}}">{{dsname.dataset.name}}</option>
                                         </select>
-
                                     </div><!--<br />-->
                                 </div>
 
                                 <div class="row">
-
+                                    <span class="rodi_dataset_label">Description</span>
                                     <span ng-repeat="ds_desc in datasetDescription | orderBy: 'description.name'" class="rodi_description_box_item" ng-click="changeDescription(ds_desc.description.code)" ng-class="{'selected': ds_desc.description.code == objDataset.keydataset.description}">
                                         {{ds_desc.description.name}}
                                     </span>
@@ -1084,6 +1084,19 @@
                                 </table>
                             </div>
                         </div>
+                    </div>
+
+                    <!-- Scoring update -->
+                    <div role="tabpanel" class="tab-pane fade" id="update">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                                <br /><br />
+                                <a href="" class="btn btn-lg btn-success" ng-click="updateScoringMan()">UPDATE NOW</a>
+                                <br /><br />
+                                <div class="text-center" ng-if="bLoadingUpdateScoring"><img src="img/template/loading.gif" alt="" style="max-width:80px;" /></div>
+                            </div>
+                        </div>
+                        <br /><br /><br />
                     </div>
                 </div>
             </div>
