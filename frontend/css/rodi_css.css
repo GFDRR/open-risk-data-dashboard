@@ -10,7 +10,7 @@
     font-family: 'Bariol Bold';
     src: url('bariol/Bariol-Bold.eot'); /* IE9 Compat Modes */
     src: url('bariol/Bariol-Bold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-    url('bariol/Bariol-Bold.woff2') format('woff2'), /* Super Modern Browsers */
+    /*url('bariol/Bariol-Bold.woff2') format('woff2'), !* Super Modern Browsers *!*/
     url('bariol/Bariol-Bold.woff') format('woff'), /* Pretty Modern Browsers */
     url('bariol/Bariol-Bold.ttf')  format('truetype'), /* Safari, Android, iOS */
     url('bariol/Bariol-Bold.svg#svgFontName') format('svg'); /* Legacy iOS */
@@ -19,7 +19,7 @@
     font-family: 'Bariol Regular';
     src: url('bariol/Bariol-Regular.eot'); /* IE9 Compat Modes */
     src: url('bariol/Bariol-Regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-    url('bariol/Bariol-Regular.woff2') format('woff2'), /* Super Modern Browsers */
+    /*url('bariol/Bariol-Regular.woff2') format('woff2'), !* Super Modern Browsers *!*/
     url('bariol/Bariol-Regular.woff') format('woff'), /* Pretty Modern Browsers */
     url('bariol/Bariol-Regular.ttf')  format('truetype'), /* Safari, Android, iOS */
     url('bariol/Bariol-Regular.svg#svgFontName') format('svg'); /* Legacy iOS */

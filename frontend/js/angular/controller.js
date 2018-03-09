@@ -729,7 +729,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
                     RodiSrv.getCountriesScoring($scope.filteredCategory, $scope.filteredApplicability, function (data) {
 
-                        $scope.datasetConsidered = data.datasets_count;
+                        $scope.datasetConsidered = data.keydatasets_count;
 
                         $scope.countriesList = data.countries;
 

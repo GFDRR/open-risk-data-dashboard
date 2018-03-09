@@ -88,8 +88,42 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
         $scope.bLoading = true;
 
         // Load the country statistics
-        RodiSrv.getCountryStatistics($scope.idCountry, $scope.aCategory, $scope.aApplicability, function(data){
+        // RodiSrv.getCountryStatistics($scope.idCountry, $scope.aCategory, $scope.aApplicability, function(data){
+        //
+        //         $scope.perils_counters = angular.copy(data.perils_counters);
+        //
+        //         $scope.getApplicabilityNumber = function(applicability){
+        //
+        //             var itemFound = [];
+        //
+        //             itemFound = $filter('filter')($scope.perils_counters, function(item)
+        //             {
+        //                 return item.name == applicability;
+        //             });
+        //
+        //             if (itemFound.length > 0)
+        //             {
+                        // Item found
+                        // if(itemFound[0].notable)
+                        // {
+                        //     return itemFound[0].count;
+                        // } else {
+                        //     return "n.a.";
+                        // }
+                    // }
+                // };
+            //
+            // }, function(data){
+            //     Error API
+                // console.log(data);
+            // })
 
+        RodiSrv.getCountryScoring($scope.idCountry, $scope.aCategory, $scope.aApplicability,
+            function(data)
+            {
+                // Success
+
+                // Set peril available
                 $scope.perils_counters = angular.copy(data.perils_counters);
 
                 $scope.getApplicabilityNumber = function(applicability){
@@ -103,7 +137,7 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
 
                     if (itemFound.length > 0)
                     {
-                        // Item found
+                    // Item found
                         if(itemFound[0].notable)
                         {
                             return itemFound[0].count;
@@ -113,16 +147,6 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
                     }
                 };
 
-            }, function(data){
-                // Error API
-                console.log(data);
-            })
-
-        RodiSrv.getCountryScoring($scope.idCountry, $scope.aCategory, $scope.aApplicability,
-            function(data)
-            {
-                // Success
-                console.log(data);
                 $scope.countryRank = data.rank;
                 $scope.score = data.score;
                 $scope.countryDatasets = data.datasets_count;

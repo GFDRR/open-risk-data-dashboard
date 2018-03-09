@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import Sum
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from randstr import randstr
@@ -314,6 +315,54 @@ class Dataset(models.Model):
         "in the comments field.")
     is_prov_timely_last = models.TextField(blank=True, null=False)
     tag = models.ManyToManyField(KeyTag, blank=True)
+    score = models.FloatField(blank=False, null=False, default=0.0)
+    score_th_norm = models.FloatField(blank=False, null=False, default=0.0)
+
+    @classmethod
+    def gem_score_calculate(cls, inst):
+        score = 0.0
+
+        if inst.is_existing:
+            score += 0.05
+        if inst.is_digital_form:
+            score += 0.05
+        if inst.is_avail_online:
+            score += 0.05
+        if inst.is_avail_online_meta:
+            score += 0.05
+        if inst.is_bulk_avail:
+            score += 0.10
+        if inst.is_machine_read:
+            score += 0.15
+        if inst.is_pub_available:
+            score += 0.05
+        if inst.is_avail_for_free:
+            score += 0.15
+        if inst.is_open_licence:
+            score += 0.30
+        if inst.is_prov_timely:
+            score += 0.05
+
+        appl = set()
+        for kd_appl in inst.keydataset.applicability.all():
+            appl.add(kd_appl.name)
+
+        for ds_appl in inst.tag.all():
+            appl.add(ds_appl.name)
+
+        th_applicability = set()
+        for th_appl in inst.country.thinkhazard_appl.all():
+            th_applicability.add(th_appl.name)
+
+        score_th_norm = score * (
+            float(len(appl & th_applicability)) /
+            float(len(th_applicability)))
+
+        return score, score_th_norm
+
+    def save(self, *args, **kwargs):
+        self.score, self.score_th_norm = self.gem_score_calculate(self)
+        super().save(*args, **kwargs)
 
 
 #  Don't remove 'KeyPeril' model (now 'KeyPerilObsolete') allow
