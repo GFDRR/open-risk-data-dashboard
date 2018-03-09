@@ -7,7 +7,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('ordd_api', '0012_optin_insert_time'),
+        ('ordd_api', '0012b_load_content'),
     ]
 
     operations = [
