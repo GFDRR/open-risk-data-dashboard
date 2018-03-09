@@ -122,7 +122,6 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
             function(data)
             {
                 // Success
-                console.log(data);
 
                 // Set peril available
                 $scope.perils_counters = angular.copy(data.perils_counters);
@@ -154,7 +153,7 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
                 $scope.countryOpenDatasets = data.fullscores_count;
 
                 // Delete first element (name of columns)
-                // data.scores.splice(0,1);
+                data.scores.splice(0,1);
 
                 for (var i = 0; i < data.scores.length; i++)
                 {
