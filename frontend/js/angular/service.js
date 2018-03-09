@@ -779,11 +779,11 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 
         return objQuestions = [
                 {code: "is_existing", desc:"Does the data exist?", altTXT:"is_existing_txt", altDesc:"existing alternative text"},
-                {code: "is_digital_form", desc:"Is data in digital form?", altTXT:"", altDesc:""},
+                {code: "is_digital_form", desc:"Is the data available in digital form?", altTXT:"", altDesc:""},
                 {code: "is_avail_online", desc:"Is the data available online?", altTXT:"", altDesc:""},
                 {code: "is_avail_online_meta", desc:"Is the metadata available online?", altTXT:"", altDesc:""},
-                {code: "is_bulk_avail", desc:"Available in bulk?", altTXT:"", altDesc:""},
-                {code: "is_machine_read", desc:"Is the data machine- readable?", altTXT:"is_machine_read_txt", altDesc:"machine alternative text"},
+                {code: "is_bulk_avail", desc:"Is the data available in bulk?", altTXT:"", altDesc:""},
+                {code: "is_machine_read", desc:"Is the data machine-readable?", altTXT:"is_machine_read_txt", altDesc:"machine alternative text"},
                 {code: "is_pub_available", desc:"Is the data publicly available?", altTXT:"", altDesc:""},
                 {code: "is_avail_for_free", desc:"Is the data available for free?", altTXT:"", altDesc:""},
                 {code: "is_open_licence", desc:"Is the data openly licensed?", altTXT:"is_open_licence_txt", altDesc:"license alternative text"},
@@ -799,11 +799,11 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 
         var objQuestions = [
             {code: "is_existing", desc:"Does the data exist?", altTXT:"is_existing_txt", altDesc:"existing alternative text"},
-            {code: "is_digital_form", desc:"Is data in digital form?", altTXT:"", altDesc:""},
+            {code: "is_digital_form", desc:"Is the data available in digital form?", altTXT:"", altDesc:""},
             {code: "is_avail_online", desc:"Is the data available online?", altTXT:"", altDesc:""},
             {code: "is_avail_online_meta", desc:"Is the metadata available online?", altTXT:"", altDesc:""},
-            {code: "is_bulk_avail", desc:"Available in bulk?", altTXT:"", altDesc:""},
-            {code: "is_machine_read", desc:"Is the data machine- readable?", altTXT:"is_machine_read_txt", altDesc:"machine alternative text"},
+            {code: "is_bulk_avail", desc:"Is the data available in bulk?", altTXT:"", altDesc:""},
+            {code: "is_machine_read", desc:"Is the data machine-readable?", altTXT:"is_machine_read_txt", altDesc:"machine alternative text"},
             {code: "is_pub_available", desc:"Is the data publicly available?", altTXT:"", altDesc:""},
             {code: "is_avail_for_free", desc:"Is the data available for free?", altTXT:"", altDesc:""},
             {code: "is_open_licence", desc:"Is the data openly licensed?", altTXT:"is_open_licence_txt", altDesc:"license alternative text"},
@@ -848,7 +848,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
             'This question addresses whether the data is in digital form (stored on computers or digital storage) or if it only in e.g. paper form.',
             'This question addresses whether the data is available online from an official source. In the cases that this is answered with a "yes", then the link is put in the URL field below.',
             'This question addresses whether the metadata is available online from an official source. In the cases that this is answered with a "yes", then the link is put in the URL field below.',
-            'Data is available in bulk if the whole dataset can be downloaded or accessed easily. Conversely it is considered non-bulk if the citizens are limited to just getting parts of the dataset (for example, if restricted to querying a web form and retrieving a few results at a time from a very large database).',
+            'Data is Is the data available in bulk? if the whole dataset can be downloaded or accessed easily. Conversely it is considered non-bulk if the citizens are limited to just getting parts of the dataset (for example, if restricted to querying a web form and retrieving a few results at a time from a very large database).',
             'Data is machine-readable if it is in a format that can be easily structured by a computer. Data can be digital but not machine-readable. For example, consider a PDF document containing tables of data. These are definitely digital but are not machine-readable because a computer would struggle to access the tabular information (even though they are very human-readable!). The equivalent tables in a format such as a spreadsheet would be machine-readable. Note: The appropriate machine-readable format may vary by type of data – so, for example, machine-readable formats for geographic data may be different than for tabular data. In general, HTML and PDF are not machine-readable.',
             'This question addresses whether the data is "public". This does not require it to be freely available, but does require that someone outside of the government can access it in some form (examples include if the data is available for purchase, if it exists as a PDF on a website that you can access, if you can get it in paper form - then it is public). If a freedom of information request or similar is needed to access the data, it is not considered public.',
             'This question addresses whether the data is available for free or if there is a charge. If there is a charge, then that is stated in the comments section.',
