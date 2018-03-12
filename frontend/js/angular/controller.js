@@ -1179,6 +1179,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                         // Success
                         $scope.objDataset.keydataset = data[0].code;
 
+                        console.log($scope.objDataset);
+
                         // Save the dataset structure
                         RodiSrv.saveprofileDataset($scope.tokenid, $scope.objDataset,
                             function(data){
