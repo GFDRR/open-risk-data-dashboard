@@ -92,7 +92,7 @@ DATABASES = {
 #    }
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': '#ORDD_DB_NAME#',
+        'NAME': os.environ.get('ORDD_OVERRIDE_DBNAME', '#ORDD_DB_NAME#'),
         'USER': '#ORDD_DB_USER#',
         'PASSWORD': '#ORDD_DB_PASSWD#',
         'HOST': 'localhost',
