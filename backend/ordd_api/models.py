@@ -361,7 +361,12 @@ class Dataset(models.Model):
         return score, score_th_norm
 
     def save(self, *args, **kwargs):
+        # to calculate scores, using m2m relationships, save a first
+        # time the dataset before calculations is required
+        super().save(*args, **kwargs)
         self.score, self.score_th_norm = self.gem_score_calculate(self)
+        if 'force_insert' in kwargs:
+            del kwargs['force_insert']
         super().save(*args, **kwargs)
 
 
