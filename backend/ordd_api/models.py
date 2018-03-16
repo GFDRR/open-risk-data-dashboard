@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from django.db.models import Sum
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from randstr import randstr
@@ -354,9 +353,12 @@ class Dataset(models.Model):
         for th_appl in inst.country.thinkhazard_appl.all():
             th_applicability.add(th_appl.name)
 
-        score_th_norm = score * (
-            float(len(appl & th_applicability)) /
-            float(len(th_applicability)))
+        # as described in:
+        #   https://github.com/GFDRR/open-risk-data-dashboard/issues/127
+        if len(appl & th_applicability) > 0:
+            score_th_norm = score
+        else:
+            score_th_norm = 0.0
 
         return score, score_th_norm
 

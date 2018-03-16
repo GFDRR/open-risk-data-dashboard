@@ -869,21 +869,17 @@ class Score(object):
     @classmethod
     def calculate_ranking(cls, world_score_tree, queryset, country_in=None):
         ret_score = []
+        datasetname_n = KeyDatasetName.objects.all().count()
         for country in Country.objects.all().order_by('name'):
             if country.iso2 not in world_score_tree:
                 continue
 
-            country_score_tree = world_score_tree[country.iso2]
-            # to be back-compatible with old /scoring/ view
-            if ('category' in country_score_tree):
-                category_score_tree = country_score_tree['category']
-            else:
-                category_score_tree = country_score_tree
-
-            score = cls.country(category_score_tree, country)
+            country_queryset = queryset.filter(
+                country__iso2=country.iso2)
+            score = cls.country_scoring_dsname(country_queryset, datasetname_n)
 
             datasets_count_ds, fullscores_count_ds = cls.extract_ds_counters(
-                queryset.filter(country__iso2=country.iso2))
+                country_queryset)
 
             ret_score.append(
                 {"country": country.iso2,
@@ -989,6 +985,17 @@ class Score(object):
         country_score /= float(category_weights_sum)
 
         return country_score
+
+    @classmethod
+    def country_scoring_dsname(cls, country_queryset, datasetname_n):
+        # as described in:
+        #   https://github.com/GFDRR/open-risk-data-dashboard/issues/127
+        tot = country_queryset.values('keydataset__dataset').annotate(
+            Max('score_th_norm')).aggregate(Sum('score_th_norm__max'))
+        if 'score_th_norm__max__sum' not in tot:
+            raise ValueError('country_scoring_dsname failed')
+
+        return float(tot['score_th_norm__max__sum']) / float(datasetname_n)
 
     @classmethod
     def country_loadtree(cls, request, country_score_tree, dataset):
@@ -1471,12 +1478,15 @@ class Score(object):
         datasets_count = queryset.count()
         fullscores_count = fullscore_queryset.count()
 
-        queryset_ds = queryset.values('keydataset__dataset').annotate(Max('score'))
+        queryset_ds = queryset.values('keydataset__dataset').annotate(
+            Max('score'))
         datasets_count_ds = len(queryset_ds)
         fullqueryset_ds = queryset_ds.filter(score__range=(0.999999, 1.000001))
         fullscores_count_ds = len(fullqueryset_ds)
 
-        country_score = cls.country_scoring(country_score_tree, country)
+        datasetname_n = KeyDatasetName.objects.all().count()
+
+        country_score = cls.country_scoring_dsname(queryset, datasetname_n)
 
         interesting_fields = [
             'is_existing', 'is_digital_form', 'is_avail_online',
