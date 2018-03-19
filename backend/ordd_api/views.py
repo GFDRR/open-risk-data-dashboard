@@ -996,7 +996,11 @@ class Score(object):
         if 'score_th_norm__max__sum' not in tot:
             raise ValueError('country_scoring_dsname failed')
 
-        return float(tot['score_th_norm__max__sum']) / float(datasetname_n)
+        if tot['score_th_norm__max__sum'] is not None:
+            return float(tot['score_th_norm__max__sum']) / float(datasetname_n)
+        else:
+            return 0.0
+
 
     @classmethod
     def country_loadtree(cls, request, country_score_tree, dataset):
