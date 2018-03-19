@@ -98,17 +98,18 @@
             </div>
             <div class="row" id="top-menu">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-
                     <h1 class="page_title ">{{countryDesc}} - {{objDatasetView.keydataset.dataset.name}}</h1>
-                    <br />
+                    <br/>
                     <div class="rodi_big_text_page text-center">
                         <a href="" class="btn btn-md btn-primary" ng-click="setEditForm()" ng-if="bReviewer && !bEdit"><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" title="Edit dataset"></i> Edit dataset</a>
                         <a href="" class="btn btn-md btn-info" ng-click="changepage('contribute.html?tab=1')" ng-if="bMylist && !bEdit"><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to my dataset list"></i> Back to my dataset list</a>
                         <a href="" class="btn btn-md btn-info" ng-click="changepage('contribute.html?tab=2')" ng-if="bReviewlist && !bEdit"><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to review list"></i> Back to review list</a>
-                        <a href="" ng-click="changepage('dataset_list.html?idcountry=' + objDatasetView.country + '&idcategory=0')" class="btn btn-md btn-info" ng-if="!bReviewlist && !bMylist && !bEdit"><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back"></i> Back</a>
+                        <!--<a href="" ng-click="changepage('dataset_list.html?idcountry=' + objDatasetView.country + '&idcategory=0')" class="btn btn-md btn-info" ng-if="!bReviewlist && !bMylist && !bEdit"><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back"></i> Back</a>-->
                         <!--<a href="" class="btn btn-md btn-success" ng-if="bEdit" ng-click="updateDataset()"><i class="fa fa-floppy-o" aria-hidden="true" data-toggle="tooltip" title="Save dataset"></i> Save dataset</a>-->
                         <a href="" class="btn btn-md btn-info" ng-if="bEdit" ng-click="closeRevision()"><i class="fa fa-times" aria-hidden="true" data-toggle="tooltip" title="Close edit mode"></i> Close edit mode</a>
-                        <a href="" class="btn btn-md btn-danger" ng-if="bEdit && bReviewer" ng-click="deleteDataset()"><i class="fa fa-trash-o" aria-hidden="true" title="Delete dataset"></i> Delete dataset</a>
+                        <a href="" class="btn btn-md btn-danger" ng-if="bEdit && bReviewer" ng-click="deleteDataset()"><i class="fa fa-trash-o" aria-hidden="true" title="Delete dataset"></i> Delete dataset</a>         
+                        <span class="alert alert-success" ng-if=" objDataset.is_reviewed == true" title="Information on this dataset has been reviewed and approved" style="font-size: 14px;padding: 8px;"><span class="fa fa-check" aria-hidden="true"></span>&nbsp;Approved</span>
+                        <span class="alert alert-danger" ng-if=" objDataset.is_reviewed == false" title="Information on this dataset has not been reviewed and may contain errors" style="font-size: 14px;padding: 8px;"><span class="fa fa-warning" aria-hidden="true"></span>&nbsp;Pending approval</span></span>
                     </div>
 
                 </div>
@@ -272,7 +273,6 @@
                                     </a>
                                 </div>
                             </span><br/>
-
                         </div>
                     </div>
                 </div>
@@ -280,8 +280,9 @@
                 <!-- Similar datasets -->
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 rodi_big_text_page">
-                        <!--<div class="odfri_content_small">-->
-                            <h3 class="odfri_title_red">Similar datasets submitted</h3>
+                        <div class="odfri_content_small">
+                            <hr/>
+                            <h3 class="odfri_title_red">Similar datasets for this country</h3>
                             <br />
                             <table class="table table-responsive table-striped table-hover">
                                 <thead>
@@ -289,40 +290,12 @@
                                     <th class="col-xs-4 col-sm-4 col-md-4 col-lg-4">Dataset</th>
                                     <th class="col-xs-6 col-sm-6 col-md-6 col-lg-6">Open data criteria</th>
                                     <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center">See details</th>
-                                    <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center">Data access</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr ng-repeat="istance in istanceList | orderBy: '-score * 1'">
                                     <td>
                                         {{istance.keydataset.dataset.name}}<br />
-                                        <span class="small text-muted">{{formatStringLenght(istance.keydataset.description)}}</span><br />
-                                        <small><a href="" data-toggle="modal" data-target="#moreinfoModal{{$index}}">more info</a></small>
-
-                                        <!-- Modal Description -->
-                                        <div class="modal fade" id="moreinfoModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="moreinfoModal{{$index}}label" aria-hidden="true">
-                                            <div class="modal-dialog modal-lg" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title" id="moreinfoModal{{$index}}label">{{istance.keydataset.category}} - {{istance.keydataset.dataset.name}} ({{istance.keydataset.level}})</h4>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <strong>Description</strong>
-                                                        <br />
-                                                        <span class="table_modal_txt">
-                                                        {{istance.keydataset.description}}
-                                                        </span>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
                                     </td>
                                     <td>
                                         <div class="dataset_value">
@@ -341,42 +314,11 @@
                                     <td class="text-center">
                                         <a class="" href="" title="details" style="margin-right:10px;" ng-click="changepage('dataset_details.html?keyds=' + istance.id)"><i class="fa fa-search fa-2x" aria-hidden="true"></i></a>
                                     </td>
-                                    <td class="text-center">
-                                        <a class="download" title="Download link" href="" ng-if="istance.url.length > 0" data-toggle="modal" data-target="#linkdataModal{{$index}}">
-                                            <i class="fa fa-download fa-2x" aria-hidden="true"></i>
-                                        </a>
-                                        <!-- Modal Link download DATA & METADATA -->
-                                        <div class="modal fade text-left" id="linkdataModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="linkdataModal{{$index}}label" aria-hidden="true">
-                                            <div class="modal-dialog modal-lg" role="document">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h4 class="modal-title" id="linkdataModal{{$index}}label">{{istance.keydataset.category}} - {{istance.keydataset.dataset.name}} ({{istance.keydataset.level}})</h4>
-                                                        <!--Access the data-->
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                            <span aria-hidden="true">&times;</span>
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal-body text-left">
-                                                        <strong>Donwload link</strong>
-                                                        <br /><br />
-                                                        <ul class="text-left">
-                                                            <li ng-repeat="link in istance.url">
-                                                                <a href="{{link}}" target="_blank">{{formatLink(link)}}</a>
-                                                            </li>
-                                                        </ul>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </td>
                                 </tr>
 
                                 </tbody>
                             </table>
-                        <!--</div>-->
+                        </div>
                     </div>
                 </div>
 
@@ -901,20 +843,6 @@
                     </div>
                 </div>
             </div>
-
-            <div>
-                <div class="row">
-                    <div class="hidden-xs col-sm-1 col-md-1 col-lg-1"></div>
-                    <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 rodi_methodology_submenu">
-                        <a href="#dataset">Dataset</a>
-                        <a href="#criteria">Open data Criteria</a>
-                        <a href="#metadata">Metadata</a>
-                    </div>
-                    <div class="hidden-xs col-sm-1 col-md-1 col-lg-1"></div>
-                </div>
-
-            </div>
-
             <!-- Error section: dataset key not set -->
             <div class="col-xs-12 col-sm-10 col-sm-offset-2 col-md-12 col-lg-12text-justify" ng-if="!biddataset">
 
