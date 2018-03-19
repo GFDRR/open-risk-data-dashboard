@@ -5,7 +5,7 @@
     <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
-    <meta content="" name="description" />
+    <meta content="A collaborative and global assessment of open data for reducing vulnerability and building resilience to natural hazards. The Open Data for Resilience Index is a tool to identify, assess and compare, for any country, the availability and ease-of-use of datasets that are considered to be key for disaster risk management." name="description" />
     <meta content="" name="author" />
 
     <base href="{{$LocationProvider.$get}}" />
@@ -141,7 +141,7 @@
         <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 text-justify rodi_big_text_page">
             <h2 id="introduction">Introduction</h2>
 
-            <p>The <strong>Open Data for Resilience Index</strong> is a tool to identify, assess and compare, for any country, the availability and ease-of-use of 36 datasets that are considered to be key for disaster risk management.</p> 
+            <p>The <strong>Open Data for Resilience Index</strong> is a tool to identify, assess and compare, for any country, the availability and ease-of-use of datasets that are considered to be key for disaster risk management.</p> 
 
             <p>Anyone can submit a dataset. The result is a crowdsourced-database providing the state of open data for disaster risk management. The website stores metadata only, not the data itself.</p>
 
@@ -209,8 +209,8 @@
             </thead>
             <tbody class="table.tbody">   
                 <tr>
-                <th>Digital elevation model</th>
-                <td>Digital elevation model (DEM) describing the terrain's surface with a horizontal resolution of at least 100 meters (1:10000) and covering all flood-prone areas. The Digital elevation model may include a digital surface model (DSM) of surface elevation including objects (e.g., buildings and trees) and a Digital terrain model (DTM) of the bare ground surface.</td>
+                <th>Administrative boundaries</th>
+                <td>Map of official boundaries of the country and its administrative units such as states, regions, or districts.</td>
                 <td><a href="">Place_holder</a></td>
                 </tr>
                 <tr>
@@ -219,8 +219,18 @@
                 <td><a href="">Place_holder</a></td>
                 </tr>
                 <tr>
-                <th>Administrative boundaries</th>
-                <td>Map of official boundaries of the country and its administrative units such as states, regions, or districts.</td>
+                <th>Bathymetry</th>
+                <td>Bathymetry map describing the terrain that lies underwater, or the depth of water relative to sea level, with a resolution of at least 10 meters (1:1000).</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Digital elevation model</th>
+                <td>Digital elevation model (DEM) describing the terrain's surface with a horizontal resolution of at least 100 meters (1:10000) and covering all flood-prone areas. The Digital elevation model may include a digital surface model (DSM) of surface elevation including objects (e.g., buildings and trees) and a Digital terrain model (DTM) of the bare ground surface.</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Soil type</th>
+                <td>Map of geological characterization of the soil type, with a resolution of at least 1 kilometer (1:100000).</td>
                 <td><a href="">Place_holder</a></td>
                 </tr>
                 <tr>
@@ -229,8 +239,13 @@
                 <td><a href="">Place_holder</a></td>
                 </tr>
                 <tr>
-                <th>Bathymetry</th>
-                <td>Bathymetry map describing the terrain that lies underwater, or the depth of water relative to sea level, with a resolution of at least 10 meters (1:1000).</td>
+                <th>Water bodies</th>
+                <td>Map of main water bodies (river network, lakes, coastline).</td>
+                <td><a href="">Place_holder</a></td>
+                </tr>
+                <tr>
+                <th>Watershed boundaries</th>
+                <td>Map of watershed boundaries for the characterization of river basins for the whole territory. Watershed boundaries are topographic divides and delineate areas where surface-water runoff drains into a common surface-water body.</td>
                 <td><a href="">Place_holder</a></td>
                 </tr>
             </tbody>
@@ -283,11 +298,6 @@
                 <td>Map of lifeline infrastructures such as utilities that provide essential services to the people. Critical infrastructures include roads, railways, power, water, and telecommunication networks and assets as well as bridges, airports, harbors, education and health facilities.</td>
                 <td><a href="">Place_holder</a></td>
                 </tr>
-                <tr>
-                <th>Watershed boundaries</th>
-                <td>Map of watershed boundaries for the characterization of river basins for the whole territory. Watershed boundaries are topographic divides and delineate areas where surface-water runoff drains into a common surface-water body.</td>
-            <td><a href="">Place_holder</a></td>
-                </tr>
             </tbody>
               </table> 
             <br />
@@ -303,15 +313,6 @@
                 </tr>
             </thead>
             <tbody class="table.tbody">                
-                <th>Water bodies</th>
-                <td>Map of main water bodies (river network, lakes, coastline).</td>
-                <td><a href="">Place_holder</a></td>
-                </tr>
-                <tr>
-                <th>Soil type</th>
-                <td>Map of geological characterization of the soil type, with a resolution of at least 1 kilometer (1:100000).</td>
-                <td><a href="">Place_holder</a></td>
-                </tr>
                 <tr>
                 <th>Flood hazard maps</th>
                 <td>Flood hazard maps at any available resolution for benchmarking of the flood model. A flood hazard map describes the geographical areas that are prone to flooding for a given return period (typically between 2 and 1000 years). Additional value is provided by maps that indicate water depth and flood duration.</td>
@@ -447,7 +448,6 @@
                 </tr>
                 </tbody>
               </table> 
-            <br />
             <div class="text-center">
                 <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
             </div>
@@ -462,8 +462,8 @@
             <li>Is the metadata available online? +5%</li>
             <li>Is the data available in bulk? +10%</li>
             <li>Is the data machine-readable? + 15%</li>
-            <li>Is the data available for free? + 5%</li>
-            <li>Is the data openly licensed? + 15%</li>
+            <li>Is the data available for free? + 15%</li>
+            <li>Is the data openly licensed? + 30%</li>
             <li>Is the data provided in a timely and up to date basis? + 5%</li></ul>
 
             <p>A dataset is considered fully open when all questions have been answered YES (100%). When a dataset does not exist or has not been submitted, the score is 0.</p>
@@ -481,7 +481,6 @@
             <p>It is possible to submit more than one dataset per dataset's description for a given country. However, for scoring purposes, only the dataset with the highest score is retained for country score.<p>
 
             <p>Lastly, it is possible to filter scores and compare countries by type of hazards and/or categories of data. For instance, by selecting earthquake, only datasets relevant to this hazard will be taken into account in the final score.<p>
-            <br />
             <div class="text-center">
                 <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
             </div>

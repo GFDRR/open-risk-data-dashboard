@@ -1183,7 +1183,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                         RodiSrv.saveprofileDataset($scope.tokenid, $scope.objDataset,
                             function(data){
                                 // Success
-                                vex.dialog.alert('Dataset insert correctly');
+                                vex.dialog.alert('Thanks! Dataset was successfully submitted and will be reviewed.');
                                 $scope.objDataset = RodiSrv.getDatasetEmptyStructure();
                                 $scope.selectedLink = [];
                                 $scope.datasetTags = [];
