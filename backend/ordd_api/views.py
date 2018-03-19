@@ -867,9 +867,10 @@ class Score(object):
         return (datasets_count_ds, fullscores_count_ds)
 
     @classmethod
-    def calculate_ranking(cls, world_score_tree, queryset, country_in=None):
+    def calculate_ranking(cls, world_score_tree, queryset, kd_queryset,
+                          country_in=None):
         ret_score = []
-        datasetname_n = KeyDatasetName.objects.all().count()
+        datasetname_n = kd_queryset.values('dataset').distinct().count()
         for country in Country.objects.all().order_by('name'):
             if country.iso2 not in world_score_tree:
                 continue
@@ -1217,22 +1218,29 @@ class Score(object):
     @classmethod
     def all_country_scoring(cls, request):
         queryset = Dataset.objects.filter(keydataset__level__name='National')
+        kd_queryset = KeyDataset.objects.filter(level__name='National')
         applicability = request.query_params.getlist('applicability')
         category = request.query_params.getlist('category')
         if applicability:
             q = Q()
+            kd_q = Q()
             for v in applicability:
                 # FIXME currently in tag we may have extra applicabilities
                 # when category (tag group) is 'hazard'
                 q = q | (Q(keydataset__applicability__name__iexact=v) |
                          Q(tag__name__iexact=v))
+                kd_q = kd_q | Q(applicability__name__iexact=v)
             queryset = queryset.filter(q).distinct()
+            kd_queryset = kd_queryset.filter(kd_q).distinct()
 
         if category:
             q = Q()
+            kd_q = Q()
             for v in category:
                 q = q | Q(keydataset__category__name__iexact=v)
+                kd_q = kd_q | Q(category__name__iexact=v)
             queryset = queryset.filter(q).distinct()
+            kd_queryset = kd_queryset.filter(kd_q).distinct()
 
         # check-point to investigate correctness of query filtering
         # print("Number of item: %d" % queryset.count())
@@ -1251,10 +1259,12 @@ class Score(object):
                'datasets_count': datasets_count,
                'fullscores_count': fullscores_count,
                'countries_count': countries_count,
-               'keydatasets_count': cls.keydataset_count(applicability, category)
+               'keydatasets_count': cls.keydataset_count(
+                   applicability, category)
                }
 
-        ret['countries'] = cls.calculate_ranking(world_score_tree, queryset)
+        ret['countries'] = cls.calculate_ranking(world_score_tree, queryset,
+                                                 kd_queryset)
         for country in ret['countries']:
             country['score'] = cls.score_fmt(country['score'])
 
@@ -1413,29 +1423,35 @@ class Score(object):
 
         worldqueryset = Dataset.objects.filter(
             keydataset__level__name='National')
-
+        kd_queryset = KeyDataset.objects.filter(level__name='National')
         if applicability:
             q = Q()
+            kd_q = Q()
             for v in applicability:
                 # FIXME currently in tag we may have extra applicabilities
                 # when category (tag group) is 'hazard'
                 q = q | (Q(keydataset__applicability__name__iexact=v) |
                          Q(tag__name__iexact=v))
+                kd_q = kd_q | Q(applicability__name__iexact=v)
 
             worldqueryset = worldqueryset.filter(q).distinct()
+            kd_queryset = kd_queryset.filter(kd_q).distinct()
 
         if category:
             q = Q()
+            kd_q = Q()
             for v in category:
                 q = q | Q(keydataset__category__name__iexact=v)
-
+                kd_q = kd_q | Q(category__name__iexact=v)
             worldqueryset = worldqueryset.filter(q).distinct()
+            kd_queryset = kd_queryset.filter(kd_q).distinct()
 
         world_score_tree = cls.country_scoring_dataset_loadtree(
             request, worldqueryset)
 
         rank = cls.calculate_ranking(
-            world_score_tree, worldqueryset, country_in=country_id)
+            world_score_tree, worldqueryset, kd_queryset,
+            country_in=country_id)
 
         queryset = Dataset.objects.filter(
             keydataset__level__name='National',
@@ -1484,7 +1500,7 @@ class Score(object):
         fullqueryset_ds = queryset_ds.filter(score__range=(0.999999, 1.000001))
         fullscores_count_ds = len(fullqueryset_ds)
 
-        datasetname_n = KeyDatasetName.objects.all().count()
+        datasetname_n = kd_queryset.values('dataset').distinct().count()
 
         country_score = cls.country_scoring_dsname(queryset, datasetname_n)
 
