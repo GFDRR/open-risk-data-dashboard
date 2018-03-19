@@ -908,7 +908,7 @@ class Score(object):
                     "score": -1,
                     "datasets_count": 0,
                     "fullscores_count": 0,
-                    "rank": -1
+                    "rank": old_pos + (1 if old_score > 0.0 else 0)
                     }
 
         return ret_score_ord
