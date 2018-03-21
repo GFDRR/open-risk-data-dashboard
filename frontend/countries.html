@@ -170,7 +170,10 @@
                     <tbody>
                         <!--  Country with dataset submitted -->
                         <tr ng-repeat="country in countriesList | orderBy:'-score * 1'" ng-click="changepage('dataset_list.html?idcountry=' + country.country + '&idcategory=0')">
-                            <td>{{$index + 1}}</td>
+                            <td>
+                                <span ng-if="country.rank < 999">{{country.rank}}</span>
+                                <span ng-if="country.rank == 999">0</span>
+                            </td>
                             <td><span class="text-muted">{{getCountryName(country.country)}}</span></td>
                             <td class="text-center">
                                 <div class="progress">

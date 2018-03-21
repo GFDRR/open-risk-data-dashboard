@@ -733,6 +733,17 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
                         $scope.countriesList = data.countries;
 
+                        var lastScoreValue = $scope.countriesList[$scope.countriesList.length - 1].score * 1;
+                        var rankValue = 0;
+
+                        if(lastScoreValue == 0){
+                            rankValue = $scope.countriesList[$scope.countriesList.length - 1].rank;
+                        } else {
+                            rankValue = ($scope.countriesList[$scope.countriesList.length - 1].rank * 1) + 1;
+                        }
+
+                        console.log(lastScoreValue);
+
                         for (i=0; i< $scope.allCountries.length; i++)
                         {
                             // For esch country create e rank item if no dataset
@@ -746,18 +757,18 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                                     country: $scope.allCountries[i].iso2,
                                     datasets_count: 0,
                                     fullscores_count: 0,
-                                    rank: 999,
+                                    rank: rankValue,
                                     score: 0
                                 }
 
                                 $scope.countriesList.push($scope.objCountry);
 
-                                $scope.countriesTable = new NgTableParams({
-                                    page: 1,
-                                    count: 20
-                                }, {
-                                    total: $scope.countriesList.length
-                                });
+                                // $scope.countriesTable = new NgTableParams({
+                                //     page: 1,
+                                //     count: 20
+                                // }, {
+                                //     total: $scope.countriesList.length
+                                // });
 
                             }
                         };
