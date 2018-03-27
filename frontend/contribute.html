@@ -1104,7 +1104,7 @@
         <div ng-if="!bLogin">
             <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">-->
             <hr />
-            <div class="jumbotron" ng-if="tabpar == '3'">
+            <!--<div class="jumbotron" ng-if="tabpar == '3'">
                 <div class="container">
                     <p class="text-center">Please login to complete your profile</p>
                     <br><br><br><br>
@@ -1117,10 +1117,11 @@
                         </button>
                     </div>
                 </div>
-            </div>
+            </div>-->
             <div class="jumbotron" ng-if="tabpar !== '3'">
                 <div class="container">
-                    <p class="text-center">Please login or register to submit a dataset.</p>
+                    <p class="text-center">You are about to submit information on a dataset and assess whether it is open or not.<br/>
+                    <p class="text-center">Please login or register first, or see <a href="" ng-click="changepage('methodology.html')">Documentation</a> for more details.</p>
                     <br><br><br><br>
                     <div class="text-center">
                         <!--<span class="rodi_big_text">|</span>-->
