@@ -181,15 +181,15 @@
     <div class="row">
         <div class="hidden-xs col-sm-1 col-md-1 col-lg-1"></div>
         <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
-        <span style="font-size: 16px;">Show: <a style="text-decoration: none;" href="" ng-click="setFilterMode('submitted')" ng-class="{active: filterMode == 'submitted'}">data submitted</a>, <a style="text-decoration: none;" href="" ng-class="{active: filterMode == 'notsubmitted'}" ng-click="setFilterMode('notsubmitted')">not submitted</a>, <a style="text-decoration: none;" href="" ng-class="{active: filterMode == 'all'}" ng-click="setFilterMode('all')">all</a></span>
+        <span style="font-size: 16px;">Show: <a style="text-decoration: none;" href="" ng-click="setFilterMode('submitted')" ng-class="{active: filterMode == 'submitted'}">Submitted</a>, <a style="text-decoration: none;" href="" ng-class="{active: filterMode == 'notsubmitted'}" ng-click="setFilterMode('notsubmitted')">Not submitted</a>, <a style="text-decoration: none;" href="" ng-class="{active: filterMode == 'all'}" ng-click="setFilterMode('all')">All</a></span>
         <br/>
         
             <table ng-table="tableParams" class="table table-responsive table-striped table-hover">
                 <thead>
                 <tr>
-                    <th class="col-xs-4 col-sm-4 col-md-4 col-lg-4">Dataset</th>
-                    <th class="col-xs-6 col-sm-6 col-md-6 col-lg-6">Open data criteria</th>
-                    <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center">See details</th>
+                    <th class="col-xs-4 col-sm-4 col-md-4 col-lg-4" title="Name of dataset">Dataset</th>
+                    <th class="col-xs-6 col-sm-6 col-md-6 col-lg-6" title="See Documentation for more info on criteria">Open data criteria</th>
+                    <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center" title="See details for dataset">See details</th>
                     <!--<th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center">Data access</th>-->
                 </tr>
                 </thead>

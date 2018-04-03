@@ -4,8 +4,6 @@
 
 var RodiApp = angular.module('RodiApp', ['ngCookies', 'ngTable']);
 
-// var baseUrl = 'http://localhost/open-risk-data-dashboard/frontend/';
-//var baseUrl = 'http://localhost:63342/RODI/frontend/';
 // var baseUrl = 'http://localhost:63342/open-risk-data-dashboard/frontend/';
 function getLocation(href) {
     var match = href.match(/^(https?\:)\/\/(([^:\/?#]*)(?:\:([0-9]+))?)([\/]{0,1}[^?#]*)(\?[^#]*|)(#.*|)$/);
