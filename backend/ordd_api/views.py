@@ -33,7 +33,7 @@ from .serializers import (
     DatasetListSerializer, DatasetPutSerializer, DatasetsDumpSerializer)
 from .models import (Region, Country, OptIn, Dataset, KeyDataset,
                      KeyDatasetName, KeyCategory, KeyTag,
-                     my_random_key, Profile)
+                     my_random_key, Profile, Url)
 from .mailer import mailer
 from ordd_api import __version__, MAIL_SUBJECT_PREFIX
 from ordd.settings import EMAIL_CONFIRM_PROTO
@@ -627,6 +627,18 @@ class DatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
         except:
             pass
         return DatasetListSerializer
+
+    def update(self, request, *args, **kwargs):
+        partial = kwargs.get('partial', False)
+        instance = self.get_object()
+
+        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+        urls_new = serializer.initial_data['url']
+
+        for url_new in urls_new:
+            Url.objects.get_or_create(url=url_new)
+
+        return super(DatasetDetailsView, self).update(request, *args, **kwargs)
 
     def perform_update(self, serializer):
         # to take a picture of the field before update we follow
