@@ -159,20 +159,20 @@
                 <table id="tabCountries" class="table table-responsive table-striped table-hover">
                     <thead>
                         <tr>
-                            <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1" title="See Documentation for more info on ranking">Rank</th>
-                            <th class="col-xs-3 col-sm-3 col-md-3 col-lg-3" title="See Documentation for list of countries">Country</th>
-                            <th class="col-xs-3 col-sm-3 col-md-3 col-lg-3" title="See Documentation for more info on scoring">Score</th>
+                            <!--<th class="col-xs-1 col-sm-1 col-md-1 col-lg-1" title="See Documentation for more info on ranking">Rank</th>-->
+                            <th class="col-xs-3 col-sm-3 col-md-3 col-lg-3" title="Name of country">Country</th>
+                            <th class="col-xs-4 col-sm-4 col-md-4 col-lg-4" title="Average of all dataset's openness">Openness <a href="" ng-click="changepage('methodology.html#openness')">(more details)</a></th>
                             <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center" title="Number of datasets submitted">Datasets</th>
-                            <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center" title="Number of datasets fully open">Open</th>
+                            <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center" title="Number of datasets fully open">Open data</th>
                         </tr>
                     </thead>
                     <tbody>
                         <!--  Country with dataset submitted -->
                         <tr ng-repeat="country in countriesList | orderBy:'-score * 1'" ng-click="changepage('dataset_list.html?idcountry=' + country.country + '&idcategory=0')">
-                            <td>
+                            <!--<td>
                                 <span ng-if="country.rank < 999">{{country.rank}}</span>
                                 <span ng-if="country.rank == 999">0</span>
-                            </td>
+                            </td>-->
                             <td><span class="text-muted">{{getCountryName(country.country)}}</span></td>
                             <td class="text-center">
                                 <div class="progress">
