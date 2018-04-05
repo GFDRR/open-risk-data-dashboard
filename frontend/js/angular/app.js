@@ -4,12 +4,27 @@
 
 var RodiApp = angular.module('RodiApp', ['ngCookies', 'ngTable']);
 
-var baseUrl = 'http://localhost/open-risk-data-dashboard/frontend/';
-// var baseUrl = 'http://localhost:63342/RODI/frontend/';
 // var baseUrl = 'http://localhost:63342/open-risk-data-dashboard/frontend/';
-//var baseUrl = 'http://www.riskopendata.org/';
+function getLocation(href) {
+    var match = href.match(/^(https?\:)\/\/(([^:\/?#]*)(?:\:([0-9]+))?)([\/]{0,1}[^?#]*)(\?[^#]*|)(#.*|)$/);
+    return match && {
+        href: href,
+        protocol: match[1],
+        host: match[2],
+        hostname: match[3],
+        port: match[4],
+        pathname: match[5],
+        search: match[6],
+        hash: match[7]
+    }
+}
 
-var baseAPIurl = 'https://dev.riskopendata.org/api-dev/'; // Sviluppo
+var spli_url = getLocation(window.location.href);
+// var baseUrl = 'https://www.riskopendata.org/';
+var baseUrl = spli_url.protocol + '//' + spli_url.host + '/';
+
+// var baseAPIurl = 'https://www.riskopendata.org/api/'; // Sviluppo
+var baseAPIurl = spli_url.protocol + '//' + spli_url.host + '/api/';
 var APIversion = '0.27.0';
 
 RodiApp.config(function($locationProvider) {
