@@ -124,7 +124,7 @@
                         <div class="odfri_content_small">
                             <hr>
                             <h3 class="odfri_title_red">Dataset</h3>
-                            <span><span class="odfri_dataset_label">Country:</span> {{countryDesc}}</span>
+                            <span><span class="odfri_dataset_label">Location:</span> {{countryDesc}}</span>
                             <br />                          
                             <span><span class="odfri_dataset_label">Dataset:</span> {{objDatasetView.keydataset.dataset.name}}</span>
                             <br />
@@ -273,6 +273,8 @@
                                     </a>
                                 </div>
                             </span><br/>
+                            <span><span class="odfri_dataset_label">Dataset submitted by:</span> {{objDataset.owner}}</span>
+                            <br /> <br />
                         </div>
                     </div>
                 </div>
@@ -284,7 +286,8 @@
                             <hr/>
                             <h3 class="odfri_title_red">Similar datasets for this country</h3>
                             <br />
-                            <table class="table table-responsive table-striped table-hover">
+                            <span ng-if="istanceList.length == 0">No similar dataset submitted for this country.</span>
+                            <table class="table table-responsive table-striped table-hover" ng-if="istanceList.length > 0">
                                 <thead>
                                 <tr>
                                     <th class="col-xs-4 col-sm-4 col-md-4 col-lg-4">Dataset</th>

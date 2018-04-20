@@ -10,7 +10,7 @@
 
     <base href="{{$locationProvider.$get}}" />
 
-    <title>Open Data for Resilience Index - Explore countries</title>
+    <title>Open Data for Resilience Index - Explore locations</title>
 
     <!-- jQuery library -->
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
@@ -105,7 +105,7 @@
 
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                    <h1 class="page_title">Explore countries</h1>
+                    <h1 class="page_title">Explore locations</h1>
                 </div>
             </div>
 
@@ -146,8 +146,8 @@
         <!-- Body content -->
         <div class="odfri_txt_space"></div>
         <div class="row text-center">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <span class="rodi_txt_big">Number of datasets considered: <strong><span class="odfri_black_blue">{{datasetConsidered}}</span></strong></span>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" title="Number of datasets considered depending on hazard or category selected">
+                <span class="rodi_txt_big" >Datasets considered: <strong><span class="odfri_black_blue">{{datasetConsidered}}</span></strong></span>
             </div>
         </div>
 
@@ -160,23 +160,23 @@
                     <thead>
                         <tr>
                             <!--<th class="col-xs-1 col-sm-1 col-md-1 col-lg-1" title="See Documentation for more info on ranking">Rank</th>-->
-                            <th class="col-xs-3 col-sm-3 col-md-3 col-lg-3" title="Name of country">Country</th>
-                            <th class="col-xs-4 col-sm-4 col-md-4 col-lg-4" title="Average of all dataset's openness">Openness <a href="" ng-click="changepage('methodology.html#openness')">(more details)</a></th>
-                            <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center" title="Number of datasets submitted">Datasets</th>
+                            <th class="col-xs-3 col-sm-3 col-md-3 col-lg-3" title="Name of location">Location</th>
+                            <th class="col-xs-4 col-sm-4 col-md-4 col-lg-4" title="Average scores of all datasets considered. If a dataset does not exist or has not been submitted, its score is 0.">Score <a href="" ng-click="changepage('methodology.html#openness')">(more details)</a></th>
+                            <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center" title="Number of datasets submitted">Datasets submitted</th>
                             <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center" title="Number of datasets fully open">Open data</th>
                         </tr>
                     </thead>
                     <tbody>
                         <!--  Country with dataset submitted -->
-                        <tr ng-repeat="country in countriesList | orderBy:'-score * 1'" ng-click="changepage('dataset_list.html?idcountry=' + country.country + '&idcategory=0')">
+                        <tr ng-repeat="country in countriesList | orderBy:'-score * 1'" ng-click="changepage('dataset_list.html?idcountry=' + country.country + '&idcategory=0')" title="Click to see datasets for this location">
                             <!--<td>
                                 <span ng-if="country.rank < 999">{{country.rank}}</span>
                                 <span ng-if="country.rank == 999">0</span>
                             </td>-->
                             <td><span class="text-muted">{{getCountryName(country.country)}}</span></td>
                             <td class="text-center">
-                                <div class="progress">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="{{country.score}}" aria-valuemin="0" aria-valuemax="100" style="width: {{country.score}}%;">
+                                <div class="progress" title="Average scores of all datasets considered for this location. If a dataset does not exist or has not been submitted, its score is 0.">
+                                    <div class="progress-bar" role="progressbar" aria-valuenow="{{country.score}}" aria-valuemin="0" aria-valuemax="100" style="width: {{country.score}}%;" >
                                         {{country.score}}%
                                     </div>
                                 </div>
