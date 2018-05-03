@@ -21,12 +21,12 @@ function getLocation(href) {
 
 var spli_url = getLocation(window.location.href);
 // var baseUrl = 'https://www.riskopendata.org/';
-//var baseUrl = spli_url.protocol + '//' + spli_url.host + '/';
-var baseUrl = 'http://localhost/open-risk-data-dashboard/frontend/';
+var baseUrl = spli_url.protocol + '//' + spli_url.host + '/';
+//var baseUrl = 'http://localhost:63342/RODI/frontend/';
 
-var baseAPIurl = 'https://www.riskopendata.org/api/'; // Sviluppo
-//var baseAPIurl = spli_url.protocol + '//' + spli_url.host + '/api/';
-var APIversion = '0.27.0';
+//var baseAPIurl = 'https://www.riskopendata.org/api/'; // Sviluppo
+var baseAPIurl = spli_url.protocol + '//' + spli_url.host + '/api/';
+var APIversion = '0.33.1';
 
 RodiApp.config(function($locationProvider) {
 
