@@ -1227,36 +1227,48 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
         function getAvailableTags()
         {
+
             RodiSrv.getKeydatasetId($scope.datasetScaleId, $scope.dataCategoryId,
                 $scope.objDataset.keydataset.dataset, $scope.objDataset.keydataset.description,
                 function(data)
                 {
 
                     // Success
-                    if(data[0].tag_available)
-                    {
-                        $scope.datasetTags = data[0].tag_available.tags;
-                        $scope.selectedTags = data[0].applicability;
-                        $scope.sTagsMsg = "";
+                    if(data[0].tag_available){
 
-                        if(data[0].tag_available.group == 'hazard')
+                        if(data[0].tag_available.tags.length > 0)
                         {
-                            //$scope.sTagsInfo = "Please select the Hazard for which the dataset is relevant/used. A predefined suggestion is provided.";
-                            $scope.sTagsInfo = "Please indicate wheter the dataset was collected for or refer to specific hazards.";
-                            ;                            }
 
-                        if(data[0].tag_available.group == 'building')
+                            $scope.datasetTags = data[0].tag_available.tags;
+                            // ERROR BUG - 10/08/2018
+                            // $scope.selectedTags = data[0].applicability;
+
+                            $scope.sTagsMsg = "";
+
+                            if(data[0].tag_available.group == 'hazard')
+                            {
+                                //$scope.sTagsInfo = "Please select the Hazard for which the dataset is relevant/used. A predefined suggestion is provided.";
+                                $scope.sTagsInfo = "Please indicate wheter the dataset was collected for or refer to specific hazards.";
+                                ;                            }
+
+                            if(data[0].tag_available.group == 'building')
+                            {
+                                $scope.sTagsInfo = "Please select which building's data are included in the dataset.";
+                            };
+
+                            if(data[0].tag_available.group == 'facilities')
+                            {
+                                $scope.sTagsInfo = "Please select which facilities are included in the dataset.";
+                            };
+
+                        } else
                         {
-                            $scope.sTagsInfo = "Please select which building's data are included in the dataset.";
-                        };
-
-                        if(data[0].tag_available.group == 'facilities')
-                        {
-                            $scope.sTagsInfo = "Please select which facilities are included in the dataset.";
-                        };
-
-                    } else
-                    {
+                            $scope.datasetTags=[];
+                            $scope.selectedTags = [];
+                            $scope.sTagsMsg = "** No elements available **";
+                            $scope.sTagsInfo="";
+                        }
+                    } else {
                         $scope.datasetTags=[];
                         $scope.selectedTags = [];
                         $scope.sTagsMsg = "** No elements available **";
@@ -1381,14 +1393,12 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
         {
             // Update scoring manually
 
-            console.log('enter');
             $scope.bLoadingUpdateScoring = true;
 
             RodiSrv.updateScoring($scope.tokenid,
                 function(data)
                 {
                     // Success
-                    console.log(data);
 
                     $scope.bLoadingUpdateScoring = false;
                     vex.dialog.alert("Scoring updated correctly");
