@@ -480,6 +480,16 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
     }
 
     $scope.formatLink = function(link){
+
+        //Check protocol
+        var indexProtocolCheck = link.indexOf('http');
+
+        if(indexProtocolCheck == -1)
+        {
+            //Add protocol to link
+            link = "http://" + link;
+        }
+
         var shortLink = "";
 
         if (link.length > 70)
@@ -491,6 +501,21 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
         }
 
         return shortLink;
+
+    }
+
+    $scope.chekprotocol = function(strLink)
+    {
+        //Check protocol
+        var indexProtocolCheck = strLink.indexOf('http');
+
+        if(indexProtocolCheck == -1)
+        {
+            //Add protocol to link
+            strLink = "http://" + strLink;
+        }
+
+        return strLink;
 
     }
 
@@ -549,20 +574,20 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
 
                 }
 
-                $scope.formatLink = function(link){
-                    var shortLink = "";
-
-                    if (link.length > 70)
-                    {
-                        shortLink = link.substr(0, 70);
-                        shortLink = shortLink + ' [...]';
-                    } else {
-                        shortLink = link;
-                    }
-
-                    return shortLink;
-
-                }
+                // $scope.formatLink = function(link){
+                //     var shortLink = "";
+                //
+                //     if (link.length > 70)
+                //     {
+                //         shortLink = link.substr(0, 70);
+                //         shortLink = shortLink + ' [...]';
+                //     } else {
+                //         shortLink = link;
+                //     }
+                //
+                //     return shortLink;
+                //
+                // }
 
                 // Dataset classification set
                 $scope.dataCategory = [];

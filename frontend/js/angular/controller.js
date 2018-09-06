@@ -1113,6 +1113,15 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
         $scope.addLink = function(strLink)
         {
+            //Check protocol
+            var indexProtocolCheck = strLink.indexOf('http');
+
+            if(indexProtocolCheck == -1)
+            {
+                //Add protocol to link
+                strLink = "http://" + strLink;
+            }
+
             var indexElem = $scope.selectedLink.indexOf(strLink);
             if(indexElem == -1)
             {
