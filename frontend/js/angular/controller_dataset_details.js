@@ -550,7 +550,8 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                     $scope.istanceList = data;
 
                     $scope.istanceList = $filter('filter')($scope.istanceList, function(item){
-                        return item.keydataset.dataset.id == $scope.objDataset.keydataset.dataset.id && item.id !== $scope.objDataset.id;
+                        // return item.keydataset.dataset.id == $scope.objDataset.keydataset.code && item.id !== $scope.objDataset.id;
+                        return item.keydataset.code == $scope.objDataset.keydataset.code && item.id !== $scope.objDataset.id;
                     });
 
                 }, function(data)
