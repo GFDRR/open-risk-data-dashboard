@@ -628,17 +628,28 @@ class DatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
             pass
         return DatasetListSerializer
 
-    def update(self, request, *args, **kwargs):
-        partial = kwargs.get('partial', False)
-        instance = self.get_object()
-
-        serializer = self.get_serializer(instance, data=request.data, partial=partial)
-        urls_new = serializer.initial_data['url']
-
-        for url_new in urls_new:
-            Url.objects.get_or_create(url=url_new)
-
-        return super(DatasetDetailsView, self).update(request, *args, **kwargs)
+#
+#  NOTE: this part is became obsolete after creation of url items inside serializers
+#       remove it if not create side-effects
+#
+#    def update(self, request, *args, **kwargs):
+#        logger.error('here we are 2')
+#        partial = kwargs.get('partial', False)
+#        instance = self.get_object()
+#
+#        serializer = self.get_serializer(instance, data=request.data, partial=partial)
+#        # urls_new = serializer.initial_data['url']
+#
+#        # for url_new in urls_new:
+#        #     url, created = Url.objects.get_or_create(url=url_new)
+#        #     if created:
+#        #         logger.error('created add')
+#        #         instance.url.add(url)
+#        #     elif url not in instance.url_set.all():
+#        #         logger.error('get add')
+#        #         instance.url.add(url)
+#
+#        return super(DatasetDetailsView, self).update(request, *args, **kwargs)
 
     def perform_update(self, serializer):
         # to take a picture of the field before update we follow
