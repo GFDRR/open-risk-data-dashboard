@@ -271,8 +271,8 @@ class DatasetPutSerializer(serializers.ModelSerializer):
     country = serializers.SlugRelatedField(slug_field='iso2',
                                            queryset=Country.objects.all(
                                            ).order_by('name'))
-    url = serializers.SlugRelatedField(slug_field='url',
-                                       queryset=Url.objects.all(), many=True)
+    url = CreateSlugRelatedField(slug_field='url',
+                                 queryset=Url.objects.all(), many=True)
     tag = serializers.SlugRelatedField(slug_field='name',
                                        queryset=KeyTag.objects.all(),
                                        many=True)
