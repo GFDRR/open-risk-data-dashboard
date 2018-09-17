@@ -215,7 +215,7 @@ class UrlManager(models.Manager):
 class Url(models.Model):
     objects = UrlManager()
 
-    url = models.URLField(max_length=4096, blank=True)
+    url = models.URLField(max_length=4096, unique=True)
 
     def natural_key(self):
         return [self.url]
