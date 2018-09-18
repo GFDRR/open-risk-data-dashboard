@@ -798,141 +798,193 @@
                     <!-- Dataset review -->
                     <div role="tabpanel" class="tab-pane" ng-class="{active:tab==2}" id="datasetreview">
                         <strong>Dataset review</strong>
-                        <span class="text-muted pull-right">Dataset found: {{iNrDatasetToReview}}</span>
+                        <span class="text-muted pull-right">Dataset found: {{datasetReviewList.length}}</span>
                         <br /><br />
+
                         <div class="row" ng-if="bDatasetReview">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <br/><br/>
 
-                                <table ng-table="tableParamsReview" class="table table-hover dataset text-left" show-filter="true">
-                                    <tr ng-repeat="ds in $data">
-                                        <td title="'#'"><h5>{{$index + 1}}</h5></td>
-                                        <td title="'Category'" filter="{ 'keydataset.category': 'text'}" sortable="'keydataset.category'">
-                                            <h5>{{ds.keydataset.category}}</h5>
-                                            <small>{{ds.keydataset.level}}</small>
-                                        </td>
-                                        <td title="'Dataset'" filter="{ 'keydataset.dataset.name': 'text'}" sortable="'keydataset.dataset.name'">
-                                            <h5>{{ds.keydataset.dataset.name}}</h5>
-                                            {{formatStringLenght(ds.keydataset.description)}}<br /> <small><a href="" data-toggle="modal" data-target="#moreinfoModalReview{{$index}}">more info</a></small>
-                                            <br /><br />
-                                            Tags: <span ng-repeat="tag in ds.tag"><small>{{tag}}<span ng-if="!$last">,</span></small> </span>
-                                            <br />
+                                <div style="background-color: rgba(0,0,0,.1); padding:10px;">
+                                    <div class="row">
+                                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                            <label>Filter by Country</label>
+                                            <select ng-model="reviewCountryFilter" class="form-control">
+                                                <option ng-repeat="coun in countryList" value="{{coun.iso2}}">{{coun.name}}</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                            &nbsp;
+                                        </div>
+                                        <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
+                                            &nbsp;
+                                        </div>
+                                    </div>
+                                </div>
+                                <br />
 
-                                            <!-- Modal -->
-                                            <div class="modal fade" id="moreinfoModalReview{{$index}}" tabindex="-1" role="dialog" aria-labelledby="moreinfoModalReview{{$index}}label" aria-hidden="true">
-                                                <div class="modal-dialog modal-lg" role="document">
-                                                    <div class="modal-content">
-                                                        <div class="modal-header">
-                                                            <h5 class="modal-title" id="moreinfoModalReview{{$index}}label">{{ds.keydataset.category}} - {{ds.keydataset.dataset.name}} ({{ds.keydataset.level}})</h5>
-                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                <span aria-hidden="true">&times;</span>
-                                                            </button>
-                                                        </div>
-                                                        <div class="modal-body">
-                                                            <strong>Description</strong>
-                                                            <br />
-                                                            {{ds.keydataset.description}}
-                                                            <br /><br />
-                                                            <strong>Notes</strong>
-                                                            <br />
-                                                            {{ds.notes}}
-                                                        </div>
-                                                        <div class="modal-footer">
-                                                            <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                                <!-- NEW TABLE START - Manuel 18/09/2018 -->
+                                <div class="table-responsive">
+                                    <table ng-table="tableParamsReview" class="table table-responsive table-striped table-hover" show-filter="false">
+                                        <thead>
+                                            <tr>
+                                                <th style="text-align:left!important;"><h4>Location</h4></th>
+                                                <th style="text-align:left!important;"><h4>Dataset</h4></th>
+                                                <th style="text-align:left!important;"><h4>Open Data Criteria</h4></th>
+                                                <th style="text-align:left!important;"><h4>Submission date</h4></th>
+                                                <th style="text-align:left!important;"><h4>Review</h4></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-repeat="ds in $data | filter: {country: reviewCountryFilter}">
+                                                <td>{{getCountryNameReview(ds.country)}}</td>
+                                                <td>
+                                                    <!-- Dataset info -->
+                                                    {{ds.keydataset.category}} - {{ds.keydataset.level}} - <strong>{{ds.keydataset.dataset.name}}</strong><br />
+                                                    {{formatStringLenght(ds.keydataset.description)}}<br /> <small><a href="" data-toggle="modal" data-target="#moreinfoModalReview{{$index}}">more info</a></small>
+                                                    <br /><br />
+                                                    Tags: <span ng-repeat="tag in ds.tag"><small>{{tag}}<span ng-if="!$last">,</span></small> </span>
+                                                    <br />
+
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="moreinfoModalReview{{$index}}" tabindex="-1" role="dialog" aria-labelledby="moreinfoModalReview{{$index}}label" aria-hidden="true">
+                                                        <div class="modal-dialog modal-lg" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title" id="moreinfoModalReview{{$index}}label">{{ds.keydataset.category}} - {{ds.keydataset.dataset.name}} ({{ds.keydataset.level}})</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    <strong>Description</strong>
+                                                                    <br />
+                                                                    {{ds.keydataset.description}}
+                                                                    <br /><br />
+                                                                    <strong>Notes</strong>
+                                                                    <br />
+                                                                    {{ds.notes}}
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-info" data-dismiss="modal">Close</button>
+                                                                </div>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </div>
 
-                                        </td>
-                                        <!--<td title="'Level'" filter="{ 'keydataset.level': 'text'}" sortable="'keydataset.level'">
-                                            <h5>{{ds.keydataset.level}}</h5></td>-->
-                                        <!--<td title="'Tags'">
-                                            <span ng-repeat="tag in ds.tag"><small>{{tag}}<span ng-if="!$last">,</span></small> </span>
-                                        </td>-->
-                                        <td title="'Insert Date'" sortable="'create_time'">
-                                            <h5 class="text-center">{{ds.create_time | date: 'dd/MM/yyyy'}}</h5>
-                                        </td>
-                                        <td title="'Open data criteria'">
-                                            <div class=" dataset_value">
-                                                <i class="fa fa-check-circle-o" aria-hidden="{{ds.is_existing}}" data-toggle="tooltip" title="{{questions[0].desc}}"></i>
-                                                <i class="fa fa-desktop" aria-hidden="{{ds.is_digital_form}}" data-toggle="tooltip" title="{{questions[1].desc}}"></i>
-                                                <i class="fa fa-cloud" aria-hidden="{{ds.is_avail_online}}" data-toggle="tooltip" title="{{questions[2].desc}}"></i>
-                                                <i class="fa fa-tag" aria-hidden="{{ds.is_avail_online_meta}}" data-toggle="tooltip" title="{{questions[3].desc}}"></i>
-                                                <i class="fa fa-copy" aria-hidden="{{ds.is_bulk_avail}}" data-toggle="tooltip" title="{{questions[4].desc}}"></i>
-                                                <i class="fa fa-keyboard-o" aria-hidden="{{ds.is_machine_read}}" data-toggle="tooltip" title="{{questions[5].desc}}"></i>
-                                                <i class="fa fa-eye" aria-hidden="{{ds.is_pub_available}}" data-toggle="tooltip" title="{{questions[6].desc}}"></i>
-                                                <i class="fa fa-dollar" aria-hidden="{{ds.is_avail_for_free}}" data-toggle="tooltip" title="{{questions[7].desc}}"></i>
-                                                <i class="fa fa-unlock-alt" aria-hidden="{{ds.is_open_licence}}" data-toggle="tooltip" title="{{questions[8].desc}}"></i>
-                                                <i class="fa fa-clock-o" aria-hidden="{{ds.is_prov_timely}}" data-toggle="tooltip" title="{{questions[9].desc}}"></i>
-                                            </div>
-                                        </td>
-                                        <!--<td title="'Year'" filter="{ create_time: 'number'}" sortable="'create_time'" class="text-center">
-                                            <h5>{{ds.create_time | date: 'yyyy'}}</h5>
-                                        </td>-->
-                                        <td  sortable="'is_reviewed'" title="'Review'" class="text-center status">
-                                            <div class="flex-container flex-row">
-                                                <i class="fa fa-2x fa-check-circle-o ok" aria-hidden="true" ng-if="ds.is_reviewed" ></i>
-                                                <i class="fa fa-2x fa-clock-o rev" aria-hidden="true" ng-if="!ds.is_reviewed" ></i>
-                                                <!--<i class="fa fa-2x fa-clock-o" aria-hidden="true" ng-if="!ds.is_reviewed" style="color:#eea236; color:rgba(51, 122, 183, 0.7);"></i>-->
-                                                <a class="" href="" title="details" ng-click="changepage('dataset_details.html?keyds=' + ds.id)">
-                                                    <i class="fa fa-2x fa-search"></i>
-                                                </a>
-                                            </div>
-                                        </td>
+                                                </td>
+                                                <td>
+                                                    <!-- Open data criteria -->
+                                                    <div class=" dataset_value">
+                                                        <i class="fa fa-check-circle-o" aria-hidden="{{ds.is_existing}}" data-toggle="tooltip" title="{{questions[0].desc}}"></i>
+                                                        <i class="fa fa-desktop" aria-hidden="{{ds.is_digital_form}}" data-toggle="tooltip" title="{{questions[1].desc}}"></i>
+                                                        <i class="fa fa-cloud" aria-hidden="{{ds.is_avail_online}}" data-toggle="tooltip" title="{{questions[2].desc}}"></i>
+                                                        <i class="fa fa-tag" aria-hidden="{{ds.is_avail_online_meta}}" data-toggle="tooltip" title="{{questions[3].desc}}"></i>
+                                                        <i class="fa fa-copy" aria-hidden="{{ds.is_bulk_avail}}" data-toggle="tooltip" title="{{questions[4].desc}}"></i>
+                                                        <i class="fa fa-keyboard-o" aria-hidden="{{ds.is_machine_read}}" data-toggle="tooltip" title="{{questions[5].desc}}"></i>
+                                                        <i class="fa fa-eye" aria-hidden="{{ds.is_pub_available}}" data-toggle="tooltip" title="{{questions[6].desc}}"></i>
+                                                        <i class="fa fa-dollar" aria-hidden="{{ds.is_avail_for_free}}" data-toggle="tooltip" title="{{questions[7].desc}}"></i>
+                                                        <i class="fa fa-unlock-alt" aria-hidden="{{ds.is_open_licence}}" data-toggle="tooltip" title="{{questions[8].desc}}"></i>
+                                                        <i class="fa fa-clock-o" aria-hidden="{{ds.is_prov_timely}}" data-toggle="tooltip" title="{{questions[9].desc}}"></i>
+                                                    </div>
+                                                </td>
+                                                <td>{{ds.create_time | date: 'dd/MM/yyyy'}}</td>
+                                                <td>
+                                                    <div class="flex-container flex-row">
+                                                        <i class="fa fa-2x fa-check-circle-o ok" aria-hidden="true" ng-if="ds.is_reviewed" title="Reviewed" ></i>
+                                                        <i class="fa fa-2x fa-clock-o rev" aria-hidden="true" ng-if="!ds.is_reviewed" title="Pending approval"></i>
+                                                        <!--<i class="fa fa-2x fa-clock-o" aria-hidden="true" ng-if="!ds.is_reviewed" style="color:#eea236; color:rgba(51, 122, 183, 0.7);"></i>-->
+                                                        <a class="" href="" title="details" ng-click="changepage('dataset_details.html?rl=true&keyds=' + ds.id)">
+                                                            <i class="fa fa-2x fa-search"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="text-center" ng-if="bLoadingTabelReview"><img src="img/template/loading.gif" alt="" style="max-width:80px;" /></div>
+                                </div>
+                                <!-- NEW TABLE END - Manuel 18/09/2018 -->
 
-                                    </tr>
-                                </table>
+                                <!--<table ng-table="tableParamsReview" class="table table-hover dataset text-left" show-filter="true">-->
+                                    <!--<tr ng-repeat="ds in $data">-->
+                                        <!--<td title="'#'"><h5>{{$index + 1}}</h5> - {{getCountryNameReview(ds.country)}}</td>-->
+                                        <!--<td title="'Category'" filter="{ 'keydataset.category': 'text'}" sortable="'keydataset.category'">-->
+                                            <!--<h5>{{ds.keydataset.category}}</h5>-->
+                                            <!--<small>{{ds.keydataset.level}}</small>-->
+                                        <!--</td>-->
+                                        <!--<td title="'Dataset'" filter="{ 'keydataset.dataset.name': 'text'}" sortable="'keydataset.dataset.name'">-->
+                                            <!--<h5>{{ds.keydataset.dataset.name}}</h5>-->
+                                            <!--{{formatStringLenght(ds.keydataset.description)}}<br /> <small><a href="" data-toggle="modal" data-target="#moreinfoModalReview{{$index}}">more info</a></small>-->
+                                            <!--<br /><br />-->
+                                            <!--Tags: <span ng-repeat="tag in ds.tag"><small>{{tag}}<span ng-if="!$last">,</span></small> </span>-->
+                                            <!--<br />-->
 
-
-                                <!--<table class="table table-striped table-hover dataset">-->
-                                    <!--<thead>-->
-                                    <!--<th>#</th>-->
-                                    <!--<th>User</th>-->
-                                    <!--<th>Nation</th>-->
-                                    <!--<th>Dataset</th>-->
-                                    <!--<th>Data risk cat.</th>-->
-                                    <!--<th>Insert date</th>-->
-                                    <!--<th>Questions</th>-->
-                                    <!--<th class="text-center">Year</th>-->
-                                    <!--<th class="text-center">Review</th>-->
-                                    <!--<th></th>-->
-                                    <!--</thead>-->
-                                    <!--<tbody>-->
-                                    <!--<tr ng-repeat="dsToReview in datasetReviewList">-->
-                                        <!--<td>{{$index + 1}}</td>-->
-                                        <!--<td>{{dsToReview.owner}}</td>-->
-                                        <!--<td>{{dsToReview.country}}</td>-->
-                                        <!--<td>{{dsToReview.keydataset.dataset.name}}</td>-->
-                                        <!--<td>{{dsToReview.keydataset.category}}</td>-->
-                                        <!--&lt;!&ndash;<td><a href="" ng-click="changepage('dataset_details.html?keyds=' + mydataset.id + '&ml=true') ">{{mydataset.keydataset.level}}</a></td>&ndash;&gt;-->
-                                        <!--<td>{{dsToReview.create_time | date: 'dd/MM/yyyy'}}</td>-->
-                                        <!--<td>-->
-                                            <!--<div class="flex-container dataset_value">-->
-                                                <!--<i class="fa fa-check-circle-o" aria-hidden="{{dsToReview.is_existing}}" data-toggle="tooltip" title="{{questions[0].desc}}"></i>-->
-                                                <!--<i class="fa fa-desktop" aria-hidden="{{dsToReview.is_digital_form}}" data-toggle="tooltip" title="{{questions[1].desc}}"></i>-->
-                                                <!--<i class="fa fa-cloud" aria-hidden="{{dsToReview.is_avail_online}}" data-toggle="tooltip" title="{{questions[2].desc}}"></i>-->
-                                                <!--<i class="fa fa-tag" aria-hidden="{{dsToReview.is_avail_online_meta}}" data-toggle="tooltip" title="{{questions[3].desc}}"></i>-->
-                                                <!--<i class="fa fa-copy" aria-hidden="{{dsToReview.is_bulk_avail}}" data-toggle="tooltip" title="{{questions[4].desc}}"></i>-->
-                                                <!--<i class="fa fa-keyboard-o" aria-hidden="{{dsToReview.is_machine_read}}" data-toggle="tooltip" title="{{questions[5].desc}}"></i>-->
-                                                <!--<i class="fa fa-eye" aria-hidden="{{dsToReview.is_pub_available}}" data-toggle="tooltip" title="{{questions[6].desc}}"></i>-->
-                                                <!--<i class="fa fa-dollar" aria-hidden="{{dsToReview.is_avail_for_free}}" data-toggle="tooltip" title="{{questions[7].desc}}"></i>-->
-                                                <!--<i class="fa fa-unlock-alt" aria-hidden="{{dsToReview.is_open_licence}}" data-toggle="tooltip" title="{{questions[8].desc}}"></i>-->
-                                                <!--<i class="fa fa-clock-o" aria-hidden="{{dsToReview.is_prov_timely}}" data-toggle="tooltip" title="{{questions[9].desc}}"></i>-->
+                                            <!--&lt;!&ndash; Modal &ndash;&gt;-->
+                                            <!--<div class="modal fade" id="moreinfoModalReview_old{{$index}}" tabindex="-1" role="dialog" aria-labelledby="moreinfoModalReview{{$index}}label" aria-hidden="true">-->
+                                                <!--<div class="modal-dialog modal-lg" role="document">-->
+                                                    <!--<div class="modal-content">-->
+                                                        <!--<div class="modal-header">-->
+                                                            <!--<h5 class="modal-title" id="moreinfoModalReview{{$index}}label">{{ds.keydataset.category}} - {{ds.keydataset.dataset.name}} ({{ds.keydataset.level}})</h5>-->
+                                                            <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
+                                                                <!--<span aria-hidden="true">&times;</span>-->
+                                                            <!--</button>-->
+                                                        <!--</div>-->
+                                                        <!--<div class="modal-body">-->
+                                                            <!--<strong>Description</strong>-->
+                                                            <!--<br />-->
+                                                            <!--{{ds.keydataset.description}}-->
+                                                            <!--<br /><br />-->
+                                                            <!--<strong>Notes</strong>-->
+                                                            <!--<br />-->
+                                                            <!--{{ds.notes}}-->
+                                                        <!--</div>-->
+                                                        <!--<div class="modal-footer">-->
+                                                            <!--<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>-->
+                                                        <!--</div>-->
+                                                    <!--</div>-->
+                                                <!--</div>-->
                                             <!--</div>-->
 
                                         <!--</td>-->
-                                        <!--<td class="text-center">{{dsToReview.create_time | date: 'yyyy'}}</td>-->
-                                        <!--<td class="text-center">-->
-                                            <!--<i class="fa fa-check-circle-o" aria-hidden="true" ng-if="dsToReview.is_reviewed"></i>-->
-                                            <!--<i class="fa fa-clock-o" aria-hidden="true" ng-if="!dsToReview.is_reviewed"></i>-->
+                                        <!--&lt;!&ndash;<td title="'Level'" filter="{ 'keydataset.level': 'text'}" sortable="'keydataset.level'">-->
+                                            <!--<h5>{{ds.keydataset.level}}</h5></td>&ndash;&gt;-->
+                                        <!--&lt;!&ndash;<td title="'Tags'">-->
+                                            <!--<span ng-repeat="tag in ds.tag"><small>{{tag}}<span ng-if="!$last">,</span></small> </span>-->
+                                        <!--</td>&ndash;&gt;-->
+                                        <!--<td title="'Insert Date'" sortable="'create_time'">-->
+                                            <!--<h5 class="text-center">{{ds.create_time | date: 'dd/MM/yyyy'}}</h5>-->
                                         <!--</td>-->
-                                        <!--<td>-->
-                                            <!--<a href="" title="details" ng-click="changepage('dataset_details.html?keyds=' + dsToReview.id + '&rl=true')"><i class="fa fa-search"></i></a>-->
+                                        <!--<td title="'Open data criteria'">-->
+                                            <!--<div class=" dataset_value">-->
+                                                <!--<i class="fa fa-check-circle-o" aria-hidden="{{ds.is_existing}}" data-toggle="tooltip" title="{{questions[0].desc}}"></i>-->
+                                                <!--<i class="fa fa-desktop" aria-hidden="{{ds.is_digital_form}}" data-toggle="tooltip" title="{{questions[1].desc}}"></i>-->
+                                                <!--<i class="fa fa-cloud" aria-hidden="{{ds.is_avail_online}}" data-toggle="tooltip" title="{{questions[2].desc}}"></i>-->
+                                                <!--<i class="fa fa-tag" aria-hidden="{{ds.is_avail_online_meta}}" data-toggle="tooltip" title="{{questions[3].desc}}"></i>-->
+                                                <!--<i class="fa fa-copy" aria-hidden="{{ds.is_bulk_avail}}" data-toggle="tooltip" title="{{questions[4].desc}}"></i>-->
+                                                <!--<i class="fa fa-keyboard-o" aria-hidden="{{ds.is_machine_read}}" data-toggle="tooltip" title="{{questions[5].desc}}"></i>-->
+                                                <!--<i class="fa fa-eye" aria-hidden="{{ds.is_pub_available}}" data-toggle="tooltip" title="{{questions[6].desc}}"></i>-->
+                                                <!--<i class="fa fa-dollar" aria-hidden="{{ds.is_avail_for_free}}" data-toggle="tooltip" title="{{questions[7].desc}}"></i>-->
+                                                <!--<i class="fa fa-unlock-alt" aria-hidden="{{ds.is_open_licence}}" data-toggle="tooltip" title="{{questions[8].desc}}"></i>-->
+                                                <!--<i class="fa fa-clock-o" aria-hidden="{{ds.is_prov_timely}}" data-toggle="tooltip" title="{{questions[9].desc}}"></i>-->
+                                            <!--</div>-->
                                         <!--</td>-->
+                                        <!--&lt;!&ndash;<td title="'Year'" filter="{ create_time: 'number'}" sortable="'create_time'" class="text-center">-->
+                                            <!--<h5>{{ds.create_time | date: 'yyyy'}}</h5>-->
+                                        <!--</td>&ndash;&gt;-->
+                                        <!--<td  sortable="'is_reviewed'" title="'Review'" class="text-center status">-->
+                                            <!--<div class="flex-container flex-row">-->
+                                                <!--<i class="fa fa-2x fa-check-circle-o ok" aria-hidden="true" ng-if="ds.is_reviewed" ></i>-->
+                                                <!--<i class="fa fa-2x fa-clock-o rev" aria-hidden="true" ng-if="!ds.is_reviewed" ></i>-->
+                                                <!--&lt;!&ndash;<i class="fa fa-2x fa-clock-o" aria-hidden="true" ng-if="!ds.is_reviewed" style="color:#eea236; color:rgba(51, 122, 183, 0.7);"></i>&ndash;&gt;-->
+                                                <!--<a class="" href="" title="details" ng-click="changepage('dataset_details.html?keyds=' + ds.id)">-->
+                                                    <!--<i class="fa fa-2x fa-search"></i>-->
+                                                <!--</a>-->
+                                            <!--</div>-->
+                                        <!--</td>-->
+
                                     <!--</tr>-->
-                                    <!--</tbody>-->
                                 <!--</table>-->
+
                             </div>
                         </div>
                         <div class="row" ng-if="!bDatasetReview">
@@ -1102,22 +1154,7 @@
             </div>
         </div>
         <div ng-if="!bLogin">
-            <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">-->
             <hr />
-            <!--<div class="jumbotron" ng-if="tabpar == '3'">
-                <div class="container">
-                    <p class="text-center">Please login to complete your profile</p>
-                    <br><br><br><br>
-                    <div class="text-center">
-                        <button class="btn btn-primary btn-lg" type="button" ng-click="loginform()">
-                                <span class="rodi_big_text">
-                                    <i class="fa icon-login fa-2x"></i>
-                                    LOGIN
-                                </span>
-                        </button>
-                    </div>
-                </div>
-            </div>-->
             <div class="jumbotron" ng-if="tabpar !== '3'">
                 <div class="container">
                     <p class="text-center">You are about to submit information on a dataset and assess whether it is open or not.<br/>
@@ -1140,83 +1177,75 @@
                     </div>
                 </div>
             </div>
-            <!--<h3>If you want to contribute to Risk Open Data Index visiblemust to visible>
-
-            <ahref="" ng-click="changepage('register.html')"><span class="rodi_big_text"><i class="fa icon-register"NOi> REGISTER
-            <visibleclass="visible>
-
-            <ahref="" ng-click="loginform()"><span class="rodi_big_text"><i class="fa icon-login"NOi> LOGIN
         </div>
-        <!--</div>-->
-</div>
 
-</section>
-<!-- Section MAP - FINE -->
+    </section>
+    <!-- Section MAP - FINE -->
 
-<section>
-    <div class="footer">
-        <!--<div class="space"></div>-->
-        <!-- Section FOOTER - INIZIO -->
-        <rodifooter></rodifooter>
-        <!-- Section FOOTER - FINE -->
-    </div>
+    <section>
+        <div class="footer">
+            <!--<div class="space"></div>-->
+            <!-- Section FOOTER - INIZIO -->
+            <rodifooter></rodifooter>
+            <!-- Section FOOTER - FINE -->
+        </div>
 
-</section>
+    </section>
 
 
-<!-- User edit modal -->
-<div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="editUserLabel">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="editUserLabel">User profile - {{stypeModal}}</h4>
-            </div>
-            <div class="modal-body">
+    <!-- User edit modal -->
+    <div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="editUserLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="editUserLabel">User profile - {{stypeModal}}</h4>
+                </div>
+                <div class="modal-body">
 
-                <div class="alert alert-info">User name: {{usradmininfo.username}}- access level: <span class="text-uppercase">{{usradmininfo.groups[0]}}</span></div>
-                <form name="registrationForm">
-                    <label>Username</label>
-                    <input type="text" name="usrid" placeholder="Username" class="form-control" ng-model="usradmininfo.username">
-                    <br />
-                    <label>Title</label>
-                    <input type="text" name="usrtitle" placeholder="es: Drs" class="form-control" ng-model="usradmininfo.title">
-                    <br />
-                    <label>First name (*)</label>
-                    <input type="text" name="usrname" placeholder="Name" class="form-control" ng-model="usradmininfo.first_name">
-                    <br />
-                    <label>Last name  (*)</label>
-                    <input type="text" name="usrsurname" placeholder="Surname" class="form-control" ng-model="usradmininfo.last_name">
-                    <br />
-                    <label>E-mail  (*)</label>
-                    <span class="register_error" ng-show="registrationForm.usremail.$error.pattern">invalid email!</span>
-                    <input type="email" name="usremail" placeholder="E-mail address" class="form-control" ng-model="usradmininfo.email" ng-pattern="checkMail">
-                    <br />
-                    <label>Group</label>
-                    <select ng-model="groupSelect" class="form-control">
-                        <option value="normal">Normal user</option>
-                        <option value="reviewer">Reviwer</option>
-                        <option value="admin">Administrator</option>
-                    </select>
-                    <br />
+                    <div class="alert alert-info">User name: {{usradmininfo.username}}- access level: <span class="text-uppercase">{{usradmininfo.groups[0]}}</span></div>
+                    <form name="registrationForm">
+                        <label>Username</label>
+                        <input type="text" name="usrid" placeholder="Username" class="form-control" ng-model="usradmininfo.username">
+                        <br />
+                        <label>Title</label>
+                        <input type="text" name="usrtitle" placeholder="es: Drs" class="form-control" ng-model="usradmininfo.title">
+                        <br />
+                        <label>First name (*)</label>
+                        <input type="text" name="usrname" placeholder="Name" class="form-control" ng-model="usradmininfo.first_name">
+                        <br />
+                        <label>Last name  (*)</label>
+                        <input type="text" name="usrsurname" placeholder="Surname" class="form-control" ng-model="usradmininfo.last_name">
+                        <br />
+                        <label>E-mail  (*)</label>
+                        <span class="register_error" ng-show="registrationForm.usremail.$error.pattern">invalid email!</span>
+                        <input type="email" name="usremail" placeholder="E-mail address" class="form-control" ng-model="usradmininfo.email" ng-pattern="checkMail">
+                        <br />
+                        <label>Group</label>
+                        <select ng-model="groupSelect" class="form-control">
+                            <option value="normal">Normal user</option>
+                            <option value="reviewer">Reviwer</option>
+                            <option value="admin">Administrator</option>
+                        </select>
+                        <br />
 
-                    <label>Institution</label>
-                    <input type="text" name="usrinstitution" placeholder="Institution" class="form-control" ng-model="usradmininfo.institution">
-                    <br />
-                </form>
+                        <label>Institution</label>
+                        <input type="text" name="usrinstitution" placeholder="Institution" class="form-control" ng-model="usradmininfo.institution">
+                        <br />
+                    </form>
 
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-success" ng-click="saveUsrInfoAdmin()">Save changes</button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" ng-click="saveUsrInfoAdmin()">Save changes</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-</div>
+    </div>
 
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 </body>
 </html>

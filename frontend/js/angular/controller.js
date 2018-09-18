@@ -949,6 +949,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
         $scope.sTagsMsg = "** Select a dataset description **";
         $scope.sTagsInfo = "";
         $scope.bLoadingUpdateScoring = false;
+        $scope.bLoadingTabelReview = true;
 
         $scope.objDataset = RodiSrv.getDatasetEmptyStructure();
 
@@ -958,6 +959,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
             {
                 $scope.dataCategory = data;
                 $scope.dataCategoryAll = data;
+                console.log($scope.dataCategoryAll);
             },
             function(data)
             {
@@ -1148,6 +1150,18 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 {
                     $scope.objDataset.country = $scope.countrypar;
                 };
+
+                $scope.getCountryNameReview = function(country)
+                {
+                    var aCountry = $filter('filter')($scope.countryList, function(item){
+                        return item.iso2 == country;
+                    })
+
+                    if (aCountry.length > 0)
+                    {
+                        return aCountry[0].name;
+                    }
+                }
 
             }, function(data){
                 // Error
@@ -1580,9 +1594,10 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
                 // ******* DATASET NOT REVIWERED ****** //
                 // ************************************** //
 
-                $scope.bDatasetReview = false;
+                $scope.bDatasetReview = true;
                 $scope.datasetReviewList = [];
                 $scope.iNrDatasetToReview = 0;
+                $scope.reviewCountryFilter = "";
 
                 RodiSrv.getAllDatasetList(
                     function(data)
@@ -1591,7 +1606,9 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
                         $scope.datasetReviewList = $filter('filter')(data, {'is_reviewed': false});
 
-                        $scope.tableParamsReview = new NgTableParams({}, { dataset: $scope.datasetReviewList});
+                        $scope.tableParamsReview = new NgTableParams({count: $scope.datasetReviewList.length}, { dataset: $scope.datasetReviewList});
+
+                        console.log($scope.tableParamsReview);
 
                         if ($scope.datasetReviewList.length > 0)
                         {
@@ -1600,13 +1617,13 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
 
                         } else {$scope.bDatasetReview = false;}
 
+                        $scope.bLoadingTabelReview = false;
+
                     }, function(data)
                     {
                         // Error
                         console.log(data);
                     })
-
-
             }
 
             // ************************************** //
