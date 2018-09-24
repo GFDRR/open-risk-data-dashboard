@@ -1,0 +1,15 @@
+language: node_js
+node_js: lts/*
+
+install: exit 0
+test: exit 0
+
+deploy:
+- provider: script
+  script: curl -T ./ --insecure --ftp-create-dirs sftp://${FRONTEND_SFTP_USER}@${FRONTEND_SFTP_PASSWD}@dev.riskopendata.org:22027/~/html-dev/
+  on:
+    branch: master
+- provider: script
+  script: curl -T ./ --insecure --ftp-create-dirs sftp://${FRONTEND_SFTP_USER}@${FRONTEND_SFTP_PASSWD}@index.opendri.org:22027/~/html/
+  on:
+    branch: production
