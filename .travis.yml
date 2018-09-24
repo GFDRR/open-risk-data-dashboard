@@ -1,15 +1,24 @@
 language: node_js
 node_js: lts/*
 
-install: exit 0
-test: exit 0
+install:
+- cd frontend
+- npm ci
+test:
+- cd frontend
+- npm test
+
+addons:
+  ssh_known_hosts:
+  - dev.riskopendata.org
+  - index.opendri.org
 
 deploy:
 - provider: script
-  script: curl -T ./ --insecure --ftp-create-dirs sftp://${FRONTEND_SFTP_USER}@${FRONTEND_SFTP_PASSWD}@dev.riskopendata.org:22027/~/html-dev/
+  script: rsync -e "ssh -p 22027" --delete-after -r ./frontend/ ${FRONTEND_SFTP_USER}@dev.riskopendata.org:~/html-dev/
   on:
     branch: master
-- provider: script
-  script: curl -T ./ --insecure --ftp-create-dirs sftp://${FRONTEND_SFTP_USER}@${FRONTEND_SFTP_PASSWD}@index.opendri.org:22027/~/html/
-  on:
-    branch: production
+# - provider: script
+#   script: rsync -e "ssh -p 22" --delete-after -r ./frontend/ ${FRONTEND_SFTP_USER}@dev.riskopendata.org:~/html/
+#   on:
+#     branch: production
