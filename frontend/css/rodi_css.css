@@ -751,7 +751,17 @@ Navbar
 
 .navbar-toggle-right-black {
     float:right;
-    background-color: #232323;
+    background-color: #ee3036;
+    margin: 30px 30px 0;
+    color:white;
+}
+.navbar-toggle-right-black[aria-expanded="true"] i,
+.navbar-toggle-right-black[aria-expanded="false"] i {
+    transition: all 0.25s ease-in-out;
+}
+.navbar-toggle-right-black[aria-expanded="true"] i {
+    transform: rotate(90deg);
+
 }
 
 .icon-bar-white {    background-color: #ffffff;}
@@ -772,11 +782,13 @@ Navbar
 
 .nav li a, .nav li p {
     display: flex;
-    flex-direction: column;
+    /* flex-direction: column; */
     justify-content:center;
     align-items: center;
     align-content: center;
     padding:10px;
+    line-height: 1;
+    /* margin-top: 5px; */
 }
 
 .nav li a i {
@@ -794,7 +806,7 @@ a.invert {
 }
 
 mainmenu .navbar {
-    margin: 1em;
+    margin: 1.5em 1em 0;
 }
 
 /*
@@ -1520,7 +1532,7 @@ fieldset[disabled] .btn-custom.active {
 }
 
 .img-responsive {
-    max-width: 200px;
+    max-width: 240px;
     padding: 1em;
 }
 
@@ -1575,7 +1587,7 @@ hr {
     align-items: center;
 }
 
-.flex-row {flex-direction: row; align-items: center; margin: 0px;}
+.flex-row {flex-direction: row;align-items: center;margin: 0px;}
 .flex-col{flex-direction: column;}
 
 .flex-row .flex-item {padding:2px 5px;}
@@ -1697,7 +1709,11 @@ responsive
 }
 @media screen and (max-width: 768px) {
     #menu-website .nav.flex-row,
-    #menu-hazard .nav {flex-direction: column; overflow: hidden;padding: 1em; }
+    #menu-hazard .nav {/* flex-direction: column; */
+    overflow: hidden;padding: 1em;width: 100vw;margin: 0;left: 0;right: 0;justify-content: flex-end;
+    }
+    #menu-website {padding:0; margin:0;}
+    #menu-website li a {white-space:normal;}
     #menu-hazard .nav>li>a span { margin-top: 0;
         font-size: 10px;}
     /*#menu-hazard .nav>li>a:hover,*/
@@ -2066,7 +2082,7 @@ a.active
     border-radius: 5px;
 }
 
-.logout{padding-left: 1em;}
+.logout{padding-left: 1em;/* display: inline-flex; */white-space: nowrap;}
 
 .odfri_box_dataset_list_details
 {
