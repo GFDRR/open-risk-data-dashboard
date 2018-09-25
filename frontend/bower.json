@@ -15,7 +15,9 @@
     "angular": "~1.6.4",
     "bootstrap": "^3.3.7",
     "font-awesome": "fontawesome#^4.7.0",
-    "animate.css": "^3.5.2"
+    "animate.css": "^3.5.2",
+    "vex": "^2.3.2",
+    "ng-table": "^1.0.0"
   },
   "main": "bower_components",
   "keywords": [
@@ -24,5 +26,8 @@
   ],
   "authors": [
     "manuel"
-  ]
+  ],
+  "resolutions": {
+    "ng-table": "^1.0.0"
+  }
 }
