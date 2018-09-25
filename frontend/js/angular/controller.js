@@ -2,7 +2,7 @@
  * Created by Manuel on 15/05/2017.
  */
 
-RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$cookieStore', '$location','NgTableParams','$timeout', function ($scope, RodiSrv, $window, $filter, $cookieStore, $location,NgTableParams,$timeout) {
+RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$location','NgTableParams','$timeout', function ($scope, RodiSrv, $window, $filter, $location,NgTableParams,$timeout) {
 
 
     // ************************************** //

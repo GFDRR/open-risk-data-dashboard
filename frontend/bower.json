@@ -12,11 +12,10 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "^1.6.4",
+    "angular": "~1.6.4",
     "bootstrap": "^3.3.7",
     "font-awesome": "fontawesome#^4.7.0",
-    "animate.css": "^3.5.2",
-    "Flex": "Flex-css#^4.0.1"
+    "animate.css": "^3.5.2"
   },
   "main": "bower_components",
   "keywords": [

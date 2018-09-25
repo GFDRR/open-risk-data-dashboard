@@ -2,7 +2,7 @@
  * Created by Manuel on 15/05/2017.
  */
 
-var RodiApp = angular.module('RodiApp', ['ngCookies', 'ngTable']);
+var RodiApp = angular.module('RodiApp', ['ngTable']);
 
 // var baseUrl = 'http://localhost:63342/open-risk-data-dashboard/frontend/';
 function getLocation(href) {

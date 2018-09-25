@@ -2,7 +2,7 @@
  * Created by Manuel on 23/05/2017.
  */
 
-RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window', '$location', '$cookieStore', function ($scope, RodiSrv, $filter, $window, $location, $cookieStore) {
+RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window', '$location', function ($scope, RodiSrv, $filter, $window, $location) {
 
     // ************************************** //
     // ********* MAIN MENU CLICK ************ //
