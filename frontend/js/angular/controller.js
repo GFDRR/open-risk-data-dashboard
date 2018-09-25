@@ -50,15 +50,20 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
     if ($location.path().indexOf('index') !== -1 || $location.path() == baseUrl.replace("http:/", "") || $location.path() == baseUrl.replace("https:/", ""))
     {
 
+        $scope.countryWithData = "--";
+        $scope.totalDataset = "--";
+        $scope.iOpenIndex = "--";
+
+
         RodiSrv.getHomeIndicators(function(data)
         {
             //Success API
 
             $scope.countryWithData = data.data.countries;
             $scope.totalDataset = data.data.datasets_count;
-            $scope.iOpenIndex = data.data.fullscores_count * 1;
+            // $scope.iOpenIndex = data.data.fullscores_count * 1;
 
-            $scope.iOpenIndex = (($scope.iOpenIndex / $scope.totalDataset * 1) * 100).toFixed(1) * 1;
+            $scope.iOpenIndex = ((data.data.fullscores_count / data.data.datasets_count) * 100).toFixed(1);
 
 
         }, function(data)
@@ -66,34 +71,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$coo
             // Error
         });
 
-        // RodiSrv.getHomeStatistics(function(data)
-        // {
-            // Statistics index
-
-            // $scope.countryWithData = data.countries_count;
-            // $scope.totalDataset = data.datasets_count;
-            // $scope.categoryCounters = data.categories_counters;
-
-            // Calc % open datatsets
-            // $scope.iOpenIndex = 0;
-            // var iTotalDatasets = 0;
-            // aTotDataset = angular.copy($scope.categoryCounters);
-
-            //
-            // angular.forEach(aTotDataset, function(item)
-            // {
-            //     iTotalDatasets = (iTotalDatasets * 1) + (item.count * 1);
-            //     $scope.iOpenIndex = $scope.iOpenIndex + (item.fullcount * 1);
-            //
-            // });
-            //
-            // $scope.iOpenIndex = (($scope.iOpenIndex / iTotalDatasets) * 100).toFixed(1) * 1;
-        //
-        //
-        // }, function(data)
-        // {
-            Error
-        // });
 
     }
 
