@@ -1,4 +1,4 @@
-# Open Data for Resilience Index • Front-end
+# Open Data for Resilience Index • Front-end [![Build Status](https://travis-ci.com/GFDRR/open-risk-data-dashboard.svg?branch=master)](https://travis-ci.com/GFDRR/open-risk-data-dashboard)
 
 
 # Install the project
