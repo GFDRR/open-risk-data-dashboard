@@ -360,6 +360,18 @@ Logo color
     font-size: 56.0275px;
 }
 
+
+svg.logo_icon {
+    width: 100%;
+    /* height: 100px; */
+    stroke-linecap: round;
+    stroke-width: 0;
+    stroke:red;
+    max-width: 200px;
+    max-height: 85px;
+}
+
+
 /*
 ==============================================================================
 
@@ -895,6 +907,7 @@ mainmenu .navbar {
 
 #menu-hazard .nav > li {
     flex-grow: 1;
+
 }
 
 #menu-hazard .nav > li > a i, #menu-hazard .nav > li > p i {
@@ -903,7 +916,6 @@ mainmenu .navbar {
     border-color: #EE3036;
     font-size: 2em;
     padding: 10px;
-
 }
 
 #menu-hazard .nav > li > a > i,
@@ -1868,7 +1880,7 @@ responsive
 
 @media screen and (max-width: 768px) {
     #menu-website .nav.flex-row,
-    #menu-hazard .nav {
+    #menu-website .nav {
         overflow: hidden;
         padding: 1em;
         width: 100vw;
@@ -1920,14 +1932,18 @@ responsive
         margin: 20px auto;
     }
 
-    #menu-hazard .nav > li > a {
+    #menu-website .nav > li > a {
         flex-direction: row;
         justify-content: flex-start;
-        letter-spacing: -1em;
-
+/*         letter-spacing: -1em; */
+    }
+    #menu-hazard .nav > li > a {
+        flex-direction:column;
+        align-items: center;
+        align-content: center;
     }
 
-    .nav li a span {
+    #menu-website .nav li a span {
         padding-left: 1em;
         font-size: 120%
     }
