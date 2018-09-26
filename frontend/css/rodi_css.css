@@ -1707,10 +1707,17 @@ responsive
     .nav>li>a>i {    font-size:2em;}
     .head_sep {display: none;}
 }
+
 @media screen and (max-width: 768px) {
     #menu-website .nav.flex-row,
-    #menu-hazard .nav {/* flex-direction: column; */
-    overflow: hidden;padding: 1em;width: 100vw;margin: 0;left: 0;right: 0;justify-content: flex-end;
+    #menu-hazard .nav {
+    overflow: hidden;
+    padding: 1em;
+    width: 100vw;
+    margin: 0;
+    left: 0;
+    right: 0;
+    justify-content: flex-end;
     }
     #menu-website {padding:0; margin:0;}
     #menu-website li a {white-space:normal;}
@@ -1720,8 +1727,8 @@ responsive
     #menu-hazard .nav>li>a:focus {transform: scale(1.1) translateX(20px);}
     a.invert {line-height: 2;}
 }
-@media screen and (max-width:768px) and (orientation:portrait) {
-
+@media screen and (min-width: 767px)  {
+    
     section {margin:0;}
     .head_sep.white + div {margin-top:0px;}
     #rodi_header .img-responsive {
@@ -1733,6 +1740,8 @@ responsive
     #menu-hazard .nav>li>a {
         flex-direction:row;
         justify-content:flex-start;
+        letter-spacing:-1em;
+
 
     }
     .nav li a span { padding-left:1em; font-size:120%}
@@ -1763,12 +1772,24 @@ background-color: white;
 .scroll{
     /*padding-top:163px;*/
 }
-
+@media screen and (max-width: 600px) {
+    #menu-website .nav.flex-row {
+        
+/*         flex-direction:column; */
+    flex-wrap:wrap;
+    width:85vw;
+    justify-content:center;
+    }
+    #menu-website li {padding: 0 2em;}
+    #menu-website li a {font-size:120%;}
+    #menu-website li .logout a {padding:0 1em;}
+}
 @media screen and (max-width:480px) {
     #rodi_header .img-responsive { height:50px; margin-top:40px;}
     .collapse.in .navbar-nav {
         z-index:1;
         padding:0 0 30vw;
+
     }
 }
 
