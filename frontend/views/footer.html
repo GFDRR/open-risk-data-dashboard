@@ -4,37 +4,78 @@
     <div class="container-fluid">
         <div class="row">
 
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                <div class="row">
-                    <div class="col-xs-0 col-sm-1 col-md-1 col-lg-1 text-left">
+            <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">-->
+                <!--<div class="row">-->
+                    <!--<div class="col-xs-0 col-sm-1 col-md-1 col-lg-1 text-left">
+                    </div>-->
+                    <div class="col-xs-12 col-sm-8 col-md-9 col-lg-10 " style="color:white;">
+                        <span class="footer_txt text-left" >A joint effort by:</span>
+                        </br>
+                       <!-- <div class="">
+                            <a href="https://opendri.org/" target="_blank">
+                                <img src="img/partner/open-dri-logo.png" alt="Open Data for Resilience Initiative" style="max-height: 100px;" />
+                            </a>
+                            <a href="https://www.cimafoundation.org/" target="_blank">
+                                <img src="img/partner/logo_CIMA.png" alt="Cima Foundation" style="max-height: 100px;" />
+                            </a>
+                            <a href="https://www.globalquakemodel.org/" target="_blank">
+                                <img src="img/partner/logo_GEM.png" alt="Global Earthquake Model Foundation" style="max-height: 100px;" />
+                            </a>
+                            <a href="https://www.deltares.nl/" target="_blank">
+                                <img src="img/partner/logo_DELTARES.png" alt="Deltares" style="max-height: 100px;" />
+                            </a>
+                            <a href="https://understandrisk.org/" target="_blank">
+                                <img src="img/partner/ur-logo.png" alt="Understanding Risk" style="max-height: 100px;" />
+                            </a>
+                        </div>-->
+                        <div>
+                            <a href="https://opendri.org/" target="_blank">
+                                <svg class="logo_partner" style="">
+                                    <use xlink:href="img/partner_10.svg#logo_x5F_cima"></use>
+                                </svg>
+                            </a>
+
+                            <a href="https://www.globalquakemodel.org/" target="_blank">
+                                <svg class="logo_partner" style="">
+                                    <use xlink:href="img/partner_10.svg#logo_x5F_gem"></use>
+                                </svg>
+                            </a>
+                            <a href="https://www.deltares.nl/" target="_blank">
+                                <svg class="logo_partner" style="">
+                                    <use xlink:href="img/partner_10.svg#logo_x5F_deltares"></use>
+                                </svg>
+                            </a>
+                            <a href="https://understandrisk.org/" target="_blank">
+                                <svg class="logo_partner" style="">
+                                    <use xlink:href="img/partner_10.svg#logo_x5F_ur"></use>
+                                </svg>
+                            </a>
+                        </div>
                     </div>
-                    <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8 text-left">
-                    <span class="footer_txt">A joint effort by:</span></br>
-                    <a href="https://opendri.org/" target="_blank"><img src="img/partner/open-dri-logo.png" alt="Open Data for Resilience Initiative" style="max-height: 100px;" /></a>
-                    <a href="https://www.cimafoundation.org/" target="_blank"><img src="img/partner/logo_CIMA.png" alt="Cima Foundation" style="max-height: 100px;" /></a>
-                    <a href="https://www.globalquakemodel.org/" target="_blank"><img src="img/partner/logo_GEM.png" alt="Global Earthquake Model Foundation" style="max-height: 100px;" /></a>
-                    <a href="https://www.deltares.nl/" target="_blank"><img src="img/partner/logo_DELTARES.png" alt="Deltares" style="max-height: 100px;" /></a>
-                    <a href="https://understandrisk.org/" target="_blank"><img src="img/partner/ur-logo.png" alt="Understanding Risk" style="max-height: 100px;" /></a>
+                    <div class="col-xs-12 col-sm-4 col-md-3 col-lg-2 ">
+                    <span class="footer_txt text-left">Supported by:</span>
+                        </br>
+                        <a href="https://www.gfdrr.org/" target="_blank">
+                            <!--<img src="img/partner/gfdrr.png" alt="Global Facility for Disaster Reduction and Recovery" class="rodi_logo_gfdr" style="max-height: 100px;" />--> <svg class="logo_partner" style="">
+                            <use xlink:href="img/partner_10.svg#logo_x5F_gfdrr"></use>
+                        </svg>
+                        </a>
                     </div>
-                    <div class="col-xs-12 col-sm-1 col-md-1 col-lg-1 text-left">
-                    <span class="footer_txt">Supported by:</span></br>
-                    <a href="https://www.gfdrr.org/" target="_blank"><img src="img/partner/gfdrr.png" alt="Global Facility for Disaster Reduction and Recovery" class="rodi_logo_gfdr" style="max-height: 100px;" /></a>
-                    </div>
-                    <div class="col-xs-0 col-sm-1 col-md-1 col-lg-1 text-left">
-                    </div>
+
                 </div>
 
 
 
-
-                <br /><br />
-                <div class="footer_menu">
-                    <a href="" ng-click="changeview('contribute.html', '1')">Submit a dataset</a>
-                    <a href="" ng-click="changeview('countries.html', '5')">Explore locations</a>
-                    <a href="" ng-click="changeview('methodology.html', '2')">Documentation</a>
-                    <a href="" ng-click="changeview('about.html', '9')">About</a>
-                    <a href="" ng-click="changeview('getdata.html', '12')">Get the data</a>
-                    <!--<a href="" ng-click="changeview('stats.html', '11')">Statistics</a>-->
+                <!--<br /><br />-->
+                <div class="row">
+                    <div class="footer_menu text-center">
+                        <a href="" ng-click="changeview('contribute.html', '1')">Submit a dataset</a>
+                        <a href="" ng-click="changeview('countries.html', '5')">Explore locations</a>
+                        <a href="" ng-click="changeview('methodology.html', '2')">Documentation</a>
+                        <a href="" ng-click="changeview('about.html', '9')">About</a>
+                        <a href="" ng-click="changeview('getdata.html', '12')">Get the data</a>
+                        <!--<a href="" ng-click="changeview('stats.html', '11')">Statistics</a>-->
+                    </div>
                 </div>
                 <br /><br />
                 <div class="footer_separator"></div>
@@ -50,42 +91,12 @@
             </div>
 
             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-                <!--<a href="https://www.riskopendata.org/"><img src="img/template/rodi_logo_new_footer.png" alt="Open Data for Resilience Initiative" style="max-width: 60%;" /></a>-->
-                <!--<br />-->
-                <!--<a href="https://www.gfdrr.org/" target="_blank"><img src="img/partner/gfdrr.png" alt="Global Facility for Disaster Reduction and Recovery" style="max-width: 60%;" /></a>-->
-                <!--<div class="container">-->
-                    <!--<div class="flex-container flex-row">-->
 
-                        <!--<h3 class="flex-item" style="color:white;">An initiative of </h3>-->
-                        <!--<img class="flex-item" src="img/partner/gfdrr.png" style="height:80px;margin-left:10px;" alt="" />-->
-                    <!--</div>-->
-                <!--</div>-->
-                <!--<div class="row">-->
-                    <!--<form action="" method="POST" class="form-inline" role="form">-->
-
-                    	<!--<div class="form-group">-->
-                    		<!--<label><b style="color:white;">Sign up for our newsletter: </b></label>-->
-                    		<!--<input type="email" class="form-control" name="" id="" placeholder="your.mail@here">-->
-                    	<!--</div>-->
-                            <!--<button type="submit" class="btn btn-primary">Submit</button>-->
-                    <!--</form>-->
-
-                <!--</div>-->
-                <!--<img src="img/template/rodi_logo_w.png" alt="Risk OpenData Index" style="max-width:200px;" />-->
             </div>
             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 
             </div>
             <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
-
-                  <!--
-                  <h3 class="navbar-text flex-container flex-col ">
-                        <a href="#" class="navbar-link">Link</a>
-                        <a href="#" class="navbar-link">Link</a>
-                        <a href="#" class="navbar-link">Link</a>
-                        <a href="#" class="navbar-link">Link</a>
-                    </h3>
-                    -->
 
             </div>
         </div>
