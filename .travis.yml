@@ -13,12 +13,15 @@ addons:
   - dev.riskopendata.org
   - index.opendri.org
 
+before_deploy:
+- openssl aes-256-cbc -K $encrypted_<...>_key -iv $encrypted_<...>_iv -in id_opendri.enc -out /tmp/id_opendri -d
+
 deploy:
 - provider: script
-  script: rsync -e "ssh -p 22027" --delete-after -r ./frontend/ ${FRONTEND_SFTP_USER}@dev.riskopendata.org:~/html-dev/
+  script: rsync -e "ssh -i /tmp/id_opendri -p 22027" --delete-after -r ./frontend/ cima@dev.riskopendata.org:~/html-dev/
   on:
     branch: master
 # - provider: script
-#   script: rsync -e "ssh -p 22" --delete-after -r ./frontend/ ${FRONTEND_SFTP_USER}@dev.riskopendata.org:~/html/
+#   script: rsync -e "ssh -i /tmp/id_opendri -p 22" --delete-after -r ./frontend/ cima@dev.riskopendata.org:~/html/
 #   on:
 #     branch: production
