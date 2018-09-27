@@ -26,7 +26,6 @@ var baseUrl = spli_url.protocol + '//' + spli_url.host + '/';
 
 var baseAPIurl = 'https://index.opendri.org/api/'; // Sviluppo
 //var baseAPIurl = spli_url.protocol + '//' + spli_url.host + '/api/';
-var APIversion = '0.33.1';
 
 RodiApp.config(function($locationProvider) {
 

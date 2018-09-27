@@ -8,8 +8,6 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
     // ********** INIT CONFIRM ************** //
     // ************************************** //
 
-    RodiSrv.checkAPIversion(function(data){}, function(data){});
-
     $scope.bLogin = false;
     $scope.tokenid = localStorage.getItem('rodi_token');
     $scope.userinfo = JSON.parse(localStorage.getItem('rodi_user'));

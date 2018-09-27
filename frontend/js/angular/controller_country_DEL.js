@@ -9,8 +9,6 @@ RodiApp.controller('RodiCtrlCountry', function ($scope, RodiSrv, $location, $fil
     // *************** INIT ***************** //
     // ************************************** //
 
-    RodiSrv.checkAPIversion(function(data){}, function(data){});
-
     // ************************************** //
     // *************** DEMO ***************** //
     // ************************************** //

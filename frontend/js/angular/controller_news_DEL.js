@@ -5,9 +5,6 @@
 RodiApp.controller('RodiCtrlNews', ['$scope', 'RodiSrv', '$location', '$window', function ($scope, RodiSrv, $location, $window) {
 
 
-    RodiSrv.checkAPIversion(function(data){}, function(data){});
-
-
     var idNews = $location.search().idnews;
 
     $scope.newsDetails = RodiSrv.getNewsDetails(idNews);
