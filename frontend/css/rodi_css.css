@@ -521,7 +521,7 @@ section#counter-stats {
 }
 
 .dataset_form_select_style select {
-    /*width: 100%;*/
+    width: 100%;
     min-width: 100%;
     border: 2px solid #555;
     border-radius: 5px;
