@@ -373,7 +373,20 @@ svg.logo_icon {
 }
 
 svg.logo_partner {
-    width: 150px;
+    max-width: 120px;
+    width:100%;
+    margin-right: 10px;
+}
+svg.logo_partner.bit_more {
+    max-width: 200px;
+}
+svg.logo_partner._43 {max-height: 34px; padding:0 10px;}
+
+
+@media screen and (max-width:768px) {
+    .rodi_footer .flex-container {
+        justify-content: center;
+    }
 }
 
 
@@ -595,7 +608,7 @@ small.label {
 .flex-container .row div {
     display: flex;
     flex-direction: row;
-    align-items: left;
+    align-items: flex-start;
     justify-content: space-around;
 }
 
