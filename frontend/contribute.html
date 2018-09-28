@@ -81,17 +81,18 @@
 </head>
 <body ng-app="RodiApp" ng-controller="RodiCtrl">
 
-<div class="container">
+
     <!-- Section HEADER - INIZIO -->
     <section id="rodi_header">
-
+        <div class="container">
         <div class="row  ">
             <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">-->
             <div class="col-xs-7 col-sm-3 " style="color:black;">
-                <!--<img src="img/template/rodi_logo_new_beta.png" alt="Open Data for Resilience Initiative" class="img-responsive pull-left" />-->
-                <svg class="logo_icon" aria-hidden="true" focusable="false" fill="currentColor;">
-                    <use xlink:href="img/logo.svg#logo_open_data_full"></use>
-                </svg>
+                <a ng-if="bHome" href="" ng-click="changeview('index.html', '0')">
+                    <svg class="logo_icon" aria-hidden="true" focusable="false" fill="currentColor;">
+                        <use xlink:href="img/logo.svg#logo_open_data_full"></use>
+                    </svg>
+                </a>
             </div>
 
             <div class="col-xs-5 col-sm-9 ">
@@ -106,20 +107,23 @@
 
 
         </div>
-        <div class="row" id="top-menu">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <!--<hazardmenu></hazardmenu>-->
-                <h1 class="page_title ">SUBMIT A DATASET</h1>
+    </section>
+
+            <div class="row" id="top-menu">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <!--<hazardmenu></hazardmenu>-->
+                    <h1 class="page_title ">SUBMIT A DATASET</h1>
+                </div>
             </div>
         </div>
-    </section>
+
     <!-- Section HEADER - FINE -->
 
 
 
     <!-- Section MAP - INIZIO -->
     <section id="maincontent">
-
+        <div class="container">
         <!--<div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
                 <h2>Contribute R.O.D.I.</h2>
@@ -128,7 +132,7 @@
 
         <div class="row" ng-if="bLogin">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" >
-                <hr />
+                <!--<hr />-->
                 <!-- Nav tabs -->
                 <ul class="nav nav-tabs" role="tablist">
                     <li role="presentation" ng-class="{active:tab==0}"><a href="#dataset" aria-controls="dataset" role="tab" data-toggle="tab">New Dataset</a></li>
@@ -1173,16 +1177,18 @@
                 </div>
             </div>
         </div>
-
+        </div>
     </section>
     <!-- Section MAP - FINE -->
 
     <section>
-        <div class="footer">
-            <!--<div class="space"></div>-->
-            <!-- Section FOOTER - INIZIO -->
-            <rodifooter></rodifooter>
-            <!-- Section FOOTER - FINE -->
+        <div class="container-fluid">
+            <div class="footer">
+                <!--<div class="space"></div>-->
+                <!-- Section FOOTER - INIZIO -->
+                <rodifooter></rodifooter>
+                <!-- Section FOOTER - FINE -->
+            </div>
         </div>
 
     </section>
