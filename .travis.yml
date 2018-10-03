@@ -9,6 +9,8 @@ addons:
 install:
 - cd frontend
 - npm ci
+- cd ..
+- openssl aes-256-cbc -K $encrypted_9245de407bbd_key -iv $encrypted_9245de407bbd_iv -in id_opendri.enc -out /tmp/id_opendri -d
 
 test:
 - export PYTHONPATH=$(realpath ./backend)
@@ -17,10 +19,6 @@ test:
 - npx semver --range $(< ./API_COMPATIBILITY) \
     $(python -c 'import ordd_api; print ordd_api.__version__;') \
     || (echo '/!\ Backend API and Frontend API are not compatible /!\' && exit 1)
-
-before_deploy:
-- cd $HOME/GFDRR/open-risk-data-dashboard
-- openssl aes-256-cbc -K $encrypted_9245de407bbd_key -iv $encrypted_9245de407bbd_iv -in id_opendri.enc -out /tmp/id_opendri -d
 
 deploy:
 - provider: script
