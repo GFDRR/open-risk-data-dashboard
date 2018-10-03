@@ -1,0 +1,7 @@
+[Settings]
+ID = "index-opendri-preview"
+
+[build]
+  base = "frontend"
+  command = "npm test"
+  publish = "frontend"
