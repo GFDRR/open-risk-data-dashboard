@@ -1,27 +1,25 @@
 language: node_js
 node_js: lts/*
 
-install:
-- cd frontend
-- npm ci
-test:
-- cd frontend
-- npm test
-
 addons:
   ssh_known_hosts:
   - dev.riskopendata.org
   - index.opendri.org
 
+install:
+- cd frontend
+- npm ci
+
+test:
+- cd frontend
+- npm test
+
 before_deploy:
-- openssl aes-256-cbc -K $encrypted_<...>_key -iv $encrypted_<...>_iv -in id_opendri.enc -out /tmp/id_opendri -d
+- openssl aes-256-cbc -K $encrypted_9245de407bbd_key -iv $encrypted_9245de407bbd_iv -in id_opendri.enc -out /tmp/id_opendri -d
 
 deploy:
 - provider: script
-  script: rsync -e "ssh -i /tmp/id_opendri -p 22027" --delete-after -r ./frontend/ cima@dev.riskopendata.org:~/html-dev/
+  script: rsync -e "ssh -i /tmp/id_opendri -p 22027" --delete-after -r ./frontend/
+    cima@dev.riskopendata.org:~/html-dev/
   on:
     branch: master
-# - provider: script
-#   script: rsync -e "ssh -i /tmp/id_opendri -p 22" --delete-after -r ./frontend/ cima@dev.riskopendata.org:~/html/
-#   on:
-#     branch: production
