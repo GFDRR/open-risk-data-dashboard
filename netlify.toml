@@ -5,3 +5,7 @@ ID = "index-opendri-preview"
   base = "frontend"
   command = "npm test"
   publish = "frontend"
+
+[[redirects]]
+  from = "/frontend/bower_components/*"
+  to = "/bower_components/:splat"
