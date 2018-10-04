@@ -9,49 +9,6 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
     this.countryList = null;
 
     // ************************************** //
-    // ********* API VERSIONE CHECK ********* //
-    // ************************************** //
-
-    this.checkAPIversion = function(onSuccess, onError)
-    {
-        // Return True if API version is compatible
-        var req = {
-            method: 'GET',
-            url: baseAPIurl + 'version',
-            headers: {
-                // 'Authorization': 'Token ' + token
-            },
-            data: {}
-        }
-
-        $http(req).then(function(data){
-            if(onSuccess)
-            {
-                var aVersion = data.data.split('.');
-                var appAPIVersion = APIversion.split('.');
-
-                if(aVersion[0] !== appAPIVersion[0])
-                {
-                    console.log('Warning: API version not compatible!');
-                } else if(aVersion[1] * 1 > appAPIVersion[1] * 1)
-                    {
-                        console.log('Warning: API version not compatible! Version: ' + data.data);
-                    } else
-                        {
-                            console.log('API version ' + data.data);
-                        };
-
-            };
-        }, function(data){
-            if(onError)
-            {
-                //Error load API
-                console.log('Error loading API service');
-            };
-        });
-    }
-
-    // ************************************** //
     // ************ SCORE - API ************* //
     // ************************************** //
 

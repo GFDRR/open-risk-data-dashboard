@@ -8,8 +8,6 @@ RodiApp.controller('RodiCtrlConfirmMail', ['$scope', 'RodiSrv', '$location', '$w
     // ********** INIT CONFIRM ************** //
     // ************************************** //
 
-    RodiSrv.checkAPIversion(function(data){}, function(data){});
-
     $scope.usernamepar = $location.search().username;
     $scope.keypar = $location.search().key;
     $scope.bRegConfirm = true;

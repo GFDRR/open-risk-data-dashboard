@@ -8,8 +8,6 @@ RodiApp.controller('RodiCtrlResetPassword', ['$scope', 'RodiSrv', '$location', '
     // ********** INIT CONFIRM ************** //
     // ************************************** //
 
-    RodiSrv.checkAPIversion(function(data){}, function(data){});
-
     $scope.usernamepar = $location.search().username;
     $scope.keypar = $location.search().key;
     $scope.errormsg = "";

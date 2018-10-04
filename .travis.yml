@@ -10,15 +10,13 @@ install:
 - cd frontend
 - npm ci
 - cd ..
-- openssl aes-256-cbc -K $encrypted_9245de407bbd_key -iv $encrypted_9245de407bbd_iv -in id_opendri.enc -out /tmp/id_opendri -d
+- if [ -e id_opendri.enc -a -n "$encrypted_9245de407bbd_iv" ]; then openssl aes-256-cbc -K $encrypted_9245de407bbd_key -iv $encrypted_9245de407bbd_iv -in id_opendri.enc -out /tmp/id_opendri -d; fi
 
 script:
-- export PYTHONPATH=$(realpath ./backend)
+- export PYTHONPATH=$(readlink -f ./backend)
 - cd frontend
 - npm test
-- npx semver --range $(< ./API_COMPATIBILITY) \
-    $(python -c 'import ordd_api; print ordd_api.__version__;') \
-    || (echo '/!\ Backend API and Frontend API are not compatible /!\' && exit 1)
+- npx semver --range $(< ./API_COMPATIBILITY) $(python -c 'import ordd_api; print ordd_api.__version__;') || (echo '/!\ Backend API and Frontend API are not compatible /!\' && exit 1)
 
 deploy:
 - provider: script

@@ -9,8 +9,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
     // *************** INIT ***************** //
     // ************************************** //
 
-    RodiSrv.checkAPIversion(function(data){console.log(data);}, function(data){});
-
     // Check server CALL
 
     $scope.bLogin = false;
@@ -1703,4 +1701,3 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
     }
 
 } ]);
-
