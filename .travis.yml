@@ -3,7 +3,7 @@ node_js: lts/*
 
 addons:
   ssh_known_hosts:
-  - dev.riskopendata.org
+  - dev.riskopendata.org:22027
   - index.opendri.org
 
 install:
