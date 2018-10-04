@@ -10,7 +10,7 @@ install:
 - cd frontend
 - npm ci
 - cd ..
-- if [ -e id_opendri.enc -a -n "$encrypted_9245de407bbd_iv" ]; then openssl aes-256-cbc -K $encrypted_9245de407bbd_key -iv $encrypted_9245de407bbd_iv -in id_opendri.enc -out /tmp/id_opendri -d; fi
+- if [ -e id_opendri.enc -a -n "$encrypted_9245de407bbd_iv" ]; then openssl aes-256-cbc -K $encrypted_9245de407bbd_key -iv $encrypted_9245de407bbd_iv -in id_opendri.enc -out /tmp/id_opendri -d && chmod 600 /tmp/id_opendri; fi
 
 script:
 - export PYTHONPATH=$(readlink -f ./backend)
