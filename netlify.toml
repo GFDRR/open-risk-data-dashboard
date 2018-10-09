@@ -7,5 +7,7 @@ ID = "index-opendri-preview"
   publish = "frontend"
 
 [[redirects]]
-  from = "/bower_components/*"
+  from = "/frontend/bower_components/*"
   to = "/bower_components/:splat"
+  status = 200
+  force = true
