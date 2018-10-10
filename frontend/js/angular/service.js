@@ -753,30 +753,94 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         /*
          Return the list of questions for dataset (Y/N)
          */
-
         var objQuestions = [
-            {code: "is_existing", desc:"Does the data exist?", altTXT:"is_existing_txt", altDesc:"existing alternative text", yesTXT:"The data exists", noTXT:"The data does not exist"},
-            {code: "is_digital_form", desc:"Is the data available in digital form?", altTXT:"", altDesc:"", yesTXT:"The data exists", noTXT:"The data is not available in digital form"},
-            {code: "is_avail_online", desc:"Is the data available online?", altTXT:"", altDesc:""},
-            {code: "is_avail_online_meta", desc:"Is the metadata available online?", altTXT:"", altDesc:""},
-            {code: "is_bulk_avail", desc:"Is the data available in bulk?", altTXT:"", altDesc:""},
-            {code: "is_machine_read", desc:"Is the data machine-readable?", altTXT:"is_machine_read_txt", altDesc:"machine alternative text"},
-            {code: "is_pub_available", desc:"Is the data publicly available?", altTXT:"", altDesc:""},
-            {code: "is_avail_for_free", desc:"Is the data available for free?", altTXT:"", altDesc:""},
-            {code: "is_open_licence", desc:"Is the data openly licensed?", altTXT:"is_open_licence_txt", altDesc:"license alternative text"},
-            {code: "is_prov_timely", desc:"Is the data provided on a timely and up to date basis?", altTXT:"", altDesc:""}
+          {
+            code: "is_existing",
+            desc: "Does the data exist?",
+            altTXT: "is_existing_txt",
+            altDesc: "existing alternative text",
+            yesTXT: "The data exists",
+            noTXT: "The data does not exist"
+          },
+          {
+            code: "is_digital_form",
+            desc: "Is the data available in digital form?",
+            altTXT: "",
+            altDesc: "",
+            yesTXT: "The data is available in digital form",
+            noTXT: "The data is not available in digital form"
+          },
+          {
+            code: "is_avail_online",
+            desc: "Is the data available online?",
+            altTXT: "",
+            altDesc: "",
+            yesTXT: "The data is available online",
+            noTXT: "The data is not available online"
+          },
+          {
+            code: "is_avail_online_meta",
+            desc: "Are the metadata available online?",
+            altTXT: "",
+            altDesc: "",
+            yesTXT: "The metadata are available online",
+            noTXT: "The metadata are not available online"
+          },
+          {
+            code: "is_bulk_avail",
+            desc: "Is the data available in bulk?",
+            altTXT: "",
+            altDesc: "",
+            yesTXT: "The data is available in bulk",
+            noTXT: "The data is not available in bulk"
+          },
+          {
+            code: "is_machine_read",
+            desc: "Is the data machine-readable?",
+            altTXT: "is_machine_read_txt",
+            altDesc: "machine alternative text",
+            yesTXT: "The data is machine-readable",
+            noTXT: "The data is not machine-readable"
+          },
+          {
+            code: "is_pub_available",
+            desc: "Is the data publicly available?",
+            altTXT: "",
+            altDesc: "",
+            yesTXT: "The data is publicly available",
+            noTXT: "The data is not publicly available"
+          },
+          {
+            code: "is_avail_for_free",
+            desc: "Is the data available for free?",
+            altTXT: "",
+            altDesc: "",
+            yesTXT: "The data is available for free",
+            noTXT: "The data is not available for free"
+          },
+          {
+            code: "is_open_licence",
+            desc: "Is the data openly licensed?",
+            altTXT: "is_open_licence_txt",
+            altDesc: "license alternative text",
+            yesTXT: "The data is openly licensed",
+            noTXT: "The data is not openly licensed"
+          },
+          {
+            code: "is_prov_timely",
+            desc: "Is the data provided on a timely and up to date basis?",
+            altTXT: "",
+            altDesc: "",
+            yesTXT: "The data is provided on a timely and up to date basis",
+            noTXT: "The data is not provided on a timely and up to date basis"
+          }
         ];
+
 
         var aQuestion = $filter('filter')(objQuestions, {"code": questionCode});
 
         if (objDataset) {
-
-            if (objDataset[questionCode] == true) {
-                return aQuestion[0].yesTXT; 
-            } else {
-                return aQuestion[0].noTXT;
-            }
-            
+            return (objDataset[questionCode]) ? aQuestion[0].yesTXT : aQuestion[0].noTXT;
         } else {
             return aQuestion[0].desc;
         }

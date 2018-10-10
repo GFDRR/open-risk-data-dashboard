@@ -657,8 +657,8 @@ small.label {
         padding-left: 2em;
         padding-right: 2em;
     }
- 
-    
+
+
 }
 
 .rodi_ul_datasetDesc {
@@ -1845,17 +1845,29 @@ review mode
 .criteria-icons {
     display: flex;
     flex-wrap: wrap;
+    line-height: 1.2;
 }
 
 .criteria-icons > div {
     display: flex;
-    align-items: center;
-    flex-basis: 50%;
+    flex-basis: 100%;
+    margin-bottom: 1em;
+}
+
+@media (min-width: 768px) {
+  .criteria-icons > div {
+      flex-basis: 50%;
+  }
+  .criteria-icons > div:nth-child(odd) {
+      padding-right: 15px;
+  }
 }
 
 .criteria-icons i {
     font-size: 1.5em;
-    margin-right: 12px;
+    margin-right: 10px;
+    min-width: 40px;
+    text-align: center;
 }
 
 .criteria-icons .yes-icon {
@@ -1952,8 +1964,8 @@ responsive
     #menu-hazard,
     #menu-hazard>.nav>li>a {flex-direction:column; align-items:center;}
     #menu-hazard>.nav>li>a span {padding-top:1em;}
-    .menu_sep_countries { 
-    border-right:inherit; 
+    .menu_sep_countries {
+    border-right:inherit;
     border-bottom:3px solid red;
     width:75%;
     }
