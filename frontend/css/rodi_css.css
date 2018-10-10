@@ -1849,6 +1849,7 @@ review mode
 }
 
 .criteria-icons > div {
+    align-items: center;
     display: flex;
     flex-basis: 100%;
     margin-bottom: 1em;
