@@ -26,6 +26,10 @@ h1, h2, h3, h4, h5, h6 {
     /*font-family: 'Variable-Black', "Helvetica Neue", Helvetica, Arial, sans-serif;*/
 }
 
+.page-header {
+  border-bottom: none;
+}
+
 a, b, strong, span {
     /*font-family: 'Variable-Black', "Helvetica Neue", Helvetica, Arial, sans-serif;*/
     font-family: 'Bariol Bold', "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -657,8 +661,8 @@ small.label {
         padding-left: 2em;
         padding-right: 2em;
     }
- 
-    
+
+
 }
 
 .rodi_ul_datasetDesc {
@@ -1948,8 +1952,8 @@ responsive
     #menu-hazard,
     #menu-hazard>.nav>li>a {flex-direction:column; align-items:center;}
     #menu-hazard>.nav>li>a span {padding-top:1em;}
-    .menu_sep_countries { 
-    border-right:inherit; 
+    .menu_sep_countries {
+    border-right:inherit;
     border-bottom:3px solid red;
     width:75%;
     }
