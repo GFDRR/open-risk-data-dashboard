@@ -748,15 +748,15 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         ]
     };
 
-    this.getQuestions_code = function(questionCode)
+    this.getQuestions_code = function(questionCode, objDataset)
     {
         /*
          Return the list of questions for dataset (Y/N)
          */
 
         var objQuestions = [
-            {code: "is_existing", desc:"Does the data exist?", altTXT:"is_existing_txt", altDesc:"existing alternative text"},
-            {code: "is_digital_form", desc:"Is the data available in digital form?", altTXT:"", altDesc:""},
+            {code: "is_existing", desc:"Does the data exist?", altTXT:"is_existing_txt", altDesc:"existing alternative text", yesTXT:"The data exists", noTXT:"The data does not exist"},
+            {code: "is_digital_form", desc:"Is the data available in digital form?", altTXT:"", altDesc:"", yesTXT:"The data exists", noTXT:"The data is not available in digital form"},
             {code: "is_avail_online", desc:"Is the data available online?", altTXT:"", altDesc:""},
             {code: "is_avail_online_meta", desc:"Is the metadata available online?", altTXT:"", altDesc:""},
             {code: "is_bulk_avail", desc:"Is the data available in bulk?", altTXT:"", altDesc:""},
@@ -769,7 +769,17 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 
         var aQuestion = $filter('filter')(objQuestions, {"code": questionCode});
 
-        return aQuestion[0].desc;
+        if (objDataset) {
+
+            if (objDataset[questionCode] == true) {
+                return aQuestion[0].yesTXT; 
+            } else {
+                return aQuestion[0].noTXT;
+            }
+            
+        } else {
+            return aQuestion[0].desc;
+        }
 
     };
 

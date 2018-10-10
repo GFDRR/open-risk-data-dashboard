@@ -149,22 +149,65 @@
                             <br />
 
                             <!-- Question 1 - 2 -->
-                            <div class="row">
-                                <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                                    <span class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_red" ng-if=" objDataset.is_existing == false && objDataset.is_existing !== ''"><i class="{{getQuestionIcon('is_existing')}}" ></i></span>
-                                    <span class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_green" ng-if="objDataset.is_existing == true"><i class="{{getQuestionIcon('is_existing')}}" ></i></span>
-                                    <span class="flex-item">{{getQuestionCode('is_existing')}}</span>
-                                    <span class="flex-item" ng-if="objDataset.is_existing == true"><strong>&nbsp;Yes</strong></span>
-                                    <span class="flex-item" ng-if=" objDataset.is_existing == false && objDataset.is_existing !== ''"><strong>&nbsp;No</strong></span>
+                            <div class="criteria-icons">
+                                <div>
+                                    <i class="{{getQuestionIcon('is_existing')}}" ng-class="objDataset.is_existing ? 'yes-icon' : 'no-icon'" ></i>
+                                    <span>{{getQuestionCode('is_existing')}}</span>
                                 </div>
+                                
+                                <div>
+                                    <div class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_red" ng-if=" objDataset.is_existing == false && objDataset.is_existing !== ''"><i class="{{getQuestionIcon('is_existing')}}" ></i></div>
+                                    <div class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_green" ng-if="objDataset.is_existing == true"><i class="{{getQuestionIcon('is_existing')}}" ></i></div>
+
+                                    <span class="flex-item">{{getQuestionCode('is_existing')}}</span>
+
+                                   
+                                </div>
+                                <div>
+                                    <div class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_red" ng-if=" objDataset.is_existing == false && objDataset.is_existing !== ''"><i class="{{getQuestionIcon('is_existing')}}" ></i></div>
+                                    <div class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_green" ng-if="objDataset.is_existing == true"><i class="{{getQuestionIcon('is_existing')}}" ></i></div>
+
+                                    <span class="flex-item">{{getQuestionCode('is_existing')}}</span>
+
+                                    
+                                </div>
+                                <div>
+                                    <div class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_red" ng-if=" objDataset.is_existing == false && objDataset.is_existing !== ''"><i class="{{getQuestionIcon('is_existing')}}" ></i></div>
+                                    <div class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_green" ng-if="objDataset.is_existing == true"><i class="{{getQuestionIcon('is_existing')}}" ></i></div>
+
+                                    <span class="flex-item">{{getQuestionCode('is_existing')}}</span>
+
+                                    
+                                </div>
+                                <div>
+                                    <div class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_red" ng-if=" objDataset.is_existing == false && objDataset.is_existing !== ''"><i class="{{getQuestionIcon('is_existing')}}" ></i></div>
+                                    <div class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_green" ng-if="objDataset.is_existing == true"><i class="{{getQuestionIcon('is_existing')}}" ></i></div>
+
+                                    <span class="flex-item">{{getQuestionCode('is_existing')}}</span>
+
+                                   
+                                </div>
+                                <div>
+                                    <div class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_red" ng-if=" objDataset.is_existing == false && objDataset.is_existing !== ''"><i class="{{getQuestionIcon('is_existing')}}" ></i></div>
+                                    <div class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_green" ng-if="objDataset.is_existing == true"><i class="{{getQuestionIcon('is_existing')}}" ></i></div>
+
+                                    <span class="flex-item">{{getQuestionCode('is_existing')}}</span>
+
+                                    
+                                </div>
+
                                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                                    <span class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_red" ng-if="objDataset.is_digital_form == false && objDataset.is_digital_form !== ''"><i class="{{getQuestionIcon('is_digital_form')}}" ></i></span>
+                                    <i class="{{getQuestionIcon('is_digital_form')}} no-icon" ></i></span>
                                     <span class="rodi_dataset_label_code rodi_dataset_label_code_white rodi_dataset_question rodi_dataset_question_green" ng-if="objDataset.is_digital_form == true"><i class="{{getQuestionIcon('is_digital_form')}}" ></i></span>
                                     <span class="flex-item">{{getQuestionCode('is_digital_form')}}</span>
                                     <span class="flex-item" ng-if="objDataset.is_digital_form == true"><strong>&nbsp;Yes</strong></span>
                                     <span class="flex-item" ng-if="objDataset.is_digital_form == false && objDataset.is_digital_form !== ''"><strong>&nbsp;No</strong></span>
                                 </div>
+                                
                             </div>
+
+                               
+                            
                             <br />
 
                             <!-- Question 3 - 4 -->
