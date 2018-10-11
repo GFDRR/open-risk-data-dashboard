@@ -101,9 +101,15 @@
 
             <div class="row" id="top-menu">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <h1 class="page_title ">{{countryDesc}} - {{objDatasetView.keydataset.dataset.name}}</h1>
-                    <br/>
-                    <div class="rodi_big_text_page text-center">
+                    <div class="page-header">
+                      <h1 class="page_title">{{objDatasetView.keydataset.dataset.name}} <small>{{countryDesc}}</small></h1>
+                    </div>
+
+                    <div class="rodi_big_text_page text-center" ng-if="objDatasetView.keydataset.description">
+                      <p>{{objDatasetView.keydataset.description}}</p>
+                    </div>
+
+                    <div class="rodi_big_text_page text-center ng-cloak">
                         <a href="" class="btn btn-md btn-primary" ng-click="setEditForm()" ng-if="bReviewer && !bEdit"><i class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" title="Edit dataset"></i> Edit dataset</a>
                         <a href="" class="btn btn-md btn-info" ng-click="changepage('contribute.html?tab=1')" ng-if="bMylist && !bEdit"><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to my dataset list"></i> Back to my dataset list</a>
                         <a href="" class="btn btn-md btn-info" ng-click="changepage('contribute.html?tab=2')" ng-if="bReviewlist && !bEdit"><i class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to review list"></i> Back to review list</a>

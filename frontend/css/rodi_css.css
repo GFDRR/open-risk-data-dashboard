@@ -26,6 +26,10 @@ h1, h2, h3, h4, h5, h6 {
     /*font-family: 'Variable-Black', "Helvetica Neue", Helvetica, Arial, sans-serif;*/
 }
 
+.page-header {
+  border-bottom: none;
+}
+
 a, b, strong, span {
     /*font-family: 'Variable-Black', "Helvetica Neue", Helvetica, Arial, sans-serif;*/
     font-family: 'Bariol Bold', "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -172,7 +176,6 @@ section + section {
     font-size: 30px;
     text-transform: uppercase;
     letter-spacing: -0.05em;
-    white-space: nowrap;
     text-align: center;
 }
 
@@ -187,7 +190,6 @@ section + section {
     font-size: 50px;
     text-transform: uppercase;
     letter-spacing: -0.05em;
-    white-space: nowrap;
     text-align: center;
     padding-bottom: 1em;
 }
