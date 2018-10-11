@@ -1844,26 +1844,43 @@ review mode
     /*text-align: left;*/
 }
 
-.rodi_dataset_question {
+.criteria-icons {
+    display: flex;
+    flex-wrap: wrap;
+    line-height: 1.2;
 }
 
-.rodi_dataset_question i {
-    background: #eee;
-    border: 1px solid #ccc;
+.criteria-icons > div {
+    align-items: center;
+    display: flex;
+    flex-basis: 100%;
+    margin-bottom: 1em;
+}
+
+@media (min-width: 768px) {
+  .criteria-icons > div {
+      flex-basis: 50%;
+  }
+  .criteria-icons > div:nth-child(odd) {
+      padding-right: 15px;
+  }
+}
+
+.criteria-icons i {
+    font-size: 1.5em;
+    margin-right: 10px;
+    min-width: 40px;
     text-align: center;
-    padding: 10px;
-    min-width: 55px;
 }
 
-.rodi_dataset_question_green i {
-    background: green;
-    border: 1px solid #00b200;
+.criteria-icons .yes-icon {
+    color: green;
 }
 
-.rodi_dataset_question_red i {
-    background: red;
-    border: 1px solid #b00000;
+.criteria-icons .no-icon {
+    color: red;
 }
+
 
 .rodi_dataset_label.flex-item {
     flex-grow: 2;
