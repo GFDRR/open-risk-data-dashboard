@@ -45,7 +45,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
         // Get dataset info
         $scope.getQuestionCode = function(questionCode)
         {
-            return RodiSrv.getQuestions_code(questionCode);
+            return RodiSrv.getQuestions_code(questionCode, $scope.objDataset);
         }
 
         // Get dataset icon
