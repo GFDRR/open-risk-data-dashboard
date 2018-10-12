@@ -2274,6 +2274,10 @@ a.active {
     color: rgb(238, 48, 54);
 }
 
+h2.odfri_title_red {
+    font-size: 24px;
+}
+
 .odfri_home_icon_border {
     border: solid 0px #000000 !important;
     background: transparent !important;
