@@ -114,7 +114,7 @@
             </div>
         </div>
 
-        <div class="row" id="menu-hazard">
+        <div id="menu-hazard">
             <!--<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 ">-->
             <!--<div class="row" >-->
             <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">-->
@@ -164,56 +164,50 @@
     <!-- Countries table -->
     <div class="odfri_txt_space"></div>
     <div class="container">
-        <div class="row">
-            <div class="hidden-xs col-sm-1 col-md-1 col-lg-1"></div>
-            <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
-                <table id="tabCountries" class="table table-responsive table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <!--<th class="col-xs-1 col-sm-1 col-md-1 col-lg-1" title="See Documentation for more info on ranking">Rank</th>-->
-                            <th class="col-xs-3 col-sm-3 col-md-3 col-lg-3" title="Name of location">Location</th>
-                            <th class="col-xs-4 col-sm-4 col-md-4 col-lg-4" title="Average scores of all datasets considered. If a dataset does not exist or has not been submitted, its score is 0.">Score
-                                <a href="" ng-click="changepage('methodology.html#openness')">(more details)</a></th>
-                            <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center" title="Number of datasets submitted">Datasets
-                                submitted</th>
-                            <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center" title="Number of datasets fully open">Open
-                                data</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!--  Country with dataset submitted -->
-                        <tr ng-repeat="country in countriesList | orderBy:'-score * 1'" ng-click="changepage('dataset_list.html?idcountry=' + country.country + '&idcategory=0')"
-                            title="Click to see datasets for this location">
-                            <!--<td>
+        <div class="table-responsive">
+            <table id="tabCountries" class="table table-responsive table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th title="Name of location">Location</th>
+                        <th title="Average scores of all datasets considered. If a dataset does not exist or has not been submitted, its score is 0.">Score
+                            <a href="" ng-click="changepage('methodology.html#openness')">(more details)</a></th>
+                        <th class=" text-center" title="Number of datasets submitted">Datasets
+                            submitted</th>
+                        <th class="text-center" title="Number of datasets fully open">Open
+                            data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--  Country with dataset submitted -->
+                    <tr ng-repeat="country in countriesList | orderBy:'-score * 1'" ng-click="changepage('dataset_list.html?idcountry=' + country.country + '&idcategory=0')"
+                        title="Click to see datasets for this location">
+                        <!--<td>
                                 <span ng-if="country.rank < 999">{{country.rank}}</span>
                                 <span ng-if="country.rank == 999">0</span>
                             </td>-->
-                            <td><span class="text-muted">{{getCountryName(country.country)}}</span></td>
-                            <td class="text-center">
-                                <div class="progress" title="Average scores of all datasets considered for this location. If a dataset does not exist or has not been submitted, its score is 0.">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="{{country.score}}"
-                                        aria-valuemin="0" aria-valuemax="100" style="width: {{country.score}}%;">
-                                        {{country.score}}%
-                                    </div>
+                        <td><span class="text-muted">{{getCountryName(country.country)}}</span></td>
+                        <td class="text-center">
+                            <div class="progress" title="Average scores of all datasets considered for this location. If a dataset does not exist or has not been submitted, its score is 0.">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="{{country.score}}"
+                                    aria-valuemin="0" aria-valuemax="100" style="width: {{country.score}}%;">
+                                    {{country.score}}%
                                 </div>
-                            </td>
-                            <td class="text-center">
-                                <span ng-if="country.datasets_count > 0">{{country.datasets_count}}</span>
-                                <span ng-if="country.datasets_count == 0" title="Any dataset to submit for this country?">No
-                                    dataset submitted</span>
-                            </td>
-                            <td class="text-center">{{country.fullscores_count}}</td>
-                        </tr>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <span ng-if="country.datasets_count > 0">{{country.datasets_count}}</span>
+                            <span ng-if="country.datasets_count == 0" title="Any dataset to submit for this country?">No
+                                dataset submitted</span>
+                        </td>
+                        <td class="text-center">{{country.fullscores_count}}</td>
+                    </tr>
 
-                    </tbody>
-                </table>
-                <div class="text-center" ng-if="bLoadingTabel"><img src="img/template/loading.gif" alt="" style="max-width:80px;" /></div>
-
-            </div>
-            <div class="hidden-xs col-sm-1 col-md-1 col-lg-1"></div>
+                </tbody>
+            </table>
         </div>
-    </div>
-    <br /><br />
+
+        <div class="text-center" ng-if="bLoadingTabel"><img src="img/template/loading.gif" alt="" style="max-width:80px;" /></div>
+
     </div>
 
 

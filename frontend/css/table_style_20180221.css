@@ -25,6 +25,12 @@
     vertical-align: middle
 }
 
+@media (max-width: 425px) {
+    .table > tbody > tr > td {
+        max-width: 200px;
+    }
+}
+
 .table-hover > tbody > tr:hover {
     background-color: rgba(0,120,153,.3);
 }
