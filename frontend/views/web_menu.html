@@ -16,25 +16,23 @@
         <nav class="navbar">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <!-- mobile display -->
-                    <!-- Website menu -->
-                    <div class="collapse navbar-collapse menu-website" id="menu-website">
-                        <ul class="nav navbar-nav flex-container flex-row">
-                            <li><a href="" ng-click="changeview('contribute.html', '1')">Submit a dataset</a></li>
-                            <li><a href="" ng-click="changeview('countries.html', '5')">Explore locations</a></li>
-                            <li><a href="" ng-click="changeview('methodology.html', '2')">Documentation</a></li>
-                            <li><a href="" ng-click="changeview('about.html', '9')">About</a></li>
-                            <li ng-if="bLogin">
-                                <div class="logout">
-                                    <a  href="" ng-click="logout()" class="invert round flex-container flex-col">
-                                        <p class="flex-row">Log out - <b>{{userinfo.username}}</b></p>
-                                    </a>
-                                </div>
-                            </li>
-                        </ul>
-                    </div><!-- /.navbar-collapse -->
-                </div>
+                <!-- mobile display -->
+                <!-- Website menu -->
+                <div class="collapse navbar-collapse" id="menu-website">
+                    <ul class="nav navbar-nav flex-container flex-row">
+                        <li><a href="" ng-click="changeview('contribute.html', '1')">Submit a dataset</a></li>
+                        <li><a href="" ng-click="changeview('countries.html', '5')">Explore locations</a></li>
+                        <li><a href="" ng-click="changeview('methodology.html', '2')">Documentation</a></li>
+                        <li><a href="" ng-click="changeview('about.html', '9')">About</a></li>
+                        <li>
+                            <div class="logout">
+                                <a ng-if="bLogin" href="" ng-click="logout()" class="invert round flex-container flex-col">
+                                    <p class="flex-row">Log out - <b>{{userinfo.username}}</b></p>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
             </div>
         </div>
         <!-- /.container-fluid -->

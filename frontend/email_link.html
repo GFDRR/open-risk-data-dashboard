@@ -7,7 +7,6 @@
     <meta name="x-apple-disable-message-reformatting">  <!-- Disable auto-scale in iOS 10 Mail entirely -->
     <title></title> <!-- The title tag shows in email notifications, like Android 4.4. -->
 
-
     <!-- Web Font / @font-face : BEGIN -->
     <!-- NOTE: If web fonts are not required, lines 10 - 27 can be safely removed. -->
 
@@ -25,7 +24,7 @@
     <!--[if !mso]><!-->
     <!-- insert web font reference, eg: <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'> -->
     <!--<![endif]-->
-    <link href="https://fonts.googleapis.com/css?family=Dosis|Quicksand:400,700|Roboto" rel="stylesheet" >
+
     <!-- Web Font / @font-face : END -->
 
     <!-- CSS Reset -->
@@ -44,12 +43,12 @@
 
         * {
             /*font-family: 'Abel', sans-serif !important;*/
-            font-family: 'Dosis', sans-serif!important;
+            font-family: 'Abel', sans-serif;
             /*font-family: 'Bariol Regular', "Helvetica Neue", Helvetica, Arial, sans-serif !important;*/
 
         }
         h1, h2, h3, h4, h5, h6 {
-            font-family: 'Quicksand', sans-serif!important;
+            /*font-family: 'Bariol Bold', "Helvetica Neue", Helvetica, Arial, sans-serif !important;*/
         }
 
 
@@ -181,7 +180,7 @@
 <center style="width: 100%; background: #ADD8E6; text-align: left;">
 
     <!-- Visually Hidden Preheader Text : BEGIN -->
-    <div style="display:none;font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: 'Dosis', sans-serif;">
+    <div style="display:none;font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: 'Abel', sans-serif;">
         (Optional) This text will appear in the inbox preview, but not the email body.
     </div>
     <!-- Visually Hidden Preheader Text : END -->
@@ -202,9 +201,9 @@
         <table role="presentation" aria-hidden="true" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width: 600px;">
             <tr>
                 <td style="padding: 20px 0; text-align: center">
-<!--                     <img src="http://placehold.it/200x50" aria-hidden="true" width="200" height="50" alt="alt_text" border="0" style="height: auto; background: #dddddd; font-family: 'Dosis', sans-serif; font-size: 15px; line-height: 20px; color: #555555;"> -->
+<!--                     <img src="http://placehold.it/200x50" aria-hidden="true" width="200" height="50" alt="alt_text" border="0" style="height: auto; background: #dddddd; font-family: 'Abel', sans-serif; font-size: 15px; line-height: 20px; color: #555555;"> -->
 <!-- todo inserire path assoluto su server -->
-                    <img src="img/partner/rodi_logo_new_mail.png"  aria-hidden="true" width="254" height="80" alt="alt_text" border="0" style="height: auto;  font-family: 'Dosis', sans-serif; font-size: 15px; line-height: 20px; color: #555555;"/>
+                    <img src="img/template/rodi_logo_new.png"  aria-hidden="true" width="200" height="50" alt="alt_text" border="0" style="height: auto;  font-family: 'Abel', sans-serif; font-size: 15px; line-height: 20px; color: #555555;"/>
                 </td>
             </tr>
 
@@ -213,26 +212,34 @@
         <!-- Email Body : BEGIN -->
         <table role="presentation" aria-hidden="true" cellspacing="0" cellpadding="0" border="0" align="center" width="100%" style="max-width: 600px;">
 
+            <!-- Hero Image, Flush : BEGIN -->
+            <tr>
+                <td bgcolor="#ffffff">
+<!-- todo inserire path assoluto su server -->
 
+
+                    <img src="img/email_bck.png" aria-hidden="true" width="600" height="" alt="alt_text" border="0" align="center" style="width: 100%; max-width: 600px; height: auto; background: #ffffff; font-family: 'Abel', sans-serif; font-size: 15px; line-height: 20px; color: #555555;" class="g-img"/></td>
+            </tr>
+            <!-- Hero Image, Flush : END -->
 
             <!-- 1 Column Text + Button : BEGIN -->
             <tr>
-                <td bgcolor="#ADD8E6">
+                <td bgcolor="#ffffff">
                     <table role="presentation" aria-hidden="true" cellspacing="0" cellpadding="0" border="0" width="100%">
                         <tr>
-                            <td style="padding: 40px 40px 0; font-family: 'Dosis', sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
-                                <h1 style="padding: 20px; font-family: 'Quicksand', sans-serif; font-size: 30px; line-height: 27px; color: #333333; font-weight: normal;">RODI Confirm registration.</h1>
-                                <p style="margin: 0; font-size: 20px; line-height: 2;">Your registration to the Risk Open Data Dashboard was successful. Please confirm your registration by clicking on the button below.
-                                <h4 style="text-align: center;">Thanks for your interest in contributing to RODI.</h4></p>
+                            <td style="padding: 40px; font-family: 'Abel', sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
+                                <h1 style="margin: 0 0 10px 0; font-family: 'Abel', sans-serif; font-size: 24px; line-height: 27px; color: #333333; font-weight: normal;">RODI Confirm registration.</h1>
+                                <p style="margin: 0;">Your registration to the Risk Open Data Dashboard was successful. Please confirm your registration by clicking on the button below.
+                                    <br><br><h4 style="text-align: center;">Thanks for your interest in contributing to RODI.</h4></p>
                             </td>
                         </tr>
                         <tr>
-                            <td style="padding: 30px 40px; font-family: 'Dosis', sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
+                            <td style="padding: 30px 40px; font-family: 'Abel', sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
                                 <!-- Button : BEGIN -->
                                 <table role="presentation" aria-hidden="true" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto;">
                                     <tr>
                                         <td style="border-radius: 3px; background: #EE3036; text-align: center; " class="button-td">
-                                            <a href="http://www.google.com" style="background: #EE3036; border: 15px solid #EE3036; font-family: 'Dosis', sans-serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;" class="button-a">
+                                            <a href="http://www.google.com" style="background: #EE3036; border: 15px solid #EE3036; font-family: 'Abel', sans-serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;" class="button-a">
                                                 <span style="color:#ffffff;" class="button-link">&nbsp;&nbsp;&nbsp;&nbsp;click to confirm&nbsp;&nbsp;&nbsp;&nbsp;</span>
                                             </a>
                                         </td>
@@ -246,15 +253,7 @@
                 </td>
             </tr>
             <!-- 1 Column Text + Button : END -->
-            <!-- Hero Image, Flush : BEGIN -->
-           <!-- <tr>
-                <td bgcolor="#ADD8E6">
-                    &lt;!&ndash; todo inserire path assoluto su server &ndash;&gt;
-
-
-                    <img src="img/email_bck_2.png" aria-hidden="true" width="600" height="" alt="alt_text" border="0" align="center" style="width: 100%; max-width: 600px; height: auto; background: #ffffff; font-family: 'Dosis', sans-serif; font-size: 15px; line-height: 20px; color: #555555;" class="g-img"/></td>
-            </tr>-->
-            <!-- Hero Image, Flush : END -->
+            
 
             
 
@@ -274,12 +273,11 @@
         <![endif]-->
     </div>
 
-
     <!-- Full Bleed Background Section : BEGIN -->
     <table role="presentation" aria-hidden="true" bgcolor="#111111" cellspacing="0" cellpadding="0" border="0" align="center" width="100%">
         <tr>
             <td valign="top" align="center">
-                <div style="max-width: 600px; margin: auto;" class="email-container">
+                <div style="max-width: 600px; margin: auto; height:200px;" class="email-container">
                     <!--[if mso]>
                     <table role="presentation" aria-hidden="true" cellspacing="0" cellpadding="0" border="0" width="600" align="center">
                         <tr>
@@ -287,9 +285,9 @@
                     <![endif]-->
                     <table role="presentation" aria-hidden="true" cellspacing="0" cellpadding="0" border="0" width="100%">
                         <tr>
-                            <td style="padding: 40px; text-align: center; font-family: 'Dosis', sans-serif; font-size: 15px; line-height: 20px; color: #ffffff;">
+                            <td style="padding: 40px; text-align: center; font-family: 'Abel', sans-serif; font-size: 15px; line-height: 20px; color: #ffffff;">
                                 <h3 style="margin: 0; display:flex; justify-content: center; align-items: center; text-align: center"> An initiative of
-                                    <img src="img/partner/gfdrr_mail.png" img class="flex-item" style="height:55px;margin-left:10px;" alt="" />
+                                    <img src="img/partner/gfdrr.gif" img class="flex-item" style="height:64px;margin-left:10px;" alt="" />
                             </h3>
                             </td>
 

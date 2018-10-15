@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
-    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta content="Open Data for Resilience Index " name="description" />
     <meta content="" name="author" />
 
@@ -48,25 +49,21 @@
     <script src="js/angular/directive.js" type="text/javascript"></script>
     <!-- RODI APP -->
 
-    <!--google fonts-->
-    <!--<link href="https://fonts.googleapis.com/css?family=Dosis|Quicksand:400,700|Roboto" rel="stylesheet">-->
     <!-- RODI css -->
-    <link href="css/style.css" rel="stylesheet">
-    <!--<link href="css/rodi_css.css" rel="stylesheet">-->
-    <link href="css/rodi_css_lint.css" rel="stylesheet">
+    <link href="css/rodi_css.css" rel="stylesheet">
     <link href="css/table_style_20180221.css" rel="stylesheet">
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-80600133-2"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
 
         gtag('config', 'UA-80600133-2');
     </script>
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/css/dataTables.bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/css/dataTables.bootstrap.min.css" rel="stylesheet" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/dataTables.bootstrap.min.js"></script>
 
@@ -77,14 +74,16 @@
     </script>
 
 </head>
+
 <body ng-app="RodiApp" ng-controller="RodiCtrl">
 
-<!-- Section HEADER - INIZIO -->
-<div class="container">
-        <section id="rodi_header" class="rodi_header">
+    <div class="container">
+        <!-- Section HEADER - INIZIO -->
+        <section id="rodi_header">
+
             <div class="row  ">
                 <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">-->
-                <div class="col-xs-8 col-sm-3 " style="color:black;">
+                <div class="col-xs-7 col-sm-3 " style="color:black;">
                     <!--<img src="img/template/rodi_logo_new_beta.png" alt="Open Data for Resilience Initiative" class="img-responsive pull-left" />-->
                     <a ng-if="bHome" href="" ng-click="changeview('index.html', '0')">
                         <svg class="logo_icon" aria-hidden="true" focusable="false" fill="currentColor;">
@@ -93,108 +92,122 @@
                     </a>
                 </div>
 
-                <div class="col-xs-4 col-sm-9 ">
+                <div class="col-xs-5 col-sm-9 ">
                     <button type="button" class="navbar-toggle navbar-toggle-right-black " data-toggle="collapse"
-                            data-target="#menu-website" aria-expanded="false">
+                        data-target="#menu-website" aria-expanded="false">
                         <span class="sr-only">Toggle navigation</span>
                         <i class="fa fa-bars"></i>
                     </button>
 
                     <mainmenu></mainmenu>
                 </div>
+
+
+
             </div>
         </section>
-<!-- Section HEADER - Fine -->
 
-<!-- Section Filter - START -->
-        <section>
-            <!-- Page Title -->
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                    <h2 class="page_title">Explore locations</h2>
-                </div>
-            </div>
 
-            <div class="row menu-hazard" id="menu-hazard">
-
-                <ul class="nav navbar-nav text-center ">
-                    <li ng-repeat="hc in HazardCategory">
-                        <a href="" ng-click="setUnSetFilterCategory(hc.category.name)"
-                           ng-class="filterCategoryClass(hc.category.name)"
-                           title="Filter datasets from this category only">
-                            <i class="{{getHCIcon(hc.category.id)}} fa-2x"></i>
-                            <span>{{hc.category.name}}</span>
-                        </a>
-                    </li>
-                </ul>
-                <div class="menu_sep_countries "></div>
-
-                <ul class="nav navbar-nav text-center ">
-                    <li ng-repeat="appli in applicability">
-                        <a href="" ng-click="setUnSetFilter(appli.title)"
-                           ng-class="filterApplicabilityClass(appli.title)"
-                           title="Filter datasets applicable to this hazard only">
-                            <i class="{{appli.icon}} fa-2x"></i>
-                            <span>{{appli.title}}</span>
-                        </a>
-                    </li>
-                </ul>
-
-            </div>
-    </section>
-<!-- Section Filter - Fine -->
-
-<!-- Body content -->
-        <div class="space"></div>
-        <div class="row text-center">
-            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" title="Number of datasets considered depending on hazard or category selected">
-                <span class="rodi_txt_big" >Datasets considered: <strong><span class="odfri_black_blue">{{datasetConsidered}}</span></strong></span>
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                <h1 class="page_title">Explore locations</h1>
             </div>
         </div>
 
-        <!-- Countries table -->
-        <div class="space"></div>
-        <div class="row">
-            <div class="col-xs-12 col-sm-10 col-sm-push-1 col-md-10 col-md col-md-push-1 col-lg-8 col-lg-push-2">
-                <table id="tabCountries" class="table table-responsive table-striped table-hover">
-                    <thead>
-                        <tr>
-                            <!--<th class="col-xs-1 col-sm-1 col-md-1 col-lg-1" title="See Documentation for more info on ranking">Rank</th>-->
-                            <th class="col-xs-3 col-sm-3 col-md-3 col-lg-3" title="Name of location">Location</th>
-                            <th class="col-xs-4 col-sm-4 col-md-4 col-lg-4" title="Average scores of all datasets considered. If a dataset does not exist or has not been submitted, its score is 0.">Score <a href="" ng-click="changepage('methodology.html#openness')">(more details)</a></th>
-                            <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center" title="Number of datasets submitted">Datasets submitted</th>
-                            <th class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-center" title="Number of datasets fully open">Open data</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!--  Country with dataset submitted -->
-                        <tr ng-repeat="country in countriesList | orderBy:'-score * 1'" ng-click="changepage('dataset_list.html?idcountry=' + country.country + '&idcategory=0')" title="Click to see datasets for this location">
-                            <!--<td>
+        <div id="menu-hazard">
+            <!--<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 ">-->
+            <!--<div class="row" >-->
+            <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">-->
+            <ul class="nav navbar-nav text-center ">
+                <li ng-repeat="hc in HazardCategory">
+                    <a href="" ng-click="setUnSetFilterCategory(hc.category.name)" ng-class="filterCategoryClass(hc.category.name)"
+                        title="Filter datasets from this category only">
+                        <i class="{{getHCIcon(hc.category.id)}} fa-2x"></i>
+                        <span>{{hc.category.name}}</span>
+                    </a>
+                </li>
+            </ul>
+            <div class="menu_sep_countries "></div>
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--<div class="col-xs-12 col-sm-6 col-md-8 col-lg-8">-->
+            <!--<div class="row" >-->
+            <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">-->
+            <ul class="nav navbar-nav text-center ">
+                <li ng-repeat="appli in applicability">
+                    <a href="" ng-click="setUnSetFilter(appli.title)" ng-class="filterApplicabilityClass(appli.title)"
+                        title="Filter datasets applicable to this hazard only">
+                        <i class="{{appli.icon}} fa-2x"></i>
+                        <span>{{appli.title}}</span>
+                    </a>
+                </li>
+            </ul>
+            <!--</div>-->
+            <!--</div>-->
+        </div>
+    </div>
+
+    </section>
+    <!-- Section HEADER - FINE -->
+
+    <!-- Body content -->
+    <div class="odfri_txt_space"></div>
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" title="Number of datasets considered depending on hazard or category selected">
+                <span class="rodi_txt_big">Datasets considered: <strong><span class="odfri_black_blue">{{datasetConsidered}}</span></strong></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Countries table -->
+    <div class="odfri_txt_space"></div>
+    <div class="container">
+        <div class="table-responsive">
+            <table id="tabCountries" class="table table-responsive table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th title="Name of location">Location</th>
+                        <th title="Average scores of all datasets considered. If a dataset does not exist or has not been submitted, its score is 0.">Score
+                            <a href="" ng-click="changepage('methodology.html#openness')">(more details)</a></th>
+                        <th class=" text-center" title="Number of datasets submitted">Datasets
+                            submitted</th>
+                        <th class="text-center" title="Number of datasets fully open">Open
+                            data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!--  Country with dataset submitted -->
+                    <tr ng-repeat="country in countriesList | orderBy:'-score * 1'" ng-click="changepage('dataset_list.html?idcountry=' + country.country + '&idcategory=0')"
+                        title="Click to see datasets for this location">
+                        <!--<td>
                                 <span ng-if="country.rank < 999">{{country.rank}}</span>
                                 <span ng-if="country.rank == 999">0</span>
                             </td>-->
-                            <td><span class="text-muted">{{getCountryName(country.country)}}</span></td>
-                            <td class="text-center">
-                                <div class="progress" title="Average scores of all datasets considered for this location. If a dataset does not exist or has not been submitted, its score is 0.">
-                                    <div class="progress-bar" role="progressbar" aria-valuenow="{{country.score}}" aria-valuemin="0" aria-valuemax="100" style="width: {{country.score}}%;" >
-                                        {{country.score}}%
-                                    </div>
+                        <td><span class="text-muted">{{getCountryName(country.country)}}</span></td>
+                        <td class="text-center">
+                            <div class="progress" title="Average scores of all datasets considered for this location. If a dataset does not exist or has not been submitted, its score is 0.">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="{{country.score}}"
+                                    aria-valuemin="0" aria-valuemax="100" style="width: {{country.score}}%;">
+                                    {{country.score}}%
                                 </div>
-                            </td>
-                            <td  class="text-center">
-                                <span ng-if="country.datasets_count > 0">{{country.datasets_count}}</span>
-                                <span ng-if="country.datasets_count == 0" title="Any dataset to submit for this country?">No dataset submitted</span>
-                            </td>
-                            <td class="text-center">{{country.fullscores_count}}</td>
-                        </tr>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <span ng-if="country.datasets_count > 0">{{country.datasets_count}}</span>
+                            <span ng-if="country.datasets_count == 0" title="Any dataset to submit for this country?">No
+                                dataset submitted</span>
+                        </td>
+                        <td class="text-center">{{country.fullscores_count}}</td>
+                    </tr>
 
-                    </tbody>
-                </table>
-                <div class="text-center" ng-if="bLoadingTabel"><img src="img/template/loading.gif" alt="" style="max-width:80px;" /></div>
-
-            </div>
+                </tbody>
+            </table>
         </div>
-        <br /><br />
+
+        <div class="text-center" ng-if="bLoadingTabel"><img src="img/template/loading.gif" alt="" style="max-width:80px;" /></div>
+
     </div>
 
 
@@ -206,17 +219,18 @@
     </section>
 
     <script>
-        $(document).ready(function() {
-//            $('#tabCountries').DataTable(
-//                {
-//                    ordering: true,
-//                    paging: false,
-//                    searching: false,
-//                    info: false
-//                }
-//            );
+        $(document).ready(function () {
+            //            $('#tabCountries').DataTable(
+            //                {
+            //                    ordering: true,
+            //                    paging: false,
+            //                    searching: false,
+            //                    info: false
+            //                }
+            //            );
         });
     </script>
 
 </body>
+
 </html>
