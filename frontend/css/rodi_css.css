@@ -2401,3 +2401,8 @@ a.active {
     border: solid 1px #c0c0c0;
     z-index: 100;
 }
+
+
+.text-content {
+    font-size: 17px;
+}
