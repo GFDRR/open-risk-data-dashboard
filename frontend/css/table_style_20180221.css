@@ -9,7 +9,7 @@
     padding-top:10px;
     padding-bottom:10px;
     display: table-cell;
-    vertical-align: middle;
+    vertical-align: top;
 }
 
 .table-striped > tbody > tr:nth-of-type(odd) {
