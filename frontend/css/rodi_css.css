@@ -622,9 +622,7 @@ small.label {
     flex-direction: column;
 }
 
-.rodi_section_01 .flex-container.col .row .flex-container {
-    /*display:flex;*/
-    flex-direction: row;
+.rodi_section_01 .flex-container {
     flex-wrap: wrap;
 }
 
