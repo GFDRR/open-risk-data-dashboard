@@ -190,50 +190,15 @@
     <table ng-table="tableParams" class="table table-responsive table-striped table-hover">
       <thead>
         <tr>
-          <th class="col-xs-4 col-sm-4 col-md-4 col-lg-4" title="Name of dataset">Dataset</th>
-          <th class="col-xs-6 col-sm-6 col-md-6 col-lg-6" title="10 criteria assessing the availability and ease of use of the dataset">Open data criteria</th>
-          <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center" title="See more details on the dataset or submit a new dataset">See details or submit your dataset</th>
-          <!--<th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center">Data access</th>-->
+          <th title="Name of dataset">Dataset</th>
+          <th title="10 criteria assessing the availability and ease of use of the dataset">Open data criteria</th>
         </tr>
       </thead>
       <tbody>
         <tr ng-repeat="item in datasetList | orderBy: '-score * 1' | filter: checkVisibility">
           <td>
-            {{item.name}}<br />
-            <!--<span class="small text-muted">{{formatStringLenght(ds.keydataset.description)}}</span><br />-->
-            <!--<small><a href="" data-toggle="modal" data-target="#moreinfoModal{{$index}}">more info</a></small>-->
-
-            <!-- Modal Description -->
-            <!--<div class="modal fade" id="moreinfoModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="moreinfoModal{{$index}}label" aria-hidden="true">-->
-            <!--<div class="modal-dialog modal-lg" role="document">-->
-            <!--<div class="modal-content">-->
-            <!--<div class="modal-header">-->
-            <!--<h4 class="modal-title" id="moreinfoModal{{$index}}label">{{ds.keydataset.category}} - {{ds.keydataset.dataset.name}} ({{ds.keydataset.level}})</h4>-->
-            <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-            <!--<span aria-hidden="true">&times;</span>-->
-            <!--</button>-->
-            <!--</div>-->
-            <!--<div class="modal-body">-->
-            <!--<strong>Description</strong>-->
-            <!--<br />-->
-            <!--<span class="table_modal_txt">-->
-            <!--{{ds.keydataset.description}}-->
-            <!--</span>-->
-
-            <!--&lt;!&ndash;<br /><br />&ndash;&gt;-->
-            <!--&lt;!&ndash;<strong>Notes</strong>&ndash;&gt;-->
-            <!--&lt;!&ndash;<br />&ndash;&gt;-->
-            <!--&lt;!&ndash;<span class="table_modal_txt">&ndash;&gt;-->
-            <!--&lt;!&ndash;{{ds.notes}}&ndash;&gt;-->
-            <!--&lt;!&ndash;</span>&ndash;&gt;-->
-            <!--</div>-->
-            <!--<div class="modal-footer">-->
-            <!--<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-
+            <a href="dataset_details.html?keyds={{item.istance_id}}" ng-if="item.score > 0" title="View details">{{item.name}}</a>
+            <a href="contribute.html?ctr={{idCountry}}&amp;ds={{item.name}}" ng-if="item.score <= 0" title="Contribute">{{item.name}}</a>
           </td>
           <td>
             <div class="dataset_value">
@@ -249,41 +214,6 @@
               <i class="fa fa-clock-o" aria-hidden="{{item.quest10}}" data-toggle="tooltip" title="{{questions[9].desc}}"></i>
             </div>
           </td>
-          <td class="text-center">
-            <a class="" href="" title="details" style="margin-right:10px;" ng-if="item.score > 0" ng-click="changepage('dataset_details.html?keyds=' + item.istance_id)"><i class="fa fa-search fa-2x" aria-hidden="true"></i></a>
-            <a class="" href="" title="details" style="margin-right:10px;" ng-if="item.score <= 0" ng-click="changepage('contribute.html?ctr=' + idCountry + '&ds=' + item.name)"><i class="fa fa-search fa-2x" aria-hidden="true"></i></a>
-          </td>
-          <!--<td class="text-center">-->
-          <!--<a class="download" title="Download link" href="" ng-if="ds.url.length > 0" data-toggle="modal" data-target="#linkdataModal{{$index}}">-->
-          <!--<i class="fa fa-download fa-2x" aria-hidden="true"></i>-->
-          <!--</a>-->
-          <!--&lt;!&ndash; Modal Link download DATA & METADATA &ndash;&gt;-->
-          <!--<div class="modal fade text-left" id="linkdataModal{{$index}}" tabindex="-1" role="dialog" aria-labelledby="linkdataModal{{$index}}label" aria-hidden="true">-->
-          <!--<div class="modal-dialog modal-lg" role="document">-->
-          <!--<div class="modal-content">-->
-          <!--<div class="modal-header">-->
-          <!--<h4 class="modal-title" id="linkdataModal{{$index}}label">{{ds.keydataset.category}} - {{ds.keydataset.dataset.name}} ({{ds.keydataset.level}})</h4>-->
-          <!--Access the data-->
-          <!--<button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-          <!--<span aria-hidden="true">&times;</span>-->
-          <!--</button>-->
-          <!--</div>-->
-          <!--<div class="modal-body text-left">-->
-          <!--<strong>Donwload link</strong>-->
-          <!--<br /><br />-->
-          <!--<ul class="text-left">-->
-          <!--<li ng-repeat="link in ds.url">-->
-          <!--<a href="{{link}}" target="_blank">{{formatLink(link)}}</a>-->
-          <!--</li>-->
-          <!--</ul>-->
-          <!--</div>-->
-          <!--<div class="modal-footer">-->
-          <!--<button type="button" class="btn btn-info" data-dismiss="modal">Close</button>-->
-          <!--</div>-->
-          <!--</div>-->
-          <!--</div>-->
-          <!--</div>-->
-          <!--</td>-->
         </tr>
 
       </tbody>
