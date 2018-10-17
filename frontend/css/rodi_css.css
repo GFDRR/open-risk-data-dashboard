@@ -2404,7 +2404,10 @@ h2.odfri_title_red {
     z-index: 100;
 }
 
-
 .text-content {
     font-size: 17px;
+}
+
+tr.ng-scope {
+    cursor: pointer;
 }
