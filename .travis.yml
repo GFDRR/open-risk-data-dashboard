@@ -18,7 +18,7 @@ script:
 - export PYTHONPATH=$(readlink -f ./backend)
 - cd frontend
 - npm test
-- npm run concat
+- npm run build
 - npx semver --range $(< ./API_COMPATIBILITY) $(python -c 'import ordd_api; print ordd_api.__version__;') || (echo '/!\ Backend API and Frontend API are not compatible /!\' && exit 1)
 
 deploy:

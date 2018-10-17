@@ -3,6 +3,5 @@ ID = "index-opendri-preview"
 
 [build]
   base = "frontend"
-  command = "npm test && npm run concat"
+  command = "npm test && npm run build"
   publish = "frontend"
-

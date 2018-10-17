@@ -5,13 +5,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "concat": "npm run concat:script-vendor && npm run concat:script-app && npm run concat:css",
-    "concat:script-app": "concat -o js/bundle.app.js js/angular/*.js",
-    "concat:script-vendor": "concat -o js/bundle.vendor.js bower_components/jquery/dist/jquery.js bower_components/angular/angular.min.js bower_components/ng-table/dist/ng-table.min.js bower_components/bootstrap/dist/js/bootstrap.min.js",
+    "build": "npm run concat:script-vendor && npm run concat:script-app && npm run concat:css",
+    "concat:script-app": "concat js/angular/*.js | uglifyjs --compress -o js/bundle.app.js",
+    "concat:script-vendor": "concat bower_components/jquery/dist/jquery.js bower_components/angular/angular.min.js bower_components/ng-table/dist/ng-table.min.js bower_components/bootstrap/dist/js/bootstrap.min.js | uglifyjs --compress -o js/bundle.vendor.js",
     "concat:css": "concat -o css/bundle.css bower_components/font-awesome/css/font-awesome.min.css bower_components/ng-table/dist/ng-table.min.css bower_components/bootstrap/dist/css/bootstrap.min.css bower_components/animate.css/animate.min.css",
-    "start": "wsrv --livereload --port 4000 .",
+    "serve": "wsrv --livereload --port 4000 .",
+    "start": "run-p serve 'watch:*'",
     "test": "npm run test:bundlesize",
-    "test:bundlesize": "bundlesize -s 3KB"
+    "test:bundlesize": "bundlesize -s 3KB",
+    "watch:css": "onchange 'css/*.css' -- npm run concat:css",
+    "watch:script-app": "onchange 'js/angular/*.js' -- npm run concat:script-app",
+    "watch:script-vendor": "concat bower_components/jquery/dist/jquery.js bower_components/angular/angular.min.js bower_components/ng-table/dist/ng-table.min.js bower_components/bootstrap/dist/js/bootstrap.min.js > js/bundle.vendor.js"
   },
   "bundlesize": [
     {
@@ -42,6 +46,7 @@
     "bundlesize": "^0.17.0",
     "concat": "^1.0.3",
     "reload": "^2.3.1",
+    "uglify-js": "^3.4.9",
     "wsrv": "^0.2.2"
   }
 }
