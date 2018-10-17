@@ -8,7 +8,9 @@ addons:
 
 install:
 - cd frontend
+- npm i -g bower
 - npm ci
+- bower install
 - cd ..
 - if [ -e id_opendri.enc -a -n "$encrypted_9245de407bbd_iv" ]; then openssl aes-256-cbc -K $encrypted_9245de407bbd_key -iv $encrypted_9245de407bbd_iv -in id_opendri.enc -out /tmp/id_opendri -d && chmod 600 /tmp/id_opendri; fi
 
@@ -16,10 +18,12 @@ script:
 - export PYTHONPATH=$(readlink -f ./backend)
 - cd frontend
 - npm test
+- npm run concat
 - npx semver --range $(< ./API_COMPATIBILITY) $(python -c 'import ordd_api; print ordd_api.__version__;') || (echo '/!\ Backend API and Frontend API are not compatible /!\' && exit 1)
 
 deploy:
 - provider: script
+  skip_cleanup: true
   script: rsync -e "ssh -i /tmp/id_opendri -p 22027" --delete-after -r ./
     cima@dev.riskopendata.org:~/html-dev/
   on:

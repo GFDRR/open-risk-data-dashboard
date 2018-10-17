@@ -9,15 +9,14 @@
     "*.md"
   ],
   "homepage": "https://github.com/daneden/animate.css",
-  "version": "3.5.2",
-  "_release": "3.5.2",
+  "version": "3.7.0",
+  "_release": "3.7.0",
   "_resolution": {
     "type": "version",
-    "tag": "3.5.2",
-    "commit": "dac3dab7b59cb6072b5d0fe23eae3805e370a58c"
+    "tag": "3.7.0",
+    "commit": "940e4aef81edc26d3458480adcd475e51bd38df5"
   },
   "_source": "https://github.com/daneden/animate.css.git",
   "_target": "^3.5.2",
-  "_originalSource": "animate.css",
-  "_direct": true
+  "_originalSource": "animate.css"
 }

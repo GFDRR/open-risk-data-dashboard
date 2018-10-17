@@ -5,6 +5,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "concat": "npm run concat:script-vendor && npm run concat:script-app && npm run concat:css",
+    "concat:script-app": "concat -o js/bundle.app.js js/angular/*.js",
+    "concat:script-vendor": "concat -o js/bundle.vendor.js bower_components/jquery/dist/jquery.js bower_components/angular/angular.min.js bower_components/ng-table/dist/ng-table.min.js bower_components/bootstrap/dist/js/bootstrap.min.js",
+    "concat:css": "concat -o css/bundle.css bower_components/font-awesome/css/font-awesome.min.css bower_components/ng-table/dist/ng-table.min.css bower_components/bootstrap/dist/css/bootstrap.min.css bower_components/animate.css/animate.min.css",
     "start": "wsrv --livereload --port 4000 .",
     "test": "npm run test:bundlesize",
     "test:bundlesize": "bundlesize -s 3KB"
@@ -36,6 +40,7 @@
   "license": "GPL-3.0",
   "devDependencies": {
     "bundlesize": "^0.17.0",
+    "concat": "^1.0.3",
     "reload": "^2.3.1",
     "wsrv": "^0.2.2"
   }
