@@ -477,6 +477,10 @@ section#counter-stats {
     padding: 0;
 }
 
+.dataset_value {
+  white-space: nowrap
+}
+
 .dataset_value i {
     color: white;
     padding: 10px;
@@ -2404,7 +2408,10 @@ h2.odfri_title_red {
     z-index: 100;
 }
 
-
 .text-content {
     font-size: 17px;
+}
+
+[ng-click] {
+    cursor: pointer;
 }
