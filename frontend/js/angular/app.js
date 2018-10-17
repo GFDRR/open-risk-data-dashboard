@@ -28,7 +28,9 @@ var baseAPIurl = 'https://index.opendri.org/api/'; // Sviluppo
 //var baseAPIurl = spli_url.protocol + '//' + spli_url.host + '/api/';
 
 RodiApp.config(function($locationProvider) {
-
     $locationProvider.html5Mode(true);
-
 });
+
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+})

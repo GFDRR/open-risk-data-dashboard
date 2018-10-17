@@ -14,19 +14,12 @@
     <link rel=icon href=img/template/favicon.png type="image/png">
     <link rel=icon href=img/template/favicon.ico type="image/vnd.microsoft.icon">
 
-    <!-- jQuery library -->
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-
-    <!-- Angular components -->
-    <script src="bower_components/angular/angular.min.js"></script>
-
-    <link href="bower_components/ng-table/dist/ng-table.min.css" rel="stylesheet">
-    <script src="bower_components/ng-table/dist/ng-table.min.js"></script>
-
-    <!-- bootstrap Framework -->
-    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- font awesome-->
-    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="preload" href="css/bariol/Bariol-Bold.woff" as="font">
+    <link rel="preload" href="css/fonts/hazard.woff2" as="font">
+    <link rel="preload" href="bower_components/font-awesome/fonts/fontawesome-webfont.woff2" as="font">
+    <link rel="preload" href="bower_components/jquery/dist/jquery.min.js" as="script">
+    <link rel="preload" href="bower_components/bootstrap/dist/css/bootstrap.min.css" as="style">
+    <link rel="preload" href="css/rodi_css.css" as="style">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -35,25 +28,13 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <!-- RODI APP -->
-    <script src="js/angular/app.js"></script>
-    <script src="js/angular/service.js" type="text/javascript"></script>
-    <script src="js/angular/controller.js" type="text/javascript"></script>
-    <script src="js/angular/controller_mainmenu.js" type="text/javascript"></script>
-    <script src="js/angular/directive.js" type="text/javascript"></script>
-    <!-- RODI APP -->
-
     <!-- RODI css -->
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+    <link href="bower_components/ng-table/dist/ng-table.min.css" rel="stylesheet">
     <link href="css/rodi_css.css" rel="stylesheet">
     <link href="css/style_map.css" rel="stylesheet">
     <link href="css/land.css" rel="stylesheet">
-
-    <!-- Tooltip init -->
-    <script>
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
-    </script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-80600133-2"></script>
@@ -166,8 +147,17 @@
 <rodifooter></rodifooter>
 <!-- Section FOOTER - FINE -->
 
-
+<script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="bower_components/ng-table/dist/ng-table.min.js"></script>
 
+<!-- RODI APP -->
+<script src="js/angular/app.js"></script>
+<script src="js/angular/service.js" type="text/javascript"></script>
+<script src="js/angular/controller.js" type="text/javascript"></script>
+<script src="js/angular/controller_mainmenu.js" type="text/javascript"></script>
+<script src="js/angular/directive.js" type="text/javascript"></script>
+<!-- RODI APP -->
 </body>
 </html>

@@ -10,55 +10,29 @@
 
     <base href="{{$LocationProvider.$get}}" />
 
+    <link rel="preload" href="css/bariol/Bariol-Bold.woff" as="font">
+    <link rel="preload" href="css/fonts/hazard.woff2" as="font">
+    <link rel="preload" href="bower_components/font-awesome/fonts/fontawesome-webfont.woff2" as="font">
+    <link rel="preload" href="bower_components/jquery/dist/jquery.min.js" as="script">
+    <link rel="preload" href="bower_components/bootstrap/dist/css/bootstrap.min.css" as="style">
+    <link rel="preload" href="css/rodi_css.css" as="style">
+
     <title>Open Data for Resilience Index - Documentation</title>
 
-    <!-- jQuery library -->
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <!--<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>-->
-
-    <!-- Angular components -->
-    <script src="bower_components/angular/angular.min.js"></script>
-
-    <!-- Chart libraries-->
-    <script src="bower_components/chart.js/dist/Chart.min.js"></script>
-    <script src="bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
-
-    <link href="bower_components/ng-table/dist/ng-table.min.css" rel="stylesheet">
-    <script src="bower_components/ng-table/dist/ng-table.min.js"></script>
-
-    <!-- bootstrap Framework -->
-    <!-- Bootstrap -->
-    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- font awesome-->
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+    <link href="bower_components/ng-table/dist/ng-table.min.css" rel="stylesheet">
+    <link href="bower_components/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="bower_components/animate.css/animate.min.css" rel="stylesheet">
+    <!-- RODI css -->
+    <link href="css/rodi_css.css" rel="stylesheet">
+    <link href="css/table_style_20180221.css" rel="stylesheet">
+
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
-    <link href="bower_components/animate.css/animate.min.css" rel="stylesheet">
-
-    <!-- RODI APP -->
-    <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
-    <script src="js/angular/app.js"></script>
-    <script src="js/angular/service.js" type="text/javascript"></script>
-    <script src="js/angular/controller.js" type="text/javascript"></script>
-    <script src="js/angular/controller_mainmenu.js" type="text/javascript"></script>
-    <script src="js/angular/directive.js" type="text/javascript"></script>
-    <!-- RODI APP -->
-
-    <!-- Scroll JS
-    <script src="js/scroll.js" type="text/javascript"></script>-->
-
-    <!--ADOBE typekit-->
-    <!--<script src="https://use.typekit.net/yxp8fxq.js"></script>-->
-    <!--<script>try{Typekit.load({ async: true });}catch(e){}</script>-->
-
-    <!-- RODI css -->
-    <link href="css/rodi_css.css" rel="stylesheet">
-
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-80600133-2"></script>
     <script>
@@ -130,7 +104,7 @@
 
     <!-- Country Matrix -->
     <div class="row scroll">
-        <div class="col-xs-12 col-sm-10 col-md-6 col-xs-offset-0 col-sm-offset-1 col-md-offset-3 text-content"> 
+        <div class="col-xs-12 col-sm-10 col-md-6 col-xs-offset-0 col-sm-offset-1 col-md-offset-3 text-content">
             <h2 id="introduction">Introduction</h2>
 
             <p>The <strong>Open Data for Resilience Index</strong> is a tool to identify, assess and compare, for any country, the availability and ease of use of datasets that are considered to be key for disaster risk management.</p>
@@ -579,8 +553,22 @@
 
 
 
-<!-- Include all compiled plugins (below), or include individual files as needed -->
+
+<script src="bower_components/jquery/dist/jquery.js"></script>
+<script src="bower_components/angular/angular.min.js"></script>
+<script src="bower_components/chart.js/dist/Chart.min.js"></script>
+<script src="bower_components/angular-chart.js/dist/angular-chart.min.js"></script>
+<script src="bower_components/ng-table/dist/ng-table.min.js"></script>
+<script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
 <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- RODI APP -->
+<script src="js/angular/app.js"></script>
+<script src="js/angular/service.js" type="text/javascript"></script>
+<script src="js/angular/controller.js" type="text/javascript"></script>
+<script src="js/angular/controller_mainmenu.js" type="text/javascript"></script>
+<script src="js/angular/directive.js" type="text/javascript"></script>
+<!-- RODI APP -->
+
 
 </body>
 </html>
