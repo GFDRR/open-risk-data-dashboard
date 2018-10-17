@@ -477,6 +477,10 @@ section#counter-stats {
     padding: 0;
 }
 
+.dataset_value {
+  white-space: nowrap
+}
+
 .dataset_value i {
     color: white;
     padding: 10px;
