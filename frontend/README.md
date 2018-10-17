@@ -10,6 +10,8 @@ $ git clone git@github.com:GFDRR/open-risk-data-dashboard.git
 $ cd frontend
 $ npm install --global bower
 $ npm install
+$ bower install
+$ npm run build
 ```
 
 ## Configure to work locally
