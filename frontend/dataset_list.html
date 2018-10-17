@@ -195,10 +195,10 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="item in datasetList | orderBy: '-score * 1' | filter: checkVisibility" ng-click="changepage(item.score > 0 ? 'dataset_details.html?keyds=' + item.istance_id : 'contribute.html?ctr=' + idCountry + '&amp;ds=' +item.name)">
+        <tr ng-repeat="item in datasetList | orderBy: '-score * 1' | filter: checkVisibility" ng-click="changepage(item.istance_id ? 'dataset_details.html?keyds=' + item.istance_id : 'contribute.html?ctr=' + idCountry + '&amp;ds=' +item.name)" data-score="{{item.score}}">
           <td>
-            <a href="dataset_details.html?keyds={{item.istance_id}}" ng-if="item.score > 0" title="View details">{{item.name}}</a>
-            <a href="contribute.html?ctr={{idCountry}}&amp;ds={{item.name}}" ng-if="item.score <= 0" title="Contribute">{{item.name}}</a>
+            <a href="dataset_details.html?keyds={{item.istance_id}}" ng-if="item.istance_id" title="View details">{{item.name}}</a>
+            <span ng-if="!item.istance_id">{{item.name}} (<a href="contribute.html?ctr={{idCountry}}&amp;ds={{item.name}}">Contribute</a>)</span>
           </td>
           <td>
             <div class="dataset_value">
