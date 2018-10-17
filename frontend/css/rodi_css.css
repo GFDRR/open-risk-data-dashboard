@@ -2412,6 +2412,6 @@ h2.odfri_title_red {
     font-size: 17px;
 }
 
-tr.ng-scope {
+[ng-click] {
     cursor: pointer;
 }
