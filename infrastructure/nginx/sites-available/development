@@ -1,0 +1,88 @@
+server {
+	listen 80 default_server;
+	listen [::]:80 default_server;
+
+	server_name _;
+
+	root /var/www/html;
+	index index.html index.htm;
+
+	access_log  /var/log/nginx/access.log combined;
+	error_log   /var/log/nginx/error.log  error;
+
+	location / {
+		# First attempt to serve request as file, then
+		# as directory, then fall back to displaying a 404.
+		try_files $uri $uri/ =404;
+	}
+
+	location /static {
+		root /var/www;
+	}
+
+	location /api {
+		proxy_set_header    Host                $http_host;
+		proxy_set_header    X-Real-IP           $remote_addr;
+		proxy_set_header    X-Forwarded-For     $proxy_add_x_forwarded_for;
+		proxy_set_header    X-Forwarded-Proto   $scheme;
+		proxy_pass http://localhost:8000/api;
+	}
+}
+cima@int-riskdash:~$ cat /etc/nginx/sites-available/development
+server {
+	listen 80;
+	listen [::]:80;
+
+	server_name dev.riskopendata.org dev.riskopendata.eu;
+
+	root /var/www/html-dev;
+	index index.html index.htm;
+
+	access_log  /var/log/nginx/access-dev.log combined;
+	error_log   /var/log/nginx/error-dev.log  error;
+
+	location / {
+		# First attempt to serve request as file, then
+		# as directory, then fall back to displaying a 404.
+		try_files $uri $uri/ =404;
+	}
+
+	location /static {
+		proxy_set_header    Host                $http_host;
+		proxy_set_header    X-Real-IP           $remote_addr;
+		proxy_set_header    X-Forwarded-For     $proxy_add_x_forwarded_for;
+		proxy_set_header    X-Forwarded-Proto   $scheme;
+		proxy_pass http://localhost:8001/static;
+	}
+
+	location /static-dev {
+		proxy_set_header    Host                $http_host;
+		proxy_set_header    X-Real-IP           $remote_addr;
+		proxy_set_header    X-Forwarded-For     $proxy_add_x_forwarded_for;
+		proxy_set_header    X-Forwarded-Proto   $scheme;
+		proxy_pass http://localhost:8001/static-dev;
+	}
+
+	location /static-dev2 {
+		proxy_set_header    Host                $http_host;
+		proxy_set_header    X-Real-IP           $remote_addr;
+		proxy_set_header    X-Forwarded-For     $proxy_add_x_forwarded_for;
+		proxy_set_header    X-Forwarded-Proto   $scheme;
+		proxy_pass http://localhost:8002/static-dev2;
+	}
+
+	location /api-dev {
+		proxy_set_header    Host                $http_host;
+		proxy_set_header    X-Real-IP           $remote_addr;
+		proxy_set_header    X-Forwarded-For     $proxy_add_x_forwarded_for;
+		proxy_set_header    X-Forwarded-Proto   $scheme;
+		proxy_pass http://localhost:8001/api-dev;
+	}
+	location /api-dev2 {
+		proxy_set_header    Host                $http_host;
+		proxy_set_header    X-Real-IP           $remote_addr;
+		proxy_set_header    X-Forwarded-For     $proxy_add_x_forwarded_for;
+		proxy_set_header    X-Forwarded-Proto   $scheme;
+		proxy_pass http://localhost:8002/api-dev2;
+	}
+}
