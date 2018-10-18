@@ -190,16 +190,15 @@
     <table ng-table="tableParams" class="table table-responsive table-striped table-hover">
       <thead>
         <tr>
-          <th class="col-xs-4 col-sm-4 col-md-4 col-lg-4" title="Name of dataset">Dataset</th>
-          <th class="col-xs-6 col-sm-6 col-md-6 col-lg-6" title="10 criteria assessing the availability and ease of use of the dataset">Open data criteria</th>
-          <th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center" title="See more details on the dataset or submit a new dataset">See details or submit your dataset</th>
-          <!--<th class="col-xs-1 col-sm-1 col-md-1 col-lg-1 text-center">Data access</th>-->
+          <th title="Name of dataset">Dataset</th>
+          <th title="10 criteria assessing the availability and ease of use of the dataset">Open data criteria</th>
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="item in datasetList | orderBy: '-score * 1' | filter: checkVisibility">
-          <td>{{item.name}}<br />
-
+       <tr ng-repeat="item in datasetList | orderBy: '-score * 1' | filter: checkVisibility" ng-click="changepage(item.istance_id ? 'dataset_details.html?keyds=' + item.istance_id : 'contribute.html?ctr=' + idCountry + '&amp;ds=' +item.name)" data-score="{{item.score}}">
+          <td>
+            <a href="dataset_details.html?keyds={{item.istance_id}}" ng-if="item.istance_id" title="View details">{{item.name}}</a>
+            <span ng-if="!item.istance_id">{{item.name}} (<a href="contribute.html?ctr={{idCountry}}&amp;ds={{item.name}}">Contribute</a>)</span>
           </td>
           <td>
             <div class="dataset_value">
@@ -215,11 +214,6 @@
               <i class="fa fa-clock-o" aria-hidden="{{item.quest10}}" data-toggle="tooltip" title="{{questions[9].desc}}"></i>
             </div>
           </td>
-          <td class="text-center">
-            <a class="" href="" title="details" style="margin-right:10px;" ng-if="item.score > 0" ng-click="changepage('dataset_details.html?keyds=' + item.istance_id)"><i class="fa fa-search fa-2x" aria-hidden="true"></i></a>
-            <a class="" href="" title="details" style="margin-right:10px;" ng-if="item.score <= 0" ng-click="changepage('contribute.html?ctr=' + idCountry + '&ds=' + item.name)"><i class="fa fa-search fa-2x" aria-hidden="true"></i></a>
-          </td>
-
         </tr>
 
       </tbody>

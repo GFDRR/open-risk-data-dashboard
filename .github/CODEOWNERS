@@ -1,0 +1,5 @@
+# Check this link to learn how this file works
+# https://blog.github.com/2017-07-06-introducing-code-owners/
+
+frontend/      @GFDRR/opendri-frontend
+
