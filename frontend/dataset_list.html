@@ -99,11 +99,9 @@
 
           <mainmenu></mainmenu>
         </div>
-
-
-
       </div>
     </section>
+
     <div class="row" id="top-menu">
       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
         <!--<hazardmenu></hazardmenu>-->
@@ -175,54 +173,54 @@
       </dl>
     </div>
 
+  <div class="row">
+    <div class="col-xs-12 col-md-10 col-md-offset-1 col-xs-offset-0">
+      <span style="font-size: 16px;">Show:
+        <a style="text-decoration: none;" href="" ng-click="setFilterMode('submitted')" ng-class="{active: filterMode == 'submitted'}">Submitted</a>,
+        <a style="text-decoration: none;" href="" ng-class="{active: filterMode == 'notsubmitted'}" ng-click="setFilterMode('notsubmitted')">Not submitted</a>,
+        <a style="text-decoration: none;" href="" ng-class="{active: filterMode == 'all'}" ng-click="setFilterMode('all')">All</a>
+      </span>
+      <br/>
+
+      <div class="table-responsive">
+        <table ng-table="tableParams" class="table table-striped table-hover">
+          <thead>
+            <tr>
+              <th title="Name of dataset">Dataset</th>
+              <th title="10 criteria assessing the availability and ease of use of the dataset">Open data criteria</th>
+            </tr>
+          </thead>
+          <tbody>
+           <tr ng-repeat="item in datasetList | orderBy: '-score * 1' | filter: checkVisibility" ng-click="changepage(item.istance_id ? 'dataset_details.html?keyds=' + item.istance_id : 'contribute.html?ctr=' + idCountry + '&amp;ds=' +item.name)" data-score="{{item.score}}">
+              <td>
+                <a href="dataset_details.html?keyds={{item.istance_id}}" ng-if="item.istance_id" title="View details">{{item.name}}</a>
+                <span ng-if="!item.istance_id">{{item.name}} (<a href="contribute.html?ctr={{idCountry}}&amp;ds={{item.name}}">Contribute</a>)</span>
+              </td>
+              <td>
+                <div class="dataset_value">
+                  <i class="fa fa-check-circle-o" aria-hidden="{{item.quest1}}" data-toggle="tooltip" title="{{questions[0].desc}}"></i>
+                  <i class="fa fa-desktop" aria-hidden="{{item.quest2}}" data-toggle="tooltip" title="{{questions[1].desc}}"></i>
+                  <i class="fa fa-cloud" aria-hidden="{{item.quest3}}" data-toggle="tooltip" title="{{questions[2].desc}}"></i>
+                  <i class="fa fa-tag" aria-hidden="{{item.quest4}}" data-toggle="tooltip" title="{{questions[3].desc}}"></i>
+                  <i class="fa fa-copy" aria-hidden="{{item.quest5}}" data-toggle="tooltip" title="{{questions[4].desc}}"></i>
+                  <i class="fa fa-keyboard-o" aria-hidden="{{item.quest6}}" data-toggle="tooltip" title="{{questions[5].desc}}"></i>
+                  <i class="fa fa-eye" aria-hidden="{{item.quest7}}" data-toggle="tooltip" title="{{questions[6].desc}}"></i>
+                  <i class="fa fa-dollar" aria-hidden="{{item.quest8}}" data-toggle="tooltip" title="{{questions[7].desc}}"></i>
+                  <i class="fa fa-unlock-alt" aria-hidden="{{item.quest9}}" data-toggle="tooltip" title="{{questions[8].desc}}"></i>
+                  <i class="fa fa-clock-o" aria-hidden="{{item.quest10}}" data-toggle="tooltip" title="{{questions[9].desc}}"></i>
+                </div>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+
+      <div class="text-center" ng-if="bLoading"><img src="img/template/loading.gif" alt="" style="max-width:80px;" /></div>
+      <div ng-if="bNoDataset" class="text-center"><br /><h3>No datasets found</h3></div>
+
+    </div>
   </div>
-</div>
-
-</div>
-
-<div class="odfri_txt_space"></div>
-<div class="row">
-
-  <div class="col-xs-12 col-sm-10 col-sm-push-1 col-md-10 col-md-push-1 col-lg-8 col-lg-push-2">
-    <span style="font-size: 16px;">Show: <a style="text-decoration: none;" href="" ng-click="setFilterMode('submitted')" ng-class="{active: filterMode == 'submitted'}">Submitted</a>, <a style="text-decoration: none;" href="" ng-class="{active: filterMode == 'notsubmitted'}" ng-click="setFilterMode('notsubmitted')">Not submitted</a>, <a style="text-decoration: none;" href="" ng-class="{active: filterMode == 'all'}" ng-click="setFilterMode('all')">All</a></span>
-    <br/>
-
-    <table ng-table="tableParams" class="table table-responsive table-striped table-hover">
-      <thead>
-        <tr>
-          <th title="Name of dataset">Dataset</th>
-          <th title="10 criteria assessing the availability and ease of use of the dataset">Open data criteria</th>
-        </tr>
-      </thead>
-      <tbody>
-       <tr ng-repeat="item in datasetList | orderBy: '-score * 1' | filter: checkVisibility" ng-click="changepage(item.istance_id ? 'dataset_details.html?keyds=' + item.istance_id : 'contribute.html?ctr=' + idCountry + '&amp;ds=' +item.name)" data-score="{{item.score}}">
-          <td>
-            <a href="dataset_details.html?keyds={{item.istance_id}}" ng-if="item.istance_id" title="View details">{{item.name}}</a>
-            <span ng-if="!item.istance_id">{{item.name}} (<a href="contribute.html?ctr={{idCountry}}&amp;ds={{item.name}}">Contribute</a>)</span>
-          </td>
-          <td>
-            <div class="dataset_value">
-              <i class="fa fa-check-circle-o" aria-hidden="{{item.quest1}}" data-toggle="tooltip" title="{{questions[0].desc}}"></i>
-              <i class="fa fa-desktop" aria-hidden="{{item.quest2}}" data-toggle="tooltip" title="{{questions[1].desc}}"></i>
-              <i class="fa fa-cloud" aria-hidden="{{item.quest3}}" data-toggle="tooltip" title="{{questions[2].desc}}"></i>
-              <i class="fa fa-tag" aria-hidden="{{item.quest4}}" data-toggle="tooltip" title="{{questions[3].desc}}"></i>
-              <i class="fa fa-copy" aria-hidden="{{item.quest5}}" data-toggle="tooltip" title="{{questions[4].desc}}"></i>
-              <i class="fa fa-keyboard-o" aria-hidden="{{item.quest6}}" data-toggle="tooltip" title="{{questions[5].desc}}"></i>
-              <i class="fa fa-eye" aria-hidden="{{item.quest7}}" data-toggle="tooltip" title="{{questions[6].desc}}"></i>
-              <i class="fa fa-dollar" aria-hidden="{{item.quest8}}" data-toggle="tooltip" title="{{questions[7].desc}}"></i>
-              <i class="fa fa-unlock-alt" aria-hidden="{{item.quest9}}" data-toggle="tooltip" title="{{questions[8].desc}}"></i>
-              <i class="fa fa-clock-o" aria-hidden="{{item.quest10}}" data-toggle="tooltip" title="{{questions[9].desc}}"></i>
-            </div>
-          </td>
-        </tr>
-
-      </tbody>
-    </table>
-    <div class="text-center" ng-if="bLoading"><img src="img/template/loading.gif" alt="" style="max-width:80px;" /></div>
-    <div ng-if="bNoDataset" class="text-center"><br /><h3>No datasets found</h3></div>
-
-  </div>
-</div>
 
 </div>
 
