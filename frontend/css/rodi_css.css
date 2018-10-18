@@ -496,11 +496,20 @@ section#counter-stats {
 }
 
 .dataset_value i[aria-hidden~=false] {
-    background: #EE3036;
+    color: #EE3036;
 }
 
 .dataset_value i[aria-hidden~=true] {
-    background: green;
+    color: green;
+}
+.dataset_value i[aria-hidden~=false]:hover {
+    color: #fff;
+    background-color: #EE3036;
+}
+
+.dataset_value i[aria-hidden~=true]:hover {
+    color: #fff;
+    background-color: green;
 }
 
 .dataset_value i[aria-hidden~=na] {
