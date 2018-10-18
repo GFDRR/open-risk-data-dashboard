@@ -512,8 +512,12 @@ section#counter-stats {
     background-color: green;
 }
 
-.dataset_value i[aria-hidden~=na] {
-    background: #c0c0c0;
+.dataset_value i[aria-hidden="na"] {
+    color: #666;
+}
+.dataset_value i[aria-hidden="na"]:hover {
+    color: #fff;
+    background-color: #666;
 }
 
 .dataset_form_select_style select {
