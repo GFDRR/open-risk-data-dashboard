@@ -2336,18 +2336,14 @@ h2.odfri_title_red {
         width: 150px;
         height: 150px;
         font-size: 90%;
-        margin: 20px auto;
     }
 
 }
 
-@media screen and (min-width: 992px) {
-    .stats-boxes {
-        display: flex;
-        justify-content: center;
-        flex-direction: row;
-    }
-
+.stats-boxes {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .odfri_box_counter span {
