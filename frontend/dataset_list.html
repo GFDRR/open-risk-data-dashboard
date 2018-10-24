@@ -11,6 +11,8 @@
   <base href="{{$LocationProvider.$get}}" />
 
   <title>Open Data for Resilience Index - Datasets list</title>
+  <link rel=icon href=img/template/favicon.png type="image/png">
+  <link rel=icon href=img/template/favicon.ico type="image/vnd.microsoft.icon">
 
   <!-- jQuery library -->
   <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -182,8 +184,8 @@
 
 <div class="odfri_txt_space"></div>
 <div class="row">
-  <div class="hidden-xs col-sm-1 col-md-1 col-lg-1"></div>
-  <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10">
+
+  <div class="col-xs-12 col-sm-10 col-sm-push-1 col-md-10 col-md-push-1 col-lg-8 col-lg-push-2">
     <span style="font-size: 16px;">Show: <a style="text-decoration: none;" href="" ng-click="setFilterMode('submitted')" ng-class="{active: filterMode == 'submitted'}">Submitted</a>, <a style="text-decoration: none;" href="" ng-class="{active: filterMode == 'notsubmitted'}" ng-click="setFilterMode('notsubmitted')">Not submitted</a>, <a style="text-decoration: none;" href="" ng-class="{active: filterMode == 'all'}" ng-click="setFilterMode('all')">All</a></span>
     <br/>
 
@@ -195,7 +197,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="item in datasetList | orderBy: '-score * 1' | filter: checkVisibility" ng-click="changepage(item.istance_id ? 'dataset_details.html?keyds=' + item.istance_id : 'contribute.html?ctr=' + idCountry + '&amp;ds=' +item.name)" data-score="{{item.score}}">
+       <tr ng-repeat="item in datasetList | orderBy: '-score * 1' | filter: checkVisibility" ng-click="changepage(item.istance_id ? 'dataset_details.html?keyds=' + item.istance_id : 'contribute.html?ctr=' + idCountry + '&amp;ds=' +item.name)" data-score="{{item.score}}">
           <td>
             <a href="dataset_details.html?keyds={{item.istance_id}}" ng-if="item.istance_id" title="View details">{{item.name}}</a>
             <span ng-if="!item.istance_id">{{item.name}} (<a href="contribute.html?ctr={{idCountry}}&amp;ds={{item.name}}">Contribute</a>)</span>
@@ -222,8 +224,8 @@
     <div ng-if="bNoDataset" class="text-center"><br /><h3>No datasets found</h3></div>
 
   </div>
-  <div class="hidden-xs col-sm-1 col-md-1 col-lg-1"></div>
-</div>
+
+</<div class="col-xs-12 col-sm-10 col-sm-push-1 col-md-10 col-md-push-1 col-lg-8 col-lg-push-2">
 
 <br />
 
