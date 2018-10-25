@@ -162,17 +162,47 @@
                     <thead>
                     <tr>
                         <th title="Name of country">Country</th>
-                        <th title="Average scores of all datasets considered. If a dataset does not exist or has not been submitted, its score is 0.">Score
-                            <a href="" ng-click="changepage('methodology.html#openness')">(more details)</a></th>
-                        <th class=" text-center" title="Number of datasets submitted">Datasets
-                            submitted</th>
-                        <th class="text-center" title="Number of datasets fully open">Open
-                            data</th>
+                        <th title="Average scores of all datasets considered. If a dataset does not exist or has not been submitted, its score is 0.">
+                            Score<br /> <a href="" ng-click="changepage('methodology.html#openness')" class="small">(more details)</a>
+                        </th>
+                        <th class=" text-center" title="Number of datasets submitted">
+                            Datasets<br /> submitted<br />
+                        </th>
+                        <th class="text-center" title="Number of datasets fully open">
+                            Open<br /> data<br />
+                        </th>
+
+                    </tr>
+                    <tr>
+                        <th>
+                            <div class="flex-container flex-row">
+                                <span class="sort_arrow_up" ng-click="orderArrayByProperty('description', true, 'location')"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: fieldSorting == 'location' && directionSorting == 'up'?  '#EE3036' : '#232323'}"></i></span>
+                                <span class="sort_arrow_down" ng-click="orderArrayByProperty('description', false, 'location')"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: fieldSorting == 'location' && directionSorting == 'down'?  '#EE3036' : '#232323'}"></i></span>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="flex-container flex-row">
+                                <span class="sort_arrow_up" ng-click="orderArrayByProperty('score', true, 'score')"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: fieldSorting == 'score' && directionSorting == 'up'?  '#EE3036' : '#232323'}"></i></span>
+                                <span class="sort_arrow_down" ng-click="orderArrayByProperty('score', false, 'score')"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: fieldSorting == 'score' && directionSorting == 'down'?  '#EE3036' : '#232323'}"></i></span>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="flex-container flex-row" style="justify-content: center;">
+                                <span class="sort_arrow_up" ng-click="orderArrayByProperty('datasets_count', true, 'datasets')"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: fieldSorting == 'datasets' && directionSorting == 'up'?  '#EE3036' : '#232323'}"></i></span>
+                                <span class="sort_arrow_down" ng-click="orderArrayByProperty('datasets_count', false, 'datasets')"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: fieldSorting == 'datasets' && directionSorting == 'down'?  '#EE3036' : '#232323'}"></i></span>
+                            </div>
+                        </th>
+                        <th>
+                            <div class="flex-container flex-row text-center" style="justify-content: center;">
+                                <span class="sort_arrow_up" ng-click="orderArrayByProperty('fullscores_count', true, 'opendata')"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: fieldSorting == 'opendata' && directionSorting == 'up'?  '#EE3036' : '#232323'}"></i></span>
+                                <span class="sort_arrow_down" ng-click="orderArrayByProperty('fullscores_count', false, 'opendata')"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: fieldSorting == 'opendata' && directionSorting == 'down'?  '#EE3036' : '#232323'}"></i></span>
+                            </div>
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
                     <!--  Country with dataset submitted -->
-                    <tr ng-repeat="country in countriesList | orderBy:'-score * 1'" ng-click="changepage('dataset_list.html?idcountry=' + country.country + '&idcategory=0')"
+                    <tr ng-repeat="country in countriesList" ng-click="changepage('dataset_list.html?idcountry=' + country.country + '&idcategory=0')"
                         title="Click to see datasets for this country">
                         <!--<td>
                                 <span ng-if="country.rank < 999">{{country.rank}}</span>
@@ -199,7 +229,9 @@
                 </table>
             </div>
 
-            <div class="text-center" ng-if="bLoadingTabel"><img src="img/template/loading.gif" alt="" style="max-width:80px;" /></div>
+            <div class="col-xs-12 col-sm-10 col-sm-push-1 col-md-10 col-md col-md-push-1 col-lg-8 col-lg-push-2 text-center" ng-if="bLoadingTabel">
+                <img src="img/template/loading.gif" alt="" style="max-width:80px;" />
+            </div>
         </div>
 
     </div>

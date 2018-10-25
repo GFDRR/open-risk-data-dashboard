@@ -626,6 +626,9 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
         $scope.filteredApplicability = [];
         $scope.filteredCategory = [];
         $scope.countriesList = [];
+        $scope.countriesListWithScore = [];
+        $scope.fieldSorting= "score";
+        $scope.directionSorting= "up";
         $scope.allCountries = [];
         $scope.datasetConsidered = "";
         $scope.objCountry = {
@@ -706,47 +709,60 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
 
                         $scope.datasetConsidered = data.keydatasets_count;
 
-                        $scope.countriesList = data.countries;
+                        $scope.countriesListWithScore = data.countries;
 
-                        var lastScoreValue = $scope.countriesList[$scope.countriesList.length - 1].score * 1;
+                        var lastScoreValue = $scope.countriesListWithScore[$scope.countriesListWithScore.length - 1].score * 1;
                         var rankValue = 0;
 
                         if(lastScoreValue == 0){
-                            rankValue = $scope.countriesList[$scope.countriesList.length - 1].rank;
+                            rankValue = $scope.countriesListWithScore[$scope.countriesListWithScore.length - 1].rank;
                         } else {
-                            rankValue = ($scope.countriesList[$scope.countriesList.length - 1].rank * 1) + 1;
+                            rankValue = ($scope.countriesListWithScoret[$scope.countriesListWithScore.length - 1].rank * 1) + 1;
                         }
 
-                        console.log(lastScoreValue);
-
-                        for (i=0; i< $scope.allCountries.length; i++)
+                        for (i = 0; i < $scope.allCountries.length; i++)
                         {
-                            // For esch country create e rank item if no dataset
-                            filterResult = $filter('filter')($scope.countriesList, function(item)
+                            // For all countries build the structure for table
+                            // Search if this country has a score set
+                            filterResult = $filter('filter')($scope.countriesListWithScore, function(item)
                             {
                                 return item.country == $scope.allCountries[i].iso2;
                             });
+
+                            // This country doesn't have a score - without dataset submitted
                             if(filterResult.length == 0){
-                            //     Add country in the obj Array
+                                //     Add country in the obj Array
                                 $scope.objCountry = {
                                     country: $scope.allCountries[i].iso2,
+                                    description: $scope.allCountries[i].name,
                                     datasets_count: 0,
                                     fullscores_count: 0,
                                     rank: rankValue,
                                     score: 0
                                 }
 
+                                // Add country in the structure for table
                                 $scope.countriesList.push($scope.objCountry);
 
-                                // $scope.countriesTable = new NgTableParams({
-                                //     page: 1,
-                                //     count: 20
-                                // }, {
-                                //     total: $scope.countriesList.length
-                                // });
+                            } else {
+                                // This country has a score
+                                $scope.objCountry = {
+                                    country: $scope.allCountries[i].iso2,
+                                    description: $scope.allCountries[i].name,
+                                    datasets_count: filterResult[0].datasets_count,
+                                    fullscores_count: filterResult[0].fullscores_count,
+                                    rank: filterResult[0].rank,
+                                    score: filterResult[0].score * 1
+                                }
 
+                                // Add country in the structure for table
+                                $scope.countriesList.push($scope.objCountry);
                             }
+
                         };
+
+                        // Default sort: score DESC
+                        $scope.countriesList = $filter('orderBy')($scope.countriesList, 'score * 1', true);
 
                         $scope.getCountryName = function(country)
                         {
@@ -762,16 +778,15 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
 
                         $scope.bLoadingTabel = false;
 
-                        // angular.element(document).ready(function () {
-                        //     jQuery('#tabCountries').DataTable(
-                        //         {
-                        //             ordering: true,
-                        //             paging: false,
-                        //             searching: false,
-                        //             info: false
-                        //         }
-                        //     );
-                        // });
+                        $scope.orderArrayByProperty = function(property, descending, field)
+                        {
+
+                            $scope.fieldSorting= field;
+                            $scope.directionSorting= (descending? 'up' : 'down');
+
+                            $scope.countriesList = $filter('orderBy')($scope.countriesList, [property, 'score'], descending);
+
+                        }
 
                     }, function (data) {
                         // Error
@@ -779,88 +794,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
                         console.log(data);
                     });
 
-                    // RodiSrv.getMatrixData($scope.filteredApplicability, function (data) {
-                    //     // $scope.matrixData = [];
-                    //     $scope.arrayData = [];
-                    //     var dataTemp = [];
-                    //
-                    //     //tolgo elemento indici
-                    //     var aIndex = data[0];
-                    //     data.splice(0, 1);
-                    //
-                    //     // compongo un array chiave valore
-                    //
-                    //     data.forEach(function (currValue, index, array) {
-                    //         var obj = {};
-                    //         var countrycode;
-                    //         var countryscore;
-                    //
-                    //         for (var i in aIndex) {
-                    //
-                    //             if (aIndex[i] == "country") {
-                    //                 countrycode  = currValue[i];
-                    //             }else{
-                    //
-                    //                 if(aIndex[i] == "score")
-                    //                 {
-                    //                     countryscore = currValue[i];
-                    //                 } else {
-                    //                     obj[aIndex[i]] = {
-                    //                         id: i,
-                    //                         value: currValue[i]
-                    //                     }
-                    //                 }
-                    //             }
-                    //         }
-                    //
-                    //         $scope.aCountryList[countrycode].data = obj;
-                    //         $scope.aCountryList[countrycode].score = countryscore * 1;
-                    //         dataTemp[countrycode] = {score: countryscore};
-                    //
-                    //     });
-                    //
-                    //     //fill country without data
-                    //     var obj= {}
-                    //     for (var i in aIndex) {
-                    //         if (aIndex[i] != "country" && aIndex[i] != "score") {
-                    //             obj[aIndex[i]] = {
-                    //                 id:i,
-                    //                 value:"-1.0",
-                    //             }
-                    //         }
-                    //
-                    //     }
-                    //
-                    //     for(var country in $scope.aCountryList){
-                    //
-                    //         if(angular.isUndefined($scope.aCountryList[country].data))
-                    //         {
-                    //             $scope.aCountryList[country].data = obj;
-                    //             $scope.aCountryList[country].score = 0;
-                    //         }
-                    //
-                    //         // if (angular.isUndefined($scope.aCountryList[country].data)) $scope.aCountryList[country].data = obj;
-                    //         // $scope.arrayData[country] = {value: 0};
-                    //     }
-                    //     //end filling
-                    //
-                    //     $scope.arrayData = dataTemp;
-                    //
-                    //     $scope.arrListCountry = Object.keys($scope.aCountryList).map(function(key) {
-                    //         return $scope.aCountryList[key];
-                    //     });
-                    //
-                    //     $scope.arrListCountry = $filter('orderBy')($scope.arrListCountry, '-score');
-                    //
-                    //     $scope.getCountryScore = function(code)
-                    //     {
-                    //         return $scope.aCountryList[code].score;
-                    //     }
-                    //
-                    // }, function (data) {
-                    // Error
-                    // TODO: set e message error
-                    // });
                 }
 
                 $scope.mergeMatrixData();
