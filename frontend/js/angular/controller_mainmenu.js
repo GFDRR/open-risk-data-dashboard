@@ -255,7 +255,7 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
             confirm_password: "",
             email: ""
         };
-        $scope.checkMail = /^[a-z]+[a-z0-9._]+@[a-z]+\.[a-z.]{2,5}$/;
+        $scope.checkMail = /^[a-z]+[a-z0-9._]+@[a-z0-9._-]+\.[a-z.]{2,5}$/;
 
         $scope.sendRequestRegister = function()
         {
