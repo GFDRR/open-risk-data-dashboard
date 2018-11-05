@@ -5,7 +5,7 @@
     <meta name="viewport" content="minimal-ui, width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 
     <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
-    <meta name="description" content="A collaborative and global assessment of open data for reducing vulnerability and building resilience to natural hazards. The Open Data for Resilience Index is a tool to identify, assess and compare, for any location, the availability and ease-of-use of datasets that are considered to be key for disaster risk management."/>
+    <meta name="description" content="A collaborative and global assessment of open data for reducing vulnerability and building resilience to natural hazards. The Open Data for Resilience Index is a tool to identify, assess and compare, for any country, the availability and ease-of-use of datasets that are considered to be key for disaster risk management."/>
     <meta content="GFDRR" name="author" />
 
     <base href="{{$locationProvider.$get}}" />
@@ -129,9 +129,10 @@
         <h3 class="odfri_box_counter_description">open data</h3>
     </div>
 
+
     <div class="odfri_box_counter" title="Number of locations with at least one dataset submitted">
         <span ng-cloak>{{countryWithData}}</span>
-        <h3 class="odfri_box_counter_description">locations</h3>
+        <h3 class="odfri_box_counter_description">countries</h3>
     </div>
 </div>
 
@@ -146,7 +147,7 @@
 
                 <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center">
 
-                    <a href="#" class="btn odfri_btn-custom btn-lg" ng-click="changeview('countries.html', '5')">Explore locations</a>
+                    <a href="#" class="btn odfri_btn-custom btn-lg" ng-click="changeview('countries.html', '5')">Explore countries</a>
 
                 </div>
             </div>
