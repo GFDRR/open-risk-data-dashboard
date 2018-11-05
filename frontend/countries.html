@@ -200,7 +200,7 @@
                         </th>
                     </tr>
                     </thead>
-                    <tbody>
+                    <tbody ng-if="!bLoadingTabel">
                     <!--  Country with dataset submitted -->
                     <tr ng-repeat="country in allCountries | orderBy: sortField:sortDirection | filter: filterBy" ng-click="changepage('dataset_list.html?idcountry=' + country.country + '&idcategory=0')"
                         title="Click to see datasets for this country">
@@ -220,12 +220,11 @@
                         </td>
                         <td class="text-center">{{country.fullscores_count}}</td>
                     </tr>
-
                     </tbody>
                 </table>
-            </div>
 
-            <div class="text-center" ng-if="bLoadingTabel"><img src="img/template/loading.gif" alt="" style="max-width:80px;" /></div>
+                <div class="text-center" ng-if="bLoadingTabel"><img src="img/template/loading.gif" alt="" style="max-width:80px;" /></div>
+            </div>
         </div>
 
     </div>
