@@ -693,17 +693,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
             $scope.sortDirection = reverse;
         }
 
-        $scope.getCountryName = function(country) {
-            var aCountry = $filter('filter')($scope.allCountries, function(item){
-                return item.iso2 == country;
-            })
-
-            if (aCountry.length > 0)
-            {
-                return aCountry[0].name;
-            }
-        }
-
         $scope.mergeMatrixData= function() {
           $scope.allCountries = $scope.allCountries.map(function(country){
             var countryScore = $scope.countriesListWithScore.find(function(item){
