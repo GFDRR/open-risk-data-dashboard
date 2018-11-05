@@ -63,9 +63,6 @@ server {
 	add_header X-Content-Type-Options nosniff always;
 	add_header X-Frame-Options SAMEORIGIN always;
 
-	# Cross Domain API
-	add_header "Access-Control-Allow-Origin" "*";
-
 	location / {
 		# First attempt to serve request as file, then
 		# as directory, then fall back to displaying a 404.

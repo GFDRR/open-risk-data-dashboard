@@ -65,6 +65,7 @@ server {
 
 	# Cross Domain API
 	add_header "Access-Control-Allow-Origin" "*";
+	add_header "Access-Control-Allow-Methods" "GET,OPTIONS"
 
 	location / {
 		# First attempt to serve request as file, then
