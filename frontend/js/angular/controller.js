@@ -623,35 +623,18 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
     if ($location.path().indexOf('countries.html') !== -1)
     {
 
-        $scope.filteredApplicability = [];
-        $scope.filteredCategory = [];
-        $scope.countriesList = [];
+        $scope.filterType = "";
+        $scope.filterValue = '';
+        $scope.countriesFiltered = [];
         $scope.countriesListWithScore = [];
-        $scope.fieldSorting= "score";
-        $scope.directionSorting= "up";
+        $scope.sortField = "iso2";
+        $scope.sortDirection = false;
         $scope.allCountries = [];
         $scope.datasetConsidered = "";
-        $scope.objCountry = {
-            country: "",
-            datasets_count: 0,
-            fullscores_count: 0,
-            rank: 999,
-            score: 0
-        };
-
-        var filterResult = [];
         $scope.bLoadingTabel = true;
 
-        $scope.filterApplicabilityClass = function (name) {
-          return $scope.filteredApplicability[0] == name ? "active" : "unactive";
-        }
-
-        $scope.filterCategoryClass = function (name) {
-          return $scope.filteredCategory[0] == name ? "active" : "unactive";
-        }
-
         RodiSrv.getApplicability(function (data) {
-            $scope.applicability= data.map(function(item){
+            $scope.applicability = data.map(function(item){
                 return {
                   icon: $filter('lowercase')("ico-"+ item.name.replace(/\s+/g, '_')),
                   title: item.name
@@ -659,33 +642,34 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
             })
         });
 
-        $scope.setUnSetFilter = function (filter){
+        $scope.setFilter = function (type, value){
+          if ($scope.filterType === type && $scope.filterValue === value) {
+            $scope.filterType = '';
+            $scope.filterValue = '';
+            $scope.countriesFiltered = [];
+          }
+          else {
+            $scope.filterType = type;
+            $scope.filterValue = value;
+            $scope.bLoadingTabel = true;
 
-            if ($scope.filteredApplicability.indexOf(filter) > -1)
-            {
-                $scope.filteredApplicability = [];
-            } else
-            {
-                $scope.filteredCategory = [];
-                $scope.filteredApplicability = [filter];
-            }
+            RodiSrv.getCountriesScoring([type, value], function(data){
+              $scope.bLoadingTabel = false;
 
-            $scope.mergeMatrixData();
+              $scope.countriesFiltered = data.countries.map(function(country){
+                return country.country;
+              });
+            });
+          }
         };
 
-        $scope.setUnSetFilterCategory = function (filter){
-
-            if ($scope.filteredCategory.indexOf(filter) > -1)
-            {
-                $scope.filteredCategory = [];
-            } else
-            {
-                $scope.filteredApplicability = [];
-                $scope.filteredCategory = [];
-                $scope.filteredCategory.push(filter);
-            }
-
-            $scope.mergeMatrixData();
+        $scope.filterBy = function(country) {
+          if ($scope.countriesFiltered.length === 0) {
+            return true;
+          }
+          else {
+            return $scope.countriesFiltered.indexOf(country.iso2) !== -1;
+          }
         };
 
         $scope.sortBy = function(property, reverse) {
@@ -710,7 +694,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
                 $scope.bLoadingTabel = false;
             });
 
-            var p2 = RodiSrv.getCountriesScoring($scope.filteredCategory, $scope.filteredApplicability, function (data) {
+            var p2 = RodiSrv.getCountriesScoring([$scope.filterType, $scope.filterValue], function (data) {
                 $scope.countriesListWithScore = data.countries.map(function(country){
                   country.score = Number(country.score);
                   return country;

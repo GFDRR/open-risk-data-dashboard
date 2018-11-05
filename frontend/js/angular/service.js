@@ -116,13 +116,13 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
     }
 
     // Return the list of country Available
-    this.getCountryList = function(onSuccess, onError) {
+    this.getCountryList = function(onSuccess) {
         return $http({
             method: 'GET',
             url: baseAPIurl + 'country/'
         })
         .then(function (data) { onSuccess(data.data); })
-        .catch(function(data){ onError(data);  });
+        .catch(function(error){ console.error(error) });
     };
 
     this.getCountryDescription = function(objCountryList, idCountry)
@@ -1365,38 +1365,22 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
     // ************************************** //
 
     // Return the rank of countries (Explore Countries page)
-    this.getCountriesScoring = function(category, filters, onSuccess, onError)
+    this.getCountriesScoring = function(filter, onSuccess)
     {
+        var queryString = "";
 
-        var ApplicabilityFilers = "";
-        var CategoryFilters = "";
-
-        if(category.length> 0){
-            CategoryFilters = '?category='
-            category.forEach(function (item) {
-                CategoryFilters = CategoryFilters + item;
-            })
-        }else{
-            var CategoryFilters = ''
-        }
-
-        if(filters.length> 0){
-            ApplicabilityFilers = '?applicability='
-            filters.forEach(function (item) {
-                ApplicabilityFilers = ApplicabilityFilers + item;
-            })
-        }else{
-            var ApplicabilityFilers = ''
+        if (Array.isArray(filter)) {
+          queryString = filter.join('=');
         }
 
         return $http({
               method: 'GET',
-              url: baseAPIurl + 'country_scoring/' + CategoryFilters + ApplicabilityFilers,
+              url: baseAPIurl + 'country_scoring/?' + queryString,
               headers: { },
               data: { }
           })
           .then(function(data){ onSuccess(data.data); })
-          .catch(function(data){ onError(data.data) });
+          .catch(function(error){ console.error(error) });
     }
 
     // Return the rank of countries (Explore Countries page)

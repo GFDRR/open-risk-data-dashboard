@@ -122,14 +122,14 @@
             <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">-->
             <ul class="nav navbar-nav text-center ">
                 <li ng-repeat="hc in HazardCategory">
-                    <a href="" ng-click="setUnSetFilterCategory(hc.category.name)" ng-class="filterCategoryClass(hc.category.name)"
+                    <a href="countries.html?category={{hc.category.name}}" ng-click="setFilter('category', hc.category.name)" ng-class="{active: hc.category.name===filterValue}"
                         title="Filter datasets from this category only">
                         <i class="{{getHCIcon(hc.category.id)}} fa-2x"></i>
                         <span>{{hc.category.name}}</span>
                     </a>
                 </li>
             </ul>
-            <div class="menu_sep_countries "></div>
+            <div class="menu_sep_countries"></div>
             <!--</div>-->
             <!--</div>-->
             <!--</div>-->
@@ -138,7 +138,7 @@
             <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">-->
             <ul class="nav navbar-nav text-center ">
                 <li ng-repeat="appli in applicability">
-                    <a href="" ng-click="setUnSetFilter(appli.title)" ng-class="filterApplicabilityClass(appli.title)"
+                    <a href="countries.html?applicability={{appli.title}}" ng-click="setFilter('applicability', appli.title)" ng-class="{active: appli.title===filterValue}"
                         title="Filter datasets applicable to this hazard only">
                         <i class="{{appli.icon}} fa-2x"></i>
                         <span>{{appli.title}}</span>
@@ -193,7 +193,7 @@
                             </div>
                         </th>
                         <th>
-                            <div class="flex-container flex-row text-center" style="justify-content: center;">
+                            <div class="flex-container flex-row text-center"   style="justify-content: center;">
                                 <span class="sort_arrow_up" ng-click="sortBy('fullscores_count', false)"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: sortField == 'fullscores_count' && !sortDirection?  '#EE3036' : '#232323'}"></i></span>
                                 <span class="sort_arrow_down" ng-click="sortBy('fullscores_count', true)"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: sortField == 'fullscores_count' && sortDirection?  '#EE3036' : '#232323'}"></i></span>
                             </div>
@@ -202,7 +202,7 @@
                     </thead>
                     <tbody>
                     <!--  Country with dataset submitted -->
-                    <tr ng-repeat="country in allCountries | orderBy: sortField:sortDirection" ng-click="changepage('dataset_list.html?idcountry=' + country.country + '&idcategory=0')"
+                    <tr ng-repeat="country in allCountries | orderBy: sortField:sortDirection | filter: filterBy" ng-click="changepage('dataset_list.html?idcountry=' + country.country + '&idcategory=0')"
                         title="Click to see datasets for this country">
                         <td><span class="text-muted">{{country.name}}</span></td>
                         <td class="text-center">
