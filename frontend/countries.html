@@ -11,7 +11,7 @@
 
     <base href="{{$locationProvider.$get}}" />
 
-    <title>Open Data for Resilience Index - Explore locations</title>
+    <title>Open Data for Resilience Index - Explore countries</title>
     <link rel=icon href=img/template/favicon.png type="image/png">
     <link rel=icon href=img/template/favicon.ico type="image/vnd.microsoft.icon">
 
@@ -112,7 +112,7 @@
 
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-                <h1 class="page_title">Explore locations</h1>
+                <h1 class="page_title">Explore countries</h1>
             </div>
         </div>
 
@@ -171,7 +171,7 @@
                 <table id="tabCountries" class="table table-responsive table-striped table-hover">
                     <thead>
                     <tr>
-                        <th title="Name of location">Location</th>
+                        <th title="Name of country">Country</th>
                         <th title="Average scores of all datasets considered. If a dataset does not exist or has not been submitted, its score is 0.">Score
                             <a href="" ng-click="changepage('methodology.html#openness')">(more details)</a></th>
                         <th class=" text-center" title="Number of datasets submitted">Datasets
@@ -183,14 +183,14 @@
                     <tbody>
                     <!--  Country with dataset submitted -->
                     <tr ng-repeat="country in countriesList | orderBy:'-score * 1'" ng-click="changepage('dataset_list.html?idcountry=' + country.country + '&idcategory=0')"
-                        title="Click to see datasets for this location">
+                        title="Click to see datasets for this country">
                         <!--<td>
                                 <span ng-if="country.rank < 999">{{country.rank}}</span>
                                 <span ng-if="country.rank == 999">0</span>
                             </td>-->
                         <td><span class="text-muted">{{getCountryName(country.country)}}</span></td>
                         <td class="text-center">
-                            <div class="progress" title="Average scores of all datasets considered for this location. If a dataset does not exist or has not been submitted, its score is 0.">
+                            <div class="progress" title="Average scores of all datasets considered for this country. If a dataset does not exist or has not been submitted, its score is 0.">
                                 <div class="progress-bar" role="progressbar" aria-valuenow="{{country.score}}"
                                      aria-valuemin="0" aria-valuemax="100" style="width: {{country.score}}%;">
                                     {{country.score}}%
