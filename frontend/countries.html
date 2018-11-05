@@ -176,39 +176,35 @@
                     <tr>
                         <th>
                             <div class="flex-container flex-row">
-                                <span class="sort_arrow_up" ng-click="orderArrayByProperty('description', true, 'location')"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: fieldSorting == 'location' && directionSorting == 'up'?  '#EE3036' : '#232323'}"></i></span>
-                                <span class="sort_arrow_down" ng-click="orderArrayByProperty('description', false, 'location')"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: fieldSorting == 'location' && directionSorting == 'down'?  '#EE3036' : '#232323'}"></i></span>
+                                <span class="sort_arrow_up" ng-click="sortBy('name', false)"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: sortField == 'name' && !sortDirection?  '#EE3036' : '#232323'}"></i></span>
+                                <span class="sort_arrow_down" ng-click="sortBy('name', true)"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: sortField == 'name' && sortDirection?  '#EE3036' : '#232323'}"></i></span>
                             </div>
                         </th>
                         <th>
                             <div class="flex-container flex-row">
-                                <span class="sort_arrow_up" ng-click="orderArrayByProperty('score', true, 'score')"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: fieldSorting == 'score' && directionSorting == 'up'?  '#EE3036' : '#232323'}"></i></span>
-                                <span class="sort_arrow_down" ng-click="orderArrayByProperty('score', false, 'score')"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: fieldSorting == 'score' && directionSorting == 'down'?  '#EE3036' : '#232323'}"></i></span>
+                                <span class="sort_arrow_up" ng-click="sortBy('score', false)"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: sortField == 'score' && !sortDirection?  '#EE3036' : '#232323'}"></i></span>
+                                <span class="sort_arrow_down" ng-click="sortBy('score', true)"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: sortField == 'score' && sortDirection?  '#EE3036' : '#232323'}"></i></span>
                             </div>
                         </th>
                         <th>
                             <div class="flex-container flex-row" style="justify-content: center;">
-                                <span class="sort_arrow_up" ng-click="orderArrayByProperty('datasets_count', true, 'datasets')"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: fieldSorting == 'datasets' && directionSorting == 'up'?  '#EE3036' : '#232323'}"></i></span>
-                                <span class="sort_arrow_down" ng-click="orderArrayByProperty('datasets_count', false, 'datasets')"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: fieldSorting == 'datasets' && directionSorting == 'down'?  '#EE3036' : '#232323'}"></i></span>
+                                <span class="sort_arrow_up" ng-click="sortBy('datasets_count', false)"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: sortField == 'datasets_count' && !sortDirection?  '#EE3036' : '#232323'}"></i></span>
+                                <span class="sort_arrow_down" ng-click="sortBy('datasets_count', true)"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: sortField == 'datasets_count' && sortDirection?  '#EE3036' : '#232323'}"></i></span>
                             </div>
                         </th>
                         <th>
                             <div class="flex-container flex-row text-center" style="justify-content: center;">
-                                <span class="sort_arrow_up" ng-click="orderArrayByProperty('fullscores_count', true, 'opendata')"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: fieldSorting == 'opendata' && directionSorting == 'up'?  '#EE3036' : '#232323'}"></i></span>
-                                <span class="sort_arrow_down" ng-click="orderArrayByProperty('fullscores_count', false, 'opendata')"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: fieldSorting == 'opendata' && directionSorting == 'down'?  '#EE3036' : '#232323'}"></i></span>
+                                <span class="sort_arrow_up" ng-click="sortBy('fullscores_count', false)"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: sortField == 'fullscores_count' && !sortDirection?  '#EE3036' : '#232323'}"></i></span>
+                                <span class="sort_arrow_down" ng-click="sortBy('fullscores_count', true)"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: sortField == 'fullscores_count' && sortDirection?  '#EE3036' : '#232323'}"></i></span>
                             </div>
                         </th>
                     </tr>
                     </thead>
                     <tbody>
                     <!--  Country with dataset submitted -->
-                    <tr ng-repeat="country in countriesList" ng-click="changepage('dataset_list.html?idcountry=' + country.country + '&idcategory=0')"
+                    <tr ng-repeat="country in allCountries | orderBy: sortField:sortDirection" ng-click="changepage('dataset_list.html?idcountry=' + country.country + '&idcategory=0')"
                         title="Click to see datasets for this country">
-                        <!--<td>
-                                <span ng-if="country.rank < 999">{{country.rank}}</span>
-                                <span ng-if="country.rank == 999">0</span>
-                            </td>-->
-                        <td><span class="text-muted">{{getCountryName(country.country)}}</span></td>
+                        <td><span class="text-muted">{{country.name}}</span></td>
                         <td class="text-center">
                             <div class="progress" title="Average scores of all datasets considered for this country. If a dataset does not exist or has not been submitted, its score is 0.">
                                 <div class="progress-bar" role="progressbar" aria-valuenow="{{country.score}}"
