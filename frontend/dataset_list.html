@@ -116,7 +116,7 @@
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
             <ul class="nav navbar-nav text-center">
               <li ng-repeat="hc in HazardCategory" ng-class="filterCategoryCssClass(hc.category.name)">
-                <a href="" ng-class="filterCategoryCssClass(hc.category.name)" ng-click="setFilterCategoryDatasetList(hc.category.name)" title="Show only {{hc.category.name}} related categories">
+                <a href="" ng-class="filterCategoryCssClass(hc.category.name)" ng-click="setFilterCategoryDatasetList(hc.category.name)" title="Show only {{hc.category.name}} related datasets">
                   <i class="{{getHCIcon(hc.category.id)}} fa-2x"></i>
                   <span>{{hc.category.name}}</span>
                 </a>
@@ -130,7 +130,7 @@
           <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
             <ul class="nav navbar-nav text-center">
               <li ng-style="filterApplicabilityCssStyle(h.desc)" ng-class="filterApplicabilityCssClass(h.desc)"  ng-repeat="h in arrayHazardList" >
-                <a href="" ng-click="setFilterApplicabilityDatasetList(h.desc)" ng-if="getApplicabilityNumber(h.desc) !== 'n.a.'" title="Show only {{h.desc}} related categories">
+                <a href="" ng-click="setFilterApplicabilityDatasetList(h.desc)" ng-if="getApplicabilityNumber(h.desc) !== 'n.a.'" title="Show only {{h.desc}} related datasets">
                   <i class="{{h.icon}} fa-2x"></i>
                   <span>{{h.desc}}</span>
                 </a>
