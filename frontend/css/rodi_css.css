@@ -719,23 +719,7 @@ Footer
 
 ==============================================================================
 */
-.rodi_footer {
-    width: 100%;
-    background-color: #122b40;
-    background-color: #111111;
-    padding-top: 30px;
-    padding-bottom: 30px;
-    min-height: 270px;
-    overflow-x: hidden;
-}
 
-/*
-.rodi_footer {
-    position: absolute;
-    bottom: 0;
-    margin-left: -15px;
-}
-*/
 
 .footer_separator {
     width: 100%;
@@ -757,7 +741,6 @@ Footer
     color: red;
 }
 
-/*.footer_down {position: absolute;bottom:0;}*/
 .rodi_footer input {
     background: rgba(255, 255, 255, 0.1);
 }
@@ -768,8 +751,11 @@ Footer
 }
 
 .footer {
-    margin-bottom: 0;
-    padding-bottom: 0;
+    background-color: #111111;
+    color: #f0f0f0;
+    margin: 60px 0 0;
+    min-height: 270px;
+    padding: 30px 0;
 }
 
 .form-inline {
@@ -786,15 +772,14 @@ Footer
     display: none;
 }
 
-.footer_txt {
-    font-size: 15px;
-    color: #ffffff;
+.footer_menu {
+    border-bottom: solid 1px #555;
+    margin: 30px 0;
+    padding-bottom: 30px;
 }
 
-.footer_menu, .footer_menu a, .footer_menu a:hover {
-    font-size: 16px;
-    color: #f0f0f0;
-    margin-right: 20px;
+.footer_menu a, .footer_menu a:hover {
+   color: #f0f0f0;
 }
 
 /* ************************************ */
@@ -1723,10 +1708,6 @@ hr {
 
 .flex-row .flex-item {
     padding: 2px 5px;
-}
-
-.footer_down .flex-row .flex-item {
-    font-size: 1.3em;
 }
 
 /*.rodi_footer #menu-website .flex-container.flex-row {    flex-direction: column;}*/
