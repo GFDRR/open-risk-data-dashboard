@@ -496,28 +496,28 @@ section#counter-stats {
 }
 
 .dataset_value i[aria-hidden~=false] {
-    color: #EE3036;
+    color: #881300;
 }
 
 .dataset_value i[aria-hidden~=true] {
-    color: green;
+    color: #009500;
 }
 .dataset_value i[aria-hidden~=false]:hover {
     color: #fff;
-    background-color: #EE3036;
+    background-color: #881300;
 }
 
 .dataset_value i[aria-hidden~=true]:hover {
     color: #fff;
-    background-color: green;
+    background-color: #009500;
 }
 
 .dataset_value i[aria-hidden="na"] {
-    color: #666;
+    color: #A8A8A8;
 }
 .dataset_value i[aria-hidden="na"]:hover {
     color: #fff;
-    background-color: #666;
+    background-color: #A8A8A8;
 }
 
 .dataset_form_select_style select {
@@ -579,8 +579,8 @@ small.label {
 .rodi_btn_yes_no {
     width: 100%;
     padding: 15px 10px;
-    border: solid 2px #555;
-    color: #232323;
+    border: solid 2px #a8a8a8;
+    color: #000;
     text-align: center;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -589,14 +589,14 @@ small.label {
 }
 
 .rodi_btn_yes_bg_green {
-    background-color: green;
-    color: #ffffff;
+    background-color: #009500;
+    color: #000;
     border-color: #00b200;
 }
 
 .rodi_btn_yes_bg_red {
-    background-color: red;
-    color: #ffffff;
+    background-color: #881300;
+    color: #fff;
     border-color: #b00000;
 }
 
@@ -1870,11 +1870,11 @@ review mode
 }
 
 .criteria-icons .yes-icon {
-    color: green;
+    color: #009500;
 }
 
 .criteria-icons .no-icon {
-    color: red;
+    color: #881300;
 }
 
 
