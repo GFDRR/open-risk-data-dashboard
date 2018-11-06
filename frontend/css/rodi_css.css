@@ -2405,3 +2405,13 @@ h2.odfri_title_red {
 [ng-click] {
     cursor: pointer;
 }
+
+.sort_arrow_down {
+    font-size: 150%;
+    margin-top:3px;
+}
+.sort_arrow_up {
+    font-size: 150%;
+    margin-left:10px;
+    margin-top:-3px;
+}
