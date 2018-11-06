@@ -82,6 +82,6 @@ table.dataTable thead>tr>td.sorting
 {
     padding:10px;
     background-color: #007899;
-    text-align: center;
-    font-size:18px;
+    text-align: left;
+    font-size: inherit;
 }
