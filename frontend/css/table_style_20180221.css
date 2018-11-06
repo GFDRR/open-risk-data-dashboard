@@ -62,26 +62,15 @@ table.dataTable thead>tr>td.sorting
     margin:0px;
 }
 
-#tabCountries tr
+#tabCountries tbody tr
 {
     cursor: pointer;
 }
 
-/*tbody {*/
-    /*display:block;*/
-    /*height:50vh;*/
-    /*overflow:auto;*/
-/*}*/
-/**/
-/*thead, tbody tr {*/
-    /*display:table;*/
-    /*width:100%;*/
-    /*table-layout:fixed;*/
-/*}*/
-/*thead {*/
-    /*width: calc( 100% - 1em )*/
-/*}*/
-
+#tabCountries tr th:nth-child(1),
+#tabCountries tr td:nth-child(1) {
+  max-width: 200px;
+}
 
 .progress {
     height: auto;
