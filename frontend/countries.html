@@ -116,11 +116,8 @@
             </div>
         </div>
 
-        <div id="menu-hazard">
-            <!--<div class="col-xs-12 col-sm-6 col-md-4 col-lg-4 ">-->
-            <!--<div class="row" >-->
-            <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">-->
-            <ul class="nav navbar-nav text-center ">
+        <nav class="navbar navbar-hazard" id="menu-hazard">
+            <ul class="nav navbar-nav hazard-nav text-center ">
                 <li ng-repeat="hc in HazardCategory">
                     <a href="countries.html?category={{hc.category.name}}" ng-click="setFilter('category', hc.category.name)" ng-class="{active: hc.category.name===filterValue}"
                         title="Filter by {{hc.category.name}} category scores">
@@ -130,13 +127,7 @@
                 </li>
             </ul>
             <div class="menu_sep_countries"></div>
-            <!--</div>-->
-            <!--</div>-->
-            <!--</div>-->
-            <!--<div class="col-xs-12 col-sm-6 col-md-8 col-lg-8">-->
-            <!--<div class="row" >-->
-            <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">-->
-            <ul class="nav navbar-nav text-center ">
+            <ul class="nav navbar-nav hazard-nav text-center">
                 <li ng-repeat="appli in applicability">
                     <a href="countries.html?applicability={{appli.title}}" ng-click="setFilter('applicability', appli.title)" ng-class="{active: appli.title===filterValue}"
                         title="Filter by {{appli.title}} hazard scores">
@@ -145,9 +136,7 @@
                     </a>
                 </li>
             </ul>
-            <!--</div>-->
-            <!--</div>-->
-        </div>
+        </nav>
     </div>
 
     </section>

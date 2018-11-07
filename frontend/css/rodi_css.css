@@ -833,14 +833,6 @@ Navbar
     margin-top: 1em;
 }
 
-/* .navbar-nav li.active span, .navbar-nav li.active i{    color:#ee3036;} */
-
-[class^="icon-"], [class*=" icon-"],
-[class^="ico-"], [class*=" ico-"],
-.nav > li > a {
-    color: #ee3036;
-}
-
 .nav li a, .nav li p {
     display: flex;
     /* flex-direction: column; */
@@ -857,12 +849,12 @@ Navbar
     overflow: hidden;
 }
 
-.invert:hover, .invert:focus {
+.nav .invert:hover, .invert:focus {
     background: #eee;
     text-decoration: none;
 }
 
-.invert {
+.nav .invert {
     background: #EE3036;
     color: white;
 }
@@ -886,16 +878,30 @@ mainmenu .navbar {
 ======================================
 */
 
-.nav > li > a:focus,
-.nav > li > a:hover,
-.nav > li:hover > a,
-.nav > li:focus > a,
-.nav > li.active > a,
-.nav > li.active > a i,
-.invert:hover,
-.invert:focus {
+.nav a {
+    color: #ee3036;
+}
+.nav a:hover,
+.nav a:focus,
+.nav .active a {
     color: #00b3ee;
 }
+
+.hazard-nav a:hover,
+.hazard-nav a:focus,
+.hazard-nav .active a {
+    color: #ee3036;
+}
+
+.hazard-nav .disabled,
+.hazard-nav .disabled:hover,
+.hazard-nav .disabled:focus {
+    color: #A8A8A8;
+    cursor: disabled;
+}
+  #menu-hazard .disabled i[class*="icon-"] {
+      border-color: #A8A8A8;
+  }
 
 #tab1 .jumbotron {
     height: 668px;
