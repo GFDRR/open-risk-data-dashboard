@@ -202,21 +202,20 @@
                         </th>
                     </tr>
                     </thead>
-                    <tbody ng-if="!bLoadingTabel">
+                    <tbody ng-if="!bLoadingTabel" ng-cloak>
                     <!--  Country with dataset submitted -->
                     <tr ng-repeat="country in allCountries | orderBy: sortField:sortDirection | filter: filterBy" ng-click="changepage('dataset_list.html?idcountry=' + country.country + '&idcategory=0')"
                         title="Click to see datasets for this country">
                         <td><span class="text-muted">{{country.name}}</span></td>
-                        <td class="text-center">
-                            <div class="progress" title="Average scores of all datasets considered for this country. If a dataset does not exist or has not been submitted, its score is 0.">
-                                <div ng-if="country.score !== undefined" class="progress-bar" role="progressbar" aria-valuenow="{{country.score}}"
+                        <td>
+                            <div class="progress" ng-if="country.score !== undefined" title="Average scores of all datasets considered for this country. If a dataset does not exist or has not been submitted, its score is 0.">
+                                <div class="progress-bar" role="progressbar" aria-valuenow="{{country.score}}"
                                      aria-valuemin="0" aria-valuemax="100" style="width: {{country.score}}%;">
                                     {{country.score}}%
                                 </div>
-                                <div ng-if="country.score === undefined" class="progress-bar" role="progressbar" aria-valuenow="0"
-                                     aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-                                </div>
                             </div>
+
+                            <img ng-if="country.score === undefined" src="img/template/loading.gif" alt="" style="max-width:40px;">
                         </td>
 
                         <td class="text-center" ng-if="country.datasets_count >= 0">
@@ -224,15 +223,23 @@
                             <span ng-if="country.datasets_count == 0" title="Any dataset to submit for this country?">No
                                 dataset submitted</span>
                         </td>
-                        <td class="text-center" ng-if="country.datasets_count === undefined"><img src="img/template/loading.gif" alt="" style="max-width:40px;" /></td>
+                        <td class="text-center" ng-if="country.datasets_count === undefined"><img src="img/template/loading.gif" alt="" style="max-width:40px;"></td>
 
-                        <td class="text-center" ng-if="country.fullscores_count >= 0">{{country.fullscores_count}}</td>
-                        <td class="text-center" ng-if="country.fullscores_count === undefined"><img src="img/template/loading.gif" alt="" style="max-width:40px;" /></td>
+                        <td>
+                          <div class="progress" ng-if="country.fullscores_count >= 0">
+                              <div class="progress-bar" role="progressbar" aria-valuenow="{{country.fullscores_count}}"
+                                   aria-valuemin="0" aria-valuemax="{{keydatasetsCount}}" style="width: {{country.fullscores_count/keydatasetsCount * 100}}%; background-color: rgba(0, 149, 0, {{(country.fullscores_count/keydatasetsCount) + .2}})">
+                                  {{country.fullscores_count}}
+                              </div>
+                          </div>
+
+                          <img ng-if="country.fullscores_count === undefined" src="img/template/loading.gif" alt="" style="max-width:40px;">
+                        </td>
                     </tr>
                     </tbody>
                 </table>
 
-                <div class="text-center" ng-if="bLoadingTabel"><img src="img/template/loading.gif" alt="" style="max-width:80px;" /></div>
+                <div class="text-center" ng-if="bLoadingTabel"><img src="img/template/loading.gif" alt="" style="max-width:80px;"></div>
             </div>
         </div>
 
