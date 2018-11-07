@@ -683,7 +683,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
               return item.country == country.iso2;
             });
 
-            return Object.assign({}, country, countryScore || {rank: 0, score: 0, fullscores_count: 0, datasets_count: 0});
+            return Object.assign({}, country, countryScore || {country: country.iso2, rank: 0, score: 0, fullscores_count: 0, datasets_count: 0});
           });
         };
 
