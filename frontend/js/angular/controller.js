@@ -627,6 +627,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
         $scope.filterValue = '';
         $scope.countriesFiltered = [];
         $scope.countriesListWithScore = [];
+        $scope.countryRegions = [];
         $scope.sortField = "iso2";
         $scope.sortDirection = false;
         $scope.allCountries = [];
@@ -665,6 +666,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
         };
 
         $scope.filterBy = function(country) {
+
           if ($scope.countriesFiltered.length === 0) {
             return true;
           }
@@ -693,6 +695,15 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
             var p1 = RodiSrv.getCountryList(function (data) {
                 $scope.allCountries = data;
                 $scope.bLoadingTabel = false;
+                $scope.countryRegions = data
+                  .map(function(country){
+                    return country.region;
+                  })
+                  // remove duplicate regions
+                  .filter(function(region, i, array){
+                    return array.slice(i+1).indexOf(region) === -1
+                  })
+                  .sort();
             });
 
             var p2 = RodiSrv.getCountriesScoring([$scope.filterType, $scope.filterValue], function (data) {

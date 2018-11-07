@@ -155,6 +155,24 @@
 
     <!-- Body content -->
 
+    <div class="container">
+        <div class="row countriesFilterBox">
+            <div class="col-xs-12 col-sm-5 col-sm-offset-1 col-md-5 col-md-offset-1 col-lg-5 col-lg-offset-1 text-center">
+                <div class="input-group">
+                    <input type="text" class="form-control searchCountryField" placeholder="Search for a country" ng-model="countrySearchFilter" aria-describedby="basic-addon1" ng-disabled="!allCountries.length">
+                    <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-3 col-sm-offset-2 col-md-3 col-md-offset-2 col-lg-3 col-lg-offset-2 text-center">
+                <div class="visible-xs">&nbsp;</div>
+                <select class="form-control" ng-model="regionSearchFilter" ng-disabled="!countryRegions.length">
+                    <option value="" selected>-- Filter by country group or region --</option>
+                    <option value="{{region}}" ng-repeat="region in countryRegions">{{region}}</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
     <!-- Countries table -->
     <div class="odfri_txt_space"></div>
     <div class="container">
@@ -204,7 +222,7 @@
                     </thead>
                     <tbody ng-if="!bLoadingTabel" ng-cloak>
                     <!--  Country with dataset submitted -->
-                    <tr ng-repeat="country in allCountries | orderBy: sortField:sortDirection | filter: filterBy" ng-click="changepage('dataset_list.html?idcountry=' + country.country + '&idcategory=0')"
+                    <tr ng-repeat="country in allCountries | orderBy: sortField:sortDirection | filter: filterBy | filter: {name:countrySearchFilter, region:regionSearchFilter}" ng-click="changepage('dataset_list.html?idcountry=' + country.country + '&idcategory=0')"
                         title="Click to see datasets for this country">
                         <td><span class="text-muted">{{country.name}}</span></td>
                         <td>
