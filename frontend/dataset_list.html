@@ -112,41 +112,27 @@
     <!-- Section HEADER - FINE -->
 
     <div class="row" id="menu-hazard">
-      <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 menu_sep_countries">
-        <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-            <ul class="nav navbar-nav text-center">
-              <li ng-repeat="hc in HazardCategory" ng-class="filterCategoryCssClass(hc.category.name)">
-                <a href="" ng-class="filterCategoryCssClass(hc.category.name)" ng-click="setFilterCategoryDatasetList(hc.category.name)"
-                  title="Filter by {{hc.category.name}} category datasets">
-                  <i class="{{getHCIcon(hc.category.id)}} fa-2x"></i>
-                  <span>{{hc.category.name}}</span>
-                </a>
+      <nav class="navbar navbar-hazard" id="menu-hazard">
+          <ul class="nav navbar-nav hazard-nav text-center ">
+              <li ng-repeat="hc in HazardCategory">
+                  <a href="" ng-click="setFilterCategoryDatasetList(hc.category.name)" ng-class="{active: aCategory.indexOf(hc.category.name)!==-1}"
+                      title="Filter by {{hc.category.name}} category datasets">
+                      <i class="{{getHCIcon(hc.category.id)}} fa-2x"></i>
+                      <span>{{hc.category.name}}</span>
+                  </a>
               </li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="col-xs-12 col-sm-8 col-md-8 col-lg-8">
-        <div class="row">
-          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
-            <ul class="nav navbar-nav text-center">
-              <li ng-style="filterApplicabilityCssStyle(h.desc)" ng-class="filterApplicabilityCssClass(h.desc)"
-                ng-repeat="h in arrayHazardList" >
-                <a href="" ng-click="setFilterApplicabilityDatasetList(h.desc)" ng-if="getApplicabilityNumber(h.desc) !== 'n.a.'"
-                  title="Filter by {{h.desc}} hazard datasets">
-                  <i class="{{h.icon}} fa-2x"></i>
-                  <span>{{h.desc}}</span>
-                </a>
-                <a href="" ng-if="getApplicabilityNumber(h.desc) == 'n.a.'" style="color:#e0e0e0 !important;" title="Not applicable. Hazard level classified as low or very low for this country.">
-                  <i class="{{h.icon}} fa-2x" style="color:#e0e0e0; border-color:#e0e0e0;"></i>
-                  <span>{{h.desc}}</span>
-                </a>
+          </ul>
+          <div class="menu_sep_countries"></div>
+          <ul class="nav navbar-nav hazard-nav text-center">
+              <li ng-repeat="appli in arrayHazardList">
+                  <a href="" ng-click="setFilterApplicabilityDatasetList(appli.desc)" ng-class="{active: aApplicability.indexOf(appli.desc)!==-1, disabled: getApplicabilityNumber(appli.desc) === 'n.a.'}"
+                      title="Filter by {{appli.category.name}} category datasets">
+                      <i class="{{appli.icon}} fa-2x"></i>
+                      <span>{{appli.desc}}</span>
+                  </a>
               </li>
-            </ul>
-          </div>
-        </div>
-      </div>
+          </ul>
+      </nav>
     </div>
 
     <div class="row">
