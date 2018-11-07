@@ -3,7 +3,7 @@
 This document intent is to clarify why certain words are used and what they are really about.
 
 
-# OpenDRI Applications
+# OpenDRI Index
 
 ## Country Group
 
@@ -28,18 +28,6 @@ TBD.
 ## Open Data Criteria
 
 Several criteria are used to assess the openness of a dataset category: availability, computer-readable, license, etc.
-
-## Front-end
-
-It is an HTML/CSS/JavaScript set of pages to present informations in the context of user expectations. Dynamic data are fetched from the back-end application, via its API.
-
-## Back-end
-
-It is a Python application that stores the data in a database and exposes them via an API, to be queried by the front-end application or any other sofware with an Internet access.
-
-## API
-
-It is an interface to share and receive structured data. It helps to decouple the storage of the data from their presentation.
 
 
 # Agile Practices
@@ -104,7 +92,7 @@ It is the stable version of the code we feel comfortable to deploy at any time.
 A Pull Request is a proposition to integrate a branch into another (generally, into the `master` branch).
 
 
-# Tools and Services
+# Technical Jargon
 
 ## Netlify
 
@@ -113,3 +101,15 @@ A Pull Request is a proposition to integrate a branch into another (generally, i
 ## Travis CI
 
 [Travis CI](https://travis-ci.com/GFDRR/open-risk-data-dashboard) is a _continuous integration_ service we use to deploy the frontend application when it satisfies our quality criteria.
+
+## Front-end
+
+It is an HTML/CSS/JavaScript set of pages to present informations in the context of user expectations. Dynamic data are fetched from the back-end application, via its API.
+
+## Back-end
+
+It is a Python application that stores the data in a database and exposes them via an API, to be queried by the front-end application or any other sofware with an Internet access.
+
+## API
+
+It is an interface to share and receive structured data. It helps to decouple the storage of the data from their presentation.
