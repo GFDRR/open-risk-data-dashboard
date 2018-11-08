@@ -546,6 +546,12 @@ section#counter-stats {
     border-radius: 5px;
 }
 
+.searchCountryField
+{
+    background-color: transparent !important;
+    border: 1px solid #ccc !important;
+}
+
 input.dataset_form_select_style,
 input.form-control,
 textarea.form-control {
@@ -2475,4 +2481,11 @@ h2.odfri_title_red {
     .dataset_metrics > div:not(:first-child) {
         flex-basis: 100%;
     }
+}
+
+.countriesFilterBox
+{
+    margin-top:40px;
+    margin-bottom:20px;
+    text-align: center;
 }
