@@ -123,7 +123,7 @@
             <ul class="nav navbar-nav text-center ">
                 <li ng-repeat="hc in HazardCategory">
                     <a href="countries.html?category={{hc.category.name}}" ng-click="setFilter('category', hc.category.name)" ng-class="{active: hc.category.name===filterValue}"
-                        title="Filter datasets from this category only">
+                        title="Filter by {{hc.category.name}} category scores">
                         <i class="{{getHCIcon(hc.category.id)}} fa-2x"></i>
                         <span>{{hc.category.name}}</span>
                     </a>
@@ -139,7 +139,7 @@
             <ul class="nav navbar-nav text-center ">
                 <li ng-repeat="appli in applicability">
                     <a href="countries.html?applicability={{appli.title}}" ng-click="setFilter('applicability', appli.title)" ng-class="{active: appli.title===filterValue}"
-                        title="Filter datasets applicable to this hazard only">
+                        title="Filter by {{appli.title}} hazard scores">
                         <i class="{{appli.icon}} fa-2x"></i>
                         <span>{{appli.title}}</span>
                     </a>
