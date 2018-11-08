@@ -25,11 +25,20 @@
     vertical-align: middle
 }
 
-@media (max-width: 425px) {
+@media (max-width:768px) {
     .table > tbody > tr > td {
-        max-width: 200px;
+        white-space: normal  !important;
     }
 }
+
+
+@media (max-width: 768px) {
+    .table > tbody > tr > td {
+        min-width: 200px;
+    }
+}
+
+
 
 .table-hover > tbody > tr:hover {
     background-color: rgba(0,120,153,.3);
@@ -80,7 +89,7 @@ table.dataTable thead>tr>td.sorting
 
 .progress-bar
 {
-    padding:10px;
+    padding: .25em 10px;
     background-color: #007899;
     text-align: left;
     font-size: inherit;
