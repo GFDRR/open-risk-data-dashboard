@@ -24,3 +24,8 @@ deploy:
     cima@dev.riskopendata.org:~/html-dev/
   on:
     branch: master
+- provider: script
+  script: rsync -e "ssh -i /tmp/id_opendri" --delete-after -r ./
+    cima@index.opendri.org:~/html/
+  on:
+    condition: $TRAVIS_TAG =~ ^fe_
