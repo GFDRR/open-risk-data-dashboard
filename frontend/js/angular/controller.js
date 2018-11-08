@@ -630,7 +630,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
         $scope.sortField = "iso2";
         $scope.sortDirection = false;
         $scope.allCountries = [];
-        $scope.datasetConsidered = "";
+        // it holds the number of (as of Nov. 2018, the value is 36)
+        $scope.keydatasetsCount = 0;
         $scope.bLoadingTabel = true;
 
         RodiSrv.getApplicability(function (data) {
@@ -695,6 +696,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
             });
 
             var p2 = RodiSrv.getCountriesScoring([$scope.filterType, $scope.filterValue], function (data) {
+                $scope.keydatasetsCount = data.keydatasets_count;
                 $scope.countriesListWithScore = data.countries.map(function(country){
                   country.score = Number(country.score);
                   return country;

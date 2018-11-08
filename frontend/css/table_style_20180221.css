@@ -94,3 +94,9 @@ table.dataTable thead>tr>td.sorting
     text-align: left;
     font-size: inherit;
 }
+.progress-bar-success {
+    background-color: #009500;
+}
+.progress-bar-danger {
+    background-color: #881300;
+}
