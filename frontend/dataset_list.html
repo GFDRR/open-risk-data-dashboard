@@ -126,7 +126,7 @@
           <ul class="nav navbar-nav hazard-nav text-center">
               <li ng-repeat="appli in arrayHazardList">
                   <a href="" ng-click="setFilterApplicabilityDatasetList(appli.desc)" ng-class="{active: aApplicability.indexOf(appli.desc)!==-1, disabled: getApplicabilityNumber(appli.desc) === 'n.a.'}"
-                      title="Filter by {{appli.category.name}} category datasets">
+                      title="Filter by {{appli.desc}} hazard datasets">
                       <i class="{{appli.icon}} fa-2x"></i>
                       <span>{{appli.desc}}</span>
                   </a>
