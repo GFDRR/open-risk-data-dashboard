@@ -10,7 +10,7 @@
 
     <base href="{{$locationProvider.$get}}" />
 
-    <title>Open Data for Resilience Index - Submit a dataset</title>
+    <title>OpenDRI Index - Submit a dataset</title>
     <link rel=icon href=img/template/favicon.png type="image/png">
     <link rel=icon href=img/template/favicon.ico type="image/vnd.microsoft.icon">
 
@@ -797,7 +797,7 @@
                                     <table ng-table="tableParamsReview" class="table table-responsive table-striped table-hover" show-filter="false">
                                         <thead>
                                             <tr>
-                                                <th style="text-align:left!important;"><h4>Location</h4></th>
+                                                <th style="text-align:left!important;"><h4>Country</h4></th>
                                                 <th style="text-align:left!important;"><h4>Dataset</h4></th>
                                                 <th style="text-align:left!important;"><h4>Open Data Criteria</h4></th>
                                                 <th style="text-align:left!important;"><h4>Submission date</h4></th>
@@ -1023,19 +1023,6 @@
     </section>
     <!-- Section MAP - FINE -->
 
-    <section>
-        <div class="container-fluid">
-            <div class="footer">
-                <!--<div class="space"></div>-->
-                <!-- Section FOOTER - INIZIO -->
-                <rodifooter></rodifooter>
-                <!-- Section FOOTER - FINE -->
-            </div>
-        </div>
-
-    </section>
-
-
     <!-- User edit modal -->
     <div class="modal fade" id="editUser" tabindex="-1" role="dialog" aria-labelledby="editUserLabel">
         <div class="modal-dialog modal-lg" role="document">
@@ -1086,6 +1073,10 @@
         </div>
     </div>
     </div>
+
+    <footer class="footer">
+        <rodifooter></rodifooter>
+    </footer>
 
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>

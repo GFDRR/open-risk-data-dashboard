@@ -2,7 +2,7 @@
  * Created by Manuel on 15/05/2017.
  */
 
-RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$location','NgTableParams','$timeout', function ($scope, RodiSrv, $window, $filter, $location,NgTableParams,$timeout) {
+RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$location','NgTableParams','$timeout', '$q', function ($scope, RodiSrv, $window, $filter, $location,NgTableParams,$timeout,$q) {
 
 
     // ************************************** //
@@ -623,254 +623,100 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
     if ($location.path().indexOf('countries.html') !== -1)
     {
 
-        $scope.filteredApplicability = [];
-        $scope.filteredCategory = [];
-        $scope.countriesList = [];
+        $scope.filterType = "";
+        $scope.filterValue = '';
+        $scope.countriesFiltered = [];
+        $scope.countriesListWithScore = [];
+        $scope.countryRegions = [];
+        $scope.sortField = "iso2";
+        $scope.sortDirection = false;
         $scope.allCountries = [];
-        $scope.datasetConsidered = "";
-        $scope.objCountry = {
-            country: "",
-            datasets_count: 0,
-            fullscores_count: 0,
-            rank: 999,
-            score: 0
-        };
-        var filterResult = [];
+        // it holds the number of (as of Nov. 2018, the value is 36)
+        $scope.keydatasetsCount = 0;
         $scope.bLoadingTabel = true;
 
-        $scope.filterApplicabilityClass = function (name) {
-            if($scope.filteredApplicability[0] == name){
-                return "active";
-            }else return "unactive" ;
-        }
-
-        $scope.filterCategoryClass = function (name) {
-            if($scope.filteredCategory[0] == name){
-                return "active";
-            }else return "unactive" ;
-        }
-
         RodiSrv.getApplicability(function (data) {
-
-            $scope.applicability= [];
-
-            data.forEach(function(item){
-                var obj = {};
-                obj.icon = $filter('lowercase')("ico-"+ item.name.replace(/\s+/g, '_'));
-                obj.title = item.name;
-                $scope.applicability.push(obj);
+            $scope.applicability = data.map(function(item){
+                return {
+                  icon: $filter('lowercase')("ico-"+ item.name.replace(/\s+/g, '_')),
+                  title: item.name
+                };
             })
-
-            // $scope.applicability  = data;
         });
 
-        $scope.setUnSetFilter = function (filter){
+        $scope.setFilter = function (type, value){
+          if ($scope.filterType === type && $scope.filterValue === value) {
+            $scope.filterType = '';
+            $scope.filterValue = '';
+            $scope.countriesFiltered = [];
+          }
+          else {
+            $scope.filterType = type;
+            $scope.filterValue = value;
+            $scope.bLoadingTabel = true;
 
-            if ($scope.filteredApplicability.indexOf(filter) > -1)
-            {
-                $scope.filteredApplicability = [];
-            } else
-            {
-                $scope.filteredCategory = [];
-                $scope.filteredApplicability = [];
-                $scope.filteredApplicability.push(filter);
-            }
+            RodiSrv.getCountriesScoring([type, value], function(data){
+              $scope.bLoadingTabel = false;
 
-            $scope.mergeMatrixData();
+              $scope.countriesFiltered = data.countries.map(function(country){
+                return country.country;
+              });
+            });
+          }
         };
 
-        $scope.setUnSetFilterCategory = function (filter){
+        $scope.filterBy = function(country) {
 
-            if ($scope.filteredCategory.indexOf(filter) > -1)
-            {
-                $scope.filteredCategory = [];
-            } else
-            {
-                $scope.filteredApplicability = [];
-                $scope.filteredCategory = [];
-                $scope.filteredCategory.push(filter);
-            }
+          if ($scope.countriesFiltered.length === 0) {
+            return true;
+          }
+          else {
+            return $scope.countriesFiltered.indexOf(country.iso2) !== -1;
+          }
+        };
 
-            $scope.mergeMatrixData();
+        $scope.sortBy = function(property, reverse) {
+            $scope.sortField = property;
+            $scope.sortDirection = reverse;
+        }
+
+        $scope.mergeMatrixData= function() {
+          $scope.allCountries = $scope.allCountries.map(function(country){
+            var countryScore = $scope.countriesListWithScore.find(function(item){
+              return item.country == country.iso2;
+            });
+
+            return Object.assign({}, country, countryScore || {country: country.iso2, rank: 0, score: 0, fullscores_count: 0, datasets_count: 0});
+          });
         };
 
         function initPage()
         {
-            RodiSrv.getCountryList(function (data) {
-
+            var p1 = RodiSrv.getCountryList(function (data) {
                 $scope.allCountries = data;
+                $scope.bLoadingTabel = false;
+                $scope.countryRegions = data
+                  .map(function(country){
+                    return country.region;
+                  })
+                  // remove duplicate regions
+                  .filter(function(region, i, array){
+                    return array.slice(i+1).indexOf(region) === -1
+                  })
+                  .sort();
+            });
 
-                $scope.mergeMatrixData= function() {
+            var p2 = RodiSrv.getCountriesScoring([$scope.filterType, $scope.filterValue], function (data) {
+                $scope.keydatasetsCount = data.keydatasets_count;
+                $scope.countriesListWithScore = data.countries.map(function(country){
+                  country.score = Number(country.score);
+                  return country;
+                });
+            });
 
-                    RodiSrv.getCountriesScoring($scope.filteredCategory, $scope.filteredApplicability, function (data) {
-
-                        $scope.datasetConsidered = data.keydatasets_count;
-
-                        $scope.countriesList = data.countries;
-
-                        var lastScoreValue = $scope.countriesList[$scope.countriesList.length - 1].score * 1;
-                        var rankValue = 0;
-
-                        if(lastScoreValue == 0){
-                            rankValue = $scope.countriesList[$scope.countriesList.length - 1].rank;
-                        } else {
-                            rankValue = ($scope.countriesList[$scope.countriesList.length - 1].rank * 1) + 1;
-                        }
-
-                        console.log(lastScoreValue);
-
-                        for (i=0; i< $scope.allCountries.length; i++)
-                        {
-                            // For esch country create e rank item if no dataset
-                            filterResult = $filter('filter')($scope.countriesList, function(item)
-                            {
-                                return item.country == $scope.allCountries[i].iso2;
-                            });
-                            if(filterResult.length == 0){
-                            //     Add country in the obj Array
-                                $scope.objCountry = {
-                                    country: $scope.allCountries[i].iso2,
-                                    datasets_count: 0,
-                                    fullscores_count: 0,
-                                    rank: rankValue,
-                                    score: 0
-                                }
-
-                                $scope.countriesList.push($scope.objCountry);
-
-                                // $scope.countriesTable = new NgTableParams({
-                                //     page: 1,
-                                //     count: 20
-                                // }, {
-                                //     total: $scope.countriesList.length
-                                // });
-
-                            }
-                        };
-
-                        $scope.getCountryName = function(country)
-                        {
-                            var aCountry = $filter('filter')($scope.allCountries, function(item){
-                                return item.iso2 == country;
-                            })
-
-                            if (aCountry.length > 0)
-                            {
-                                return aCountry[0].name;
-                            }
-                        }
-
-                        $scope.bLoadingTabel = false;
-
-                        // angular.element(document).ready(function () {
-                        //     jQuery('#tabCountries').DataTable(
-                        //         {
-                        //             ordering: true,
-                        //             paging: false,
-                        //             searching: false,
-                        //             info: false
-                        //         }
-                        //     );
-                        // });
-
-                    }, function (data) {
-                        // Error
-                        // TODO: set e message error
-                        console.log(data);
-                    });
-
-                    // RodiSrv.getMatrixData($scope.filteredApplicability, function (data) {
-                    //     // $scope.matrixData = [];
-                    //     $scope.arrayData = [];
-                    //     var dataTemp = [];
-                    //
-                    //     //tolgo elemento indici
-                    //     var aIndex = data[0];
-                    //     data.splice(0, 1);
-                    //
-                    //     // compongo un array chiave valore
-                    //
-                    //     data.forEach(function (currValue, index, array) {
-                    //         var obj = {};
-                    //         var countrycode;
-                    //         var countryscore;
-                    //
-                    //         for (var i in aIndex) {
-                    //
-                    //             if (aIndex[i] == "country") {
-                    //                 countrycode  = currValue[i];
-                    //             }else{
-                    //
-                    //                 if(aIndex[i] == "score")
-                    //                 {
-                    //                     countryscore = currValue[i];
-                    //                 } else {
-                    //                     obj[aIndex[i]] = {
-                    //                         id: i,
-                    //                         value: currValue[i]
-                    //                     }
-                    //                 }
-                    //             }
-                    //         }
-                    //
-                    //         $scope.aCountryList[countrycode].data = obj;
-                    //         $scope.aCountryList[countrycode].score = countryscore * 1;
-                    //         dataTemp[countrycode] = {score: countryscore};
-                    //
-                    //     });
-                    //
-                    //     //fill country without data
-                    //     var obj= {}
-                    //     for (var i in aIndex) {
-                    //         if (aIndex[i] != "country" && aIndex[i] != "score") {
-                    //             obj[aIndex[i]] = {
-                    //                 id:i,
-                    //                 value:"-1.0",
-                    //             }
-                    //         }
-                    //
-                    //     }
-                    //
-                    //     for(var country in $scope.aCountryList){
-                    //
-                    //         if(angular.isUndefined($scope.aCountryList[country].data))
-                    //         {
-                    //             $scope.aCountryList[country].data = obj;
-                    //             $scope.aCountryList[country].score = 0;
-                    //         }
-                    //
-                    //         // if (angular.isUndefined($scope.aCountryList[country].data)) $scope.aCountryList[country].data = obj;
-                    //         // $scope.arrayData[country] = {value: 0};
-                    //     }
-                    //     //end filling
-                    //
-                    //     $scope.arrayData = dataTemp;
-                    //
-                    //     $scope.arrListCountry = Object.keys($scope.aCountryList).map(function(key) {
-                    //         return $scope.aCountryList[key];
-                    //     });
-                    //
-                    //     $scope.arrListCountry = $filter('orderBy')($scope.arrListCountry, '-score');
-                    //
-                    //     $scope.getCountryScore = function(code)
-                    //     {
-                    //         return $scope.aCountryList[code].score;
-                    //     }
-                    //
-                    // }, function (data) {
-                    // Error
-                    // TODO: set e message error
-                    // });
-                }
-
-                $scope.mergeMatrixData();
-
-            }, function (data) {
-                // Error
-                // TODO: set e message error
-                $scope.allCountries = [];
-
-                console.log(data);
+            $q.all([p1, p2]).then(function(results){
+              $scope.mergeMatrixData();
+              $scope.sortBy('score', true);
             });
         }
 

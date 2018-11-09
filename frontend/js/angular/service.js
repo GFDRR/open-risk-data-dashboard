@@ -115,27 +115,14 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         });
     }
 
-    this.getCountryList = function(onSuccess, onError)
     // Return the list of country Available
-    {
-        var _this =this
-        if (this.countryList && onSuccess){
-            onSuccess(this.countryList);
-        } else{
-            // Return country list
-            $http({
-                method: 'GET',
-                url: baseAPIurl + 'country/'
-            }).then(function (data) {
-                _this.countryList =data.data;
-                if(onSuccess) onSuccess(data.data);
-            },function(data){
-                if(onError)onError(data)
-            });
-        }
-
-        // var objCountry = [{code:"IT", desc:"Italy"}, {code:"AR", desc:"Argentina"}, {code:"AU", desc:"Australia"}];
-        // return objCountry;
+    this.getCountryList = function(onSuccess) {
+        return $http({
+            method: 'GET',
+            url: baseAPIurl + 'country/'
+        })
+        .then(function (data) { onSuccess(data.data); })
+        .catch(function(error){ console.error(error) });
     };
 
     this.getCountryDescription = function(objCountryList, idCountry)
@@ -1378,42 +1365,22 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
     // ************************************** //
 
     // Return the rank of countries (Explore Countries page)
-    this.getCountriesScoring = function(category, filters, onSuccess, onError)
+    this.getCountriesScoring = function(filter, onSuccess)
     {
+        var queryString = "";
 
-        var ApplicabilityFilers = "";
-        var CategoryFilters = "";
-
-        if(category.length> 0){
-            CategoryFilters = '?category='
-            category.forEach(function (item) {
-                CategoryFilters = CategoryFilters + item;
-            })
-        }else{
-            var CategoryFilters = ''
+        if (Array.isArray(filter)) {
+          queryString = filter.join('=');
         }
 
-        if(filters.length> 0){
-            ApplicabilityFilers = '?applicability='
-            filters.forEach(function (item) {
-                ApplicabilityFilers = ApplicabilityFilers + item;
-            })
-        }else{
-            var ApplicabilityFilers = ''
-        }
-
-        var req = {
-            method: 'GET',
-            url: baseAPIurl + 'country_scoring/' + CategoryFilters + ApplicabilityFilers,
-            headers: { },
-            data: { }
-        }
-
-        $http(req).then(function(data){
-            if(onSuccess) onSuccess(data.data);
-        }, function(data){
-            if(onError)onError(data.data);
-        });
+        return $http({
+              method: 'GET',
+              url: baseAPIurl + 'country_scoring/?' + queryString,
+              headers: { },
+              data: { }
+          })
+          .then(function(data){ onSuccess(data.data); })
+          .catch(function(error){ console.error(error) });
     }
 
     // Return the rank of countries (Explore Countries page)

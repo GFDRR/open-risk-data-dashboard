@@ -85,37 +85,6 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
         $scope.datasetList = [];
         $scope.bLoading = true;
 
-        // Load the country statistics
-        // RodiSrv.getCountryStatistics($scope.idCountry, $scope.aCategory, $scope.aApplicability, function(data){
-        //
-        //         $scope.perils_counters = angular.copy(data.perils_counters);
-        //
-        //         $scope.getApplicabilityNumber = function(applicability){
-        //
-        //             var itemFound = [];
-        //
-        //             itemFound = $filter('filter')($scope.perils_counters, function(item)
-        //             {
-        //                 return item.name == applicability;
-        //             });
-        //
-        //             if (itemFound.length > 0)
-        //             {
-                        // Item found
-                        // if(itemFound[0].notable)
-                        // {
-                        //     return itemFound[0].count;
-                        // } else {
-                        //     return "n.a.";
-                        // }
-                    // }
-                // };
-            //
-            // }, function(data){
-            //     Error API
-                // console.log(data);
-            // })
-
         RodiSrv.getCountryScoring($scope.idCountry, $scope.aCategory, $scope.aApplicability,
             function(data)
             {
@@ -211,75 +180,6 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
             }
         );
 
-
-        // RodiSrv.getDatasetlistFiltered($scope.idCountry, $scope.aCategory, $scope.aApplicability,
-        //     function(data)
-        //     {
-        //         Success
-        //         $scope.datasetList = data;
-        //
-        //         $scope.tableParams = new NgTableParams({}, { dataset: $scope.datasetList});
-        //
-        //     }, function(data)
-        //     {
-                // Error API
-                // console.log(data);
-            // });
-
-        // Load the country statistics
-        // RodiSrv.getCountryStatistics($scope.idCountry, $scope.aCategory, $scope.aApplicability,
-        //     function(data){
-
-                // $scope.score = data.score;
-                // $scope.perils_counters = angular.copy(data.perils_counters);
-                // $scope.categories_counters = angular.copy(data.categories_counters);
-                // $scope.missingDatasets = data.missing_datasets;
-                //
-                // $scope.tableParamsMissing = new NgTableParams({}, { dataset: $scope.missingDatasets});
-                //
-                // $scope.getApplicabilityNumber = function(applicability){
-                //
-                //     var itemFound = [];
-                //
-                //     itemFound = $filter('filter')($scope.perils_counters, function(item)
-                //     {
-                //         return item.name == applicability;
-                //     });
-                //
-                //     if (itemFound.length > 0)
-                //     {
-                        // Item found
-                        // if(itemFound[0].notable)
-                        // {
-                        //     return itemFound[0].count;
-                        // } else {
-                        //     return "n.a.";
-                        // }
-                    // }
-                // };
-
-                // $scope.getCategoryNumber = function(category){
-                //
-                //     var itemFound = [];
-                //
-                //     itemFound = $filter('filter')($scope.categories_counters, function(item)
-                //     {
-                //         return item.category == category;
-                //     });
-                //
-                //     if (itemFound.length > 0)
-                //     {
-                        // Item found
-                        // return itemFound[0].count;
-                    // } else {return 0}
-                // };
-
-            // }, function(data){
-                // Error API
-                // console.log(data);
-            // })
-
-
     }
 
     if($scope.idDatasetCat !== '0')
@@ -315,6 +215,9 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
     }
 
     $scope.setFilterApplicabilityDatasetList = function (filter) {
+        if ($scope.getApplicabilityNumber(filter) === 'n.a.') {
+          return;
+        }
 
         var index = $scope.aApplicability.indexOf(filter);
 
@@ -331,21 +234,6 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
 
     };
 
-    $scope.filterApplicabilityCssClass = function (filter) {
-        var index =$scope.aApplicability.indexOf(filter);
-        if (index >-1){
-            return "active";
-        }else return "unactive";
-    };
-
-    $scope.filterApplicabilityCssStyle = function (filter) {
-        var index =$scope.aApplicability.indexOf(filter);
-        if (index >-1){
-            // return {"background-color" : '#2EA620' } ;
-            return {"background-color" : 'white' } ;
-        }else return "";
-    };
-
     $scope.setFilterCategoryDatasetList = function (filter) {
 
         var index = $scope.aCategory.indexOf(filter);
@@ -359,21 +247,6 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
             $scope.aCategory.push(filter);
             $scope.loadDatasetList();
         }
-    };
-
-    $scope.filterCategoryCssClass = function (filter) {
-        var index =$scope.aCategory.indexOf(filter);
-        if (index >-1){
-            return "active";
-        }else return "unactive";
-    };
-
-    $scope.filterCategoryCssStyle = function (filter) {
-        var index =$scope.aCategory.indexOf(filter);
-        if (index >-1){
-            // return {"background-color" : '#2EA620' } ;
-            return {"background-color" : 'white' } ;
-        }else return "";
     };
 
     $scope.setPopupDetails = function(dataset){

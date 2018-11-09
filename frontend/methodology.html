@@ -10,7 +10,7 @@
 
     <base href="{{$LocationProvider.$get}}" />
 
-    <title>Open Data for Resilience Index - Documentation</title>
+    <title>OpenDRI Index - Documentation</title>
     <link rel=icon href=img/template/favicon.png type="image/png">
     <link rel=icon href=img/template/favicon.ico type="image/vnd.microsoft.icon">
 
@@ -113,7 +113,7 @@
                             <a href="#introduction">Introduction</a>
                             <a href="#hazards">Hazards</a>
                             <a href="#categories">Categories</a>
-                            <a href="#locations">Locations</a>
+                            <a href="#countries">Countries</a>
                             <a href="#datasets">Datasets</a>
                             <a href="#opendata">Open data criteria</a>
                             <a href="#openness">Score</a>
@@ -132,7 +132,7 @@
 
     <!-- Country Matrix -->
     <div class="row scroll">
-        <div class="col-xs-12 col-sm-10 col-md-6 col-xs-offset-0 col-sm-offset-1 col-md-offset-3 text-content"> 
+        <div class="col-xs-12 col-sm-10 col-md-6 col-xs-offset-0 col-sm-offset-1 col-md-offset-3 text-content">
             <h2 id="introduction">Introduction</h2>
 
             <p>The <strong>Open Data for Resilience Index</strong> is a tool to identify, assess and compare, for any country, the availability and ease of use of datasets that are considered to be key for disaster risk management.</p>
@@ -187,9 +187,9 @@
 
             <p>The success of the Open Data for Resilience Index depends mainly on its contributors community and the way it engages with them. </p>
             <br />
-        --> <h2 id="locations">Locations</h2>
+        --> <h2 id="countries">Countries</h2>
 
-            <p>The list of locations - mostly country level - is the same as the one used by <a href="http://www.thinkhazard.org/en/" target="_blank">ThinkHazard!</a> and is currently based on the <a href="http://ref.data.fao.org/map?entryId=f7e7adb0-88fd-11da-a88f-000d939bc5d8" target="_blank">Global Administrative Unit Layers (GAUL) dataset.</a></p>
+            <p>The list of countries is based on the official list of countries managed by the World Bank. Please note that the term country does not imply political independence but refers to any territory for which authorities report separate social or economic statistics to some extent.</p>
 
             <h2 id="datasets">Datasets</h2>
             <p>You will find below the full list of datasets together with their description.</p>
@@ -483,14 +483,14 @@
 
             <p>A dataset is considered fully open when all questions have been answered YES (score = 100%). When a dataset does not exist or has not been submitted, then the score is 0.</p>
 
-            <h3 >Location score</h3>
-            <p>The location score is the average of all dataset's scores for a given location. It is also expressed as a percentage.</p>
+            <h3 >Country score</h3>
+            <p>The country score is the average of all dataset's scores for a given country. It is also expressed as a percentage.</p>
 
-            <p>Note: It is possible to submit more than one entry for a given dataset and a given location. The website stores all of them. However, for comparison's purposes, only the dataset with the highest score is retained for the location score.<p>
+            <p>Note: It is possible to submit more than one entry for a given dataset and a given country. The website stores all of them. However, for comparison's purposes, only the dataset with the highest score is retained for the country score.<p>
 
             <h3>Hazard level (ThinkHazard!)</h3>
 
-            <p>For the location score, only the hazards for which the level is assessed as medium or higher on <a href="http://www.thinkhazard.org" target="_blank">ThinkHazard!</a> are taken into account.</p>
+            <p>For the country score, only the hazards for which the level is assessed as medium or higher on <a href="http://www.thinkhazard.org" target="_blank">ThinkHazard!</a> are taken into account.</p>
 
             <p>This means that datasets applicable only to hazards with a low or very low level on ThinkHazard! are not considered for assessing a country since the interest in such data is negligible. For instance, data related to tsunami will not be considered when assessing a landlocked country.</p>
 
@@ -498,7 +498,7 @@
 
             <h3>Filter by hazard or category</h3>
 
-            <p>It is possible to filter and compare locations by category or hazard. For instance, by selecting Base data, only datasets from this category will be taken into account in the overall openness; by selecting Earthquake, only datasets applicable to this hazard will be taken into account. <p>
+            <p>It is possible to filter and compare countries by category or hazard. For instance, by selecting Base data, only datasets from this category will be taken into account in the overall openness; by selecting Earthquake, only datasets applicable to this hazard will be taken into account. <p>
             <div class="text-center">
                 <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
             </div>
@@ -569,15 +569,9 @@
 </div>
 <!--END Container fluid-->
 
-<section>
-    <div class="footer">
-        <!--<div class="space"></div>-->
-        <!-- Section FOOTER - INIZIO -->
-        <rodifooter></rodifooter>
-        <!-- Section FOOTER - FINE -->
-    </div>
-
-</section>
+<footer class="footer">
+    <rodifooter></rodifooter>
+</footer>
 
 
 
