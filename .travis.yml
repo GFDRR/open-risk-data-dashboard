@@ -29,4 +29,5 @@ deploy:
     cima@index.opendri.org:~/html/
   on:
     condition: $TRAVIS_TAG =~ ^fe_
+    tags: true
     all-branches: true
