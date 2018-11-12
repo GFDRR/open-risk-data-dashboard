@@ -33,7 +33,7 @@ from .serializers import (
     DatasetListSerializer, DatasetPutSerializer, DatasetsDumpSerializer)
 from .models import (Region, Country, OptIn, Dataset, KeyDataset,
                      KeyDatasetName, KeyCategory, KeyTag,
-                     my_random_key, Profile, Url)
+                     my_random_key, Profile)
 from .mailer import mailer
 from ordd_api import __version__, MAIL_SUBJECT_PREFIX
 from ordd.settings import EMAIL_CONFIRM_PROTO
@@ -1244,7 +1244,8 @@ class Score(object):
 
     @classmethod
     def all_country_scoring(cls, request):
-        queryset = Dataset.objects.filter(keydataset__level__name='National')
+        queryset = Dataset.objects.filter(
+            keydataset__level__name='National').exclude(country__iso2='AA')
         kd_queryset = KeyDataset.objects.filter(level__name='National')
         applicability = request.query_params.getlist('applicability')
         category = request.query_params.getlist('category')
