@@ -692,15 +692,16 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
 
         function initPage()
         {
-            var p1 = RodiSrv.getCountryList(function (data) {
+            var p1 = RodiSrv.getRealCountryList(function (data) {
                 $scope.allCountries = data;
                 $scope.bLoadingTabel = false;
                 $scope.countryRegions = data
                   .map(function(country){
-                    return country.region;
+                      return country.region;
                   })
                   // remove duplicate regions
                   .filter(function(region, i, array){
+                      console.log(region);
                     return array.slice(i+1).indexOf(region) === -1
                   })
                   .sort();
