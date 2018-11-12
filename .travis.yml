@@ -1,5 +1,6 @@
 language: node_js
 node_js: lts/*
+cache: npm
 
 addons:
   ssh_known_hosts:
@@ -20,14 +21,12 @@ script:
 
 deploy:
 - provider: script
-  script: rsync -e "ssh -i /tmp/id_opendri -p 22027" --delete-after -r ./
-    cima@dev.riskopendata.org:~/html-dev/
+  script: rsync -e "ssh -i /tmp/id_opendri -p 22027" --exclude=node_modules/ --delete-after -r ./ cima@dev.riskopendata.org:~/html-dev/
   on:
     branch: master
 - provider: script
-  script: rsync -e "ssh -i /tmp/id_opendri" --delete-after -r ./
-    cima@index.opendri.org:~/html/
+  script: rsync -e "ssh -i /tmp/id_opendri" --exclude=node_modules/ --delete-after -r ./ cima@index.opendri.org:~/html/
   on:
-    condition: "$TRAVIS_TAG =~ ^fe_.*$"
+    condition: $TRAVIS_TAG =~ ^fe_.*$
     tags: true
     all-branches: true
