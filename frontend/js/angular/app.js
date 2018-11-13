@@ -24,8 +24,16 @@ var spli_url = getLocation(window.location.href);
 var baseUrl = spli_url.protocol + '//' + spli_url.host + '/';
 //var baseUrl = 'http://localhost:63342/RODI/frontend/';
 
-var baseAPIurl = 'https://index.opendri.org/api/'; // Sviluppo
-//var baseAPIurl = spli_url.protocol + '//' + spli_url.host + '/api/';
+//
+// Base API url
+//
+// NOTE:
+//     use:
+//         baseAPIurl = 'https://dev.riskopendata.org/api/'
+//     to have full access to development backend from
+//     your local development installation
+//
+baseAPIurl = '/api/';
 
 RodiApp.config(function($locationProvider) {
 
