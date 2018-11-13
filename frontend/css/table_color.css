@@ -67,11 +67,11 @@ progress {
 .status a {
   color: #FF8000; }
   .status a.download {
-    color: rgba(0, 128, 0, 0.8); }
+    color: #009500; }
   .status a .badge .ok {
-    color: rgba(0, 128, 0, 0.8); }
+    color: #009500; }
   .status a .badge .rev {
-    color: rgba(255, 0, 0, 0.8); }
+    color: #881300; }
 
 .rodi_pointer,
 .rodi_panel_active {

@@ -20,7 +20,7 @@ $ npm install
 $ npm start
 ```
 
-Web server will be available at http://localhost:4000/ and changes will be taken in account immediatly.
+Web server will be available at http://localhost:4000/ and changes will be taken into account immediatly.
 
 # Third-party dependencies
 

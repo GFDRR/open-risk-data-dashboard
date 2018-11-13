@@ -4,7 +4,6 @@
 
 var RodiApp = angular.module('RodiApp', ['ngTable']);
 
-// var baseUrl = 'http://localhost:63342/open-risk-data-dashboard/frontend/';
 function getLocation(href) {
     var match = href.match(/^(https?\:)\/\/(([^:\/?#]*)(?:\:([0-9]+))?)([\/]{0,1}[^?#]*)(\?[^#]*|)(#.*|)$/);
     return match && {
@@ -20,7 +19,6 @@ function getLocation(href) {
 }
 
 var spli_url = getLocation(window.location.href);
-// var baseUrl = 'https://index.opendri.org/api/';
 var baseUrl = spli_url.protocol + '//' + spli_url.host + '/';
 //var baseUrl = 'http://localhost:63342/RODI/frontend/';
 
@@ -33,7 +31,8 @@ var baseUrl = spli_url.protocol + '//' + spli_url.host + '/';
 //     to have full access to development backend from
 //     your local development installation
 //
-baseAPIurl = '/api/';
+var baseAPIurl = '/api/';
+//var baseAPIurl = 'https://dev.riskopendata.org/api/';
 
 RodiApp.config(function($locationProvider) {
 
