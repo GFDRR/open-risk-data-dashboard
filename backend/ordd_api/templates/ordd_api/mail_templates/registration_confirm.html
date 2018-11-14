@@ -2,21 +2,27 @@
 {% block content %}
 <table role="presentation" aria-hidden="true" cellspacing="0" cellpadding="0" border="0" width="100%">
   <tr>
-    <td style="padding: 40px; font-family: 'Abel', sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
-      <h1 style="margin: 0 0 10px 0; font-family: 'Abel', sans-serif; font-size: 24px; line-height: 27px; color: #333333; font-weight: normal;">{{ subject_prefix }} - Confirm registration.</h1>
-      <p style="margin: 0;">
-        Thanks for your request to register to the {{ subject_prefix }}.<br>
-        Please confirm your registration by clicking on the button below.
-      </p>
+    <td style="padding: 40px 40px 0; font-family: 'Dosis', sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
+      <!--Title BEGIN -->
+      <h1 style="padding: 20px; font-family: 'Quicksand', sans-serif; font-size: 30px; line-height: 27px; color: #333333; font-weight: normal; text-align:center;">Thank you!</h1>
+      <!--Title END-->
+
+      <!--Content BEGIN-->
+      <p style="margin: 0; font-size: 20px; line-height: 2;">You requested to register to the {{ subject_prefix }}.</p>
+      <!--Content END-->
+
+      <!--Static mex BEGIN-->
+      <h4 style="text-align: center;">Please confirm your registration by clicking on the button below.</h4>
+      <!--Static mex END-->
     </td>
   </tr>
   <tr>
-    <td style="padding: 30px 40px; font-family: 'Abel', sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
+    <td style="padding: 30px 40px; font-family: 'Dosis', sans-serif; font-size: 15px; line-height: 20px; color: #555555;">
       <!-- Button : BEGIN -->
       <table role="presentation" aria-hidden="true" cellspacing="0" cellpadding="0" border="0" align="center" style="margin: auto;">
         <tr>
           <td style="border-radius: 3px; background: #EE3036; text-align: center; " class="button-td">
-            <a href="{{ reply_url|safe }}" style="background: #EE3036; border: 15px solid #EE3036; font-family: 'Abel', sans-serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;" class="button-a">
+            <a href="{{ reply_url|safe }}" style="background: #EE3036; border: 15px solid #EE3036; font-family: 'Dosis', sans-serif; font-size: 13px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 3px; font-weight: bold;" class="button-a">
               <span style="color:#ffffff;" class="button-link">&nbsp;&nbsp;&nbsp;&nbsp;click to confirm&nbsp;&nbsp;&nbsp;&nbsp;</span>
             </a>
           </td>
