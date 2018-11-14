@@ -33,7 +33,7 @@ from .serializers import (
     DatasetListSerializer, DatasetPutSerializer, DatasetsDumpSerializer)
 from .models import (Region, Country, OptIn, Dataset, KeyDataset,
                      KeyDatasetName, KeyCategory, KeyTag,
-                     my_random_key, Profile, Url)
+                     my_random_key, Profile)
 from .mailer import mailer
 from ordd_api import __version__, MAIL_SUBJECT_PREFIX
 from ordd.settings import EMAIL_CONFIRM_PROTO
@@ -248,8 +248,21 @@ class RegionListView(generics.ListAPIView):
 
 class CountryListView(generics.ListAPIView):
     """This class handles the GET and POSt requests of our rest api."""
-    queryset = Country.objects.all().order_by('name')
     serializer_class = CountrySerializer
+
+    def get_queryset(self):
+        is_real_country_s = self.request.query_params.get(
+            'is_real_country')
+        if is_real_country_s is not None:
+            is_real_country = (True if is_real_country_s.upper() == 'TRUE'
+                               else False)
+        else:
+            is_real_country = False
+
+        if is_real_country:
+            return Country.objects.all().exclude(iso2='AA').order_by('name')
+        else:
+            return Country.objects.all().order_by('name')
 
 
 class KeyPerilListView(generics.ListAPIView):
@@ -1244,7 +1257,8 @@ class Score(object):
 
     @classmethod
     def all_country_scoring(cls, request):
-        queryset = Dataset.objects.filter(keydataset__level__name='National')
+        queryset = Dataset.objects.filter(
+            keydataset__level__name='National').exclude(country__iso2='AA')
         kd_queryset = KeyDataset.objects.filter(level__name='National')
         applicability = request.query_params.getlist('applicability')
         category = request.query_params.getlist('category')
