@@ -21,7 +21,7 @@ script:
 
 deploy:
 - provider: script
-  script: rsync -e "ssh -i /tmp/id_opendri -p 22027" --exclude=node_modules/ --delete-after -r ./ cima@dev.riskopendata.org:~/html-dev/
+  script: rsync -e "ssh -i /tmp/id_opendri -p 22027" --exclude=node_modules/ --delete-after -r ./ cima@dev.riskopendata.org:~/html/
   on:
     branch: master
 - provider: script
