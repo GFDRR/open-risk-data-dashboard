@@ -25,13 +25,13 @@ from django.http import Http404
 from rest_framework_csv import renderers as csv_rend
 
 from .serializers import (
-    CountrySerializer, KeyPerilSerializer,
+    CountrySerializer, CountryGroupSerializer, KeyPerilSerializer,
     ProfileSerializer, UserSerializer, RegistrationSerializer,
     ChangePasswordSerializer, ResetPasswordReqSerializer,
     ResetPasswordSerializer, ProfileCommentSendSerializer,
     ProfileDatasetListSerializer, ProfileDatasetCreateSerializer,
     DatasetListSerializer, DatasetPutSerializer, DatasetsDumpSerializer)
-from .models import (Country, OptIn, Dataset, KeyDataset,
+from .models import (Country, CountryGroup, OptIn, Dataset, KeyDataset,
                      KeyDatasetName, KeyCategory, KeyTag,
                      my_random_key, Profile)
 from .mailer import mailer
@@ -257,6 +257,12 @@ class CountryListView(generics.ListAPIView):
             return Country.objects.all().exclude(iso2='AA').order_by('name')
         else:
             return Country.objects.all().order_by('name')
+
+
+class CountryGroupListView(generics.ListAPIView):
+    """Retrieve list of wb_id and names of groups of countries."""
+    queryset = CountryGroup.objects.all().order_by('wb_id')
+    serializer_class = CountryGroupSerializer
 
 
 class KeyPerilListView(generics.ListAPIView):

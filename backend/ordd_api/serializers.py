@@ -8,7 +8,8 @@ from django.db import transaction
 from django.db import IntegrityError
 from rest_framework import serializers
 from rest_framework.serializers import ValidationError
-from .models import (Country, KeyTag, Profile, OptIn, Dataset, Url)
+from .models import (Country, CountryGroup, KeyTag, Profile, OptIn, Dataset,
+                     Url)
 from ordd_api import MAIL_SUBJECT_PREFIX
 from ordd.settings import EMAIL_CONFIRM_PROTO
 
@@ -22,6 +23,14 @@ class CountrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Country
         fields = ('iso2', 'name')
+
+
+class CountryGroupSerializer(serializers.ModelSerializer):
+    """Serializer of country groups"""
+
+    class Meta:
+        model = CountryGroup
+        fields = ('wb_id', 'name')
 
 
 class KeyPerilSerializer(serializers.ModelSerializer):
