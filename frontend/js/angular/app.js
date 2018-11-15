@@ -20,7 +20,7 @@ function getLocation(href) {
 
 // use this with '/exp' to publish manually on experimental 'http-exp'
 // var exp_prefix = '/exp'
-var exp_prefix = ''
+var exp_prefix = '';
 var spli_url = getLocation(window.location.href);
 var baseUrl = spli_url.protocol + '//' + spli_url.host + exp_prefix + '/';
 //var baseUrl = 'http://localhost:63342/RODI/frontend/';
