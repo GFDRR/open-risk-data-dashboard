@@ -7,8 +7,8 @@ server {
 	root /var/www/html;
 	index index.html index.htm;
 
-	access_log  /var/log/nginx/access-dev.log combined;
-	error_log   /var/log/nginx/error-dev.log  error;
+	access_log  /var/log/nginx/access.log combined;
+	error_log   /var/log/nginx/error.log  error;
 
 	keepalive_timeout 20s;
 	sendfile  on;
@@ -72,12 +72,30 @@ server {
 		try_files $uri $uri/ =404;
 	}
 
+	location /exp {
+		alias /var/www/html-exp/;
+		# First attempt to serve request as file, then
+		# as directory, then fall back to displaying a 404.
+		try_files $uri $uri/ =404;
+		access_log  /var/log/nginx/access-exp.log combined;
+		error_log   /var/log/nginx/error-exp.log  error;
+	}
+
+
 	location /static {
 		proxy_set_header    Host                $http_host;
 		proxy_set_header    X-Real-IP           $remote_addr;
 		proxy_set_header    X-Forwarded-For     $proxy_add_x_forwarded_for;
 		proxy_set_header    X-Forwarded-Proto   $scheme;
 		proxy_pass http://localhost:8001/static;
+	}
+
+	location /exp/static {
+		proxy_set_header    Host                $http_host;
+		proxy_set_header    X-Real-IP           $remote_addr;
+		proxy_set_header    X-Forwarded-For     $proxy_add_x_forwarded_for;
+		proxy_set_header    X-Forwarded-Proto   $scheme;
+		proxy_pass http://localhost:8002/static;
 	}
 
 	location /api {
@@ -87,4 +105,12 @@ server {
 		proxy_set_header    X-Forwarded-Proto   $scheme;
 		proxy_pass http://localhost:8001/api;
 	}
+
+        location /exp/api {
+                proxy_set_header    Host                $http_host;
+                proxy_set_header    X-Real-IP           $remote_addr;
+                proxy_set_header    X-Forwarded-For     $proxy_add_x_forwarded_for;
+                proxy_set_header    X-Forwarded-Proto   $scheme;
+                proxy_pass http://localhost:8002/api;
+        }
 }
