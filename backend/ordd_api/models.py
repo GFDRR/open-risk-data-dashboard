@@ -30,24 +30,6 @@ def create_user_profile(sender, instance, created, **kwargs):
         Profile.objects.create(user=instance)
 
 
-class RegionManager(models.Manager):
-    def get_by_natural_key(self, name):
-        return self.get(name=name)
-
-
-class Region(models.Model):
-    """World regions"""
-    objects = RegionManager()
-
-    name = models.CharField(max_length=64, blank=False)
-
-    def natural_key(self):
-        return [self.name]
-
-    def __str__(self):
-        return self.name
-
-
 class CountryManager(models.Manager):
     def get_by_natural_key(self, iso2):
         return self.get(iso2=iso2)
@@ -59,7 +41,6 @@ class Country(models.Model):
 
     iso2 = models.CharField(max_length=2, blank=False, unique=True)
     name = models.CharField(max_length=64, blank=False, unique=True)
-    region = models.ForeignKey(Region, blank=True, null=True)
     thinkhazard_appl = models.ManyToManyField("ordd_api.KeyTag")
 
     def __str__(self):

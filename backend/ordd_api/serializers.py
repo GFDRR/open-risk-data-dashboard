@@ -8,7 +8,7 @@ from django.db import transaction
 from django.db import IntegrityError
 from rest_framework import serializers
 from rest_framework.serializers import ValidationError
-from .models import (Region, Country, KeyTag, Profile, OptIn, Dataset, Url)
+from .models import (Country, KeyTag, Profile, OptIn, Dataset, Url)
 from ordd_api import MAIL_SUBJECT_PREFIX
 from ordd.settings import EMAIL_CONFIRM_PROTO
 
@@ -16,21 +16,12 @@ from .keydatasets_serializers import KeyDataset4on4Serializer
 from .mailer import mailer
 
 
-class RegionSerializer(serializers.ModelSerializer):
-    """Serializer of regions"""
-    class Meta:
-        model = Region
-        fields = ('name',)
-
-
 class CountrySerializer(serializers.ModelSerializer):
     """Serializer of countries"""
-    region = serializers.SlugRelatedField(slug_field='name',
-                                          queryset=Region.objects.all())
 
     class Meta:
         model = Country
-        fields = ('iso2', 'name', 'region')
+        fields = ('iso2', 'name')
 
 
 class KeyPerilSerializer(serializers.ModelSerializer):

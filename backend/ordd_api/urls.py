@@ -5,7 +5,7 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 from rest_framework.authtoken.views import obtain_auth_token
 from .views import (
-    RegionListView, CountryListView, KeyPerilListView,
+    CountryListView, KeyPerilListView,
     ProfileDetails, ProfilePasswordUpdate, ProfilePasswordReset,
     ProfileCommentSendView, UserCreateView, UserDetailsView,
     RegistrationView, ProfileDatasetListCreateView, ProfileDatasetDetailsView,
@@ -63,8 +63,6 @@ urlpatterns = [
     url(r'^registration$', RegistrationView.as_view(), name="registration"),
 
     url(r'^peril/$', KeyPerilListView.as_view(), name="peril"),
-
-    url(r'^region/$', RegionListView.as_view(), name="region_list"),
 
     url(r'^country/$', CountryListView.as_view(), name="country_list"),
 

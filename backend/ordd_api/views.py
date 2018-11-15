@@ -25,13 +25,13 @@ from django.http import Http404
 from rest_framework_csv import renderers as csv_rend
 
 from .serializers import (
-    RegionSerializer, CountrySerializer, KeyPerilSerializer,
+    CountrySerializer, KeyPerilSerializer,
     ProfileSerializer, UserSerializer, RegistrationSerializer,
     ChangePasswordSerializer, ResetPasswordReqSerializer,
     ResetPasswordSerializer, ProfileCommentSendSerializer,
     ProfileDatasetListSerializer, ProfileDatasetCreateSerializer,
     DatasetListSerializer, DatasetPutSerializer, DatasetsDumpSerializer)
-from .models import (Region, Country, OptIn, Dataset, KeyDataset,
+from .models import (Country, OptIn, Dataset, KeyDataset,
                      KeyDatasetName, KeyCategory, KeyTag,
                      my_random_key, Profile)
 from .mailer import mailer
@@ -238,12 +238,6 @@ EMail address: '%s'.<br>""" % (user.username, user.email))
                    None, 'base')
 
         return Response(status=status.HTTP_204_NO_CONTENT)
-
-
-class RegionListView(generics.ListAPIView):
-    """This class handles the GET and POSt requests of our rest api."""
-    queryset = Region.objects.all().order_by('id')
-    serializer_class = RegionSerializer
 
 
 class CountryListView(generics.ListAPIView):
