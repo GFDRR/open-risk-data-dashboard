@@ -245,6 +245,11 @@ class CountryListView(generics.ListAPIView):
     serializer_class = CountrySerializer
 
     def get_queryset(self):
+        queryset = Country.objects.all().order_by('name')
+
+        country_groups = self.request.query_params.getlist(
+            'country_group')
+
         is_real_country_s = self.request.query_params.get(
             'is_real_country')
         if is_real_country_s is not None:
@@ -254,9 +259,14 @@ class CountryListView(generics.ListAPIView):
             is_real_country = False
 
         if is_real_country:
-            return Country.objects.all().exclude(iso2='AA').order_by('name')
-        else:
-            return Country.objects.all().order_by('name')
+            queryset = queryset.exclude(iso2='AA')
+
+        q = Q()
+        for country_group in country_groups:
+            q = q | Q(countrygroup__wb_id=country_group)
+        queryset = queryset.filter(q)
+
+        return queryset.distinct()
 
 
 class CountryGroupListView(generics.ListAPIView):
