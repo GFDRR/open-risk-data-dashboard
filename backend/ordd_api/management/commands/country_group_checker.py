@@ -33,6 +33,7 @@ class Command(BaseCommand):
 
                     print(cg_name)
                     row_end = False
+                    already_there = []
                     for country_id in cg_countries:
                         if country_id == '':
                             row_end = True
@@ -42,8 +43,14 @@ class Command(BaseCommand):
                                 raise Exception(
                                     'For country %s there are empty columns'
                                     ' for related countries' % cg_name)
+                        if country_id in already_there:
+                            raise Exception(
+                                'Country %s already in the list'
+                                % country_id)
+
                         try:
                             country = Country.objects.get(iso2=country_id)
+                            already_there.append(country_id)
                         except:
                             raise Exception(
                                 'Country %s not found' % country_id)
@@ -52,10 +59,10 @@ class Command(BaseCommand):
 
             self.stdout.write(self.style.SUCCESS(
                 'CSV defining country-groups is consistent with the current'
-                ' country list'))
+                ' countries list'))
 
         except Exception as ex:
             raise CommandError(
                 'CSV defining country-groups is inconsistent with the current'
-                ' country list, check failed with exception of'
-                ' class %s and error string %s.' % (ex.__class__, ex))
+                ' country list,\ncheck failed with exception of'
+                ' class %s and error string:\n  %s.' % (ex.__class__, ex))
