@@ -37,7 +37,7 @@ def forwards_func(apps, schema_editor):
                 country = Country.objects.using(db_alias).get(
                     iso2=country_id)
                 print("  Country: '%s'" % country.name)
-                country.country_group.add(country_group)
+                country_group.country.add(country)
 
 
 def backwards_func(apps, schema_editor):

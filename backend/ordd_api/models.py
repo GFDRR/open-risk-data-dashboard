@@ -41,7 +41,6 @@ class Country(models.Model):
 
     iso2 = models.CharField(max_length=2, blank=False, unique=True)
     name = models.CharField(max_length=64, blank=False, unique=True)
-    country_group = models.ManyToManyField("ordd_api.CountryGroup")
     thinkhazard_appl = models.ManyToManyField("ordd_api.KeyTag")
 
     def __str__(self):
@@ -51,20 +50,14 @@ class Country(models.Model):
         return [self.iso2]
 
 
-class CountryGroupManager(models.Manager):
-    def get_by_natural_key(self, wb_id):
-        return self.get(wb_id=wb_id)
-
-
 class CountryGroup(models.Model):
-    wb_id = models.CharField(max_length=2, blank=False, unique=True)
+    wb_id = models.CharField(max_length=2, blank=False, unique=True,
+                             primary_key=True)
     name = models.CharField(max_length=64, blank=False, unique=True)
+    country = models.ManyToManyField("ordd_api.Country")
 
     def __str__(self):
         return self.name
-
-    def natural_key(self):
-        return [self.wb_id]
 
 
 class KeyCategoryManager(models.Manager):
