@@ -59,7 +59,7 @@ class Country(models.Model):
 
     iso2 = models.CharField(max_length=2, blank=False, unique=True)
     name = models.CharField(max_length=64, blank=False, unique=True)
-    region = models.ForeignKey(Region)
+    region = models.ForeignKey(Region, blank=True, null=True)
     thinkhazard_appl = models.ManyToManyField("ordd_api.KeyTag")
 
     def __str__(self):
