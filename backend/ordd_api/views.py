@@ -261,10 +261,11 @@ class CountryListView(generics.ListAPIView):
         if is_real_country:
             queryset = queryset.exclude(iso2='AA')
 
-        q = Q()
-        for country_group in country_groups:
-            q = q | Q(countrygroup__wb_id=country_group)
-        queryset = queryset.filter(q)
+        if country_groups:
+            q = Q()
+            for country_group in country_groups:
+                q = q | Q(countrygroup__wb_id=country_group)
+            queryset = queryset.filter(q)
 
         return queryset.distinct()
 
@@ -1272,6 +1273,9 @@ class Score(object):
         kd_queryset = KeyDataset.objects.filter(level__name='National')
         applicability = request.query_params.getlist('applicability')
         category = request.query_params.getlist('category')
+        country_groups = request.query_params.getlist(
+            'country_group')
+
         if applicability:
             q = Q()
             kd_q = Q()
@@ -1292,6 +1296,13 @@ class Score(object):
                 kd_q = kd_q | Q(category__name__iexact=v)
             queryset = queryset.filter(q).distinct()
             kd_queryset = kd_queryset.filter(kd_q).distinct()
+
+        if country_groups:
+            q = Q()
+            kd_q = Q()
+            for country_group in country_groups:
+                q = q | Q(country__countrygroup__wb_id=country_group)
+            queryset = queryset.filter(q)
 
         # check-point to investigate correctness of query filtering
         # print("Number of item: %d" % queryset.count())
@@ -1733,6 +1744,7 @@ class Score(object):
             'fullscores_count': fullscores_count
             }
         return ret
+
 
 class ScoringWorldGet(APIView):
     """This view return the list of country with dataset instances and
