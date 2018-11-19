@@ -61,7 +61,7 @@ class Country(models.Model):
                              primary_key=True)
     name = models.CharField(max_length=64, blank=False, unique=True)
     region = models.ForeignKey(Region)
-    # thinkhazard_appl = models.ManyToManyField("ordd_api.KeyTag")
+    thinkhazard_appl = models.ManyToManyField("ordd_api.KeyTag")
 
     def __str__(self):
         return self.name
