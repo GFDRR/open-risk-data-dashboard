@@ -57,11 +57,10 @@ class Country(models.Model):
     """List of world countries with a region reference."""
     objects = CountryManager()
 
-    iso2 = models.CharField(max_length=2, blank=False, unique=True)
-    wb_id = models.CharField(max_length=2, blank=True, null=True)
+    wb_id = models.CharField(max_length=2, primary_key=True)
     name = models.CharField(max_length=64, blank=False, unique=True)
     region = models.ForeignKey(Region)
-    thinkhazard_appl = models.ManyToManyField("ordd_api.KeyTag")
+    # thinkhazard_appl = models.ManyToManyField("ordd_api.KeyTag")
 
     def __str__(self):
         return self.name
@@ -228,7 +227,6 @@ class Url(models.Model):
 class Dataset(models.Model):
     owner = models.ForeignKey('auth.User', related_name='datasets',
                               on_delete=models.CASCADE)
-    country = models.ForeignKey(Country, blank=False, null=False)
     country_wb_id = models.CharField(max_length=2, blank=True, null=True)
     keydataset = models.ForeignKey(KeyDataset, blank=False, null=False,
                                    related_name='user_dataset',
