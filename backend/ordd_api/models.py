@@ -48,15 +48,8 @@ class Region(models.Model):
         return self.name
 
 
-class CountryManager(models.Manager):
-    def get_by_natural_key(self, iso2):
-        return self.get(iso2=iso2)
-
-
 class Country(models.Model):
     """List of world countries with a region reference."""
-    objects = CountryManager()
-
     wb_id = models.CharField(max_length=2, blank=False, null=False,
                              primary_key=True)
     name = models.CharField(max_length=64, blank=False, unique=True)
@@ -65,9 +58,6 @@ class Country(models.Model):
 
     def __str__(self):
         return self.name
-
-    def natural_key(self):
-        return [self.iso2]
 
 
 class KeyCategoryManager(models.Manager):

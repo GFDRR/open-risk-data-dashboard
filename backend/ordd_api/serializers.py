@@ -30,7 +30,7 @@ class CountrySerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Country
-        fields = ('iso2', 'name', 'region')
+        fields = ('wb_id', 'name', 'region')
 
 
 class KeyPerilSerializer(serializers.ModelSerializer):
@@ -215,7 +215,7 @@ class ProfileDatasetListSerializer(serializers.ModelSerializer):
                                          queryset=User.objects.all())
     changed_by = serializers.SlugRelatedField(slug_field='username',
                                               queryset=User.objects.all())
-    country = serializers.SlugRelatedField(slug_field='iso2',
+    country = serializers.SlugRelatedField(slug_field='wb_id',
                                            queryset=Country.objects.all())
     keydataset = KeyDataset4on4Serializer(read_only=True)
     url = serializers.SlugRelatedField(slug_field='url',
@@ -232,7 +232,7 @@ class ProfileDatasetListSerializer(serializers.ModelSerializer):
 
 
 class ProfileDatasetCreateSerializer(serializers.ModelSerializer):
-    country = serializers.SlugRelatedField(slug_field='iso2',
+    country = serializers.SlugRelatedField(slug_field='wb_id',
                                            queryset=Country.objects.all())
     url = CreateSlugRelatedField(slug_field='url',
                                  queryset=Url.objects.all(), many=True)
@@ -252,7 +252,7 @@ class DatasetListSerializer(serializers.ModelSerializer):
                                          queryset=User.objects.all())
     changed_by = serializers.SlugRelatedField(slug_field='username',
                                               queryset=User.objects.all())
-    country = serializers.SlugRelatedField(slug_field='iso2',
+    country = serializers.SlugRelatedField(slug_field='wb_id',
                                            queryset=Country.objects.all(
                                            ).order_by('name'))
     keydataset = KeyDataset4on4Serializer(read_only=True)
@@ -274,7 +274,7 @@ class DatasetPutSerializer(serializers.ModelSerializer):
                                          queryset=User.objects.all())
     changed_by = serializers.SlugRelatedField(slug_field='username',
                                               queryset=User.objects.all())
-    country = serializers.SlugRelatedField(slug_field='iso2',
+    country = serializers.SlugRelatedField(slug_field='wb_id',
                                            queryset=Country.objects.all(
                                            ).order_by('name'))
     url = CreateSlugRelatedField(slug_field='url',
