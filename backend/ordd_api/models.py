@@ -227,6 +227,7 @@ class Url(models.Model):
 class Dataset(models.Model):
     owner = models.ForeignKey('auth.User', related_name='datasets',
                               on_delete=models.CASCADE)
+    country = models.ForeignKey(Country, blank=True, null=True)
     country_wb_id = models.CharField(max_length=2, blank=True, null=True)
     keydataset = models.ForeignKey(KeyDataset, blank=False, null=False,
                                    related_name='user_dataset',
