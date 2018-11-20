@@ -8,7 +8,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('ordd_api', '0022_prepare_region_deletion'),
+        ('ordd_api', '0032_prepare_region_deletion'),
     ]
 
     operations = [

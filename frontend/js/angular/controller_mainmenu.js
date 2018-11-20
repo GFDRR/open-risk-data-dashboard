@@ -179,7 +179,7 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
             //
             //         if(codeCountry.length > 0)
             //         {
-            //             $window.location.href = baseUrl + 'country-details.html?idcountry='+ codeCountry[0].iso2;
+            //             $window.location.href = baseUrl + 'country-details.html?idcountry='+ codeCountry[0].wb_id;
             //         } else
             //         { vex.dialog.alert('Attention: No data details available'); }
             //     } else

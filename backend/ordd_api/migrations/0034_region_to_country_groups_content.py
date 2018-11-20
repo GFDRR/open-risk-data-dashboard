@@ -35,7 +35,7 @@ def forwards_func(apps, schema_editor):
                 if country_id == '':
                     continue
                 country = Country.objects.using(db_alias).get(
-                    iso2=country_id)
+                    wb_id=country_id)
                 print("  Country: '%s'" % country.name)
                 country_group.country.add(country)
 
@@ -51,7 +51,7 @@ def backwards_func(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('ordd_api', '0023_region_to_country_groups_schema'),
+        ('ordd_api', '0033_region_to_country_groups_schema'),
     ]
 
     operations = [

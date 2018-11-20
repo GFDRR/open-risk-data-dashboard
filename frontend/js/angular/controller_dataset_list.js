@@ -66,7 +66,7 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
     {
         // Success
         $scope.countryList = data;
-        $scope.objCountry = $filter('filter')($scope.countryList, {iso2: $scope.idCountry});
+        $scope.objCountry = $filter('filter')($scope.countryList, {wb_id: $scope.idCountry});
 
     }, function(data)
     {
