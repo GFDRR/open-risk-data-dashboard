@@ -169,7 +169,7 @@
                                     <div class="dataset_form_select_style">
                                         <select ng-model="objDataset.country" class="dataset_form_select_style">
                                             <option value="--" selected>-- Select country --</option>
-                                            <option ng-repeat="country in countryList | orderBy: 'name'" value="{{country.iso2}}">{{country.name}}</option>
+                                            <option ng-repeat="country in countryList | orderBy: 'name'" value="{{country.wb_id}}">{{country.name}}</option>
                                         </select>
                                     </div>
                                 </div>
@@ -779,7 +779,7 @@
                                         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">
                                             <label>Filter by Country</label>
                                             <select ng-model="reviewCountryFilter" class="form-control">
-                                                <option ng-repeat="coun in countryList" value="{{coun.iso2}}">{{coun.name}}</option>
+                                                <option ng-repeat="coun in countryList" value="{{coun.wb_id}}">{{coun.name}}</option>
                                             </select>
                                         </div>
                                         <div class="col-xs-6 col-sm-6 col-md-4 col-lg-4">

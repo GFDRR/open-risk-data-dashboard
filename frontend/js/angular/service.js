@@ -141,7 +141,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         var objCountry = $filter('filter')(objCountryList,
             function(e)
             {
-                return e.iso2 == idCountry;
+                return e.wb_id == idCountry;
             }
             );
 
