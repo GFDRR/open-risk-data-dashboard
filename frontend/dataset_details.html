@@ -325,7 +325,7 @@
                                 <div class="dataset_form_select_style">
                                     <select ng-model="objDataset.country" class="dataset_form_select_style text-center">
                                         <option value="--" selected>-- Select country --</option>
-                                        <option ng-repeat="country in countryList | orderBy: 'name'" value="{{country.iso2}}">{{country.name}}</option>
+                                        <option ng-repeat="country in countryList | orderBy: 'name'" value="{{country.wb_id}}">{{country.name}}</option>
                                     </select>
                                 </div>
                             </div>

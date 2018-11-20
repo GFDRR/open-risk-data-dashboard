@@ -628,7 +628,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
         $scope.countriesFiltered = [];
         $scope.countriesListWithScore = [];
         $scope.countryRegions = [];
-        $scope.sortField = "iso2";
+        $scope.sortField = "wb_id";
         $scope.sortDirection = false;
         $scope.allCountries = [];
         // it holds the number of (as of Nov. 2018, the value is 36)
@@ -671,7 +671,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
             return true;
           }
           else {
-            return $scope.countriesFiltered.indexOf(country.iso2) !== -1;
+            return $scope.countriesFiltered.indexOf(country.wb_id) !== -1;
           }
         };
 
@@ -683,10 +683,10 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
         $scope.mergeMatrixData= function() {
           $scope.allCountries = $scope.allCountries.map(function(country){
             var countryScore = $scope.countriesListWithScore.find(function(item){
-              return item.country == country.iso2;
+              return item.country == country.wb_id;
             });
 
-            return Object.assign({}, country, countryScore || {country: country.iso2, rank: 0, score: 0, fullscores_count: 0, datasets_count: 0});
+            return Object.assign({}, country, countryScore || {country: country.wb_id, rank: 0, score: 0, fullscores_count: 0, datasets_count: 0});
           });
         };
 
@@ -976,7 +976,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
                 $scope.getCountryNameReview = function(country)
                 {
                     var aCountry = $filter('filter')($scope.countryList, function(item){
-                        return item.iso2 == country;
+                        return item.wb_id == country;
                     })
 
                     if (aCountry.length > 0)
