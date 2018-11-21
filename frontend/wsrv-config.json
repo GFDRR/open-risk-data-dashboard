@@ -1,0 +1,9 @@
+{
+    "proxy": {
+        "/api/{p*}": {
+            "options": {
+                "uri": "https://dev.riskopendata.org/api/{p}"
+            }
+        }
+    }
+}
