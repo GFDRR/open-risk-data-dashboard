@@ -116,23 +116,26 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
     }
 
     // Return the list of country Available
-    this.getCountryList = function(onSuccess) {
+    this.getCountryList = function() {
         return $http({
             method: 'GET',
             url: baseAPIurl + 'country/'
-        })
-        .then(function (data) { onSuccess(data.data); })
-        .catch(function(error){ console.error(error) });
+        });
     };
 
     // Return the list of all countries without "World"
-    this.getRealCountryList = function(onSuccess) {
+    this.getRealCountryList = function() {
         return $http({
             method: 'GET',
             url: baseAPIurl + 'country/?is_real_country=true'
-        })
-            .then(function (data) { onSuccess(data.data); })
-            .catch(function(error){ console.error(error) });
+        });
+    };
+
+    this.getCountryGroups = function() {
+        return $http({
+            method: 'GET',
+            url: baseAPIurl + 'country_group/'
+        });
     };
 
     this.getCountryDescription = function(objCountryList, idCountry)
@@ -362,8 +365,9 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
             // url: baseAPIurl + 'scoring_categories/'
         }).then(function (data) {
             if(onSuccess)onSuccess(data.data)
-        },function(data){
-            alert('Error');
+        },function(error){
+            console.error(error);
+            if(onError)onError(error);
         });
 
 
@@ -1329,7 +1333,6 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
     }
 
     this.resetPassword = function(usr, onSuccess, onError) {
-        console.log(usr);
         var req = {
             method: 'POST',
             url: baseAPIurl + 'profile/password/reset',
@@ -1348,7 +1351,6 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
     }
 
     this.setNewPasswordTwice = function(usr, key, npass, npassagain, onSuccess, onError) {
-        console.log(usr);
         var req = {
             method: 'PUT',
             url: baseAPIurl + 'profile/password/reset',
