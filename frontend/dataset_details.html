@@ -45,7 +45,6 @@
     <link href="bower_components/animate.css/animate.min.css" rel="stylesheet">
 
     <!-- RODI APP -->
-    <script src="bower_components/angular-cookies/angular-cookies.min.js"></script>
 
     <script src="js/angular/app.js"></script>
     <script src="js/angular/service.js" type="text/javascript"></script>
@@ -325,7 +324,7 @@
                                 <div class="dataset_form_select_style">
                                     <select ng-model="objDataset.country" class="dataset_form_select_style text-center">
                                         <option value="--" selected>-- Select country --</option>
-                                        <option ng-repeat="country in countryList | orderBy: 'name'" value="{{country.iso2}}">{{country.name}}</option>
+                                        <option ng-repeat="country in countryList | orderBy: 'name'" value="{{country.wb_id}}">{{country.name}}</option>
                                     </select>
                                 </div>
                             </div>

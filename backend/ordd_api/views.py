@@ -248,8 +248,21 @@ class RegionListView(generics.ListAPIView):
 
 class CountryListView(generics.ListAPIView):
     """This class handles the GET and POSt requests of our rest api."""
-    queryset = Country.objects.all().order_by('name')
     serializer_class = CountrySerializer
+
+    def get_queryset(self):
+        is_real_country_s = self.request.query_params.get(
+            'is_real_country')
+        if is_real_country_s is not None:
+            is_real_country = (True if is_real_country_s.upper() == 'TRUE'
+                               else False)
+        else:
+            is_real_country = False
+
+        if is_real_country:
+            return Country.objects.all().exclude(wb_id='AA').order_by('name')
+        else:
+            return Country.objects.all().order_by('name')
 
 
 class KeyPerilListView(generics.ListAPIView):
@@ -408,7 +421,7 @@ class ProfileDatasetListCreateView(generics.ListCreateAPIView):
             if field == "keydataset":
                 post_value = post_keydataset
             elif field == "country":
-                post_value = Country.objects.get(iso2=post[field].value).name
+                post_value = Country.objects.get(wb_id=post[field].value).name
             else:
                 post_value = post[field].value
 
@@ -508,8 +521,8 @@ class ProfileDatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
                 pre_value = pre_keydataset
                 post_value = post_keydataset
             elif field == "country":
-                pre_value = Country.objects.get(iso2=pre[field].value).name
-                post_value = Country.objects.get(iso2=post[field].value).name
+                pre_value = Country.objects.get(wb_id=pre[field].value).name
+                post_value = Country.objects.get(wb_id=post[field].value).name
             else:
                 pre_value = pre[field].value
                 post_value = post[field].value
@@ -571,7 +584,7 @@ class ProfileDatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
             if field == "keydataset":
                 post_value = post_keydataset
             elif field == "country":
-                post_value = Country.objects.get(iso2=post[field].value).name
+                post_value = Country.objects.get(wb_id=post[field].value).name
             else:
                 post_value = post[field].value
 
@@ -710,8 +723,8 @@ class DatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
                 pre_value = pre_keydataset
                 post_value = post_keydataset
             elif field == "country":
-                pre_value = Country.objects.get(iso2=pre[field].value).name
-                post_value = Country.objects.get(iso2=post[field].value).name
+                pre_value = Country.objects.get(wb_id=pre[field].value).name
+                post_value = Country.objects.get(wb_id=post[field].value).name
             else:
                 pre_value = pre[field].value
                 post_value = post[field].value
@@ -771,7 +784,7 @@ class DatasetDetailsView(generics.RetrieveUpdateDestroyAPIView):
             if field == "keydataset":
                 post_value = post_keydataset
             elif field == "country":
-                post_value = Country.objects.get(iso2=post[field].value).name
+                post_value = Country.objects.get(wb_id=post[field].value).name
             else:
                 post_value = post[field].value
 
@@ -811,7 +824,7 @@ class DatasetListView(generics.ListAPIView):
 
         q = Q()
         for v in country:
-            q = q | Q(country__iso2__iexact=v)
+            q = q | Q(country__wb_id__iexact=v)
         queryset = queryset.filter(q)
 
         q = Q()
@@ -895,18 +908,18 @@ class Score(object):
         ret_score = []
         datasetname_n = kd_queryset.values('dataset').distinct().count()
         for country in Country.objects.all().order_by('name'):
-            if country.iso2 not in world_score_tree:
+            if country.wb_id not in world_score_tree:
                 continue
 
             country_queryset = queryset.filter(
-                country__iso2=country.iso2)
+                country__wb_id=country.wb_id)
             score = cls.country_scoring_dsname(country_queryset, datasetname_n)
 
             datasets_count_ds, fullscores_count_ds = cls.extract_ds_counters(
                 country_queryset)
 
             ret_score.append(
-                {"country": country.iso2,
+                {"country": country.wb_id,
                  "score": score,
                  "datasets_count": datasets_count_ds,
                  "fullscores_count": fullscores_count_ds,
@@ -1090,7 +1103,7 @@ class Score(object):
     @classmethod
     def dataset_loadtree(cls, request, queryset):
         """
-    world_score_tree = [(<iso2_country>: country_score_tree), ...]
+    world_score_tree = [(<wb_id_country>: country_score_tree), ...]
     country_score_tree = [(<category_id>: category_score_tree), ...]
     category_score_tree = [('score', [(<keydataset_id>:
                                       keydataset_score_tree), ('counter', 0)]
@@ -1100,7 +1113,7 @@ class Score(object):
         # preloaded tree with data from datasets to avoid bad performances
         world_score_tree = OrderedDict()
         for dataset in queryset:
-            country_id = dataset.country.iso2
+            country_id = dataset.country.wb_id
 
             # category_id = dataset.keydataset.category.code
             # keydataset_id = dataset.keydataset.code
@@ -1115,7 +1128,7 @@ class Score(object):
     @classmethod
     def country_scoring_dataset_loadtree(cls, request, queryset):
         """
-    world_score_tree = [(<iso2_country>: country_score_tree), ...]
+    world_score_tree = [(<wb_id_country>: country_score_tree), ...]
     country_score_tree = [(<category_id>: category_score_tree), ...]
     category_score_tree = [('score', [(<keydataset_id>:
                                       keydataset_score_tree), ('counter', 0)]
@@ -1125,7 +1138,7 @@ class Score(object):
         # preloaded tree with data from datasets to avoid bad performances
         world_score_tree = OrderedDict()
         for dataset in queryset:
-            country_id = dataset.country.iso2
+            country_id = dataset.country.wb_id
 
             if country_id not in world_score_tree:
                 world_score_tree[country_id] = cls.country_scoring_newitem()
@@ -1198,12 +1211,12 @@ class Score(object):
         ret_score = ret['scores']
 
         for country in Country.objects.all().order_by('name'):
-            if country.iso2 not in world_score_tree:
+            if country.wb_id not in world_score_tree:
                 continue
 
-            score = cls.country(world_score_tree[country.iso2], country)
+            score = cls.country(world_score_tree[country.wb_id], country)
 
-            ret_score.append({"country": country.iso2,
+            ret_score.append({"country": country.wb_id,
                               "score": cls.score_fmt(score)})
 
         perils_counters = ret['perils_counters']
@@ -1245,7 +1258,7 @@ class Score(object):
     @classmethod
     def all_country_scoring(cls, request):
         queryset = Dataset.objects.filter(
-            keydataset__level__name='National').exclude(country__iso2='AA')
+            keydataset__level__name='National').exclude(country__wb_id='AA')
         kd_queryset = KeyDataset.objects.filter(level__name='National')
         applicability = request.query_params.getlist('applicability')
         category = request.query_params.getlist('category')
@@ -1301,12 +1314,12 @@ class Score(object):
     @classmethod
     def country_details(cls, request, country_id):
         try:
-            country = Country.objects.get(iso2=country_id)
+            country = Country.objects.get(wb_id=country_id)
         except ObjectDoesNotExist:
             raise Http404()
         queryset = Dataset.objects.filter(
             keydataset__level__name='National',
-            country__iso2=country_id).order_by('keydataset__pk')
+            country__wb_id=country_id).order_by('keydataset__pk')
         kqueryset = KeyDataset.objects.filter(
             level__name='National').order_by('pk')
 
@@ -1442,7 +1455,7 @@ class Score(object):
     @classmethod
     def country_scoring_details(cls, request, country_id):
         try:
-            country = Country.objects.get(iso2=country_id)
+            country = Country.objects.get(wb_id=country_id)
         except ObjectDoesNotExist:
             raise Http404()
 
@@ -1483,7 +1496,7 @@ class Score(object):
 
         queryset = Dataset.objects.filter(
             keydataset__level__name='National',
-            country__iso2=country_id).order_by('keydataset__pk')
+            country__wb_id=country_id).order_by('keydataset__pk')
         kqueryset = KeyDataset.objects.filter(
             level__name='National').order_by('pk')
 
@@ -1655,14 +1668,14 @@ class Score(object):
         ret = [row]
 
         for country in Country.objects.all().order_by('name'):
-            if country.iso2 not in world_score_tree:
+            if country.wb_id not in world_score_tree:
                 continue
             else:
-                country_score_tree = world_score_tree[country.iso2]
+                country_score_tree = world_score_tree[country.wb_id]
                 country_score = cls.country(
-                    world_score_tree[country.iso2], country)
+                    world_score_tree[country.wb_id], country)
 
-                row = [country.iso2]
+                row = [country.wb_id]
                 row.append(cls.score_fmt(country_score))
                 for category in categories:
                     if category.code not in country_score_tree:

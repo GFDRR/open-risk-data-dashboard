@@ -17,11 +17,13 @@ script:
 - export PYTHONPATH=$(readlink -f ./backend)
 - cd frontend
 - npm test
-- npx semver --range $(< ./API_COMPATIBILITY) $(python -c 'import ordd_api; print ordd_api.__version__;') || (echo '/!\ Backend API and Frontend API are not compatible /!\' && exit 1)
+- python -m ordd_api.helpers.check_vers $(< ./API_COMPATIBILITY) || (echo '/!\ Backend API and Frontend API are not compatible /!\' && exit 1)
 
 deploy:
 - provider: script
-  script: rsync -e "ssh -i /tmp/id_opendri -p 22027" --exclude=node_modules/ --delete-after -r ./ cima@dev.riskopendata.org:~/html-dev/
+  script: git log --pretty=format:'%h%n' -n 1 >> ../infrastructure/git-hash &&
+      rsync -e "ssh -i /tmp/id_opendri -p 22027" --exclude=node_modules/ --delete-after -r ./ cima@dev.riskopendata.org:~/html/ &&
+      rsync -e "ssh -i /tmp/id_opendri -p 22027" --delete-after -r ../infrastructure/ cima@dev.riskopendata.org:~/infrastructure/
   on:
     branch: master
 - provider: script

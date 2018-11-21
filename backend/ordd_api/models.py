@@ -48,25 +48,16 @@ class Region(models.Model):
         return self.name
 
 
-class CountryManager(models.Manager):
-    def get_by_natural_key(self, iso2):
-        return self.get(iso2=iso2)
-
-
 class Country(models.Model):
     """List of world countries with a region reference."""
-    objects = CountryManager()
-
-    iso2 = models.CharField(max_length=2, blank=False, unique=True)
+    wb_id = models.CharField(max_length=2, blank=False, null=False,
+                             primary_key=True)
     name = models.CharField(max_length=64, blank=False, unique=True)
     region = models.ForeignKey(Region)
     thinkhazard_appl = models.ManyToManyField("ordd_api.KeyTag")
 
     def __str__(self):
         return self.name
-
-    def natural_key(self):
-        return [self.iso2]
 
 
 class KeyCategoryManager(models.Manager):

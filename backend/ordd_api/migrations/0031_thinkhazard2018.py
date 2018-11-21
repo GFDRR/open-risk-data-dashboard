@@ -66,10 +66,10 @@ def forwards_func(apps, schema_editor):
 
     found = 0
     not_found = 0
-    for country in Country.objects.using(db_alias).all().order_by('id'):
+    for country in Country.objects.using(db_alias).all().order_by('wb_id'):
         country.thinkhazard_appl.clear()
 
-        if country.iso2 == 'AA':
+        if country.wb_id == 'AA':
             # special world case
             for peril_instance in peril_instances:
                 country.thinkhazard_appl.add(peril_instance)
@@ -89,8 +89,8 @@ def forwards_func(apps, schema_editor):
                 if 'admin1' in th:
                     # print("FOUND BUT WITH admin1, continue")
                     continue
-                print("Found: %d) %s: %s" % (
-                    country.id, country_name, th['code']))
+                print("Found: %s) %s: %s" % (
+                    country.wb_id, country_name, th['code']))
                 found += 1
 
                 report_filename = os.path.join(
@@ -116,7 +116,7 @@ def forwards_func(apps, schema_editor):
                     country.thinkhazard_appl.add(peril[peril_name])
                 break
         else:
-            print("%d) %s NOT FOUND" % (country.id, country_name))
+            print("%s) %s NOT FOUND" % (country.wb_id, country_name))
             not_found += 1
 
     print("Report: found %d, Not found %d" % (found, not_found))
@@ -129,7 +129,7 @@ def backwards_func(apps, schema_editor):
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('ordd_api', '0020_countries2018'),
+        ('ordd_api', '0030_country_thinkhazard_appl'),
     ]
 
     operations = [
