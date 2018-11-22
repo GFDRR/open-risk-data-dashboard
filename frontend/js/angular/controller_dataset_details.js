@@ -610,17 +610,13 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                 $scope.selectedLink = $scope.objDataset.url;
 
                 // Load country list
-                RodiSrv.getCountryList(
-                    function(data){
-                        // Success
-                        $scope.countryList = data;
+                RodiSrv.getCountryList().then(function(response){
+                    // Success
+                    $scope.countryList = response.data;
 
-                        $scope.countryDesc = RodiSrv.getCountryDescription(data, $scope.objDataset.country);
+                    $scope.countryDesc = RodiSrv.getCountryDescription(response.data, $scope.objDataset.country);
 
-                    }, function(data){
-                        // Error
-                        // TODO: error message
-                    });
+                });
 
                 // Load all data risk category
                 RodiSrv.getDataRiskCategory(0,
