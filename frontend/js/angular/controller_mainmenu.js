@@ -86,6 +86,9 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
     $scope.closeloginform = function()
     {
         $scope.formloginCss = "display_none";
+        // resets form for security reasons
+        $scope.usr_name = '';
+        $scope.usr_psw = '';
     }
 
     $scope.loginUser = function()
