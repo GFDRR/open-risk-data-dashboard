@@ -68,8 +68,9 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
     $scope.usr_name="";
     $scope.usr_psw = "";
 
-    $scope.loginform = function()
+    $scope.loginform = function($event)
     {
+        $event.preventDefault();
         $scope.formloginCss = "animated slideInDown";
     }
 
