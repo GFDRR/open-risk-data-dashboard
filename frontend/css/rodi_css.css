@@ -1926,6 +1926,10 @@ responsive
         font-size: 40px;
         padding-bottom: 20px;
     }
+    .page_title + .lead {
+      margin-top: -20px;
+      margin-bottom: 20px;
+    }
 
     .nav > li > a > i {
         font-size: 2em;
