@@ -625,7 +625,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
 
         $scope.filterType = "";
         $scope.filterValue = '';
-        $scope.filterGroup = '';
         $scope.countriesFiltered = [];
         $scope.countriesListWithScore = [];
         $scope.countryGroups = [];
@@ -646,39 +645,25 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
         });
 
         $scope.setFilter = function (type, value){
-
           if ($scope.filterType === type && $scope.filterValue === value) {
             $scope.filterType = '';
             $scope.filterValue = '';
             $scope.countriesFiltered = [];
-
-              loadData($scope.filterGroup);
-
           }
           else {
+            $scope.filterType = type;
+            $scope.filterValue = value;
+            $scope.bLoadingTabel = true;
 
-                $scope.filterType = type;
-                $scope.filterValue = value;
-                $scope.bLoadingTabel = true;
+            RodiSrv.getCountriesScoring([type, value], function(data){
+              $scope.bLoadingTabel = false;
 
-                loadData($scope.filterGroup);
-
-            // RodiSrv.getCountriesScoring([type, value], function(data){
-            //   $scope.bLoadingTabel = false;
-            //
-            //   console.log(data);
-            //
-            //   $scope.countriesFiltered = data.countries.map(function(country){
-            //     return country.country;
-            //   });
-            // });
+              $scope.countriesFiltered = data.countries.map(function(country){
+                return country.country;
+              });
+            });
           }
         };
-
-        $scope.setFilterCountryGroup = function (value) {
-            $scope.filterGroup = value;
-            loadData(value);
-        }
 
         $scope.filterBy = function(country) {
 
@@ -707,39 +692,33 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
 
         function initPage()
         {
-            RodiSrv.getCountryGroups().then(function(response){
-                $scope.countryGroups = response.data;
-            });
-
-            loadData('');
-        }
-
-        function loadData(countryGroup)
-        {
-
-            var p1 = RodiSrv.getRealCountryList(countryGroup).then(function (response) {
+            var p1 = RodiSrv.getRealCountryList().then(function (response) {
                 $scope.allCountries = response.data.map(function(country){
-                    // TODO: remove this map function
-                    // when country list returns wb_id instead of iso2 codes
-                    // cf. https://github.com/GFDRR/open-risk-data-dashboard/issues/244
-                    country.wb_id = country.wb_id || country.iso2;
-                    return country;
+                  // TODO: remove this map function
+                  // when country list returns wb_id instead of iso2 codes
+                  // cf. https://github.com/GFDRR/open-risk-data-dashboard/issues/244
+                  country.wb_id = country.wb_id || country.iso2;
+                  return country;
                 });
 
                 $scope.bLoadingTabel = false;
             });
 
+            RodiSrv.getCountryGroups().then(function(response){
+              $scope.countryGroups = response.data;
+            });
+
             var p2 = RodiSrv.getCountriesScoring([$scope.filterType, $scope.filterValue], function (data) {
                 $scope.keydatasetsCount = data.keydatasets_count;
                 $scope.countriesListWithScore = data.countries.map(function(country){
-                    country.score = Number(country.score);
-                    return country;
+                  country.score = Number(country.score);
+                  return country;
                 });
             });
 
             $q.all([p1, p2]).then(function(results){
-                $scope.mergeMatrixData();
-                $scope.sortBy('score', true);
+              $scope.mergeMatrixData();
+              $scope.sortBy('score', true);
             });
         }
 
