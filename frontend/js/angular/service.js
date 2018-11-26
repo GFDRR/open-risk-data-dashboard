@@ -124,10 +124,16 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
     };
 
     // Return the list of all countries without "World"
-    this.getRealCountryList = function() {
+    this.getRealCountryList = function(extra_filters) {
+        var filters = [ ['is_real_country', true ] ]
+          .concat(extra_filters ? [extra_filters] : [])
+          .map(function(filter) {
+            return filter.join('=');
+          });
+
         return $http({
             method: 'GET',
-            url: baseAPIurl + 'country/?is_real_country=true'
+            url: baseAPIurl + 'country/?' + filters.join('&')
         });
     };
 
@@ -168,20 +174,6 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
             method: 'GET',
             url: baseAPIurl + 'scoring_category/'+string
         }).then(function (data) {
-
-            // var aOfIndex = data.data[0];
-            // data.data.splice(0,1);
-            // var aObj = [];
-            // data.data.forEach(function (item,index, array) {
-            //     va
-            //     aOfIndex.forEach(function (keyIndex) {
-            //         obj.push({
-            //             keyIne
-            //         });
-            //     })
-            //
-            //     for (var field in aOfIndex)
-            // })
 
             if(onSuccess)onSuccess(data.data);
 

@@ -655,11 +655,11 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
             $scope.filterValue = value;
             $scope.bLoadingTabel = true;
 
-            RodiSrv.getCountriesScoring([type, value], function(data){
+            RodiSrv.getRealCountryList([type, value]).then(function(response){
               $scope.bLoadingTabel = false;
 
-              $scope.countriesFiltered = data.countries.map(function(country){
-                return country.country;
+              $scope.countriesFiltered = response.data.map(function(country){
+                return country.wb_id;
               });
             });
           }
