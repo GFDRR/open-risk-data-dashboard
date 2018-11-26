@@ -666,8 +666,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
         };
 
         $scope.filterBy = function(country) {
-
-          if ($scope.countriesFiltered.length === 0) {
+          if (!$scope.filterType && !$scope.filterValue) {
             return true;
           }
           else {
