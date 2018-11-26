@@ -210,7 +210,7 @@
                     </thead>
                     <tbody ng-if="!bLoadingTabel" ng-cloak>
                     <!--  Country with dataset submitted -->
-                    <tr ng-repeat="country in allCountries | orderBy: sortField:sortDirection | filter: filterBy | filter: {name:countrySearchFilter, region:regionSearchFilter}" ng-click="changepage('dataset_list.html?idcountry=' + country.country + '&idcategory=0')"
+                    <tr ng-repeat="country in allCountries | orderBy: sortField:sortDirection | filter: filterBy | filter: {name:countrySearchFilter, region:regionSearchFilter}" ng-click="changepage('dataset_list.html?idcountry=' + country.country)"
                         title="Click to see datasets for this country">
                         <td><span class="text-muted">{{country.name}}</span></td>
                         <td>

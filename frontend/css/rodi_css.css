@@ -194,14 +194,10 @@ section + section {
     padding-bottom: 1em;
 }
 
-/*
-.page_title:after {
-    content: '';
-    border-right: 2px solid rgba(128,128,132,0.5);
-    padding-left:calc(10%);
-    margin-right: calc(-16.6 * 3px);
+.page_title + .lead {
+  margin-top: -50px;
+  margin-bottom: 50px;
 }
-*/
 
 .rodi_tabpanels {
     border: solid 1px #ddd;
@@ -1929,6 +1925,10 @@ responsive
     .page_title {
         font-size: 40px;
         padding-bottom: 20px;
+    }
+    .page_title + .lead {
+      margin-top: -20px;
+      margin-bottom: 20px;
     }
 
     .nav > li > a > i {
