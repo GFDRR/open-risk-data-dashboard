@@ -124,10 +124,15 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
     };
 
     // Return the list of all countries without "World"
-    this.getRealCountryList = function() {
+    this.getRealCountryList = function(filter) {
+
+        var queryString = '';
+
+        if(filter !== ''){ queryString = '&country_group=' + filter}
+
         return $http({
             method: 'GET',
-            url: baseAPIurl + 'country/?is_real_country=true'
+            url: baseAPIurl + 'country/?is_real_country=true' + queryString
         });
     };
 
@@ -136,6 +141,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
             method: 'GET',
             url: baseAPIurl + 'country_group/'
         });
+
     };
 
     this.getCountryDescription = function(objCountryList, idCountry)
@@ -1382,7 +1388,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         var queryString = "";
 
         if (Array.isArray(filter)) {
-          queryString = filter.join('=');
+            queryString = filter.join('=');
         }
 
         return $http({
