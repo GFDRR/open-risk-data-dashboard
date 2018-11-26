@@ -25,6 +25,8 @@
                         <li><a href="dataset_list.html?idcountry=AA" ng-click="changeview('dataset_list.html?idcountry=AA', '6')">Global data</a></li>
                         <li><a href="methodology.html" ng-click="changeview('methodology.html', '2')">Documentation</a></li>
                         <li><a href="about.html" ng-click="changeview('about.html', '9')">About</a></li>
+                        <li ng-if="!bLogin"><a href="#login_form" ng-click="loginform($event)">Login</a></li>
+                        <li ng-if="!bLogin"><a href="register.html" ng-click="changepage('register.html')">Register</a></li>
                         <li ng-if="bLogin" >
                             <div class="logout">
                                 <a href="" ng-click="logout()" class="invert round flex-container flex-col">
