@@ -359,15 +359,11 @@ Logo color
     font-size: 56.0275px;
 }
 
-
 svg.logo_icon {
-    width: 100%;
-    /* height: 100px; */
     stroke-linecap: round;
     stroke-width: 0;
-    stroke:red;
-    max-width: 200px;
-    max-height: 85px;
+    max-height: 50px;
+    max-width: 150px;
 }
 
 svg.logo_partner {
@@ -801,25 +797,21 @@ Navbar
     background-color: #232323;
 }
 
-.navbar-toggle-right-black {
-    float: right;
+.navbar-toggle {
     background-color: #ee3036;
-    margin: 30px 30px 0;
     color: white;
-}
-
-.navbar-toggle-right-black[aria-expanded="true"] i,
-.navbar-toggle-right-black[aria-expanded="false"] i {
     transition: all 0.25s ease-in-out;
 }
 
-.navbar-toggle-right-black[aria-expanded="true"] i {
-    transform: rotate(90deg);
-
+.navbar-toggle[aria-expanded="true"] {
+    background-color: #fff;
+}
+.navbar-toggle[aria-expanded="true"] .icon-bar {
+    background-color: #ee3036;
 }
 
-.icon-bar-white {
-    background-color: #ffffff;
+.navbar-toggle .icon-bar {
+    background-color: #fff;
 }
 
 .navbar-nav span {
@@ -827,22 +819,6 @@ Navbar
     font-size: 10px;
     text-transform: uppercase;
     margin-top: 1em;
-}
-
-.nav li a, .nav li p {
-    display: flex;
-    /* flex-direction: column; */
-    /* justify-content:center; */
-    /* align-items: center; */
-    /* align-content: center; */
-    padding: 10px;
-    line-height: 1;
-    /* margin-top: 5px; */
-}
-
-.nav li a i {
-    /* z-index: -1; */
-    overflow: hidden;
 }
 
 .nav .invert:hover, .invert:focus {
@@ -864,15 +840,24 @@ a.invert {
     padding: 10px 5px;
 }
 
-mainmenu .navbar {
-    margin: 1.5em 1em 0;
-}
-
 /*
 ======================================
         Navbar menu hazard
 ======================================
 */
+
+.navbar-main {
+    margin: 1.5em 0;
+}
+
+.navbar-brand {
+  padding: 0;
+}
+
+.navbar-main .navbar-nav>li>a {
+  padding-left: 8px;
+  padding-right: 8px;
+}
 
 .nav a {
     color: #ee3036;
@@ -948,7 +933,8 @@ mainmenu .navbar {
 }
 #menu-hazard .nav > li > a {max-width: 110px;}
 
-#menu-hazard .nav > li > a i, #menu-hazard .nav > li > p i {
+#menu-hazard .nav > li > a i,
+#menu-hazard .nav > li > p i {
     border-radius: 50%;
     border: 2px solid red;
     border-color: #EE3036;
@@ -1587,10 +1573,11 @@ fieldset[disabled] .btn-custom.active {
 
 .login_form_box {
     position: absolute;
-    width: 90%;
+    width: 50%;
     top: 25%;
-    left: 0;
-    background-color: rgba(0, 0, 0, .8);
+    left: 50%;
+    margin-left: -25%;
+    background-color: rgba(0, 0, 0, .9);
     z-index: 100;
     color: #ffffff;
     padding: 20px;
@@ -1634,10 +1621,6 @@ fieldset[disabled] .btn-custom.active {
 
 .form-control:focus {
     border-bottom: solid 4px #007899;
-}
-
-.navbar-header .form-control:focus {
-    width: 150%;
 }
 
 .form-control,
@@ -1813,7 +1796,7 @@ hr {
     margin-top: -60px;
 }
 
-.navbar {
+.navbar-default {
     margin-bottom: 0;
 }
 
@@ -1911,16 +1894,6 @@ responsive
 @media screen and (min-width: 1024px) {
 }
 
-@media screen and (max-width: 1024px) and (orientation: landscape) {
-    .nav > li > a {
-        padding: 10px;
-    }
-
-    .nav > li > a > i {
-        font-size: 2em;
-    }
-}
-
 @media screen and (max-width: 980px) {
     .page_title {
         font-size: 40px;
@@ -1929,10 +1902,6 @@ responsive
     .page_title + .lead {
       margin-top: -20px;
       margin-bottom: 20px;
-    }
-
-    .nav > li > a > i {
-        font-size: 2em;
     }
 
     .head_sep {
@@ -1996,13 +1965,6 @@ responsive
         margin-top: 0px;
     }
 
-    #rodi_header .img-responsive {
-
-        /*max-width:calc(100vh/3);*/
-        max-height: 80px;
-        margin: 20px auto;
-    }
-
     #menu-website .nav > li > a {
         flex-direction: row;
         justify-content: flex-start;
@@ -2021,10 +1983,6 @@ responsive
 
     /*mainmenu .navbar,
     hazardmenu .navbar,*/
-    .navbar-header {
-        margin-top: -50px;
-    }
-
     .partner_box {
         margin: inherit;
     }
@@ -2084,19 +2042,6 @@ z-index: 100;*/
 
     #menu-website li .logout a {
         padding: 0 1em;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    #rodi_header .img-responsive {
-        height: 50px;
-        margin-top: 40px;
-    }
-
-    .collapse.in .navbar-nav {
-        z-index: 1;
-        padding: 0 0 30vw;
-
     }
 }
 
@@ -2393,7 +2338,7 @@ h2.odfri_title_red {
 }
 
 .logout {
-    padding-left: 1em; /* display: inline-flex; */
+    padding-left: 1em;
     white-space: nowrap;
 }
 
