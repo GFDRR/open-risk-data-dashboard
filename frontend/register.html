@@ -107,16 +107,16 @@
         <div class="row">
             <div class="col-xs-12 col-sm-10 col-md-6 col-xs-offset-0 col-sm-offset-1 col-md-offset-3 text-content">
                 <h3>Registration Form</h3>
-                <form name="registrationForm">
+                <form name="registrationForm" method="POST">
                     <label>Username (*)</label>
-                    <input type="text" name="usrname" placeholder="Username" class="form-control" ng-model="usr.username">
+                    <input type="text" name="usrname" placeholder="Username" class="form-control" ng-model="usr.username" autocomplete="username">
                     <br />
                     <label>Password (*)</label>
-                    <input type="password" name="usrpsw" placeholder="Password" class="form-control" ng-model="usr.password">
+                    <input type="password" name="usrpsw" placeholder="Password" class="form-control" ng-model="usr.password" autocomplete="new-password">
                     <br />
                     <label>Confirm password (*)</label>
                     <input type="password" name="usrconfpsw" placeholder="Confirm Password" class="form-control"
-                        ng-model="usr.confirm_password">
+                        ng-model="usr.confirm_password" autocomplete="new-password">
                     <br />
                     <label>Title (*)</label>
                     <input type="text" name="usrtitle" placeholder="Title" class="form-control" ng-model="usr.title">
@@ -135,10 +135,10 @@
                         invalid email!
                     </span>
                     <input type="email" name="usremail" placeholder="E-mail address" class="form-control" ng-model="usr.email"
-                        ng-pattern="checkMail">
+                        ng-pattern="checkMail" autocomplete="email">
                     <br />
                     <div class="text-right">
-                        <a href="" class="btn btn-success" ng-click="sendRequestRegister()">Send request</a><br />
+                        <input type="button" class="btn btn-success" ng-click="sendRequestRegister()" value="Send request"><br />
                         <span class="small text-muted">(*) Required</span>
                     </div>
                 </form>
