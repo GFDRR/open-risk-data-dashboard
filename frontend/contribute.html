@@ -84,31 +84,27 @@
 </head>
 <body ng-app="RodiApp" ng-controller="RodiCtrl">
 
-
-    <!-- Section HEADER - INIZIO -->
-    <section id="rodi_header">
-      <div class="container">
-        <div class="row">
-            <!--<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">-->
-            <div class="col-xs-8 col-sm-3 " style="color:black;">
-                <a ng-if="bHome" href="" ng-click="changeview('index.html', '0')">
-                    <svg class="logo_icon" aria-hidden="true" focusable="false" fill="currentColor;">
-                        <use xlink:href="img/logo.svg#logo_open_data_full"></use>
-                    </svg>
-                </a>
-            </div>
-
-            <div class="col-xs-4 col-sm-9 ">
-                <button type="button" class="navbar-toggle navbar-toggle-right-black " data-toggle="collapse" data-target="#menu-website" aria-expanded="false">
-                    <span class="sr-only">Toggle navigation</span>
-                    <i class="fa fa-bars"></i>
-                </button>
-
-                <mainmenu ></mainmenu>
-            </div>
-        </div>
+  <nav class="navbar navbar-main">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-collapse" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="./"  ng-click="changepage('./')">
+          <svg class="logo_icon" aria-hidden="true" focusable="false" fill="currentColor;">
+            <use xlink:href="img/logo.svg#logo_open_data_full"></use>
+          </svg>
+        </a>
       </div>
-    </section>
+
+      <div class="collapse navbar-collapse" id="top-navbar-collapse">
+        <mainmenu></mainmenu>
+      </div>
+    </div>
+  </nav>
 
     <div class="container">
         <div class="row" id="top-menu">
