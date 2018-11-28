@@ -38,7 +38,7 @@ RodiApp.directive('region', ['$compile', '$window', function ($compile, $window)
                 scope.elementDesc = element[0].attributes[2].value;
 
                 scope.regionClick = function () {
-                    $window.location.href = scope.objRodiVariable.location + 'dataset_list.html?idcountry='+ scope.elementId + '&idcategory=0';
+                    $window.location.href = scope.objRodiVariable.location + 'dataset_list.html?idcountry='+ scope.elementId;
                 };
 
                 scope.showPopup = function ($event) {

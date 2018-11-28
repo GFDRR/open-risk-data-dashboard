@@ -10,34 +10,20 @@
 <script>vex.defaultOptions.className = 'vex-theme-default';</script>
 <!-- VEX DIALOG - POPUP FINE -->
 
-
-
-<div class="pull-right">
-        <nav class="navbar navbar-main">
-        <div class="container-fluid">
-            <div class="row">
-                <!-- mobile display -->
-                <!-- Website menu -->
-                <div class="collapse navbar-collapse" id="menu-website">
-                    <ul class="nav navbar-nav flex-container flex-row">
-                        <li><a href="" ng-click="changeview('contribute.html', '1')">Submit a dataset</a></li>
-                        <li><a href="" ng-click="changeview('countries.html', '5')">Explore countries</a></li>
-                        <li><a href="" ng-click="changeview('methodology.html', '2')">Documentation</a></li>
-                        <li><a href="" ng-click="changeview('about.html', '9')">About</a></li>
-                        <li ng-if="bLogin" >
-                            <div class="logout">
-                                <a href="" ng-click="logout()" class="invert round flex-container flex-col">
-                                    <p class="flex-row">Log out - <b>{{userinfo.username}}</b></p>
-                                </a>
-                            </div>
-                        </li>
-                    </ul>
-                </div><!-- /.navbar-collapse -->
-            </div>
-        </div>
-        <!-- /.container-fluid -->
-    </nav>
-</div>
+<ul class="nav navbar-nav navbar-right">
+  <li><a href="contribute.html" ng-click="changeview('contribute.html', '1')">Submit a dataset</a></li>
+  <li><a href="countries.html" ng-click="changeview('countries.html', '5')">Explore countries</a></li>
+  <li><a href="dataset_list.html?idcountry=AA" ng-click="changeview('dataset_list.html?idcountry=AA', '6')">Global data</a></li>
+  <li><a href="methodology.html" ng-click="changeview('methodology.html', '2')">Documentation</a></li>
+  <li><a href="about.html" ng-click="changeview('about.html', '9')">About</a></li>
+  <li ng-if="!bLogin"><a href="#login_form" ng-click="loginform($event)">Login</a></li>
+  <li ng-if="!bLogin"><a href="register.html" ng-click="changepage('register.html')">Register</a></li>
+  <li ng-if="bLogin" class="logout">
+    <a href="" ng-click="logout()" class="invert round">
+        Log out - <b>{{userinfo.username}}</b>
+    </a>
+  </li>
+</ul>
 
 
 <loginform></loginform>

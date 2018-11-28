@@ -29,6 +29,4 @@ deploy:
 - provider: script
   script: rsync -e "ssh -i /tmp/id_opendri" --exclude=node_modules/ --delete-after -r ./ cima@index.opendri.org:~/html/
   on:
-    condition: $TRAVIS_TAG =~ ^fe_.*$
     tags: true
-    all-branches: true

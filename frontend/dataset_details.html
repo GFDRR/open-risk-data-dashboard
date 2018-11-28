@@ -74,31 +74,29 @@
 </head>
 
 <body ng-app="RodiApp" ng-controller="RodiCtrlDataset">
+  <nav class="navbar navbar-main">
+    <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#top-navbar-collapse" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="./"  ng-click="changepage('./')">
+          <svg class="logo_icon" aria-hidden="true" focusable="false" fill="currentColor;">
+            <use xlink:href="img/logo.svg#logo_open_data_full"></use>
+          </svg>
+        </a>
+      </div>
+
+      <div class="collapse navbar-collapse" id="top-navbar-collapse">
+        <mainmenu></mainmenu>
+      </div>
+    </div>
+  </nav>
 
     <div class="container">
-        <!-- Section HEADER - INIZIO -->
-        <section id="rodi_header">
-
-            <div class="row  ">
-                <div class="col-xs-8 col-sm-3 " style="color:black;">
-                    <a ng-if="bHome" href="" ng-click="changeview('index.html', '0')">
-                        <svg class="logo_icon" aria-hidden="true" focusable="false" fill="currentColor;">
-                            <use xlink:href="img/logo.svg#logo_open_data_full"></use>
-                        </svg>
-                    </a>
-                </div>
-
-                <div class="col-xs-5 col-sm-9">
-                    <button type="button" class="navbar-toggle navbar-toggle-right-black " data-toggle="collapse"
-                        data-target="#menu-website" aria-expanded="false">
-                        <span class="sr-only">Toggle navigation</span>
-                        <i class="fa fa-bars"></i>
-                    </button>
-
-                    <mainmenu></mainmenu>
-                </div>
-            </div>
-
             <div class="row" id="top-menu">
                 <div class="page-header">
                     <h1 class="page_title">{{objDatasetView.keydataset.dataset.name}} <small>{{countryDesc}}</small></h1>
@@ -773,7 +771,7 @@
                         <a href="" class="btn btn-md btn-info" ng-click="changepage('contribute.html?tab=2')" ng-if="bReviewlist && !bEdit"><i
                                 class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to review list"></i>
                             Back to review list</a>
-                        <a href="" ng-click="changepage('dataset_list.html?idcountry=' + objDatasetView.country + '&idcategory=0')"
+                        <a href="" ng-click="changepage('dataset_list.html?idcountry=' + objDatasetView.country)"
                             class="btn btn-md btn-info" ng-if="!bReviewlist && !bMylist && !bEdit"><i class="fa fa-undo"
                                 aria-hidden="true" data-toggle="tooltip" title="Back"></i> Back</a>
 
@@ -793,8 +791,7 @@
 
             </div>
 
-        </section>
-        <!-- Section HEADER - FINE -->
+        </div>
     </div>
 
     <footer class="footer">

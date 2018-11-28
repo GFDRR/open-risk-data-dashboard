@@ -26,7 +26,7 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
     }
 
     $scope.idCountry = $location.search().idcountry;
-    $scope.idDatasetCat = $location.search().idcategory;
+    $scope.idDatasetCat = $location.search().idcategory || 0;
     $scope.bLoading = true;
     $scope.bNoDataset = false;
     $scope.bPopUpDetails = false;
@@ -178,7 +178,7 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
 
     }
 
-    if($scope.idDatasetCat !== '0')
+    if($scope.idDatasetCat)
     {
         // Category filter initialize
         $scope.aCategory = [];
