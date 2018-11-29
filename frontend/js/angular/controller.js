@@ -627,7 +627,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
         $scope.filterValue = '';
         $scope.countriesFiltered = [];
         $scope.countriesListWithScore = [];
-        $scope.countryRegions = [];
+        $scope.countryGroups = [];
         $scope.sortField = "wb_id";
         $scope.sortDirection = false;
         $scope.allCountries = [];
@@ -655,19 +655,18 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
             $scope.filterValue = value;
             $scope.bLoadingTabel = true;
 
-            RodiSrv.getCountriesScoring([type, value], function(data){
+            RodiSrv.getRealCountryList([type, value]).then(function(response){
               $scope.bLoadingTabel = false;
 
-              $scope.countriesFiltered = data.countries.map(function(country){
-                return country.country;
+              $scope.countriesFiltered = response.data.map(function(country){
+                return country.wb_id;
               });
             });
           }
         };
 
         $scope.filterBy = function(country) {
-
-          if ($scope.countriesFiltered.length === 0) {
+          if (!$scope.filterType && !$scope.filterValue) {
             return true;
           }
           else {
@@ -692,19 +691,20 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
 
         function initPage()
         {
-            var p1 = RodiSrv.getRealCountryList(function (data) {
-                $scope.allCountries = data;
+            var p1 = RodiSrv.getRealCountryList().then(function (response) {
+                $scope.allCountries = response.data.map(function(country){
+                  // TODO: remove this map function
+                  // when country list returns wb_id instead of iso2 codes
+                  // cf. https://github.com/GFDRR/open-risk-data-dashboard/issues/244
+                  country.wb_id = country.wb_id || country.iso2;
+                  return country;
+                });
+
                 $scope.bLoadingTabel = false;
-                $scope.countryRegions = data
-                  .map(function(country){
-                      return country.region;
-                  })
-                  // remove duplicate regions
-                  .filter(function(region, i, array){
-                      console.log(region);
-                    return array.slice(i+1).indexOf(region) === -1
-                  })
-                  .sort();
+            });
+
+            RodiSrv.getCountryGroups().then(function(response){
+              $scope.countryGroups = response.data;
             });
 
             var p2 = RodiSrv.getCountriesScoring([$scope.filterType, $scope.filterValue], function (data) {
@@ -781,7 +781,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
             {
                 $scope.dataCategory = data;
                 $scope.dataCategoryAll = data;
-                console.log($scope.dataCategoryAll);
             },
             function(data)
             {
@@ -844,8 +843,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
                 {
                     // Set Dataset selection
                     //$scope.datasetCategory = data; -> Original without NATIONAL Filter
-
-                    console.log(data);
 
                     /*****************************************/
                     /******** FILTER ONLY NATIONAL ***********/
@@ -962,10 +959,9 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
 
         }
 
-        RodiSrv.getCountryList(
-            function(data){
+        RodiSrv.getCountryList().then(function(response){
                 // Success
-                $scope.countryList = data;
+                $scope.countryList = response.data;
 
                 // Check country parameters
                 if($scope.countrypar)
@@ -985,9 +981,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
                     }
                 }
 
-            }, function(data){
-                // Error
-                // TODO: error message
             });
 
         // $scope.questions = RodiSrv.getQuestions();
@@ -1035,8 +1028,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
                         // Success
                         $scope.objDataset.keydataset = data[0].code;
 
-                        console.log($scope.objDataset);
-
                         // Save the dataset structure
                         RodiSrv.saveprofileDataset($scope.tokenid, $scope.objDataset,
                             function(data){
@@ -1049,17 +1040,17 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
                                 $scope.newLink = "";
                                 $scope.sTagsMsg = "** Select a dataset description **";
 
-                            }, function(data){
+                            }, function(error){
                             //     Error
-                                console.log(data);
-                                vex.dialog.alert("Unable to save the dataset data: " + data.data);
+                                console.error(error);
+                                vex.dialog.alert("Unable to save the dataset data: " + error.data);
                             })
 
-                    }, function(data)
+                    }, function(error)
                     {
                         // Error
-                        console.log('Error');
-                        console.log(data);
+                        console.error('Error');
+                        console.error(error);
                     })
             }
 
@@ -1200,7 +1191,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
 
                                         while (i <=  $scope.datasetDescription.length - 1)
                                         {
-                                            // console.log(i + ' e: ' + e.level.name + ' desc: ' + $scope.datasetDescription[i].level);
                                             if(e.level.name ==  $scope.datasetDescription[i].level)
                                             {
                                                 aLevel.push(e);
@@ -1216,9 +1206,9 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
                         );
 
                     },
-                    function(data)
+                    function(error)
                     {
-                        console.log(data);
+                        console.error(error);
                     }
                 );
             } else
@@ -1248,11 +1238,11 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
                     $scope.bLoadingUpdateScoring = false;
                     vex.dialog.alert("Scoring updated correctly");
 
-                }, function(data)
+                }, function(error)
                 {
                     // Error
-                    console.log(data);
-                    vex.dialog.alert("Error: " + data.data);
+                    console.error(error);
+                    vex.dialog.alert("Error: " + error.data);
                 })
 
         }
@@ -1430,8 +1420,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
 
                         $scope.tableParamsReview = new NgTableParams({count: $scope.datasetReviewList.length}, { dataset: $scope.datasetReviewList});
 
-                        console.log($scope.tableParamsReview);
-
                         if ($scope.datasetReviewList.length > 0)
                         {
                             $scope.iNrDatasetToReview = $scope.datasetReviewList.length;
@@ -1441,10 +1429,10 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
 
                         $scope.bLoadingTabelReview = false;
 
-                    }, function(data)
+                    }, function(error)
                     {
                         // Error
-                        console.log(data);
+                        console.error(error);
                     })
             }
 

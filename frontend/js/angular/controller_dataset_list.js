@@ -62,16 +62,12 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
     $scope.HazardCategory = RodiSrv.getDataCategoryIcon();
     $scope.arrayHazardList=RodiSrv.getHazardList();
 
-    RodiSrv.getCountryList(function(data)
+    RodiSrv.getCountryList().then(function(response)
     {
         // Success
-        $scope.countryList = data;
+        $scope.countryList = response.data;
         $scope.objCountry = $filter('filter')($scope.countryList, {wb_id: $scope.idCountry});
 
-    }, function(data)
-    {
-        // Error API
-        console.log(data);
     });
 
     $scope.getHCIcon = function(index)
