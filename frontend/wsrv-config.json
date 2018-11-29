@@ -1,9 +1,11 @@
 {
-    "proxy": {
-        "/api/{p*}": {
-            "options": {
-                "uri": "https://exp.riskopendata.org/api/{p}"
-            }
-        }
+  "proxy": {
+    "/api/{p*}": {
+      "options": {
+        "host": "exp.riskopendata.org",
+        "protocol": "https",
+        "passThrough": true
+      }
     }
+  }
 }

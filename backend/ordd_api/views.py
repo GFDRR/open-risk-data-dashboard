@@ -25,13 +25,13 @@ from django.http import Http404
 from rest_framework_csv import renderers as csv_rend
 
 from .serializers import (
-    RegionSerializer, CountrySerializer, KeyPerilSerializer,
+    CountrySerializer, CountryGroupSerializer, KeyPerilSerializer,
     ProfileSerializer, UserSerializer, RegistrationSerializer,
     ChangePasswordSerializer, ResetPasswordReqSerializer,
     ResetPasswordSerializer, ProfileCommentSendSerializer,
     ProfileDatasetListSerializer, ProfileDatasetCreateSerializer,
     DatasetListSerializer, DatasetPutSerializer, DatasetsDumpSerializer)
-from .models import (Region, Country, OptIn, Dataset, KeyDataset,
+from .models import (Country, CountryGroup, OptIn, Dataset, KeyDataset,
                      KeyDatasetName, KeyCategory, KeyTag,
                      my_random_key, Profile)
 from .mailer import mailer
@@ -240,17 +240,16 @@ EMail address: '%s'.<br>""" % (user.username, user.email))
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 
-class RegionListView(generics.ListAPIView):
-    """This class handles the GET and POSt requests of our rest api."""
-    queryset = Region.objects.all().order_by('id')
-    serializer_class = RegionSerializer
-
-
 class CountryListView(generics.ListAPIView):
     """This class handles the GET and POSt requests of our rest api."""
     serializer_class = CountrySerializer
 
     def get_queryset(self):
+        queryset = Country.objects.all().order_by('name')
+
+        country_groups = self.request.query_params.getlist(
+            'country_group')
+
         is_real_country_s = self.request.query_params.get(
             'is_real_country')
         if is_real_country_s is not None:
@@ -260,9 +259,21 @@ class CountryListView(generics.ListAPIView):
             is_real_country = False
 
         if is_real_country:
-            return Country.objects.all().exclude(wb_id='AA').order_by('name')
-        else:
-            return Country.objects.all().order_by('name')
+            queryset = queryset.exclude(wb_id='AA')
+
+        if country_groups:
+            q = Q()
+            for country_group in country_groups:
+                q = q | Q(countrygroup__wb_id=country_group)
+            queryset = queryset.filter(q)
+
+        return queryset.distinct()
+
+
+class CountryGroupListView(generics.ListAPIView):
+    """Retrieve list of wb_id and names of groups of countries."""
+    queryset = CountryGroup.objects.all().order_by('wb_id')
+    serializer_class = CountryGroupSerializer
 
 
 class KeyPerilListView(generics.ListAPIView):
@@ -1262,6 +1273,9 @@ class Score(object):
         kd_queryset = KeyDataset.objects.filter(level__name='National')
         applicability = request.query_params.getlist('applicability')
         category = request.query_params.getlist('category')
+        country_groups = request.query_params.getlist(
+            'country_group')
+
         if applicability:
             q = Q()
             kd_q = Q()
@@ -1282,6 +1296,13 @@ class Score(object):
                 kd_q = kd_q | Q(category__name__iexact=v)
             queryset = queryset.filter(q).distinct()
             kd_queryset = kd_queryset.filter(kd_q).distinct()
+
+        if country_groups:
+            q = Q()
+            kd_q = Q()
+            for country_group in country_groups:
+                q = q | Q(country__countrygroup__wb_id=country_group)
+            queryset = queryset.filter(q)
 
         # check-point to investigate correctness of query filtering
         # print("Number of item: %d" % queryset.count())
@@ -1723,6 +1744,7 @@ class Score(object):
             'fullscores_count': fullscores_count
             }
         return ret
+
 
 class ScoringWorldGet(APIView):
     """This view return the list of country with dataset instances and

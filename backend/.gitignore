@@ -2,3 +2,4 @@
 __pycache__
 /contents/countries/iso3166.*
 /ordd/settings.py
+*.pyc
