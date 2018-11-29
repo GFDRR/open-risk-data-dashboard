@@ -177,13 +177,6 @@ html {
   font-family: courier; }
 
 /* fix the body to be full screen */
-body {
-  height: 100%;
-  margin: 0;
-  position: absolute;
-  width: 100%;
-  overflow-x: hidden; }
-
 .container-fluid.land {
   padding-left: 0;
   padding-right: 0; }

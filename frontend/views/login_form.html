@@ -1,6 +1,4 @@
-
-
-<div class="login_form_box {{formloginCss}}" id="login_form">
+<form class="login_form_box {{formloginCss}}" method="POST" id="login_form" role="dialog">
     <!--<div class="btn_close">-->
         <a href="" ng-click="closeloginform()" class="btn_close pull-right">
             <i class="fa fa-2x fa-times" aria-hidden="true"></i>
@@ -10,26 +8,25 @@
     <h3 ng-if="bResetPassword">RESET PASSWORD</h3>
     <br /><br />
     <div class="form">
-        <input type="text" placeholder="user name" class="form-control" ng-model="usr_name">
+        <input type="text" placeholder="user name" class="form-control" ng-model="usr_name" autocomplete="username">
         <i class="fa fa-2x icon-login"></i>
     </div>
     <br />
     <div class="form" ng-show="!bResetPassword">
-        <input type="password" placeholder="password" class="form-control" ng-model="usr_psw">
+        <input type="password" placeholder="password" class="form-control" ng-model="usr_psw" autocomplete="off">
         <i class="fa fa-2x icon-register"></i>
     </div>
-    <div class="form text-center"><input type="button" class="btn btn-custom btn-lg" value="RESET PASSWORD" ng-click="resetPassword()" ng-if="bResetPassword" /></div>
+    <div class="form text-center"><input type="button" class="btn btn-primary btn-lg" value="RESET PASSWORD" ng-click="resetPassword()" ng-if="bResetPassword" /></div>
     <br /><br />
-    <div class="form text-center"><input type="button" class="btn btn-custom btn-lg" value="LOGIN" ng-click="loginUser()" ng-if="!bResetPassword" /></div>
+    <div class="form text-center"><input type="button" class="btn btn-primary btn-lg" value="LOGIN" ng-click="loginUser()" ng-if="!bResetPassword" /></div>
 
     <br /><br />
     <div class="text-center">
         <a href="" ng-click="setForgotPassword(true)" ng-if="!bResetPassword">Forgot password?</a> &nbsp;
         <a href="" ng-click="setForgotPassword(false)" ng-if="bResetPassword">Login form</a> &nbsp;
-        &nbsp;&nbsp;<a href="" ng-click="changeview('register.html', '4')">Create an account</a>
+        &nbsp;&nbsp;<a href="register.html" ng-click="changeview('register.html', '4')">Create an account</a>
     </div>
 
 
 
-</div>
-
+</form>
