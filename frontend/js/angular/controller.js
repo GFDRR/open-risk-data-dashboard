@@ -766,10 +766,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
         $scope.datasetDescription = [];
         $scope.selectedLink = [];
         $scope.newLink = "";
-        $scope.datasetTags = [];
-        $scope.selectedTags = [];
-        $scope.sTagsMsg = "** Select a dataset description **";
-        $scope.sTagsInfo = "";
         $scope.bLoadingUpdateScoring = false;
         $scope.bLoadingTabelReview = true;
 
@@ -861,9 +857,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
                     $scope.datasetScale = [];
                     $scope.objDataset.keydataset.description = '0';
                     $scope.datasetDescription = [];
-                    $scope.datasetTags = [];
-                    $scope.selectedTags = [];
-                    $scope.sTagsMsg = "** Select a dataset description **";
 
                 },
                 function(data)
@@ -907,29 +900,11 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
                 $scope.datasetScaleId = objLevel[0].level.id + "";
                 $scope.objDataset.keydataset.level = $scope.datasetScaleId;
 
-                // *********************************
-                getAvailableTags();
-
             } else
             {
                 $scope.datasetScaleId = "0";
                 $scope.objDataset.keydataset.level = "0";
-                $scope.datasetTags = [];
-                $scope.selectedTags = [];
             }
-        }
-
-        $scope.setTags = function(tag)
-        {
-            var indexElem = $scope.selectedTags.indexOf(tag);
-
-            if(indexElem !== -1)
-            {
-                $scope.selectedTags.splice(indexElem, 1);
-            } else {
-                $scope.selectedTags.push(tag);
-            }
-
         }
 
         $scope.addLink = function(strLink)
@@ -1000,7 +975,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
             var aErrorsValidation = [];
 
             // Set tags and links
-            $scope.objDataset.tag = $scope.selectedTags;
             $scope.objDataset.url = $scope.selectedLink;
 
             // Validate Dataset structure
@@ -1018,8 +992,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
                 vex.dialog.alert(strMsg);
 
             } else {
-                // Save the dataser
-
                 // Get the pk_id of Keydataset
                 RodiSrv.getKeydatasetId($scope.datasetScaleId, $scope.dataCategoryId,
                     $scope.objDataset.keydataset.dataset, $scope.objDataset.keydataset.description,
@@ -1035,10 +1007,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
                                 vex.dialog.alert('Thanks! Dataset was successfully submitted and will be reviewed.');
                                 $scope.objDataset = RodiSrv.getDatasetEmptyStructure();
                                 $scope.selectedLink = [];
-                                $scope.datasetTags = [];
-                                $scope.selectedTags = [];
                                 $scope.newLink = "";
-                                $scope.sTagsMsg = "** Select a dataset description **";
 
                             }, function(error){
                             //     Error
@@ -1059,62 +1028,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
         $scope.questionHelp = function(index)
         {
             vex.dialog.alert(RodiSrv.getQuestionsHelp(index));
-        }
-
-        function getAvailableTags()
-        {
-
-            RodiSrv.getKeydatasetId($scope.datasetScaleId, $scope.dataCategoryId,
-                $scope.objDataset.keydataset.dataset, $scope.objDataset.keydataset.description,
-                function(data)
-                {
-
-                    // Success
-                    if(data[0].tag_available){
-
-                        if(data[0].tag_available.tags.length > 0)
-                        {
-
-                            $scope.datasetTags = data[0].tag_available.tags;
-                            // ERROR BUG - 10/08/2018
-                            // $scope.selectedTags = data[0].applicability;
-
-                            $scope.sTagsMsg = "";
-
-                            if(data[0].tag_available.group == 'hazard')
-                            {
-                                //$scope.sTagsInfo = "Please select the Hazard for which the dataset is relevant/used. A predefined suggestion is provided.";
-                                $scope.sTagsInfo = "Please indicate wheter the dataset was collected for or refer to specific hazards.";
-                                ;                            }
-
-                            if(data[0].tag_available.group == 'building')
-                            {
-                                $scope.sTagsInfo = "Please select which building's data are included in the dataset.";
-                            };
-
-                            if(data[0].tag_available.group == 'facilities')
-                            {
-                                $scope.sTagsInfo = "Please select which facilities are included in the dataset.";
-                            };
-
-                        } else
-                        {
-                            $scope.datasetTags=[];
-                            $scope.selectedTags = [];
-                            $scope.sTagsMsg = "** No elements available **";
-                            $scope.sTagsInfo="";
-                        }
-                    } else {
-                        $scope.datasetTags=[];
-                        $scope.selectedTags = [];
-                        $scope.sTagsMsg = "** No elements available **";
-                        $scope.sTagsInfo="";
-                    }
-
-                }, function(data){
-                    // Error
-                }
-            );
         }
 
         function setDatasetDescription(idDataset)
@@ -1172,7 +1085,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
                         if (nationalDesc.length > 0){
                             // Find National description
                             $scope.objDataset.keydataset.description = nationalDesc[0].description.code;
-                            getAvailableTags();
                         } else {
                             $scope.objDataset.keydataset.description = '0';
                         }
@@ -1218,9 +1130,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
                 $scope.datasetScale = [];
                 $scope.objDataset.keydataset.description = '0';
                 $scope.datasetDescription = [];
-                $scope.datasetTags = [];
-                $scope.selectedTags = [];
-                $scope.sTagsMsg = "** Select a dataset description **";
             }
         }
 

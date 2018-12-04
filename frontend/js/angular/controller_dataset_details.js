@@ -232,46 +232,10 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                 $scope.datasetScaleId = objLevel[0].level.id + "";
                 $scope.objDataset.keydataset.level = $scope.datasetScaleId;
 
-                RodiSrv.getKeydatasetId($scope.datasetScaleId, $scope.dataCategoryId,
-                    $scope.objDataset.keydataset.dataset, $scope.objDataset.keydataset.description,
-                    function(data)
-                    {
-
-                        // Success
-                        if(data[0].tag_available)
-                        {
-                            $scope.datasetTags = data[0].tag_available.tags;
-                            $scope.selectedTags = data[0].applicability;
-                            $scope.sTagsMsg = "";
-                        } else
-                        {
-                            $scope.datasetTags=[];
-                            $scope.selectedTags = [];
-                            $scope.sTagsMsg = "** No elemnts available **";
-                        }
-
-                    }, function(data){
-                        // Error
-                    }
-                );
-
             } else
             {
                 $scope.datasetScaleId = "0";
                 $scope.objDataset.keydataset.level = "0";
-            }
-
-        }
-
-        $scope.setTags = function(tag)
-        {
-            var indexElem = $scope.selectedTags.indexOf(tag);
-
-            if(indexElem !== -1)
-            {
-                $scope.selectedTags.splice(indexElem, 1);
-            } else {
-                $scope.selectedTags.push(tag);
             }
 
         }
@@ -308,11 +272,8 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
         {
             // Update dataset info
             var aErrorsValidation = [];
-
-            clearNoAvailableTagsInSelected();
-
+            
             // Set tags and links
-            $scope.objDataset.tag = $scope.selectedTags;
             $scope.objDataset.url = $scope.selectedLink;
 
             // Validate Dataset structure
@@ -599,14 +560,8 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                 $scope.datasetDescriptionId = [];
                 $scope.selectedLink = [];
                 $scope.newLink = "";
-                $scope.datasetTags = [];
-                $scope.selectedTags = [];
-                $scope.sTagsMsg = "";
                 $scope.countryDesc = "";
 
-                if($scope.objDataset.keydataset.tag_available) {$scope.datasetTags = $scope.objDataset.keydataset.tag_available.tags;}
-
-                $scope.selectedTags = $scope.objDataset.tag;
                 $scope.selectedLink = $scope.objDataset.url;
 
                 // Load country list
@@ -762,19 +717,6 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
             }
         );
 
-    }
-
-    function clearNoAvailableTagsInSelected()
-    {
-        // Delete the tags in selected array if these are not in allowed Tags
-        angular.forEach($scope.selectedTags, function(item) {
-            console.log(item);
-            if($scope.datasetTags.indexOf(item) == -1)
-            {
-                $scope.selectedTags.splice($scope.selectedTags.indexOf(item), 1);
-            };
-
-        });
     }
 
 } ]);
