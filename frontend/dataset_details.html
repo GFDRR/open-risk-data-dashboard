@@ -140,8 +140,8 @@
                           <dt class="h4">Category</dt>
                           <dd>{{objDatasetView.keydataset.category}}</dd>
 
-                          <dt class="h4">Useful for</dt>
-                          <dd>{{objDatasetView.keydataset.tag_available.tags.join(', ')}}</dd>
+                          <dt class="h4" ng-if="objDatasetView.keydataset.tag_available.tags" Useful for</dt>
+                          <dd ng-if="objDatasetView.keydataset.tag_available.tags">{{objDatasetView.keydataset.tag_available.tags.join(', ')}}</dd>
                         </dl>
 
                         <hr>
