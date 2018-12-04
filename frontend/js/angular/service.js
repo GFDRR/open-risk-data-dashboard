@@ -910,18 +910,9 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
     {
         var aErrors = [];
 
-        // if(obj.name == ''){aErrors.push('Name')};
-        // if(obj.abstract == ''){aErrors.push('Abstract')};
         if(obj.country == '--'){aErrors.push('Country')};
-        // if(obj.keydataset.scale == '--'){aErrors.push('Dataset scale')};
-        // if(obj.keydataset.category == '--'){aErrors.push('Data category')};
-        // if(obj.hazard == '--'){aErrors.push('Data category')};
         if(obj.keydataset.dataset == '0'){aErrors.push('Dataset category')};
         if(obj.keydataset.description == '0'){aErrors.push('Dataset description')};
-
-        // if(obj.keydataset.category == '3' && obj.hazard == '--'){aErrors.push('Hazard')};
-        // if(obj.data_url == ''){aErrors.push('Link dataset empty')};
-        // if(obj.metadata_url == ''){aErrors.push('Link metadata empty')};
 
         /* Check the questions */
         var aQuestions = [];

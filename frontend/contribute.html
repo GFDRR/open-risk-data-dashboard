@@ -198,27 +198,6 @@
                                     <span ng-repeat="ds_desc in datasetDescription | orderBy: 'description.name'" class="rodi_description_box_item" ng-click="changeDescription(ds_desc.description.code)" ng-class="{'selected': ds_desc.description.code == objDataset.keydataset.description}">
                                         {{ds_desc.description.name}}
                                     </span>
-
-                                    <!--<ul class="rodi_ul_datasetDesc">-->
-                                        <!--<li ng-repeat="ds_desc in datasetDescription | orderBy: 'description.name'" class="rodi_description_box_item" ng-click="changeDescription(ds_desc.description.code)" ng-class="{'selected': ds_desc.description.code == objDataset.keydataset.description}">-->
-                                            <!--{{ds_desc.description.name}} {{}}-->
-                                        <!--</li>-->
-                                    <!--</ul>-->
-                                </div>
-                                <div class="row">
-                                    <div>
-                                        <!--<span class="rodi_dataset_label_code">A3.</span>-->
-                                        <span class="rodi_dataset_label">Datasets elements</span>
-                                    </div>
-                                    <span class="text-muted"><u>{{sTagsMsg}}</u></span>
-                                    <span>{{sTagsInfo}}</span>
-                                    <div class="flex-container">
-                                        <div ng-model="selectedTags" class="rodi_cb_space" ng-repeat="tag in datasetTags" ng-click="setTags(tag)" ng-class="{active:selectedTags.indexOf(tag) !== -1}">
-                                            <i class="fa fa-check" aria-hidden="true" ng-if="selectedTags.indexOf(tag) !== -1"></i> <span >{{tag}}</span>
-                                            <!--<input type="checkbox" class="form-control" ng-model="selectedTags" > -->
-                                        </div>
-                                    </div>
-                                    <!--</div>-->
                                 </div>
                             </div>
                             <div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">
