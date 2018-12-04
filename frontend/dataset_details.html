@@ -98,15 +98,11 @@
 
     <div class="container">
             <div class="row" id="top-menu">
-                <div class="page-header">
-                    <h1 class="page_title">{{objDatasetView.keydataset.dataset.name}} <small>{{countryDesc}}</small></h1>
-                </div>
+                <h1>{{objDatasetView.keydataset.dataset.name}}</h1>
 
-                <div class=" text-center" ng-if="objDatasetView.keydataset.description">
-                    <p>{{objDatasetView.keydataset.description}}</p>
-                </div>
+                <h2 class="odfri_title_red text-center">{{countryDesc}}</h2>
 
-                <div class=" text-center ng-cloak">
+                <div class="text-center ng-cloak" ng-if="bReviewer">
                     <a href="" class="btn btn-md btn-primary" ng-click="setEditForm()" ng-if="bReviewer && !bEdit"><i
                             class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" title="Edit dataset"></i>
                         Edit dataset</a>
@@ -130,25 +126,28 @@
 
             <!-- DATASET VIEW MODE - START -->
             <div ng-if="!bEdit" class="">
-
                 <!-- Dataset main details -->
                 <div class="row" id="dataset">
                     <div class="col-xs-12 col-sm-10 col-md-8 col-xs-offset-0 col-sm-offset-1 col-md-offset-2 text-content">
+
+                        <h3 ng-if="objDatasetView.keydataset.description" class="h4">What dataset is expected?</h3>
+
+                        <div ng-if="objDatasetView.keydataset.description">
+                          <p>{{objDatasetView.keydataset.description}}</p>
+                        </div>
+
+                        <dl class="horizontal">
+                          <dt class="h4">Category</dt>
+                          <dd>{{objDatasetView.keydataset.category}}</dd>
+
+                          <dt class="h4">Useful for</dt>
+                          <dd>{{objDatasetView.keydataset.tag_available.tags.join(', ')}}</dd>
+                        </dl>
+
                         <hr>
-                        <h2 class="odfri_title_red">Dataset</h2>
-                        <span><span class="odfri_dataset_label">Country:</span> {{countryDesc}}</span>
-                        <br />
-                        <span><span class="odfri_dataset_label">Dataset:</span>
-                            {{objDatasetView.keydataset.dataset.name}}</span>
-                        <br />
-                        <span><span class="odfri_dataset_label">Category:</span>
-                            {{objDatasetView.keydataset.category}}</span>
-                        <br />
-                        <span><span class="odfri_dataset_label">Description:</span>
-                            {{objDatasetView.keydataset.description}}</span>
-                        <div class="odfri_div_separator"></div>
                     </div>
                 </div>
+
 
                 <!-- Open Data Criteria -->
                 <div class="row" id="criteria">

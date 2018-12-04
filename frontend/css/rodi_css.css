@@ -33,6 +33,7 @@ body, html, input, p, textarea {
     /*font-family: 'Bariol Regular', "Helvetica Neue", Helvetica, Arial, sans-serif;*/
     /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 1.5;
 }
 
 h1, h2, h3, h4, h5, h6,
@@ -458,6 +459,36 @@ section#counter-stats {
 #counter-stats .stats {
     padding: 0 !important;
 }
+
+/*
+==============================================================================
+
+        Definition Lists
+
+==============================================================================
+*/
+
+dl dt:after {
+  content: ":";
+}
+
+dl.horizontal {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+
+dl.horizontal dt {
+  margin: 0 .5em 0 0;
+}
+
+dl.horizontal dd {
+  flex: 1 0 80%;
+  margin-bottom: 10px;
+  margin-right: auto;
+}
+
 
 /*
 ==============================================================================
