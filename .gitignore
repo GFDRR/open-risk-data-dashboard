@@ -2,3 +2,6 @@ local_settings.py
 
 id_opendri
 id_opendri.pub
+
+frontend/vendor/bower
+frontend/bower_components

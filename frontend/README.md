@@ -8,7 +8,6 @@ In WebStorm, open the `Console` menu, or open a command line shell.
 ```bash
 $ git clone git@github.com:GFDRR/open-risk-data-dashboard.git
 $ cd frontend
-$ npm install --global bower
 $ npm install
 ```
 

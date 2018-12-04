@@ -7,11 +7,12 @@
   "scripts": {
     "start": "wsrv --livereload --port 4000 .",
     "test": "npm run test:bundlesize",
+    "postinstall": "bower install",
     "test:bundlesize": "bundlesize -s 3KB"
   },
   "bundlesize": [
     {
-      "path": "bower_components/**/*.min.js"
+      "path": "vendor/bower/**/*.min.js"
     },
     {
       "path": "js/angular/controller_dataset_details.js",
@@ -35,6 +36,7 @@
   "author": "",
   "license": "GPL-3.0",
   "devDependencies": {
+    "bower": "^1.8.4",
     "bundlesize": "^0.17.0",
     "reload": "^2.3.1",
     "wsrv": "^0.2.2"

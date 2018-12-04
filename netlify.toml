@@ -3,6 +3,4 @@ ID = "index-opendri-preview"
 
 [build]
   base = "frontend"
-  command = "npm test && mv bower_components components && sed -i 's/bower_components/components/g' **/*.html"
   publish = "frontend"
-
