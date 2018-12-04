@@ -353,7 +353,7 @@ Logo color
 }
 
 .logo_icon .st4 {
-    font-family: 'Bariol';
+    font-family: 'Bariol', "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .logo_icon .st5 {
@@ -870,6 +870,7 @@ a.invert {
 */
 
 .navbar-main {
+    font-family: 'Bariol', "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-weight: bold;
     margin: 1.5em 0;
 }
