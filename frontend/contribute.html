@@ -178,8 +178,7 @@
                                     <span>Please select the dataset you want to submit. You can filter the list of datasets per category.</span>
 
                                     <div class="dataset_form_select_style" style="margin-left: 0em;">
-                                        <!--<small class="text-muted label">Filter by:</small>-->
-                                        <span style="padding-right: 5px;"ng-repeat="dsCat in dataCategory" >
+                                        <span style="padding-right: 5px;" ng-repeat="dsCat in dataCategory" >
                                             <input type="button" class="btn btn-lg " ng-class="dataRiskSelectionClass(dsCat.category.id)" value="{{dsCat.category.name}}" ng-click="changeDataRiskSelection(dsCat.category.id)">
                                         </span>
 
@@ -393,7 +392,7 @@
                                         <br />
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                        <strong>> Link list for data & metadata</strong>
+                                        <strong> Link list for data & metadata</strong>
                                         <ul class="rodi_ul">
                                             <li ng-repeat="link in selectedLink">
                                                 - {{link}}
@@ -975,7 +974,7 @@
 
         <div class="jumbotron" ng-if="!bLogin && tabpar !== '3'">
             <div class="container">
-                <p class="text-center">You are about to submit information on a dataset and assess whether it is open or not.<br/>
+                <p class="text-center">You are about to submit information on a dataset and assess whether it is open or not.</p>
                 <p class="text-center">Please login or register first, or see <a href="" ng-click="changepage('methodology.html')">Documentation</a> for more details.</p>
                 <br><br><br><br>
                 <div class="text-center">
@@ -1047,7 +1046,6 @@
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
     <footer class="footer">
