@@ -468,10 +468,6 @@ section#counter-stats {
 ==============================================================================
 */
 
-dl dt:after {
-  content: ":";
-}
-
 dl.horizontal {
   display: flex;
   flex-direction: row;
