@@ -1,6 +1,9 @@
 language: node_js
 node_js: lts/*
-cache: npm
+cache:
+  npm: true
+  directories:
+  - frontend/vendor/bower
 
 addons:
   ssh_known_hosts:

@@ -2,12 +2,10 @@
   "name": "rodi",
   "description": "rodi project",
   "license": "MIT",
-  "directory": "",
-  "homepage": "",
   "ignore": [
     "**/.*",
     "node_modules",
-    "bower_components",
+    "vendor/bower",
     "test",
     "tests"
   ],
@@ -19,7 +17,7 @@
     "vex": "^2.3.2",
     "ng-table": "^1.0.0"
   },
-  "main": "bower_components",
+  "main": "js/angular/app.js",
   "keywords": [
     "rodi",
     "opendata"

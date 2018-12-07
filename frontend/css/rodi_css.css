@@ -1,14 +1,30 @@
-/*font icon*/
-@import 'style.css';
-/*font set google*/
-
-/*@import 'color_table.css';*/
-/*@import 'table_color.css';*/
+@font-face {
+  font-family: 'hazard';
+  src:  url('fonts/hazard.eot?xogkm6');
+  src:  url('fonts/hazard.woff2?xogkm6') format('woff2'),
+        url('fonts/hazard.woff?xogkm6') format('woff'),
+        url('fonts/hazard.eot?xogkm6#iefix') format('embedded-opentype'),
+        url('fonts/hazard.ttf?xogkm6') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
 
 @font-face {
-    font-family: 'Bariol Bold';
-    src: url('bariol/Bariol-Bold.eot'); /* IE9 Compat Modes */
-    src: url('bariol/Bariol-Bold.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ /*url('bariol/Bariol-Bold.woff2') format('woff2'), !* Super Modern Browsers *!*/ url('bariol/Bariol-Bold.woff') format('woff'), /* Pretty Modern Browsers */ url('bariol/Bariol-Bold.ttf') format('truetype'), /* Safari, Android, iOS */ url('bariol/Bariol-Bold.svg#svgFontName') format('svg'); /* Legacy iOS */
+    font-family: 'Bariol';
+    src: url('bariol/Bariol-Regular.eot');
+    src:  url('bariol/Bariol-Regular.woff') format('woff'),
+          url('bariol/Bariol-Regular.eot?#iefix') format('embedded-opentype'),
+          url('bariol/Bariol-Regular.ttf') format('truetype');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Bariol';
+    src: url('bariol/Bariol-Bold.eot');
+    src:  url('bariol/Bariol-Bold.woff') format('woff'),
+          url('bariol/Bariol-Bold.eot?#iefix') format('embedded-opentype'),
+          url('bariol/Bariol-Bold.ttf') format('truetype');
+    font-weight: bold;
 }
 
 body, html, input, p, textarea {
@@ -17,23 +33,29 @@ body, html, input, p, textarea {
     /*font-family: 'Bariol Regular', "Helvetica Neue", Helvetica, Arial, sans-serif;*/
     /*font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;*/
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    line-height: 1.5;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    /*font-family: 'Open Sans Condensed', sans-serif;*/
-    /*font-family: 'Roboto Condensed', sans-serif;*/
-    font-family: 'Bariol', "Helvetica Neue", Helvetica, Arial, sans-serif;
-    /*font-family: 'Variable-Black', "Helvetica Neue", Helvetica, Arial, sans-serif;*/
+h1, h2, h3, h4, h5, h6,
+.h1, .h2, .h3, .h4, .h5, .h6 {
+  font-family: 'Bariol', "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+h1 {
+  color: rgb(238, 48, 54);
+  font-size: 50px;
+  text-transform: uppercase;
+  letter-spacing: -0.05em;
+  text-align: center;
+}
+
+h3, h4, h5, h6
+.h3, .h4, .h5, .h6 {
+  font-weight: bold;
 }
 
 .page-header {
   border-bottom: none;
-}
-
-a, b, strong, span {
-    /*font-family: 'Variable-Black', "Helvetica Neue", Helvetica, Arial, sans-serif;*/
-    font-family: 'Bariol Bold', "Helvetica Neue", Helvetica, Arial, sans-serif;
-
 }
 
 /* ************************************ */
@@ -171,30 +193,13 @@ section + section {
 
 }
 
-.page_title_small {
-    color: rgb(238, 48, 54);
-    font-size: 30px;
-    text-transform: uppercase;
-    letter-spacing: -0.05em;
-    text-align: center;
-}
-
 .title_red {
     color: rgb(238, 48, 54);
     white-space: nowrap;
     text-align: center;
 }
 
-.page_title {
-    color: rgb(238, 48, 54);
-    font-size: 50px;
-    text-transform: uppercase;
-    letter-spacing: -0.05em;
-    text-align: center;
-    padding-bottom: 1em;
-}
-
-.page_title + .lead {
+h1 + .lead {
   margin-top: -50px;
   margin-bottom: 50px;
 }
@@ -348,7 +353,7 @@ Logo color
 }
 
 .logo_icon .st4 {
-    font-family: 'Bariol Bold';
+    font-family: 'Bariol', "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .logo_icon .st5 {
@@ -454,6 +459,32 @@ section#counter-stats {
 #counter-stats .stats {
     padding: 0 !important;
 }
+
+/*
+==============================================================================
+
+        Definition Lists
+
+==============================================================================
+*/
+
+dl.horizontal {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: baseline;
+}
+
+dl.horizontal dt {
+  margin: 0 .5em 0 0;
+}
+
+dl.horizontal dd {
+  flex: 1 0 80%;
+  margin-bottom: 10px;
+  margin-right: auto;
+}
+
 
 /*
 ==============================================================================
@@ -835,6 +866,8 @@ a.invert {
 */
 
 .navbar-main {
+    font-family: 'Bariol', "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-weight: bold;
     margin: 1.5em 0;
 }
 
@@ -2223,10 +2256,6 @@ a.active {
     color: rgb(238, 48, 54);
 }
 
-h2.odfri_title_red {
-    font-size: 24px;
-}
-
 .odfri_home_icon_border {
     border: solid 0px #000000 !important;
     background: transparent !important;
@@ -2239,6 +2268,11 @@ h2.odfri_title_red {
     background-repeat: no-repeat;
     background-position: left bottom;
     background-size: cover;
+    padding: 5em 0;
+}
+
+.odfri_box_home_page + footer {
+  margin-top: 0;
 }
 
 .odfri_home_title {
@@ -2247,6 +2281,7 @@ h2.odfri_title_red {
 }
 
 .odfri_home_title h1 {
+    color: #333;
     font-size: 50px;
 }
 
@@ -2372,7 +2407,7 @@ h2.odfri_title_red {
 .dataset_metrics {
     margin-bottom: 25px;
     padding-top: 25px;
-    font-family: 'Bariol Bold', "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: 'Bariol', "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 25px;
     font-weight: bold;
 }
@@ -2436,3 +2471,187 @@ h2.odfri_title_red {
     margin-bottom:20px;
     text-align: center;
 }
+
+/**
+ * Icons
+ */
+ [class^="ico-"], [class*=" ico-"],
+ [class^="icon-"], [class*=" icon-"]{
+   /* use !important to prevent issues with browser extensions that change fonts */
+   font-family: 'hazard' !important;
+   speak: none;
+   font-style: normal;
+   font-weight: normal;
+   font-variant: normal;
+   text-transform: none;
+   line-height: 1;
+
+   /* Better Font Rendering =========== */
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
+ }
+
+ .ico-register:before,
+ .icon-register:before{
+   content: "\e906";
+ }
+ .ico-login:before,
+ .icon-login:before{
+   content: "\e907";
+ }
+ .ico-contribute:before,
+ .icon-contribute:before{
+   content: "\e908";
+ }
+ .ico-news:before,
+ .icon-news:before{
+   content: "\e909";
+ }
+ .ico-world2:before,
+ .icon-world2:before{
+   content: "\e902";
+ }
+ .ico-globe2:before,
+ .icon-globe2:before{
+   content: "\e902";
+ }
+ .ico-internet2:before,
+ .icon-internet2:before{
+   content: "\e902";
+ }
+ .ico-network2:before,
+ .icon-network2:before{
+   content: "\e902";
+ }
+ .ico-base_data2:before,
+ .icon-base_data2:before{
+   content: "\e902";
+ }
+ .ico-cyclone:before,
+ .icon-cyclone:before{
+   content: "\e64a";
+ }
+ .ico-river_flood:before,
+ .icon-river_flood:before{
+   content: "\e652";
+ }
+ .ico-river_flooding:before,
+ .icon-river_flooding:before{
+   content: "\e652";
+ }
+ .ico-earthquake:before,
+ .icon-earthquake:before{
+   content: "\e64b";
+ }
+ .ico-water_scarcity:before,
+ .icon-water_scarcity:before{
+   content: "\e650";
+ }
+ .ico-tsunami:before,
+ .icon-tsunami:before{
+   content: "\e655";
+ }
+ .ico-landslide:before,
+ .icon-landslide:before{
+   content: "\e656";
+ }
+ .ico-volcano:before,
+ .icon-volcano:before{
+   content: "\e65d";
+ }
+ .ico-vulcano:before,
+ .icon-vulcano:before{
+   content: "\e65d";
+ }
+ .ico-logout:before,
+ .icon-logout:before{
+   content: "\e90c";
+ }
+ .ico-world:before,
+ .icon-world:before{
+   content: "\e900";
+ }
+ .ico-globe:before,
+ .icon-globe:before{
+   content: "\e900";
+ }
+ .ico-internet:before,
+ .icon-internet:before{
+   content: "\e900";
+ }
+ .ico-network:before,
+ .icon-network:before{
+   content: "\e900";
+ }
+ .ico-base_data:before,
+ .icon-base_data:before{
+   content: "\e900";
+ }
+ .ico-vulnerability:before,
+ .icon-vulnerability:before{
+   content: "\e903";
+ }
+ .ico-extreme_heat:before,
+ .icon-extreme_heat:before{
+   content: "\e90d";
+ }
+ .ico-wildfire:before,
+ .icon-wildfire:before{
+   content: "\e910";
+ }
+ .ico-urban_flood:before,
+ .icon-urban_flood:before{
+   content: "\e90f";
+ }
+ .ico-tornado:before,
+ .icon-tornado:before{
+   content: "\e90e";
+ }
+ .ico-coastal_flood:before,
+ .icon-coastal_flood:before{
+   content: "\e901";
+ }
+ .ico-coastal_flooding:before,
+ .icon-coastal_flooding:before{
+   content: "\e901";
+ }
+ .ico-methodology:before,
+ .icon-methodology:before{
+   content: "\e90a";
+ }
+ .ico-info:before,
+ .icon-info:before{
+   content: "\e904";
+ }
+ .ico-information:before,
+ .icon-information:before{
+   content: "\e904";
+ }
+ .ico-office:before,
+ .icon-office:before{
+   content: "\e905";
+ }
+ .ico-buildings:before,
+ .icon-buildings:before{
+   content: "\e905";
+ }
+ .ico-work:before,
+ .icon-work:before{
+   content: "\e905";
+ }
+ .ico-exposure:before,
+ .icon-exposure:before{
+   content: "\e905";
+ }
+ .ico-warning:before,
+ .icon-warning:before{
+   content: "\e90b";
+ }
+ .ico-alert:before,
+ .icon-alert:before{
+   content: "\e90b";
+ }
+ .ico-hazard_info:before,
+ .icon-hazard_info:before{
+   content: "\e90b";
+ }
