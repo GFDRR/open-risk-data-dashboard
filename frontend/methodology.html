@@ -11,8 +11,8 @@
     <base href="{{$LocationProvider.$get}}" />
 
     <title>OpenDRI Index - Documentation</title>
-    <link rel=icon href=img/template/favicon.png type="image/png">
-    <link rel=icon href=img/template/favicon.ico type="image/vnd.microsoft.icon">
+    <link rel="icon" href="img/template/favicon.png" type="image/png">
+    <link rel="icon" href="img/template/favicon.ico" type="image/vnd.microsoft.icon">
 
     <!-- jQuery library -->
     <script src="vendor/bower/jquery/dist/jquery.js"></script>
@@ -142,20 +142,20 @@
 
             <h3>How does the website work?</h3>
             <p>Anyone can submit a dataset. The result is a crowdsourced-database providing the state of open data for disaster risk management for any country. The website stores metadata only, not the data itself. For more information, please go to <a href="#submit">Submit a dataset section</a>.</p>
-<br/>
+
             <p>For more information about why and how to apply open data to disaster risk management, visit <a href="https://opendri.org" target="_blank">Open Data for Resilience Initiative</a>. You can also download the <a href="https://www.gfdrr.org/sites/gfdrr/files/publication/opendri_fg_web_20140629b_0.pdf" target="_blank">Open Data for Resilience Initiative Field Guide</a>.</p>
             <div class="text-center">
                 <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
             </div>
             <h2 id="hazards">Hazards</h2>
 
-            <p>The Open Data for Resilience Index currently covers the following hazards: </br><strong>Coastal flooding</strong>, <strong>Cyclone</strong>, <strong>Earthquake</strong>, <strong>Landslide</strong>, <strong>River flooding</strong>, <strong>Tsunami</strong>, <strong>Volcano</strong>, <strong>Water scarcity</strong>.</p>
+            <p>The Open Data for Resilience Index currently covers the following hazards: <br><strong>Coastal flooding</strong>, <strong>Cyclone</strong>, <strong>Earthquake</strong>, <strong>Landslide</strong>, <strong>River flooding</strong>, <strong>Tsunami</strong>, <strong>Volcano</strong>, <strong>Water scarcity</strong>.</p>
             <div class="text-center">
                 <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
             </div>
             <h2 id="categories">Categories</h2>
 
-            <p>The datasets are classified into five different categories that are relevant to disaster risk management: </br><strong>Base data</strong>, <strong>Hazard</strong>, <strong>Exposure</strong>, <strong>Vulnerability</strong>, <strong>Risk</strong>.</p>
+            <p>The datasets are classified into five different categories that are relevant to disaster risk management: <br><strong>Base data</strong>, <strong>Hazard</strong>, <strong>Exposure</strong>, <strong>Vulnerability</strong>, <strong>Risk</strong>.</p>
 
             <p>Those categories haven been defined by taking into account the different components for assessing risk.</p>
 
@@ -164,31 +164,15 @@
             <div class="text-center">
                 <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
             </div>
-            <!--
-            <p>The Open Data for Resilience Index is an online tool to track and assess the openness of key data related to disaster risk management (DRM) across the world.</p>
 
-            <p>It follows the <a href="https://opendri.org/about/" target="_blank">principles</a> of the Open Data for Resilience Initiative stating that disaster risk data should be:
-            <ul>
-            <li>open by default,</li>
-            <li>accessible,</li>
-            <li>licensed and documented,</li>
-            <li>co-created,</li>
-            <li>locally owned, and,</li>
-            <li>communicated in ways that meet the needs of diverse users.</li>
-            </ul>
-
-            <p>Information available on the Open Data for Resilience Index is collected thanks to a crowdsourced-based effort. Contributors and users may be DRM specialists or any producer or user of disaster risk data. This includes organizations and individuals such as civil protection and emergency departments, geospatial and environment agencies, all other public entities, utilities, academia, media as well as open data and right to information advocates. </p>
-
-            <p>The success of the Open Data for Resilience Index depends mainly on its contributors community and the way it engages with them. </p>
-            <br />
-        --> <h2 id="countries">Countries</h2>
+            <h2 id="countries">Countries</h2>
 
             <p>The list of countries is based on the official list of countries managed by the World Bank. Please note that the term country does not imply political independence but refers to any territory for which authorities report separate social or economic statistics to some extent.</p>
 
             <h2 id="datasets">Datasets</h2>
             <p>You will find below the full list of datasets together with their description.</p>
 
-            <h3 id="base-data">Category: Base data</h3>
+            <h3 id="category-base-data">Category: Base data</h3>
             <p>Key datasets necessary to conduct DRM activities, such as topographic and administrative maps of the territory.</p>
             <br/>
             <table class="table">
@@ -244,7 +228,7 @@
               </table>
             <br />
 
-            <h3 id="base-data">Category: Exposure</h3>
+            <h3 id="category-exposure">Category: Exposure</h3>
             <p>Exposure describes the situation of people (e.g., how many), infrastructure and housing (e.g., where do they live and work), production capacities and other tangible human assets located in hazard-prone areas. It includes data on population and assets.</p>
             <br/>
             <table class="table">
@@ -256,6 +240,7 @@
                 </tr>
             </thead>
             <tbody class="table.tbody">
+                <tr>
                 <th>Land Cover</th>
                 <td>Map of land cover (physical material at the surface of the earth such as grass, asphalt, trees, water) for the whole territory. Land cover may also include types of land use such as urban or agriculture. The resolution must be at least 1 kilometer (1:100000).</td>
                 <td><a href="">Place_holder</a></td>
@@ -293,7 +278,7 @@
             </tbody>
               </table>
             <br />
-            <h3 id="base-data">Category: Hazard</h3>
+            <h3 id="category-hazard">Category: Hazard</h3>
             <p>Data related to a type of hazard, including any historical (observed) information or model related to the description and intensity of a hazard event. Hazards currently include coastal flooding, cyclone, earthquake, landslide, tsunami, volcano and water scarcity.</p>
             <br/>
             <table class="table">
@@ -342,7 +327,7 @@
                 </tr>
                 <tr>
                 <th>Active seismic fault</th>
-                <td>Map of active faults An active fault is a fault that is likely to become the source of another earthquake sometime in the future.</th>
+                <td>Map of active faults An active fault is a fault that is likely to become the source of another earthquake sometime in the future.</td>
                 <td><a href="">Place_holder</a></td>
                 </tr>
                 <tr>
@@ -352,7 +337,7 @@
                 </tr>
                 <tr>
                 <th>Seismic hazard model</th>
-                <td>A probabilistic seismic hazard model describing the seismogenic sources in the country and the ground motion prediction equations that should be used. This model can be used to compute seismic hazard curves and maps.</th>
+                <td>A probabilistic seismic hazard model describing the seismogenic sources in the country and the ground motion prediction equations that should be used. This model can be used to compute seismic hazard curves and maps.</td>
                 <td><a href="">Place_holder</a></td>
                 </tr>
                 <tr>
@@ -373,7 +358,7 @@
             </tbody>
               </table>
             <br />
-            <h3 id="base-data">Category: Vulnerability</h3>
+            <h3 id="category-vulnerability">Category: Vulnerability</h3>
             <p>Data models describing the susceptibility of an individual, a community, assets or systems to be impacted by a hazard.</p>
             <br/>
             <table class="table">
@@ -385,6 +370,7 @@
                 </tr>
             </thead>
             <tbody class="table.tbody">
+              <tr>
                 <th>Vulnerability curves for aggregated assets</th>
                 <td>Functions for calculating the economic damage on all assets in a certain area from the hazard level (e.g., flood depth or earthquake intensity.</td>
                 <td><a href="">Place_holder</a></td>
@@ -422,7 +408,7 @@
             </tbody>
               </table>
             <br />
-            <h3 id="base-data">Category: Risk</h3>
+            <h3 id="category-risk">Category: Risk</h3>
             <p>It includes indicators from existing impact assessments (single event) or risk assessments (multiple events). It is derived from combining base data, exposure hazard and vulnerability data.</p>
             <br/>
             <table class="table">
@@ -434,6 +420,7 @@
                 </tr>
             </thead>
             <tbody class="table.tbody">
+              <tr>
                 <th>Risk indicators from previous studies</th>
                 <td>Results from previous risk assessments for comparison. These may consist of: Risk maps (gridded or aggregated per administrative unit). Risk level may indicate AAL, losses from a single event or losses for a given return period; Tabulated risk per a given area, for example, Loss Exceedance Curve, Event Loss Tables, Year Loss Tables or historical loss data; Exposed assets for a given event (historical or associated with a return period).</td>
                 <td><a href="">Place_holder</a></td>
@@ -464,7 +451,7 @@
                 <p>This question addresses whether the data is available for free or if there is a charge. If there is a charge, then that is stated in the additional information section.</p>
                 <h3>Is the data openly licensed? + 30%</h3>
                 <p>This question addresses whether the dataset is open as per http://opendefinition.org. It needs to state the terms of use or license that allow anyone to freely use, reuse or redistribute the data (subject at most to attribution or share alike requirements). It is vital that a licence is available (if there is no licence, the data is not openly licensed). Open licences which meet the requirements of the Open Definition are listed at http://opendefinition.org/licenses/.</p>
-                <h3>Is the data provided in a timely and up to date basis? + 5%</h3></ul>
+                <h3>Is the data provided in a timely and up to date basis? + 5%</h3>
                 <p>This question addresses whether the data is up to date and timely - or long delayed. This varies depending on the dataset considered.</p>
             <div class="text-center">
                 <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
@@ -480,7 +467,7 @@
             <h3 >Country score</h3>
             <p>The country score is the average of all dataset's scores for a given country. It is also expressed as a percentage.</p>
 
-            <p>Note: It is possible to submit more than one entry for a given dataset and a given country. The website stores all of them. However, for comparison's purposes, only the dataset with the highest score is retained for the country score.<p>
+            <p>Note: It is possible to submit more than one entry for a given dataset and a given country. The website stores all of them. However, for comparison's purposes, only the dataset with the highest score is retained for the country score.</p>
 
             <h3>Hazard level (ThinkHazard!)</h3>
 
@@ -492,7 +479,7 @@
 
             <h3>Filter by hazard or category</h3>
 
-            <p>It is possible to filter and compare countries by category or hazard. For instance, by selecting Base data, only datasets from this category will be taken into account in the overall openness; by selecting Earthquake, only datasets applicable to this hazard will be taken into account. <p>
+            <p>It is possible to filter and compare countries by category or hazard. For instance, by selecting Base data, only datasets from this category will be taken into account in the overall openness; by selecting Earthquake, only datasets applicable to this hazard will be taken into account. </p>
             <div class="text-center">
                 <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
             </div>
@@ -556,7 +543,6 @@
             <div class="text-center">
                 <a href="#startReading"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
             </div>
-
         </div>
     </div>
 
