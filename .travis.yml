@@ -24,12 +24,14 @@ script:
 
 deploy:
 - provider: script
+  skip-cleanup: true
   script: git log --pretty=format:'%h%n' -n 1 >> ../infrastructure/git-hash &&
       rsync -e "ssh -i /tmp/id_opendri -p 22027" --exclude=node_modules/ --delete-after -r ./ cima@dev.riskopendata.org:~/html/ &&
       rsync -e "ssh -i /tmp/id_opendri -p 22027" --delete-after -r ../infrastructure/ cima@dev.riskopendata.org:~/infrastructure/
   on:
     branch: master
 - provider: script
+  skip-cleanup: true
   script: rsync -e "ssh -i /tmp/id_opendri" --exclude=node_modules/ --delete-after -r ./ cima@index.opendri.org:~/html/
   on:
     tags: true
