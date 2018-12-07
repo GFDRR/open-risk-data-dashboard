@@ -37,7 +37,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
     $scope.istanceList = [];
 
     // Check the dataset pk
-    if ($scope.idDataset != null)
+    if ($scope.idDataset)
     {
         // pk OK
         $scope.biddataset = true;
@@ -272,7 +272,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
         {
             // Update dataset info
             var aErrorsValidation = [];
-            
+
             // Set tags and links
             $scope.objDataset.url = $scope.selectedLink;
 
@@ -424,6 +424,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
         $scope.biddataset = false;
         $scope.bReviewer = false;
         $scope.bEdit = false;
+        $window.location.href = baseUrl + 'error_404.html';
     }
 
     $scope.setEditForm = function()
@@ -531,21 +532,6 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                     return shortLink;
 
                 }
-
-                // $scope.formatLink = function(link){
-                //     var shortLink = "";
-                //
-                //     if (link.length > 70)
-                //     {
-                //         shortLink = link.substr(0, 70);
-                //         shortLink = shortLink + ' [...]';
-                //     } else {
-                //         shortLink = link;
-                //     }
-                //
-                //     return shortLink;
-                //
-                // }
 
                 // Dataset classification set
                 $scope.dataCategory = [];
@@ -712,8 +698,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
 
             }, function(data)
             {
-                // Error
-                vex.dialog.alert("Error load dataset information");
+                $window.location.href = baseUrl + 'error_404.html';
             }
         );
 
