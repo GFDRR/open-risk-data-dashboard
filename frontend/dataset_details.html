@@ -22,10 +22,6 @@
     <!-- Angular components -->
     <script src="vendor/bower/angular/angular.min.js"></script>
 
-    <!-- Chart libraries-->
-    <script src="vendor/bower/chart.js/dist/Chart.min.js"></script>
-    <script src="vendor/bower/angular-chart.js/dist/angular-chart.min.js"></script>
-
     <link href="vendor/bower/ng-table/dist/ng-table.min.css" rel="stylesheet">
     <script src="vendor/bower/ng-table/dist/ng-table.min.js"></script>
 
@@ -106,12 +102,6 @@
                     <a href="" class="btn btn-md btn-primary" ng-click="setEditForm()" ng-if="bReviewer && !bEdit"><i
                             class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" title="Edit dataset"></i>
                         Edit dataset</a>
-                    <a href="" class="btn btn-md btn-info" ng-click="changepage('contribute.html?tab=1')" ng-if="bMylist && !bEdit"><i
-                            class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to my dataset list"></i>
-                        Back to my dataset list</a>
-                    <a href="" class="btn btn-md btn-info" ng-click="changepage('contribute.html?tab=2')" ng-if="bReviewlist && !bEdit"><i
-                            class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to review list"></i>
-                        Back to review list</a>
                     <a href="" class="btn btn-md btn-info" ng-if="bEdit" ng-click="closeRevision()"><i class="fa fa-times"
                             aria-hidden="true" data-toggle="tooltip" title="Close edit mode"></i> Close edit mode</a>
                     <a href="" class="btn btn-md btn-danger" ng-if="bEdit && bReviewer" ng-click="deleteDataset()"><i
@@ -736,42 +726,36 @@
                 </div>
             </div>
             <!-- DATASET EDIT MODE - END -->
+          </div>
 
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <!-- Command button end page -->
-                    <div class=" text-center">
-                        <br /><br />
-                        <a href="" class="btn btn-md btn-primary" ng-click="setEditForm()" ng-if="bReviewer && !bEdit"><i
-                                class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" title="Edit dataset"></i>
-                            Edit dataset</a>
-                        <a href="" class="btn btn-md btn-info" ng-click="changepage('contribute.html?tab=1')" ng-if="bMylist && !bEdit"><i
-                                class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to my dataset list"></i>
-                            Back to my dataset list</a>
-                        <a href="" class="btn btn-md btn-info" ng-click="changepage('contribute.html?tab=2')" ng-if="bReviewlist && !bEdit"><i
-                                class="fa fa-undo" aria-hidden="true" data-toggle="tooltip" title="Back to review list"></i>
-                            Back to review list</a>
-                        <a href="" ng-click="changepage('dataset_list.html?idcountry=' + objDatasetView.country)"
-                            class="btn btn-md btn-info" ng-if="!bReviewlist && !bMylist && !bEdit"><i class="fa fa-undo"
-                                aria-hidden="true" data-toggle="tooltip" title="Back"></i> Back</a>
+          <div class="row">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                  <!-- Command button end page -->
+                  <div class=" text-center">
+                      <br /><br />
+                      <a href="" class="btn btn-md btn-primary" ng-click="setEditForm()" ng-if="bReviewer && !bEdit"><i
+                              class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" title="Edit dataset"></i>
+                          Edit dataset</a>
+                      <a href="" ng-click="changepage('dataset_list.html?idcountry=' + objDatasetView.country)"
+                          ng-href="dataset_list.html?idcountry={{objDatasetView.country}}"
+                          class="btn btn-md btn-primary" ng-if="!bEdit"><i class="fa fa-undo"
+                              aria-hidden="true" data-toggle="tooltip" title="Back to {{countryDesc}}"></i> Back to {{countryDesc}} datasets</a>
+                      <div class="btn btn-md btn-warning" ng-if="(userinfo.groups[0]=='admin' || userinfo.groups[0]== 'reviewer') && bEdit"><input
+                              type="checkbox" ng-model="objDataset.is_reviewed"> Dataset approved</div>
+                      <a href="" class="btn btn-md btn-success" ng-if="bEdit" ng-click="updateDataset()"><i class="fa fa-floppy-o"
+                              aria-hidden="true" data-toggle="tooltip" title="Save dataset"></i> Save dataset</a>
+                      <a href="" class="btn btn-md btn-info" ng-if="bEdit" ng-click="closeRevision()"><i class="fa fa-times"
+                              aria-hidden="true" data-toggle="tooltip" title="Close edit mode"></i> Close edit mode</a>
+                      <a href="" class="btn btn-md btn-danger" ng-if="bEdit && bReviewer" ng-click="deleteDataset()"><i
+                              class="fa fa-trash-o" aria-hidden="true" title="Delete dataset"></i> Delete dataset</a>
+                  </div>
+              </div>
+          </div>
+          <!-- Error section: dataset key not set -->
+          <div class="col-xs-12 col-sm-10 col-sm-offset-2 col-md-12 col-lg-12" ng-if="!biddataset">
 
-                        <div class="btn btn-md btn-warning" ng-if="(userinfo.groups[0]=='admin' || userinfo.groups[0]== 'reviewer') && bEdit"><input
-                                type="checkbox" ng-model="objDataset.is_reviewed"> Dataset approved</div>
-                        <a href="" class="btn btn-md btn-success" ng-if="bEdit" ng-click="updateDataset()"><i class="fa fa-floppy-o"
-                                aria-hidden="true" data-toggle="tooltip" title="Save dataset"></i> Save dataset</a>
-                        <a href="" class="btn btn-md btn-info" ng-if="bEdit" ng-click="closeRevision()"><i class="fa fa-times"
-                                aria-hidden="true" data-toggle="tooltip" title="Close edit mode"></i> Close edit mode</a>
-                        <a href="" class="btn btn-md btn-danger" ng-if="bEdit && bReviewer" ng-click="deleteDataset()"><i
-                                class="fa fa-trash-o" aria-hidden="true" title="Delete dataset"></i> Delete dataset</a>
-                    </div>
-                </div>
-            </div>
-            <!-- Error section: dataset key not set -->
-            <div class="col-xs-12 col-sm-10 col-sm-offset-2 col-md-12 col-lg-12" ng-if="!biddataset">
+          </div>
 
-            </div>
-
-        </div>
     </div>
 
     <footer class="footer">
