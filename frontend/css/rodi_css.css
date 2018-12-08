@@ -200,7 +200,6 @@ section + section {
 }
 
 h1 + .lead {
-  margin-top: -50px;
   margin-bottom: 50px;
 }
 
@@ -222,13 +221,10 @@ h1 + .lead {
 }
 
 .contribute_field_validator {
-    /*font-size:20px;*/
     color: green;
-    /*margin-top: -10px;*/
 }
 
 .contribute_field_validator_wait {
-    /*font-size:20px;*/
     color: #e6b217;
 }
 
@@ -1936,11 +1932,6 @@ responsive
 @media screen and (max-width: 980px) {
     .page_title {
         font-size: 40px;
-        padding-bottom: 20px;
-    }
-    .page_title + .lead {
-      margin-top: -20px;
-      margin-bottom: 20px;
     }
 
     .head_sep {
