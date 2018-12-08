@@ -1555,16 +1555,20 @@ button
 
 ==============================================================================
 */
-.btn-custom {
+.btn-custom,
+.btn-primary {
     background-color: #EE3036;
     border-color: #EE3036;
-    border: none;
 }
 
 .btn-custom:hover,
 .btn-custom:focus,
 .btn-custom:active,
-.btn-custom.active {
+.btn-custom.active,
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active {
     background-color: #ec181f;
     border-color: #d91218;
 }
