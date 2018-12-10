@@ -141,64 +141,77 @@
 
                 <!-- Open Data Criteria -->
                 <div class="row" id="criteria">
-                    <div class="col-xs-12 col-sm-10 col-md-8 col-xs-offset-0 col-sm-offset-1 col-md-offset-2 text-content">
+                    <div class="col-xs-12 col-sm-10 col-md-8 col-xs-offset-0 col-sm-offset-1 col-md-offset-2">
+                      <div class="well text-content">
+                        <h2 class="h4">Is this dataset open?</h2>
 
-                        <h2 class="odfri_title_red">Open Data Criteria</h2>
+                        <p class="status" ng-if="is_opendata">Yes, this dataset is free to access, use and share <a href="#footnote:restrictions" class="discrete" id="fnref:restrictions">(*)</a>.</p>
 
-                        <!-- Question 1 - 2 -->
-                        <div class="criteria-icons">
-                            <div>
-                                <i class="{{getQuestionIcon('is_existing')}}" ng-class="objDataset.is_existing ? 'yes-icon' : 'no-icon'"></i>
-                                <span>{{getQuestionCode('is_existing', objDataset)}}</span>
-                            </div>
+                        <p class="status" ng-if="!is_opendata">
+                          No, this dataset
+                          <span ng-if="!objDataset.is_avail_for_free">is not free of charge, and</span>
+                          has <span ng-if="!(objDataset.is_machine_read && objDataset.is_avail_online_meta && objDataset.is_digital_form && objDataset.is_avail_online && objDataset.is_bulk_avail)">technical</span> and <span ng-if="!objDataset.is_open_licence">legal</span> restrictions
+                          on access, use and share.
+                        </p>
 
-                            <div>
-                                <i class="{{getQuestionIcon('is_digital_form')}}" ng-class="objDataset.is_digital_form ? 'yes-icon' : 'no-icon'"></i>
-                                <span>{{getQuestionCode('is_digital_form', objDataset)}}</span>
-                            </div>
+                        <p>
+                          <button ng-click="display_criteria = display_criteria ? false : true" class="link">Show {{display_criteria ? 'less' : 'more'}} details</button>
+                        </p>
 
-                            <div>
-                                <i class="{{getQuestionIcon('is_pub_available')}}" ng-class="objDataset.is_pub_available ? 'yes-icon' : 'no-icon'"></i>
-                                <span>{{getQuestionCode('is_pub_available', objDataset)}}</span>
-                            </div>
+                        <dl class="criteria-icons criteria-list" id="criteria-details" ng-if="display_criteria">
+                          <dd>
+                            <i class="{{getQuestionIcon('is_existing')}}" ng-class="objDataset.is_existing ? 'yes-icon' : 'no-icon'"></i>
+                            {{getQuestionCode('is_existing', objDataset)}}
+                          </dd>
 
-                            <div>
-                                <i class="{{getQuestionIcon('is_avail_online')}}" ng-class="objDataset.is_avail_online ? 'yes-icon' : 'no-icon'"></i>
-                                <span>{{getQuestionCode('is_avail_online', objDataset)}}</span>
-                            </div>
+                          <dd>
+                            <i class="{{getQuestionIcon('is_digital_form')}}" ng-class="objDataset.is_digital_form ? 'yes-icon' : 'no-icon'"></i>
+                            {{getQuestionCode('is_digital_form', objDataset)}}
+                          </dd>
 
-                            <div>
-                                <i class="{{getQuestionIcon('is_avail_online_meta')}}" ng-class="objDataset.is_avail_online_meta ? 'yes-icon' : 'no-icon'"></i>
-                                <span>{{getQuestionCode('is_avail_online_meta', objDataset)}}</span>
-                            </div>
+                          <dd>
+                            <i class="{{getQuestionIcon('is_pub_available')}}" ng-class="objDataset.is_pub_available ? 'yes-icon' : 'no-icon'"></i>
+                            {{getQuestionCode('is_pub_available', objDataset)}}
+                          </dd>
 
-                            <div>
-                                <i class="{{getQuestionIcon('is_bulk_avail')}}" ng-class="objDataset.is_bulk_avail ? 'yes-icon' : 'no-icon'"></i>
-                                <span>{{getQuestionCode('is_bulk_avail', objDataset)}}</span>
-                            </div>
+                          <dd>
+                            <i class="{{getQuestionIcon('is_avail_online')}}" ng-class="objDataset.is_avail_online ? 'yes-icon' : 'no-icon'"></i>
+                            {{getQuestionCode('is_avail_online', objDataset)}}
+                          </dd>
 
-                            <div>
-                                <i class="{{getQuestionIcon('is_machine_read')}}" ng-class="objDataset.is_machine_read ? 'yes-icon' : 'no-icon'"></i>
-                                <span>{{getQuestionCode('is_machine_read', objDataset)}}</span>
-                            </div>
+                          <dd>
+                            <i class="{{getQuestionIcon('is_avail_online_meta')}}" ng-class="objDataset.is_avail_online_meta ? 'yes-icon' : 'no-icon'"></i>
+                            {{getQuestionCode('is_avail_online_meta', objDataset)}}
+                          </dd>
 
-                            <div>
-                                <i class="{{getQuestionIcon('is_avail_for_free')}}" ng-class="objDataset.is_avail_for_free ? 'yes-icon' : 'no-icon'"></i>
-                                <span>{{getQuestionCode('is_avail_for_free', objDataset)}}</span>
-                            </div>
+                          <dd>
+                            <i class="{{getQuestionIcon('is_bulk_avail')}}" ng-class="objDataset.is_bulk_avail ? 'yes-icon' : 'no-icon'"></i>
+                            {{getQuestionCode('is_bulk_avail', objDataset)}}
+                          </dd>
 
-                            <div>
-                                <i class="{{getQuestionIcon('is_open_licence')}}" ng-class="objDataset.is_open_licence ? 'yes-icon' : 'no-icon'"></i>
-                                <span>{{getQuestionCode('is_open_licence', objDataset)}}</span>
-                            </div>
+                          <dd>
+                            <i class="{{getQuestionIcon('is_machine_read')}}" ng-class="objDataset.is_machine_read ? 'yes-icon' : 'no-icon'"></i>
+                            {{getQuestionCode('is_machine_read', objDataset)}}
+                          </dd>
 
-                            <div>
-                                <i class="{{getQuestionIcon('is_prov_timely')}}" ng-class="objDataset.is_prov_timely ? 'yes-icon' : 'no-icon'"></i>
-                                <span>{{getQuestionCode('is_prov_timely', objDataset)}}</span>
-                            </div>
-                        </div>
+                          <dd>
+                            <i class="{{getQuestionIcon('is_avail_for_free')}}" ng-class="objDataset.is_avail_for_free ? 'yes-icon' : 'no-icon'"></i>
+                            {{getQuestionCode('is_avail_for_free', objDataset)}}
+                          </dd>
 
-                        <div class="odfri_div_separator"></div>
+                          <dd>
+                            <i class="{{getQuestionIcon('is_open_licence')}}" ng-class="objDataset.is_open_licence ? 'yes-icon' : 'no-icon'"></i>
+                            {{getQuestionCode('is_open_licence', objDataset)}}
+                          </dd>
+
+                          <dd>
+                            <i class="{{getQuestionIcon('is_prov_timely')}}" ng-class="objDataset.is_prov_timely ? 'yes-icon' : 'no-icon'"></i>
+                            {{getQuestionCode('is_prov_timely', objDataset)}}
+                          </dd>
+                        </dl>
+
+                        <p ng-if="is_opendata && display_criteria"><a href="#fnref:restrictions" id="footnote:restrictions" class="discrete">(*) Restrictions may apply</a>.</p>
+                      </div>
                     </div>
                 </div>
 

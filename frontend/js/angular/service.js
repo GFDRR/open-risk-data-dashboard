@@ -404,6 +404,28 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         return aObj[0].icon;
     };
 
+    /**
+     * Indicates if a dataset is truly open data or not
+     *
+     * It checks for all question fields, except the timely one.
+     *
+     * @param  {dataset} objDataset An object returned by this.getDatasetInfo()
+     * @return {Boolean}            [description]
+     */
+    this.isOpenData = function isOpenData(objDataset) {
+        var fields = this.getQuestions()
+          .map(function(question){
+            return question.code;
+          })
+          .filter(function(code){
+            return code !== 'is_prov_timely';
+          });
+
+        return fields.every(function(field){
+          return objDataset && objDataset[field] === true;
+        });
+    };
+
     // ************************************** //
     // ************ KEYDATASET LIST ********* //
     // ************************************** //

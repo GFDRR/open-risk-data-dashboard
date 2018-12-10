@@ -66,6 +66,18 @@ h3, h4, h5, h6
   white-space: nowrap;
 }
 
+a.discrete {
+  color: inherit;
+  text-decoration: none;
+}
+
+.well {
+  background: #F0F0F0;  /* as of InnovationLab Guidelines */
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
 /* ************************************ */
 /* R.O.D.I. STYLE ELEMENTS - INIZIO     */
 /* ************************************ */
@@ -400,15 +412,6 @@ Stats
 
 ==============================================================================
 */
-
-/*
-@import url(https://fonts.googleapis.com/css?family=Lato:400,700|Montserrat:400,700);
-@import url(https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css);
-*/
-
-#counter-stats {
-    /*background: #eee;*/
-}
 
 /*/ start count stats /*/
 
@@ -1864,13 +1867,17 @@ review mode
     /*text-align: left;*/
 }
 
+.criteria-list {
+  margin: 20px 0;
+}
+
 .criteria-icons {
     display: flex;
     flex-wrap: wrap;
     line-height: 1.2;
 }
 
-.criteria-icons > div {
+.criteria-icons > * {
     align-items: center;
     display: flex;
     flex-basis: 100%;
@@ -1878,10 +1885,10 @@ review mode
 }
 
 @media (min-width: 768px) {
-  .criteria-icons > div {
+  .criteria-icons > * {
       flex-basis: 50%;
   }
-  .criteria-icons > div:nth-child(odd) {
+  .criteria-icons > *:nth-child(odd) {
       padding-right: 15px;
   }
 }
@@ -2086,6 +2093,16 @@ z-index: 100;*/
     #menu-website li .logout a {
         padding: 0 1em;
     }
+}
+
+button.link {
+  background: transparent;
+  border: none;
+  color: inherit;
+  font-weight: bold;
+  line-height: inherit;
+  padding: 0;
+  text-decoration: underline;
 }
 
 .rodi_counter_number {

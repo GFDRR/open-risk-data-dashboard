@@ -4,7 +4,6 @@
 
 
 RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter', '$location', function ($scope, RodiSrv, $window, $filter,  $location) {
-
     // ************************************** //
     // *************** INIT ***************** //
     // ************************************** //
@@ -35,6 +34,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
     $scope.objDataset = {};
     $scope.objDatasetView = {};
     $scope.istanceList = [];
+    $scope.is_opendata = false;
 
     // Check the dataset pk
     if ($scope.idDataset)
@@ -442,6 +442,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
             {
                 // Load the dataset information
                 $scope.objDataset = dataDS;
+                $scope.is_opendata = RodiSrv.isOpenData(dataDS);
                 $scope.objDatasetView = angular.copy(dataDS);
 
                 // Check if user logged in can edit dataset, LOAD DATASET PROFILE API
