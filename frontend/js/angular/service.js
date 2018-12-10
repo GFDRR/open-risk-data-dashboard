@@ -446,6 +446,42 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
       return objDataset && objDataset.is_open_licence;
     };
 
+    /**
+     * Determines the open data label of a given dataset.
+     *
+     * @param {[type]} objDataset An object returned by this.getDatasetInfo()
+     */
+    this.getDatasetLabel = function getDatasetLabel(objDataset) {
+      var self = this;
+      var foundLabel = '';
+
+      // existing labels, listed in descending order of openness
+      var conditions = {
+        'opendata': function (dataset) {
+          return self.isOpenData(dataset);
+        },
+        'restricted': function (dataset) {
+          return !self.isOpenData(dataset) && dataset.is_existing && dataset.is_pub_available && (self.isLegallyOpenData(dataset) || self.isTechnicallyOpenData(dataset));
+        },
+        'closed': function (dataset) {
+          return !self.isOpenData(dataset) && dataset.is_existing;
+        },
+        'unknown': function () {
+          return !dataset || !self.isOpenData(dataset);
+        }
+      };
+
+      // select the first available label
+      Object.keys(conditions).some(function(label){
+        if (conditions[label](objDataset)) {
+          foundLabel = label;
+          return true;
+        };
+      });
+
+      return foundLabel;
+    };
+
     // ************************************** //
     // ************ KEYDATASET LIST ********* //
     // ************************************** //

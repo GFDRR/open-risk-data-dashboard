@@ -145,6 +145,13 @@
                       <div class="well">
                         <h2 class="h4">Is this dataset open?</h2>
 
+                        <div ng-switch="opendata_label" class="criteria-badge">
+                          <span ng-switch-when="opendata">Open Data</span>
+                          <span ng-switch-when="restricted">Restricted</span>
+                          <span ng-switch-when="closed">Closed</span>
+                          <span ng-switch-when="unknown">Unknown</span>
+                        </div>
+
                         <p class="status" ng-if="is_opendata">Yes, this dataset is free to access, use and share <a href="#footnote:restrictions" class="discrete" id="fnref:restrictions">(*)</a>.</p>
 
                         <p class="status" ng-if="!is_opendata">
