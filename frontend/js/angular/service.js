@@ -466,7 +466,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         'closed': function (dataset) {
           return !self.isOpenData(dataset) && dataset.is_existing;
         },
-        'unknown': function () {
+        'unknown': function (dataset) {
           return !dataset || !self.isOpenData(dataset);
         }
       };
