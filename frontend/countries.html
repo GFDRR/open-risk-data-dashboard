@@ -200,9 +200,9 @@
                     </thead>
                     <tbody ng-if="!bLoadingTabel" ng-cloak>
                     <!--  Country with dataset submitted -->
-                    <tr ng-repeat="country in allCountries | orderBy: sortField:sortDirection | filter: filterBy | filter: {name:countrySearchFilter, region:regionSearchFilter}" ng-click="changepage('dataset_list.html?idcountry=' + country.country)"
+                    <tr ng-repeat="country in allCountries | orderBy: sortField:sortDirection | filter: filterBy | filter: {name:countrySearchFilter, region:regionSearchFilter}" ng-click="changepage('dataset_list.html?idcountry=' + country.wb_id)"
                         title="Click to see datasets for this country">
-                        <td><span class="text-muted">{{country.name}}</span></td>
+                        <td><a ng-href="dataset_list.html?idcountry={{country.wb_id}}" class="text-muted">{{country.name}}</a></td>
                         <td>
                             <div class="progress" ng-if="country.score !== undefined" title="Average scores of all datasets considered for this country. If a dataset does not exist or has not been submitted, its score is 0.">
                                 <div class="progress-bar" role="progressbar" aria-valuenow="{{country.score}}"
