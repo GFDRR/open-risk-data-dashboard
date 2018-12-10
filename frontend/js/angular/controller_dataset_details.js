@@ -60,6 +60,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
         {
 
             $scope.lastSelectedCategoty = idCategory;
+            $scope.objDataset.keydataset.category = idCategory;
 
             // Filter Dataset list
             RodiSrv.getDatasetCategoryList(0,idCategory,
@@ -92,11 +93,6 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                     // do nothing
                 });
         };
-
-        $scope.dataRiskSelectionClass = function (id) {
-
-            return ($scope.lastSelectedCategoty == id)?'btn-warning':'btn-success';
-        }
 
         $scope.changeDatasetSelection = function(idDataset)
         {
@@ -247,6 +243,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
             {
                 $scope.selectedLink.push(strLink);
                 $scope.newLink = "";
+                $scope.newMeta = "";
             }
         }
 

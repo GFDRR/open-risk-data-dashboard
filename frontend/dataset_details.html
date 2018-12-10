@@ -306,8 +306,8 @@
                                     <span class="">Country</span>
                               </div>
                                 <div class="dataset_form_select_style">
-                                    <select ng-model="objDataset.country" class="dataset_form_select_style text-center">
-                                        <option value="--" selected>-- Select country --</option>
+                                    <select ng-model="objDataset.country" class="dataset_form_select_style">
+                                        <option value="--" selected>Select country</option>
                                         <option ng-repeat="country in countryList | orderBy: 'name'" value="{{country.wb_id}}">{{country.name}}</option>
                                     </select>
                                 </div>
@@ -317,11 +317,9 @@
                                 <div>
                                     <span class="">Dataset</span>
                                 </div>
-
                                 <div class="dataset_form_select_style" style="margin-left: 0em;">
-
                                     <span style="padding-right: 5px;" ng-repeat="dsCat in dataCategory">
-                                        <input type="button" class="btn btn-lg " ng-class="dataRiskSelectionClass(dsCat.category.id)"
+                                        <input type="button" class="btn btn-lg btn-default" ng-class="{'btn-success': dsCat.category.id == objDataset.keydataset.category}"
                                             value="{{dsCat.category.name}}" ng-click="changeDataRiskSelection(dsCat.category.id)">
                                     </span>
 
@@ -532,9 +530,9 @@
                             </div>
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <strong>Links to data and metadata</strong>
-                                <ul class="rodi_ul">
+                                <ul class="list-unstyled">
                                     <li ng-repeat="link in selectedLink">
-                                        - {{chekprotocol(link)}}
+                                        {{link}}
                                         <div class="pull-right">
                                             <a href="" ng-click="deleteLink(link)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>&nbsp;
                                         </div>
