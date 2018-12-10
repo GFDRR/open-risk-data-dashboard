@@ -426,6 +426,26 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         });
     };
 
+    /**
+     * Indicates if a dataset is technically open.
+     *
+     * @param  {Boolean} objDataset An object returned by this.getDatasetInfo()
+     * @return {Boolean}            [description]
+     */
+    this.isTechnicallyOpenData = function isTechnicallyOpenData(objDataset) {
+      return objDataset && (objDataset.is_machine_read && objDataset.is_avail_online_meta && objDataset.is_digital_form && objDataset.is_avail_online && objDataset.is_bulk_avail);
+    };
+
+    /**
+     * Indicates if a dataset is legally open.
+     *
+     * @param  {[type]}  objDataset An object returned by this.getDatasetInfo()
+     * @return {Boolean}            [description]
+     */
+    this.isLegallyOpenData = function isLegallyOpenData(objDataset) {
+      return objDataset && objDataset.is_open_licence;
+    };
+
     // ************************************** //
     // ************ KEYDATASET LIST ********* //
     // ************************************** //

@@ -142,7 +142,7 @@
                 <!-- Open Data Criteria -->
                 <div class="row" id="criteria">
                     <div class="col-xs-12 col-sm-10 col-md-8 col-xs-offset-0 col-sm-offset-1 col-md-offset-2">
-                      <div class="well text-content">
+                      <div class="well">
                         <h2 class="h4">Is this dataset open?</h2>
 
                         <p class="status" ng-if="is_opendata">Yes, this dataset is free to access, use and share <a href="#footnote:restrictions" class="discrete" id="fnref:restrictions">(*)</a>.</p>
@@ -150,7 +150,10 @@
                         <p class="status" ng-if="!is_opendata">
                           No, this dataset
                           <span ng-if="!objDataset.is_avail_for_free">is not free of charge, and</span>
-                          has <span ng-if="!(objDataset.is_machine_read && objDataset.is_avail_online_meta && objDataset.is_digital_form && objDataset.is_avail_online && objDataset.is_bulk_avail)">technical</span> and <span ng-if="!objDataset.is_open_licence">legal</span> restrictions
+                          has
+                          <span ng-if="!is_technically_opendata">technical</span>
+                          <span ng-if="!is_legally_opendata && !is_legally_opendata">and</span>
+                          <span ng-if="!is_legally_opendata">legal</span> restrictions
                           on access, use and share.
                         </p>
 
@@ -158,7 +161,7 @@
                           <button ng-click="display_criteria = display_criteria ? false : true" class="link">Show {{display_criteria ? 'less' : 'more'}} details</button>
                         </p>
 
-                        <dl class="criteria-icons criteria-list" id="criteria-details" ng-if="display_criteria">
+                        <dl class="criteria-icons criteria-list text-content" id="criteria-details" ng-if="display_criteria">
                           <dd>
                             <i class="{{getQuestionIcon('is_existing')}}" ng-class="objDataset.is_existing ? 'yes-icon' : 'no-icon'"></i>
                             {{getQuestionCode('is_existing', objDataset)}}
