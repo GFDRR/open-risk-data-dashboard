@@ -223,11 +223,11 @@
                             {{objDataset.notes}}</span>
                         <br /> <br />
                         <span><span class="odfri_dataset_label">Links to data and metadata:</span>
-                            <div class="rodi_ul">
-                                <a href="{{chekprotocol(link)}}" target="_blank" ng-repeat="link in selectedLink">
-                                    - {{formatLink(link)}}<br />
-                                </a>
-                            </div>
+                            <ul class="list-unstyled">
+                              <li ng-repeat="link in selectedLink">
+                                <a href="{{link}}" class="single-line" target="_blank" noreferrer noopener>{{link}}</a>
+                              </li>
+                            </ul>
                         </span><br />
                         <span><span class="odfri_dataset_label">Dataset submitted by:</span> {{objDataset.owner}}</span>
 
