@@ -1667,11 +1667,6 @@ fieldset[disabled] .btn-custom.active {
     animation: all 0.3s ease;
 }
 
-.img-responsive {
-    max-width: 240px;
-    padding: 1em;
-}
-
 /*
 ==============================================================================
 
@@ -1865,6 +1860,16 @@ review mode
     justify-content: flex-start;
     margin-bottom: 5px;
     /*text-align: left;*/
+}
+
+.criteria-badge {
+  float: right;
+  max-width: 100px;
+}
+
+h4 + .criteria-badge,
+.h4 + .criteria-badge {
+  margin-top: -28px; /* h4.font-size + h4.margin-bottom */
 }
 
 .criteria-list {

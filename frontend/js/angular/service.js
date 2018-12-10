@@ -461,7 +461,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
           return self.isOpenData(dataset);
         },
         'restricted': function (dataset) {
-          return !self.isOpenData(dataset) && dataset.is_existing && dataset.is_pub_available && (self.isLegallyOpenData(dataset) || self.isTechnicallyOpenData(dataset));
+          return !self.isOpenData(dataset) && dataset.is_existing && dataset.is_pub_available && !(self.isLegallyOpenData(dataset) || self.isTechnicallyOpenData(dataset));
         },
         'closed': function (dataset) {
           return !self.isOpenData(dataset) && dataset.is_existing;
