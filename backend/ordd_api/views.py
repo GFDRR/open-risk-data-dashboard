@@ -1595,7 +1595,8 @@ class Score(object):
 
         ret = {'rank': rank['rank'],
                'score': cls.score_fmt(country_score),
-               'scores': [["id", "name", "category", "instance_id", "score"]],
+               'scores': [["id", "name", "category", "instance_id",
+                           "title", "modify_time", "score"]],
                'datasets_count': datasets_count_ds,
                'fullscores_count': fullscores_count_ds,
                'categories_counters': categories_counters,
@@ -1623,7 +1624,7 @@ class Score(object):
                 value = cls.score_fmt(dsname_score['value'])
 
                 row = [dsname.pk, dsname.name, dsname.category,
-                       dataset.id, value]
+                       dataset.id, dataset.title, dataset.modify_time, value]
                 for int_field in interesting_fields:
                     row.append(getattr(dataset, int_field))
 
