@@ -313,6 +313,7 @@ class DatasetsDumpSerializer(serializers.ModelSerializer):
         fields = (
             'owner', 'country', 'keydataset', 'is_reviewed', 'review_date',
             'create_time', 'modify_time', 'changed_by', 'notes', 'url',
+            'title',
             'is_existing', 'is_existing_txt', 'is_digital_form',
             'is_avail_online',
             'is_avail_online_meta', 'is_bulk_avail', 'is_machine_read',
