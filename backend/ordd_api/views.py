@@ -1608,7 +1608,7 @@ class Score(object):
         for int_field in interesting_fields:
             ret_score[0].append(Dataset._meta.get_field(
                 int_field).verbose_name)
-        ret_score[0].extend(["title", "modify_time"])
+        ret_score[0].extend(["title", "modify_time", "institution"])
 
         # datasetnames-based scores
         dsname_score_tree = country_score_tree['dsname']
@@ -1628,7 +1628,7 @@ class Score(object):
                        dataset.id, value]
                 for int_field in interesting_fields:
                     row.append(getattr(dataset, int_field))
-                row.extend([dataset.title, dataset.modify_time])
+                row.extend([dataset.title, dataset.modify_time, dataset.owner.profile.institution])
 
             else:
                 row = [dsname.pk, dsname.name, dsname.category, None, "-100.0"]
