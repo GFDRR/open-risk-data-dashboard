@@ -434,46 +434,6 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
         $scope.bEdit = false;
     }
 
-    $scope.formatLink = function(link){
-
-        //Check protocol
-        var indexProtocolCheck = link.indexOf('http');
-
-        if(indexProtocolCheck == -1)
-        {
-            //Add protocol to link
-            link = "http://" + link;
-        }
-
-        var shortLink = "";
-
-        if (link.length > 70)
-        {
-          shortLink = link.substr(0, 70);
-          shortLink = shortLink + ' [...]';
-        } else {
-                shortLink = link;
-        }
-
-        return shortLink;
-
-    }
-
-    $scope.chekprotocol = function(strLink)
-    {
-        //Check protocol
-        var indexProtocolCheck = strLink.indexOf('http');
-
-        if(indexProtocolCheck == -1)
-        {
-            //Add protocol to link
-            strLink = "http://" + strLink;
-        }
-
-        return strLink;
-
-    }
-
     function initDataset ()
     {
         // Get dataset info from profile API
@@ -545,7 +505,16 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                 $scope.newLink = "";
                 $scope.countryDesc = "";
 
-                $scope.selectedLink = $scope.objDataset.url;
+                $scope.selectedLink = $scope.objDataset.url.map(function(url){
+                  if (/^https?/.test(url) === false) {
+                    return 'http' + url;
+                  }
+                  else if (/^https?:\/\//.test(url) === false) {
+                    return 'http://' + url;
+                  }
+
+                  return url;
+                });
 
                 // Load country list
                 RodiSrv.getCountryList().then(function(response){

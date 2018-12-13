@@ -58,6 +58,14 @@ h3, h4, h5, h6
   border-bottom: none;
 }
 
+.single-line {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: " […]";
+  white-space: nowrap;
+}
+
 /* ************************************ */
 /* R.O.D.I. STYLE ELEMENTS - INIZIO     */
 /* ************************************ */

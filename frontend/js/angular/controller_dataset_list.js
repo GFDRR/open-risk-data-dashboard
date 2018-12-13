@@ -335,19 +335,4 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
 
     }
 
-    $scope.formatLink = function(link){
-        var shortLink = "";
-
-        if (link.length > 70)
-        {
-            shortLink = link.substr(0, 70);
-            shortLink = shortLink + ' [...]';
-        } else {
-            shortLink = link;
-        }
-
-        return shortLink;
-
-    }
-
 } ]);
