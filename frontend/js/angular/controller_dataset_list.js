@@ -173,8 +173,6 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
 
                 }
 
-                console.log($scope.datasetList);
-
                 $scope.bLoading = false;
 
             }, function(data)
