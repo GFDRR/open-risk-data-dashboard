@@ -1596,7 +1596,7 @@ class Score(object):
         ret = {'rank': rank['rank'],
                'score': cls.score_fmt(country_score),
                'scores': [["id", "name", "category", "instance_id",
-                           "title", "modify_time", "score"]],
+                           "score"]],
                'datasets_count': datasets_count_ds,
                'fullscores_count': fullscores_count_ds,
                'categories_counters': categories_counters,
@@ -1608,6 +1608,7 @@ class Score(object):
         for int_field in interesting_fields:
             ret_score[0].append(Dataset._meta.get_field(
                 int_field).verbose_name)
+        ret_score[0].extend(["title", "modify_time"])
 
         # datasetnames-based scores
         dsname_score_tree = country_score_tree['dsname']
@@ -1624,9 +1625,10 @@ class Score(object):
                 value = cls.score_fmt(dsname_score['value'])
 
                 row = [dsname.pk, dsname.name, dsname.category,
-                       dataset.id, dataset.title, dataset.modify_time, value]
+                       dataset.id, value]
                 for int_field in interesting_fields:
                     row.append(getattr(dataset, int_field))
+                row.extend([dataset.title, dataset.modify_time])
 
             else:
                 row = [dsname.pk, dsname.name, dsname.category, None, "-100.0"]
