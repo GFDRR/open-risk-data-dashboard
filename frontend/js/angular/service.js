@@ -989,7 +989,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
     {
         var aErrors = [];
 
-        if(obj.title == ''){aErrors.push('Dataset Title')};
+        if(!obj.title || obj.title == ''){aErrors.push('Dataset Title')};
         if(obj.country == '--'){aErrors.push('Country')};
         if(obj.keydataset.dataset == '0'){aErrors.push('Dataset category')};
         if(obj.keydataset.description == '0'){aErrors.push('Dataset description')};
