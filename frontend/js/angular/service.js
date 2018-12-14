@@ -404,6 +404,84 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         return aObj[0].icon;
     };
 
+    /**
+     * Indicates if a dataset is truly open data or not
+     *
+     * It checks for all question fields, except the timely one.
+     *
+     * @param  {dataset} objDataset An object returned by this.getDatasetInfo()
+     * @return {Boolean}            [description]
+     */
+    this.isOpenData = function isOpenData(objDataset) {
+        var fields = this.getQuestions()
+          .map(function(question){
+            return question.code;
+          })
+          .filter(function(code){
+            return code !== 'is_prov_timely';
+          });
+
+        return fields.every(function(field){
+          return objDataset && objDataset[field] === true;
+        });
+    };
+
+    /**
+     * Indicates if a dataset is technically open.
+     *
+     * @param  {Boolean} objDataset An object returned by this.getDatasetInfo()
+     * @return {Boolean}            [description]
+     */
+    this.isTechnicallyOpenData = function isTechnicallyOpenData(objDataset) {
+      return objDataset && (objDataset.is_machine_read && objDataset.is_avail_online_meta && objDataset.is_digital_form && objDataset.is_avail_online && objDataset.is_bulk_avail);
+    };
+
+    /**
+     * Indicates if a dataset is legally open.
+     *
+     * @param  {[type]}  objDataset An object returned by this.getDatasetInfo()
+     * @return {Boolean}            [description]
+     */
+    this.isLegallyOpenData = function isLegallyOpenData(objDataset) {
+      return objDataset && objDataset.is_open_licence;
+    };
+
+    /**
+     * Determines the open data label of a given dataset.
+     *
+     * @param {[type]} objDataset An object returned by this.getDatasetInfo()
+     */
+    this.getDatasetLabel = function getDatasetLabel(objDataset) {
+      var self = this;
+      var foundLabel = '';
+
+      // existing labels, listed in descending order of openness
+      var conditions = {
+        'opendata': function (dataset) {
+          return self.isOpenData(dataset);
+        },
+        'restricted': function (dataset) {
+          return !self.isOpenData(dataset) && dataset.is_existing && dataset.is_pub_available && !(self.isLegallyOpenData(dataset) || self.isTechnicallyOpenData(dataset));
+        },
+        'closed': function (dataset) {
+          return !self.isOpenData(dataset) && dataset.is_existing;
+        },
+        'unknown': function (dataset) {
+          return !dataset || !self.isOpenData(dataset);
+        }
+      };
+
+      // select the first available label
+      Object.keys(conditions).some(function(label){
+        if (conditions[label](objDataset)) {
+          foundLabel = label;
+          return true;
+        };
+      });
+
+      return foundLabel;
+    };
+
     // ************************************** //
     // ************ KEYDATASET LIST ********* //
     // ************************************** //
