@@ -178,7 +178,10 @@
            <tr ng-repeat="item in datasetList | orderBy: '-score * 1' | filter: checkVisibility" ng-click="changepage(item.istance_id ? 'dataset_details.html?keyds=' + item.istance_id : 'contribute.html?ctr=' + idCountry + '&amp;ds=' +item.name)" data-score="{{item.score}}">
               <td>
                 <a href="dataset_details.html?keyds={{item.istance_id}}" ng-if="item.istance_id" title="View details">{{item.name}}</a>
-                <span ng-if="!item.istance_id">{{item.name}} (<a href="contribute.html?ctr={{idCountry}}&amp;ds={{item.name}}">Contribute</a>)</span>
+                <span ng-if="!item.istance_id">{{item.name}} (<a href="contribute.html?ctr={{idCountry}}&amp;ds={{item.name}}">Contribute</a>)</span><br />
+                <span class="small text-muted rodi_subtitle_datasetlist" ng-show="item.title"><i>{{item.title}}, </i></span>
+                <span class="small text-muted rodi_subtitle_datasetlist" ng-show="item.institution"><i>{{item.institution}}, </i></span>
+                <span class="small text-muted rodi_subtitle_datasetlist" ng-show="item.modify_time"><i>{{item.modify_time | date: 'dd/MM/yyyy'}}</i></span>
               </td>
               <td>
                 <div class="dataset_value">
