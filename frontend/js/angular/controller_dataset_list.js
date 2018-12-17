@@ -131,6 +131,9 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
                             description: "",
                             score:  data.scores[i][4] * 1,
                             istance_id: data.scores[i][3],
+                            title: "",
+                            modify_time: "",
+                            institution: "",
                             quest1:  "na",
                             quest2:  "na",
                             quest3:  "na",
@@ -150,6 +153,9 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
                             description: "",
                             score:  data.scores[i][4] * 1,
                             istance_id: data.scores[i][3],
+                            title: data.scores[i][15],
+                            modify_time: data.scores[i][16],
+                            institution: data.scores[i][17],
                             quest1:  data.scores[i][5],
                             quest2:  data.scores[i][6],
                             quest3:  data.scores[i][7],
@@ -329,21 +335,6 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
             shortLink = shortLink + ' ...';
         } else {
             shortLink = desc;
-        }
-
-        return shortLink;
-
-    }
-
-    $scope.formatLink = function(link){
-        var shortLink = "";
-
-        if (link.length > 70)
-        {
-            shortLink = link.substr(0, 70);
-            shortLink = shortLink + ' [...]';
-        } else {
-            shortLink = link;
         }
 
         return shortLink;

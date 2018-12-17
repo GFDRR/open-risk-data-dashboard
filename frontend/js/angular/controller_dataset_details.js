@@ -4,7 +4,6 @@
 
 
 RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter', '$location', function ($scope, RodiSrv, $window, $filter,  $location) {
-
     // ************************************** //
     // *************** INIT ***************** //
     // ************************************** //
@@ -35,6 +34,10 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
     $scope.objDataset = {};
     $scope.objDatasetView = {};
     $scope.istanceList = [];
+    $scope.is_opendata = false;
+    $scope.is_legally_opendata = false;
+    $scope.is_technically_opendata = false;
+    $scope.opendata_label = undefined;
 
     // Check the dataset pk
     if ($scope.idDataset)
@@ -434,46 +437,6 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
         $scope.bEdit = false;
     }
 
-    $scope.formatLink = function(link){
-
-        //Check protocol
-        var indexProtocolCheck = link.indexOf('http');
-
-        if(indexProtocolCheck == -1)
-        {
-            //Add protocol to link
-            link = "http://" + link;
-        }
-
-        var shortLink = "";
-
-        if (link.length > 70)
-        {
-          shortLink = link.substr(0, 70);
-          shortLink = shortLink + ' [...]';
-        } else {
-                shortLink = link;
-        }
-
-        return shortLink;
-
-    }
-
-    $scope.chekprotocol = function(strLink)
-    {
-        //Check protocol
-        var indexProtocolCheck = strLink.indexOf('http');
-
-        if(indexProtocolCheck == -1)
-        {
-            //Add protocol to link
-            strLink = "http://" + strLink;
-        }
-
-        return strLink;
-
-    }
-
     function initDataset ()
     {
         // Get dataset info from profile API
@@ -482,6 +445,10 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
             {
                 // Load the dataset information
                 $scope.objDataset = dataDS;
+                $scope.is_opendata = RodiSrv.isOpenData(dataDS);
+                $scope.is_technically_opendata = RodiSrv.isTechnicallyOpenData(dataDS);
+                $scope.is_legally_opendata = RodiSrv.isLegallyOpenData(dataDS);
+                $scope.opendata_label = RodiSrv.getDatasetLabel(dataDS);
                 $scope.objDatasetView = angular.copy(dataDS);
 
                 // Check if user logged in can edit dataset, LOAD DATASET PROFILE API
@@ -545,7 +512,16 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
                 $scope.newLink = "";
                 $scope.countryDesc = "";
 
-                $scope.selectedLink = $scope.objDataset.url;
+                $scope.selectedLink = $scope.objDataset.url.map(function(url){
+                  if (/^https?/.test(url) === false) {
+                    return 'http' + url;
+                  }
+                  else if (/^https?:\/\//.test(url) === false) {
+                    return 'http://' + url;
+                  }
+
+                  return url;
+                });
 
                 // Load country list
                 RodiSrv.getCountryList().then(function(response){

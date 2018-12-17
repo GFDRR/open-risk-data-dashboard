@@ -141,64 +141,87 @@
 
                 <!-- Open Data Criteria -->
                 <div class="row" id="criteria">
-                    <div class="col-xs-12 col-sm-10 col-md-8 col-xs-offset-0 col-sm-offset-1 col-md-offset-2 text-content">
+                    <div class="col-xs-12 col-sm-10 col-md-8 col-xs-offset-0 col-sm-offset-1 col-md-offset-2">
+                      <div class="well">
+                        <h2 class="h4">Is this dataset open?</h2>
 
-                        <h2 class="odfri_title_red">Open Data Criteria</h2>
-
-                        <!-- Question 1 - 2 -->
-                        <div class="criteria-icons">
-                            <div>
-                                <i class="{{getQuestionIcon('is_existing')}}" ng-class="objDataset.is_existing ? 'yes-icon' : 'no-icon'"></i>
-                                <span>{{getQuestionCode('is_existing', objDataset)}}</span>
-                            </div>
-
-                            <div>
-                                <i class="{{getQuestionIcon('is_digital_form')}}" ng-class="objDataset.is_digital_form ? 'yes-icon' : 'no-icon'"></i>
-                                <span>{{getQuestionCode('is_digital_form', objDataset)}}</span>
-                            </div>
-
-                            <div>
-                                <i class="{{getQuestionIcon('is_pub_available')}}" ng-class="objDataset.is_pub_available ? 'yes-icon' : 'no-icon'"></i>
-                                <span>{{getQuestionCode('is_pub_available', objDataset)}}</span>
-                            </div>
-
-                            <div>
-                                <i class="{{getQuestionIcon('is_avail_online')}}" ng-class="objDataset.is_avail_online ? 'yes-icon' : 'no-icon'"></i>
-                                <span>{{getQuestionCode('is_avail_online', objDataset)}}</span>
-                            </div>
-
-                            <div>
-                                <i class="{{getQuestionIcon('is_avail_online_meta')}}" ng-class="objDataset.is_avail_online_meta ? 'yes-icon' : 'no-icon'"></i>
-                                <span>{{getQuestionCode('is_avail_online_meta', objDataset)}}</span>
-                            </div>
-
-                            <div>
-                                <i class="{{getQuestionIcon('is_bulk_avail')}}" ng-class="objDataset.is_bulk_avail ? 'yes-icon' : 'no-icon'"></i>
-                                <span>{{getQuestionCode('is_bulk_avail', objDataset)}}</span>
-                            </div>
-
-                            <div>
-                                <i class="{{getQuestionIcon('is_machine_read')}}" ng-class="objDataset.is_machine_read ? 'yes-icon' : 'no-icon'"></i>
-                                <span>{{getQuestionCode('is_machine_read', objDataset)}}</span>
-                            </div>
-
-                            <div>
-                                <i class="{{getQuestionIcon('is_avail_for_free')}}" ng-class="objDataset.is_avail_for_free ? 'yes-icon' : 'no-icon'"></i>
-                                <span>{{getQuestionCode('is_avail_for_free', objDataset)}}</span>
-                            </div>
-
-                            <div>
-                                <i class="{{getQuestionIcon('is_open_licence')}}" ng-class="objDataset.is_open_licence ? 'yes-icon' : 'no-icon'"></i>
-                                <span>{{getQuestionCode('is_open_licence', objDataset)}}</span>
-                            </div>
-
-                            <div>
-                                <i class="{{getQuestionIcon('is_prov_timely')}}" ng-class="objDataset.is_prov_timely ? 'yes-icon' : 'no-icon'"></i>
-                                <span>{{getQuestionCode('is_prov_timely', objDataset)}}</span>
-                            </div>
+                        <div ng-switch="opendata_label" class="criteria-badge">
+                          <span ng-switch-when="opendata"><img src="/img/od_640x120_blue.png" class="img-responsive" alt="Open Data"></span>
+                          <span ng-switch-when="restricted">Restricted</span>
+                          <span ng-switch-when="closed">Closed</span>
+                          <span ng-switch-when="unknown">Unknown</span>
                         </div>
 
-                        <div class="odfri_div_separator"></div>
+                        <p class="status" ng-if="is_opendata">Yes, this dataset is free to access, use and share <a href="#footnote:restrictions" class="discrete" id="fnref:restrictions">(*)</a>.</p>
+
+                        <p class="status" ng-if="!is_opendata">
+                          No, this dataset
+                          <span ng-if="!objDataset.is_avail_for_free">is not free of charge, and</span>
+                          has
+                          <span ng-if="!is_technically_opendata">technical</span>
+                          <span ng-if="!is_legally_opendata && !is_legally_opendata">and</span>
+                          <span ng-if="!is_legally_opendata">legal</span> restrictions
+                          on access, use and sharing.
+                        </p>
+
+                        <p>
+                          <button ng-click="display_criteria = display_criteria ? false : true" class="link">{{display_criteria ? 'Less details' : 'More details'}}</button>
+                        </p>
+
+                        <dl class="criteria-icons criteria-list text-content" id="criteria-details" ng-if="display_criteria">
+                          <dd>
+                            <i class="{{getQuestionIcon('is_existing')}}" ng-class="objDataset.is_existing ? 'yes-icon' : 'no-icon'"></i>
+                            {{getQuestionCode('is_existing', objDataset)}}
+                          </dd>
+
+                          <dd>
+                            <i class="{{getQuestionIcon('is_digital_form')}}" ng-class="objDataset.is_digital_form ? 'yes-icon' : 'no-icon'"></i>
+                            {{getQuestionCode('is_digital_form', objDataset)}}
+                          </dd>
+
+                          <dd>
+                            <i class="{{getQuestionIcon('is_pub_available')}}" ng-class="objDataset.is_pub_available ? 'yes-icon' : 'no-icon'"></i>
+                            {{getQuestionCode('is_pub_available', objDataset)}}
+                          </dd>
+
+                          <dd>
+                            <i class="{{getQuestionIcon('is_avail_online')}}" ng-class="objDataset.is_avail_online ? 'yes-icon' : 'no-icon'"></i>
+                            {{getQuestionCode('is_avail_online', objDataset)}}
+                          </dd>
+
+                          <dd>
+                            <i class="{{getQuestionIcon('is_avail_online_meta')}}" ng-class="objDataset.is_avail_online_meta ? 'yes-icon' : 'no-icon'"></i>
+                            {{getQuestionCode('is_avail_online_meta', objDataset)}}
+                          </dd>
+
+                          <dd>
+                            <i class="{{getQuestionIcon('is_bulk_avail')}}" ng-class="objDataset.is_bulk_avail ? 'yes-icon' : 'no-icon'"></i>
+                            {{getQuestionCode('is_bulk_avail', objDataset)}}
+                          </dd>
+
+                          <dd>
+                            <i class="{{getQuestionIcon('is_machine_read')}}" ng-class="objDataset.is_machine_read ? 'yes-icon' : 'no-icon'"></i>
+                            {{getQuestionCode('is_machine_read', objDataset)}}
+                          </dd>
+
+                          <dd>
+                            <i class="{{getQuestionIcon('is_avail_for_free')}}" ng-class="objDataset.is_avail_for_free ? 'yes-icon' : 'no-icon'"></i>
+                            {{getQuestionCode('is_avail_for_free', objDataset)}}
+                          </dd>
+
+                          <dd>
+                            <i class="{{getQuestionIcon('is_open_licence')}}" ng-class="objDataset.is_open_licence ? 'yes-icon' : 'no-icon'"></i>
+                            {{getQuestionCode('is_open_licence', objDataset)}}
+                          </dd>
+
+                          <dd>
+                            <i class="{{getQuestionIcon('is_prov_timely')}}" ng-class="objDataset.is_prov_timely ? 'yes-icon' : 'no-icon'"></i>
+                            {{getQuestionCode('is_prov_timely', objDataset)}}
+                          </dd>
+                        </dl>
+
+                        <p ng-if="is_opendata && display_criteria"><a href="#fnref:restrictions" id="footnote:restrictions" class="discrete">(*) Restrictions may apply</a>.</p>
+                      </div>
                     </div>
                 </div>
 
@@ -223,11 +246,11 @@
                             {{objDataset.notes}}</span>
                         <br /> <br />
                         <span><span class="odfri_dataset_label">Links to data and metadata:</span>
-                            <div class="rodi_ul">
-                                <a href="{{chekprotocol(link)}}" target="_blank" ng-repeat="link in selectedLink">
-                                    - {{formatLink(link)}}<br />
-                                </a>
-                            </div>
+                            <ul class="list-unstyled">
+                              <li ng-repeat="link in selectedLink">
+                                <a href="{{link}}" class="single-line" target="_blank" noreferrer noopener>{{link}}</a>
+                              </li>
+                            </ul>
                         </span><br />
                         <span><span class="odfri_dataset_label">Dataset submitted by:</span> {{objDataset.owner}}</span>
 
@@ -240,19 +263,22 @@
                         <hr />
                         <h2 class="odfri_title_red">Similar datasets for this country</h2>
 
-                        <span ng-if="istanceList.length == 0">No similar dataset submitted for this country.</span>
-                        <table class="table table-responsive table-striped table-hover" ng-if="istanceList.length > 0">
+                        <span ng-if="!istanceList.length">No similar dataset submitted for this country.</span>
+                        <table class="table table-striped table-hover" ng-if="istanceList.length">
                             <thead>
                                 <tr>
-                                    <th class="col-xs-4 col-sm-4">Dataset</th>
-                                    <th class="col-xs-6 col-sm-6">Open data criteria</th>
-                                    <th class="col-xs-1 col-sm-1 text-center">See details</th>
+                                    <th>Dataset</th>
+                                    <th>Open data criteria</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="istance in istanceList | orderBy: '-score * 1'">
+                                <tr ng-repeat="istance in istanceList | orderBy: '-score * 1'" ng-click="changepage('dataset_details.html?keyds=' + istance.id)">
                                     <td>
-                                        {{istance.keydataset.dataset.name}}<br />
+                                        <a ng-href="dataset_details.html?keyds={{istance.id}}">{{istance.keydataset.dataset.name}}</a><br>
+
+                                        <span class="small text-muted rodi_subtitle_datasetlist" ng-show="istance.title"><i>{{istance.title}}, </i></span>
+                                        <span class="small text-muted rodi_subtitle_datasetlist" ng-show="istance.is_existing_txt"><i>{{istance.is_existing_txt}}, </i></span>
+                                        <span class="small text-muted rodi_subtitle_datasetlist" ng-show="istance.modify_time"><i>{{istance.modify_time | date: 'dd/MM/yyyy'}}</i></span>
                                     </td>
                                     <td>
                                         <div class="dataset_value">
@@ -278,10 +304,6 @@
                                                 data-toggle="tooltip" title="{{questions[9].desc}}"></i>
                                         </div>
                                     </td>
-                                    <td class="text-center">
-                                        <a class="" href="" title="details" style="margin-right:10px;" ng-click="changepage('dataset_details.html?keyds=' + istance.id)"><i
-                                                class="fa fa-search fa-2x" aria-hidden="true"></i></a>
-                                    </td>
                                 </tr>
                             </tbody>
                         </table>
@@ -298,13 +320,24 @@
 
                         <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
                             <h1>
-                                <!--Section A --->Dataset classification</h1>
+                                Dataset classification</h1>
                             <hr />
 
                             <div class="row">
                                 <div>
-                                    <span class="">Country</span>
-                              </div>
+                                    <span class="rodi_dataset_label">Title</span>
+                                </div>
+                                <!--<span class="">Lorem ipsum</span>-->
+                                <br />
+                                <div class="col-lg-12">
+                                    <input type="text" class="form-control" ng-model="objDataset.title">
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div>
+                                    <span class="rodi_dataset_label">Country</span>
+                                </div>
                                 <div class="dataset_form_select_style">
                                     <select ng-model="objDataset.country" class="dataset_form_select_style">
                                         <option value="--" selected>Select country</option>
@@ -315,7 +348,7 @@
 
                             <div class="row">
                                 <div>
-                                    <span class="">Dataset</span>
+                                    <span class="rodi_dataset_label">Dataset</span>
                                 </div>
                                 <div class="dataset_form_select_style" style="margin-left: 0em;">
                                     <span style="padding-right: 5px;" ng-repeat="dsCat in dataCategory">
@@ -335,10 +368,10 @@
                             </div>
 
                             <div class="row">
-                                <span ng-repeat="ds_desc in datasetDescription | orderBy: 'description.name'" class="rodi_description_box_item"
+                                <div ng-repeat="ds_desc in datasetDescription | orderBy: 'description.name'" class="rodi_description_box_item"
                                     ng-click="changeDescription(ds_desc.description.code)" ng-class="{'selected': ds_desc.description.code == objDataset.keydataset.description}">
                                     {{ds_desc.description.name}}
-                                </span>
+                                </div>
                             </div>
 
                         </div>
@@ -357,7 +390,7 @@
 
                             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                                 <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-check-circle-o"></i></span>
-                                <span class="">{{getQuestionCode('is_existing')}}</span>
+                                <span class="rodi_dataset_label">{{getQuestionCode('is_existing')}}</span>
                                 <span class="text-muted"><a href="" ng-click="questionHelp(0)"><i class="fa fa-question-circle"
                                             aria-hidden="true"></i></a></span>
                             </div>
@@ -391,7 +424,7 @@
                         <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
                             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                                 <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-desktop"></i></span>
-                                <span class="">{{getQuestionCode('is_digital_form')}}</span>
+                                <span class="rodi_dataset_label">{{getQuestionCode('is_digital_form')}}</span>
                                 <span class="text-muted"><a href="" ng-click="questionHelp(1)"><i class="fa fa-question-circle"
                                             aria-hidden="true"></i></a></span>
                             </div>
@@ -420,7 +453,7 @@
                             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
 
                                 <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-eye"></i></span>
-                                <span class="">{{getQuestionCode('is_pub_available')}}</span>
+                                <span class="rodi_dataset_label">{{getQuestionCode('is_pub_available')}}</span>
                                 <span class="text-muted"><a href="" ng-click="questionHelp(6)"><i class="fa fa-question-circle"
                                             aria-hidden="true"></i></a></span>
                             </div>
@@ -448,7 +481,7 @@
                         <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
                             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                                 <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-cloud"></i></span>
-                                <span class="">{{getQuestionCode('is_avail_online')}}</span>
+                                <span class="rodi_dataset_label">{{getQuestionCode('is_avail_online')}}</span>
                                 <span class="text-muted"><a href="" ng-click="questionHelp(2)"><i class="fa fa-question-circle"
                                             aria-hidden="true"></i></a></span>
 
@@ -494,7 +527,7 @@
                         <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
                             <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                                 <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-tag"></i></span>
-                                <span class="">{{getQuestionCode('is_avail_online_meta')}}</span>
+                                <span class="rodi_dataset_label">{{getQuestionCode('is_avail_online_meta')}}</span>
                                 <span class="text-muted"><a href="" ng-click="questionHelp(3)"><i class="fa fa-question-circle"
                                             aria-hidden="true"></i></a></span>
                             </div>
@@ -548,7 +581,7 @@
                         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                             <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-copy"></i></span>
                             <!--<span class="rodi_dataset_label_code">B5.</span>-->
-                            <span class="">{{getQuestionCode('is_bulk_avail')}}</span>
+                            <span class="rodi_dataset_label">{{getQuestionCode('is_bulk_avail')}}</span>
                             <span class="text-muted"><a href="" ng-click="questionHelp(4)"><i class="fa fa-question-circle"
                                         aria-hidden="true"></i></a></span>
                         </div>
@@ -578,7 +611,7 @@
                         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                             <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-keyboard-o"></i></span>
                             <!--<span class="rodi_dataset_label_code">B6.</span>-->
-                            <span class="">{{getQuestionCode('is_machine_read')}}</span>
+                            <span class="rodi_dataset_label">{{getQuestionCode('is_machine_read')}}</span>
                             <span class="text-muted"><a href="" ng-click="questionHelp(5)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
                         </div>
 
@@ -613,7 +646,7 @@
                         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                             <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-dollar"></i></span>
                             <!--<span class="rodi_dataset_label_code">B8.</span>-->
-                            <span class="">{{getQuestionCode('is_avail_for_free')}}</span>
+                            <span class="rodi_dataset_label">{{getQuestionCode('is_avail_for_free')}}</span>
                             <span class="text-muted"><a href="" ng-click="questionHelp(7)"><i class="fa fa-question-circle"
                                         aria-hidden="true"></i></a></span>
                         </div>
@@ -646,7 +679,7 @@
                         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                             <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-unlock-alt"></i></span>
                             <!--<span class="rodi_dataset_label_code">B9.</span>-->
-                            <span class="">{{getQuestionCode('is_open_licence')}}</span>
+                            <span class="rodi_dataset_label">{{getQuestionCode('is_open_licence')}}</span>
                             <span class="text-muted"><a href="" ng-click="questionHelp(8)"><i class="fa fa-question-circle"
                                         aria-hidden="true"></i></a></span>
                         </div>
@@ -682,7 +715,7 @@
                         <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
                             <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-clock-o"></i></span>
                             <!--<span class="rodi_dataset_label_code">B10.</span>-->
-                            <span class="">{{getQuestionCode('is_prov_timely')}}</span>
+                            <span class="rodi_dataset_label">{{getQuestionCode('is_prov_timely')}}</span>
                             <span class="text-muted"><a href="" ng-click="questionHelp(9)"><i class="fa fa-question-circle"
                                         aria-hidden="true"></i></a></span>
                         </div>
