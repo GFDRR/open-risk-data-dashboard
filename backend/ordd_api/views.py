@@ -1628,7 +1628,8 @@ class Score(object):
                        dataset.id, value]
                 for int_field in interesting_fields:
                     row.append(getattr(dataset, int_field))
-                row.extend([dataset.title, dataset.modify_time, dataset.is_existing_txt])
+                row.extend([dataset.title, dataset.is_prov_timely_last,
+                            dataset.is_existing_txt])
 
             else:
                 row = [dsname.pk, dsname.name, dsname.category, None, "-100.0"]
