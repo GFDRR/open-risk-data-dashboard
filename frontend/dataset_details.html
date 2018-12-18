@@ -119,7 +119,6 @@
                 <!-- Dataset main details -->
                 <div class="row" id="dataset">
                     <div class="col-xs-12 col-sm-10 col-md-8 col-xs-offset-0 col-sm-offset-1 col-md-offset-2 text-content">
-
                         <h3 ng-if="objDatasetView.keydataset.description" class="h4">What dataset is expected?</h3>
 
                         <div ng-if="objDatasetView.keydataset.description">
@@ -142,6 +141,8 @@
                 <!-- Open Data Criteria -->
                 <div class="row" id="criteria">
                     <div class="col-xs-12 col-sm-10 col-md-8 col-xs-offset-0 col-sm-offset-1 col-md-offset-2">
+                      <h2>{{objDatasetView.title || 'Untitled'}}</h2>
+
                       <div class="well">
                         <h2 class="h4">Is this dataset open?</h2>
 
