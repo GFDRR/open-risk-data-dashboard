@@ -227,33 +227,45 @@
 
                 <!-- Metadata -->
                 <div class="row" id="metadata">
-                    <div class="col-xs-12 col-sm-10 col-md-8 col-xs-offset-0 col-sm-offset-1 col-md-offset-2 text-content">
+                    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+                        <h2 class="h4">Metadata</h2>
 
-                        <h2 class="odfri_title_red">Metadata</h2>
-                        <span><span class="odfri_dataset_label">Agency or organization:</span>
-                            {{objDatasetView.is_existing_txt}}</span>
-                        <br />
-                        <span><span class="odfri_dataset_label">Available formats:</span>
-                            {{objDatasetView.is_machine_read_txt}}</span>
-                        <br />
-                        <span><span class="odfri_dataset_label">License:</span>
-                            {{objDatasetView.is_open_licence_txt}}</span>
-                        <br />
-                        <span><span class="odfri_dataset_label">Date of last update:</span>
-                            {{objDatasetView.is_prov_timely_last}}</span>
-                        <br /> <br />
-                        <span><span class="odfri_dataset_label">Additional information:</span><br />
-                            {{objDataset.notes}}</span>
-                        <br /> <br />
-                        <span><span class="odfri_dataset_label">Links to data and metadata:</span>
+                        <dl class="horizontal">
+                          <dt>Published by:</dt>
+                          <dd>{{objDataset.is_existing_txt}}</dd>
+
+                          <dt>Last updated:</dt>
+                          <dd>{{objDataset.is_prov_timely_last}}</dd>
+
+                          <dt>License:</dt>
+                          <dd>{{objDataset.is_open_licence_txt}}</dd>
+
+                          <dt>Format(s):</dt>
+                          <dd>{{objDataset.is_machine_read_txt}}</dd>
+
+                          <dt>Additional info:</dt>
+                          <dd>{{objDataset.notes}}</dd>
+
+                          <dt>Dataset links:</dt>
+                          <dd>
                             <ul class="list-unstyled">
                               <li ng-repeat="link in selectedLink">
                                 <a href="{{link}}" class="single-line" target="_blank" noreferrer noopener>{{link}}</a>
                               </li>
                             </ul>
-                        </span><br />
-                        <span><span class="odfri_dataset_label">Dataset submitted by:</span> {{objDataset.owner}}</span>
+                          </dd>
+                        </dl>
 
+                        <h2 class="h4">Other info on submission</h2>
+
+                        <dl class="horizontal">
+                          <dt>Submitted by:</dt>
+                          <dd>{{objDataset.owner}}</dd>
+
+                          <dt>Review status:</dt>
+                          <dd ng-if="objDataset.is_reviewed" class="success"><b>Reviewed</b></dd>
+                          <dd ng-if="!objDataset.is_reviewed" class="warning"><b>Pending review</b></dd>
+                        </dl>
                     </div>
                 </div>
 
