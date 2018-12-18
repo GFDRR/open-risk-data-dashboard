@@ -31,8 +31,8 @@ var baseUrl = spli_url.protocol + '//' + spli_url.host + '/';
 //     to have full access to development backend from
 //     your local development installation
 //
-var baseAPIurl = '/api/';
-//var baseAPIurl = 'https://dev.riskopendata.org/api/';
+//var baseAPIurl = '/api/';
+var baseAPIurl = 'https://dev.riskopendata.org/api/';
 
 RodiApp.config(function($locationProvider) {
 
