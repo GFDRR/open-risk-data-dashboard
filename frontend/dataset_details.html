@@ -97,21 +97,6 @@
                 <h1>{{objDatasetView.keydataset.dataset.name}}</h1>
 
                 <h2 class="odfri_title_red text-center">{{countryDesc}}</h2>
-
-                <div class="text-center ng-cloak" ng-if="bReviewer">
-                    <a href="" class="btn btn-md btn-primary" ng-click="setEditForm()" ng-if="bReviewer && !bEdit"><i
-                            class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" title="Edit dataset"></i>
-                        Edit dataset</a>
-                    <a href="" class="btn btn-md btn-info" ng-if="bEdit" ng-click="closeRevision()"><i class="fa fa-times"
-                            aria-hidden="true" data-toggle="tooltip" title="Close edit mode"></i> Close edit mode</a>
-                    <a href="" class="btn btn-md btn-danger" ng-if="bEdit && bReviewer" ng-click="deleteDataset()"><i
-                            class="fa fa-trash-o" aria-hidden="true" title="Delete dataset"></i> Delete dataset</a>
-                    <span class="alert alert-success" ng-if=" objDataset.is_reviewed == true" title="Information on this dataset has been reviewed and approved"
-                        style="font-size: 14px;padding: 8px;"><span class="fa fa-check" aria-hidden="true"></span>&nbsp;Approved</span>
-                    <span class="alert alert-danger" ng-if=" objDataset.is_reviewed == false" title="Information on this dataset has not been reviewed and may contain errors"
-                        style="font-size: 14px;padding: 8px;"><span class="fa fa-warning" aria-hidden="true"></span>&nbsp;Pending
-                        approval</span>
-                </div>
             </div>
 
             <!-- DATASET VIEW MODE - START -->
@@ -141,7 +126,7 @@
                 <!-- Open Data Criteria -->
                 <div class="row" id="criteria">
                     <div class="col-xs-12 col-sm-10 col-md-8 col-xs-offset-0 col-sm-offset-1 col-md-offset-2">
-                      <h2>{{objDatasetView.title || 'Untitled'}}</h2>
+                      <h2 class="h1">{{objDatasetView.title || 'Untitled'}}</h2>
 
                       <div class="well">
                         <h2 class="h4">Is this dataset open?</h2>
