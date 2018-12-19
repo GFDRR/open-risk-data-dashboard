@@ -1878,7 +1878,8 @@ review mode
 
 .criteria-badge {
   float: right;
-  max-width: 100px;
+  max-width: 150px;
+  font-size: 24px;
 }
 
 h4 + .criteria-badge,
