@@ -374,6 +374,8 @@ h1 + .lead {
     -webkit-box-orient: vertical;
     width:100%;
     overflow:hidden;
+    min-height: 50px;
+
 }
 
 
