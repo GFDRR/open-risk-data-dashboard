@@ -273,10 +273,11 @@
                                 <tr ng-repeat="istance in istanceList | orderBy: '-score * 1'" ng-click="changepage('dataset_details.html?keyds=' + istance.id)">
                                     <td>
                                         <a ng-href="dataset_details.html?keyds={{istance.id}}">{{istance.keydataset.dataset.name}}</a><br>
-
-                                        <span class="small text-muted rodi_subtitle_datasetlist" ng-show="istance.title"><i>{{istance.title}}, </i></span>
-                                        <span class="small text-muted rodi_subtitle_datasetlist" ng-show="istance.is_existing_txt"><i>{{istance.is_existing_txt}}, </i></span>
-                                        <span class="small text-muted rodi_subtitle_datasetlist" ng-show="istance.modify_time"><i>{{istance.modify_time}}</i></span>
+                                        <div class="rodi_subtitle_datasetlist">
+                                            <span class="small text-muted " ng-show="istance.title"><i>{{istance.title}}, </i></span>
+                                            <span class="small text-muted " ng-show="istance.is_existing_txt"><i>{{istance.is_existing_txt}}, </i></span>
+                                            <span class="small text-muted " ng-show="istance.modify_time"><i>{{istance.modify_time}}</i></span>
+                                        </div>
                                     </td>
                                     <td>
                                         <div class="dataset_value">
