@@ -380,40 +380,58 @@ h1 + .lead {
 }
 */
 
-
-.trunkate span, .trunkate {
-    position: relative;
-    height: 50px;
+.trunkate {
+    white-space: nowrap;
     overflow: hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    -ms-text-overflow: ellipsis;
+    /*-moz-binding: url('ellipsis.xml#ellipsis');*/
+    display: inline-flex;
+    display: -webkit-box;
+    /*height: 30px;*/
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    /*width: 250px;*/
+
+    /*height: 50px;*/
+
+
 }
 
-.trunkate span:first-child:after,
-.trunkate span:last-child:after {
-    content: "...";
-    text-align: right;
-    /*position: absolute;*/
-    bottom: 0;
-    right: 0;
-    width: 50%;
-    height: 1.2em;
-    max-height: 50px;
-    /*   background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 80%); */
-}
+/*.trunkate {*/
+    /*position: relative;*/
+    /*height: 50px;*/
+    /*overflow: hidden;*/
+/*}*/
 
-/* Now add in code for the browsers that support -webkit-line-clamp and overwrite the non-supportive stuff */
-@supports (-webkit-line-clamp: 2) {
-    .trunkate {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 2;
-        -webkit-box-orient: vertical;
-    }
+/*.trunkate */
+/*{*/
+    /*content: "...";*/
+    /*text-align: right;*/
+    /*!*position: absolute;*!*/
+    /*bottom: 0;*/
+    /*right: 0;*/
+    /*width: 50%;*/
+    /*height: 1.2em;*/
+    /*max-height: 50px;*/
+    /*!*   background: linear-gradient(to right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 1) 80%); *!*/
+/*}*/
 
-    .trunkate:after {
-        display: none;
-    }
-}
+/*!* Now add in code for the browsers that support -webkit-line-clamp and overwrite the non-supportive stuff *!*/
+/*@supports (-webkit-line-clamp: 2) {*/
+    /*.trunkate {*/
+        /*overflow: hidden;*/
+        /*text-overflow: ellipsis;*/
+        /*display: -webkit-box;*/
+        /*-webkit-line-clamp: 2;*/
+        /*-webkit-box-orient: vertical;*/
+    /*}*/
+
+    /*.trunkate:after {*/
+        /*display: none;*/
+    /*}*/
+/*}*/
 
 
 
