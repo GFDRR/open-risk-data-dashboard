@@ -510,8 +510,8 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
                 is_open_licence_txt:"",
                 is_prov_timely:"",
                 is_prov_timely_last:"",
-                is_pub_available: "--",
-                is_reviewed: false,
+                is_pub_available: "",
+                is_reviewed: "",
                 keydataset:{
                     applicability:[],
                     category: "0",
