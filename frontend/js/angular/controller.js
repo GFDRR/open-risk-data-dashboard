@@ -11,6 +11,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
 
     // Check server CALL
 
+    $scope.isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
+
     $scope.bLogin = false;
     $scope.tokenid = localStorage.getItem('rodi_token');
     $scope.userinfo = JSON.parse(localStorage.getItem('rodi_user'));
