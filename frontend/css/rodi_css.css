@@ -444,22 +444,28 @@ Logo color
     font-size: 56.0275px;
 }
 
-svg.logo_icon {
+svg.logo_icon,
+.navbar-brand img{
     stroke-linecap: round;
     stroke-width: 0;
     max-height: 50px;
     max-width: 150px;
 }
 
-svg.logo_partner {
+svg.logo_partner,
+img.logo_partner{
     max-width: 120px;
     width:100%;
     margin-right: 10px;
 }
-svg.logo_partner.bit_more {
+svg.logo_partner.bit_more,
+img.logo_partner.bit_more{
     max-width: 200px;
 }
-svg.logo_partner._43 {max-height: 34px; padding:0 10px;}
+svg.logo_partner._43,
+img.logo_partner._43{
+    max-height: 34px; padding:0 10px;
+}
 
 
 @media screen and (max-width:768px) {
@@ -1025,9 +1031,7 @@ a.invert {
     flex-grow: 3;
 }
 
-#menu-hazard .nav > li {
-  flex: 0;
-}
+/*#menu-hazard .nav > li {  flex: 0;}*/
 #menu-hazard .nav > li > a {
   display: flex;
   max-width: 110px;
