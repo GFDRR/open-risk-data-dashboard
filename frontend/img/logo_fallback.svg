@@ -1,0 +1,63 @@
+<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1036.52 305.65">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #ee3036;
+      }
+
+      .cls-2 {
+        fill: #f3702b;
+      }
+
+      .cls-3 {
+        fill: #818285;
+      }
+
+      .cls-4 {
+        fill: #414447;
+      }
+
+      .cls-5, .cls-6, .cls-7 {
+        isolation: isolate;
+      }
+
+      .cls-6 {
+        font-size: 109.94px;
+      }
+
+      .cls-6, .cls-7 {
+        font-family: Variable-Black, Variable;
+        font-weight: 800;
+      }
+
+      .cls-7 {
+        font-size: 56.03px;
+      }
+    </style>
+  </defs>
+  <title>logo_fallback</title>
+  <g>
+    <path class="cls-1" d="M101,227A84,84,0,0,1,47.16,78.53l19,20.37a55.5,55.5,0,1,0,19.29-9.82L75.34,63A84,84,0,1,1,101,227Z"/>
+    <path class="cls-2" d="M45,142.5a55.42,55.42,0,0,0,22,44.24L48.52,208.57a84,84,0,0,1-1.36-130l19,20.37A55.41,55.41,0,0,0,45,142.5Z"/>
+    <path class="cls-3" d="M119.23,51.7A93.5,93.5,0,0,0,68.05,230.81l-2.2,7.73A101.51,101.51,0,0,1,121.44,44Z"/>
+    <path class="cls-4" d="M86.51,235.79A93.48,93.48,0,0,0,175.65,86.57L177.72,85A96,96,0,0,1,102,240a96.78,96.78,0,0,1-15.33-1.23Z"/>
+    <path class="cls-4" d="M17,5l7-5,80,138Z"/>
+  </g>
+  <g>
+    <g class="cls-5">
+      <text class="cls-6" transform="translate(213.97 99.09)">Open</text>
+    </g>
+    <g class="cls-5">
+      <text class="cls-6" transform="translate(550.02 100.19)">Data</text>
+    </g>
+    <g class="cls-5">
+      <text class="cls-6" transform="translate(884.48 99.44)">for</text>
+    </g>
+    <g class="cls-5">
+      <text class="cls-6" transform="translate(213.97 232.04)">Resilience Index</text>
+    </g>
+    <g class="cls-5">
+      <text class="cls-7" transform="translate(916.53 295.57)">beta</text>
+    </g>
+  </g>
+</svg>

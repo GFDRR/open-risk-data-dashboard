@@ -84,9 +84,10 @@
           <span class="icon-bar"></span>
         </button>
         <a class="navbar-brand" href="./"  ng-click="changepage('./')">
-          <svg class="logo_icon" aria-hidden="true" focusable="false" fill="currentColor;">
+          <svg ng-if="!isIE11" class="logo_icon" aria-hidden="true" focusable="false" fill="currentColor;">
             <use xlink:href="img/logo.svg#logo_open_data_full"></use>
           </svg>
+          <img ng-if="isIE11" ng-src="img/logo_fallback@1x.png" alt="" />
         </a>
       </div>
 
@@ -179,11 +180,11 @@
               <td>
                 <a href="dataset_details.html?keyds={{item.istance_id}}" ng-if="item.istance_id" title="View details">{{item.name}}</a>
                 <span ng-if="!item.istance_id">{{item.name}} (<a href="contribute.html?ctr={{idCountry}}&amp;ds={{item.name}}">Contribute</a>)</span><br />
-                <div class="rodi_subtitle_datasetlist trunkate">
-
-                  <span class="small text-muted " ng-show="item.title"><i>{{item.title}}, </i></span>
-                  <span class="small text-muted " ng-show="item.institution"><i>{{item.institution}}, </i></span>
-                  <span class="small text-muted " ng-show="item.modify_time"><i>{{item.modify_time}}</i></span>
+                <div class="rodi_subtitle_datasetlist">
+                  <i class=" text-muted trunkate">{{item.title.toString() + ' ' + item.institution.toString() + ' ' + item.modify_time.toString()}}</i>
+                  <!--<span class="small text-muted " ng-show="item.title"><i>{{item.title}}, </i></span>-->
+                  <!--<span class="small text-muted " ng-show="item.institution"><i>{{item.institution}}, </i></span>-->
+                  <!--<span class="small text-muted " ng-show="item.modify_time"><i>{{item.modify_time}}</i></span>-->
                 </div>
               </td>
               <td>

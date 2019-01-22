@@ -369,15 +369,44 @@ h1 + .lead {
 
 
 .trunkate {
+    background: transparent;
+    display: block;
+    /* Fallback for non-webkit */
     display: -webkit-box;
+    max-height: 3.38rem;
+    /* Fallback for non-webkit */
+    font-size: 1.3rem;
+    line-height: 1.3;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    width:100%;
-    overflow:hidden;
-    min-height: 50px;
-
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-bottom: 0;
 }
-
+@-moz-document url-prefix() {
+    .trunkate {
+        overflow: hidden;
+        position: relative;
+    }
+    .trunkate:before {
+        background: transparent;
+        bottom: 0;
+        position: absolute;
+        right: 0;
+        float: right;
+        content: '\2026';
+        margin-left: -3rem;
+        width: 3rem;
+    }
+    .trunkate:after {
+        content: '';
+        background: transparent;
+        position: absolute;
+        height: 50px;
+        width: 100%;
+        z-index: 1;
+    }
+}
 
 /*
 ==============================================================================
@@ -415,22 +444,28 @@ Logo color
     font-size: 56.0275px;
 }
 
-svg.logo_icon {
+svg.logo_icon,
+.navbar-brand img{
     stroke-linecap: round;
     stroke-width: 0;
     max-height: 50px;
     max-width: 150px;
 }
 
-svg.logo_partner {
+svg.logo_partner,
+img.logo_partner{
     max-width: 120px;
     width:100%;
     margin-right: 10px;
 }
-svg.logo_partner.bit_more {
+svg.logo_partner.bit_more,
+img.logo_partner.bit_more{
     max-width: 200px;
 }
-svg.logo_partner._43 {max-height: 34px; padding:0 10px;}
+svg.logo_partner._43,
+img.logo_partner._43{
+    max-height: 34px; padding:0 10px;
+}
 
 
 @media screen and (max-width:768px) {
@@ -996,9 +1031,7 @@ a.invert {
     flex-grow: 3;
 }
 
-#menu-hazard .nav > li {
-  flex: 0;
-}
+/*#menu-hazard .nav > li {  flex: 0;}*/
 #menu-hazard .nav > li > a {
   display: flex;
   max-width: 110px;

@@ -1067,12 +1067,14 @@ class Score(object):
 
         if keydataset_score_tree['value'] < score:
             keydataset_score_tree['value'] = score
-            keydataset_score_tree['dataset'] = dataset
+            keydataset_score_tree['dataset'].insert(0, dataset)
+        else:
+            keydataset_score_tree['dataset'].append(dataset)
 
     @classmethod
     def country_scoring_loadtree(cls, request, country_score_tree, dataset):
         """
-        country['category'][category]['score'][keydataset]{dataset, value}
+        country['category'][category]['score'][keydataset]{[datasets], value}
         country['category'][category]['count']
         country['dsname']
         country['datasets_count']
@@ -1086,11 +1088,13 @@ class Score(object):
 
         if dsname_id not in country_score_tree['dsname']:
             country_score_tree['dsname'][dsname_id] = {
-                'dataset': None, 'value': -1}
+                'dataset': [], 'value': -1}
         dsname_score_tree = country_score_tree['dsname'][dsname_id]
         if dsname_score_tree['value'] < score:
             dsname_score_tree['value'] = score
-            dsname_score_tree['dataset'] = dataset
+            dsname_score_tree['dataset'].insert(0, dataset)
+        else:
+            dsname_score_tree['dataset'].append(dataset)
 
         if category_id not in country_score_tree['category']:
             country_score_tree['category'][category_id] = OrderedDict(
@@ -1100,12 +1104,14 @@ class Score(object):
 
         if keydataset_id not in category_score_tree['score']:
             category_score_tree['score'][keydataset_id] = {
-                'dataset': None, 'value': -1}
+                'dataset': [], 'value': -1}
         keydataset_score_tree = category_score_tree['score'][keydataset_id]
 
         if keydataset_score_tree['value'] < score:
             keydataset_score_tree['value'] = score
-            keydataset_score_tree['dataset'] = dataset
+            keydataset_score_tree['dataset'].insert(0, dataset)
+        else:
+            keydataset_score_tree['dataset'].append(dataset)
 
         country_score_tree['datasets_count'] += 1
         if dataset.score > 0.999999:
@@ -1143,7 +1149,7 @@ class Score(object):
     country_score_tree = [(<category_id>: category_score_tree), ...]
     category_score_tree = [('score', [(<keydataset_id>:
                                       keydataset_score_tree), ('counter', 0)]
-    keydataset_score_tree = {'dataset': None, 'value': -1}
+    keydataset_score_tree = {'dataset': [], 'value': -1}
         """
 
         # preloaded tree with data from datasets to avoid bad performances
@@ -1424,14 +1430,20 @@ class Score(object):
         for _, category_score_tree in country_score_tree.items():
             for _, keydataset_score_tree in category_score_tree['score'
                                                                 ].items():
-                dataset = keydataset_score_tree['dataset']
-                value = cls.score_fmt(keydataset_score_tree['value'])
-                row = [dataset.keydataset.code, dataset.keydataset.description,
-                       value]
-                for int_field in interesting_fields:
-                    row.append(getattr(dataset, int_field))
+                is_first = True
+                for dataset in keydataset_score_tree['dataset']:
+                    if is_first:
+                        is_first = False
+                        value = cls.score_fmt(keydataset_score_tree['value'])
+                    else:
+                        value = "0.0"
+                    row = [dataset.keydataset.code,
+                           dataset.keydataset.description,
+                           value]
+                    for int_field in interesting_fields:
+                        row.append(getattr(dataset, int_field))
 
-                ret_score.append(row)
+                    ret_score.append(row)
 
         th_notable = country.thinkhazard_appl.all()
 
@@ -1621,21 +1633,29 @@ class Score(object):
         for dsname in kdn.order_by('category', 'name'):
             if dsname.pk in dsname_score_tree:
                 dsname_score = dsname_score_tree[dsname.pk]
-                dataset = dsname_score['dataset']
-                value = cls.score_fmt(dsname_score['value'])
+                is_first = True
+                rows = []
+                for dataset in dsname_score['dataset']:
+                    if is_first:
+                        is_first = False
+                        value = cls.score_fmt(dsname_score['value'])
+                    else:
+                        value = "0.0"
 
-                row = [dsname.pk, dsname.name, dsname.category,
-                       dataset.id, value]
-                for int_field in interesting_fields:
-                    row.append(getattr(dataset, int_field))
-                row.extend([dataset.title, dataset.is_prov_timely_last,
-                            dataset.is_existing_txt])
+                    row = [dsname.pk, dsname.name, dsname.category,
+                           dataset.id, value]
+                    for int_field in interesting_fields:
+                        row.append(getattr(dataset, int_field))
+                    row.extend([dataset.title, dataset.is_prov_timely_last,
+                                dataset.is_existing_txt])
+                    rows.append(row)
             else:
-                row = [dsname.pk, dsname.name, dsname.category, None, "-100.0"]
+                rows = [[dsname.pk, dsname.name,
+                         dsname.category, None, "-100.0"]]
                 for int_field in interesting_fields:
-                    row.append(None)
+                    rows[0].append(None)
 
-            ret_score.append(row)
+            ret_score.extend(rows)
 
         th_notable = country.thinkhazard_appl.all()
 
@@ -1733,7 +1753,9 @@ class Score(object):
 
         if keydataset_score_tree['value'] < score:
             keydataset_score_tree['value'] = score
-            keydataset_score_tree['dataset'] = dataset
+            keydataset_score_tree['dataset'].insert(0, dataset)
+        else:
+            keydataset_score_tree['dataset'].append(dataset)
 
     @classmethod
     def world_statistics(cls, request):
