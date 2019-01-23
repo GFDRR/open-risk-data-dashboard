@@ -214,7 +214,7 @@
 
                 <!-- Metadata -->
                 <div class="row" id="metadata">
-                    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+                    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-5 col-md-offset-2">
                         <h2 class="h3">Metadata</h2>
 
                         <dl class="horizontal">
@@ -254,59 +254,21 @@
                           <dd ng-if="!objDataset.is_reviewed" class="warning"><b>Pending review</b></dd>
                         </dl>
                     </div>
-                </div>
 
-                <!-- Similar datasets -->
-                <div class="row">
-                    <div class="col-xs-12 col-sm-10 col-md-8 col-xs-offset-0 col-sm-offset-1 col-md-offset-2 text-content">
-                        <hr />
-                        <h2 class="odfri_title_red">Similar datasets for this country</h2>
+                    <div class="col-xs-12 col-sm-10 col-md-3 col-xs-offset-0 col-sm-offset-1 col-md-offset-0">
+                        <h2 class="h3">Alternative datasets</h2>
 
-                        <span ng-if="!istanceList.length">No similar dataset submitted for this country.</span>
-                        <table class="table table-striped table-hover" ng-if="istanceList.length">
-                            <thead>
-                                <tr>
-                                    <th>Dataset</th>
-                                    <th>Open data criteria</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="istance in istanceList | orderBy: '-score * 1'" ng-click="changepage('dataset_details.html?keyds=' + istance.id)">
-                                    <td>
-                                        <a ng-href="dataset_details.html?keyds={{istance.id}}">{{istance.keydataset.dataset.name}}</a><br>
-                                        <div class="rodi_subtitle_datasetlist">
-                                            <span class="small text-muted " ng-show="istance.title"><i>{{istance.title}}, </i></span>
-                                            <span class="small text-muted " ng-show="istance.is_existing_txt"><i>{{istance.is_existing_txt}}, </i></span>
-                                            <span class="small text-muted " ng-show="istance.modify_time"><i>{{istance.modify_time}}</i></span>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <div class="dataset_value">
-                                            <i class="fa fa-check-circle-o" aria-hidden="{{istance.is_existing}}"
-                                                data-toggle="tooltip" title="{{questions[0].desc}}"></i>
-                                            <i class="fa fa-desktop" aria-hidden="{{istance.is_digital_form}}"
-                                                data-toggle="tooltip" title="{{questions[1].desc}}"></i>
-                                            <i class="fa fa-cloud" aria-hidden="{{istance.is_avail_online}}"
-                                                data-toggle="tooltip" title="{{questions[2].desc}}"></i>
-                                            <i class="fa fa-tag" aria-hidden="{{istance.is_avail_online_meta}}"
-                                                data-toggle="tooltip" title="{{questions[3].desc}}"></i>
-                                            <i class="fa fa-copy" aria-hidden="{{istance.is_bulk_avail}}" data-toggle="tooltip"
-                                                title="{{questions[4].desc}}"></i>
-                                            <i class="fa fa-keyboard-o" aria-hidden="{{istance.is_machine_read}}"
-                                                data-toggle="tooltip" title="{{questions[5].desc}}"></i>
-                                            <i class="fa fa-eye" aria-hidden="{{istance.is_pub_available}}" data-toggle="tooltip"
-                                                title="{{questions[6].desc}}"></i>
-                                            <i class="fa fa-dollar" aria-hidden="{{istance.is_avail_for_free}}"
-                                                data-toggle="tooltip" title="{{questions[7].desc}}"></i>
-                                            <i class="fa fa-unlock-alt" aria-hidden="{{istance.is_open_licence}}"
-                                                data-toggle="tooltip" title="{{questions[8].desc}}"></i>
-                                            <i class="fa fa-clock-o" aria-hidden="{{istance.is_prov_timely}}"
-                                                data-toggle="tooltip" title="{{questions[9].desc}}"></i>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <p ng-if="!istanceList.length">No similar dataset submitted for this country.</p>
+
+                        <section ng-if="istanceList.length">
+                          <h3 class="h4">Country or sub-country level</h3>
+
+                          <ul class="list-unstyled">
+                            <li ng-repeat="istance in istanceList | orderBy: '-score * 1'">
+                              <a ng-href="dataset_details.html?keyds={{istance.id}}" ng-click="changepage('dataset_details.html?keyds='+ istance.id)">{{istance.title || istance.keydataset.dataset.name}}</a>
+                            </li>
+                          </ul>
+                        </section>
                     </div>
                 </div>
             </div>
