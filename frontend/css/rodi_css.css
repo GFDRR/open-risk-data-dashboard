@@ -2436,13 +2436,22 @@ a.active {
     color: #fff;
 }
 
-.odfri_btn-custom {
-    width: 100%;
-    font-size: 1.6em;
+.btn-custom {
+  color: white;
+  background: #079;
+  border-color: #079;
+}
+  .btn-custom:hover,
+  .btn-custom:focus {
     color: white;
-    background: #007899;
-    padding: 25px 2em;
-    white-space: pre-wrap;
+    background: #057;
+    border-color: #079;
+  }
+
+.btn-xxl {
+  font-size: 1.6em;
+  padding: 25px 2em;
+  white-space: pre-wrap;
 }
 
 .odfri_content_small {
