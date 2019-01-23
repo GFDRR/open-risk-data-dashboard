@@ -545,6 +545,10 @@ section#counter-stats {
 ==============================================================================
 */
 
+dl.horizontal dd {
+  word-break: break-all;
+}
+
 @media screen and (min-width: 768px) {
   dl.horizontal {
     display: grid;
