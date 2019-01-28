@@ -22,8 +22,8 @@
     <script src="vendor/bower/angular/angular.min.js"></script>
 
     <!-- Chart libraries-->
-    <script src="vendor/bower/chart.js/dist/Chart.min.js"></script>
-    <script src="vendor/bower/angular-chart.js/dist/angular-chart.min.js"></script>
+    <!--<script src="vendor/bower/chart.js/dist/Chart.min.js"></script>-->
+    <!--<script src="vendor/bower/angular-chart.js/dist/angular-chart.min.js"></script>-->
 
     <link href="vendor/bower/ng-table/dist/ng-table.min.css" rel="stylesheet">
     <script src="vendor/bower/ng-table/dist/ng-table.min.js"></script>
@@ -98,53 +98,81 @@
     <div class="container">
             <div class="row" id="top-menu">
                 <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                    <!--<hazardmenu></hazardmenu>-->
-                    <h1 class="page_title ">REGISTER</h1>
+                    <h1 class="page_title ">SIGN UP</h1>
                 </div>
             </div>
 
         <!-- Content page -->
-
-        <div class="row">
+        <div class="row register_form">
             <div class="col-xs-12 col-sm-10 col-md-6 col-xs-offset-0 col-sm-offset-1 col-md-offset-3 text-content">
-                <h3>Registration Form</h3>
                 <form name="registrationForm" method="POST">
-                    <label>Username (*)</label>
-                    <input type="text" name="usrname" placeholder="Username" class="form-control" ng-model="usr.username" autocomplete="username">
-                    <br />
-                    <label>Password (*)</label>
-                    <input type="password" name="usrpsw" placeholder="Password" class="form-control" ng-model="usr.password" autocomplete="new-password">
-                    <br />
-                    <label>Confirm password (*)</label>
-                    <input type="password" name="usrconfpsw" placeholder="Confirm Password" class="form-control"
-                        ng-model="usr.confirm_password" autocomplete="new-password">
-                    <br />
-                    <label>Title (*)</label>
-                    <input type="text" name="usrtitle" placeholder="Title" class="form-control" ng-model="usr.title">
-                    <br />
-                    <label>First Name (*)</label>
-                    <input type="text" name="usrfirstname" placeholder="First Name" class="form-control" ng-model="usr.first_name">
-                    <br />
-                    <label>Last Name (*)</label>
-                    <input type="text" name="usrlastname" placeholder="Last Name" class="form-control" ng-model="usr.last_name">
-                    <br />
-                    <label>Institution (*)</label>
-                    <input type="text" name="usrinst" placeholder="Institution" class="form-control" ng-model="usr.institution">
-                    <br />
-                    <label>E-mail (*)</label>
-                    <span class="register_error" ng-show="registrationForm.usremail.$error.pattern">
+                    <label>Email</label>
+                    <span class="register_error" ng-show="registrationForm.usremail.$error.pattern" autocomplete="email">
                         invalid email!
                     </span>
-                    <input type="email" name="usremail" placeholder="E-mail address" class="form-control" ng-model="usr.email"
-                        ng-pattern="checkMail" autocomplete="email">
+                    <input name="usremail" ng-model="usr.email" type="email" class="form-control" placeholder="Enter email" ng-pattern="checkMail">
                     <br />
-                    <div class="text-right">
-                        <input type="button" class="btn btn-success" ng-click="sendRequestRegister()" value="Send request"><br />
-                        <span class="small text-muted">(*) Required</span>
-                    </div>
+                    <label>Password</label>
+                    <input name="usrpsw" ng-model="usr.password" type="password" class="form-control" placeholder="Enter password" autocomplete="new-password">
+                    <br />
+                    <label>Confirm password</label>
+                    <input name="usrconfpsw" ng-model="usr.confirm_password" type="password" class="form-control" placeholder="Confirm password" autocomplete="new-password">
+                    <br />
+                    <label>Username (<span class="small text-muted">Visible to all</span>)</label>
+                    <input name="usrname" ng-model="usr.username" type="text" class="form-control" placeholder="Enter username">
+                    <br />
+                    <span class="text-muted">All fields are required</span>
                 </form>
+
+            </div>
+            <div class="col-xs-12 col-sm-10 col-md-6 col-xs-offset-0 col-sm-offset-1 col-md-offset-3 text-right">
+                <input type="button" class="btn btn-success" ng-click="sendRequestRegister()" value="Sign Up"><br />
             </div>
         </div>
+
+
+
+        <!-- OLD VERSION -->
+        <!--<div class="row">-->
+            <!--<div class="col-xs-12 col-sm-10 col-md-6 col-xs-offset-0 col-sm-offset-1 col-md-offset-3 text-content">-->
+                <!--<h3>Registration Form</h3>-->
+                <!--<form name="registrationForm" method="POST">-->
+                    <!--<label>Username (*)</label>-->
+                    <!--<input type="text" name="usrname" placeholder="Username" class="form-control" ng-model="usr.username" autocomplete="username">-->
+                    <!--<br />-->
+                    <!--<label>Password (*)</label>-->
+                    <!--<input type="password" name="usrpsw" placeholder="Password" class="form-control" ng-model="usr.password" autocomplete="new-password">-->
+                    <!--<br />-->
+                    <!--<label>Confirm password (*)</label>-->
+                    <!--<input type="password" name="usrconfpsw" placeholder="Confirm Password" class="form-control"-->
+                        <!--ng-model="usr.confirm_password" autocomplete="new-password">-->
+                    <!--<br />-->
+                    <!--<label>Title (*)</label>-->
+                    <!--<input type="text" name="usrtitle" placeholder="Title" class="form-control" ng-model="usr.title">-->
+                    <!--<br />-->
+                    <!--<label>First Name (*)</label>-->
+                    <!--<input type="text" name="usrfirstname" placeholder="First Name" class="form-control" ng-model="usr.first_name">-->
+                    <!--<br />-->
+                    <!--<label>Last Name (*)</label>-->
+                    <!--<input type="text" name="usrlastname" placeholder="Last Name" class="form-control" ng-model="usr.last_name">-->
+                    <!--<br />-->
+                    <!--<label>Institution (*)</label>-->
+                    <!--<input type="text" name="usrinst" placeholder="Institution" class="form-control" ng-model="usr.institution">-->
+                    <!--<br />-->
+                    <!--<label>E-mail (*)</label>-->
+                    <!--<span class="register_error" ng-show="registrationForm.usremail.$error.pattern">-->
+                        <!--invalid email!-->
+                    <!--</span>-->
+                    <!--<input type="email" name="usremail" placeholder="E-mail address" class="form-control" ng-model="usr.email"-->
+                        <!--ng-pattern="checkMail" autocomplete="email">-->
+                    <!--<br />-->
+                    <!--<div class="text-right">-->
+                        <!--<input type="button" class="btn btn-success" ng-click="sendRequestRegister()" value="Send request"><br />-->
+                        <!--<span class="small text-muted">(*) Required</span>-->
+                    <!--</div>-->
+                <!--</form>-->
+            <!--</div>-->
+        <!--</div>-->
     </div>
     <!--END Container fluid-->
 

@@ -1382,15 +1382,21 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
         {
             // Save new profile data
 
-            RodiSrv.saveProfile($scope.tokenid, $scope.userinfo,
-                function(data){
-                    //Success
-                    vex.dialog.alert('Profile saved successfully');
-                }, function(data){
-                    // Error
-                    vex.dialog.alert('Error: unable to save data');
-                }
-            );
+            if(!$scope.userinfo.email == '')
+            {
+                RodiSrv.saveProfile($scope.tokenid, $scope.userinfo,
+                    function(data){
+                        //Success
+                        vex.dialog.alert('Profile saved successfully');
+                    }, function(data){
+                        // Error
+                        vex.dialog.alert('Error: unable to save data');
+                    }
+                );
+            } else {
+                vex.dialog.alert('E-mail field is required!');
+            }
+
         }
 
         $scope.resetProfilePsw = function(old_psw, new_psw, confirm_psw)

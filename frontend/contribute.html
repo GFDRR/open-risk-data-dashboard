@@ -867,27 +867,14 @@
                     <div role="tabpanel" class="tab-pane" ng-class="[{'active':tab==3}]" id="profile">
                         <div class="row">
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                                <div class="alert alert-info">User name: {{userinfo.username}}- access level: <span class="text-uppercase">{{userinfo.groups[0]}}</span></div>
+                                <div class="alert alert-info">User name: {{userinfo.username}} - access level: <span class="text-uppercase">{{userinfo.groups[0]}}</span></div>
                                 <form name="registrationForm" method="POST">
-                                    <label>Title</label>
-                                    <input type="text" name="usrtitle" placeholder="Ex: Dr" class="form-control" ng-model="userinfo.title">
-                                    <br />
-                                    <label>First name (*)</label>
-                                    <input type="text" name="usrname" placeholder="Name" class="form-control" ng-model="userinfo.first_name">
-                                    <br />
-                                    <label>Last name  (*)</label>
-                                    <input type="text" name="usrsurname" placeholder="Surname" class="form-control" ng-model="userinfo.last_name">
-                                    <br />
-                                    <label>E-mail  (*)</label>
+                                    <label>E-mail (required)</label>
                                     <span class="register_error" ng-show="registrationForm.usremail.$error.pattern">invalid email!</span>
                                     <input type="email" name="usremail" placeholder="E-mail address" class="form-control" ng-model="userinfo.email" ng-pattern="checkMail">
                                     <br />
-                                    <label>Institution</label>
-                                    <input type="text" name="usrinstitution" placeholder="Institution" class="form-control" ng-model="userinfo.institution">
-                                    <br />
                                     <div class="text-right">
                                         <a href="" class="btn btn-success" ng-click="putProfile()">Save data</a><br />
-                                        <span class="small text-muted">(*) Required</span>
                                     </div>
                                 </form>
                             </div>
