@@ -1145,11 +1145,13 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
                 username:"",
                 first_name:"",
                 last_name:"",
+                title:"",
+                institution: "",
                 email:"",
                 groups:[],
-                title:"",
-                institution:"",
-                is_staff: false
+                is_staff: false,
+                password:"",
+                confirm_password: ""
             };
 
         return obj;
