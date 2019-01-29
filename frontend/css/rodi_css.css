@@ -42,7 +42,7 @@ h1, h2, h3, h4, h5, h6,
 }
 
 h1 {
-  color: rgb(238, 48, 54);
+  color: #cb2431;
   font-size: 50px;
   text-transform: uppercase;
   letter-spacing: -0.05em;
@@ -224,7 +224,7 @@ section + section {
 }
 
 .title_red {
-    color: rgb(238, 48, 54);
+    color: #cb2431;
     white-space: nowrap;
     text-align: center;
 }
@@ -276,7 +276,7 @@ h1 + .lead {
 
 .help_feedback_box,
 .help_feedback_box a {
-    color: #EE3036;
+    color: #cb2431;
     padding: 0 5px;
 }
 
@@ -417,7 +417,7 @@ Logo color
 */
 
 .logo_icon .st0 {
-    fill: #EE3036;
+    fill: #cb2431;
 }
 
 .logo_icon .st1 {
@@ -595,7 +595,7 @@ section#counter-stats {
 }
 
 .dataset_value i[aria-hidden~=false] {
-    color: #881300;
+    color: #cb2431;
 }
 
 .dataset_value i[aria-hidden~=true] {
@@ -603,7 +603,7 @@ section#counter-stats {
 }
 .dataset_value i[aria-hidden~=false]:hover {
     color: #fff;
-    background-color: #881300;
+    background-color: #cb2431;
 }
 
 .dataset_value i[aria-hidden~=true]:hover {
@@ -700,7 +700,7 @@ small.label {
 }
 
 .rodi_btn_yes_bg_red {
-    background-color: #881300;
+    background-color: #cb2431;
     color: #fff;
     border-color: #b00000;
 }
@@ -870,7 +870,7 @@ Footer
 }
 
 .rodi_footer #menu-website a { /*color:#329ad1;*/
-    color: #ee3036;
+    color: #cb2431;
 }
 
 .rodi_footer #menu-website li:last-child {
@@ -900,7 +900,7 @@ Navbar
 */
 
 .navbar-toggle {
-    background-color: #ee3036;
+    background-color: #cb2431;
     color: white;
     transition: all 0.25s ease-in-out;
 }
@@ -909,7 +909,7 @@ Navbar
     background-color: #fff;
 }
 .navbar-toggle[aria-expanded="true"] .icon-bar {
-    background-color: #ee3036;
+    background-color: #cb2431;
 }
 
 .navbar-toggle .icon-bar {
@@ -922,7 +922,7 @@ Navbar
 }
 
 .nav .invert {
-    background: #EE3036;
+    background: #cb2431;
     color: white;
 }
 
@@ -957,7 +957,7 @@ a.invert {
 }
 
 .nav a {
-    color: #ee3036;
+    color: #cb2431;
 }
 .nav a:hover,
 .nav a:focus,
@@ -968,7 +968,7 @@ a.invert {
 .hazard-nav a:hover,
 .hazard-nav a:focus,
 .hazard-nav .active a {
-    color: #ee3036;
+    color: #cb2431;
 }
 
 .hazard-nav .disabled,
@@ -1042,7 +1042,7 @@ a.invert {
 #menu-hazard .nav > li > p i {
     border-radius: 50%;
     border: 2px solid red;
-    border-color: #EE3036;
+    border-color: #cb2431;
     font-size: 2em;
     padding: 10px;
 }
@@ -1242,7 +1242,7 @@ Search
 
 .search > div > a i {
     font-size: 3em;
-    color: #EE3036;
+    color: #cb2431;
 }
 
 .search div a {
@@ -1267,7 +1267,7 @@ Search
 .search .form-control:active,
 .search .form-control:focus,
 .search .form-control:hover {
-    border-bottom: 4px solid #EE3036;
+    border-bottom: 4px solid #cb2431;
 }
 .search .form-control.ng-empty,
 .search .form-control.ng-not-empty,
@@ -1279,19 +1279,19 @@ Search
 }
  */
 .search ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
-    color: #EE3036;
+    color: #cb2431;
 }
 
 .search ::-moz-placeholder { /* Firefox 19+ */
-    color: #EE3036;
+    color: #cb2431;
 }
 
 .search :-ms-input-placeholder { /* IE 10+ */
-    color: #EE3036;
+    color: #cb2431;
 }
 
 .search :-moz-placeholder { /* Firefox 18- */
-    color: #EE3036;
+    color: #cb2431;
 }
 
 /*
@@ -1601,7 +1601,7 @@ progress, .matrix_cell {
     z-index: -1;
     overflow: hidden;
     border-radius: 50%;
-    border: 2px solid #EE3036;
+    border: 2px solid #cb2431;
     font-size: 3em;
 }
 
@@ -1631,8 +1631,8 @@ button
 */
 .btn-custom,
 .btn-primary {
-    background-color: #EE3036;
-    border-color: #EE3036;
+    background-color: #cb2431;
+    border-color: #cb2431;
 }
 
 .btn-custom:hover,
@@ -1659,8 +1659,8 @@ fieldset[disabled] .btn-custom:hover,
 fieldset[disabled] .btn-custom:focus,
 fieldset[disabled] .btn-custom:active,
 fieldset[disabled] .btn-custom.active {
-    background-color: #EE3036;
-    border-color: #EE3036;
+    background-color: #cb2431;
+    border-color: #cb2431;
 }
 
 /*
@@ -1719,7 +1719,7 @@ fieldset[disabled] .btn-custom.active {
 
 }
 
-/*input.form-control {border-bottom:solid 2px #EE3036;}*/
+/*input.form-control {border-bottom:solid 2px #cb2431;}*/
 
 .form-control:hover {
     border-color: #007899;
@@ -1752,7 +1752,7 @@ fieldset[disabled] .btn-custom.active {
 }
 
 hr {
-    border-bottom: 4px solid #EE3036;
+    border-bottom: 4px solid #cb2431;
     width: 100%;
     /*position: absolute;*/
     /*margin-bottom: 1em;*/
@@ -1978,7 +1978,7 @@ h4 + .criteria-badge,
 }
 
 .criteria-icons .no-icon {
-    color: #881300;
+    color: #cb2431;
 }
 
 
@@ -2187,7 +2187,7 @@ button.link {
     width: 25px;
     font-size: 12px;
     color: #ffffff;
-    background-color: #EE3036;
+    background-color: #cb2431;
     -webkit-border-radius: 100%;
     -moz-border-radius: 100%;
     border-radius: 100%;
@@ -2346,7 +2346,7 @@ a.active {
 }
 
 .odfri_title_red {
-    color: rgb(238, 48, 54);
+    color: #cb2431;
 }
 
 .odfri_home_icon_border {

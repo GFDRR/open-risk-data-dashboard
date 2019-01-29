@@ -69,7 +69,7 @@ var stat = function(){
 
                     //color the circle stroke instead of the arc
                     stat.circle.attr({
-                        stroke: "#EE3036"
+                        stroke: "#cb2431"
                     });
 
                     //otherwise animate the arc

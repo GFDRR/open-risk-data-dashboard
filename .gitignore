@@ -5,3 +5,4 @@ id_opendri.pub
 
 frontend/vendor/bower
 frontend/bower_components
+frontend/js/angular/app.js
