@@ -34,6 +34,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
     $scope.objDataset = {};
     $scope.objDatasetView = {};
     $scope.istanceList = [];
+    $scope.worldIstanceList = [];
     $scope.is_opendata = false;
     $scope.is_legally_opendata = false;
     $scope.is_technically_opendata = false;
@@ -466,20 +467,20 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
 
                 // *******************************************
                 // *******************************************
-                RodiSrv.getDatasetlistFiltered($scope.objDataset.country, [], [], function(data)
-                {
-                    // Success
-                    $scope.istanceList = data;
-
-                    $scope.istanceList = $filter('filter')($scope.istanceList, function(item){
+                RodiSrv.getDatasetlistFiltered($scope.objDataset.country, [], []).then(function(response){
+                  var data = response.data;
+                    $scope.istanceList = $filter('filter')(data, function(item){
                         // return item.keydataset.dataset.id == $scope.objDataset.keydataset.code && item.id !== $scope.objDataset.id;
                         return item.keydataset.code == $scope.objDataset.keydataset.code && item.id !== $scope.objDataset.id;
                     });
+                });
 
-                }, function(data)
-                {
-                    // Error API
-                    console.log(data);
+                RodiSrv.getDatasetlistFiltered('AA', [], []).then(function(response){
+                  var data = response.data;
+                  $scope.worldIstanceList = $filter('filter')(data, function(item){
+                      // return item.keydataset.dataset.id == $scope.objDataset.keydataset.code && item.id !== $scope.objDataset.id;
+                      return item.keydataset.code == $scope.objDataset.keydataset.code && item.id !== $scope.objDataset.id;
+                  });
                 });
 
                 $scope.formatStringLenght = function(desc){

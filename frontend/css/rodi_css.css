@@ -92,7 +92,7 @@ a.discrete {
 /* R.O.D.I. STYLE ELEMENTS - INIZIO     */
 /* ************************************ */
 
-section + section {
+div > section + section {
     padding-top: 2em;
     padding-bottom: 2em;
 }

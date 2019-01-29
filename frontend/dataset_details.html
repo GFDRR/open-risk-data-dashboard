@@ -255,10 +255,10 @@
                         </dl>
                     </div>
 
-                    <div class="col-xs-12 col-sm-10 col-md-3 col-xs-offset-0 col-sm-offset-1 col-md-offset-0">
+                    <aside class="col-xs-12 col-sm-10 col-md-3 col-xs-offset-0 col-sm-offset-1 col-md-offset-0">
                         <h2 class="h3">Alternative datasets</h2>
 
-                        <p ng-if="!istanceList.length">No similar dataset submitted for this country.</p>
+                        <p ng-if="!istanceList.length && !worldIstanceList.length">No similar dataset submitted yet.</p>
 
                         <section ng-if="istanceList.length">
                           <h3 class="h4">Country or sub-country level</h3>
@@ -269,7 +269,17 @@
                             </li>
                           </ul>
                         </section>
-                    </div>
+
+                        <section ng-if="worldIstanceList.length">
+                          <h3 class="h4">World level</h3>
+
+                          <ul class="list-unstyled">
+                            <li ng-repeat="istance in worldIstanceList | orderBy: '-score * 1'">
+                              <a ng-href="dataset_details.html?keyds={{istance.id}}" ng-click="changepage('dataset_details.html?keyds='+ istance.id)">{{istance.title || istance.keydataset.dataset.name}}</a>
+                            </li>
+                          </ul>
+                        </section>
+                    </aside>
                 </div>
             </div>
             <!-- DATASET VIEW MODE - END -->

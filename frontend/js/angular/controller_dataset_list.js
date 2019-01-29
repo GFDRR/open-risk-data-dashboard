@@ -256,21 +256,13 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
         $scope.bPopUpDetails = !$scope.bPopUpDetails;
 
         // Load dataset list
-        RodiSrv.getDatasetlistFiltered($scope.idCountry, $scope.aCategory, $scope.aApplicability, function(data)
-        {
-            // Success
+        RodiSrv.getDatasetlistFiltered($scope.idCountry, $scope.aCategory, $scope.aApplicability).then(function(data){
+            var data = response.data;
             $scope.istanceList = data;
 
             $scope.istanceList = $filter('filter')($scope.istanceList, function(item){
                 return item.keydataset.dataset.id == dataset.id;
             });
-
-            console.log($scope.istanceList);
-
-        }, function(data)
-        {
-            // Error API
-            console.log(data);
         });
 
     }
