@@ -867,27 +867,14 @@
                     <div role="tabpanel" class="tab-pane" ng-class="[{'active':tab==3}]" id="profile">
                         <div class="row">
                             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                                <div class="alert alert-info">User name: {{userinfo.username}}- access level: <span class="text-uppercase">{{userinfo.groups[0]}}</span></div>
+                                <div class="alert alert-info">User name: {{userinfo.username}} - access level: <span class="text-uppercase">{{userinfo.groups[0]}}</span></div>
                                 <form name="registrationForm" method="POST">
-                                    <label>Title</label>
-                                    <input type="text" name="usrtitle" placeholder="Ex: Dr" class="form-control" ng-model="userinfo.title">
-                                    <br />
-                                    <label>First name (*)</label>
-                                    <input type="text" name="usrname" placeholder="Name" class="form-control" ng-model="userinfo.first_name">
-                                    <br />
-                                    <label>Last name  (*)</label>
-                                    <input type="text" name="usrsurname" placeholder="Surname" class="form-control" ng-model="userinfo.last_name">
-                                    <br />
-                                    <label>E-mail  (*)</label>
+                                    <label>E-mail (required)</label>
                                     <span class="register_error" ng-show="registrationForm.usremail.$error.pattern">invalid email!</span>
                                     <input type="email" name="usremail" placeholder="E-mail address" class="form-control" ng-model="userinfo.email" ng-pattern="checkMail">
                                     <br />
-                                    <label>Institution</label>
-                                    <input type="text" name="usrinstitution" placeholder="Institution" class="form-control" ng-model="userinfo.institution">
-                                    <br />
                                     <div class="text-right">
                                         <a href="" class="btn btn-success" ng-click="putProfile()">Save data</a><br />
-                                        <span class="small text-muted">(*) Required</span>
                                     </div>
                                 </form>
                             </div>
@@ -932,9 +919,8 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Username</th>
-                                        <th>User info</th>
+                                        <th>User email</th>
                                         <th class="text-center">Group</th>
-                                        <th>Institution</th>
                                         <th class="text-center">Edit</th>
                                         <th class="text-center">Cancel</th>
                                     </tr>
@@ -944,15 +930,14 @@
                                         <td>{{userReg.pk}}</td>
                                         <td>{{userReg.username}}</td>
                                         <td>
-                                            {{userReg.title}} {{userReg.last_name}} {{userReg.first_name}}<br />
-                                            <span class="text-muted">{{userReg.email}}</span>
+                                            <!--{{userReg.title}} {{userReg.last_name}} {{userReg.first_name}}<br />-->
+                                            {{userReg.email}}
                                         </td>
                                         <td class="text-center">
                                             <i class="fa fa-user-secret text-info" aria-hidden="true" ng-if="userReg.groups[0] == 'admin'"></i>
                                             <i class="fa fa-user-plus text-warning" aria-hidden="true" ng-if="userReg.groups[0] == 'reviewer'"></i>
                                             <i class="fa fa-user" aria-hidden="true" ng-if="userReg.groups.length == 0"></i>
                                         </td>
-                                        <td>{{userReg.institution}}</td>
                                         <td class="text-center"><a href="" class="btn btn-xs btn-success" ng-click="openPopup(userReg.pk)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
                                         <td class="text-center"><a href="" class="btn btn-xs btn-danger" ng-click="deleteUsrInfoAdmin(userReg.pk)"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
                                     </tr>
@@ -1017,17 +1002,17 @@
                     <div class="alert alert-info">User name: {{usradmininfo.username}}- access level: <span class="text-uppercase">{{usradmininfo.groups[0]}}</span></div>
                     <form name="registrationForm">
                         <label>Username</label>
-                        <input type="text" name="usrid" placeholder="Username" class="form-control" ng-model="usradmininfo.username">
+                        <input type="text" name="usrid" placeholder="Username" class="form-control" ng-model="usradmininfo.username" ng-disabled="usradmininfo.pk !== -999">
                         <br />
-                        <label>Title</label>
-                        <input type="text" name="usrtitle" placeholder="es: Drs" class="form-control" ng-model="usradmininfo.title">
-                        <br />
-                        <label>First name (*)</label>
-                        <input type="text" name="usrname" placeholder="Name" class="form-control" ng-model="usradmininfo.first_name">
-                        <br />
-                        <label>Last name  (*)</label>
-                        <input type="text" name="usrsurname" placeholder="Surname" class="form-control" ng-model="usradmininfo.last_name">
-                        <br />
+                        <div ng-show="usradmininfo.pk == -999">
+                            <label>Password</label>
+                            <input name="usrpsw" ng-model="usradmininfo.password" type="password" class="form-control" placeholder="Enter password">
+                            <br />
+                            <label>Confirm password</label>
+                            <input name="usrconfpsw" ng-model="usradmininfo.confirm_password" type="password" class="form-control" placeholder="Confirm password">
+                            <br />
+                        </div>
+
                         <label>E-mail  (*)</label>
                         <span class="register_error" ng-show="registrationForm.usremail.$error.pattern">invalid email!</span>
                         <input type="email" name="usremail" placeholder="E-mail address" class="form-control" ng-model="usradmininfo.email" ng-pattern="checkMail">
@@ -1038,11 +1023,6 @@
                             <option value="reviewer">Reviwer</option>
                             <option value="admin">Administrator</option>
                         </select>
-                        <br />
-
-                        <label>Institution</label>
-                        <input type="text" name="usrinstitution" placeholder="Institution" class="form-control" ng-model="usradmininfo.institution">
-                        <br />
                     </form>
 
                 </div>

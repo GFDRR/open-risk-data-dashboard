@@ -1233,39 +1233,68 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
                             if($scope.usradmininfo.pk == -999)
                             {
                                 // New user
+                                // Check empty values and  password/confirm password
+                                if($scope.usradmininfo.username !== '' && $scope.usradmininfo.password !=='' && $scope.usradmininfo.email !==''){
 
-                                RodiSrv.insertUserInfo($scope.tokenid, $scope.usradmininfo,
-                                    function(data){
-                                        // Success
-                                        vex.dialog.alert('User info saved successfully');
+                                    //Check password equal confirm_password
+                                    if ($scope.usradmininfo.password == $scope.usradmininfo.confirm_password){
 
-                                        $scope.usrRegList.push($scope.usradmininfo);
-
-                                        RodiSrv.getUsersList($scope.tokenid,
+                                        //Save data
+                                        RodiSrv.insertUserInfo($scope.tokenid, $scope.usradmininfo,
                                             function(data){
                                                 // Success
-                                                $scope.usrRegList = data;
+                                                vex.dialog.alert('User info saved successfully');
+
+                                                $scope.usrRegList.push($scope.usradmininfo);
+
+                                                RodiSrv.getUsersList($scope.tokenid,
+                                                    function(data){
+                                                        // Success
+                                                        $scope.usrRegList = data;
+                                                    }, function(data){
+                                                        // Error
+                                                    })
+
                                             }, function(data){
                                                 // Error
-                                            })
+                                                var sMsg = "";
+                                                angular.forEach(data, function(value, key) {
+                                                    sMsg += key.replace("_"," ") + ': ' + value + '<br /> ';
 
-                                    }, function(data){
-                                        // Error
-                                        vex.dialog.alert('Error: unable to save data');
-                                    })
+                                                });
+                                                vex.dialog.alert(sMsg);
+                                            })
+                                    } else {
+                                        // Password e confirm password not match
+                                        vex.dialog.alert('Password and confirm password must be the same!');
+                                    }
+
+                                } else {
+                                    // There are some fields empty
+                                    vex.dialog.alert('All fields are required!');
+                                }
+
+
 
                             } else {
                                 // Edit User profile
 
-                                RodiSrv.saveUserInfo($scope.tokenid, $scope.usradmininfo,
-                                    function(data){
-                                        // Success
-                                        vex.dialog.alert('User info saved successfully');
-                                    }, function(data){
-                                        // Error
-                                        vex.dialog.alert('Error: unable to save data');
-                                    }
-                                )
+                                if($scope.usradmininfo.email !=='')
+                                {
+                                    RodiSrv.saveUserInfo($scope.tokenid, $scope.usradmininfo,
+                                        function(data){
+                                            // Success
+                                            vex.dialog.alert('User info saved successfully');
+                                        }, function(data){
+                                            // Error
+                                            vex.dialog.alert('Error: unable to save data');
+                                        }
+                                    )
+                                } else {
+                                    vex.dialog.alert('All fileds are required!');
+                                }
+
+
                             }
                         }
 
@@ -1382,15 +1411,45 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
         {
             // Save new profile data
 
-            RodiSrv.saveProfile($scope.tokenid, $scope.userinfo,
-                function(data){
-                    //Success
-                    vex.dialog.alert('Profile saved successfully');
-                }, function(data){
-                    // Error
-                    vex.dialog.alert('Error: unable to save data');
-                }
-            );
+            if(!$scope.userinfo.email == '')
+            {
+                RodiSrv.saveProfile($scope.tokenid, $scope.userinfo,
+                    function(data){
+                        //Success
+
+                        //Update cookies info with DB data
+                        RodiSrv.getUserInfo($scope.tokenid,
+                            function(data){
+                                //Success
+
+                                localStorage.removeItem('rodi_user');
+                                $scope.userinfo = {pk:data.pk, username:data.username, first_name:data.first_name, last_name:data.last_name, email:data.email, groups:data.groups, title:data.title, institution:data.institution};
+                                localStorage.setItem('rodi_user', JSON.stringify($scope.userinfo));
+                                vex.dialog.alert('Profile saved successfully');
+
+                            }, function(data){
+                                // Error
+                                localStorage.removeItem('rodi_token');
+
+
+                                vex.dialog.alert('Login error: unable to retrieve your information');
+                                $scope.userinfo = RodiSrv.getUserStructureEmpty();
+
+                                $scope.bLogin = false;
+                            }
+                        );
+
+
+
+                    }, function(data){
+                        // Error
+                        vex.dialog.alert('Error: unable to save data');
+                    }
+                );
+            } else {
+                vex.dialog.alert('E-mail field is required!');
+            }
+
         }
 
         $scope.resetProfilePsw = function(old_psw, new_psw, confirm_psw)
