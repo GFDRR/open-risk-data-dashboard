@@ -588,7 +588,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         });
     }
 
-    this.getDatasetlistFiltered = function(idCountry, aCategory, aApplicability, onSuccess, onError)
+    this.getDatasetlistFiltered = function(idCountry, aCategory, aApplicability)
     {
         // Return the dataset info filtered by country, category & applicability
         var sCategoryFilter = "";
@@ -617,10 +617,8 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
             data: {}
         }
 
-        $http(req).then(function(data){
-            if(onSuccess) onSuccess(data.data);
-        }, function(data){
-            if(onError)onError(data.data);
+        return $http(req).catch(function(data){
+            onError(data.data);
         });
     }
 
