@@ -75,6 +75,12 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
         return RodiSrv.getHCIcon(index - 1);
     };
 
+    // Get dataset info
+    $scope.getQuestionCode = function(questionCode, objDataset)
+    {
+        return RodiSrv.getQuestions_code(questionCode, objDataset);
+    }
+
     // Load Dataset list with filter
     $scope.loadDatasetList = function()
     {
