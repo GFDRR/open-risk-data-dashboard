@@ -1,5 +1,5 @@
 ---
-date: 2019-01-29
+date: 2019-01-28
 participants:
 - Danny Lämmerhirt
 - Thomas Parisot
