@@ -798,24 +798,123 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         });
     }
 
-    this.getQuestions = function()
-    {
-        /*
-            Return the list of questions for dataset (Y/N)
-         */
-
-        return objQuestions = [
-                {code: "is_existing", desc:"Does the data exist?", altTXT:"is_existing_txt", altDesc:"existing alternative text"},
-                {code: "is_digital_form", desc:"Is the data available in digital form?", altTXT:"", altDesc:""},
-                {code: "is_avail_online", desc:"Is the data available online?", altTXT:"", altDesc:""},
-                {code: "is_avail_online_meta", desc:"Is the metadata available online?", altTXT:"", altDesc:""},
-                {code: "is_bulk_avail", desc:"Is the data available in bulk?", altTXT:"", altDesc:""},
-                {code: "is_machine_read", desc:"Is the data machine-readable?", altTXT:"is_machine_read_txt", altDesc:"machine alternative text"},
-                {code: "is_pub_available", desc:"Is the data publicly available?", altTXT:"", altDesc:""},
-                {code: "is_avail_for_free", desc:"Is the data available for free?", altTXT:"", altDesc:""},
-                {code: "is_open_licence", desc:"Is the data openly licensed?", altTXT:"is_open_licence_txt", altDesc:"license alternative text"},
-                {code: "is_prov_timely", desc:"Is the data provided on a timely and up to date basis?", altTXT:"", altDesc:""}
-        ]
+    /**
+     * Returns Openness questions and config
+     * @return {[type]} [description]
+     */
+    this.getQuestions = function() {
+      return [
+        {
+          code: "is_existing",
+          altCode: "quest1",
+          desc: "Does the data exist?",
+          altTXT: "is_existing_txt",
+          altDesc: "existing alternative text",
+          yesTXT: "The data exists",
+          noTXT: "The data does not exist",
+          icon:"fa fa-check-circle-o",
+          help: 'Does the data exist at all? The data can be in any form (paper or digital, offline or online etc). If it is does not exist, answer NO to all other questions.'
+        },
+        {
+          code: "is_digital_form",
+          altCode: "quest2",
+          desc: "Is the data available in digital form?",
+          altTXT: "",
+          altDesc: "",
+          yesTXT: "The data is available in digital form",
+          noTXT: "The data is not available in digital form",
+          icon:"fa fa-desktop",
+          help: 'This question addresses whether the data is in digital form or if it is only available in paper form.'
+        },
+        {
+          code: "is_avail_online",
+          altCode: "quest3",
+          desc: "Is the data available online?",
+          altTXT: "",
+          altDesc: "",
+          yesTXT: "The data is available online",
+          noTXT: "The data is not available online",
+          icon:"fa fa-cloud",
+          help: 'This question addresses whether the data is available online. In the cases that this is answered with a "YES", then the link is put in the URL field below.'
+        },
+        {
+          code: "is_avail_online_meta",
+          altCode: "quest4",
+          desc: "Is the metadata available online?",
+          altTXT: "",
+          altDesc: "",
+          yesTXT: "The metadata are available online",
+          noTXT: "The metadata are not available online",
+          icon:"fa fa-tag",
+          help: 'This question addresses whether the metadata is available online. In the cases that this is answered with a "YES", then the link is put in the URL field below.'
+        },
+        {
+          code: "is_bulk_avail",
+          altCode: "quest5",
+          desc: "Is the data available in bulk?",
+          altTXT: "",
+          altDesc: "",
+          yesTXT: "The data is available in bulk",
+          noTXT: "The data is not available in bulk",
+          icon:"fa fa-copy",
+          help: 'The data is available in bulk if the whole dataset can be downloaded at once or accessed easily. Conversely it is considered non-bulk if users are limited to just getting parts of the dataset (for example, if restricted to querying a web form and retrieving a few results at a time from a very large database).'
+        },
+        {
+          code: "is_machine_read",
+          altCode: "quest6",
+          desc: "Is the data machine-readable?",
+          altTXT: "is_machine_read_txt",
+          altDesc: "machine alternative text",
+          yesTXT: "The data is machine-readable",
+          noTXT: "The data is not machine-readable",
+          icon:"fa fa-keyboard-o",
+          help: 'Data is machine-readable if it is in a format that can be easily read by a computer. For tabular and other structured text data, CSV, XML or JSON formats would be considered machine-readable, whereas PDF and HTML are not. For geospatial data, raster format such as GeoTIFF or vector format such as Shapefile would be considered machine-readable. Web Map Service (WMS) and other Open Geospatial Consortium (OGC) standards would be also considered machine-readable.'
+        },
+        {
+          code: "is_pub_available",
+          altCode: "quest7",
+          desc: "Is the data publicly available?",
+          altTXT: "",
+          altDesc: "",
+          yesTXT: "The data is publicly available",
+          noTXT: "The data is not publicly available",
+          icon:"fa fa-eye",
+          help: 'This question addresses whether the data is "public". This does not require it to be freely available, but does require that someone outside of the government can access it in some form (examples include if the data is available for purchase, if you can get it in paper form - then it is public). If a freedom of information request or similar is needed to access the data, it is not considered public.'
+        },
+        {
+          code: "is_avail_for_free",
+          altCode: "quest8",
+          desc: "Is the data available for free?",
+          altTXT: "",
+          altDesc: "",
+          yesTXT: "The data is available for free",
+          noTXT: "The data is not available for free",
+          icon:"fa fa-dollar",
+          help: 'This question addresses whether the data is available for free or if there is a charge. If there is a charge, then that is stated in the additional information section.'
+        },
+        {
+          code: "is_open_licence",
+          altCode: "quest9",
+          desc: "Is the data openly licensed?",
+          altTXT: "is_open_licence_txt",
+          altDesc: "license alternative text",
+          yesTXT: "The data is openly licensed",
+          noTXT: "The data is not openly licensed",
+          icon:"fa fa-unlock-alt",
+          help: 'This question addresses whether the dataset is open as per http://opendefinition.org. It needs to state the terms of use or license that allow anyone to freely use, reuse or redistribute the data (subject at most to attribution or share alike requirements). It is vital that a license is available (if there is no license, the data is not openly licensed). Open licenses which meet the requirements of the Open Definition are listed at http://opendefinition.org/licenses/.'
+        },
+        {
+          code: "is_prov_timely",
+          altCode: "quest10",
+          desc: "Is the data provided on a timely and up to date basis?",
+          altTXT: "",
+          altDesc: "",
+          yesTXT: "The data is provided on a timely and up to date basis",
+          noTXT: "The data is not provided on a timely and up to date basis",
+          icon:"fa fa-clock-o",
+          help: 'This question addresses whether the data is up to date and timely - or long delayed. This varies depending on the dataset considered.'
+        }
+      ];
     };
 
     this.getQuestions_code = function(questionCode, objDataset)
@@ -823,94 +922,12 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         /*
          Return the list of questions for dataset (Y/N)
          */
-        var objQuestions = [
-          {
-            code: "is_existing",
-            desc: "Does the data exist?",
-            altTXT: "is_existing_txt",
-            altDesc: "existing alternative text",
-            yesTXT: "The data exists",
-            noTXT: "The data does not exist"
-          },
-          {
-            code: "is_digital_form",
-            desc: "Is the data available in digital form?",
-            altTXT: "",
-            altDesc: "",
-            yesTXT: "The data is available in digital form",
-            noTXT: "The data is not available in digital form"
-          },
-          {
-            code: "is_avail_online",
-            desc: "Is the data available online?",
-            altTXT: "",
-            altDesc: "",
-            yesTXT: "The data is available online",
-            noTXT: "The data is not available online"
-          },
-          {
-            code: "is_avail_online_meta",
-            desc: "Are the metadata available online?",
-            altTXT: "",
-            altDesc: "",
-            yesTXT: "The metadata are available online",
-            noTXT: "The metadata are not available online"
-          },
-          {
-            code: "is_bulk_avail",
-            desc: "Is the data available in bulk?",
-            altTXT: "",
-            altDesc: "",
-            yesTXT: "The data is available in bulk",
-            noTXT: "The data is not available in bulk"
-          },
-          {
-            code: "is_machine_read",
-            desc: "Is the data machine-readable?",
-            altTXT: "is_machine_read_txt",
-            altDesc: "machine alternative text",
-            yesTXT: "The data is machine-readable",
-            noTXT: "The data is not machine-readable"
-          },
-          {
-            code: "is_pub_available",
-            desc: "Is the data publicly available?",
-            altTXT: "",
-            altDesc: "",
-            yesTXT: "The data is publicly available",
-            noTXT: "The data is not publicly available"
-          },
-          {
-            code: "is_avail_for_free",
-            desc: "Is the data available for free?",
-            altTXT: "",
-            altDesc: "",
-            yesTXT: "The data is available for free",
-            noTXT: "The data is not available for free"
-          },
-          {
-            code: "is_open_licence",
-            desc: "Is the data openly licensed?",
-            altTXT: "is_open_licence_txt",
-            altDesc: "license alternative text",
-            yesTXT: "The data is openly licensed",
-            noTXT: "The data is not openly licensed"
-          },
-          {
-            code: "is_prov_timely",
-            desc: "Is the data provided on a timely and up to date basis?",
-            altTXT: "",
-            altDesc: "",
-            yesTXT: "The data is provided on a timely and up to date basis",
-            noTXT: "The data is not provided on a timely and up to date basis"
-          }
-        ];
-
-
-        var aQuestion = $filter('filter')(objQuestions, {"code": questionCode});
+        var aQuestion = this.getQuestions().filter(function(question){
+          return question.code === questionCode || question.altCode === questionCode;
+        });
 
         if (objDataset) {
-            return (objDataset[questionCode]) ? aQuestion[0].yesTXT : aQuestion[0].noTXT;
+            return (objDataset[questionCode] || objDataset[aQuestion[0].altCode] === true) ? aQuestion[0].yesTXT : aQuestion[0].noTXT;
         } else {
             return aQuestion[0].desc;
         }
@@ -922,21 +939,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
         /*
          Return question icon
          */
-
-        var objQuestions = [
-            {code: "is_existing", icon:"fa fa-check-circle-o"},
-            {code: "is_digital_form", icon:"fa fa-desktop"},
-            {code: "is_avail_online", icon:"fa fa-cloud"},
-            {code: "is_avail_online_meta", icon:"fa fa-tag"},
-            {code: "is_bulk_avail", icon:"fa fa-copy"},
-            {code: "is_machine_read", icon:"fa fa-keyboard-o"},
-            {code: "is_pub_available", icon:"fa fa-eye"},
-            {code: "is_avail_for_free", icon:"fa fa-dollar"},
-            {code: "is_open_licence", icon:"fa fa-unlock-alt"},
-            {code: "is_prov_timely", icon:"fa fa-clock-o"}
-        ];
-
-        var aQuestion = $filter('filter')(objQuestions, {"code": questionCode});
+        var aQuestion = $filter('filter')(this.getQuestions(), {"code": questionCode});
 
         return aQuestion[0].icon;
 
@@ -944,18 +947,9 @@ RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
 
     this.getQuestionsHelp = function(index)
     {
-        var obj = [
-            'Does the data exist at all? The data can be in any form (paper or digital, offline or online etc). If it is does not exist, answer NO to all other questions.',
-            'This question addresses whether the data is in digital form or if it is only available in paper form.',
-            'This question addresses whether the data is available online. In the cases that this is answered with a "YES", then the link is put in the URL field below.',
-            'This question addresses whether the metadata is available online. In the cases that this is answered with a "YES", then the link is put in the URL field below.',
-            'The data is available in bulk if the whole dataset can be downloaded at once or accessed easily. Conversely it is considered non-bulk if users are limited to just getting parts of the dataset (for example, if restricted to querying a web form and retrieving a few results at a time from a very large database).',
-            'Data is machine-readable if it is in a format that can be easily read by a computer. For tabular and other structured text data, CSV, XML or JSON formats would be considered machine-readable, whereas PDF and HTML are not. For geospatial data, raster format such as GeoTIFF or vector format such as Shapefile would be considered machine-readable. Web Map Service (WMS) and other Open Geospatial Consortium (OGC) standards would be also considered machine-readable.',
-            'This question addresses whether the data is "public". This does not require it to be freely available, but does require that someone outside of the government can access it in some form (examples include if the data is available for purchase, if you can get it in paper form - then it is public). If a freedom of information request or similar is needed to access the data, it is not considered public.',
-            'This question addresses whether the data is available for free or if there is a charge. If there is a charge, then that is stated in the additional information section.',
-            'This question addresses whether the dataset is open as per http://opendefinition.org. It needs to state the terms of use or license that allow anyone to freely use, reuse or redistribute the data (subject at most to attribution or share alike requirements). It is vital that a license is available (if there is no license, the data is not openly licensed). Open licenses which meet the requirements of the Open Definition are listed at http://opendefinition.org/licenses/.',
-            'This question addresses whether the data is up to date and timely - or long delayed. This varies depending on the dataset considered.',
-        ];
+        var obj = this.getQuestions().map(function(question){
+          return question.help;
+        });
 
         return obj[index];
     }

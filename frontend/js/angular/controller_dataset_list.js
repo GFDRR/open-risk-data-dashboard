@@ -46,16 +46,16 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
         category: "",
         description: "",
         score: "",
-        quet1: false,
-        quet2: false,
-        quet3: false,
-        quet4: false,
-        quet5: false,
-        quet6: false,
-        quet7: false,
-        quet8: false,
-        quet9: false,
-        quet10: false
+        quest1: false,
+        quest2: false,
+        quest3: false,
+        quest4: false,
+        quest5: false,
+        quest6: false,
+        quest7: false,
+        quest8: false,
+        quest9: false,
+        quest10: false
     };
 
     $scope.questions = RodiSrv.getQuestions();
@@ -74,6 +74,12 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
     {
         return RodiSrv.getHCIcon(index - 1);
     };
+
+    // Get dataset info
+    $scope.getQuestionCode = function(questionCode, objDataset)
+    {
+        return RodiSrv.getQuestions_code(questionCode, objDataset);
+    }
 
     // Load Dataset list with filter
     $scope.loadDatasetList = function()
