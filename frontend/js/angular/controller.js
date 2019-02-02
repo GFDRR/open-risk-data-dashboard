@@ -637,15 +637,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
         $scope.keydatasetsCount = 0;
         $scope.bLoadingTabel = true;
 
-        RodiSrv.getApplicability(function (data) {
-            $scope.applicability = data.map(function(item){
-                return {
-                  icon: $filter('lowercase')("ico-"+ item.name.replace(/\s+/g, '_')),
-                  title: item.name
-                };
-            })
-        });
-
         $scope.setFilter = function (type, value){
           if ($scope.filterType === type && $scope.filterValue === value) {
             $scope.filterType = '';
@@ -724,14 +715,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
         }
 
         initPage();
-
-        // Get the Hazard Category
-        $scope.HazardCategory = RodiSrv.getDataCategoryIcon();
-
-
-        $scope.getHCIcon = function (index) {
-            return RodiSrv.getHCIcon(index - 1);
-        };
 
         $scope.colorCell = function (value) {
             return RodiSrv.matrixColorCell(value);
