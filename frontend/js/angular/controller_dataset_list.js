@@ -2,7 +2,7 @@
  * Created by Manuel on 15/01/2018.
  */
 
-RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$window', '$filter', 'NgTableParams', function ($scope, RodiSrv, $location, $window, $filter, NgTableParams) {
+RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$window', '$filter', function ($scope, RodiSrv, $location, $window, $filter) {
 
     // ************************************** //
     // ********** INIT CONFIRM ************** //
@@ -30,7 +30,7 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
     $scope.bLoading = true;
     $scope.bNoDataset = false;
     $scope.bPopUpDetails = false;
-    $scope.datasetList = [];
+    $scope.datasetsByCategory = [];
     $scope.aCategory = [];
     $scope.aApplicability = [];
     $scope.istanceList = [];
@@ -62,8 +62,7 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
     $scope.HazardCategory = RodiSrv.getDataCategoryIcon();
     $scope.arrayHazardList=RodiSrv.getHazardList();
 
-    RodiSrv.getCountryList().then(function(response)
-    {
+    RodiSrv.getCountryList().then(function(response) {
         // Success
         $scope.countryList = response.data;
         $scope.objCountry = $filter('filter')($scope.countryList, {wb_id: $scope.idCountry});
@@ -84,7 +83,7 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
     // Load Dataset list with filter
     $scope.loadDatasetList = function()
     {
-        $scope.datasetList = [];
+        $scope.datasetsByCategory = [];
         $scope.bLoading = true;
 
         RodiSrv.getCountryScoring($scope.idCountry, $scope.aCategory, $scope.aApplicability,
@@ -121,63 +120,86 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
                 $scope.countryDatasets = data.datasets_count;
                 $scope.countryOpenDatasets = data.fullscores_count;
 
-                // Delete first element (name of columns)
-                data.scores.splice(0,1);
+                var datasets = data.scores.slice(1).map(function(dataset){
+                  // No dataset submitted
+                  if(dataset[4] * 1 < 0) {
+                    return {
+                        id: dataset[0],
+                        name:  dataset[1],
+                        category:  dataset[2],
+                        description: "",
+                        score:  dataset[4] * 1,
+                        istance_id: dataset[3],
+                        title: "",
+                        modify_time: "",
+                        institution: "",
+                        quest1:  "na",
+                        quest2:  "na",
+                        quest3:  "na",
+                        quest4:  "na",
+                        quest5:  "na",
+                        quest6:  "na",
+                        quest7:  "na",
+                        quest8:  "na",
+                        quest9:  "na",
+                        quest10:  "na"
+                    };
+                  }
+                  else {
+                    return {
+                        id: dataset[0],
+                        name:  dataset[1],
+                        category:  dataset[2],
+                        description: "",
+                        score:  dataset[4] * 1,
+                        istance_id: dataset[3],
+                        title: dataset[15],
+                        modify_time: dataset[16],
+                        institution: dataset[17],
+                        quest1:  dataset[5],
+                        quest2:  dataset[6],
+                        quest3:  dataset[7],
+                        quest4:  dataset[8],
+                        quest5:  dataset[9],
+                        quest6:  dataset[10],
+                        quest7:  dataset[11],
+                        quest8:  dataset[12],
+                        quest9:  dataset[13],
+                        quest10:  dataset[14]
+                    };
+                  }
+                });
 
-                for (var i = 0; i < data.scores.length; i++)
-                {
+                $scope.datasetsByCategory = datasets.reduce(function(categories, dataset, i, allDatasets){
+                  var category = categories.find(function(category){
+                    return category.id === dataset.id;
+                  });
 
-                    if(data.scores[i][4] * 1 < 0)
-                    {
-                        // No dataset submitted
-                        objItem = {
-                            id: data.scores[i][0],
-                            name:  data.scores[i][1],
-                            category:  data.scores[i][2],
-                            description: "",
-                            score:  data.scores[i][4] * 1,
-                            istance_id: data.scores[i][3],
-                            title: "",
-                            modify_time: "",
-                            institution: "",
-                            quest1:  "na",
-                            quest2:  "na",
-                            quest3:  "na",
-                            quest4:  "na",
-                            quest5:  "na",
-                            quest6:  "na",
-                            quest7:  "na",
-                            quest8:  "na",
-                            quest9:  "na",
-                            quest10:  "na"
-                        }
-                    } else {
-                        objItem = {
-                            id: data.scores[i][0],
-                            name:  data.scores[i][1],
-                            category:  data.scores[i][2],
-                            description: "",
-                            score:  data.scores[i][4] * 1,
-                            istance_id: data.scores[i][3],
-                            title: data.scores[i][15],
-                            modify_time: data.scores[i][16],
-                            institution: data.scores[i][17],
-                            quest1:  data.scores[i][5],
-                            quest2:  data.scores[i][6],
-                            quest3:  data.scores[i][7],
-                            quest4:  data.scores[i][8],
-                            quest5:  data.scores[i][9],
-                            quest6:  data.scores[i][10],
-                            quest7:  data.scores[i][11],
-                            quest8:  data.scores[i][12],
-                            quest9:  data.scores[i][13],
-                            quest10:  data.scores[i][14]
-                        }
+                  // we never processed the category
+                  if (!category) {
+                    var datasets = allDatasets.filter(function(d){
+                      return dataset.id === d.id;
+                    });
+
+                    // do not group datasets if there is only one
+                    // it makes it easier to style things
+                    if (datasets.length === 1) {
+                      categories.push(dataset);
+                      return categories;
                     }
 
-                    $scope.datasetList.push(objItem);
+                    var averageScore = datasets.reduce(function(score, d){ return score + d.score; }, 0) / datasets.length;
 
-                }
+                    categories.push({
+                      id: dataset.id,
+                      name: dataset.name,
+                      score: averageScore,
+                      datasets: datasets
+                    })
+                  }
+
+                  return categories;
+                }, []);
 
                 $scope.bLoading = false;
 
@@ -195,27 +217,23 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
         // Category filter initialize
         $scope.aCategory = [];
 
-        RodiSrv.getDataRiskCategory(0,
-            function(data)
-            {
-                // Success
+        RodiSrv.getDataRiskCategory(0, function(data) {
+            // Success
 
-                $scope.DataCategory = $filter('filter')(data,
-                    function(e)
-                    {
-                        return e.category.id == $scope.idDatasetCat;
-                    }
-                );
+            $scope.DataCategory = $filter('filter')(data,
+                function(e)
+                {
+                    return e.category.id == $scope.idDatasetCat;
+                }
+            );
 
-                $scope.aCategory.push($scope.DataCategory[0].category.name);
-                $scope.loadDatasetList();
+            $scope.aCategory.push($scope.DataCategory[0].category.name);
+            $scope.loadDatasetList();
 
 
-            }, function(data)
-            {
-                console.log(data);
-            }
-        );
+        }, function(data) {
+            console.log(data);
+        });
 
     } else
     {
