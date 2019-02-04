@@ -301,6 +301,9 @@ class Dataset(models.Model):
     score = models.FloatField(blank=False, null=False, default=0.0)
     score_th_norm = models.FloatField(blank=False, null=False, default=0.0)
 
+    score_new = models.FloatField(blank=False, null=False, default=0.0)
+    score_new_cat = models.IntegerField(default=-1)
+
     @classmethod
     def gem_score_calculate(cls, inst):
         score = 0.0
@@ -346,11 +349,46 @@ class Dataset(models.Model):
 
         return score, score_th_norm
 
+    @classmethod
+    def gem_score_calculate_new(cls, inst):
+        score = 0.0
+
+        if inst.is_existing:
+            score += 0.50
+
+        if inst.is_pub_available:
+            score += 0.15
+
+        if inst.is_digital_form:
+            score += 0.05
+        if inst.is_avail_online:
+            score += 0.05
+        if inst.is_avail_online_meta:
+            score += 0.05
+        if inst.is_bulk_avail:
+            score += 0.05
+        if inst.is_machine_read:
+            score += 0.05
+        if inst.is_avail_for_free:
+            score += 0.05
+        if inst.is_open_licence:
+            score += 0.05
+
+        if score == 1.0:
+            cat = 1
+        elif score <= 0.65:
+            cat = 2
+        else:
+            cat = 3
+
+        return cat, score
+
     def save(self, *args, **kwargs):
         # to calculate scores, using m2m relationships, save a first
         # time the dataset before calculations is required
         super().save(*args, **kwargs)
         self.score, self.score_th_norm = self.gem_score_calculate(self)
+        self.score_new_cat, self.score_new = self.gem_score_calculate_new(self)
         if 'force_insert' in kwargs:
             del kwargs['force_insert']
         super().save(*args, **kwargs)
