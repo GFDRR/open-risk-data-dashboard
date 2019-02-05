@@ -140,12 +140,12 @@
                     <tr>
                         <th title="Name of country">Country</th>
                         <th title="Average scores of all datasets considered. If a dataset does not exist or has not been submitted, its score is 0.">
-                          Score<br> <a href="" ng-click="changepage('methodology.html#openness')" class="small">(more details)</a>
+                          Score<br> <a href="methodology.html#openness" ng-click="changepage('methodology.html#openness')" class="small">(more details)</a>
                         </th>
-                        <th class=" text-center" title="Number of datasets submitted">
+                        <th title="Number of datasets submitted">
                             Datasets&nbsp;submitted
                         </th>
-                        <th class="text-center" title="Number of datasets fully open">
+                        <th title="Number of datasets fully open">
                             Open&nbsp;data
                         </th>
 
@@ -153,35 +153,36 @@
                     <tr>
                         <th>
                             <div class="flex-container flex-row">
-                                <span class="sort_arrow_up" ng-click="sortBy('name', false)"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: sortField == 'name' && !sortDirection?  '#cb2431' : '#232323'}"></i></span>
-                                <span class="sort_arrow_down" ng-click="sortBy('name', true)"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: sortField == 'name' && sortDirection?  '#cb2431' : '#232323'}"></i></span>
+                                <span class="sort_arrow_up" ng-click="sortBy('name', false)" tabindex="0"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: sortField == 'name' && !sortDirection?  '#cb2431' : '#232323'}"></i></span>
+                                <span class="sort_arrow_down" ng-click="sortBy('name', true)" tabindex="0"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: sortField == 'name' && sortDirection?  '#cb2431' : '#232323'}"></i></span>
                             </div>
                         </th>
                         <th>
                             <div class="flex-container flex-row">
-                                <span class="sort_arrow_up" ng-click="sortBy('score', false)"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: sortField == 'score' && !sortDirection?  '#cb2431' : '#232323'}"></i></span>
-                                <span class="sort_arrow_down" ng-click="sortBy('score', true)"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: sortField == 'score' && sortDirection?  '#cb2431' : '#232323'}"></i></span>
+                                <span class="sort_arrow_up" ng-click="sortBy('score', false)" tabindex="0"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: sortField == 'score' && !sortDirection?  '#cb2431' : '#232323'}"></i></span>
+                                <span class="sort_arrow_down" ng-click="sortBy('score', true)" tabindex="0"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: sortField == 'score' && sortDirection?  '#cb2431' : '#232323'}"></i></span>
                             </div>
                         </th>
                         <th>
-                            <div class="flex-container flex-row" style="justify-content: center;">
-                                <span class="sort_arrow_up" ng-click="sortBy('datasets_count', false)"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: sortField == 'datasets_count' && !sortDirection?  '#cb2431' : '#232323'}"></i></span>
-                                <span class="sort_arrow_down" ng-click="sortBy('datasets_count', true)"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: sortField == 'datasets_count' && sortDirection?  '#cb2431' : '#232323'}"></i></span>
+                            <div class="flex-container flex-row">
+                                <span class="sort_arrow_up" ng-click="sortBy('datasets_count', false)" tabindex="0"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: sortField == 'datasets_count' && !sortDirection?  '#cb2431' : '#232323'}"></i></span>
+                                <span class="sort_arrow_down" ng-click="sortBy('datasets_count', true)" tabindex="0"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: sortField == 'datasets_count' && sortDirection?  '#cb2431' : '#232323'}"></i></span>
                             </div>
                         </th>
                         <th>
-                            <div class="flex-container flex-row text-center"   style="justify-content: center;">
-                                <span class="sort_arrow_up" ng-click="sortBy('fullscores_count', false)"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: sortField == 'fullscores_count' && !sortDirection?  '#cb2431' : '#232323'}"></i></span>
-                                <span class="sort_arrow_down" ng-click="sortBy('fullscores_count', true)"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: sortField == 'fullscores_count' && sortDirection?  '#cb2431' : '#232323'}"></i></span>
+                            <div class="flex-container flex-row text-center">
+                                <span class="sort_arrow_up" ng-click="sortBy('fullscores_count', false)" tabindex="0"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: sortField == 'fullscores_count' && !sortDirection?  '#cb2431' : '#232323'}"></i></span>
+                                <span class="sort_arrow_down" ng-click="sortBy('fullscores_count', true)" tabindex="0"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: sortField == 'fullscores_count' && sortDirection?  '#cb2431' : '#232323'}"></i></span>
                             </div>
                         </th>
                     </tr>
                     </thead>
                     <tbody ng-if="!bLoadingTabel" ng-cloak>
                     <!--  Country with dataset submitted -->
-                    <tr ng-repeat="country in allCountries | orderBy: sortField:sortDirection | filter: filterBy | filter: {name:countrySearchFilter, region:regionSearchFilter}" ng-click="changepage('dataset_list.html?idcountry=' + country.wb_id)"
-                        title="Click to see datasets for this country">
-                        <td><a ng-href="dataset_list.html?idcountry={{country.wb_id}}" class="text-muted">{{country.name}}</a></td>
+                    <tr ng-repeat="country in allCountries | orderBy: sortField:sortDirection | filter: filterBy | filter: {name:countrySearchFilter, region:regionSearchFilter}" ng-click="changepage('dataset_list.html?idcountry=' + country.wb_id)" title="Click to see datasets for this country" tabindex="0">
+                        <th scope="row">
+                          <a ng-href="dataset_list.html?idcountry={{country.wb_id}}" class="text-muted">{{country.name}}</a>
+                        </th>
                         <td>
                             <div class="progress" ng-if="country.score !== undefined" title="Average scores of all datasets considered for this country. If a dataset does not exist or has not been submitted, its score is 0.">
                                 <div class="progress-bar" role="progressbar" aria-valuenow="{{country.score}}"

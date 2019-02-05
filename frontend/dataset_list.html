@@ -168,7 +168,7 @@
       <br/>
 
       <div class="table-responsive">
-        <table class="table table-striped table-hover datasets-table">
+        <table class="table table-hover table-expanded datasets-table">
           <thead>
             <tr>
               <th title="Name of dataset">Dataset</th>
@@ -176,12 +176,12 @@
             </tr>
           </thead>
           <tbody>
-           <tr ng-repeat="item in datasetsByCategory | orderBy: ['-score', 'name'] | filter: checkVisibility" data-score="{{item.score}}" ng-class="{'single': !item.datasets, 'multiple': item.datasets}">
+           <tr ng-repeat="item in datasetsByCategory | orderBy: ['-score', 'name'] | filter: checkVisibility" data-score="{{item.score}}" ng-class="{'single-dataset': !item.datasets, 'multiple-datasets': item.datasets}" tabindex="0">
               <td ng-show="!item.istance_id && !item.datasets" ng-click="changepage('contribute.html?ctr=' + idCountry + '&amp;ds=' +item.name)">
                 <span class="dataset-title">{{item.name}} (<a href="contribute.html?ctr={{idCountry}}&amp;ds={{item.name}}">Contribute</a>)</span>
               </td>
               <td ng-show="item.istance_id && !item.datasets" ng-click="changepage('dataset_details.html?keyds=' + item.istance_id)">
-                <a ng-href="dataset_details.html?keyds={{item.istance_id}}" ng-if="item.istance_id" title="View details">{{item.name}}</a>
+                <a ng-href="dataset_details.html?keyds={{item.istance_id}}" class="dataset-title" ng-if="item.istance_id" title="View details">{{item.name}}</a>
                 <span class="dataset-title" ng-if="item.datasets">{{item.name}}</span>
                 <div class="rodi_subtitle_datasetlist" ng-show="item.istance_id">
                   <span class="text-muted trunkate">{{item.title.toString() + ' ' + item.institution.toString() + ' ' + item.modify_time.toString()}}</span>
@@ -190,9 +190,9 @@
               <td ng-if="item.datasets" colspan="2">
                 <span class="dataset-title" ng-if="item.datasets">{{item.name}}</span>
 
-                <table class="table table-hover datasets-table" ng-show="{{item.datasets}}">
+                <table class="table datasets-table" ng-show="{{item.datasets}}">
                   <tbody>
-                    <tr ng-repeat="dataset in item.datasets | orderBy: '-score'  | filter: checkVisibility"  data-score="{{dataset.score}}" ng-click="changepage('dataset_details.html?keyds=' + dataset.istance_id)">
+                    <tr ng-repeat="dataset in item.datasets | orderBy: '-score'  | filter: checkVisibility"  data-score="{{dataset.score}}" ng-click="changepage('dataset_details.html?keyds=' + dataset.istance_id)" tabindex="0">
                       <th scope="row">
                         <div class="rodi_subtitle_datasetlist" ng-show="dataset.istance_id">
                           <span class=" text-muted trunkate">{{dataset.title.toString() + ' ' + dataset.institution.toString() + ' ' + dataset.modify_time.toString()}}</span>
