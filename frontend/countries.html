@@ -69,12 +69,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/jquery.dataTables.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/js/dataTables.bootstrap.min.js"></script>
 
-    <script>
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
-    </script>
-
 </head>
 
 <body ng-app="RodiApp" ng-controller="RodiCtrl">
@@ -189,7 +183,7 @@
                           <a ng-href="dataset_list.html?idcountry={{country.wb_id}}">{{country.name}}</a>
                         </th>
                         <td>
-                            <div class="progress" ng-if="country.datasets_count > 0" title="State of openness for this country.">
+                            <div class="progress" ng-if="country.datasets_count > 0" ng-tooltip title="State of openness for this country." data-placement="left">
                                 <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{country.fullscores_count}}" ng-title="{{country.name}} has {{country.fullscores_count}} open datasets."
                                      aria-valuemin="0" aria-valuemax="{{keydatasetsCount}}" style="width: {{country.fullscores_count / keydatasetsCount * 100}}%;">
                                     {{country.fullscores_count || ' '}}
