@@ -726,7 +726,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
     {
 
         $scope.tabpar = $location.search().tab;
-        $scope.countrypar = $location.search().ctr;
+        $scope.country_id = $location.search().country_id;
         $scope.datasetpar = $location.search().ds;
         $scope.questions = RodiSrv.getQuestions();
         $scope.bDescInfo = false;
@@ -921,9 +921,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
                 $scope.countryList = response.data;
 
                 // Check country parameters
-                if($scope.countrypar)
-                {
-                    $scope.objDataset.country = $scope.countrypar;
+                if($scope.country_id) {
+                    $scope.objDataset.country = $scope.country_id;
                 };
 
                 $scope.getCountryNameReview = function(country)

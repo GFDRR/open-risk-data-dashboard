@@ -9,7 +9,7 @@
   <meta content="" name="description" />
   <meta content="" name="author" />
 
-  
+
 
   <title>OpenDRI Index - Datasets list</title>
   <link rel="icon" href="img/template/favicon.png" type="image/png">
@@ -177,8 +177,8 @@
           </thead>
           <tbody>
            <tr ng-repeat="item in datasetsByCategory | orderBy: ['-score', 'name'] | filter: checkVisibility" data-score="{{item.score}}" ng-class="{'single-dataset': !item.datasets, 'multiple-datasets': item.datasets}" tabindex="0">
-              <td ng-show="!item.istance_id && !item.datasets" ng-click="changepage('contribute.html?ctr=' + idCountry + '&amp;ds=' +item.name, $event)">
-                <span class="dataset-title">{{item.name}} (<a href="contribute.html?ctr={{idCountry}}&amp;ds={{item.name}}">Contribute</a>)</span>
+              <td ng-show="!item.istance_id && !item.datasets" ng-click="changepage('contribute.html?country_id=' + idCountry + '&amp;ds=' +item.name, $event)">
+                <span class="dataset-title">{{item.name}} (<a href="contribute.html?country_id={{idCountry}}&amp;ds={{item.name}}">Contribute</a>)</span>
               </td>
               <td ng-show="item.istance_id && !item.datasets" ng-click="changepage('dataset_details.html?keyds=' + item.istance_id, $event)">
                 <a ng-href="dataset_details.html?keyds={{item.istance_id}}" class="dataset-title" ng-if="item.istance_id" title="View details">{{item.name}}</a>
