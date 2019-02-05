@@ -9,7 +9,7 @@
     <meta content="Open Data for Resilience Index " name="description" />
     <meta content="" name="author" />
 
-    
+
 
 
     <title>OpenDRI Index - Explore countries</title>
@@ -139,14 +139,25 @@
                     <thead>
                     <tr>
                         <th title="Name of country">Country</th>
-                        <th title="Average scores of all datasets considered. If a dataset does not exist or has not been submitted, its score is 0.">
-                          Score<br> <a href="methodology.html#openness" class="small">(more details)</a>
-                        </th>
-                        <th title="Number of datasets submitted">
-                            Datasets&nbsp;submitted
+                        <th title="Average scores of all datasets considered. If a dataset does not exist or has not been submitted, its score is 0." style="width: 50%">
+                          <ul class="list-inline">
+                            <li>
+                              <span class="label label-success label-small"></span> Open Data<br>
+                              <span class="text-muted">Free to access, use and share</span>
+                            </li>
+                            <li>
+                              <span class="label label-warning label-small"></span> Restricted<br>
+                              <span class="text-muted">Technical, legal or cost restrictions</span>
+                            </li>
+                            <li>
+                              <span class="label label-danger label-small"></span> Closed<br>
+                              <span class="text-muted">Access not permitted or does not exist</span>
+                            </li>
+                          </ul>
                         </th>
                         <th title="Number of datasets fully open">
-                            Open&nbsp;data
+                          <span class="label label-default label-small"></span> Unknown<br>
+                          <span class="text-muted">No information.<br>Submission is needed</span>
                         </th>
 
                     </tr>
@@ -164,15 +175,9 @@
                             </div>
                         </th>
                         <th>
-                            <div class="flex-container flex-row">
-                                <span class="sort_arrow_up" ng-click="sortBy('datasets_count', false)" tabindex="0"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: sortField == 'datasets_count' && !sortDirection?  '#cb2431' : '#232323'}"></i></span>
-                                <span class="sort_arrow_down" ng-click="sortBy('datasets_count', true)" tabindex="0"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: sortField == 'datasets_count' && sortDirection?  '#cb2431' : '#232323'}"></i></span>
-                            </div>
-                        </th>
-                        <th>
                             <div class="flex-container flex-row text-center">
-                                <span class="sort_arrow_up" ng-click="sortBy('fullscores_count', false)" tabindex="0"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: sortField == 'fullscores_count' && !sortDirection?  '#cb2431' : '#232323'}"></i></span>
-                                <span class="sort_arrow_down" ng-click="sortBy('fullscores_count', true)" tabindex="0"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: sortField == 'fullscores_count' && sortDirection?  '#cb2431' : '#232323'}"></i></span>
+                                <span class="sort_arrow_up" ng-click="sortBy('datasets_unknown_count', false)" tabindex="0"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: sortField == 'fullscores_count' && !sortDirection?  '#cb2431' : '#232323'}"></i></span>
+                                <span class="sort_arrow_down" ng-click="sortBy('datasets_unknown_count', true)" tabindex="0"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: sortField == 'fullscores_count' && sortDirection?  '#cb2431' : '#232323'}"></i></span>
                             </div>
                         </th>
                     </tr>
@@ -181,37 +186,32 @@
                     <!--  Country with dataset submitted -->
                     <tr ng-repeat="country in allCountries | orderBy: sortField:sortDirection | filter: filterBy | filter: {name:countrySearchFilter, region:regionSearchFilter}" ng-click="changepage('dataset_list.html?idcountry=' + country.wb_id, $event)" title="Click to see datasets for this country" tabindex="0">
                         <th scope="row">
-                          <a ng-href="dataset_list.html?idcountry={{country.wb_id}}" class="text-muted">{{country.name}}</a>
+                          <a ng-href="dataset_list.html?idcountry={{country.wb_id}}">{{country.name}}</a>
                         </th>
                         <td>
                             <div class="progress" ng-if="country.score !== undefined" title="Average scores of all datasets considered for this country. If a dataset does not exist or has not been submitted, its score is 0.">
-                                <div class="progress-bar" role="progressbar" aria-valuenow="{{country.score}}"
-                                     aria-valuemin="0" aria-valuemax="100" style="width: {{country.score}}%;">
-                                    {{country.score}}%
+                                <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{country.score}}"
+                                     aria-valuemin="0" aria-valuemax="{{keydatasetsCount}}" style="width: {{country.datasets_open_count / keydatasetsCount * 100}}%;">
+                                    {{country.datasets_open_count || 0}}
+                                </div>
+
+                                <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{country.datasets_count}}"
+                                     aria-valuemin="0" aria-valuemax="{{keydatasetsCount}}" style="width: {{country.datasets_restricted_count/keydatasetsCount * 100}}%;">
+                                    {{country.datasets_restricted_count || 0}}
+                                </div>
+
+                                <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{country.datasets_count}}"
+                                     aria-valuemin="0" aria-valuemax="{{keydatasetsCount}}" style="width: {{country.datasets_closed_count/keydatasetsCount * 100}}%;">
+                                    {{country.datasets_closed_count || 0}}
                                 </div>
                             </div>
 
-                            <img ng-if="country.score === undefined" src="img/template/loading.gif" alt="" style="max-width:40px;">
-                        </td>
-
-                        <td>
-                            <div class="progress" ng-if="country.datasets_count > 0">
-                              <div class="progress-bar" role="progressbar" aria-valuenow="{{country.datasets_count}}"
-                                   aria-valuemin="0" aria-valuemax="{{keydatasetsCount}}" style="width: {{country.datasets_count/keydatasetsCount * 100}}%;">
-                                  {{country.datasets_count}}
-                              </div>
-                            </div>
-
-                            <span ng-if="country.datasets_count === 0">No dataset submitted</span>
-
-                            <img ng-if="country.datasets_count === undefined" src="img/template/loading.gif" alt="" style="max-width:40px;">
-                        </td>
-
+                            <img ng-if="country.fullscores_count === undefined" src="img/template/loading.gif" alt="" style="max-width:40px;">
                         <td>
                           <div class="progress" ng-if="country.fullscores_count >= 0">
                               <div class="progress-bar" role="progressbar" aria-valuenow="{{country.fullscores_count}}"
-                                   aria-valuemin="0" aria-valuemax="{{keydatasetsCount}}" style="width: {{country.fullscores_count/keydatasetsCount * 100}}%;">
-                                  {{country.fullscores_count}}
+                                   aria-valuemin="0" aria-valuemax="{{keydatasetsCount}}" style="width: {{country.datasets_unknown_count/keydatasetsCount * 100}}%;">
+                                  {{country.datasets_unknown_count || 0}}
                               </div>
                           </div>
 
