@@ -4,11 +4,7 @@
 /*********************************************************/
 
 .table>thead>tr>th {
-    border-bottom: 0px;
-    font-size:18px;
-    padding-top:10px;
-    padding-bottom:10px;
-    display: table-cell;
+    font-size: 1.3em;
     vertical-align: top;
 }
 
@@ -16,13 +12,18 @@
     background-color: rgba(0,120,153,.1);
 }
 
-.table>tbody>tr>td
-{
-    border-top: 0px;
-    font-size:16px;
-    font-weight: 600;
-    display: table-cell;
-    vertical-align: middle
+.table>tbody>tr>td {
+    vertical-align: middle;
+}
+
+.table-expanded > tbody > tr > td,
+.table-expanded > tbody > tr > th,
+.table-expanded > tfoot > tr > td,
+.table-expanded > tfoot > tr > th,
+.table-expanded > thead > tr > td,
+.table-expanded > thead > tr > th {
+  padding-bottom: 12px;
+  padding-top: 12px;
 }
 
 @media (max-width:768px) {
@@ -40,8 +41,10 @@
 
 
 
-.table-hover > tbody > tr:hover {
-    background-color: rgba(0,120,153,.3);
+.table-hover > tbody > tr:hover,
+.table-hover > tbody > tr:focus,
+.table > tbody > tr[tabindex]:focus {
+    background-color: rgba(250, 240, 235, .90);
 }
 
 .ng-table th
