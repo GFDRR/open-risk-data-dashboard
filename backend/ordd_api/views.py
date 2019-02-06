@@ -947,6 +947,7 @@ class ScoreNew(object):
                 "datasets_restricted_count": row[1],
                 "datasets_closed_count": row[2],
                 "datasets_unknown_count": row[3],
+                "datasets_count": row[0] + row[1] + row[2],
                 "country": country.wb_id
             }
             ret_cous.append(country_row)
