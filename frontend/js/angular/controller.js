@@ -38,10 +38,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
             "filterTsunami": ""
         };
 
-    $scope.changepage = function(page)
-    {
-        $window.location.href = baseUrl + page;
-    }
+    $scope.changepage = RodiSrv.changepage;
 
     // ************************************** //
     // ************ HOME PAGE *************** //

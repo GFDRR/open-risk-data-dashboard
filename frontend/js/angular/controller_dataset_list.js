@@ -20,10 +20,7 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
 
     if($scope.tokenid) {$scope.bLogin = true; } else {$scope.bLogin = false;}
 
-    $scope.changepage = function(page)
-    {
-        $window.location.href = baseUrl + page;
-    }
+    $scope.changepage = RodiSrv.changepage;
 
     $scope.idCountry = $location.search().idcountry;
     $scope.idDatasetCat = $location.search().idcategory || 0;
