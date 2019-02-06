@@ -374,9 +374,9 @@ class Dataset(models.Model):
         if inst.is_open_licence:
             score += 0.05
 
-        if score == 1.0:
+        if score >= 0.99999:
             cat = 1
-        elif score <= 0.65:
+        elif score >= 0.64999:
             cat = 2
         else:
             cat = 3

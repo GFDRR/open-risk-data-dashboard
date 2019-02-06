@@ -892,6 +892,50 @@ class DatasetsDumpView(generics.ListAPIView):
         return response
 
 
+class ScoreNew(object):
+    @classmethod
+    def all_countries_new(cls, request):
+        # get number of keydatasets
+        kd_num = KeyDataset.objects.all().count()
+
+        countries = Country.objects.all()
+
+        kd_cat_arr = Country.objects.raw('''
+            SELECT country_id as wb_id, score_new_cat,
+                   count(score_new_cat) AS score_new_cat_n
+                FROM ordd_api_dataset
+                GROUP BY country_id, score_new_cat
+                ORDER BY country_id, score_new_cat''')
+        kd_cat = {}
+        for item in kd_cat_arr:
+            if item.wb_id not in kd_cat:
+                kd_cat[item.wb_id] = {}
+            kd_cat[item.wb_id][item.score_new_cat] = item.score_new_cat_n
+
+        kd_unknown_arr = Country.objects.raw('''
+            SELECT wb_id, (%d - COUNT(pri.part)) AS kd_num FROM (
+                SELECT country_id as wb_id, keydataset_id AS part
+                       FROM ordd_api_dataset
+                       GROUP BY wb_id, keydataset_id)
+            AS pri GROUP BY wb_id ORDER BY kd_num;''' % kd_num)
+
+        kd_unknown = {}
+        for item in kd_unknown_arr:
+            kd_unknown[item.wb_id] = item.kd_num
+
+        ret = {}
+        for country in countries:
+            ret[country.wb_id] = [0, 0, 0, kd_num]
+            if country.wb_id in kd_unknown:
+                ret[country.wb_id][3] = kd_unknown[country.wb_id]
+            if country.wb_id in kd_cat:
+                cou_kd_cat = kd_cat[country.wb_id]
+                for cat in cou_kd_cat:
+                    ret[country.wb_id][int(cat) - 1] = cou_kd_cat[cat]
+
+        return ret
+
+
 class Score(object):
     @classmethod
     def score_fmt(cls, score):
@@ -1789,6 +1833,16 @@ class CountryScoringWorldGet(APIView):
         return Response(ret)
 
 
+class CountryScoringNewWorldGet(APIView):
+    """This view return the list of country with dataset instances and
+ their scores"""
+
+    def get(self, request):
+        ret = Score_new.all_country_scoring_new(request)
+        return Response(ret)
+
+    # select country_id, count(pri.part) as kd_num from (select country_id, keydataset_id as part from ordd_api_dataset group by country_id, keydataset_id) as pri GROUP BY country_id ORDER BY kd_num;
+
 class CountryScoringCountryDetailsGet(APIView):
     """This view return the list best datasets for each keydataset for a specific
 country with related scores"""
@@ -1820,6 +1874,15 @@ class WorldStatisticsGet(APIView):
 
     def get(self, request):
         ret = Score.world_statistics(request)
+        return Response(ret)
+
+
+class ScoringNewWorldGet(APIView):
+    """This view return the list of country with dataset instances and
+ their scores"""
+
+    def get(self, request):
+        ret = ScoreNew.all_countries_new(request)
         return Response(ret)
 
 
