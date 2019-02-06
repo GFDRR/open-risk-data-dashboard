@@ -80,7 +80,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="./"  ng-click="changepage('./')">
+      <a class="navbar-brand" href="./">
         <svg ng-if="!isIE11" class="logo_icon" aria-hidden="true" focusable="false" fill="currentColor;">
           <use xlink:href="img/logo.svg#logo_open_data_full"></use>
         </svg>
@@ -111,9 +111,7 @@
             <br />
             <div style="max-width: 80%; margin:auto;">
                 <div class="alert alert-success text-center" ng-if="bRegConfirm">
-                    <h3>Thanks, you can now <a href="" ng-click="changepage('contribute.html')">submit a dataset</a>.</h3>
-                    <br><br>
-                    <!--<a href="" ng-click="changepage('contribute.html?tab=3')" class="btn btn-info">COMPLETE YOUR PROFILE</a>-->
+                    <h3>Thanks, you can now <a href="contribute.html">submit a dataset</a>.</h3>
                 </div>
                 <div class="alert alert-danger text-center" ng-if="!bRegConfirm">
                     <h3>Registration confirmation error!</h3>

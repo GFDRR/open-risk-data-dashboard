@@ -85,7 +85,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="./"  ng-click="changepage('./')">
+        <a class="navbar-brand" href="./">
           <svg ng-if="!isIE11" class="logo_icon" aria-hidden="true" focusable="false" fill="currentColor;">
             <use xlink:href="img/logo.svg#logo_open_data_full"></use>
           </svg>
@@ -222,7 +222,7 @@
                                         <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-check-circle-o" ></i></span>
                                         <!--<span class="rodi_dataset_label_code">B1. </span>-->
                                         <span class="rodi_dataset_label">{{getQuestionCode('is_existing')}}</span>
-                                        <span class="text-muted"><a href="" ng-click="questionHelp(0)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
+                                        <span class="text-muted"><a href="#help" ng-click="questionHelp(0)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
                                     </div>
                                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -254,7 +254,7 @@
                                         <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-desktop" ></i></span>
                                         <!--<span class="rodi_dataset_label_code">B2.</span>-->
                                         <span class="rodi_dataset_label">{{getQuestionCode('is_digital_form')}}</span>
-                                        <span class="text-muted"><a href="" ng-click="questionHelp(1)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
+                                        <span class="text-muted"><a href="#help" ng-click="questionHelp(1)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
                                     </div>
                                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -282,7 +282,7 @@
                                         <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-eye" ></i></span>
                                         <!--<span class="rodi_dataset_label_code">B7.</span>-->
                                         <span class="rodi_dataset_label">{{getQuestionCode('is_pub_available')}}</span>
-                                        <span class="text-muted"><a href="" ng-click="questionHelp(6)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
+                                        <span class="text-muted"><a href="#help" ng-click="questionHelp(6)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
                                     </div>
                                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -310,7 +310,7 @@
                                         <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-cloud" ></i></span>
                                         <!--<span class="rodi_dataset_label_code">B3.</span>-->
                                         <span class="rodi_dataset_label">{{getQuestionCode('is_avail_online')}}</span>
-                                        <span class="text-muted"><a href="" ng-click="questionHelp(2)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
+                                        <span class="text-muted"><a href="#help" ng-click="questionHelp(2)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
 
                                     </div>
                                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
@@ -364,7 +364,7 @@
                                         <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-tag" ></i></span>
                                         <!--<span class="rodi_dataset_label_code">B4.</span>-->
                                         <span class="rodi_dataset_label">{{getQuestionCode('is_avail_online_meta')}}</span>
-                                        <span class="text-muted"><a href="" ng-click="questionHelp(3)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
+                                        <span class="text-muted"><a href="#help" ng-click="questionHelp(3)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
                                     </div>
                                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -401,7 +401,7 @@
                                             <li ng-repeat="link in selectedLink">
                                                 - {{link}}
                                                 <div class="pull-right">
-                                                    <a href="" ng-click="deleteLink(link)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>&nbsp;&nbsp;
+                                                    <a href="#delete_link" ng-click="deleteLink(link)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>&nbsp;&nbsp;
                                                 </div>
                                             </li>
                                         </ul>
@@ -420,7 +420,7 @@
                                         <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-copy" ></i></span>
                                         <!--<span class="rodi_dataset_label_code">B5.</span>-->
                                         <span class="rodi_dataset_label">{{getQuestionCode('is_bulk_avail')}}</span>
-                                        <span class="text-muted"><a href="" ng-click="questionHelp(4)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
+                                        <span class="text-muted"><a href="#help" ng-click="questionHelp(4)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
                                     </div>
                                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                                         <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
@@ -448,7 +448,7 @@
                                         <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-keyboard-o" ></i></span>
                                         <!--<span class="rodi_dataset_label_code">B6.</span>-->
                                         <span class="rodi_dataset_label">{{getQuestionCode('is_machine_read')}}</span>
-                                        <span class="text-muted"><a href="" ng-click="questionHelp(5)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
+                                        <span class="text-muted"><a href="#help" ng-click="questionHelp(5)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
                                     </div>
 
                                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
@@ -480,7 +480,7 @@
                                         <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-dollar" ></i></span>
                                         <!--<span class="rodi_dataset_label_code">B8.</span>-->
                                         <span class="rodi_dataset_label">{{getQuestionCode('is_avail_for_free')}}</span>
-                                        <span class="text-muted"><a href="" ng-click="questionHelp(7)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
+                                        <span class="text-muted"><a href="#help" ng-click="questionHelp(7)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
                                     </div>
 
                                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
@@ -509,7 +509,7 @@
                                         <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-unlock-alt" ></i></span>
                                         <!--<span class="rodi_dataset_label_code">B9.</span>-->
                                         <span class="rodi_dataset_label">{{getQuestionCode('is_open_licence')}}</span>
-                                        <span class="text-muted"><a href="" ng-click="questionHelp(8)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
+                                        <span class="text-muted"><a href="#help" ng-click="questionHelp(8)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
                                     </div>
 
                                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
@@ -541,7 +541,7 @@
                                         <span class="rodi_dataset_label_code rodi_dataset_question"><i class="fa fa-clock-o" ></i></span>
                                         <!--<span class="rodi_dataset_label_code">B10.</span>-->
                                         <span class="rodi_dataset_label">{{getQuestionCode('is_prov_timely')}}</span>
-                                        <span class="text-muted"><a href="" ng-click="questionHelp(9)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
+                                        <span class="text-muted"><a href="#help" ng-click="questionHelp(9)"><i class="fa fa-question-circle" aria-hidden="true"></i></a></span>
                                     </div>
 
                                     <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
@@ -608,7 +608,7 @@
                                         <!--<td title="'Dataset'" filter="{ 'keydataset.dataset.name': 'text'}" sortable="'keydataset.dataset.name'">-->
                                         <td title="'Dataset'" sortable="'keydataset.dataset.name'">
                                             <h5>{{ds.keydataset.dataset.name}}</h5>
-                                            {{formatStringLenght(ds.keydataset.description)}}<br /> <small><a href="" data-toggle="modal" data-target="#moreinfoModal{{$index}}">more info</a></small>
+                                            {{formatStringLenght(ds.keydataset.description)}}<br /> <small><a href="#more_info" data-toggle="modal" data-target="#moreinfoModal{{$index}}">more info</a></small>
                                             <br /><br />
                                             Agency: <span>{{ds.is_existing_txt}}</span>
                                             <br />
@@ -671,7 +671,7 @@
                                             <div class="">
 
                                                 <!--<i class="fa fa-2x fa-clock-o" aria-hidden="true" ng-if="!ds.is_reviewed" style="color:#eea236; color:rgba(51, 122, 183, 0.7);"></i>-->
-                                                <a class="" href="" title="details" style="margin-right:10px;" ng-click="changepage('dataset_details.html?keyds=' + ds.id)">
+                                                <a ng-href="dataset_details.html?keyds={{ds.id}}" title="details" style="margin-right:10px;">
                                     <span class="fa-stack fa-lg fa-2x">
                                       <i class="fa fa-circle fa-stack-2x"></i>
                                       <i class="fa fa-search fa-stack-1x fa-inverse"></i>
@@ -693,7 +693,7 @@
                                         <td title="'Download'" class="text-center status" sortable="'download'" >
                                             <div class="">
 
-                                                <a class="download" title="Download link" href="" ng-if="ds.url.length > 0" data-toggle="modal" data-target="#linkdataModal{{$index}}">
+                                                <a class="download" title="Download link" href="#linkdataModal{{$index}}" ng-if="ds.url.length > 0" data-toggle="modal" data-target="#linkdataModal{{$index}}">
                                                      <span class="fa-stack fa-lg fa-2x">
                                                       <i class="fa fa-circle fa-stack-2x"></i>
                                                       <i class="fa fa-download fa-stack-1x fa-inverse"></i>
@@ -787,7 +787,7 @@
                                                 <td>
                                                     <!-- Dataset info -->
                                                     {{ds.keydataset.category}} - {{ds.keydataset.level}} - <strong>{{ds.keydataset.dataset.name}}</strong><br />
-                                                    {{formatStringLenght(ds.keydataset.description)}}<br /> <small><a href="" data-toggle="modal" data-target="#moreinfoModalReview{{$index}}">more info</a></small>
+                                                    {{formatStringLenght(ds.keydataset.description)}}<br /> <small><a href="#moreinfoModalReview{{$index}}" data-toggle="modal" data-target="#moreinfoModalReview{{$index}}">more info</a></small>
                                                     <br /><br />
                                                     Tags: <span ng-repeat="tag in ds.tag"><small>{{tag}}<span ng-if="!$last">,</span></small> </span>
                                                     <br />
@@ -840,7 +840,7 @@
                                                         <i class="fa fa-2x fa-check-circle-o ok" aria-hidden="true" ng-if="ds.is_reviewed" title="Reviewed" ></i>
                                                         <i class="fa fa-2x fa-clock-o rev" aria-hidden="true" ng-if="!ds.is_reviewed" title="Pending approval"></i>
                                                         <!--<i class="fa fa-2x fa-clock-o" aria-hidden="true" ng-if="!ds.is_reviewed" style="color:#eea236; color:rgba(51, 122, 183, 0.7);"></i>-->
-                                                        <a class="" href="" title="details" ng-click="changepage('dataset_details.html?rl=true&keyds=' + ds.id)">
+                                                        <a ng-href="dataset_details.html?rl=true&keyds={{ds.id}}" title="details">
                                                             <i class="fa fa-2x fa-search"></i>
                                                         </a>
                                                     </div>
@@ -964,7 +964,7 @@
         <div class="jumbotron" ng-if="!bLogin && tabpar !== '3'">
             <div class="container">
                 <p class="text-center">You are about to submit information on a dataset and assess whether it is open or not.</p>
-                <p class="text-center">Please login or register first, or see <a href="" ng-click="changepage('methodology.html')">Documentation</a> for more details.</p>
+                <p class="text-center">Please login or register first, or see <a href="methodology.html">Documentation</a> for more details.</p>
                 <br><br><br><br>
                 <div class="text-center">
                     <!--<span class="rodi_big_text">|</span>-->
@@ -974,12 +974,12 @@
                                 LOGIN
                             </span>
                     </button>
-                    <button class="btn btn-lg btn-custom " type="button" ng-click="changepage('register.html')">
+                    <a href="register.html" class="btn btn-lg btn-custom " type="button">
                             <span class="rodi_big_text">
                                 <i class="fa icon-register fa-2x"></i>
                                 REGISTER
                             </span>
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>
