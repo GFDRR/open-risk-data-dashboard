@@ -9,7 +9,7 @@
     <meta content="Open Data for Resilience Index " name="description" />
     <meta content="" name="author" />
 
-    <base href="{{$locationProvider.$get}}" />
+    
 
 
     <title>OpenDRI Index - Explore countries</title>
@@ -87,7 +87,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="./"  ng-click="changepage('./')">
+        <a class="navbar-brand" href="./">
           <svg ng-if="!isIE11" class="logo_icon" aria-hidden="true" focusable="false" fill="currentColor;">
             <use xlink:href="img/logo.svg#logo_open_data_full"></use>
           </svg>
@@ -140,7 +140,7 @@
                     <tr>
                         <th title="Name of country">Country</th>
                         <th title="Average scores of all datasets considered. If a dataset does not exist or has not been submitted, its score is 0.">
-                          Score<br> <a href="methodology.html#openness" ng-click="changepage('methodology.html#openness')" class="small">(more details)</a>
+                          Score<br> <a href="methodology.html#openness" class="small">(more details)</a>
                         </th>
                         <th title="Number of datasets submitted">
                             Datasets&nbsp;submitted
@@ -179,7 +179,7 @@
                     </thead>
                     <tbody ng-if="!bLoadingTabel" ng-cloak>
                     <!--  Country with dataset submitted -->
-                    <tr ng-repeat="country in allCountries | orderBy: sortField:sortDirection | filter: filterBy | filter: {name:countrySearchFilter, region:regionSearchFilter}" ng-click="changepage('dataset_list.html?idcountry=' + country.wb_id)" title="Click to see datasets for this country" tabindex="0">
+                    <tr ng-repeat="country in allCountries | orderBy: sortField:sortDirection | filter: filterBy | filter: {name:countrySearchFilter, region:regionSearchFilter}" ng-click="changepage('dataset_list.html?idcountry=' + country.wb_id, $event)" title="Click to see datasets for this country" tabindex="0">
                         <th scope="row">
                           <a ng-href="dataset_list.html?idcountry={{country.wb_id}}" class="text-muted">{{country.name}}</a>
                         </th>

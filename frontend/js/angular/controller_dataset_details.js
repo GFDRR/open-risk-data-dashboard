@@ -14,10 +14,7 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
 
     if($scope.tokenid) {$scope.bLogin = true; } else {$scope.bLogin = false;}
 
-    $scope.changepage = function(page)
-    {
-        $window.location.href = baseUrl + page;
-    }
+    $scope.changepage = RodiSrv.changepage;
 
     // ************************************** //
     // ****** DATASET DETAILS & EDIT ******** //

@@ -20,10 +20,7 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
 
     if($scope.tokenid) {$scope.bLogin = true; } else {$scope.bLogin = false;}
 
-    $scope.changepage = function(page)
-    {
-        $window.location.href = baseUrl + page;
-    }
+    $scope.changepage = RodiSrv.changepage;
 
     $scope.idCountry = $location.search().idcountry;
     $scope.idDatasetCat = $location.search().idcategory || 0;
@@ -260,8 +257,8 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
 
     };
 
-    $scope.setFilterCategoryDatasetList = function (filter) {
-
+    $scope.setFilterCategoryDatasetList = function ($event, filter) {
+        $event.preventDefault();
         var index = $scope.aCategory.indexOf(filter);
 
         if (index >-1){
@@ -317,8 +314,8 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
 
     }
 
-    $scope.setFilterMode = function(type)
-    {
+    $scope.setFilterMode = function($event, type) {
+        $event.preventDefault();
         $scope.filterMode = type;
     }
 

@@ -8,7 +8,7 @@
     <meta name="description" content="A collaborative and global assessment of open data for reducing vulnerability and building resilience to natural hazards. The Open Data for Resilience Index is a tool to identify, assess and compare, for any country, the availability and ease-of-use of datasets that are considered to be key for disaster risk management."/>
     <meta content="GFDRR" name="author" />
 
-    <base href="{{$locationProvider.$get}}" />
+    
 
     <title>OpenDRI Index</title>
     <link rel="icon" href="img/template/favicon.png" type="image/png">
@@ -79,7 +79,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="./"  ng-click="changepage('./')">
+      <a class="navbar-brand" href="./">
         <svg ng-if="!isIE11" class="logo_icon" aria-hidden="true" focusable="false" fill="currentColor;">
           <use xlink:href="img/logo.svg#logo_open_data_full"></use>
         </svg>
@@ -101,7 +101,7 @@
 <div class="container">
         <div class="row">
             <div class="col odfri_home_title col-xs-12">
-                <h1>Tracking <a href="methodology.html" ng-click="changeview('methodology.html', '1')">Open Data</a> for <a href="methodology.html" ng-click="changeview('methodology.html', '2')">Disaster Risk Management</a></h1>
+                <h1>Tracking <a href="methodology.html">Open Data</a> for <a href="methodology.html">Disaster Risk Management</a></h1>
                 <!--<span>A collaborative and global assessment of open data for reducing vulnerability and building resilience to natural hazards</span>-->
                 <p>A collaborative and global assessment of availability and ease of use of data related to natural hazards</p>
             </div>
@@ -129,8 +129,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 text-center">
-                    <a href="countries.html" class="btn btn-custom btn-xxl" ng-click="changeview('countries.html', '5')">Explore countries</a>
-                    <a href="contribute.html" class="btn btn-custom btn-xxl" ng-click="changeview('contribute.html', '1')">Submit a dataset </a>
+                    <a href="countries.html" class="btn btn-custom btn-xxl">Explore countries</a>
+                    <a href="contribute.html" class="btn btn-custom btn-xxl">Submit a dataset</a>
                 </div>
             </div>
         </div>

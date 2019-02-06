@@ -2,11 +2,19 @@
  * Created by Manuel on 15/05/2017.
  */
 
-RodiApp.service("RodiSrv", ['$http', '$filter', function($http, $filter)
+RodiApp.service("RodiSrv", ['$http', '$filter', '$window', function($http, $filter, $window)
 {
 
 
     this.countryList = null;
+
+    this.changepage = function (page, $event) {
+      if ($event && 'preventDefault' in $event) {
+        $event.preventDefault();
+      }
+
+      $window.location.href = baseUrl + page;
+    }
 
     // ************************************** //
     // ************ SCORE - API ************* //
