@@ -77,8 +77,9 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
 
     }
 
-    $scope.closeloginform = function()
-    {
+    $scope.closeloginform = function($event) {
+        $event.preventDefault();
+
         $scope.formloginCss = "display_none";
         // resets form for security reasons
         $scope.usr_name = '';
@@ -137,8 +138,8 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
 
     }
 
-    $scope.setForgotPassword = function(status)
-    {
+    $scope.setForgotPassword = function($event, status) {
+        $event.preventDefault();
         $scope.bResetPassword = status;
     }
 

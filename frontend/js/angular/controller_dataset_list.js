@@ -257,8 +257,8 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
 
     };
 
-    $scope.setFilterCategoryDatasetList = function (filter) {
-
+    $scope.setFilterCategoryDatasetList = function ($event, filter) {
+        $event.preventDefault();
         var index = $scope.aCategory.indexOf(filter);
 
         if (index >-1){
@@ -314,8 +314,8 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
 
     }
 
-    $scope.setFilterMode = function(type)
-    {
+    $scope.setFilterMode = function($event, type) {
+        $event.preventDefault();
         $scope.filterMode = type;
     }
 

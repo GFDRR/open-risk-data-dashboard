@@ -1,6 +1,6 @@
-<form class="login_form_box {{formloginCss}}" method="POST" id="login_form" role="dialog">
+<form class="login_form_box {{formloginCss}}" method="POST" id="login_form" role="dialog" ng-submit="loginUser()">
     <!--<div class="btn_close">-->
-        <a href="" ng-click="closeloginform($event)" class="btn_close pull-right">
+        <a href="#close" ng-click="closeloginform($event)" class="btn_close pull-right">
             <i class="fa fa-2x fa-times" aria-hidden="true"></i>
         </a>
     <!--</div>-->
@@ -18,12 +18,14 @@
     </div>
     <div class="form text-center"><input type="button" class="btn btn-primary btn-lg" value="RESET PASSWORD" ng-click="resetPassword()" ng-if="bResetPassword" /></div>
     <br /><br />
-    <div class="form text-center"><input type="button" class="btn btn-primary btn-lg" value="LOGIN" ng-click="loginUser()" ng-if="!bResetPassword" /></div>
+    <div class="form text-center">
+      <input type="button" class="btn btn-primary btn-lg" value="LOGIN" ng-click="loginUser()" ng-if="!bResetPassword" />
+    </div>
 
     <br /><br />
     <div class="text-center">
-        <a href="" ng-click="setForgotPassword(true)" ng-if="!bResetPassword">Forgot password?</a> &nbsp;
-        <a href="" ng-click="setForgotPassword(false)" ng-if="bResetPassword">Login form</a> &nbsp;
+        <a href="#forgot_password" ng-click="setForgotPassword($event, true)" ng-if="!bResetPassword">Forgot password?</a> &nbsp;
+        <a href="#login" ng-click="setForgotPassword($event, false)" ng-if="bResetPassword">Login form</a> &nbsp;
         &nbsp;&nbsp;<a href="register.html">Create an account</a>
     </div>
 
