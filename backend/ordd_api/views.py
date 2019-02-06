@@ -898,7 +898,6 @@ class ScoreNew(object):
         # get number of keydatasets
         kd_num = KeyDataset.objects.all().count()
         dt_num = Dataset.objects.all().count()
-
         countries = Country.objects.all()
 
         kd_cat_arr = Country.objects.raw('''
@@ -933,6 +932,12 @@ class ScoreNew(object):
 
         ret_cous = []
         for country in countries:
+            score = Dataset.objects.filter(
+                country_id=country.wb_id).aggregate(
+                    Sum('score_new'))['score_new__sum']
+            if score is None:
+                score = 0
+
             row = [0, 0, 0, kd_num]
             if country.wb_id in kd_unknown:
                 row[3] = kd_unknown[country.wb_id]
@@ -943,6 +948,7 @@ class ScoreNew(object):
 
             country_row = {
                 "rank": 0,
+                "score": score,
                 "datasets_open_count": row[0],
                 "datasets_restricted_count": row[1],
                 "datasets_closed_count": row[2],
@@ -951,31 +957,21 @@ class ScoreNew(object):
                 "country": country.wb_id
             }
             ret_cous.append(country_row)
-        ret_cous.sort(reverse=True, key=lambda x: (
-            x["datasets_open_count"], x["datasets_restricted_count"],
-            x["datasets_closed_count"], x["datasets_unknown_count"]))
+        ret_cous.sort(reverse=True, key=lambda x: x["score"])
 
         ret["countries"] = ret_cous
 
         is_first = True
-        last_value = (-100.0, -100.0, -100.0, -100.0)
+        last_value = -10000.0
         rank = 1
         for ret_cou in ret_cous:
             if is_first:
                 is_first = False
                 ret_cou["rank"] = rank
-                last_value = (
-                    ret_cou["datasets_open_count"],
-                    ret_cou["datasets_restricted_count"],
-                    ret_cou["datasets_closed_count"],
-                    ret_cou["datasets_unknown_count"])
+                last_value = ret_cou["score"]
                 continue
 
-            new_value = (
-                ret_cou["datasets_open_count"],
-                ret_cou["datasets_restricted_count"],
-                ret_cou["datasets_closed_count"],
-                ret_cou["datasets_unknown_count"])
+            new_value = ret_cou["score"]
 
             if last_value > new_value:
                 last_value = new_value
