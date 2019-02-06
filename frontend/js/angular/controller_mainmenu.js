@@ -28,12 +28,6 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
 
     if($scope.tokenid){$scope.bLogin = true; $scope.userinfo = JSON.parse(localStorage.getItem('rodi_user'));} else {$scope.bLogin = false; $scope.userinfo = RodiSrv.getUserStructureEmpty();}
 
-    $scope.changeview = function(page, index)
-    {
-        $window.location.href = baseUrl + page;
-        $scope.indexPage = index;
-    };
-
     $scope.downloadRodiCSV = function()
     {
         // Download del file CSV con tutti i datasets
