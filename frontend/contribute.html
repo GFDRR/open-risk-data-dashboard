@@ -341,16 +341,6 @@
                                         </div><!-- /input-group -->
                                         <br />
                                     </div>
-                                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                        <!--<ul class="rodi_ul">
-                                            <li ng-repeat="link in selectedLink">
-                                                - {{link}}
-                                                <div class="pull-right">
-                                                    <a href="" ng-click="deleteLink(link)"><i class="fa fa-trash-o" aria-hidden="true"></i></a>&nbsp;&nbsp;
-                                                </div>
-                                            </li>
-                                        </ul>-->
-                                    </div>
 
                                 </div>
 
@@ -872,7 +862,7 @@
                                     <input type="email" name="usremail" placeholder="E-mail address" class="form-control" ng-model="userinfo.email" ng-pattern="checkMail">
                                     <br />
                                     <div class="text-right">
-                                        <a href="" class="btn btn-success" ng-click="putProfile()">Save data</a><br />
+                                        <button class="btn btn-success" ng-click="putProfile()">Save data</button><br />
                                     </div>
                                 </form>
                             </div>
@@ -906,7 +896,7 @@
                                 <span class="text-muted">Users: {{filteredUser.length}}</span>
                             </div>
                             <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 text-right">
-                                <a href="" class="btn btn-success" ng-click="openPopup(-999)">Add user</a>
+                                <button class="btn btn-success" ng-click="openPopup(-999)">Add user</button>
                             </div>
                         </div>
                         <br /><br />
@@ -936,8 +926,8 @@
                                             <i class="fa fa-user-plus text-warning" aria-hidden="true" ng-if="userReg.groups[0] == 'reviewer'"></i>
                                             <i class="fa fa-user" aria-hidden="true" ng-if="userReg.groups.length == 0"></i>
                                         </td>
-                                        <td class="text-center"><a href="" class="btn btn-xs btn-success" ng-click="openPopup(userReg.pk)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
-                                        <td class="text-center"><a href="" class="btn btn-xs btn-danger" ng-click="deleteUsrInfoAdmin(userReg.pk)"><i class="fa fa-trash" aria-hidden="true"></i></a></td>
+                                        <td class="text-center"><button class="btn btn-xs btn-success" ng-click="openPopup(userReg.pk)"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></button></td>
+                                        <td class="text-center"><button class="btn btn-xs btn-danger" ng-click="deleteUsrInfoAdmin(userReg.pk)"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -950,7 +940,7 @@
                         <div class="row">
                             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
                                 <br /><br />
-                                <a href="" class="btn btn-lg btn-success" ng-click="updateScoringMan()">UPDATE NOW</a>
+                                <button class="btn btn-lg btn-success" ng-click="updateScoringMan()">Update Now</button>
                                 <br /><br />
                                 <div class="text-center" ng-if="bLoadingUpdateScoring"><img src="img/template/loading.gif" alt="" style="max-width:80px;" /></div>
                             </div>
