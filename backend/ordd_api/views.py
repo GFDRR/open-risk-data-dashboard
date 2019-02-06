@@ -923,15 +923,17 @@ class ScoreNew(object):
         for item in kd_unknown_arr:
             kd_unknown[item.wb_id] = item.kd_num
 
-        ret = {}
+        ret = []
         for country in countries:
-            ret[country.wb_id] = [0, 0, 0, kd_num]
+            row = [country.wb_id, 0, 0, 0, kd_num]
             if country.wb_id in kd_unknown:
-                ret[country.wb_id][3] = kd_unknown[country.wb_id]
+                row[4] = kd_unknown[country.wb_id]
             if country.wb_id in kd_cat:
                 cou_kd_cat = kd_cat[country.wb_id]
                 for cat in cou_kd_cat:
-                    ret[country.wb_id][int(cat) - 1] = cou_kd_cat[cat]
+                    row[int(cat)] = cou_kd_cat[cat]
+            ret.append(tuple(row))
+            ret.sort(reverse=True, key=lambda x: (x[1], x[2], x[3], x[4]))
 
         return ret
 
