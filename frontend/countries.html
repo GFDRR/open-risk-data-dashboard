@@ -170,8 +170,8 @@
                         </th>
                         <th>
                             <div class="flex-container flex-row text-center">
-                                <span class="sort_arrow_up" ng-click="sortBy('datasets_count', true)" tabindex="0"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: sortField == 'fullscores_count' && !sortDirection?  '#cb2431' : '#232323'}"></i></span>
-                                <span class="sort_arrow_down" ng-click="sortBy('datasets_count', false)" tabindex="0"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: sortField == 'fullscores_count' && sortDirection?  '#cb2431' : '#232323'}"></i></span>
+                                <span class="sort_arrow_up" ng-click="sortBy('datasets_unknown_count', false)" tabindex="0"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: sortField == 'datasets_count' && !sortDirection?  '#cb2431' : '#232323'}"></i></span>
+                                <span class="sort_arrow_down" ng-click="sortBy('datasets_unknown_count', true)" tabindex="0"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: sortField == 'datasets_count' && sortDirection?  '#cb2431' : '#232323'}"></i></span>
                             </div>
                         </th>
                     </tr>
@@ -183,19 +183,19 @@
                           <a ng-href="dataset_list.html?idcountry={{country.wb_id}}">{{country.name}}</a>
                         </th>
                         <td>
-                            <div class="progress" ng-if="country.datasets_count > 0" ng-tooltip title="State of openness for this country." data-placement="left">
-                                <div ng-show="country.fullscores_count > 0" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{country.fullscores_count}}" ng-title="{{country.name}} has {{country.fullscores_count}} open datasets."
-                                     aria-valuemin="0" aria-valuemax="{{keydatasetsCount}}" style="width: {{country.fullscores_count / keydatasetsCount * 100}}%;">
-                                    {{country.fullscores_count}}
+                            <div class="progress" ng-if="country.datasets_count > 0" ng-tooltip="We know of {{country.datasets_open_count}} open, {{country.datasets_restricted_count}} restricted and {{country.datasets_closed_count}} closed datasets for {{country.name}}." data-placement="left">
+                                <div ng-show="country.datasets_open_count > 0" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{country.datasets_open_count}}"
+                                     aria-valuemin="0" aria-valuemax="{{keydatasetsCount}}" style="width: {{country.datasets_open_count / (keydatasetsCount > country.datasets_count ? keydatasetsCount : country.datasets_count) * 100}}%;">
+                                    {{country.datasets_open_count}}
                                 </div>
 
-                                <div ng-show="country.datasets_count-country.fullscores_count > 0" class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{country.datasets_count}}" ng-title="{{country.name}} has {{country.datasets_count-country.fullscores_count}} restricted datasets."
-                                     aria-valuemin="0" aria-valuemax="{{keydatasetsCount}}" style="width: {{(country.datasets_count-country.fullscores_count)/keydatasetsCount * 100}}%;">
-                                    {{country.datasets_count-country.fullscores_count}}
+                                <div ng-show="country.datasets_restricted_count > 0" class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{country.datasets_restricted_count}}"
+                                     aria-valuemin="0" aria-valuemax="{{keydatasetsCount}}" style="width: {{country.datasets_restricted_count / (keydatasetsCount > country.datasets_count ? keydatasetsCount : country.datasets_count) * 100}}%;">
+                                    {{country.datasets_restricted_count}}
                                 </div>
 
-                                <div ng-show="country.datasets_closed_count > 0" class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{country.datasets_count}}" ng-title="{{country.name}} has {{country.datasets_closed_count}} closed datasets."
-                                     aria-valuemin="0" aria-valuemax="{{keydatasetsCount}}" style="width: {{country.datasets_closed_count/keydatasetsCount * 100}}%;">
+                                <div ng-show="country.datasets_closed_count > 0" class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{country.datasets_closed_count}}"
+                                     aria-valuemin="0" aria-valuemax="{{keydatasetsCount}}" style="width: {{country.datasets_closed_count/ (keydatasetsCount > country.datasets_count ? keydatasetsCount : country.datasets_count) * 100}}%;">
                                     {{country.datasets_closed_count}}
                                 </div>
                             </div>
@@ -205,17 +205,17 @@
                               <a ng-href="contribute.html?country_id={{country.wb_id}}" ng-click="changeview('contribute.html?country_id=' + country.wb_id)">Contribute the first one</a>.
                             </span>
 
-                            <img ng-if="country.fullscores_count === undefined" src="img/template/loading.gif" alt="" style="max-width:40px;">
+                            <img ng-if="country.datasets_count === undefined" src="img/template/loading.gif" alt="" style="max-width:40px;">
                         </td>
                         <td>
                           <div class="progress" ng-if="country.datasets_count > 0">
-                              <div class="progress-bar progress-bar-default" role="progressbar" aria-valuenow="{{keydatasetsCount-country.datasets_count}}"
-                                   aria-valuemin="0" aria-valuemax="{{keydatasetsCount}}" style="width: {{(keydatasetsCount-country.datasets_count)/keydatasetsCount * 100}}%;">
-                                  {{keydatasetsCount-country.datasets_count}}
+                              <div class="progress-bar progress-bar-default" role="progressbar" aria-valuenow="{{country.datasets_unknown_count}}"
+                                   aria-valuemin="0" aria-valuemax="{{keydatasetsCount}}" style="width: {{country.datasets_unknown_count / (keydatasetsCount > country.datasets_count ? keydatasetsCount : country.datasets_count) * 100}}%;">
+                                  {{country.datasets_unknown_count}}
                               </div>
                           </div>
 
-                          <img ng-if="country.fullscores_count === undefined" src="img/template/loading.gif" alt="" style="max-width:40px;">
+                          <img ng-if="country.datasets_count === undefined" src="img/template/loading.gif" alt="" style="max-width:40px;">
                         </td>
                     </tr>
                     </tbody>

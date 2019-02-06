@@ -43,8 +43,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
     // ************************************** //
     // ************ HOME PAGE *************** //
     // ************************************** //
-
-    if ($location.path().indexOf('index') !== -1 || $location.path() == baseUrl.replace("http:/", "") || $location.path() == baseUrl.replace("https:/", ""))
+    if ($location.path().indexOf('index') !== -1 || $location.path() === '/')
     {
 
         $scope.countryWithData = "--";
@@ -106,25 +105,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
 
         RodiSrv.getHomeStatistics(function(data)
         {
-            //Success API
-
-            // Finding country score for MAP
-            // var arrayStates = [];
-            // var dataTemp = [];
-
-            // angular.forEach(data.scores, function(value, key)
-            // {
-            //     arrayStates.push(value.country);
-            // });
-
-            // angular.forEach(arrayStates, function(value, key)
-            // {
-            //     var obj = $filter('filter')(data.scores, {country: value});
-            //     dataTemp[value] = {score: obj[0].score};
-            // });
-
-            // $scope.arrayData = dataTemp;
-
             // Statistics index
 
             $scope.getPelirsIcons = function(code)
