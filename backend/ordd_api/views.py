@@ -897,6 +897,7 @@ class ScoreNew(object):
     def all_countries_new(cls, request):
         # get number of keydatasets
         kd_num = KeyDataset.objects.all().count()
+        dt_num = Dataset.objects.all().count()
 
         countries = Country.objects.all()
 
@@ -923,17 +924,62 @@ class ScoreNew(object):
         for item in kd_unknown_arr:
             kd_unknown[item.wb_id] = item.kd_num
 
-        ret = []
+        ret = {
+            "keydatasets_count": kd_num,
+            "countries_count": countries.count(),
+            "datasets_count": dt_num,
+            "countries": None
+            }
+
+        ret_cous = []
         for country in countries:
-            row = [country.wb_id, 0, 0, 0, kd_num]
+            row = [0, 0, 0, kd_num]
             if country.wb_id in kd_unknown:
-                row[4] = kd_unknown[country.wb_id]
+                row[3] = kd_unknown[country.wb_id]
             if country.wb_id in kd_cat:
                 cou_kd_cat = kd_cat[country.wb_id]
                 for cat in cou_kd_cat:
-                    row[int(cat)] = cou_kd_cat[cat]
-            ret.append(tuple(row))
-            ret.sort(reverse=True, key=lambda x: (x[1], x[2], x[3], x[4]))
+                    row[int(cat) - 1] = cou_kd_cat[cat]
+
+            country_row = {
+                "rank": 0,
+                "datasets_open_count": row[0],
+                "datasets_restricted_count": row[1],
+                "datasets_closed_count": row[2],
+                "datasets_unknown_count": row[3],
+                "country": country.wb_id
+            }
+            ret_cous.append(country_row)
+        ret_cous.sort(reverse=True, key=lambda x: (
+            x["datasets_open_count"], x["datasets_restricted_count"],
+            x["datasets_closed_count"], x["datasets_unknown_count"]))
+
+        ret["countries"] = ret_cous
+
+        is_first = True
+        last_value = (-100.0, -100.0, -100.0, -100.0)
+        rank = 1
+        for ret_cou in ret_cous:
+            if is_first:
+                is_first = False
+                ret_cou["rank"] = rank
+                last_value = (
+                    ret_cou["datasets_open_count"],
+                    ret_cou["datasets_restricted_count"],
+                    ret_cou["datasets_closed_count"],
+                    ret_cou["datasets_unknown_count"])
+                continue
+
+            new_value = (
+                ret_cou["datasets_open_count"],
+                ret_cou["datasets_restricted_count"],
+                ret_cou["datasets_closed_count"],
+                ret_cou["datasets_unknown_count"])
+
+            if last_value > new_value:
+                last_value = new_value
+                rank += 1
+            ret_cou["rank"] = rank
 
         return ret
 
