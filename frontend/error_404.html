@@ -8,7 +8,7 @@
     <meta name="description" content="A collaborative and global assessment of open data for reducing vulnerability and building resilience to natural hazards. The Open Data for Resilience Index is a tool to identify, assess and compare, for any country, the availability and ease-of-use of datasets that are considered to be key for disaster risk management."/>
     <meta content="GFDRR" name="author" />
 
-    <base href="{{$locationProvider.$get}}" />
+    
 
     <title>OpenDRI  Index</title>
     <link rel="icon" href="img/template/favicon.png" type="image/png">
@@ -50,22 +50,15 @@
     <link href="css/style_map.css" rel="stylesheet">
     <link href="css/land.css" rel="stylesheet">
 
-    <!-- Tooltip init -->
-    <script>
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
-    </script>
-
     <!-- Global site tag (gtag.js) - Google Analytics -->
-    <!--<script async src="https://www.googletagmanager.com/gtag/js?id=UA-80600133-2"></script>-->
-    <!--<script>-->
-        <!--window.dataLayer = window.dataLayer || [];-->
-        <!--function gtag(){dataLayer.push(arguments);}-->
-        <!--gtag('js', new Date());-->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-80600133-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
 
-        <!--gtag('config', 'UA-80600133-2');-->
-    <!--</script>-->
+        gtag('config', 'UA-80600133-2');
+    </script>
 </head>
 <body ng-app="RodiApp" ng-controller="RodiCtrl">
 
@@ -78,7 +71,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="./"  ng-click="changepage('./')">
+        <a class="navbar-brand" href="./">
           <svg ng-if="!isIE11" class="logo_icon" aria-hidden="true" focusable="false" fill="currentColor;">
             <use xlink:href="img/logo.svg#logo_open_data_full"></use>
           </svg>
@@ -112,8 +105,8 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 text-center">
-                      <a href="countries.html" class="btn btn-custom btn-xxl" ng-click="changeview('countries.html', '5')">Explore countries</a>
-                      <a href="contribute.html" class="btn btn-custom btn-xxl" ng-click="changeview('contribute.html', '1')">Submit a dataset</a>
+                      <a href="countries.html" class="btn btn-custom btn-xxl">Explore countries</a>
+                      <a href="contribute.html" class="btn btn-custom btn-xxl">Submit a dataset</a>
                     </div>
                 </div>
             </div>

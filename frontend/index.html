@@ -8,7 +8,7 @@
     <meta name="description" content="A collaborative and global assessment of open data for reducing vulnerability and building resilience to natural hazards. The Open Data for Resilience Index is a tool to identify, assess and compare, for any country, the availability and ease-of-use of datasets that are considered to be key for disaster risk management."/>
     <meta content="GFDRR" name="author" />
 
-    <base href="{{$locationProvider.$get}}" />
+    
 
     <title>OpenDRI Index</title>
     <link rel="icon" href="img/template/favicon.png" type="image/png">
@@ -48,27 +48,19 @@
     <link href="css/style_map.css" rel="stylesheet">
     <link href="css/land.css" rel="stylesheet">
 
-    <!-- Tooltip init -->
-    <script>
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
-    </script>
-
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-80600133-2"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
+        gtag('error', '404');
 
         gtag('config', 'UA-80600133-2');
     </script>
 
 </head>
 <body ng-app="RodiApp" ng-controller="RodiCtrl">
-
-<div class="alert alert-success" role="alert" style="width:100%;text-align: center;margin-bottom: 0px">This is a beta version. While you navigate the website, we invite you to provide feedback through <a class="alert-link" href="https://docs.google.com/forms/d/e/1FAIpQLSddVOUyn1-cCpdF9wc2RgAEpHPCTcO-jhT03DKnx9cU3x22PQ/viewform" target="_blank">this form</a>. Many thanks!</div>
 
 <nav class="navbar navbar-main">
   <div class="container">
@@ -79,7 +71,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="./"  ng-click="changepage('./')">
+      <a class="navbar-brand" href="./">
         <svg ng-if="!isIE11" class="logo_icon" aria-hidden="true" focusable="false" fill="currentColor;">
           <use xlink:href="img/logo.svg#logo_open_data_full"></use>
         </svg>
@@ -101,7 +93,7 @@
 <div class="container">
         <div class="row">
             <div class="col odfri_home_title col-xs-12">
-                <h1>Tracking <a href="methodology.html" ng-click="changeview('methodology.html', '1')">Open Data</a> for <a href="methodology.html" ng-click="changeview('methodology.html', '2')">Disaster Risk Management</a></h1>
+                <h1>Tracking <a href="methodology.html">Open Data</a> for <a href="methodology.html">Disaster Risk Management</a></h1>
                 <!--<span>A collaborative and global assessment of open data for reducing vulnerability and building resilience to natural hazards</span>-->
                 <p>A collaborative and global assessment of availability and ease of use of data related to natural hazards</p>
             </div>
@@ -129,8 +121,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-xs-12 text-center">
-                    <a href="countries.html" class="btn btn-custom btn-xxl" ng-click="changeview('countries.html', '5')">Explore countries</a>
-                    <a href="contribute.html" class="btn btn-custom btn-xxl" ng-click="changeview('contribute.html', '1')">Submit a dataset </a>
+                    <a href="countries.html" class="btn btn-custom btn-xxl">Explore countries</a>
+                    <a href="contribute.html" class="btn btn-custom btn-xxl">Submit a dataset</a>
                 </div>
             </div>
         </div>

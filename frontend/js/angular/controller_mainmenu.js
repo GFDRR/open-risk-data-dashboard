@@ -28,12 +28,6 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
 
     if($scope.tokenid){$scope.bLogin = true; $scope.userinfo = JSON.parse(localStorage.getItem('rodi_user'));} else {$scope.bLogin = false; $scope.userinfo = RodiSrv.getUserStructureEmpty();}
 
-    $scope.changeview = function(page, index)
-    {
-        $window.location.href = baseUrl + page;
-        $scope.indexPage = index;
-    };
-
     $scope.downloadRodiCSV = function()
     {
         // Download del file CSV con tutti i datasets
@@ -83,8 +77,9 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
 
     }
 
-    $scope.closeloginform = function()
-    {
+    $scope.closeloginform = function($event) {
+        $event.preventDefault();
+
         $scope.formloginCss = "display_none";
         // resets form for security reasons
         $scope.usr_name = '';
@@ -143,8 +138,8 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
 
     }
 
-    $scope.setForgotPassword = function(status)
-    {
+    $scope.setForgotPassword = function($event, status) {
+        $event.preventDefault();
         $scope.bResetPassword = status;
     }
 

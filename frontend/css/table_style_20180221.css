@@ -4,11 +4,7 @@
 /*********************************************************/
 
 .table>thead>tr>th {
-    border-bottom: 0px;
-    font-size:18px;
-    padding-top:10px;
-    padding-bottom:10px;
-    display: table-cell;
+    font-size: 1.3em;
     vertical-align: top;
 }
 
@@ -16,13 +12,27 @@
     background-color: rgba(0,120,153,.1);
 }
 
-.table>tbody>tr>td
-{
-    border-top: 0px;
-    font-size:16px;
-    font-weight: 600;
-    display: table-cell;
-    vertical-align: middle
+.table>tbody>tr>td {
+    vertical-align: middle;
+}
+
+.table-expanded > tbody > tr > td,
+.table-expanded > tbody > tr > th,
+.table-expanded > tfoot > tr > td,
+.table-expanded > tfoot > tr > th,
+.table-expanded > thead > tr > td,
+.table-expanded > thead > tr > th {
+  padding-bottom: 12px;
+  padding-top: 12px;
+}
+
+.table > thead th > .list-inline {
+  display: flex;
+}
+
+.table .text-muted {
+  font-size: 14px;
+  font-weight: normal;
 }
 
 @media (max-width:768px) {
@@ -40,8 +50,10 @@
 
 
 
-.table-hover > tbody > tr:hover {
-    background-color: rgba(0,120,153,.3);
+.table-hover > tbody > tr:hover,
+.table-hover > tbody > tr:focus,
+.table > tbody > tr[tabindex]:focus {
+    background-color: rgba(250, 240, 235, .90);
 }
 
 .ng-table th
@@ -87,16 +99,32 @@ table.dataTable thead>tr>td.sorting
     margin-bottom: 0px;
 }
 
-.progress-bar
-{
+.progress-bar {
     padding: .25em 10px;
     background-color: #007899;
     text-align: left;
     font-size: inherit;
 }
-.progress-bar-success {
+.label-small {
+  font-size: .3em;
+  height: 14px;
+  line-height: 0;
+  width: 14px;
+  display: inline-block !important;
+}
+.progress-bar-success,
+.label-success {
     background-color: #009500;
 }
-.progress-bar-danger {
+.progress-bar-warning,
+.label-warning {
+    background-color: rgb(236, 188, 46);
+}
+.progress-bar-danger,
+.label-danger {
     background-color: #cb2431;
+}
+.progress-bar-default,
+.label-default {
+    background-color: rgb(52, 58, 64);
 }

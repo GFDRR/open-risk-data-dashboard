@@ -9,7 +9,7 @@
   <meta content="" name="description" />
   <meta content="" name="author" />
 
-  <base href="{{$LocationProvider.$get}}" />
+
 
   <title>OpenDRI Index - Datasets list</title>
   <link rel="icon" href="img/template/favicon.png" type="image/png">
@@ -56,12 +56,6 @@
   <!--<link href="css/table_color_noheader.css" rel="stylesheet">-->
   <link href="css/table_style_20180221.css" rel="stylesheet">
 
-  <script>
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip()
-    })
-  </script>
-
   <!-- Global site tag (gtag.js) - Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=UA-80600133-2"></script>
   <script>
@@ -83,7 +77,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="./"  ng-click="changepage('./')">
+        <a class="navbar-brand" href="./">
           <svg ng-if="!isIE11" class="logo_icon" aria-hidden="true" focusable="false" fill="currentColor;">
             <use xlink:href="img/logo.svg#logo_open_data_full"></use>
           </svg>
@@ -114,7 +108,7 @@
       <nav class="navbar navbar-hazard" id="menu-hazard">
           <ul class="nav navbar-nav hazard-nav text-center ">
               <li ng-repeat="hc in HazardCategory">
-                  <a href="" ng-click="setFilterCategoryDatasetList(hc.category.name)" ng-class="{active: aCategory.indexOf(hc.category.name)!==-1}"
+                  <a href="#" ng-click="setFilterCategoryDatasetList($event, hc.category.name)" ng-class="{active: aCategory.indexOf(hc.category.name)!==-1}"
                       title="Filter by {{hc.category.name}} category datasets">
                       <i class="{{getHCIcon(hc.category.id)}} fa-2x"></i>
                       <span>{{hc.category.name}}</span>
@@ -124,7 +118,7 @@
           <div class="menu_sep_countries"></div>
           <ul class="nav navbar-nav hazard-nav text-center">
               <li ng-repeat="appli in arrayHazardList">
-                  <a href="" ng-click="setFilterApplicabilityDatasetList(appli.desc)" ng-class="{active: aApplicability.indexOf(appli.desc)!==-1, disabled: getApplicabilityNumber(appli.desc) === 'n.a.'}"
+                  <a href="#" ng-click="setFilterApplicabilityDatasetList($event, appli.desc)" ng-class="{active: aApplicability.indexOf(appli.desc)!==-1, disabled: getApplicabilityNumber(appli.desc) === 'n.a.'}"
                       title="Filter by {{appli.desc}} hazard datasets">
                       <i class="{{appli.icon}} fa-2x"></i>
                       <span>{{appli.desc}}</span>
@@ -161,14 +155,14 @@
   <div class="row">
     <div class="col-xs-12 col-md-10 col-md-offset-1 col-xs-offset-0">
       <span style="font-size: 16px;">Show:
-        <a style="text-decoration: none;" href="" ng-click="setFilterMode('submitted')" ng-class="{active: filterMode == 'submitted'}">Submitted</a>,
-        <a style="text-decoration: none;" href="" ng-class="{active: filterMode == 'notsubmitted'}" ng-click="setFilterMode('notsubmitted')">Not submitted</a>,
-        <a style="text-decoration: none;" href="" ng-class="{active: filterMode == 'all'}" ng-click="setFilterMode('all')">All</a>
+        <a style="text-decoration: none;" href="#submitted" ng-click="setFilterMode($event, 'submitted')" ng-class="{active: filterMode == 'submitted'}">Submitted</a>,
+        <a style="text-decoration: none;" href="#notsubmitted" ng-class="{active: filterMode == 'notsubmitted'}" ng-click="setFilterMode($event, 'notsubmitted')">Not submitted</a>,
+        <a style="text-decoration: none;" href="#all" ng-class="{active: filterMode == 'all'}" ng-click="setFilterMode($event, 'all')">All</a>
       </span>
       <br/>
 
       <div class="table-responsive">
-        <table ng-table="tableParams" class="table table-striped table-hover">
+        <table class="table table-hover table-expanded datasets-table">
           <thead>
             <tr>
               <th title="Name of dataset">Dataset</th>
@@ -176,29 +170,58 @@
             </tr>
           </thead>
           <tbody>
-           <tr ng-repeat="item in datasetList | orderBy: '-score * 1' | filter: checkVisibility" ng-click="changepage(item.istance_id ? 'dataset_details.html?keyds=' + item.istance_id : 'contribute.html?ctr=' + idCountry + '&amp;ds=' +item.name)" data-score="{{item.score}}">
-              <td>
-                <a href="dataset_details.html?keyds={{item.istance_id}}" ng-if="item.istance_id" title="View details">{{item.name}}</a>
-                <span ng-if="!item.istance_id">{{item.name}} (<a href="contribute.html?ctr={{idCountry}}&amp;ds={{item.name}}">Contribute</a>)</span><br />
-                <div class="rodi_subtitle_datasetlist">
-                  <i class=" text-muted trunkate">{{item.title.toString() + ' ' + item.institution.toString() + ' ' + item.modify_time.toString()}}</i>
-                  <!--<span class="small text-muted " ng-show="item.title"><i>{{item.title}}, </i></span>-->
-                  <!--<span class="small text-muted " ng-show="item.institution"><i>{{item.institution}}, </i></span>-->
-                  <!--<span class="small text-muted " ng-show="item.modify_time"><i>{{item.modify_time}}</i></span>-->
+           <tr ng-repeat="item in datasetsByCategory | orderBy: ['-score', 'name'] | filter: checkVisibility" data-score="{{item.score}}" ng-class="{'single-dataset': !item.datasets, 'multiple-datasets': item.datasets}" tabindex="0">
+              <td ng-show="!item.istance_id && !item.datasets" ng-click="changepage('contribute.html?country_id=' + idCountry + '&amp;ds=' +item.name, $event)">
+                <span class="dataset-title">{{item.name}} (<a href="contribute.html?country_id={{idCountry}}&amp;ds={{item.name}}">Contribute</a>)</span>
+              </td>
+              <td ng-show="item.istance_id && !item.datasets" ng-click="changepage('dataset_details.html?keyds=' + item.istance_id, $event)">
+                <a ng-href="dataset_details.html?keyds={{item.istance_id}}" class="dataset-title" ng-if="item.istance_id" title="View details">{{item.name}}</a>
+                <span class="dataset-title" ng-if="item.datasets">{{item.name}}</span>
+                <div class="rodi_subtitle_datasetlist" ng-show="item.istance_id">
+                  <span class="text-muted trunkate">{{item.title.toString() + ' ' + item.institution.toString() + ' ' + item.modify_time.toString()}}</span>
                 </div>
               </td>
-              <td>
+              <td ng-if="item.datasets" colspan="2">
+                <span class="dataset-title" ng-if="item.datasets">{{item.name}}</span>
+
+                <table class="table datasets-table" ng-show="{{item.datasets}}">
+                  <tbody>
+                    <tr ng-repeat="dataset in item.datasets | orderBy: '-score'  | filter: checkVisibility"  data-score="{{dataset.score}}" ng-click="changepage('dataset_details.html?keyds=' + dataset.istance_id, $event)" tabindex="0">
+                      <th scope="row">
+                        <div class="rodi_subtitle_datasetlist" ng-show="dataset.istance_id">
+                          <span class=" text-muted trunkate">{{dataset.title.toString() + ' ' + dataset.institution.toString() + ' ' + dataset.modify_time.toString()}}</span>
+                        </div>
+                      </th>
+                      <td>
+                        <div class="dataset_value">
+                          <i class="fa fa-check-circle-o" aria-hidden="{{dataset.quest1}}" ng-tooltip title="{{getQuestionCode('is_existing', dataset)}}"></i>
+                          <i class="fa fa-desktop" aria-hidden="{{dataset.quest2}}" ng-tooltip title="{{getQuestionCode('is_digital_form', dataset)}}"></i>
+                          <i class="fa fa-cloud" aria-hidden="{{dataset.quest3}}" ng-tooltip title="{{getQuestionCode('is_avail_online', dataset)}}"></i>
+                          <i class="fa fa-tag" aria-hidden="{{dataset.quest4}}" ng-tooltip title="{{getQuestionCode('is_avail_online_meta', dataset)}}"></i>
+                          <i class="fa fa-copy" aria-hidden="{{dataset.quest5}}" ng-tooltip title="{{getQuestionCode('is_bulk_avail', dataset)}}"></i>
+                          <i class="fa fa-keyboard-o" aria-hidden="{{dataset.quest6}}" ng-tooltip title="{{getQuestionCode('is_machine_read', dataset)}}"></i>
+                          <i class="fa fa-eye" aria-hidden="{{dataset.quest7}}" ng-tooltip title="{{getQuestionCode('is_pub_available', dataset)}}"></i>
+                          <i class="fa fa-dollar" aria-hidden="{{dataset.quest8}}" ng-tooltip title="{{getQuestionCode('is_avail_for_free', dataset)}}"></i>
+                          <i class="fa fa-unlock-alt" aria-hidden="{{dataset.quest9}}" ng-tooltip title="{{getQuestionCode('is_open_licence', dataset)}}"></i>
+                          <i class="fa fa-clock-o" aria-hidden="{{dataset.quest10}}" ng-tooltip title="{{getQuestionCode('is_prov_timely', dataset)}}"></i>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+              <td ng-show="item.istance_id || (!item.istance_id && !item.datasets)">
                 <div class="dataset_value">
-                  <i class="fa fa-check-circle-o" aria-hidden="{{item.quest1}}" data-toggle="tooltip" title="{{getQuestionCode('is_existing', item)}}"></i>
-                  <i class="fa fa-desktop" aria-hidden="{{item.quest2}}" data-toggle="tooltip" title="{{getQuestionCode('is_digital_form', item)}}"></i>
-                  <i class="fa fa-cloud" aria-hidden="{{item.quest3}}" data-toggle="tooltip" title="{{getQuestionCode('is_avail_online', item)}}"></i>
-                  <i class="fa fa-tag" aria-hidden="{{item.quest4}}" data-toggle="tooltip" title="{{getQuestionCode('is_avail_online_meta', item)}}"></i>
-                  <i class="fa fa-copy" aria-hidden="{{item.quest5}}" data-toggle="tooltip" title="{{getQuestionCode('is_bulk_avail', item)}}"></i>
-                  <i class="fa fa-keyboard-o" aria-hidden="{{item.quest6}}" data-toggle="tooltip" title="{{getQuestionCode('is_machine_read', item)}}"></i>
-                  <i class="fa fa-eye" aria-hidden="{{item.quest7}}" data-toggle="tooltip" title="{{getQuestionCode('is_pub_available', item)}}"></i>
-                  <i class="fa fa-dollar" aria-hidden="{{item.quest8}}" data-toggle="tooltip" title="{{getQuestionCode('is_avail_for_free', item)}}"></i>
-                  <i class="fa fa-unlock-alt" aria-hidden="{{item.quest9}}" data-toggle="tooltip" title="{{getQuestionCode('is_open_licence', item)}}"></i>
-                  <i class="fa fa-clock-o" aria-hidden="{{item.quest10}}" data-toggle="tooltip" title="{{getQuestionCode('is_prov_timely', item)}}"></i>
+                  <i class="fa fa-check-circle-o" aria-hidden="{{item.quest1}}" ng-tooltip title="{{getQuestionCode('is_existing', item)}}"></i>
+                  <i class="fa fa-desktop" aria-hidden="{{item.quest2}}" ng-tooltip title="{{getQuestionCode('is_digital_form', item)}}"></i>
+                  <i class="fa fa-cloud" aria-hidden="{{item.quest3}}" ng-tooltip title="{{getQuestionCode('is_avail_online', item)}}"></i>
+                  <i class="fa fa-tag" aria-hidden="{{item.quest4}}" ng-tooltip title="{{getQuestionCode('is_avail_online_meta', item)}}"></i>
+                  <i class="fa fa-copy" aria-hidden="{{item.quest5}}" ng-tooltip title="{{getQuestionCode('is_bulk_avail', item)}}"></i>
+                  <i class="fa fa-keyboard-o" aria-hidden="{{item.quest6}}" ng-tooltip title="{{getQuestionCode('is_machine_read', item)}}"></i>
+                  <i class="fa fa-eye" aria-hidden="{{item.quest7}}" ng-tooltip title="{{getQuestionCode('is_pub_available', item)}}"></i>
+                  <i class="fa fa-dollar" aria-hidden="{{item.quest8}}" ng-tooltip title="{{getQuestionCode('is_avail_for_free', item)}}"></i>
+                  <i class="fa fa-unlock-alt" aria-hidden="{{item.quest9}}" ng-tooltip title="{{getQuestionCode('is_open_licence', item)}}"></i>
+                  <i class="fa fa-clock-o" aria-hidden="{{item.quest10}}" ng-tooltip title="{{getQuestionCode('is_prov_timely', item)}}"></i>
                 </div>
               </td>
             </tr>

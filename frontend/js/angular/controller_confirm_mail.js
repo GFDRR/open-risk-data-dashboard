@@ -25,9 +25,6 @@ RodiApp.controller('RodiCtrlConfirmMail', ['$scope', 'RodiSrv', '$location', '$w
             $scope.errormsg = data.detail;
     });
 
-    $scope.changepage = function(page)
-    {
-        $window.location.href = baseUrl + page;
-    }
+    $scope.changepage = RodiSrv.changepage;
 
 } ]);

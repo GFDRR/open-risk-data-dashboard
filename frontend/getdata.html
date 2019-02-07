@@ -8,7 +8,7 @@
     <meta content="" name="description" />
     <meta content="" name="author" />
 
-    <base href="{{$LocationProvider.$get}}" />
+    
 
     <title>OpenDRI Index - Get the data</title>
     <link rel="icon" href="img/template/favicon.png" type="image/png">
@@ -79,7 +79,7 @@
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="./"  ng-click="changepage('./')">
+        <a class="navbar-brand" href="./">
           <svg ng-if="!isIE11" class="logo_icon" aria-hidden="true" focusable="false" fill="currentColor;">
             <use xlink:href="img/logo.svg#logo_open_data_full"></use>
           </svg>
@@ -95,7 +95,7 @@
 
 <div class="container">
     <!-- Section HEADER - INIZIO -->
-      
+
         <div class="row" id="top-menu">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <!--<hazardmenu></hazardmenu>-->
@@ -116,7 +116,7 @@
             <a href="https://github.com/GFDRR/open-risk-data-dashboard/blob/master/backend/contents/key_datasets/resilience-index-datasets-list-v10%20-%20Tags.csv" target="_blank">Download Tags.csv</a><br><br>
             <h2>Data submitted</h2>
             <p>A CSV file containing all data submitted to the Open Data for Resilience Index.<br></p>
-            <a href="" ng-click="downloadRodiCSV()">Download CSV file</a>
+            <button class="btn btn-primary" ng-click="downloadRodiCSV()">Download CSV file</button>
         </div>
     </div>
 

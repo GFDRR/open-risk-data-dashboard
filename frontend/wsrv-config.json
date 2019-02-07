@@ -2,7 +2,7 @@
   "proxy": {
     "/api/{p*}": {
       "options": {
-        "host": "dev.riskopendata.org",
+        "host": "exp.riskopendata.org",
         "protocol": "https",
         "passThrough": true
       }

@@ -593,7 +593,7 @@ dl.horizontal dd {
     color: white;
     padding: 10px;
     /*margin:2px;*/
-    font-size: 1.1em;
+    font-size: 18px;
     min-width: 40px;
     max-width: 40px;
     text-align: center;
@@ -610,12 +610,14 @@ dl.horizontal dd {
 .dataset_value i[aria-hidden~=true] {
     color: #009500;
 }
-.dataset_value i[aria-hidden~=false]:hover {
+.dataset_value i[aria-hidden~=false]:hover,
+.dataset_value i[aria-hidden~=false]:focus {
     color: #fff;
     background-color: #cb2431;
 }
 
-.dataset_value i[aria-hidden~=true]:hover {
+.dataset_value i[aria-hidden~=true]:hover,
+.dataset_value i[aria-hidden~=true]:focus {
     color: #fff;
     background-color: #009500;
 }
@@ -623,7 +625,8 @@ dl.horizontal dd {
 .dataset_value i[aria-hidden="na"] {
     color: #A8A8A8;
 }
-.dataset_value i[aria-hidden="na"]:hover {
+.dataset_value i[aria-hidden="na"]:hover,
+.dataset_value i[aria-hidden="na"]:focus {
     color: #fff;
     background-color: #A8A8A8;
 }
@@ -810,12 +813,6 @@ small.label {
     margin-bottom: 20px;
 }
 
-/*.rodi_description_box_item:hover
-{
-    color:#ffffff;
-    background-color: #232323;
-}*/
-
 .rodi_description_box_item.selected {
     border: solid 1px #00b200;
     background-color: green;
@@ -850,7 +847,8 @@ Footer
     /*margin-right:15px;*/
 }
 
-.footer_link:hover {
+.footer_link:hover,
+.footer_link:focus {
     text-decoration: none;
     color: red;
 }
@@ -892,7 +890,8 @@ Footer
     padding-bottom: 30px;
 }
 
-.footer_menu a, .footer_menu a:hover {
+.footer_menu a, .footer_menu a:hover,
+.footer_menu a, .footer_menu a:focus {
    color: #f0f0f0;
 }
 
@@ -925,7 +924,8 @@ Navbar
     background-color: #fff;
 }
 
-.nav .invert:hover, .invert:focus {
+.nav .invert:hover,
+.invert:focus {
     background: #eee;
     text-decoration: none;
 }
@@ -1132,7 +1132,8 @@ Menu nav e hazart transform/transitions
     transition: all 0.25s ease;
 }
 
-.matrix_cell:hover, .matrix_cell:focus {
+.matrix_cell:hover,
+.matrix_cell:focus {
     transform: scale(1.2);
 
 }
@@ -1223,7 +1224,8 @@ Collapse Expand
     top: 0;
 }
 
-.expand:hover h2::after {
+.expand:hover h2::after,
+.expand:focus h2::after {
     opacity: 1
 }
 
@@ -1270,23 +1272,6 @@ Search
 
 .search > div > input {
 }
-
-/*
-.search .form-control.ng-not-empty,
-.search .form-control:active,
-.search .form-control:focus,
-.search .form-control:hover {
-    border-bottom: 4px solid #cb2431;
-}
-.search .form-control.ng-empty,
-.search .form-control.ng-not-empty,
-.search .form-control:active,
-.search .form-control:focus,
-.search .form-control:hover {
-
-    transition: all 0.3s ease;
-}
- */
 .search ::-webkit-input-placeholder { /* Chrome/Opera/Safari */
     color: #cb2431;
 }
@@ -1323,6 +1308,35 @@ Tables
 ===============================================================================================
 */
 
+.datasets-table {
+
+}
+  .datasets-table .dataset-title {
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  .datasets-table > tbody > tr > :first-child {
+    min-width: 200px;
+    width: 45%;
+  }
+  .datasets-table > tbody > tr.multiple-datasets > td {
+    padding-left: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+  }
+
+  .datasets-table > tbody > tr.multiple-datasets > td .dataset-title {
+    padding-left: 8px;
+  }
+
+  .datasets-table .datasets-table {
+    background-color: transparent;
+    margin-bottom: 0;
+    margin-top: 8px;
+  }
+    .datasets-table .datasets-table th {
+    }
+
 .data.table > tbody > tr > td {
     /*     max-height: 10px!important; */
     /*line-height:1;*/
@@ -1338,23 +1352,6 @@ Tables
     /*line-height: 0;*/
 
 }
-
-/*
-.data td strong a {text-shadow:
-        0 0 1px white,
-        0 0 1px white,
-        0 0 1px white,
-        0 0 1px white,
-        0 0 1px white,
-        0 0 1px white,
-        0 0 1px white,
-        0 0 1px white,
-        0 0 1px white,
-        0 0 1px white,
-        0 0 1px white;
-}
-
-*/
 
 .table.data strong {
     /*top: 1.7em;*/
@@ -1536,13 +1533,6 @@ progress, .matrix_cell {
 ==============================================================================
 */
 
-/*
-.matrix_cell:hover, .matrix_cell:focus,
-.data strong:hover ~ progress {
-    border-color: #329ad1;
-}
-*/
-
 .data td strong:hover a,
 .data td strong:focus a {
     text-decoration: none;
@@ -1579,7 +1569,8 @@ progress, .matrix_cell {
     margin: auto;
 }
 
-.matrix_cell a:hover {
+.matrix_cell a:hover,
+.matrix_cell a:focus {
     -webkit-border-radius: 0px;
     -moz-border-radius: 0px;
     border-radius: 0px;
@@ -1624,7 +1615,8 @@ progress, .matrix_cell {
     text-decoration: none;
 }
 
-.row_icon a:hover {
+.row_icon a:hover,
+.row_icon a:focus {
     color: #007899;
     border-color: #007899;
     background: none;

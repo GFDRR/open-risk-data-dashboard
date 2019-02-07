@@ -40,9 +40,6 @@ RodiApp.controller('RodiCtrlResetPassword', ['$scope', 'RodiSrv', '$location', '
 
     }
 
-    $scope.changepage = function(page)
-    {
-        $window.location.href = baseUrl + page;
-    }
+    $scope.changepage = RodiSrv.changepage;
 
 } ]);

@@ -103,15 +103,6 @@ RodiApp.directive('region', ['$compile', '$window', function ($compile, $window)
     }
 }]);
 
-// RodiApp.directive('hazardmenu',function(){
-//     return {
-//         transclude: true,
-//         restrict: 'E',
-//         controller: "RodiCtrl",
-//         templateUrl: 'views/hazard_menu.html'
-//     }
-// });
-
 RodiApp.directive('mainmenu',function(){
     return {
         transclude: true,
@@ -120,15 +111,6 @@ RodiApp.directive('mainmenu',function(){
         templateUrl: 'views/web_menu.html'
     }
 });
-
-// RodiApp.directive('browsedata',function(){
-//     return {
-//         transclude: true,
-//         restrict: 'E',
-//         controller: "RodiCtrl",
-//         templateUrl: 'views/browse_data.html'
-//     }
-// });
 
 RodiApp.directive('rodifooter',function(){
     return {
@@ -148,11 +130,16 @@ RodiApp.directive('loginform',function(){
     }
 });
 
-// RodiApp.directive('helpfeedbackbox',function(){
-//     return {
-//         transclude: true,
-//         restrict: 'E',
-//         controller: "RodiCtrlMainMenu",
-//         templateUrl: 'views/help_feedback_view.html'
-//     }
-// });
+RodiApp.directive('ngTooltip', function() {
+  function enableTooltips (scope, element, attrs) {
+    $(element).tooltip({
+      container: 'body',
+      title: attrs.ngTooltip || attrs.title
+    });
+  }
+
+  return {
+    restrict: 'A',
+    link: enableTooltips
+  }
+});
