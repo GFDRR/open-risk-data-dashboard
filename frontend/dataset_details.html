@@ -737,17 +737,17 @@
                   <div class=" text-center">
                       <br /><br />
                       <button class="btn btn-md btn-primary" ng-click="setEditForm()" ng-if="bReviewer && !bEdit"><i
-                              class="fa fa-pencil-square-o" aria-hidden="true" data-toggle="tooltip" title="Edit dataset"></i>
+                              class="fa fa-pencil-square-o" aria-hidden="true" ng-tooltip title="Edit dataset"></i>
                           Edit dataset</button>
                       <a ng-href="dataset_list.html?idcountry={{objDatasetView.country}}"
                           class="btn btn-md btn-primary" ng-if="!bEdit"><i class="fa fa-undo"
-                              aria-hidden="true" data-toggle="tooltip" title="Back to {{countryDesc}}"></i> Back to {{countryDesc}} datasets</a>
+                              aria-hidden="true"></i> Back to {{countryDesc}} datasets</a>
                       <div class="btn btn-md btn-warning" ng-if="(userinfo.groups[0]=='admin' || userinfo.groups[0]== 'reviewer') && bEdit"><input
                               type="checkbox" ng-model="objDataset.is_reviewed"> Dataset approved</div>
                       <button class="btn btn-md btn-success" ng-if="bEdit" ng-click="updateDataset()"><i class="fa fa-floppy-o"
-                              aria-hidden="true" data-toggle="tooltip" title="Save dataset"></i> Save dataset</button>
+                              aria-hidden="true" ng-tooltip title="Save dataset"></i> Save dataset</button>
                       <button class="btn btn-md btn-info" ng-if="bEdit" ng-click="closeRevision()"><i class="fa fa-times"
-                              aria-hidden="true" data-toggle="tooltip" title="Close edit mode"></i> Close edit mode</button>
+                              aria-hidden="true" ng-tooltip title="Close edit mode"></i> Close edit mode</button>
                       <button class="btn btn-md btn-danger" ng-if="bEdit && bReviewer" ng-click="deleteDataset()"><i
                               class="fa fa-trash-o" aria-hidden="true" title="Delete dataset"></i> Delete dataset</button>
                   </div>

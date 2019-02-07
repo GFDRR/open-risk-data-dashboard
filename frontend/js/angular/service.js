@@ -1451,7 +1451,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', '$window', function($http, $filt
 
         return $http({
               method: 'GET',
-              url: baseAPIurl + 'country_scoring/?' + queryString,
+              url: baseAPIurl + 'scoring/?' + queryString,
               headers: { },
               data: { }
           })

@@ -43,8 +43,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
     // ************************************** //
     // ************ HOME PAGE *************** //
     // ************************************** //
-
-    if ($location.path().indexOf('index') !== -1 || $location.path() == baseUrl.replace("http:/", "") || $location.path() == baseUrl.replace("https:/", ""))
+    if ($location.path().indexOf('index') !== -1 || $location.path() === '/')
     {
 
         $scope.countryWithData = "--";
@@ -106,25 +105,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
 
         RodiSrv.getHomeStatistics(function(data)
         {
-            //Success API
-
-            // Finding country score for MAP
-            // var arrayStates = [];
-            // var dataTemp = [];
-
-            // angular.forEach(data.scores, function(value, key)
-            // {
-            //     arrayStates.push(value.country);
-            // });
-
-            // angular.forEach(arrayStates, function(value, key)
-            // {
-            //     var obj = $filter('filter')(data.scores, {country: value});
-            //     dataTemp[value] = {score: obj[0].score};
-            // });
-
-            // $scope.arrayData = dataTemp;
-
             // Statistics index
 
             $scope.getPelirsIcons = function(code)
@@ -726,7 +706,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
     {
 
         $scope.tabpar = $location.search().tab;
-        $scope.countrypar = $location.search().ctr;
+        $scope.country_id = $location.search().country_id;
         $scope.datasetpar = $location.search().ds;
         $scope.questions = RodiSrv.getQuestions();
         $scope.bDescInfo = false;
@@ -921,9 +901,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
                 $scope.countryList = response.data;
 
                 // Check country parameters
-                if($scope.countrypar)
-                {
-                    $scope.objDataset.country = $scope.countrypar;
+                if($scope.country_id) {
+                    $scope.objDataset.country = $scope.country_id;
                 };
 
                 $scope.getCountryNameReview = function(country)

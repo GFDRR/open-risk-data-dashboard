@@ -44,23 +44,9 @@
     <script src="js/angular/directive.js" type="text/javascript"></script>
     <!-- RODI APP -->
 
-    <!--ADOBE typekit-->
-    <!--<script src="https://use.typekit.net/yxp8fxq.js"></script>-->
-    <!--<script>try{Typekit.load({ async: true });}catch(e){}</script>-->
-
     <!-- RODI css -->
     <link href="css/rodi_css.css" rel="stylesheet">
     <link href="css/style_map.css" rel="stylesheet">
-
-    <!-- Guida: https://medium.com/@tweededbadger/tutorial-dynamic-data-driven-svg-map-with-angularjs-b112fdec421d -->
-    <!--<script src="js/change_svg.js"></script>-->
-
-    <!-- Tooltip init -->
-    <script>
-        $(function () {
-            $('[data-toggle="tooltip"]').tooltip()
-        })
-    </script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-80600133-2"></script>
@@ -642,16 +628,16 @@
                                         </td>
                                         <td title="'Open data criteria'">
                                             <div class="dataset_value">
-                                                <i class="fa fa-check-circle-o" aria-hidden="{{ds.is_existing}}" data-toggle="tooltip" title="{{questions[0].desc}}"></i>
-                                                <i class="fa fa-desktop" aria-hidden="{{ds.is_digital_form}}" data-toggle="tooltip" title="{{questions[1].desc}}"></i>
-                                                <i class="fa fa-cloud" aria-hidden="{{ds.is_avail_online}}" data-toggle="tooltip" title="{{questions[2].desc}}"></i>
-                                                <i class="fa fa-tag" aria-hidden="{{ds.is_avail_online_meta}}" data-toggle="tooltip" title="{{questions[3].desc}}"></i>
-                                                <i class="fa fa-copy" aria-hidden="{{ds.is_bulk_avail}}" data-toggle="tooltip" title="{{questions[4].desc}}"></i>
-                                                <i class="fa fa-keyboard-o" aria-hidden="{{ds.is_machine_read}}" data-toggle="tooltip" title="{{questions[5].desc}}"></i>
-                                                <i class="fa fa-eye" aria-hidden="{{ds.is_pub_available}}" data-toggle="tooltip" title="{{questions[6].desc}}"></i>
-                                                <i class="fa fa-dollar" aria-hidden="{{ds.is_avail_for_free}}" data-toggle="tooltip" title="{{questions[7].desc}}"></i>
-                                                <i class="fa fa-unlock-alt" aria-hidden="{{ds.is_open_licence}}" data-toggle="tooltip" title="{{questions[8].desc}}"></i>
-                                                <i class="fa fa-clock-o" aria-hidden="{{ds.is_prov_timely}}" data-toggle="tooltip" title="{{questions[9].desc}}"></i>
+                                                <i class="fa fa-check-circle-o" aria-hidden="{{ds.is_existing}}" ng-tooltip="{{questions[0].desc}}"></i>
+                                                <i class="fa fa-desktop" aria-hidden="{{ds.is_digital_form}}" ng-tooltip="{{questions[1].desc}}"></i>
+                                                <i class="fa fa-cloud" aria-hidden="{{ds.is_avail_online}}" ng-tooltip="{{questions[2].desc}}"></i>
+                                                <i class="fa fa-tag" aria-hidden="{{ds.is_avail_online_meta}}" ng-tooltip="{{questions[3].desc}}"></i>
+                                                <i class="fa fa-copy" aria-hidden="{{ds.is_bulk_avail}}" ng-tooltip="{{questions[4].desc}}"></i>
+                                                <i class="fa fa-keyboard-o" aria-hidden="{{ds.is_machine_read}}" ng-tooltip="{{questions[5].desc}}"></i>
+                                                <i class="fa fa-eye" aria-hidden="{{ds.is_pub_available}}" ng-tooltip="{{questions[6].desc}}"></i>
+                                                <i class="fa fa-dollar" aria-hidden="{{ds.is_avail_for_free}}" ng-tooltip="{{questions[7].desc}}"></i>
+                                                <i class="fa fa-unlock-alt" aria-hidden="{{ds.is_open_licence}}" ng-tooltip="{{questions[8].desc}}"></i>
+                                                <i class="fa fa-clock-o" aria-hidden="{{ds.is_prov_timely}}" ng-tooltip="{{questions[9].desc}}"></i>
                                             </div>
                                         </td>
                                         <!--<td title="'Year'" filter="{ create_time: 'number'}" sortable="'create_time'" class="text-center">
@@ -812,16 +798,16 @@
                                                 <td>
                                                     <!-- Open data criteria -->
                                                     <div class=" dataset_value">
-                                                        <i class="fa fa-check-circle-o" aria-hidden="{{ds.is_existing}}" data-toggle="tooltip" title="{{questions[0].desc}}"></i>
-                                                        <i class="fa fa-desktop" aria-hidden="{{ds.is_digital_form}}" data-toggle="tooltip" title="{{questions[1].desc}}"></i>
-                                                        <i class="fa fa-cloud" aria-hidden="{{ds.is_avail_online}}" data-toggle="tooltip" title="{{questions[2].desc}}"></i>
-                                                        <i class="fa fa-tag" aria-hidden="{{ds.is_avail_online_meta}}" data-toggle="tooltip" title="{{questions[3].desc}}"></i>
-                                                        <i class="fa fa-copy" aria-hidden="{{ds.is_bulk_avail}}" data-toggle="tooltip" title="{{questions[4].desc}}"></i>
-                                                        <i class="fa fa-keyboard-o" aria-hidden="{{ds.is_machine_read}}" data-toggle="tooltip" title="{{questions[5].desc}}"></i>
-                                                        <i class="fa fa-eye" aria-hidden="{{ds.is_pub_available}}" data-toggle="tooltip" title="{{questions[6].desc}}"></i>
-                                                        <i class="fa fa-dollar" aria-hidden="{{ds.is_avail_for_free}}" data-toggle="tooltip" title="{{questions[7].desc}}"></i>
-                                                        <i class="fa fa-unlock-alt" aria-hidden="{{ds.is_open_licence}}" data-toggle="tooltip" title="{{questions[8].desc}}"></i>
-                                                        <i class="fa fa-clock-o" aria-hidden="{{ds.is_prov_timely}}" data-toggle="tooltip" title="{{questions[9].desc}}"></i>
+                                                        <i class="fa fa-check-circle-o" aria-hidden="{{ds.is_existing}}" ng-tooltip="{{questions[0].desc}}"></i>
+                                                        <i class="fa fa-desktop" aria-hidden="{{ds.is_digital_form}}" ng-tooltip="{{questions[1].desc}}"></i>
+                                                        <i class="fa fa-cloud" aria-hidden="{{ds.is_avail_online}}" ng-tooltip="{{questions[2].desc}}"></i>
+                                                        <i class="fa fa-tag" aria-hidden="{{ds.is_avail_online_meta}}" ng-tooltip="{{questions[3].desc}}"></i>
+                                                        <i class="fa fa-copy" aria-hidden="{{ds.is_bulk_avail}}" ng-tooltip="{{questions[4].desc}}"></i>
+                                                        <i class="fa fa-keyboard-o" aria-hidden="{{ds.is_machine_read}}" ng-tooltip="{{questions[5].desc}}"></i>
+                                                        <i class="fa fa-eye" aria-hidden="{{ds.is_pub_available}}" ng-tooltip="{{questions[6].desc}}"></i>
+                                                        <i class="fa fa-dollar" aria-hidden="{{ds.is_avail_for_free}}" ng-tooltip="{{questions[7].desc}}"></i>
+                                                        <i class="fa fa-unlock-alt" aria-hidden="{{ds.is_open_licence}}" ng-tooltip="{{questions[8].desc}}"></i>
+                                                        <i class="fa fa-clock-o" aria-hidden="{{ds.is_prov_timely}}" ng-tooltip="{{questions[9].desc}}"></i>
                                                     </div>
                                                 </td>
                                                 <td>{{ds.create_time | date: 'dd/MM/yyyy'}}</td>
