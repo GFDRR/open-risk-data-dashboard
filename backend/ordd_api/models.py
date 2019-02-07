@@ -374,12 +374,14 @@ class Dataset(models.Model):
         if inst.is_open_licence:
             score += 0.05
 
-        if score >= 0.99999:
-            cat = 1
-        elif score >= 0.64999:
-            cat = 2
-        else:
+        if not inst.is_existing:
             cat = 3
+        elif not inst.is_pub_available:
+            cat = 3
+        elif score >= 0.99999:
+            cat = 1
+        else:
+            cat = 2
 
         return cat, score
 
