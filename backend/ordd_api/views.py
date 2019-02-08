@@ -947,8 +947,6 @@ class ScoreNew(object):
                     row[int(cat) - 1] = cou_kd_cat[cat]
 
             country_row = {
-                "rank": 0,
-                "score": score,
                 "datasets_open_count": row[0],
                 "datasets_restricted_count": row[1],
                 "datasets_closed_count": row[2],
@@ -957,26 +955,8 @@ class ScoreNew(object):
                 "country": country.wb_id
             }
             ret_cous.append(country_row)
-        ret_cous.sort(reverse=True, key=lambda x: x["score"])
 
         ret["countries"] = ret_cous
-
-        is_first = True
-        last_value = -10000.0
-        rank = 1
-        for ret_cou in ret_cous:
-            if is_first:
-                is_first = False
-                ret_cou["rank"] = rank
-                last_value = ret_cou["score"]
-                continue
-
-            new_value = ret_cou["score"]
-
-            if last_value > new_value:
-                last_value = new_value
-                rank += 1
-            ret_cou["rank"] = rank
 
         return ret
 
