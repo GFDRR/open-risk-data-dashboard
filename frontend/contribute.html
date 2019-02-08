@@ -112,7 +112,7 @@
                     <li role="presentation" ng-class="{active:tab==2}"><a href="#datasetreview" aria-controls="datasetreview" role="tab" data-toggle="tab" ng-if="userinfo.groups[0] == 'reviewer' || userinfo.groups[0] == 'admin'">Dataset review</a></li>
                     <li role="presentation" ng-class="{active:tab==3}"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">My Profile</a></li>
                     <!--<li role="presentation" ng-class="{active:tab==4}"><a href="#feedback" aria-controls="profile" role="tab" data-toggle="tab" ng-if="userinfo.groups[0] == 'admin'">Feedback</a></li>-->
-                    <li role="presentation" ng-class="{active:tab==5}"><a href="#users" aria-controls="profile" role="tab" data-toggle="tab" ng-if="userinfo.groups[0] == 'admin'">Registered users</a></li>
+                    <li role="presentation" ng-class="{active:tab==5}"><a href="#users" aria-controls="profile" role="tab" data-toggle="tab" ng-if="userinfo.groups[0] == 'admin'">Users</a></li>
                     <li role="presentation" ng-class="{active:tab==6}"><a href="#update" aria-controls="profile" role="tab" data-toggle="tab" ng-if="userinfo.groups[0] == 'admin'">Scoring Update</a></li>
                 </ul>
 
@@ -940,20 +940,20 @@
         <div class="jumbotron" ng-if="!bLogin && tabpar !== '3'">
             <div class="container">
                 <p class="text-center">You are about to submit information on a dataset and assess whether it is open or not.</p>
-                <p class="text-center">Please login or register first, or see <a href="methodology.html">Documentation</a> for more details.</p>
+                <p class="text-center">Please login or sign up first, or see <a href="methodology.html">Documentation</a> for more details.</p>
                 <br><br><br><br>
                 <div class="text-center">
                     <!--<span class="rodi_big_text">|</span>-->
                     <button class="btn btn-primary btn-lg" type="button" ng-click="loginform($event)">
                             <span class="rodi_big_text">
                                 <i class="fa icon-login fa-2x"></i>
-                                LOGIN
+                                Login
                             </span>
                     </button>
                     <a href="register.html" class="btn btn-lg btn-custom " type="button">
                             <span class="rodi_big_text">
                                 <i class="fa icon-register fa-2x"></i>
-                                REGISTER
+                                Sign Up
                             </span>
                     </a>
                 </div>
