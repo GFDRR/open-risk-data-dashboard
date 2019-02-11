@@ -960,6 +960,42 @@ class ScoreNew(object):
 
         return ret
 
+    @classmethod
+    def country_details(cls, request, country_id):
+        dss = Dataset.objects.filter(
+            country_id=country_id)
+
+        datasets = []
+        for ds in dss:
+            dataset = {
+                'dataset_id': ds.id,
+                'keydataset_id': ds.keydataset_id,
+                'name': ds.keydataset.dataset.name,
+                'category': ds.score_new_cat,
+                'score': 0,
+                'is_existing': ds.is_existing,
+                'is_digital_form': ds.is_digital_form,
+                'is_avail_online': ds.is_avail_online,
+                'is_avail_online_meta': ds.is_avail_online_meta,
+                'is_bulk_avail': ds.is_bulk_avail,
+                'is_machine_read': ds.is_machine_read,
+                'is_pub_available': ds.is_pub_available,
+                'is_avail_for_free': ds.is_avail_for_free,
+                'is_open_licence': ds.is_open_licence,
+                'is_prov_timely': ds.is_prov_timely,
+                'is_existing_txt': ds.is_existing_txt,
+                'is_prov_timely_last': ds.is_prov_timely_last,
+                'title': ds.title,
+                'modify_time': ds.is_prov_timely_last,
+                'institution': ds.is_existing_txt
+                }
+
+            datasets.append(dataset)
+
+        ret = {'state': 'coming soon',
+               'datasets': datasets}
+        return ret
+
 
 class Score(object):
     @classmethod
@@ -1908,6 +1944,15 @@ class ScoringNewWorldGet(APIView):
 
     def get(self, request):
         ret = ScoreNew.all_countries_new(request)
+        return Response(ret)
+
+
+class ScoringNewCountryDetailsGet(APIView):
+    """This view return the list best datasets for each keydataset for a specific
+country with related scores"""
+
+    def get(self, request, country_id):
+        ret = ScoreNew.country_details(request, country_id)
         return Response(ret)
 
 

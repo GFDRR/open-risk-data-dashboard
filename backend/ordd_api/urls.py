@@ -13,7 +13,7 @@ from .views import (
     CountryScoringWorldGet, CountryScoringCountryDetailsGet,
     WorldStatisticsGet,
     ScoringWorldGet, ScoringCountryDetailsGet, ScoringWorldCategoriesGet,
-    ScoringNewWorldGet,
+    ScoringNewWorldGet, ScoringNewCountryDetailsGet,
     ScoringUpdate)
 
 from .keydatasets_views import (
@@ -29,11 +29,18 @@ urlpatterns = [
     url(r'^stats$', WorldStatisticsGet.as_view(), name='world_statistics'),
     url(r'^scoring_category/$', ScoringWorldCategoriesGet.as_view(),
         name='scoring_category'),
+    url(r'^scoring_old/(?P<country_id>[A-Z0-9][A-Z0-9])$',
+        ScoringCountryDetailsGet.as_view(), name="scoring_old_country"),
+
+
     url(r'^scoring/(?P<country_id>[A-Z0-9][A-Z0-9])$',
-        ScoringCountryDetailsGet.as_view(), name="scoring_country"),
-    url(r'^scoring_old/$', ScoringWorldGet.as_view(), name="scoring_world"),
+        ScoringNewCountryDetailsGet.as_view(), name="scoring_country"),
+
+
+    url(r'^scoring_old/$', ScoringWorldGet.as_view(),
+        name="scoring_old_world"),
     url(r'^scoring/$', ScoringNewWorldGet.as_view(),
-        name="scoring_new_world"),
+        name="scoring_world"),
     url(r'^country_scoring/(?P<country_id>[A-Z0-9][A-Z0-9])$',
         CountryScoringCountryDetailsGet.as_view(),
         name="scoring_country"),
