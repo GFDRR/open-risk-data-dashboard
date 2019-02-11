@@ -41,6 +41,18 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
     $scope.HazardCategory = RodiSrv.getDataCategoryIcon();
     $scope.arrayHazardList=RodiSrv.getHazardList();
 
+    function opennessWeight (openness) {
+      switch (openness) {
+        case 'open':
+        case 'opendata':    return 5;   break;
+        case 'restricted':  return 3;   break;
+        case 'closed':      return 2;   break;
+        case 'unknown':     return 1;   break;
+        case undefined:
+        default:            return 0; break;
+      }
+    }
+
     RodiSrv.getCountryList().then(function(response) {
         // Success
         $scope.countryList = response.data;
@@ -67,47 +79,50 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
 
         RodiSrv.getCountryScoring($scope.idCountry, $scope.aCategory, $scope.aApplicability)
             .then(function(response) {
-                $scope.datasetsByCategory = response.data.datasets.reduce(function(categories, dataset, i, allDatasets){
-                  var category = categories.find(function(category){
-                    return category.keydataset_id === dataset.keydataset_id;
-                  });
-
-                  // we never processed the category
-                  if (!category) {
-                    var datasets = allDatasets.filter(function(d){
-                      return dataset.keydataset_id === d.keydataset_id;
+                $scope.datasetsByCategory = response.data.scores
+                  .map(function(dataset) {
+                    dataset.openness = opennessWeight(dataset.category);
+                    return dataset;
+                  })
+                  .reduce(function(categories, dataset, i, allDatasets){
+                    var category = categories.find(function(category){
+                      return category.keydataset_id === dataset.keydataset_id;
                     });
 
-                    // do not group datasets if there is only one
-                    // it makes it easier to style things
-                    if (datasets.length === 1) {
-                      categories.push(dataset);
-                      return categories;
+                    // we never processed the category
+                    if (!category) {
+                      var datasets = allDatasets.filter(function(d){
+                        return dataset.keydataset_id === d.keydataset_id;
+                      });
+
+                      // do not group datasets if there is only one
+                      // it makes it easier to style things
+                      if (datasets.length === 1) {
+                        categories.push(dataset);
+                        return categories;
+                      }
+
+                      var averageOpenness = datasets.reduce(function(sum, d){ return sum + d.openness; }, 0) / datasets.length;
+
+                      categories.push({
+                        keydataset_id: dataset.keydataset_id,
+                        name: dataset.name,
+                        datasets: datasets,
+                        openness: averageOpenness
+                      });
                     }
 
-                    categories.push({
-                      keydataset_id: dataset.keydataset_id,
-                      name: dataset.name,
-                      datasets: datasets
-                    })
-                  }
-
-                  return categories;
-                }, []);
+                    return categories;
+                  }, []);
 
                 $scope.bLoading = false;
                 return response;
             })
             .then(function(response){
-              response.data.datasets.forEach(function(dataset){
-                switch (RodiSrv.getDatasetLabel(dataset)) {
-                  case 'opendata':    $scope.datasets_open_count++; break;
-                  case 'restricted':  $scope.datasets_restricted_count++; break;
-                  case 'closed':      $scope.datasets_closed_count++; break;
-                  case 'unknown':
-                  default:            $scope.datasets_unknown_count++; break;
-                }
-              })
+              $scope.datasets_open_count = response.data.datasets_open_count;
+              $scope.datasets_restricted_count = response.data.datasets_restricted_count;
+              $scope.datasets_closed_count = response.data.datasets_closed_count;
+              $scope.datasets_unknown_count = response.data.datasets_unknown_count;
             });
 
     }

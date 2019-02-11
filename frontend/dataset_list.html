@@ -166,24 +166,35 @@
             </tr>
           </thead>
           <tbody>
-           <tr ng-repeat="item in datasetsByCategory | orderBy: ['name'] | filter: checkVisibility" data-score="{{item.score}}" ng-class="{'single-dataset': !item.datasets, 'multiple-datasets': item.datasets}" tabindex="0">
-              <td ng-show="!item.dataset_id && !item.datasets" ng-click="changepage('contribute.html?country_id=' + idCountry + '&amp;ds=' +item.name, $event)">
-                <span class="dataset-title">{{item.name}} (<a href="contribute.html?country_id={{idCountry}}&amp;ds={{item.name}}">Contribute</a>)</span>
-              </td>
-              <td ng-show="item.dataset_id && !item.datasets" ng-click="changepage('dataset_details.html?keyds=' + item.dataset_id, $event)">
+           <tr ng-repeat="item in datasetsByCategory | orderBy: ['-openness', 'name'] | filter: checkVisibility" data-score="{{item.score}}" ng-class="{'single-dataset': !item.datasets, 'multiple-datasets': item.datasets}" tabindex="0">
+              <td ng-show="item.dataset_id && !item.datasets" data-openness="{{item.openness}}" data-dataset-id="{{item.dataset_id}}" ng-click="changepage('dataset_details.html?keyds=' + item.dataset_id, $event)">
                 <a ng-href="dataset_details.html?keyds={{item.dataset_id}}" class="dataset-title" ng-if="item.dataset_id" title="View details">{{item.name}}</a>
                 <span class="dataset-title" ng-if="item.datasets">{{item.name}}</span>
                 <div class="rodi_subtitle_datasetlist" ng-show="item.dataset_id">
                   <span class="text-muted trunkate">{{item.title.toString() + ' ' + item.institution.toString() + ' ' + item.modify_time.toString()}}</span>
                 </div>
               </td>
-              <td ng-if="item.datasets" colspan="2">
+              <td ng-show="item.dataset_id && !item.datasets" ng-click="changepage('dataset_details.html?keyds=' + item.dataset_id, $event)">
+                <div class="dataset_value">
+                  <i class="fa fa-check-circle-o" aria-hidden="{{item.is_existing}}" ng-tooltip="{{getQuestionCode('is_existing', item)}}"></i>
+                  <i class="fa fa-desktop" aria-hidden="{{item.is_digital_form}}" ng-tooltip="{{getQuestionCode('is_digital_form', item)}}"></i>
+                  <i class="fa fa-cloud" aria-hidden="{{item.is_avail_online}}" ng-tooltip="{{getQuestionCode('is_avail_online', item)}}"></i>
+                  <i class="fa fa-tag" aria-hidden="{{item.is_avail_online_meta}}" ng-tooltip="{{getQuestionCode('is_avail_online_meta', item)}}"></i>
+                  <i class="fa fa-copy" aria-hidden="{{item.is_bulk_avail}}" ng-tooltip="{{getQuestionCode('is_bulk_avail', item)}}"></i>
+                  <i class="fa fa-keyboard-o" aria-hidden="{{item.is_machine_read}}" ng-tooltip="{{getQuestionCode('is_machine_read', item)}}"></i>
+                  <i class="fa fa-eye" aria-hidden="{{item.is_pub_available}}" ng-tooltip="{{getQuestionCode('is_pub_available', item)}}"></i>
+                  <i class="fa fa-dollar" aria-hidden="{{item.is_avail_for_free}}" ng-tooltip="{{getQuestionCode('is_avail_for_free', item)}}"></i>
+                  <i class="fa fa-unlock-alt" aria-hidden="{{item.is_open_licence}}" ng-tooltip="{{getQuestionCode('is_open_licence', item)}}"></i>
+                  <i class="fa fa-clock-o" aria-hidden="{{item.is_prov_timely}}" ng-tooltip="{{getQuestionCode('is_prov_timely', item)}}"></i>
+                </div>
+              </td>
+              <td ng-if="item.datasets" colspan="2" data-openness="{{item.openness}}">
                 <span class="dataset-title" ng-if="item.datasets">{{item.name}}</span>
 
                 <table class="table datasets-table" ng-show="{{item.datasets}}">
                   <tbody>
                     <tr ng-repeat="dataset in item.datasets | orderBy: '-score'  | filter: checkVisibility"  data-score="{{dataset.score}}" ng-click="changepage('dataset_details.html?keyds=' + dataset.dataset_id, $event)" tabindex="0">
-                      <th scope="row">
+                      <th scope="row" data-openness="{{dataset.openness}}" data-dataset-id="{{dataset.dataset_id}}">
                         <div class="rodi_subtitle_datasetlist" ng-show="dataset.dataset_id">
                           <span class=" text-muted trunkate">{{dataset.title.toString() + ' ' + dataset.institution.toString() + ' ' + dataset.modify_time.toString()}}</span>
                         </div>
@@ -206,22 +217,24 @@
                   </tbody>
                 </table>
               </td>
-              <td ng-show="item.dataset_id || (!item.dataset_id && !item.datasets)">
+              <td ng-show="!item.dataset_id && !item.datasets" data-openness="{{item.openness}}" ng-click="changepage('contribute.html?country_id=' + idCountry + '&amp;ds=' +item.name, $event)">
+                <span class="dataset-title">{{item.name}} (<a href="contribute.html?country_id={{idCountry}}&amp;ds={{item.name}}">Contribute</a>)</span>
+              </td>
+              <td ng-show="!item.dataset_id && !item.datasets" ng-click="changepage('contribute.html?country_id=' + idCountry + '&amp;ds=' +item.name, $event)">
                 <div class="dataset_value">
-                  <i class="fa fa-check-circle-o" aria-hidden="{{item.is_existing}}" ng-tooltip="{{getQuestionCode('is_existing', item)}}"></i>
-                  <i class="fa fa-desktop" aria-hidden="{{item.is_digital_form}}" ng-tooltip="{{getQuestionCode('is_digital_form', item)}}"></i>
-                  <i class="fa fa-cloud" aria-hidden="{{item.is_avail_online}}" ng-tooltip="{{getQuestionCode('is_avail_online', item)}}"></i>
-                  <i class="fa fa-tag" aria-hidden="{{item.is_avail_online_meta}}" ng-tooltip="{{getQuestionCode('is_avail_online_meta', item)}}"></i>
-                  <i class="fa fa-copy" aria-hidden="{{item.is_bulk_avail}}" ng-tooltip="{{getQuestionCode('is_bulk_avail', item)}}"></i>
-                  <i class="fa fa-keyboard-o" aria-hidden="{{item.is_machine_read}}" ng-tooltip="{{getQuestionCode('is_machine_read', item)}}"></i>
-                  <i class="fa fa-eye" aria-hidden="{{item.is_pub_available}}" ng-tooltip="{{getQuestionCode('is_pub_available', item)}}"></i>
-                  <i class="fa fa-dollar" aria-hidden="{{item.is_avail_for_free}}" ng-tooltip="{{getQuestionCode('is_avail_for_free', item)}}"></i>
-                  <i class="fa fa-unlock-alt" aria-hidden="{{item.is_open_licence}}" ng-tooltip="{{getQuestionCode('is_open_licence', item)}}"></i>
-                  <i class="fa fa-clock-o" aria-hidden="{{item.is_prov_timely}}" ng-tooltip="{{getQuestionCode('is_prov_timely', item)}}"></i>
+                  <i class="fa fa-check-circle-o" aria-hidden="na" ng-tooltip="{{getQuestionCode('is_existing', item)}}"></i>
+                  <i class="fa fa-desktop" aria-hidden="na" ng-tooltip="{{getQuestionCode('is_digital_form', item)}}"></i>
+                  <i class="fa fa-cloud" aria-hidden="na" ng-tooltip="{{getQuestionCode('is_avail_online', item)}}"></i>
+                  <i class="fa fa-tag" aria-hidden="na" ng-tooltip="{{getQuestionCode('is_avail_online_meta', item)}}"></i>
+                  <i class="fa fa-copy" aria-hidden="na" ng-tooltip="{{getQuestionCode('is_bulk_avail', item)}}"></i>
+                  <i class="fa fa-keyboard-o" aria-hidden="na" ng-tooltip="{{getQuestionCode('is_machine_read', item)}}"></i>
+                  <i class="fa fa-eye" aria-hidden="na" ng-tooltip="{{getQuestionCode('is_pub_available', item)}}"></i>
+                  <i class="fa fa-dollar" aria-hidden="na" ng-tooltip="{{getQuestionCode('is_avail_for_free', item)}}"></i>
+                  <i class="fa fa-unlock-alt" aria-hidden="na" ng-tooltip="{{getQuestionCode('is_open_licence', item)}}"></i>
+                  <i class="fa fa-clock-o" aria-hidden="na" ng-tooltip="{{getQuestionCode('is_prov_timely', item)}}"></i>
                 </div>
               </td>
             </tr>
-
           </tbody>
         </table>
       </div>
