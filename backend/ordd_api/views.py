@@ -893,7 +893,7 @@ class DatasetsDumpView(generics.ListAPIView):
 
 
 class ScoreNew(object):
-    dataset_classes = ['', 'open', 'restricted', 'closed', 'unknown']
+    dataset_classes = ['', 'opendata', 'restricted', 'closed', 'unknown']
 
     @classmethod
     def dataset_class(cls, id):
@@ -972,9 +972,16 @@ class ScoreNew(object):
             country_id=country_id)
 
         kdss_arrdict = dss.values('keydataset').distinct()
+
         kdss_count = kdss_arrdict.count()
         kdss = [x['keydataset'] for x in kdss_arrdict]
+        kdss_full_count = KeyDataset.objects.all().count()
         kdss_miss = KeyDataset.objects.exclude(code__in=kdss)
+
+        datasets_open_count = dss.filter(score_new_cat=1).count()
+        datasets_restricted_count = dss.filter(score_new_cat=2).count()
+        datasets_closed_count = dss.filter(score_new_cat=3).count()
+        datasets_unknown_count = kdss_full_count - kdss_count
 
         fullscores_count = dss.filter(score_new_cat=1).count()
         datasets = []
@@ -1032,7 +1039,12 @@ class ScoreNew(object):
 
         ret = {'datasets_count': dss.count(),
                'keydatasets_count': kdss_count,
-               'fullscores_count': fullscores_count,
+
+               'datasets_open_count': datasets_open_count,
+               'datasets_restricted_count': datasets_restricted_count,
+               'datasets_closed_count': datasets_closed_count,
+               'datasets_unknown_count': datasets_unknown_count,
+
                'scores': datasets}
         return ret
 
