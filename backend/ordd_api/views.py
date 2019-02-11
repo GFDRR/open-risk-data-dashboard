@@ -893,6 +893,12 @@ class DatasetsDumpView(generics.ListAPIView):
 
 
 class ScoreNew(object):
+    dataset_classes = ['', 'open', 'restricted', 'closed', 'unknown']
+
+    @classmethod
+    def dataset_class(cls, id):
+        return cls.dataset_classes[id]
+
     @classmethod
     def all_countries_new(cls, request):
         # get number of keydatasets
@@ -971,7 +977,7 @@ class ScoreNew(object):
                 'dataset_id': ds.id,
                 'keydataset_id': ds.keydataset_id,
                 'name': ds.keydataset.dataset.name,
-                'category': ds.score_new_cat,
+                'category': cls.dataset_class(ds.score_new_cat),
                 'score': 0,
                 'is_existing': ds.is_existing,
                 'is_digital_form': ds.is_digital_form,
