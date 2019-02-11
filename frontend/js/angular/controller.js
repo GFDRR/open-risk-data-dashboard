@@ -607,8 +607,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
         $scope.countriesFiltered = [];
         $scope.countriesListWithScore = [];
         $scope.countryGroups = [];
-        $scope.sortField = "wb_id";
-        $scope.sortDirection = false;
+        $scope.sortField = "-score";
+        $scope.sortPredicate = ["-datasets_open_count", "-datasets_restricted_count", "-datasets_closed_count", "name"];
         $scope.allCountries = [];
         // it holds the number of (as of Nov. 2018, the value is 36)
         $scope.keydatasetsCount = 0;
@@ -644,9 +644,9 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
           }
         };
 
-        $scope.sortBy = function(property, reverse) {
-            $scope.sortField = property;
-            $scope.sortDirection = reverse;
+        $scope.sortBy = function(property, alias) {
+            $scope.sortField = alias || property;
+            $scope.sortPredicate = property;
         }
 
         $scope.mergeMatrixData= function() {
@@ -687,7 +687,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
 
             $q.all([p1, p2]).then(function(results){
               $scope.mergeMatrixData();
-              $scope.sortBy('score', true);
             });
         }
 
