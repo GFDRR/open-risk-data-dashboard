@@ -971,6 +971,8 @@ class ScoreNew(object):
         dss = Dataset.objects.filter(
             country_id=country_id)
 
+        kdss_count = dss.values('keydataset').distinct().count()
+        fullscores_count = dss.filter(score_new_cat=1).count()
         datasets = []
         for ds in dss:
             dataset = {
@@ -998,8 +1000,10 @@ class ScoreNew(object):
 
             datasets.append(dataset)
 
-        ret = {'state': 'coming soon',
-               'datasets': datasets}
+        ret = {'datasets_count': dss.count(),
+               'keydatasets_count': kdss_count,
+               'fullscores_count': fullscores_count,
+               'scores': datasets}
         return ret
 
 
