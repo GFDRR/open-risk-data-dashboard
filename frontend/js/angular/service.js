@@ -814,7 +814,6 @@ RodiApp.service("RodiSrv", ['$http', '$filter', '$window', function($http, $filt
       return [
         {
           code: "is_existing",
-          altCode: "quest1",
           desc: "Does the data exist?",
           altTXT: "is_existing_txt",
           altDesc: "existing alternative text",
@@ -825,7 +824,6 @@ RodiApp.service("RodiSrv", ['$http', '$filter', '$window', function($http, $filt
         },
         {
           code: "is_digital_form",
-          altCode: "quest2",
           desc: "Is the data available in digital form?",
           altTXT: "",
           altDesc: "",
@@ -836,7 +834,6 @@ RodiApp.service("RodiSrv", ['$http', '$filter', '$window', function($http, $filt
         },
         {
           code: "is_avail_online",
-          altCode: "quest3",
           desc: "Is the data available online?",
           altTXT: "",
           altDesc: "",
@@ -847,7 +844,6 @@ RodiApp.service("RodiSrv", ['$http', '$filter', '$window', function($http, $filt
         },
         {
           code: "is_avail_online_meta",
-          altCode: "quest4",
           desc: "Is the metadata available online?",
           altTXT: "",
           altDesc: "",
@@ -858,7 +854,6 @@ RodiApp.service("RodiSrv", ['$http', '$filter', '$window', function($http, $filt
         },
         {
           code: "is_bulk_avail",
-          altCode: "quest5",
           desc: "Is the data available in bulk?",
           altTXT: "",
           altDesc: "",
@@ -869,7 +864,6 @@ RodiApp.service("RodiSrv", ['$http', '$filter', '$window', function($http, $filt
         },
         {
           code: "is_machine_read",
-          altCode: "quest6",
           desc: "Is the data machine-readable?",
           altTXT: "is_machine_read_txt",
           altDesc: "machine alternative text",
@@ -880,7 +874,6 @@ RodiApp.service("RodiSrv", ['$http', '$filter', '$window', function($http, $filt
         },
         {
           code: "is_pub_available",
-          altCode: "quest7",
           desc: "Is the data publicly available?",
           altTXT: "",
           altDesc: "",
@@ -891,7 +884,6 @@ RodiApp.service("RodiSrv", ['$http', '$filter', '$window', function($http, $filt
         },
         {
           code: "is_avail_for_free",
-          altCode: "quest8",
           desc: "Is the data available for free?",
           altTXT: "",
           altDesc: "",
@@ -902,7 +894,6 @@ RodiApp.service("RodiSrv", ['$http', '$filter', '$window', function($http, $filt
         },
         {
           code: "is_open_licence",
-          altCode: "quest9",
           desc: "Is the data openly licensed?",
           altTXT: "is_open_licence_txt",
           altDesc: "license alternative text",
@@ -913,7 +904,6 @@ RodiApp.service("RodiSrv", ['$http', '$filter', '$window', function($http, $filt
         },
         {
           code: "is_prov_timely",
-          altCode: "quest10",
           desc: "Is the data provided on a timely and up to date basis?",
           altTXT: "",
           altDesc: "",
@@ -925,17 +915,16 @@ RodiApp.service("RodiSrv", ['$http', '$filter', '$window', function($http, $filt
       ];
     };
 
-    this.getQuestions_code = function(questionCode, objDataset)
-    {
+    this.getQuestions_code = function(questionCode, objDataset) {
         /*
          Return the list of questions for dataset (Y/N)
          */
         var aQuestion = this.getQuestions().filter(function(question){
-          return question.code === questionCode || question.altCode === questionCode;
+          return question.code === questionCode;
         });
 
         if (objDataset) {
-            return (objDataset[questionCode] || objDataset[aQuestion[0].altCode] === true) ? aQuestion[0].yesTXT : aQuestion[0].noTXT;
+            return objDataset[questionCode] ? aQuestion[0].yesTXT : aQuestion[0].noTXT;
         } else {
             return aQuestion[0].desc;
         }
@@ -1460,8 +1449,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', '$window', function($http, $filt
     }
 
     // Return the rank of countries (Explore Countries page)
-    this.getCountryScoring = function(countryID, category, filters, onSuccess, onError)
-    {
+    this.getCountryScoring = function(countryID, category, filters) {
 
         var ApplicabilityFilers = "";
         var CategoryFilters = "";
@@ -1486,16 +1474,12 @@ RodiApp.service("RodiSrv", ['$http', '$filter', '$window', function($http, $filt
 
         var req = {
             method: 'GET',
-            url: baseAPIurl + 'country_scoring/' + countryID + CategoryFilters + ApplicabilityFilers,
+            url: baseAPIurl + 'scoring/' + countryID + CategoryFilters + ApplicabilityFilers,
             headers: { },
             data: { }
         }
 
-        $http(req).then(function(data){
-            if(onSuccess) onSuccess(data.data);
-        }, function(data){
-            if(onError)onError(data.data);
-        });
+        return $http(req);
     }
 
 
