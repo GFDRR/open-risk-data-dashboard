@@ -17,7 +17,7 @@
   <li><a href="methodology.html">Documentation</a></li>
   <li><a href="about.html">About</a></li>
   <li ng-if="!bLogin"><a href="#login_form" ng-click="loginform($event)">Login</a></li>
-  <li ng-if="!bLogin"><a href="register.html">Register</a></li>
+  <li ng-if="!bLogin"><a href="register.html">Sign Up</a></li>
   <li ng-if="bLogin" class="logout">
     <a href="#logout" ng-click="logout()" class="invert round">
         Log out - <b>{{userinfo.username}}</b>

@@ -2374,10 +2374,18 @@ a.active {
     font-size: 24px;
 }
 
-.odfri_home_title h1 {
-    color: #333;
-    font-size: 50px;
+.odfri_home_title h1 span,
+.odfri_home_title p span {
+    color: white;
+    background-color: rgba(51, 51, 51, 0.8);
+    padding: .2em .3em;
 }
+
+.odfri_home_title h1 {
+    font-size: 50px;
+    line-height: 1.5;
+}
+
 
 .odfri_home_title a {
     color: #333;
@@ -2391,7 +2399,7 @@ a.active {
     width: 180px;
     height: 180px;
     margin: 20px;
-    background-color: rgba(51, 51, 51, 0.6);
+    background-color: rgba(51, 51, 51, 0.8);
     -webkit-border-radius: 100%;
     -moz-border-radius: 100%;
     border-radius: 100%;
