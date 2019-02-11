@@ -130,25 +130,21 @@
 
     <div class="row">
       <dl class="col-xs-12 col-md-10 col-md-offset-1 col-xs-offset-0 dataset_metrics">
-        <div>
-          <dt style="float:left">Score:&nbsp;</dt>
-          <div class="progress" title="Average scores of all datasets considered for this location. If a dataset does not exist or has not been submitted, its score is 0.">
-            <dd class="progress-bar" role="progressbar" aria-valuenow="{{score}}" aria-valuemin="0" aria-valuemax="100"
-              style="width:{{score}}%;">
-              {{score}}%
-            </dd>
-          </div>
-        </div>
+        <dt><span class="label label-success label-small"></span> Open&nbsp;Data<br>
+        <span class="small text-muted">Free to access, use and share</span></dt>
+        <dd class="odfri_black_blue">{{datasets_open_count}}</dd>
 
-        <div>
-          <dt>Datasets submitted:</dt>
-          <dd class="odfri_black_blue"><strong>{{countryDatasets}}</strong></dd>
-        </div>
+        <dt><span class="label label-warning label-small"></span> Restricted<br>
+        <span class="small text-muted">Technical, legal or cost restrictions</dt>
+        <dd class="odfri_black_blue">{{datasets_restricted_count}}</dd>
 
-        <div>
-          <dt>Open data:</dt>
-          <dd class="odfri_black_blue"><strong>{{countryOpenDatasets}}</strong></dd>
-        </div>
+        <dt><span class="label label-danger label-small"></span> Closed<br>
+        <span class="small text-muted">Access not permitted or does not exist</span></dt>
+        <dd class="odfri_black_blue">{{datasets_closed_count}}</dd>
+
+        <dt><span class="label label-default label-small"></span> Unknown<br>
+        <span class="small text-muted">No information.<br>Submission is needed</dt>
+        <dd class="odfri_black_blue">{{datasets_unknown_count}}</dd>
       </dl>
     </div>
 

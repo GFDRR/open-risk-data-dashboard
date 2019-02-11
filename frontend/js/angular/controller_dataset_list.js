@@ -32,12 +32,10 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
     $scope.aApplicability = [];
     $scope.istanceList = [];
     $scope.filterMode = "all";
-    // $scope.missingDatasets = [];
-    // $scope.bViewIstances = false;
-    // $scope.bViewMissing = false;
-    $scope.countryRank = 0;
-    $scope.countryDatasets = 0;
-    $scope.countryOpenDatasets = 0;
+    $scope.datasets_open_count = 0;
+    $scope.datasets_restricted_count = 0;
+    $scope.datasets_closed_count = 0;
+    $scope.datasets_unknown_count = 0;
 
     $scope.questions = RodiSrv.getQuestions();
     $scope.HazardCategory = RodiSrv.getDataCategoryIcon();
@@ -98,7 +96,18 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
                 }, []);
 
                 $scope.bLoading = false;
-
+                return response;
+            })
+            .then(function(response){
+              response.data.datasets.forEach(function(dataset){
+                switch (RodiSrv.getDatasetLabel(dataset)) {
+                  case 'opendata':    $scope.datasets_open_count++; break;
+                  case 'restricted':  $scope.datasets_restricted_count++; break;
+                  case 'closed':      $scope.datasets_closed_count++; break;
+                  case 'unknown':
+                  default:            $scope.datasets_unknown_count++; break;
+                }
+              })
             });
 
     }

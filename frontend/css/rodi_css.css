@@ -2519,13 +2519,10 @@ a.active {
     margin-bottom: 25px;
     padding-top: 25px;
     font-family: 'Bariol', "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 25px;
+    font-size: 1.5em;
     font-weight: bold;
-}
-
-.dataset_metrics .progress-bar {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-weight: normal;
+    display: flex;
+    flex-wrap: wrap;
 }
 
 .dataset_metrics dt,
@@ -2533,51 +2530,29 @@ a.active {
     display: inline-block;
 }
 
-.dataset_metrics {
-    display: flex;
+.dataset_metrics dt{
+    flex: 1 1 40%;
+    padding-right: 10px;
+}
+.dataset_metrics dd{
+    flex: 1 1 10%;
 }
 
-.dataset_metrics > div {
-    flex-grow: 1;
-}
-
-.dataset_metrics > div:first-child {
-    flex-basis: 45%;
-    flex-grow: 2;
-}
-
-.dataset_metrics > div:not(:last-child) {
-    padding-right: 20px;
-}
-
-@media (max-width:768px) {
+@media (min-width:768px) {
     .dataset_metrics {
-        flex-wrap: wrap;
+        flex-wrap: nowrap;
     }
 
-    .dataset_metrics > div {
-        padding-right: 0;
-        margin-bottom: 10px;
+    .dataset_metrics dt{
+        flex: 1 1 25%;
+        padding-right: 20px;
     }
-
-    .dataset_metrics > div:first-child {
-        flex-basis: 100%;
-    }
-
-    .dataset_metrics > div:not(:first-child) {
-        flex-basis: 50%;
-        text-align: left;
+    .dataset_metrics dd{
+        flex: 1 1 10%;
     }
 }
 
-@media (max-width:425px) {
-    .dataset_metrics > div:not(:first-child) {
-        flex-basis: 100%;
-    }
-}
-
-.countriesFilterBox
-{
+.countriesFilterBox {
     margin-top:40px;
     margin-bottom:20px;
     text-align: center;
