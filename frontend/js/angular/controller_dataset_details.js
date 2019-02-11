@@ -464,18 +464,14 @@ RodiApp.controller('RodiCtrlDataset', ['$scope', 'RodiSrv', '$window', '$filter'
 
                 // *******************************************
                 // *******************************************
-                RodiSrv.getDatasetlistFiltered($scope.objDataset.country, [], []).then(function(response){
-                  var data = response.data;
+                RodiSrv.getDatasetlistFiltered($scope.objDataset.country, [], []).then(function(data){
                     $scope.istanceList = $filter('filter')(data, function(item){
-                        // return item.keydataset.dataset.id == $scope.objDataset.keydataset.code && item.id !== $scope.objDataset.id;
                         return item.keydataset.code == $scope.objDataset.keydataset.code && item.id !== $scope.objDataset.id;
                     });
                 });
 
-                RodiSrv.getDatasetlistFiltered('AA', [], []).then(function(response){
-                  var data = response.data;
+                RodiSrv.getDatasetlistFiltered('AA', [], []).then(function(data){
                   $scope.worldIstanceList = $filter('filter')(data, function(item){
-                      // return item.keydataset.dataset.id == $scope.objDataset.keydataset.code && item.id !== $scope.objDataset.id;
                       return item.keydataset.code == $scope.objDataset.keydataset.code && item.id !== $scope.objDataset.id;
                   });
                 });

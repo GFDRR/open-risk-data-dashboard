@@ -264,7 +264,7 @@
                           <h3 class="h4">Country or sub-country level</h3>
 
                           <ul class="list-unstyled">
-                            <li ng-repeat="istance in istanceList | orderBy: '-score * 1'">
+                            <li ng-repeat="istance in istanceList | orderBy: ['-openness', 'name']">
                               <a ng-href="dataset_details.html?keyds={{istance.id}}">{{istance.title || istance.keydataset.dataset.name}}</a>
                             </li>
                           </ul>
@@ -274,7 +274,7 @@
                           <h3 class="h4">World level</h3>
 
                           <ul class="list-unstyled">
-                            <li ng-repeat="istance in worldIstanceList | orderBy: '-score * 1'">
+                            <li ng-repeat="istance in worldIstanceList | orderBy: ['-openness', 'name']">
                               <a ng-href="dataset_details.html?keyds={{istance.id}}">{{istance.title || istance.keydataset.dataset.name}}</a>
                             </li>
                           </ul>

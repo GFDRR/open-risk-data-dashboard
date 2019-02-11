@@ -41,18 +41,6 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
     $scope.HazardCategory = RodiSrv.getDataCategoryIcon();
     $scope.arrayHazardList=RodiSrv.getHazardList();
 
-    function opennessWeight (openness) {
-      switch (openness) {
-        case 'open':
-        case 'opendata':    return 5;   break;
-        case 'restricted':  return 3;   break;
-        case 'closed':      return 2;   break;
-        case 'unknown':     return 1;   break;
-        case undefined:
-        default:            return 0; break;
-      }
-    }
-
     RodiSrv.getCountryList().then(function(response) {
         // Success
         $scope.countryList = response.data;
@@ -81,7 +69,7 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
             .then(function(response) {
                 $scope.datasetsByCategory = response.data.scores
                   .map(function(dataset) {
-                    dataset.openness = opennessWeight(dataset.category);
+                    dataset.openness = RodiSrv.getDatasetOpennessWeight(dataset.category);
                     return dataset;
                   })
                   .reduce(function(categories, dataset, i, allDatasets){
@@ -196,10 +184,7 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
 
         // Load dataset list
         RodiSrv.getDatasetlistFiltered($scope.idCountry, $scope.aCategory, $scope.aApplicability).then(function(data){
-            var data = response.data;
-            $scope.istanceList = data;
-
-            $scope.istanceList = $filter('filter')($scope.istanceList, function(item){
+            $scope.istanceList = $filter('filter')(data, function(item){
                 return item.keydataset.dataset.id == dataset.id;
             });
         });

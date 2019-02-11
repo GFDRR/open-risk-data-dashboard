@@ -166,7 +166,7 @@
             </tr>
           </thead>
           <tbody>
-           <tr ng-repeat="item in datasetsByCategory | orderBy: ['-openness', 'name'] | filter: checkVisibility" data-score="{{item.score}}" ng-class="{'single-dataset': !item.datasets, 'multiple-datasets': item.datasets}" tabindex="0">
+           <tr ng-repeat="item in datasetsByCategory | orderBy: ['-openness', 'name'] | filter: checkVisibility" ng-class="{'single-dataset': !item.datasets, 'multiple-datasets': item.datasets}" tabindex="0">
               <td ng-show="item.dataset_id && !item.datasets" data-openness="{{item.openness}}" data-dataset-id="{{item.dataset_id}}" ng-click="changepage('dataset_details.html?keyds=' + item.dataset_id, $event)">
                 <a ng-href="dataset_details.html?keyds={{item.dataset_id}}" class="dataset-title" ng-if="item.dataset_id" title="View details">{{item.name}}</a>
                 <span class="dataset-title" ng-if="item.datasets">{{item.name}}</span>
@@ -193,7 +193,7 @@
 
                 <table class="table datasets-table" ng-show="{{item.datasets}}">
                   <tbody>
-                    <tr ng-repeat="dataset in item.datasets | orderBy: '-score'  | filter: checkVisibility"  data-score="{{dataset.score}}" ng-click="changepage('dataset_details.html?keyds=' + dataset.dataset_id, $event)" tabindex="0">
+                    <tr ng-repeat="dataset in item.datasets | orderBy: ['-openness', 'name']  | filter: checkVisibility" ng-click="changepage('dataset_details.html?keyds=' + dataset.dataset_id, $event)" tabindex="0">
                       <th scope="row" data-openness="{{dataset.openness}}" data-dataset-id="{{dataset.dataset_id}}">
                         <div class="rodi_subtitle_datasetlist" ng-show="dataset.dataset_id">
                           <span class=" text-muted trunkate">{{dataset.title.toString() + ' ' + dataset.institution.toString() + ' ' + dataset.modify_time.toString()}}</span>

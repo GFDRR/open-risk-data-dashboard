@@ -454,6 +454,18 @@ RodiApp.service("RodiSrv", ['$http', '$filter', '$window', function($http, $filt
       return objDataset && objDataset.is_open_licence;
     };
 
+    this.getDatasetOpennessWeight = function getDatasetOpennessWeight (openness) {
+      switch (openness) {
+        case 'open':
+        case 'opendata':    return 5;   break;
+        case 'restricted':  return 3;   break;
+        case 'closed':      return 2;   break;
+        case 'unknown':     return 1;   break;
+        case undefined:
+        default:            return 0; break;
+      }
+    };
+
     /**
      * Determines the open data label of a given dataset.
      *
@@ -596,9 +608,9 @@ RodiApp.service("RodiSrv", ['$http', '$filter', '$window', function($http, $filt
         });
     }
 
-    this.getDatasetlistFiltered = function(idCountry, aCategory, aApplicability)
-    {
+    this.getDatasetlistFiltered = function(idCountry, aCategory, aApplicability) {
         // Return the dataset info filtered by country, category & applicability
+        var self = this;
         var sCategoryFilter = "";
         var sApplFilter = "";
 
@@ -625,9 +637,16 @@ RodiApp.service("RodiSrv", ['$http', '$filter', '$window', function($http, $filt
             data: {}
         }
 
-        return $http(req).catch(function(data){
-            onError(data.data);
-        });
+        return $http(req)
+          .then(function(response){
+            return response.data.map(function(dataset) {
+              dataset.openness = self.getDatasetOpennessWeight(self.getDatasetLabel(dataset));
+              return dataset;
+            })
+          })
+          .catch(function(error){
+            console.error(error);
+          });
     }
 
     this.getDataRiskCategory = function(scale_id, onSuccess, onError) {
