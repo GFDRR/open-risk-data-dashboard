@@ -214,6 +214,14 @@
 
                 <!-- Metadata -->
                 <div class="row" id="metadata">
+                    <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2">
+                      <h2 class="h3">Dataset links</h2>
+
+                      <p aria-role="list" class="list-links">
+                        <a ng-repeat="link in selectedLink" ng-href="{{link}}" class="btn btn-default btn-url" aria-role="list-item" target="_blank" noreferrer noopener>{{link}}</a>
+                      </p>
+                    </div>
+
                     <div class="col-xs-12 col-sm-10 col-sm-offset-1 col-md-5 col-md-offset-2">
                         <h2 class="h3">Metadata</h2>
 
@@ -232,15 +240,6 @@
 
                           <dt>Additional info:</dt>
                           <dd>{{objDataset.notes}}</dd>
-
-                          <dt>Dataset links:</dt>
-                          <dd>
-                            <ul class="list-unstyled">
-                              <li ng-repeat="link in selectedLink">
-                                <a href="{{link}}" class="single-line" target="_blank" noreferrer noopener>{{link}}</a>
-                              </li>
-                            </ul>
-                          </dd>
                         </dl>
 
                         <h2 class="h3">Other info on submission</h2>
