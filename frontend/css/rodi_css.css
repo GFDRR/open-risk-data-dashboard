@@ -1312,6 +1312,7 @@ Tables
 
 }
   .datasets-table .dataset-title {
+    color: #23527c;
     font-size: 1.2em;
     font-weight: bold;
   }
@@ -1323,6 +1324,7 @@ Tables
     padding-left: 0;
     padding-right: 0;
     padding-bottom: 0;
+    padding-top: 2em;
   }
 
   .datasets-table > tbody > tr.multiple-datasets > td .dataset-title {
