@@ -62,6 +62,7 @@ h3, h4, h5, h6
 .trunkate {
   display: inline-block;
   overflow: hidden;
+  max-width: 100%;
   text-overflow: " […]";
   white-space: nowrap;
 }
