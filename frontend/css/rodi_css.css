@@ -1316,7 +1316,7 @@ Tables
     font-size: 1.2em;
     font-weight: bold;
   }
-  .datasets-table span.dataset-title {
+  .datasets-table .no-dataset .dataset-title {
     color: black;
   }
   .datasets-table > tbody > tr > :first-child {

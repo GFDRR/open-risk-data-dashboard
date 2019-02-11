@@ -166,7 +166,7 @@
             </tr>
           </thead>
           <tbody>
-           <tr ng-repeat="item in datasetsByCategory | orderBy: ['-openness', 'name'] | filter: checkVisibility" ng-class="{'single-dataset': !item.datasets, 'multiple-datasets': item.datasets}" tabindex="0">
+           <tr ng-repeat="item in datasetsByCategory | orderBy: ['-openness', 'name'] | filter: checkVisibility" ng-class="{'single-dataset': !item.datasets, 'multiple-datasets': item.datasets, 'no-dataset': !item.dataset_id && !item.datasets}" tabindex="0">
               <td ng-show="item.dataset_id && !item.datasets" data-openness="{{item.openness}}" data-dataset-id="{{item.dataset_id}}" ng-click="changepage('dataset_details.html?keyds=' + item.dataset_id, $event)">
                 <a ng-href="dataset_details.html?keyds={{item.dataset_id}}" class="dataset-title" ng-if="item.dataset_id" title="View details">{{item.name}}</a>
                 <span class="dataset-title" ng-if="item.datasets">{{item.name}}</span>
