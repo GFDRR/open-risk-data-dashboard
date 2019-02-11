@@ -625,11 +625,6 @@ dl.horizontal dd {
 .dataset_value i[aria-hidden="na"] {
     color: #A8A8A8;
 }
-.dataset_value i[aria-hidden="na"]:hover,
-.dataset_value i[aria-hidden="na"]:focus {
-    color: #fff;
-    background-color: #A8A8A8;
-}
 
 .dataset_form_select_style select {
     border: 0px;
