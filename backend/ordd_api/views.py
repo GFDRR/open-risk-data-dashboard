@@ -971,7 +971,11 @@ class ScoreNew(object):
         dss = Dataset.objects.filter(
             country_id=country_id)
 
-        kdss_count = dss.values('keydataset').distinct().count()
+        kdss_arrdict = dss.values('keydataset').distinct()
+        kdss_count = kdss_arrdict.count()
+        kdss = [x['keydataset'] for x in kdss_arrdict]
+        kdss_miss = KeyDataset.objects.exclude(code__in=kdss)
+
         fullscores_count = dss.filter(score_new_cat=1).count()
         datasets = []
         for ds in dss:
@@ -996,6 +1000,32 @@ class ScoreNew(object):
                 'title': ds.title,
                 'modify_time': ds.is_prov_timely_last,
                 'institution': ds.is_existing_txt
+                }
+
+            datasets.append(dataset)
+
+        for kds_miss in kdss_miss:
+            dataset = {
+                'dataset_id': None,
+                'keydataset_id': kds_miss.code,
+                'name': kds_miss.dataset.name,
+                'category': cls.dataset_class(4),
+                'score': -1,
+                'is_existing': False,
+                'is_digital_form': False,
+                'is_avail_online': False,
+                'is_avail_online_meta': False,
+                'is_bulk_avail': False,
+                'is_machine_read': False,
+                'is_pub_available': False,
+                'is_avail_for_free': False,
+                'is_open_licence': False,
+                'is_prov_timely': False,
+                'is_existing_txt': False,
+                'is_prov_timely_last': False,
+                'title': None,
+                'modify_time': None,
+                'institution': None
                 }
 
             datasets.append(dataset)
