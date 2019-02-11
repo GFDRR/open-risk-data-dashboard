@@ -212,11 +212,11 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
         }
 
         if($scope.filterMode === 'submitted'){
-            return (item.score * 1) > 0;
+            return item.dataset_id || item.datasets;
         }
 
         if($scope.filterMode === 'notsubmitted'){
-            return (item.score * 1) < 0;
+            return !item.dataset_id && !item.datasets;
         }
 
     }
