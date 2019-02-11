@@ -1320,6 +1320,9 @@ Tables
     min-width: 200px;
     width: 45%;
   }
+  .datasets-table > tbody > tr.multiple-datasets:hover {
+    background-color: transparent;
+  }
   .datasets-table > tbody > tr.multiple-datasets > td {
     padding-left: 0;
     padding-right: 0;

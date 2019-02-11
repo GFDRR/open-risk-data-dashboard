@@ -191,7 +191,7 @@
               <td ng-if="item.datasets" colspan="2" data-openness="{{item.openness}}">
                 <span class="dataset-title" ng-if="item.datasets">{{item.name}}</span>
 
-                <table class="table datasets-table" ng-show="{{item.datasets}}">
+                <table class="table table-hover datasets-table" ng-show="{{item.datasets}}">
                   <tbody>
                     <tr ng-repeat="dataset in item.datasets | orderBy: ['-openness', 'name']  | filter: checkVisibility" ng-click="changepage('dataset_details.html?keyds=' + dataset.dataset_id, $event)" tabindex="0">
                       <th scope="row" data-openness="{{dataset.openness}}" data-dataset-id="{{dataset.dataset_id}}">
