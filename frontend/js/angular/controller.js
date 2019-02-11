@@ -615,7 +615,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
         $scope.bLoadingTabel = true;
 
         $scope.setFilter = function (type, value){
-          if ($scope.filterType === type && $scope.filterValue === value) {
+          if (!value) {
             $scope.filterType = '';
             $scope.filterValue = '';
             $scope.countriesFiltered = [];
