@@ -58,12 +58,15 @@ h3, h4, h5, h6
   border-bottom: none;
 }
 
-.single-line {
+.single-line,
+.trunkate {
   display: inline-block;
-  max-width: 100%;
   overflow: hidden;
   text-overflow: " […]";
   white-space: nowrap;
+}
+.trunkate {
+  display: block;
 }
 
 .success {
@@ -364,54 +367,6 @@ h1 + .lead {
     font-weight: 500;
 }
 
-
-/*
-==============================================================================
-    truncate lines
-==============================================================================
-*/
-
-
-
-.trunkate {
-    background: transparent;
-    display: block;
-    /* Fallback for non-webkit */
-    display: -webkit-box;
-    max-height: 3.38rem;
-    /* Fallback for non-webkit */
-    font-size: 1.3rem;
-    line-height: 1.3;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-bottom: 0;
-}
-@-moz-document url-prefix() {
-    .trunkate {
-        overflow: hidden;
-        position: relative;
-    }
-    .trunkate:before {
-        background: transparent;
-        bottom: 0;
-        position: absolute;
-        right: 0;
-        float: right;
-        content: '\2026';
-        margin-left: -3rem;
-        width: 3rem;
-    }
-    .trunkate:after {
-        content: '';
-        background: transparent;
-        position: absolute;
-        height: 50px;
-        width: 100%;
-        z-index: 1;
-    }
-}
 
 /*
 ==============================================================================
@@ -1317,7 +1272,8 @@ Tables
   }
   .datasets-table > tbody > tr > :first-child {
     min-width: 200px;
-    width: 45%;
+    max-width: 450px;
+    width: 450px;
   }
   .datasets-table > tbody > tr.multiple-datasets > td {
     padding-left: 0;
