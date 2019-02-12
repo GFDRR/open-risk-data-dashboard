@@ -893,6 +893,12 @@ class DatasetsDumpView(generics.ListAPIView):
 
 
 class ScoreNew(object):
+    dataset_classes = ['', 'opendata', 'restricted', 'closed', 'unknown']
+
+    @classmethod
+    def dataset_class(cls, id):
+        return cls.dataset_classes[id]
+
     @classmethod
     def all_countries_new(cls, request):
         # get number of keydatasets
@@ -958,6 +964,86 @@ class ScoreNew(object):
 
         ret["countries"] = ret_cous
 
+        return ret
+
+    @classmethod
+    def country_details(cls, request, country_id):
+        dss = Dataset.objects.filter(
+            country_id=country_id)
+
+        kdss_arrdict = dss.values('keydataset').distinct()
+
+        kdss_count = kdss_arrdict.count()
+        kdss = [x['keydataset'] for x in kdss_arrdict]
+        kdss_full_count = KeyDataset.objects.all().count()
+        kdss_miss = KeyDataset.objects.exclude(code__in=kdss)
+
+        datasets_open_count = dss.filter(score_new_cat=1).count()
+        datasets_restricted_count = dss.filter(score_new_cat=2).count()
+        datasets_closed_count = dss.filter(score_new_cat=3).count()
+        datasets_unknown_count = kdss_full_count - kdss_count
+
+        fullscores_count = dss.filter(score_new_cat=1).count()
+        datasets = []
+        for ds in dss:
+            dataset = {
+                'dataset_id': ds.id,
+                'keydataset_id': ds.keydataset_id,
+                'name': ds.keydataset.dataset.name,
+                'category': cls.dataset_class(ds.score_new_cat),
+                'is_existing': ds.is_existing,
+                'is_digital_form': ds.is_digital_form,
+                'is_avail_online': ds.is_avail_online,
+                'is_avail_online_meta': ds.is_avail_online_meta,
+                'is_bulk_avail': ds.is_bulk_avail,
+                'is_machine_read': ds.is_machine_read,
+                'is_pub_available': ds.is_pub_available,
+                'is_avail_for_free': ds.is_avail_for_free,
+                'is_open_licence': ds.is_open_licence,
+                'is_prov_timely': ds.is_prov_timely,
+                'is_existing_txt': ds.is_existing_txt,
+                'is_prov_timely_last': ds.is_prov_timely_last,
+                'title': ds.title,
+                'modify_time': ds.is_prov_timely_last,
+                'institution': ds.is_existing_txt
+                }
+
+            datasets.append(dataset)
+
+        for kds_miss in kdss_miss:
+            dataset = {
+                'dataset_id': None,
+                'keydataset_id': kds_miss.code,
+                'name': kds_miss.dataset.name,
+                'category': cls.dataset_class(4),
+                'is_existing': False,
+                'is_digital_form': False,
+                'is_avail_online': False,
+                'is_avail_online_meta': False,
+                'is_bulk_avail': False,
+                'is_machine_read': False,
+                'is_pub_available': False,
+                'is_avail_for_free': False,
+                'is_open_licence': False,
+                'is_prov_timely': False,
+                'is_existing_txt': False,
+                'is_prov_timely_last': False,
+                'title': None,
+                'modify_time': None,
+                'institution': None
+                }
+
+            datasets.append(dataset)
+
+        ret = {'datasets_count': dss.count(),
+               'keydatasets_count': kdss_count,
+
+               'datasets_open_count': datasets_open_count,
+               'datasets_restricted_count': datasets_restricted_count,
+               'datasets_closed_count': datasets_closed_count,
+               'datasets_unknown_count': datasets_unknown_count,
+
+               'scores': datasets}
         return ret
 
 
@@ -1908,6 +1994,15 @@ class ScoringNewWorldGet(APIView):
 
     def get(self, request):
         ret = ScoreNew.all_countries_new(request)
+        return Response(ret)
+
+
+class ScoringNewCountryDetailsGet(APIView):
+    """This view return the list best datasets for each keydataset for a specific
+country with related scores"""
+
+    def get(self, request, country_id):
+        ret = ScoreNew.country_details(request, country_id)
         return Response(ret)
 
 
