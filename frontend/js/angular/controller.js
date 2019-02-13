@@ -886,8 +886,6 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
                 $scope.selectedLink.push(strLink);
             }
 
-            // $scope.newLink = "";
-            // $scope.newMeta = "";
             $scope.newLink = {meta:'', link:''};
 
         }
