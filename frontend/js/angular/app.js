@@ -80,7 +80,7 @@ var baseUrl = spli_url.protocol + '//' + spli_url.host + '/';
 //     your local development installation
 //
 var baseAPIurl = '/api/';
-// var baseAPIurl = 'https://exp.riskopendata.org/api/';
+//var baseAPIurl = 'https://exp.riskopendata.org/api/';
 
 RodiApp.config(function($locationProvider) {
 
