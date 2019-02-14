@@ -143,3 +143,15 @@ RodiApp.directive('ngTooltip', function() {
     link: enableTooltips
   }
 });
+
+RodiApp.directive('ngMarkdown', function() {
+  function renderMarkdown (scope, element, attrs) {
+    element.html(marked(element.text()));
+    element.removeAttr('hidden');
+  }
+
+  return {
+    restrict: 'A',
+    link: renderMarkdown
+  }
+});
