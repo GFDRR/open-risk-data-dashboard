@@ -148,6 +148,21 @@ RodiApp.directive('ngMarkdown', function() {
   function renderMarkdown (scope, element, attrs) {
     element.html(marked(element.text()));
     element.removeAttr('hidden');
+
+    // give bootstrap styles to tables
+    element.find('table').addClass('table');
+
+    // build table of content
+    if (attrs.tocSelector) {
+      var res = element.find('> h2').clone().map(function(i, el) {
+        return $('<a></a>', {
+          text: el.innerText,
+          href: '#' + el.getAttribute('id')
+        })
+        .appendTo(attrs.tocSelector)
+        .wrap('<li></li>');
+      });
+    }
   }
 
   return {
