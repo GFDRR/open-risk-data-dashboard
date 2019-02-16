@@ -8,8 +8,6 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
     // ********* MAIN MENU CLICK ************ //
     // ************************************** //
 
-    $scope.indexPage = "0"; // page 0 -> index (utilizzato per i contenuti contestuali)
-    $scope.showHelpIndex = "";
     $scope.bShowFeedback = false;
     $scope.feedbackMessage = {page:"", comment:""};
     $scope.bLogin = false;
@@ -19,11 +17,9 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
 
     if ($location.path().indexOf('index.html') !== -1){
         $scope.bHome = false;
-        $scope.indexPage = "0";
     } else
     {
         $scope.bHome = true;
-        $scope.indexPage = RodiSrv.setPageIndex($location.path());
     }
 
     if($scope.tokenid){$scope.bLogin = true; $scope.userinfo = JSON.parse(localStorage.getItem('rodi_user'));} else {$scope.bLogin = false; $scope.userinfo = RodiSrv.getUserStructureEmpty();}
@@ -163,19 +159,9 @@ RodiApp.controller('RodiCtrlMainMenu', ['$scope', 'RodiSrv', '$filter', '$window
     // ********** HELP & FEEDBACK *********** //
     // ************************************** //
 
-    $scope.showHelp = function ()
-    {
-        $scope.showHelpIndex = $scope.indexPage;
-    }
-
     $scope.showFeed = function ()
     {
         $scope.bShowFeedback = true;
-    }
-
-    $scope.hideHelp = function ()
-    {
-        $scope.showHelpIndex = "";
     }
 
     $scope.hideFeed = function ()
