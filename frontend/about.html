@@ -8,7 +8,7 @@
     <meta content="" name="description" />
     <meta content="" name="author" />
 
-    
+
 
     <title>OpenDRI Index - About the project</title>
     <link rel="icon" href="img/template/favicon.png" type="image/png">
@@ -25,6 +25,7 @@
 
     <link href="vendor/bower/ng-table/dist/ng-table.min.css" rel="stylesheet">
     <script src="vendor/bower/ng-table/dist/ng-table.min.js"></script>
+    <script src="vendor/bower/marked/marked.min.js"></script>
 
     <!-- bootstrap Framework -->
     <!-- Bootstrap -->
@@ -92,26 +93,10 @@
 <div class="container">
         <div class="row" id="top-menu">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                <!--<hazardmenu></hazardmenu>-->
-                <h1 class="page_title">ABOUT THIS WEBSITE</h1>
+                <h1 class="page_title">About this website</h1>
 
-                <div>
-                    <div class="row">
-                        <div class="hidden-xs col-sm-1 col-md-1 col-lg-1"></div>
-                        <div class="col-xs-12 col-sm-10 col-md-10 col-lg-10 rodi_methodology_submenu">
-                            <a href="#intro">Introduction</a>
-                            <a href="#opendri">OpenDRI</a>
-                            <a href="#urc">Understanding Risk community</a>
-                            <a href="#partners">Partners</a>
-                            <a href="#ack">Acknowledgements</a>
-                            <a href="#license">Licenses and terms of use</a>
-                            <a href="#disclaimer">Disclaimer</a>
-                            <a href="#contact">Contact</a>
-                        </div>
-                        <div class="hidden-xs col-sm-1 col-md-1 col-lg-1"></div>
-                    </div>
+                <nav class="toc"><ul class="list-inline text-center rodi_methodology_submenu"></ul></nav>
 
-                </div>
             </div>
         </div>
     <!-- Section HEADER - FINE -->
@@ -121,81 +106,85 @@
 
 
     <div class="row" id="intro">
-        <div class="col-xs-12 col-sm-10 col-md-6 col-xs-offset-0 col-sm-offset-1 col-md-offset-3 text-content">
-            <br>
-            <p>The Open Data for Resilience Index is managed by the <a href="https://opendri.org" target="_blank">Open Data for Resilience Initiative</a> (OpenDRI). Together with other tools such as <a href="http://thinkhazard.org" target="_blank">ThinkHazard!</a>, <a href="http://geonode.org/" target="_blank">Geonode</a>, and <a href="http://inasafe.org/" target="_blank">Inasafe</a>, it aims at improving risk information through better access to data.</p>
+        <main class="col-xs-12 col-sm-10 col-md-8 col-xs-offset-0 col-sm-offset-1 col-md-offset-2 text-content">
+          <div ng-markdown data-toc-selector="#top-menu .toc > ul" hidden>
+The Open Data for Resilience Index is managed by the
+[Open Data for Resilience Initiative](https://opendri.org) (OpenDRI).
+Together with other tools such as [ThinkHazard!](http://thinkhazard.org),
+[Geonode](http://geonode.org/), and [Inasafe](http://inasafe.org/), it aims
+at improving risk information through better access to data.
 
-            <p>Information available on the website is collected and updated on a voluntary basis primarily by people from the <a href="https://understandrisk.org" target="_blank">Understanding Risk</a> (UR) community and then reviewed by a team of Disaster Risk Management and Open Data specialists.</p>
+Information available on the website is collected and updated on a voluntary
+basis primarily by people from the [Understanding Risk](https://understandrisk.org)
+(UR) community and then reviewed by a team of Disaster Risk Management and
+Open Data specialists.
 
-            <h2 id="opendri">OpenDRI</h2>
+## OpenDRI
 
-            <p>In 2011, the <a href="https://www.gfdrr.org" target="_blank">Global Facility for Disaster Reduction and Recovery</a> (GFDRR) launched the Open Data for Resilience Initiative to apply the concepts of the global open data movement to the challenges of reducing vulnerability to natural hazards and the impacts of climate change. OpenDRI supports <a href="http://www.worldbank.org/en/topic/disasterriskmanagement" target="http://www.worldbank.org/en/topic/disasterriskmanagement">World Bank Regional Disaster Risk Management Teams</a> to build capacity and long-term ownership of open data projects with client countries that are tailored to meet specific needs and goals of stakeholders.</p>
+In 2011, the [Global Facility for Disaster Reduction and Recovery](https://www.gfdrr.org) (GFDRR)
+launched the Open Data for Resilience Initiative to apply the concepts
+of the global open data movement to the challenges of reducing vulnerability
+to natural hazards and the impacts of climate change. OpenDRI supports
+[World Bank Regional Disaster Risk Management Teams](http://www.worldbank.org/en/topic/disasterriskmanagement)
+to build capacity and long-term ownership of open data projects with client
+countries that are tailored to meet specific needs and goals of stakeholders.
 
-            <!-- Back to the top -->
-            <div class="text-center">
-                <a href="#top"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
-            </div>
+## Understanding Risk community
 
-            <h2 id="urc">Understanding Risk community</h2>
+Understanding Risk (UR) is an open and global community of over 7,000 experts
+and practitioners interested and active in the creation, communication and
+use of disaster risk information. UR community members share knowledge and
+experience, collaborate, and discuss innovation and best practice in risk assessment.
 
-            <p>Understanding Risk (UR) is an open and global community of over 7,000 experts and practitioners interested and active in the creation, communication and use of disaster risk information. UR community members share knowledge and experience, collaborate, and discuss innovation and best practice in risk assessment.</p>
+## Partners
 
-            <!-- Back to the top -->
-            <div class="text-center">
-                <a href="#top"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
-            </div>
+The Open Data for Resilience Index has been developed and is being maintained
+in partnership with [CIMA Foundation](http://www.cimafoundation.org),
+[Global Earthquake Model](https://www.globalquakemodel.org) and
+[Deltares](https://www.deltares.nl/en).
 
-            <h2 id="partners">Partners</h2>
+## Acknowledgements
 
-            <p>The Open Data for Resilience Index has been developed and is being maintained in partnership with <a href="http://www.cimafoundation.org" target="_blank">CIMA Foundation</a>, <a href="https://www.globalquakemodel.org" target="_blank">Global Earthquake Model</a> and <a href="https://www.deltares.nl/en" target="_blank">Deltares</a>.</p>
+The Open Data for Resilience Index is inspired by the
+[Open Data Index](https://index.okfn.org/) of Open Knowledge and the
+[Open Data Barometer](http://opendatabarometer.org/) of the Web Foundation.
+It applies the idea of tracking and assessing open data to the Disaster
+Risk Management sector.
 
-                <!-- Back to the top -->
-                <div class="text-center">
-                    <a href="#top"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
-                </div>
+## Licenses and terms of use
 
-            <h2 id="ack">Acknowledgements</h2>
+The Open Data for Resilience Index is available under the GNU General Public
+License, Version 3, 29 June 2007 and the source code is
+[available on Github](https://github.com/GFDRR/open-risk-data-dashboard).
+Unless specified, data and texts of the website are licensed under a
+[Creative Commons Attribution Share Alike 4.0 License](https://creativecommons.org/licenses/by-sa/4.0/legalcode).
+Homepage picture: Kofu, Japan, by Joseph Chan available on
+[Unsplash](https://unsplash.com/photos/BM22q72Z2YU) under an open license.
 
-            <p>The Open Data for Resilience Index is inspired by the <a href="https://index.okfn.org/" target="_blank">Open Data Index</a> of Open Knowledge and the  <a href="http://opendatabarometer.org/" target="_blank">Open Data Barometer</a> of the Web Foundation. It applies the idea of tracking and assessing open data to the Disaster Risk Management sector.</p>
+## Disclaimer
 
-                <!-- Back to the top -->
-                <div class="text-center">
-                    <a href="#top"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
-                </div>
+The Open Data for Resilience Index is a crowsourced platform. Information
+available is collected, updated and reviewed on a voluntary basis primarily
+by the Understanding Risk community. Results should always be read carrefully
+and sources checked.
 
-            <h2 id="license">Licenses and terms of use</h2>
+Therefore, even though it aims to provide accurate and up to date information,
+the Open Data for Resilience Index cannot guarantee the accuracy, completeness
+or authenticity of information available.
 
-            <p>The Open Data for Resilience Index is available under the GNU General Public License, Version 3, 29 June 2007 and the source code is <a href="https://github.com/GFDRR/open-risk-data-dashboard" target="_blank">available on Github</a>. Unless specified, data and texts of the website are licensed under a <a href="https://creativecommons.org/licenses/by-sa/4.0/legalcode" target="_blank">Creative Commons Attribution Share Alike 4.0 License</a>. Homepage picture: Kofu, Japan, by Joseph Chan available on <a href="https://unsplash.com/photos/BM22q72Z2YU" target="_blank">Unsplash</a> under an open license.</p>
+Furthermore, the abscence of submission for a given dataset does not mean that
+the data does not exist or is not available, only that no user has submitted
+information on this dataset yet.
 
-            <!-- Back to the top -->
-            <div class="text-center">
-                <a href="#top"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
-            </div>
+In any case, if you think information on a dataset is not correct or missing,
+you can submit your own.
 
-            <h2 id="disclaimer">Disclaimer</h2>
+## Contact
 
-            <p>The Open Data for Resilience Index is a crowsourced platform. Information available is collected, updated and reviewed on a voluntary basis primarily by the Understanding Risk community. Results should always be read carrefully and sources checked.</p>
-
-            <p>Therefore, even though it aims to provide accurate and up to date information, the Open Data for Resilience Index cannot guarantee the accuracy, completeness or authenticity of information available.</p>
-
-            <p>Furthermore, the abscence of submission for a given dataset does not mean that the data does not exist or is not available, only that no user has submitted information on this dataset yet.</p>
-
-            <p>In any case, if you think information on a dataset is not correct or missing, you can submit your own.</p>
-
-            <!-- Back to the top -->
-            <div class="text-center">
-                <a href="#top"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
-            </div>
-
-            <h2 id="contact">Contact</h2>
-            <p>For any question or concern, send an email to: opendri [at] understandrisk [dot] org</p>
-            <!-- Back to the top -->
-            <div class="text-center">
-                <a href="#top"><span class="small"><span class="small text-muted"><i class="fa fa-arrow-up" aria-hidden="true"></i> top</span></span></a>
-            </div>
-        </div>
-
-</div>
+For any question or concern, send an email to: opendri [at] understandrisk [dot] org
+          </div>
+        </main>
+  </div>
 </div>
 <!--END Container fluid-->
 
