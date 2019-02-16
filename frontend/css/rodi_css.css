@@ -2429,8 +2429,10 @@ a.active {
 }
 
 .odfri_box_counter_description {
-    margin-top: 0px;
     color: #fff;
+    margin-top: 0px;
+    padding: 0 15px;
+    text-align: center;
 }
 
 .btn-custom {

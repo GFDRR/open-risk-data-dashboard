@@ -45,26 +45,46 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
     // ************************************** //
     if ($location.path().indexOf('index') !== -1 || $location.path() === '/')
     {
+        $scope.bLoading = true;
+        $scope.datasets_count = 0;
+        $scope.fully_covered_countries_count = 0;
+        $scope.datasets_open_count = 0;
+        $scope.datasets_restricted_count = 0;
+        $scope.datasets_closed_count = 0;
+        $scope.datasets_unknown_count = 0;
+        $scope.global_datasets_count = 0;
 
-        $scope.countryWithData = "--";
-        $scope.totalDataset = "--";
-        $scope.iOpenIndex = "--";
+        function isNotWorld (country) {
+          return country.country !== "AA";
+        }
 
+        function isWorld (country) {
+          return country.country === "AA";
+        }
 
-        RodiSrv.getHomeIndicators(function(data)
-        {
-            //Success API
+        RodiSrv.getCountriesScoring().then(function(data) {
+            // total datasets
+            $scope.datasets_count = data.datasets_count;
 
-            $scope.countryWithData = data.data.countries;
-            $scope.totalDataset = data.data.datasets_count;
-            // $scope.iOpenIndex = data.data.fullscores_count * 1;
+            // global datasets total
+            data.countries.filter(isWorld).forEach(function(country){
+              $scope.global_datasets_count += country.datasets_count;
+            });
 
-            $scope.iOpenIndex = ((data.data.fullscores_count / data.data.datasets_count) * 100).toFixed(1);
+            // open/restricted/closed/unknown totals
+            // and fully covered countries
+            data.countries.filter(isNotWorld).forEach(function(country){
+              if (country.datasets_unknown_count === 0) {
+                $scope.fully_covered_countries_count++;
+              }
 
+              $scope.datasets_open_count += country.datasets_open_count;
+              $scope.datasets_restricted_count += country.datasets_restricted_count;
+              $scope.datasets_closed_count += country.datasets_closed_count;
+              $scope.datasets_unknown_count += country.datasets_unknown_count;
+            });
 
-        }, function(data)
-        {
-            // Error
+            $scope.bLoading = false;
         });
 
 
@@ -168,7 +188,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
               $scope.countryGroups = response.data;
             });
 
-            var p2 = RodiSrv.getCountriesScoring([$scope.filterType, $scope.filterValue], function (data) {
+            var p2 = RodiSrv.getCountriesScoring([$scope.filterType, $scope.filterValue]).then(function (data) {
                 $scope.keydatasetsCount = data.keydatasets_count;
                 $scope.countriesListWithScore = data.countries.map(function(country){
                   country.score = Number(country.score);

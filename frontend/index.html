@@ -98,21 +98,41 @@
             </div>
         </div>
 </div>
-<div class="stats-boxes">
-    <div class="odfri_box_counter" title="Total number of datasets tracked and measured">
-        <span ng-cloak>{{totalDataset}}</span>
-        <h3 class="odfri_box_counter_description">datasets</h3>
+<div class="stats-boxes" ng-cloak>
+    <div class="odfri_box_counter">
+        <span ng-show="!bLoading">{{datasets_count}}</span>
+        <h3 ng-show="!bLoading" class="odfri_box_counter_description">datasets</h3>
+
+        <img ng-show="bLoading" src="img/template/loading-inverted.gif" alt="" style="max-width:80px;" />
     </div>
 
-    <div class="odfri_box_counter" title="Percentage of datasets considered open data">
-        <span ng-cloak>{{iOpenIndex}}%</span>
-        <h3 class="odfri_box_counter_description">open data</h3>
+    <div class="odfri_box_counter">
+        <span ng-show="!bLoading">{{fully_covered_countries_count}}</span>
+        <h3 ng-show="!bLoading" class="odfri_box_counter_description">fully covered countries</h3>
+
+        <img ng-show="bLoading" src="img/template/loading-inverted.gif" alt="" style="max-width:80px;" />
     </div>
 
 
-    <div class="odfri_box_counter" title="Number of countries with at least one dataset">
-        <span ng-cloak>{{countryWithData}}</span>
-        <h3 class="odfri_box_counter_description">countries</h3>
+    <div class="odfri_box_counter">
+        <span ng-show="!bLoading">{{datasets_open_count}}</span>
+        <h3 ng-show="!bLoading" class="odfri_box_counter_description">open datasets</h3>
+
+        <img ng-show="bLoading" src="img/template/loading-inverted.gif" alt="" style="max-width:80px;" />
+    </div>
+
+    <div class="odfri_box_counter">
+        <span ng-show="!bLoading">{{datasets_restricted_count}}</span>
+        <h3 ng-show="!bLoading" class="odfri_box_counter_description">restricted datasets</h3>
+
+        <img ng-show="bLoading" src="img/template/loading-inverted.gif" alt="" style="max-width:80px;" />
+    </div>
+
+    <div class="odfri_box_counter">
+        <span ng-show="!bLoading">{{datasets_closed_count}}</span>
+        <h3 ng-show="!bLoading" class="odfri_box_counter_description">closed datasets</h3>
+
+        <img ng-show="bLoading" src="img/template/loading-inverted.gif" alt="" style="max-width:80px;" />
     </div>
 </div>
 
