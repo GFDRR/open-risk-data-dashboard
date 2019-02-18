@@ -1624,6 +1624,30 @@ fieldset[disabled] .btn-custom.active {
     border-color: #cb2431;
 }
 
+.list-links {
+  box-sizing: border-box;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+  .list-links > * {
+    box-sizing: border-box;
+    flex: 1 1 49%;
+    margin: 5px auto;
+    max-width: 49%;
+  }
+
+.btn-url {
+  display: inline-block;
+  border-color: #337ab7;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+  .btn-url:hover,
+  .btn-url:focus {
+    border-color: #23527c;
+  }
+
 /*
 ==============================================================================
 
