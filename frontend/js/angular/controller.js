@@ -726,7 +726,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
         $scope.datasetScaleId = "0";
         $scope.datasetDescription = [];
         $scope.selectedLink = [];
-        $scope.newLink = "";
+        $scope.newLink = {meta:'', link:''};
         $scope.bLoadingUpdateScoring = false;
         $scope.bLoadingTabelReview = true;
 
@@ -870,6 +870,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
 
         $scope.addLink = function(strLink)
         {
+
             //Check protocol
             var indexProtocolCheck = strLink.indexOf('http');
 
@@ -883,8 +884,10 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
             if(indexElem == -1)
             {
                 $scope.selectedLink.push(strLink);
-                $scope.newLink = "";
             }
+
+            $scope.newLink = {meta:'', link:''};
+
         }
 
         $scope.deleteLink = function(link)
@@ -964,10 +967,14 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
                         RodiSrv.saveprofileDataset($scope.tokenid, $scope.objDataset,
                             function(data){
                                 // Success
-                                vex.dialog.alert('Thanks! Dataset was successfully submitted and will be reviewed.');
+
+                                vex.dialog.alert("Thanks! Dataset was successfully submitted and will be reviewed.");
                                 $scope.objDataset = RodiSrv.getDatasetEmptyStructure();
                                 $scope.selectedLink = [];
                                 $scope.newLink = "";
+                                $scope.newLink = {meta:'', link:''};
+
+                                $window.scrollTo(0,0);
 
                             }, function(error){
                             //     Error

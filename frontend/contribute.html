@@ -8,7 +8,7 @@
     <meta content="" name="description" />
     <meta content="" name="author" />
 
-    <title>OpenDRI Index - Submit a dataset</title>
+    <title>OpenDRI Index - Add a dataset</title>
     <link rel="icon" href="img/template/favicon.png" type="image/png">
     <link rel="icon" href="img/template/favicon.ico" type="image/vnd.microsoft.icon">
 
@@ -89,7 +89,7 @@
         <div class="row" id="top-menu">
             <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                 <!--<hazardmenu></hazardmenu>-->
-                <h1 class="page_title ">SUBMIT A DATASET</h1>
+                <h1 class="page_title ">Add a dataset</h1>
             </div>
         </div>
     </div>
@@ -317,9 +317,9 @@
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                         <br />
                                         <div class="input-group">
-                                            <input type="text" class="form-control " placeholder="If yes, add url(s) where to find the data" ng-model="newLink">
+                                            <input ng-model="newLink.link" type="text" class="form-control " placeholder="If yes, add url(s) where to find the data">
                                             <span class="input-group-btn ">
-                                                <button class="btn btn-info" type="button" ng-click="addLink(newLink)">
+                                                <button class="btn btn-info" type="button" ng-click="addLink(newLink.link)">
                                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                                     Add Link
                                                 </button>
@@ -361,9 +361,9 @@
                                     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                         <br />
                                         <div class="input-group">
-                                            <input type="text" class="form-control " placeholder="If yes, add url(s) where to find the metadata" ng-model="newMeta">
+                                            <input type="text" class="form-control " placeholder="If yes, add url(s) where to find the metadata" ng-model="newLink.meta">
                                             <span class="input-group-btn ">
-                                                <button class="btn btn-info" type="button" ng-click="addLink(newMeta)">
+                                                <button class="btn btn-info" type="button" ng-click="addLink(newLink.meta)">
                                                     <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
                                                     Add Link
                                                 </button>
