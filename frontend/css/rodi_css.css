@@ -54,6 +54,10 @@ h3, h4, h5, h6
   font-weight: bold;
 }
 
+img {
+  max-width: 100%;
+}
+
 .page-header {
   border-bottom: none;
 }
@@ -2278,8 +2282,8 @@ button.link {
 }
 
 .rodi_methodology_submenu {
-    margin-top: 20px;
-    text-align: center;
+    margin: 20px auto;
+    max-width: 80%;
 }
 
 .rodi_methodology_submenu a {
