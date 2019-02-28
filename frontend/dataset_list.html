@@ -123,14 +123,24 @@
     </div>
 
   <div class="row">
-    <div class="col-xs-12 col-md-10 col-md-offset-1 col-xs-offset-0">
+    <div class="col-xs-12 col-sm-5 col-sm-offset-1 col-md-5 col-md-offset-1 col-lg-5 col-lg-offset-1">
       <span style="font-size: 16px;">Show:
         <a style="text-decoration: none;" href="#submitted" ng-click="setFilterMode($event, 'submitted')" ng-class="{active: filterMode == 'submitted'}">Submitted</a>,
         <a style="text-decoration: none;" href="#notsubmitted" ng-class="{active: filterMode == 'notsubmitted'}" ng-click="setFilterMode($event, 'notsubmitted')">Not submitted</a>,
         <a style="text-decoration: none;" href="#all" ng-class="{active: filterMode == 'all'}" ng-click="setFilterMode($event, 'all')">All</a>
       </span>
-      <br/>
+    </div>
 
+    <div class="col-xs-12 col-sm-3 col-sm-offset-2 col-md-3 col-md-offset-2 col-lg-3 col-lg-offset-2">
+      <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search for a dataset name" ng-model="datasetSearchFilter" aria-describedby="basic-addon1" ng-disabled="!datasetsByCategory.length">
+          <span class="input-group-addon" id="basic-addon2"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12 col-md-10 col-md-offset-1 col-xs-offset-0">
       <div class="table-responsive">
         <table class="table table-hover table-expanded datasets-table">
           <thead>
@@ -138,9 +148,23 @@
               <th title="Name of dataset">Dataset</th>
               <th title="10 criteria assessing the availability and ease of use of the dataset">Open data criteria</th>
             </tr>
+            <tr>
+                <th>
+                    <div class="flex-container flex-row">
+                        <span class="sort_arrow_up" ng-click="sortBy('name')" tabindex="0"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: sortField === 'name' ?  '#cb2431' : '#232323'}"></i></span>
+                        <span class="sort_arrow_down" ng-click="sortBy('-name')" tabindex="0"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: sortField === '-name' ?  '#cb2431' : '#232323'}"></i></span>
+                    </div>
+                </th>
+                <th>
+                    <div class="flex-container flex-row text-center">
+                        <span class="sort_arrow_up" ng-click="sortBy('openness')" tabindex="0"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: sortField === 'openness'?  '#cb2431' : '#232323'}"></i></span>
+                        <span class="sort_arrow_down" ng-click="sortBy('-openness')" tabindex="0"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: sortField === '-openness'?  '#cb2431' : '#232323'}"></i></span>
+                    </div>
+                </th>
+            </tr>
           </thead>
           <tbody>
-           <tr ng-repeat="item in datasetsByCategory | orderBy: ['-openness', 'name'] | filter: checkVisibility" ng-class="{'single-dataset': !item.datasets, 'multiple-datasets': item.datasets, 'no-dataset': !item.dataset_id && !item.datasets}" tabindex="0">
+           <tr ng-repeat="item in datasetsByCategory | orderBy: sortPredicate | filter: checkVisibility | filter: byDatasetTitle" ng-class="{'single-dataset': !item.datasets, 'multiple-datasets': item.datasets, 'no-dataset': !item.dataset_id && !item.datasets}" tabindex="0">
               <td ng-show="item.dataset_id && !item.datasets" data-openness="{{item.openness}}" data-dataset-id="{{item.dataset_id}}" ng-click="changepage('dataset_details.html?keyds=' + item.dataset_id, $event)">
                 <a ng-href="dataset_details.html?keyds={{item.dataset_id}}" class="dataset-title" ng-if="item.dataset_id" title="View details">{{item.name}}</a>
                 <span class="dataset-title" ng-if="item.datasets">{{item.name}}</span>
@@ -168,7 +192,7 @@
 
                 <table class="table table-hover datasets-table" ng-show="{{item.datasets}}">
                   <tbody>
-                    <tr ng-repeat="dataset in item.datasets | orderBy: ['-openness', 'name']  | filter: checkVisibility" ng-click="changepage('dataset_details.html?keyds=' + dataset.dataset_id, $event)" tabindex="0">
+                    <tr ng-repeat="dataset in item.datasets | orderBy: sortPredicate | filter: checkVisibility" ng-click="changepage('dataset_details.html?keyds=' + dataset.dataset_id, $event)" tabindex="0">
                       <th scope="row" data-openness="{{dataset.openness}}" data-dataset-id="{{dataset.dataset_id}}">
                         <div class="rodi_subtitle_datasetlist" ng-show="dataset.dataset_id">
                           <a ng-href="dataset_details.html?keyds={{dataset.dataset_id}}" class="text-muted trunkate" title="{{dataset.title || dataset.name}}">{{dataset.title || dataset.name}} {{dataset.institution}}</a>

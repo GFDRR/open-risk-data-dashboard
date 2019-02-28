@@ -25,6 +25,7 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
     $scope.idCountry = $location.search().idcountry;
     $scope.idDatasetCat = $location.search().idcategory || 0;
     $scope.bLoading = true;
+    $scope.datasetSearchFilter = "";
     $scope.bNoDataset = false;
     $scope.bPopUpDetails = false;
     $scope.datasetsByCategory = [];
@@ -36,6 +37,9 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
     $scope.datasets_restricted_count = 0;
     $scope.datasets_closed_count = 0;
     $scope.datasets_unknown_count = 0;
+    $scope.sortField = "-openness";
+    $scope.sortPredicate = ['-openness', 'name'];
+
 
     $scope.questions = RodiSrv.getQuestions();
 
@@ -162,6 +166,26 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
         }
 
     }
+
+    $scope.sortBy = function(property, alias) {
+        $scope.sortField = alias || property;
+        $scope.sortPredicate = property;
+    }
+
+    $scope.byDatasetTitle = function (item) {
+      if (!$scope.datasetSearchFilter.trim()) {
+          return true;
+      }
+
+      var term = $scope.datasetSearchFilter.toLowerCase();
+      var titles = [item.title, item.name].concat((item.datasets || []).map(function(item){
+        return item.title || item.name;
+      })).filter(function(title){ return title });
+
+      return titles.some(function(title) {
+        return Boolean(title.toLowerCase().match(term));
+      });
+    };
 
     $scope.setFilterMode = function($event, type) {
         $event.preventDefault();
