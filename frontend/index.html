@@ -88,16 +88,20 @@
 
 
 <!-- Section image counters and buttons -->
-<section class="odfri_box_home_page">
+<section class="odfri_box_home_page" ng-cloak>
 
     <div class="container">
         <div class="row">
             <div class="col odfri_home_title col-xs-12">
                 <h1><span>Tracking Open Data for Resilience</span></h1>
 
-                <p><span>Determine which disaster risk data are open, restricted or closed in your area</span></p>
+                <p><span>Discover which disaster risk data are open, restricted, or closed in your area</span></p>
 
-                <p>{{datasets_total_count}} datasets in {{countries_count}} countries and counting.</p>
+                <p>
+                  <strong>{{datasets_total_count}} datasets</strong> in
+                  <strong>{{countries_count}} countries</strong>
+                  and counting.
+                </p>
             </div>
         </div>
     </div>
