@@ -38,8 +38,6 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
     $scope.datasets_unknown_count = 0;
 
     $scope.questions = RodiSrv.getQuestions();
-    $scope.HazardCategory = RodiSrv.getDataCategoryIcon();
-    $scope.arrayHazardList=RodiSrv.getHazardList();
 
     RodiSrv.getCountryList().then(function(response) {
         // Success
@@ -48,11 +46,6 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
 
     });
 
-    $scope.getHCIcon = function(index)
-    {
-        return RodiSrv.getHCIcon(index - 1);
-    };
-
     // Get dataset info
     $scope.getQuestionCode = function(questionCode, objDataset)
     {
@@ -60,8 +53,7 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
     }
 
     // Load Dataset list with filter
-    $scope.loadDatasetList = function()
-    {
+    $scope.loadDatasetList = function() {
         $scope.datasetsByCategory = [];
         $scope.bLoading = true;
 
@@ -142,41 +134,6 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
     {
         $scope.loadDatasetList();
     }
-
-    $scope.setFilterApplicabilityDatasetList = function (filter) {
-        if ($scope.getApplicabilityNumber(filter) === 'n.a.') {
-          return;
-        }
-
-        var index = $scope.aApplicability.indexOf(filter);
-
-        if (index >-1){
-            $scope.aApplicability.splice(index,1);
-            $scope.loadDatasetList();
-
-        }else {
-            $scope.aCategory = [];
-            $scope.aApplicability = [];
-            $scope.aApplicability.push(filter);
-            $scope.loadDatasetList();
-        }
-
-    };
-
-    $scope.setFilterCategoryDatasetList = function ($event, filter) {
-        $event.preventDefault();
-        var index = $scope.aCategory.indexOf(filter);
-
-        if (index >-1){
-            $scope.aCategory.splice(index,1);
-            $scope.loadDatasetList();
-        }else {
-            $scope.aCategory = [];
-            $scope.aApplicability = [];
-            $scope.aCategory.push(filter);
-            $scope.loadDatasetList();
-        }
-    };
 
     $scope.setPopupDetails = function(dataset){
 
