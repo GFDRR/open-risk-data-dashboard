@@ -48,6 +48,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
         $scope.bLoading = true;
         $scope.datasets_count = 0;
         $scope.fully_covered_countries_count = 0;
+        $scope.countries_count = 0;
+        $scope.datasets_total_count = 0;
         $scope.datasets_open_count = 0;
         $scope.datasets_restricted_count = 0;
         $scope.datasets_closed_count = 0;
@@ -82,6 +84,8 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
               $scope.datasets_restricted_count += country.datasets_restricted_count;
               $scope.datasets_closed_count += country.datasets_closed_count;
               $scope.datasets_unknown_count += country.datasets_unknown_count;
+              $scope.countries_count += country.datasets_count === 0 ? 0 : 1;
+              $scope.datasets_total_count += country.datasets_count;
             });
 
             $scope.bLoading = false;

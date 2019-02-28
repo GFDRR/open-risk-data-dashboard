@@ -60,7 +60,7 @@
     </script>
 
 </head>
-<body ng-app="RodiApp" ng-controller="RodiCtrl">
+<body ng-app="RodiApp" ng-controller="RodiCtrl" class="home">
 
 <nav class="navbar navbar-main">
   <div class="container">
@@ -90,61 +90,52 @@
 <!-- Section image counters and buttons -->
 <section class="odfri_box_home_page">
 
-<div class="container">
+    <div class="container">
         <div class="row">
             <div class="col odfri_home_title col-xs-12">
                 <h1><span>Tracking Open Data for Resilience</span></h1>
+
                 <p><span>Determine which disaster risk data are open, restricted or closed in your area</span></p>
+
+                <p>{{datasets_total_count}} datasets in {{countries_count}} countries and counting.</p>
             </div>
         </div>
-</div>
-<div class="stats-boxes" ng-cloak>
-    <div class="odfri_box_counter">
-        <span ng-show="!bLoading">{{datasets_count}}</span>
-        <h3 ng-show="!bLoading" class="odfri_box_counter_description">datasets</h3>
-
-        <img ng-show="bLoading" src="img/template/loading-inverted.gif" alt="" style="max-width:80px;" />
     </div>
 
-    <div class="odfri_box_counter">
-        <span ng-show="!bLoading">{{fully_covered_countries_count}}</span>
-        <h3 ng-show="!bLoading" class="odfri_box_counter_description">fully covered countries</h3>
+    <div class="stats-boxes" ng-cloak>
+        <div class="odfri_box_counter type--open">
+            <span ng-show="!bLoading">{{datasets_open_count}}</span>
+            <h3 ng-show="!bLoading" class="odfri_box_counter_description">datasets are fully open</h3>
 
-        <img ng-show="bLoading" src="img/template/loading-inverted.gif" alt="" style="max-width:80px;" />
+            <img ng-show="bLoading" src="img/template/loading-inverted.gif" alt="" style="max-width:80px;" />
+        </div>
+
+        <div class="odfri_box_counter type--restricted">
+            <span ng-show="!bLoading">{{datasets_restricted_count}}</span>
+            <h3 ng-show="!bLoading" class="odfri_box_counter_description">datasets could be improved</h3>
+
+            <img ng-show="bLoading" src="img/template/loading-inverted.gif" alt="" style="max-width:80px;" />
+        </div>
+
+        <div class="odfri_box_counter type--closed">
+            <span ng-show="!bLoading">{{datasets_closed_count}}</span>
+            <h3 ng-show="!bLoading" class="odfri_box_counter_description">datasets could be opened</h3>
+
+            <img ng-show="bLoading" src="img/template/loading-inverted.gif" alt="" style="max-width:80px;" />
+        </div>
     </div>
-
-
-    <div class="odfri_box_counter">
-        <span ng-show="!bLoading">{{datasets_open_count}}</span>
-        <h3 ng-show="!bLoading" class="odfri_box_counter_description">open datasets</h3>
-
-        <img ng-show="bLoading" src="img/template/loading-inverted.gif" alt="" style="max-width:80px;" />
-    </div>
-
-    <div class="odfri_box_counter">
-        <span ng-show="!bLoading">{{datasets_restricted_count}}</span>
-        <h3 ng-show="!bLoading" class="odfri_box_counter_description">restricted datasets</h3>
-
-        <img ng-show="bLoading" src="img/template/loading-inverted.gif" alt="" style="max-width:80px;" />
-    </div>
-
-    <div class="odfri_box_counter">
-        <span ng-show="!bLoading">{{datasets_closed_count}}</span>
-        <h3 ng-show="!bLoading" class="odfri_box_counter_description">closed datasets</h3>
-
-        <img ng-show="bLoading" src="img/template/loading-inverted.gif" alt="" style="max-width:80px;" />
-    </div>
-</div>
 
     <!-- Call to action-->
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 text-center">
-                    <a href="countries.html" class="btn btn-custom btn-xxl">Explore countries</a>
-                    <a href="contribute.html" class="btn btn-custom btn-xxl">Add a dataset</a>
-                </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <a href="countries.html" class="btn btn-custom btn-xxl">Explore countries</a>
+                <a href="contribute.html" class="btn btn-custom btn-xxl">Add a dataset</a>
+
+                <p>Or <a href="about.html#contact">tell us what could be improved</a>.</p>
             </div>
         </div>
+    </div>
 </section>
 
 <footer class="footer">
