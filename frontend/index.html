@@ -109,21 +109,21 @@
     <div class="stats-boxes" ng-cloak>
         <div class="odfri_box_counter type--open">
             <span ng-show="!bLoading">{{datasets_open_count}}</span>
-            <h3 ng-show="!bLoading" class="odfri_box_counter_description">datasets are fully open</h3>
+            <h3 ng-show="!bLoading" class="odfri_box_counter_description">datasets are fully&nbsp;open</h3>
 
             <img ng-show="bLoading" src="img/template/loading-inverted.gif" alt="" style="max-width:80px;" />
         </div>
 
         <div class="odfri_box_counter type--restricted">
             <span ng-show="!bLoading">{{datasets_restricted_count}}</span>
-            <h3 ng-show="!bLoading" class="odfri_box_counter_description">datasets could be improved</h3>
+            <h3 ng-show="!bLoading" class="odfri_box_counter_description">datasets are partially&nbsp;open</h3>
 
             <img ng-show="bLoading" src="img/template/loading-inverted.gif" alt="" style="max-width:80px;" />
         </div>
 
         <div class="odfri_box_counter type--closed">
             <span ng-show="!bLoading">{{datasets_closed_count}}</span>
-            <h3 ng-show="!bLoading" class="odfri_box_counter_description">datasets could be opened</h3>
+            <h3 ng-show="!bLoading" class="odfri_box_counter_description">datasets are closed</h3>
 
             <img ng-show="bLoading" src="img/template/loading-inverted.gif" alt="" style="max-width:80px;" />
         </div>
