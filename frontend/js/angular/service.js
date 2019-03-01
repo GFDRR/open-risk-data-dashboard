@@ -1449,7 +1449,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', '$window', function($http, $filt
     // ************************************** //
 
     // Return the rank of countries (Explore Countries page)
-    this.getCountriesScoring = function(filter, onSuccess)
+    this.getCountriesScoring = function(filter)
     {
         var queryString = "";
 
@@ -1463,7 +1463,7 @@ RodiApp.service("RodiSrv", ['$http', '$filter', '$window', function($http, $filt
               headers: { },
               data: { }
           })
-          .then(function(data){ onSuccess(data.data); })
+          .then(function(data){ return data.data; })
           .catch(function(error){ console.error(error) });
     }
 
@@ -1505,24 +1505,6 @@ RodiApp.service("RodiSrv", ['$http', '$filter', '$window', function($http, $filt
     // ************************************** //
     // *************** UTILITY ***************** //
     // ************************************** //
-
-    this.setPageIndex = function(strpath)
-    {
-        if(strpath.indexOf('index.html') != -1){return "0"};
-        if(strpath.indexOf('contribute.html') != -1){return "1"};
-        if(strpath.indexOf('methodology.html') != -1){return "2"};
-        // if(strpath.indexOf('browse-data.html') != -1){return "3"};
-        if(strpath.indexOf('register.html') != -1){return "4"};
-        if(strpath.indexOf('countries.html') != -1){return "5"};
-        if(strpath.indexOf('dataset_details.html') != -1){return "6"};
-        // if(strpath.indexOf('news-details.html') != -1){return "7"};
-        if(strpath.indexOf('confirm_registration.html') != -1){return "8"};
-        if(strpath.indexOf('about.html') != -1){return "9"};
-        if(strpath.indexOf('dataset_list.html') != -1){return "10"};
-        if(strpath.indexOf('stats.html') != -1){return "11"};
-
-        return "0";
-    }
 
     this.sendFeedback = function(obj, token, onSuccess, onError)
     {
@@ -1608,67 +1590,6 @@ RodiApp.service("RodiSrv", ['$http', '$filter', '$window', function($http, $filt
             if(onSuccess) onSuccess(data.data);
         }, function(data){
             if(onError)onError(data.data);
-        });
-
-    }
-
-    this.getCountryStatistics = function(idCountry, aCategory, aApplicability, onSuccess, onError)
-    {
-        // Return statistics for country page
-
-        var sCategoryFilter = "";
-        var sApplFilter = "";
-
-        if(aCategory.length > 0)
-        {
-            aCategory.forEach(function(item) {
-                sCategoryFilter = sCategoryFilter + "&category=" + $filter('lowercase')(item);
-            });
-        };
-
-        if(aApplicability.length > 0)
-        {
-            aApplicability.forEach(function(item) {
-                sApplFilter = sApplFilter + "&applicability=" + $filter('lowercase')(item);
-            });
-        };
-
-        var req = {
-            method: 'GET',
-            url: baseAPIurl + 'scoring/' + idCountry + '?' + sCategoryFilter + sApplFilter,
-            // url: 'https://dev.riskopendata.org/api-dev2/scoring/' + idCountry,
-            headers: {
-                // 'Authorization': 'Token ' + token
-            },
-            data: {}
-        }
-
-        $http(req).then(function(data){
-            if(onSuccess) onSuccess(data.data);
-        }, function(data){
-            if(onError)onError(data.data);
-        });
-
-    }
-
-    this.getHomeIndicators = function(onSuccess, onError)
-    {
-        // Return indicators for homepage
-
-        var req = {
-            method: 'GET',
-            url: baseAPIurl + 'stats',
-            // url: 'https://dev.riskopendata.org/api-dev2/scoring/',
-            headers: {
-                // 'Authorization': 'Token ' + token
-            },
-            data: {}
-        }
-
-        $http(req).then(function(data){
-            if(onSuccess) onSuccess(data);
-        }, function(data){
-            if(onError)onError(data);
         });
 
     }

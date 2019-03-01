@@ -60,7 +60,7 @@
     </script>
 
 </head>
-<body ng-app="RodiApp" ng-controller="RodiCtrl">
+<body ng-app="RodiApp" ng-controller="RodiCtrl" class="home">
 
 <nav class="navbar navbar-main">
   <div class="container">
@@ -88,43 +88,58 @@
 
 
 <!-- Section image counters and buttons -->
-<section class="odfri_box_home_page">
+<section class="odfri_box_home_page" ng-cloak>
 
-<div class="container">
+    <div class="container">
         <div class="row">
             <div class="col odfri_home_title col-xs-12">
-                <h1><span>Tracking Open Data for Resilience</span></h1>
-                <p><span>Determine which disaster risk data are open, restricted or closed in your area</span></p>
+                <h1>Tracking Open Data for Resilience</h1>
+
+                <p>Discover which disaster risk data are open, restricted, or closed in your area.</p>
+
+                <p>
+                  <strong>{{datasets_total_count}} datasets</strong> in
+                  <strong>{{countries_count}} countries</strong>
+                  to date.
+                </p>
             </div>
         </div>
-</div>
-<div class="stats-boxes">
-    <div class="odfri_box_counter" title="Total number of datasets tracked and measured">
-        <span ng-cloak>{{totalDataset}}</span>
-        <h3 class="odfri_box_counter_description">datasets</h3>
     </div>
 
-    <div class="odfri_box_counter" title="Percentage of datasets considered open data">
-        <span ng-cloak>{{iOpenIndex}}%</span>
-        <h3 class="odfri_box_counter_description">open data</h3>
-    </div>
+    <div class="stats-boxes" ng-cloak>
+        <div class="odfri_box_counter type--open">
+            <span ng-show="!bLoading">{{datasets_open_count}}</span>
+            <h3 ng-show="!bLoading" class="odfri_box_counter_description">datasets are fully&nbsp;open</h3>
 
+            <img ng-show="bLoading" src="img/template/loading-inverted.gif" alt="" style="max-width:80px;" />
+        </div>
 
-    <div class="odfri_box_counter" title="Number of countries with at least one dataset">
-        <span ng-cloak>{{countryWithData}}</span>
-        <h3 class="odfri_box_counter_description">countries</h3>
+        <div class="odfri_box_counter type--restricted">
+            <span ng-show="!bLoading">{{datasets_restricted_count}}</span>
+            <h3 ng-show="!bLoading" class="odfri_box_counter_description">datasets are partially&nbsp;open</h3>
+
+            <img ng-show="bLoading" src="img/template/loading-inverted.gif" alt="" style="max-width:80px;" />
+        </div>
+
+        <div class="odfri_box_counter type--closed">
+            <span ng-show="!bLoading">{{datasets_closed_count}}</span>
+            <h3 ng-show="!bLoading" class="odfri_box_counter_description">datasets are closed</h3>
+
+            <img ng-show="bLoading" src="img/template/loading-inverted.gif" alt="" style="max-width:80px;" />
+        </div>
     </div>
-</div>
 
     <!-- Call to action-->
-        <div class="container">
-            <div class="row">
-                <div class="col-xs-12 text-center">
-                    <a href="countries.html" class="btn btn-custom btn-xxl">Explore countries</a>
-                    <a href="contribute.html" class="btn btn-custom btn-xxl">Add a dataset</a>
-                </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 text-center">
+                <a href="countries.html" class="btn btn-custom btn-xxl">Explore countries</a>
+                <a href="contribute.html" class="btn btn-custom btn-xxl">Add a dataset</a>
+
+                <p>Or <a href="about.html#contact">tell us what could be improved</a>.</p>
             </div>
         </div>
+    </div>
 </section>
 
 <footer class="footer">

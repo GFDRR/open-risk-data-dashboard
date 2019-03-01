@@ -45,540 +45,55 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
     // ************************************** //
     if ($location.path().indexOf('index') !== -1 || $location.path() === '/')
     {
+        $scope.bLoading = true;
+        $scope.datasets_count = 0;
+        $scope.fully_covered_countries_count = 0;
+        $scope.countries_count = 0;
+        $scope.datasets_total_count = 0;
+        $scope.datasets_open_count = 0;
+        $scope.datasets_restricted_count = 0;
+        $scope.datasets_closed_count = 0;
+        $scope.datasets_unknown_count = 0;
+        $scope.global_datasets_count = 0;
 
-        $scope.countryWithData = "--";
-        $scope.totalDataset = "--";
-        $scope.iOpenIndex = "--";
+        function isNotWorld (country) {
+          return country.country !== "AA";
+        }
 
+        function isWorld (country) {
+          return country.country === "AA";
+        }
 
-        RodiSrv.getHomeIndicators(function(data)
-        {
-            //Success API
+        RodiSrv.getCountriesScoring().then(function(data) {
+            // total datasets
+            $scope.datasets_count = data.datasets_count;
 
-            $scope.countryWithData = data.data.countries;
-            $scope.totalDataset = data.data.datasets_count;
-            // $scope.iOpenIndex = data.data.fullscores_count * 1;
+            // global datasets total
+            data.countries.filter(isWorld).forEach(function(country){
+              $scope.global_datasets_count += country.datasets_count;
+            });
 
-            $scope.iOpenIndex = ((data.data.fullscores_count / data.data.datasets_count) * 100).toFixed(1);
+            // open/restricted/closed/unknown totals
+            // and fully covered countries
+            data.countries.filter(isNotWorld).forEach(function(country){
+              if (country.datasets_unknown_count === 0) {
+                $scope.fully_covered_countries_count++;
+              }
 
+              $scope.datasets_open_count += country.datasets_open_count;
+              $scope.datasets_restricted_count += country.datasets_restricted_count;
+              $scope.datasets_closed_count += country.datasets_closed_count;
+              $scope.datasets_unknown_count += country.datasets_unknown_count;
+              $scope.countries_count += country.datasets_count === 0 ? 0 : 1;
+              $scope.datasets_total_count += country.datasets_count;
+            });
 
-        }, function(data)
-        {
-            // Error
+            $scope.bLoading = false;
         });
 
 
     }
 
-    // ************************************** //
-    // *********** STATS PAGE *************** //
-    // ************************************** //
-
-    if ($location.path().indexOf('stats.html') !== -1)
-    {
-
-        var sLabel = "";
-        var sData = "";
-        var oItem = {};
-
-        // Category Dataset variables
-        $scope.iOpenIndex = 0;
-        var iTotalDatasets = 0;
-        var aTotDataset = [];
-        var aChartData = [];
-        $scope.seriesSelected = "";
-
-        // Peril variables
-        $scope.iOpenIndexPeril = 0;
-        var iTotalDatasetsPeril = 0;
-        var aTotDatasetPeril = [];
-        var aChartDataPeril = [];
-        $scope.seriesSelectedPeril = "";
-
-
-        // ************************************** //
-        // ******* STATISTICS & MAP DATA ******** //
-        // ************************************** //
-
-        // GET HOME INDICATORS
-        // getHomeIndicators
-
-        RodiSrv.getHomeStatistics(function(data)
-        {
-            // Statistics index
-
-            $scope.getPelirsIcons = function(code)
-            {
-                return RodiSrv.getHazardIcon(code);
-            }
-
-            $scope.dataCategoryIcon = function(code)
-            {
-                return RodiSrv.getSingleDataCategoryIcon(code);
-            }
-
-            $scope.perilCounters = data.perils_counters;
-            $scope.categoryCounters = data.categories_counters;
-            $scope.countryWithData = data.countries_count;
-            $scope.totalDataset = data.datasets_count;
-
-            $scope.progressCountryVal = ((data.countries_count / 195) * 100).toFixed(0);
-
-            initChartData ('');
-            initChartDataPeril('');
-
-            // ************************************** //
-            // ************ PIE CHARTS ************** //
-            // ************************************** //
-
-            // Make monochrome colors and set them as default for all pies
-            Highcharts.getOptions().plotOptions.pie.colors = (function () {
-                var colors = [],
-                    base = "#FF8000",
-                    i;
-
-                for (i = 0; i < 10; i += 1) {
-                    // Start out with a darkened base color (negative brighten), and end
-                    // up with a much brighter color
-                    colors.push(Highcharts.Color(base).brighten((i - 3) / 7).get());
-                }
-                return colors;
-            }());
-
-            Highcharts.chart('datasetCategories', {
-                chart: {
-                    type: 'pie',
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false,
-                    options3d: {
-                        enabled: false,
-                        alpha: 45,
-                        beta: 0,
-                        depth: 100,
-                        axisLabelPosition: 'auto',
-                        fitToPlot: 'false',
-                        frame:
-                            {
-                                back: {visible: false},
-                                bottom: {visible: false},
-                                side: {visible: false}
-                            }
-                    }
-                },
-                title: {
-                    text: 'Dataset categories distribution'
-                },
-                tooltip: {
-                    headerFormat: '<span style="font-size: 15px;">{point.key} [{point.y}]</span><br/>',
-                    pointFormat: '{series.name}: <b> {series.y} {point.percentage:.1f}%</b> '
-                },
-                plotOptions: {
-                    series:
-                        {
-                            cursor: 'pointer',
-                            events:
-                                {
-                                    click: function(event)
-                                    {
-                                        if($scope.seriesSelected == '')
-                                        {
-                                            initChartData (event.point.name);
-                                        } else
-                                            {
-                                                if($scope.seriesSelected == event.point.name)
-                                                {
-                                                    initChartData ('');
-
-                                                } else
-                                                    {
-                                                        initChartData (event.point.name);
-                                                }
-                                        };
-
-                                        $scope.seriesSelected = event.point.name;
-                                    }
-                                }
-                        },
-                    pie: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        // colors:['rgba(255,128,0, 0.2)','rgba(255,128,0, 0.4)','rgba(255,128,0, 0.6)','rgba(255,128,0, 0.8)','rgba(255,128,0, 1)'],
-                        depth: 35,
-                        dataLabels: {
-                            enabled: true,
-                            format: '{point.name}'
-                        }
-                    }
-                },
-                credits: {
-                    enabled: false
-                },
-                series: [{
-                    type: 'pie',
-                    name: 'Datasets distribution',
-                    data: aChartData
-                }]
-            });
-
-            Highcharts.chart('perilCategories', {
-                chart: {
-                    type: 'pie',
-                    options3d: {
-                        enabled: false,
-                        alpha: 45,
-                        beta: 0,
-                        depth: 100,
-                        axisLabelPosition: 'auto',
-                        fitToPlot: 'false',
-                        frame:
-                            {
-                                back: {visible: false},
-                                bottom: {visible: false},
-                                side: {visible: false}
-                            }
-                    }
-                },
-                title: {
-                    text: 'Peril distribution'
-                },
-                tooltip: {
-                    headerFormat: '<span style="font-size: 15px;">{point.key} [{point.y}]</span><br/>',
-                    pointFormat: '{series.name}: <b> {series.y} {point.percentage:.1f}%</b> '
-                },
-                plotOptions: {
-                    series:
-                        {
-                            cursor: 'pointer',
-                            events:
-                                {
-                                    click: function(event)
-                                    {
-                                        if($scope.seriesSelectedPeril == '')
-                                        {
-                                            initChartDataPeril (event.point.name);
-                                        } else
-                                        {
-                                            if($scope.seriesSelectedPeril == event.point.name)
-                                            {
-                                                initChartDataPeril ('');
-
-                                            } else
-                                            {
-                                                initChartDataPeril (event.point.name);
-                                            }
-                                        };
-
-                                        $scope.seriesSelectedPeril = event.point.name;
-                                    }
-                                }
-                        },
-                    pie: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        depth: 35,
-                        // colors:['rgba(255,128,0, 0.2)','rgba(255,128,0, 0.4)','rgba(255,128,0, 0.6)','rgba(255,128,0, 0.8)','rgba(255,128,0, 1)'],
-                        dataLabels: {
-                            enabled: true,
-                            format: '{point.name}'
-                        }
-                    }
-                },
-                credits: {
-                    enabled: false
-                },
-                series: [{
-                    type: 'pie',
-                    name: 'Datasets distribution',
-                    data: aChartDataPeril,
-                }]
-            });
-
-        }, function(data)
-        {
-            // Error
-        });
-
-        $scope.calcPerc = function(nrItem, totItem){
-
-            return ((nrItem / totItem) * 100).toFixed(0);
-        }
-
-
-        function initChartData (category)
-        {
-            $scope.iOpenIndex = 0;
-            iTotalDatasets = 0;
-            aTotDataset = angular.copy($scope.categoryCounters);
-
-            if(category !== '')
-            {
-                aTotDataset = $filter('filter')(aTotDataset,
-                    function(item)
-                    {
-                        return item.category == category;
-                    });
-
-                // Create structure for PIE chart
-                angular.forEach(aTotDataset, function(item)
-                {
-                    iTotalDatasets = (iTotalDatasets * 1) + (item.count * 1);
-                    $scope.iOpenIndex = $scope.iOpenIndex + (item.fullcount * 1);
-
-                });
-
-            } else
-                {
-                    // Create structure for PIE chart
-                    angular.forEach($scope.categoryCounters, function(item)
-                    {
-                        // sLabel = item.category + ' [' + item.count + ']';
-                        sLabel = item.category;
-                        sData = item.count;
-
-                        iTotalDatasets = (iTotalDatasets * 1) + (item.count * 1);
-                        $scope.iOpenIndex = $scope.iOpenIndex + (item.fullcount * 1);
-
-                        // aItem = [];
-                        // aItem.push(sLabel);
-                        // aItem.push(sData);
-                        oItem = {};
-                        oItem = {
-                            name: sLabel,
-                            y: sData,
-                            // color: getColor[$index]
-                        };
-
-                        aChartData.push(oItem);
-                    });
-                };
-
-            $scope.iOpenIndex = (($scope.iOpenIndex / iTotalDatasets) * 100).toFixed(1) * 1;
-            loadGaugeChart(category);
-
-        }
-
-        function initChartDataPeril (category)
-        {
-            $scope.iOpenIndexPeril = 0;
-            iTotalDatasetsPeril = 0;
-            aTotDatasetPeril = angular.copy($scope.perilCounters);
-
-            if(category !== '')
-            {
-                aTotDatasetPeril = $filter('filter')(aTotDatasetPeril,
-                    function(item)
-                    {
-                        return item.name == category;
-                    });
-
-                // Create structure for PIE chart
-                angular.forEach(aTotDatasetPeril, function(item)
-                {
-                    iTotalDatasetsPeril = (iTotalDatasetsPeril * 1) + (item.count * 1);
-                    $scope.iOpenIndexPeril = $scope.iOpenIndexPeril + (item.fullcount * 1);
-
-                });
-
-            } else
-            {
-                // Create structure for PIE chart
-                angular.forEach($scope.perilCounters, function(item)
-                {
-                    // sLabel = item.category + ' [' + item.count + ']';
-                    sLabel = item.name;
-                    sData = item.count;
-
-                    iTotalDatasetsPeril = (iTotalDatasetsPeril * 1) + (item.count * 1);
-                    $scope.iOpenIndexPeril = $scope.iOpenIndexPeril + (item.fullcount * 1);
-
-                    oItem = {};
-                    oItem = {
-                        name: sLabel,
-                        y: sData,
-                        // color: getColor[$index]
-                    };
-
-                    aChartDataPeril.push(oItem);
-                });
-            };
-
-            $scope.iOpenIndexPeril = (($scope.iOpenIndexPeril / iTotalDatasetsPeril) * 100).toFixed(1) * 1;
-            loadGaugeChartPeril(category);
-
-        }
-
-        function loadGaugeChart(catTitle)
-        {
-            // Load the gauge chart index open data
-
-            if(catTitle !== '' && catTitle)
-            {
-                catTitle = '<strong>' + catTitle + ':</strong> Open datasets index';
-            } else {
-                catTitle = 'Open datasets index';
-            }
-
-            Highcharts.chart('opendataIndex', {
-                chart: {
-                    type: 'solidgauge'
-                },
-                title: {
-                    text: catTitle
-                },
-                tooltip: {
-                    enabled: false
-                },
-                credits: {
-                    enabled: false
-                },
-                pane: {
-                    center: ['50%', '85%'],
-                    size: '130%',
-                    startAngle: -90,
-                    endAngle: 90,
-                    background: {
-                        backgroundColor: '#FFFFFF',
-                        innerRadius: '60%',
-                        outerRadius: '100%',
-                        shape: 'arc'
-                    }
-                },
-                // the value axis
-                yAxis: {
-                    min: 0,
-                    max: 100,
-                    title: {
-                        text: 'Open datasets Index'
-                    },
-                    stops: [
-                        [0.1, 'rgba(255,128,0, 0.5)'],
-                        [0.5, 'rgba(255,128,0, 0.8)'],
-                        [0.9, 'rgba(255,128,0, 1)'],
-                    ],
-                    lineWidth: 0,
-                    minorTickInterval: 'auto',
-                    tickAmount: 2,
-                    title: {
-                        y: -70
-                    },
-                    labels: {
-                        y: 16
-                    }
-                },
-
-                plotOptions: {
-                    solidgauge: {
-                        dataLabels: {
-                            y: 5,
-                            borderWidth: 0,
-                            useHTML: true
-                        }
-                    }
-                },
-                series: [{
-                    name: 'OpenIndex',
-                    data: [$scope.iOpenIndex],
-                    dataLabels: {
-                        format: '<div style="text-align:center"><span style="font-size:25px;color:' +
-                        ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
-                        '<span style="font-size:12px;color:silver">% open</span></div>'
-                    },
-                    tooltip: {
-                        valueSuffix: ' %'
-                    }
-                }]
-
-            });
-
-        }
-
-        function loadGaugeChartPeril(catTitle)
-        {
-            // Load the gauge chart index open data
-
-            if(catTitle !== '' && catTitle)
-            {
-                catTitle = '<strong>' + catTitle + ':</strong> Open datasets index';
-            } else {
-                catTitle = 'Open datasets index';
-            }
-
-            Highcharts.chart('perilOpendataIndex', {
-                chart: {
-                    type: 'solidgauge'
-                },
-                title: {
-                    text: catTitle
-                },
-                tooltip: {
-                    enabled: false
-                },
-                credits: {
-                    enabled: false
-                },
-                pane: {
-                    center: ['50%', '85%'],
-                    size: '130%',
-                    startAngle: -90,
-                    endAngle: 90,
-                    background: {
-                        backgroundColor: '#FFFFFF',
-                        innerRadius: '60%',
-                        outerRadius: '100%',
-                        shape: 'arc'
-                    }
-                },
-                // the value axis
-                yAxis: {
-                    min: 0,
-                    max: 100,
-                    title: {
-                        text: 'Open datasets Index'
-                    },
-                    stops: [
-                        [0.1, 'rgba(255,128,0, 0.5)'],
-                        [0.5, 'rgba(255,128,0, 0.8)'],
-                        [0.9, 'rgba(255,128,0, 1)'],
-                    ],
-                    lineWidth: 0,
-                    minorTickInterval: 'auto',
-                    tickAmount: 2,
-                    title: {
-                        y: -70
-                    },
-                    labels: {
-                        y: 16
-                    }
-                },
-
-                plotOptions: {
-                    solidgauge: {
-                        dataLabels: {
-                            y: 5,
-                            borderWidth: 0,
-                            useHTML: true
-                        }
-                    }
-                },
-                series: [{
-                    name: 'OpenIndex',
-                    data: [$scope.iOpenIndexPeril],
-                    dataLabels: {
-                        format: '<div style="text-align:center"><span style="font-size:25px;color:' +
-                        ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
-                        '<span style="font-size:12px;color:silver">% open</span></div>'
-                    },
-                    tooltip: {
-                        valueSuffix: ' %'
-                    }
-                }]
-
-            });
-
-        }
-
-    }
 
     // ************************************** //
     // ************* FILTERS **************** //
@@ -677,7 +192,7 @@ RodiApp.controller('RodiCtrl', ['$scope', 'RodiSrv', '$window', '$filter', '$loc
               $scope.countryGroups = response.data;
             });
 
-            var p2 = RodiSrv.getCountriesScoring([$scope.filterType, $scope.filterValue], function (data) {
+            var p2 = RodiSrv.getCountriesScoring([$scope.filterType, $scope.filterValue]).then(function (data) {
                 $scope.keydatasetsCount = data.keydatasets_count;
                 $scope.countriesListWithScore = data.countries.map(function(country){
                   country.score = Number(country.score);
