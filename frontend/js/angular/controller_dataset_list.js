@@ -25,6 +25,7 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
     $scope.idCountry = $location.search().idcountry;
     $scope.idDatasetCat = $location.search().idcategory || 0;
     $scope.bLoading = true;
+    $scope.datasetSearchFilter = "";
     $scope.bNoDataset = false;
     $scope.bPopUpDetails = false;
     $scope.datasetsByCategory = [];
@@ -36,10 +37,11 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
     $scope.datasets_restricted_count = 0;
     $scope.datasets_closed_count = 0;
     $scope.datasets_unknown_count = 0;
+    $scope.sortField = "-openness";
+    $scope.sortPredicate = ['-openness', 'name'];
+
 
     $scope.questions = RodiSrv.getQuestions();
-    $scope.HazardCategory = RodiSrv.getDataCategoryIcon();
-    $scope.arrayHazardList=RodiSrv.getHazardList();
 
     RodiSrv.getCountryList().then(function(response) {
         // Success
@@ -48,11 +50,6 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
 
     });
 
-    $scope.getHCIcon = function(index)
-    {
-        return RodiSrv.getHCIcon(index - 1);
-    };
-
     // Get dataset info
     $scope.getQuestionCode = function(questionCode, objDataset)
     {
@@ -60,8 +57,7 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
     }
 
     // Load Dataset list with filter
-    $scope.loadDatasetList = function()
-    {
+    $scope.loadDatasetList = function() {
         $scope.datasetsByCategory = [];
         $scope.bLoading = true;
 
@@ -143,41 +139,6 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
         $scope.loadDatasetList();
     }
 
-    $scope.setFilterApplicabilityDatasetList = function (filter) {
-        if ($scope.getApplicabilityNumber(filter) === 'n.a.') {
-          return;
-        }
-
-        var index = $scope.aApplicability.indexOf(filter);
-
-        if (index >-1){
-            $scope.aApplicability.splice(index,1);
-            $scope.loadDatasetList();
-
-        }else {
-            $scope.aCategory = [];
-            $scope.aApplicability = [];
-            $scope.aApplicability.push(filter);
-            $scope.loadDatasetList();
-        }
-
-    };
-
-    $scope.setFilterCategoryDatasetList = function ($event, filter) {
-        $event.preventDefault();
-        var index = $scope.aCategory.indexOf(filter);
-
-        if (index >-1){
-            $scope.aCategory.splice(index,1);
-            $scope.loadDatasetList();
-        }else {
-            $scope.aCategory = [];
-            $scope.aApplicability = [];
-            $scope.aCategory.push(filter);
-            $scope.loadDatasetList();
-        }
-    };
-
     $scope.setPopupDetails = function(dataset){
 
         $scope.bPopUpDetails = !$scope.bPopUpDetails;
@@ -205,6 +166,26 @@ RodiApp.controller('RodiCtrlDatasetList', ['$scope', 'RodiSrv', '$location', '$w
         }
 
     }
+
+    $scope.sortBy = function(property, alias) {
+        $scope.sortField = alias || property;
+        $scope.sortPredicate = property;
+    }
+
+    $scope.byDatasetTitle = function (item) {
+      if (!$scope.datasetSearchFilter.trim()) {
+          return true;
+      }
+
+      var term = $scope.datasetSearchFilter.toLowerCase();
+      var titles = [item.title, item.name].concat((item.datasets || []).map(function(item){
+        return item.title || item.name;
+      })).filter(function(title){ return title });
+
+      return titles.some(function(title) {
+        return Boolean(title.toLowerCase().match(term));
+      });
+    };
 
     $scope.setFilterMode = function($event, type) {
         $event.preventDefault();
