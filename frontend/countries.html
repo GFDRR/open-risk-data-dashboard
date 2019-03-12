@@ -9,9 +9,6 @@
     <meta content="Open Data for Resilience Index " name="description" />
     <meta content="" name="author" />
 
-
-
-
     <title>OpenDRI Index - Explore countries</title>
     <link rel="icon" href="img/template/favicon.png" type="image/png">
     <link rel="icon" href="img/template/favicon.ico" type="image/vnd.microsoft.icon">
@@ -133,27 +130,26 @@
                     <thead>
                     <tr>
                         <th title="Name of country">Country</th>
-                        <th title="Average scores of all datasets considered. If a dataset does not exist or has not been submitted, its score is 0." style="width: 50%">
+                        <th style="width: 75%">
                           <ul class="list-inline">
-                            <li>
+                            <li title="Number of open datasets" style="width: 25%;">
                               <span class="label label-success label-small"></span> Open Data<br>
                               <span class="text-muted">Free to access, use and share</span>
                             </li>
-                            <li>
+                            <li title="Number of restricted datasets" style="width: 25%;">
                               <span class="label label-warning label-small"></span> Restricted<br>
                               <span class="text-muted">Technical, legal or cost restrictions</span>
                             </li>
-                            <li>
+                            <li title="Number of closed datasets" style="width: 25%;">
                               <span class="label label-danger label-small"></span> Closed<br>
                               <span class="text-muted">Access not permitted or does not exist</span>
                             </li>
+                            <li title="Number of missing datasets" style="width: 25%;">
+                              <span class="label label-dark label-small"></span> Missing<br>
+                              <span class="text-muted">No information provided for the dataset</span>
+                            </li>
                           </ul>
                         </th>
-                        <th title="Number of datasets fully open">
-                          <span class="label label-default label-small"></span> Unknown<br>
-                          <span class="text-muted">No information.<br>Submission is needed</span>
-                        </th>
-
                     </tr>
                     <tr>
                         <th>
@@ -163,17 +159,31 @@
                             </div>
                         </th>
                         <th>
-                            <div class="flex-container flex-row">
-                                <span class="sort_arrow_up" ng-click="sortBy(['datasets_open_count', 'datasets_restricted_count', 'datasets_closed_count'], 'score')" tabindex="0"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: sortField == 'score' ?  '#cb2431' : '#232323'}"></i></span>
-                                <span class="sort_arrow_down" ng-click="sortBy(['-datasets_open_count', '-datasets_restricted_count', '-datasets_closed_count'], '-score')" tabindex="0"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: sortField == '-score' ?  '#cb2431' : '#232323'}"></i></span>
-                            </div>
-                        </th>
-                        <th>
+                           <ul class="list-inline">
+                            <li style="width: 25%;">
+                                <span class="sort_arrow_up" ng-click="sortBy(['datasets_open_count', 'datasets_restricted_count', 'datasets_closed_count', '-datasets_unknown_count'])" tabindex="0"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: sortField ===  ?  '#cb2431' : '#232323'}"></i></span>
+                                <span class="sort_arrow_down" ng-click="sortBy(['-datasets_open_count', '-datasets_restricted_count', '-datasets_closed_count', 'datasets_unknown_count'])" tabindex="0"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: sortField ===  ?  '#cb2431' : '#232323'}"></i></span>                                
+                            </li>
+                            <li style="width: 25%;">
+                                <span class="sort_arrow_up" ng-click="sortBy(['datasets_restricted_count','datasets_open_count', 'datasets_closed_count', '-datasets_unknown_count'])" tabindex="0"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: sortField == 'datasets_restricted_count' ?  '#cb2431' : '#232323'}"></i></span>
+                                <span class="sort_arrow_down" ng-click="sortBy(['-datasets_restricted_count','-datasets_open_count', -datasets_closed_count', 'datasets_unknown_count'])" tabindex="0"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: sortField == '-datasets_restricted_count' ?  '#cb2431' : '#232323'}"></i></span>                                              
+                            </li>                              
+                            <li style="width: 25%;">
+                                <span class="sort_arrow_up" ng-click="sortBy(['datasets_closed_count','datasets_open_count', 'datasets_restricted_count', '-datasets_unknown_count'])" tabindex="0"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: sortField == 'datasets_closed_count' ?  '#cb2431' : '#232323'}"></i></span>
+                                <span class="sort_arrow_down" ng-click="sortBy(['-datasets_closed_count','-datasets_open_count', '-datasets_restricted_count', 'datasets_unknown_count'])" tabindex="0"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: sortField == '-datasets_closed_count' ?  '#cb2431' : '#232323'}"></i></span>                                    
+                            </li>                              
+                            <li style="width: 25%;">
+                                <span class="sort_arrow_up" ng-click="sortBy(['-datasets_unknown_count','datasets_open_count', 'datasets_restricted_count', 'datasets_closed_count'])" tabindex="0"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: sortField == 'datasets_unknown_count' ?  '#cb2431' : '#232323'}"></i></span>
+                                <span class="sort_arrow_down" ng-click="sortBy(['datasets_unknown_count','-datasets_open_count', '-datasets_restricted_count', '-datasets_closed_count'])" tabindex="0"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: sortField == '-datasets_unknown_count' ?  '#cb2431' : '#232323'}"></i></span>                                 
+                            </li>
+                          </ul>
+                        </th>                                                                        
+                        <!--<th>
                             <div class="flex-container flex-row text-center">
                                 <span class="sort_arrow_up" ng-click="sortBy('datasets_unknown_count')" tabindex="0"><i class="fa fa-caret-up" aria-hidden="true" ng-style="{color: sortField === 'datasets_count'?  '#cb2431' : '#232323'}"></i></span>
                                 <span class="sort_arrow_down" ng-click="sortBy('-datasets_unknown_count')" tabindex="0"><i class="fa fa-caret-down" aria-hidden="true" ng-style="{color: sortField === '-datasets_count'?  '#cb2431' : '#232323'}"></i></span>
                             </div>
-                        </th>
+                        </th>-->
                     </tr>
                     </thead>
                     <tbody ng-if="!bLoadingTabel" ng-cloak>
@@ -183,39 +193,36 @@
                           <a ng-href="dataset_list.html?idcountry={{country.wb_id}}">{{country.name}}</a>
                         </th>
                         <td>
-                            <div class="progress" ng-if="country.datasets_count > 0" ng-tooltip="We know of {{country.datasets_open_count}} open, {{country.datasets_restricted_count}} restricted and {{country.datasets_closed_count}} closed datasets for {{country.name}}." data-placement="left">
-                                <div ng-show="country.datasets_open_count > 0" class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{country.datasets_open_count}}"
-                                     aria-valuemin="0" aria-valuemax="{{keydatasetsCount}}" style="width: {{country.datasets_open_count / (keydatasetsCount > country.datasets_count ? keydatasetsCount : country.datasets_count) * 100}}%;">
+                            <div class="progress" ng-if="country.datasets_count > 0" ng-tooltip="{{country.datasets_count}} datasets added for {{country.name}} including {{country.datasets_open_count}} open data, {{country.datasets_restricted_count}} restricted and {{country.datasets_closed_count}} closed" data-placement="left">
+                                <div ng-show="country.datasets_open_count > 0" class="progress-bar progress-bar-success padding-left" role="progressbar" aria-valuenow="{{country.datasets_open_count}}"
+                                     aria-valuemin="0" aria-valuemax="{{keydatasetsCount}}" style="width: {{country.datasets_open_count / (country.datasets_count + country.datasets_unknown_count) * 100}}%;">
                                     {{country.datasets_open_count}}
                                 </div>
 
-                                <div ng-show="country.datasets_restricted_count > 0" class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{country.datasets_restricted_count}}"
-                                     aria-valuemin="0" aria-valuemax="{{keydatasetsCount}}" style="width: {{country.datasets_restricted_count / (keydatasetsCount > country.datasets_count ? keydatasetsCount : country.datasets_count) * 100}}%;">
+                                <div ng-show="country.datasets_restricted_count > 0" class="progress-bar progress-bar-warning padding-left" role="progressbar" aria-valuenow="{{country.datasets_restricted_count}}"
+                                     aria-valuemin="0" aria-valuemax="{{keydatasetsCount}}" style="width: {{country.datasets_restricted_count / (country.datasets_count + country.datasets_unknown_count) * 100}}%;">
                                     {{country.datasets_restricted_count}}
                                 </div>
 
-                                <div ng-show="country.datasets_closed_count > 0" class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{country.datasets_closed_count}}"
-                                     aria-valuemin="0" aria-valuemax="{{keydatasetsCount}}" style="width: {{country.datasets_closed_count/ (keydatasetsCount > country.datasets_count ? keydatasetsCount : country.datasets_count) * 100}}%;">
+                                <div ng-show="country.datasets_closed_count > 0" class="progress-bar progress-bar-danger padding-left" role="progressbar" aria-valuenow="{{country.datasets_closed_count}}"
+                                     aria-valuemin="0" aria-valuemax="{{keydatasetsCount}}" style="width: {{country.datasets_closed_count/ (country.datasets_count + country.datasets_unknown_count) * 100}}%;">
                                     {{country.datasets_closed_count}}
                                 </div>
+
+                                <div ng-show="country.datasets_unknown_count > 0" class="progress-bar progress-bar-dark padding-left" role="progressbar" aria-valuenow="{{country.datasets_unknown_count}}"
+                                     aria-valuemin="0" aria-valuemax="{{keydatasetsCount}}" style="width: {{country.datasets_unknown_count/ (country.datasets_count + country.datasets_unknown_count) * 100}}%;">
+                                    {{country.datasets_unknown_count}}
+                                </div> 
                             </div>
 
-                            <span class="text-muted" ng-if="country.datasets_count === 0">
-                              No dataset submitted.
-                              <a ng-href="contribute.html?country_id={{country.wb_id}}" ng-click="changeview('contribute.html?country_id=' + country.wb_id)">Contribute the first one</a>.
-                            </span>
+                            <div class="progress" ng-if="country.datasets_count === 0" ng-tooltip="{{country.datasets_count}} datasets for {{country.name}}" data-placement="left">
+                                <div ng-show="country.datasets_unknown_count > 0" class="progress-bar progress-bar-dark padding-left" role="progressbar" aria-valuenow="{{country.datasets_unknown_count}}"
+                                     aria-valuemin="0" aria-valuemax="{{keydatasetsCount}}" style="width: {{country.datasets_unknown_count/ (country.datasets_count + country.datasets_unknown_count) * 100}}%;text-align: center">
+                                    No information provided. Add a first dataset.
+                                </div>                              
+                            </div>
 
                             <img ng-if="country.datasets_count === undefined" src="img/template/loading.gif" alt="" style="max-width:40px;">
-                        </td>
-                        <td>
-                          <div class="progress" ng-if="country.datasets_count > 0">
-                              <div class="progress-bar progress-bar-default" role="progressbar" aria-valuenow="{{country.datasets_unknown_count}}"
-                                   aria-valuemin="0" aria-valuemax="{{keydatasetsCount}}" style="width: {{country.datasets_unknown_count / (keydatasetsCount > country.datasets_count ? keydatasetsCount : country.datasets_count) * 100}}%;">
-                                  {{country.datasets_unknown_count}}
-                              </div>
-                          </div>
-
-                          <img ng-if="country.datasets_count === undefined" src="img/template/loading.gif" alt="" style="max-width:40px;">
                         </td>
                     </tr>
                     </tbody>
