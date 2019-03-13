@@ -44,3 +44,10 @@ $ bower update
 | ---               | ---       | ---
 | production        | `master`  | `https://index.opendri.org`
 | development       | `master`  | `https://dev.riskopendata.org`
+
+## Automatic deployment
+
+Any release tagged with the following format `fe_YYYYMMDD` will automatically deploy on production.
+
+To create a release on github https://github.com/GFDRR/open-risk-data-dashboard/releases
+
