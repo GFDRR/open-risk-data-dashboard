@@ -47,7 +47,11 @@ $ bower update
 
 ## Automatic deployment
 
-Any release tagged with the following format `fe_YYYYMMDD` will automatically deploy on production.
+- [**Production**][production]: [Create a new release][new-release] with the following format `fe_YYYYMMDD` (or with the `git tag` command);
+- [**Pre-production**][preproduction]: Any new commit pushed on `master`;
+- Pull Requests: Any new pull request will be deployed on a sandboxed environment (which URL is indicated in the pull request itself).
 
-To create a release on github https://github.com/GFDRR/open-risk-data-dashboard/releases
 
+[new-release]: ttps://github.com/GFDRR/open-risk-data-dashboard/releases
+[production]: https://index.opendri.org
+[preproduction]: https://dev.riskopendata.org
