@@ -75,7 +75,7 @@ I think i understood how it was calculated, based on known and existing datasets
 ❓ So how do I convince my people to open their datasets?
 
 
-# Is comparing with datasets oft other countries useful to you?
+# Is comparing with datasets of other countries useful to you?
 
 Yes, it is always interesting to see what the best countries do. And why is that so.
 
@@ -97,7 +97,7 @@ If I share the datasets from our open data portal, I get some green ticks, but "
 
 # Conclusion: how was the interview time for you?
 
-I really like that you are trying to _build_ and _reflect_ at the same time. I see so many cases where people get stuck in yhe building phase, without caring about the usability.
+I really like that you are trying to _build_ and _reflect_ at the same time. I see so many cases where people get stuck in the building phase, without caring about the usability.
 
 I think it is useful and worthy to find out.
 
