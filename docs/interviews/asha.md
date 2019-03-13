@@ -64,5 +64,40 @@ I imagine a routine that figures out sources has changed, with some form of syst
 2. to compare countries, there must be a way to **compare contents** of datasets otherwise we are comparing apples and bananas.
 Two same datasets from different countries can contain datapoints which make them uncomparable. They must share enough common ground to be useable.
 
+# What is your understanding of the scoring system?
+
+I think i understood how it was calculated, based on known and existing datasets.
+
+🤨 I don't think they take in account the **usability** of datasets (coverage, trustworthiness, usefulness in case of events).
+
+😒 In a way, there is nothing about the reliability of the data but the 10 open data criteria.
+
+❓ So how do I convince my people to open their datasets?
+
+
+# Is comparing with datasets oft other countries useful to you?
+
+Yes, it is always interesting to see what the best countries do. And why is that so.
+
+But it's hard to compare things which are not alike.
+
+❓Apart from rating the openness, why is the Index not addressing:
+
+1. the quality of the datapoints, so as the shared open data is really useful
+1. the everyday management of disaster risks by each country for the various types of hazards
+
+For instance, have the datasets been used to respond to disasters in the past?
+That link is missing.
+
 ---
+
+❓ So if I spend time on the Index, what will I get out of it?
+If I share the datasets from our open data portal, I get some green ticks, but "how are they used" is the useful point for me.
+
+
+# Conclusion: how was the interview time for you?
+
+I really like that you are trying to _build_ and _reflect_ at the same time. I see so many cases where people get stuck in yhe building phase, without caring about the usability.
+
+I think it is useful and worthy to find out.
 
