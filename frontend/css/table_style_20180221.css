@@ -124,7 +124,15 @@ table.dataTable thead>tr>td.sorting
 .label-danger {
     background-color: #cb2431;
 }
+.progress-bar-dark,
+.label-dark {
+    background-color: gray;
+}
 .progress-bar-default,
 .label-default {
     background-color: rgb(52, 58, 64);
+}
+
+.padding-left {
+  padding-left:2px;
 }
