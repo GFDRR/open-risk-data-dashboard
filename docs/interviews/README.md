@@ -14,6 +14,8 @@
 
 > It is a (…) site where you can find the sources of various datasets, for specific countries, and their kind of openness.
 
+> The OpenDRI Index is a website that helps you upload datasets related to disaster risks in your country.
+
 ### What is valuable to them
 
 - **Data** there is a good amount of datasets
@@ -34,6 +36,10 @@
 
 - **UX** some terms are not always clear (global data, worldwide or multi-region scale datasets?)
 
+- **Dataset** category does not imply the many datasets will share a common ground in term of datapoints (column naming, data schema)
+
+- **Add a dataset** is effortful and the more dataset you add, the more time-consumming the maintenance of the metadata becomes.
+
 ### What could be made to make the Index more valuable
 
 - **Data** seeing water companies and university data as well
@@ -43,3 +49,7 @@
 - **Data** getting to more qualitative (experience of contribution, experience of exploration, experience of data wrangling)
 
 - **UX** label could convey their impact, what it is about, their usefulness and reading keys — instead of matching database field names (eg: "Dataset is open" vs. "Dataset can be downloaded publicly, without registration", etc.)
+
+- **Metadata** can be refreshed from the sources themselves (via a feed or a data connector of some sort)
+
+- **Metadata** could display in which real events the datasets have been used for (it increases the sense of usefulness)
