@@ -2716,3 +2716,7 @@ a.active {
  .icon-hazard_info:before{
    content: "\e90b";
  }
+
+.text-muted{ 
+    font-weight: normal;
+}
