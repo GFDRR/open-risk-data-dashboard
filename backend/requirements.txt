@@ -1,7 +1,7 @@
 pkg-resources==0.0.0
 Django==1.11.29
 psycopg2==2.7.1
-djangorestframework==3.9.1
+djangorestframework==3.11.2
 django-cors-headers==2.1.0
 djangorestframework-csv==2.0.0
 randstr==0.1.2
