@@ -1,5 +1,5 @@
 pkg-resources==0.0.0
-Django==1.11.29
+Django==2.2.24
 psycopg2==2.7.1
 djangorestframework==3.11.2
 django-cors-headers==2.1.0
